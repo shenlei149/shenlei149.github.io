@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zQPDvt_a5mVoBX5SrOvohtgGBUHrwI2PZDck7uTXa_w">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://guozi149.me').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="原题链接Peter有九个4个面的骰子，类似于金字塔的样子，每个面上标有数字，分别是1-4。Colin有六个6个面的骰子，就是正常的骰子了，每个面上标有数字，分别是1-6。现在他俩比赛，各投掷一次，点数之和比较大的胜。点数之和一样的话算作平局。问题是，Peter胜利的概率是多少？要求答案是0.abcdefg这种形式。也就是小数点后面有七位数字。 看到题目的想法是，不要用double类型，可能会有精度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欧拉项目 | 第205题 | 骰子游戏">
+<meta property="og:url" content="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E7%AC%AC205%E9%A2%98-%E9%AA%B0%E5%AD%90%E6%B8%B8%E6%88%8F/index.html">
+<meta property="og:site_name" content="guozi">
+<meta property="og:description" content="原题链接Peter有九个4个面的骰子，类似于金字塔的样子，每个面上标有数字，分别是1-4。Colin有六个6个面的骰子，就是正常的骰子了，每个面上标有数字，分别是1-6。现在他俩比赛，各投掷一次，点数之和比较大的胜。点数之和一样的话算作平局。问题是，Peter胜利的概率是多少？要求答案是0.abcdefg这种形式。也就是小数点后面有七位数字。 看到题目的想法是，不要用double类型，可能会有精度">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-08-29T04:37:27.000Z">
+<meta property="article:modified_time" content="2021-06-23T12:19:18.778Z">
+<meta property="article:author" content="Leo SHEN">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="欧拉项目">
+<meta property="article:tag" content="Project Euler">
+<meta property="article:tag" content="排列">
+<meta property="article:tag" content="组合">
+<meta property="article:tag" content="概率">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E7%AC%AC205%E9%A2%98-%E9%AA%B0%E5%AD%90%E6%B8%B8%E6%88%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>欧拉项目 | 第205题 | 骰子游戏 | guozi</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37751416-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-37751416-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd84cd65db62dc79ad1a7f36217ce10d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">guozi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一点一点前进...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E7%AC%AC205%E9%A2%98-%E9%AA%B0%E5%AD%90%E6%B8%B8%E6%88%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/300+300.png">
+      <meta itemprop="name" content="Leo SHEN">
+      <meta itemprop="description" content="记录点什么帮助自己进步，如果能帮助别人，手有余香">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="guozi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          欧拉项目 | 第205题 | 骰子游戏
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2014-08-29 12:37:27" itemprop="dateCreated datePublished" datetime="2014-08-29T12:37:27+08:00">2014-08-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">欧拉项目</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E7%AC%AC205%E9%A2%98-%E9%AA%B0%E5%AD%90%E6%B8%B8%E6%88%8F/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="数学/欧拉项目/欧拉项目-第205题-骰子游戏/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://projecteuler.net/problem=205" title="Problem 205 - Project Euler">原题链接</a><br>Peter有九个4个面的骰子，类似于金字塔的样子，每个面上标有数字，分别是1-4。<br>Colin有六个6个面的骰子，就是正常的骰子了，每个面上标有数字，分别是1-6。<br>现在他俩比赛，各投掷一次，点数之和比较大的胜。点数之和一样的话算作平局。<br>问题是，Peter胜利的概率是多少？要求答案是0.abcdefg这种形式。也就是小数点后面有七位数字。</p>
+<p>看到题目的想法是，不要用double类型，可能会有精度误差，以至于最后的答案不正确。<br>那就只考虑分子好了，因为分母就是4的9次方，6的6次方，最后得到答案的前一步除一下就好。</p>
+<p>首先计算Peter扔出的点数之和的概率分布。我使用一个字符串表示Peter掷出的结果，字符串长度为九，每一个字符只能是1-4这四个数字。下面是一段递归代码，得到了所有可能的结果：  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="title">List</span>&lt;<span class="title">string</span>&gt; PeterResults</span> = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GenPeterResults</span>(<span class="params"><span class="built_in">string</span> num, <span class="built_in">int</span> nth</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">4</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (nth == <span class="number">8</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            PeterResults.Add(num + i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            GenPeterResults(num + i, nth + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运气不错，数组的长度是4的9次方。看样子代码写对了。<br>接着构造一个数组，用于存放每种点数之和出现的次数。该次数除以4的9次方就是概率，但是正如前面所说的，我只考虑分子。  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> s <span class="keyword">in</span> PeterResults)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span>[] digits = s.Select(c =&gt; <span class="built_in">int</span>.Parse(c.ToString())).ToArray();</span><br><span class="line">    Peter[digits.Sum()]++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面计算Colin扔出的结果的概率分布。其实，上述算法肯定是有效的。不过，考虑Colin只有6个骰子，用int值表示，111111-666666也不过50万种组合，换个更暴力的算法。  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">111111</span>; i &lt;= <span class="number">666666</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span>[] digits = i.ToString().Select(c =&gt; <span class="built_in">int</span>.Parse(c.ToString())).ToArray();</span><br><span class="line">    <span class="keyword">if</span> (digits.Where(digit =&gt; digit == <span class="number">0</span> || digit &gt; <span class="number">6</span>).Count() == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Colin[digits.Sum()]++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果出现了数字0或者比6大的数字，那么是不符合题目要求的，扔掉即可。</p>
+<p>好了两个概率分布都有了，开始比赛吧。如果Peter的点数比Colin大，计算下概率，最后加起来就好了。  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">long</span> numerator = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> p = <span class="number">0</span>; p &lt; Peter.Length; p++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> c = <span class="number">0</span>; c &lt; Colin.Length; c++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (p &gt; c)</span><br><span class="line">        &#123;</span><br><span class="line">            numerator += Peter[p] * Colin[c];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实p和c从1开始就可以了，但是不会对正确性和性能有什么影响，而且看起来更优美。<br>现在，分母是4的9次方乘以6的6次方。那么用分子除以分母，保留7位小数就是答案了。   </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ((<span class="built_in">double</span>)numerator / <span class="number">262144</span> / <span class="number">46656</span>).ToString(<span class="string">&quot;F7&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" rel="tag"># 欧拉项目</a>
+              <a href="/tags/Project-Euler/" rel="tag"># Project Euler</a>
+              <a href="/tags/%E6%8E%92%E5%88%97/" rel="tag"># 排列</a>
+              <a href="/tags/%E7%BB%84%E5%90%88/" rel="tag"># 组合</a>
+              <a href="/tags/%E6%A6%82%E7%8E%87/" rel="tag"># 概率</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E8%AF%BB%E4%B8%80%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP-%E7%9B%9B%E5%90%8D%E4%B9%8B%E4%B8%8B%EF%BC%8C%E5%85%B6%E5%AE%9E%E9%9A%BE%E5%89%AF/" rel="prev" title="读一读 图解HTTP | 盛名之下，其实难副">
+      <i class="fa fa-chevron-left"></i> 读一读 图解HTTP | 盛名之下，其实难副
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E5%AD%A6/%E8%83%BD%E5%AE%8C%E5%85%A8%E8%A6%86%E7%9B%96%E5%90%97%EF%BC%9F/" rel="next" title="能完全覆盖吗？">
+      能完全覆盖吗？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo SHEN"
+      src="/images/300+300.png">
+  <p class="site-author-name" itemprop="name">Leo SHEN</p>
+  <div class="site-description" itemprop="description">记录点什么帮助自己进步，如果能帮助别人，手有余香</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shenlei149" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shenlei149" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo SHEN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://guozi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E7%AC%AC205%E9%A2%98-%E9%AA%B0%E5%AD%90%E6%B8%B8%E6%88%8F/",
+            identifier: "数学/欧拉项目/欧拉项目-第205题-骰子游戏/",
+            title: "欧拉项目 | 第205题 | 骰子游戏"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://guozi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

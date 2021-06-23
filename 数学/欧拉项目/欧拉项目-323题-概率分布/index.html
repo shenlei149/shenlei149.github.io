@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zQPDvt_a5mVoBX5SrOvohtgGBUHrwI2PZDck7uTXa_w">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://guozi149.me').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="题目链接 这道题乍一看是位运算，其实是一道和概率分布相关的题目。 有y0 y1 y2一系列32bits的无符号数x初始为0，然后和这一系列数异或操作，操作了N次，直到x是2^32-1，其实就是x所有bits都是1。求N的期望值。 期望怎么计算呢？计算对于每一个n对应的概率p(n)，然后加权求和。我们现在逐一分析一下N为1，那么说明y0每一个bits都是1，概率是1&#x2F;(2^32)N为2，针对每个bi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欧拉项目 323题 | 概率分布">
+<meta property="og:url" content="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-323%E9%A2%98-%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/index.html">
+<meta property="og:site_name" content="guozi">
+<meta property="og:description" content="题目链接 这道题乍一看是位运算，其实是一道和概率分布相关的题目。 有y0 y1 y2一系列32bits的无符号数x初始为0，然后和这一系列数异或操作，操作了N次，直到x是2^32-1，其实就是x所有bits都是1。求N的期望值。 期望怎么计算呢？计算对于每一个n对应的概率p(n)，然后加权求和。我们现在逐一分析一下N为1，那么说明y0每一个bits都是1，概率是1&#x2F;(2^32)N为2，针对每个bi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-16T06:50:10.000Z">
+<meta property="article:modified_time" content="2021-06-23T12:19:18.778Z">
+<meta property="article:author" content="Leo SHEN">
+<meta property="article:tag" content="欧拉项目">
+<meta property="article:tag" content="Project Euler">
+<meta property="article:tag" content="概率">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-323%E9%A2%98-%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>欧拉项目 323题 | 概率分布 | guozi</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37751416-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-37751416-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd84cd65db62dc79ad1a7f36217ce10d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">guozi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一点一点前进...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-323%E9%A2%98-%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/300+300.png">
+      <meta itemprop="name" content="Leo SHEN">
+      <meta itemprop="description" content="记录点什么帮助自己进步，如果能帮助别人，手有余香">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="guozi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          欧拉项目 323题 | 概率分布
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-16 14:50:10" itemprop="dateCreated datePublished" datetime="2016-10-16T14:50:10+08:00">2016-10-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">欧拉项目</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-323%E9%A2%98-%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="数学/欧拉项目/欧拉项目-323题-概率分布/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://projecteuler.net/problem=323">题目链接</a></p>
+<p>这道题乍一看是位运算，其实是一道和概率分布相关的题目。</p>
+<p>有y0 y1 y2一系列32bits的无符号数<br>x初始为0，然后和这一系列数异或操作，操作了N次，直到x是2^32-1，其实就是x所有bits都是1。<br>求N的期望值。</p>
+<p>期望怎么计算呢？<br>计算对于每一个n对应的概率p(n)，然后加权求和。<br>我们现在逐一分析一下<br>N为1，那么说明y0每一个bits都是1，概率是1/(2^32)<br>N为2，针对每个bit进行计算，第一个bit，结果是1的概率是1减去不是1的概率，不是1的概率就是y0的第一bit不是0，y1的第一bit也不是0，概率是1/(2^2)，那么p(2)=(1-1/(2^2))^32 - p(1)<br>N为3，p(3)=(1-1/(2^3))^32 - p(1) - p(2)<br>以此类推<br>题目要求小数点后十位，如果p(n)很小，乘以n对结果都没有影响了，也就是p(n)*n小于10的十次方。</p>
+<p>我计算的时候搞了一个数据结构保存概率的分子和分母。我解答出来之后，看了下别人的分析，感觉直接使用double 来保存概率也能给出正确答案，我没有试，不确定。<br>下面是我的代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Probability</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> BigInteger Numerator &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> BigInteger Denominator &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Probability</span>(<span class="params">BigInteger numerator, BigInteger denominator</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Numerator = numerator;</span><br><span class="line">        Denominator = denominator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">GetAnswer</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    List&lt;Probability&gt; probabilities = <span class="keyword">new</span> List&lt;Probability&gt;();</span><br><span class="line">    probabilities.Add(<span class="keyword">new</span> Probability(<span class="number">0</span>, <span class="number">1</span>));</span><br><span class="line">    BigInteger twoPow32 = BigInteger.Pow(<span class="number">2</span>, <span class="number">32</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        BigInteger baseDenominator = BigInteger.Pow(<span class="number">2</span>, i);</span><br><span class="line">        BigInteger baseNumerator = baseDenominator - <span class="number">1</span>;</span><br><span class="line">        BigInteger lastBaseDenominator = BigInteger.Pow(<span class="number">2</span>, i - <span class="number">1</span>);</span><br><span class="line">        BigInteger lastBaseNumerator = lastBaseDenominator - <span class="number">1</span>;</span><br><span class="line">        BigInteger denominator = BigInteger.Pow(baseDenominator, <span class="number">32</span>);</span><br><span class="line">        BigInteger numerator = BigInteger.Pow(baseNumerator, <span class="number">32</span>);</span><br><span class="line">        BigInteger lastNumerator = BigInteger.Pow(lastBaseNumerator, <span class="number">32</span>);</span><br><span class="line">        probabilities.Add(<span class="keyword">new</span> Probability(</span><br><span class="line">            numerator - lastNumerator * twoPow32,</span><br><span class="line">            denominator));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (probabilities[i].Denominator / probabilities[i].Numerator / i &gt; BigInteger.Pow(<span class="number">10</span>, <span class="number">12</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BigInteger ansDenominator = probabilities.Last().Denominator;</span><br><span class="line">    BigInteger ansNumerator = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; probabilities.Count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Probability current = probabilities[i];</span><br><span class="line">        BigInteger times = ansDenominator / current.Denominator;</span><br><span class="line">        ansNumerator += times * current.Numerator * i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BigInteger times11 = ansNumerator * <span class="number">100000000000</span> / ansDenominator;</span><br><span class="line">    <span class="built_in">double</span> answer = (<span class="built_in">double</span>)times11 / <span class="number">100000000000</span>;</span><br><span class="line">    <span class="keyword">return</span> answer.ToString(<span class="string">&quot;N10&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" rel="tag"># 欧拉项目</a>
+              <a href="/tags/Project-Euler/" rel="tag"># Project Euler</a>
+              <a href="/tags/%E6%A6%82%E7%8E%87/" rel="tag"># 概率</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%9D%82/%E5%9D%9A%E6%8C%81%E6%9B%B4%E6%96%B0%E4%B8%8B/" rel="prev" title="坚持更新下">
+      <i class="fa fa-chevron-left"></i> 坚持更新下
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/CSAPP-3rd-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E7%AC%AC%E4%B8%89%E7%89%88-%E8%AF%BB%E5%AE%8C%E5%95%A6/" rel="next" title="CSAPP 3rd | 深入理解计算机系统 第三版 | 读完啦">
+      CSAPP 3rd | 深入理解计算机系统 第三版 | 读完啦 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo SHEN"
+      src="/images/300+300.png">
+  <p class="site-author-name" itemprop="name">Leo SHEN</p>
+  <div class="site-description" itemprop="description">记录点什么帮助自己进步，如果能帮助别人，手有余香</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shenlei149" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shenlei149" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo SHEN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://guozi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-323%E9%A2%98-%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/",
+            identifier: "数学/欧拉项目/欧拉项目-323题-概率分布/",
+            title: "欧拉项目 323题 | 概率分布"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://guozi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

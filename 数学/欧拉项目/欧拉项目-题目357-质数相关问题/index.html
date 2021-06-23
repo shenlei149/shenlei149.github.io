@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zQPDvt_a5mVoBX5SrOvohtgGBUHrwI2PZDck7uTXa_w">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://guozi149.me').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="题目大致是说，30能够分解得到的因数分别是1,2,3,5,6,10,15,30对于30的每一个因数d，d+30&#x2F;d都是一个质数。 求不超过100000000，且满足性质：n的每一个因数d，d+n&#x2F;d都是质数的n的和。 分析一下什么样的n满足上述性质。n能够分解成一系列的因数，记做d1, d2, d3, … c3, c2, c1其中c1 * d1 &#x3D; n &#x3D;&gt; d1 &#x3D; n &#x2F; c1也就是说只">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欧拉项目 | 题目357 | 质数相关问题">
+<meta property="og:url" content="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE357-%E8%B4%A8%E6%95%B0%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="guozi">
+<meta property="og:description" content="题目大致是说，30能够分解得到的因数分别是1,2,3,5,6,10,15,30对于30的每一个因数d，d+30&#x2F;d都是一个质数。 求不超过100000000，且满足性质：n的每一个因数d，d+n&#x2F;d都是质数的n的和。 分析一下什么样的n满足上述性质。n能够分解成一系列的因数，记做d1, d2, d3, … c3, c2, c1其中c1 * d1 &#x3D; n &#x3D;&gt; d1 &#x3D; n &#x2F; c1也就是说只">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-02-26T05:04:24.000Z">
+<meta property="article:modified_time" content="2021-06-23T12:19:18.778Z">
+<meta property="article:author" content="Leo SHEN">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="欧拉项目">
+<meta property="article:tag" content="Project Euler">
+<meta property="article:tag" content="质数">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE357-%E8%B4%A8%E6%95%B0%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>欧拉项目 | 题目357 | 质数相关问题 | guozi</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37751416-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-37751416-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd84cd65db62dc79ad1a7f36217ce10d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">guozi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一点一点前进...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE357-%E8%B4%A8%E6%95%B0%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/300+300.png">
+      <meta itemprop="name" content="Leo SHEN">
+      <meta itemprop="description" content="记录点什么帮助自己进步，如果能帮助别人，手有余香">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="guozi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          欧拉项目 | 题目357 | 质数相关问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-02-26 13:04:24" itemprop="dateCreated datePublished" datetime="2015-02-26T13:04:24+08:00">2015-02-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">欧拉项目</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE357-%E8%B4%A8%E6%95%B0%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="数学/欧拉项目/欧拉项目-题目357-质数相关问题/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://projecteuler.net/problem=357" title="Problem 357 - Project Euler">题目</a>大致是说，<br>30能够分解得到的因数分别是1,2,3,5,6,10,15,30<br>对于30的每一个因数d，d+30/d都是一个质数。</p>
+<p>求不超过100000000，且满足性质：<br>n的每一个因数d，d+n/d都是质数<br>的n的和。</p>
+<p>分析一下什么样的n满足上述性质。<br>n能够分解成一系列的因数，记做d1, d2, d3, … c3, c2, c1<br>其中c1 * d1 = n =&gt; d1 = n / c1<br>也就是说只要分析前面一半，小于sqrt(n)的因数即可。</p>
+<p>第一个因数肯定是1，那么1 + n 是质数。<br>所以我先使用筛选法得到小于100000000的质数，然后都减去1，得到的数才可能满足题意。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">long</span>[] primes = Utils.GenPrimes(<span class="number">100000000</span>);</span><br><span class="line"></span><br><span class="line">List&lt;<span class="built_in">int</span>&gt; alternativeNumbers = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; primes.Length; i++)</span><br><span class="line">&#123;</span><br><span class="line">	alternativeNumbers.Add((<span class="built_in">int</span>)primes[i] - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假如n能整除4，也就是说n = 4k，第二个因数是2，且n / 2 = 2k<br>2 + 2k是偶数，肯定不是质数，所以我们把能整除4的数排除。<br>同理，n也不能被9整除。但是剩余数能被9整除的也就只有几十万了，对于二百八十多万来说，差距不大，就没有用这条性质再过滤数据了。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alternativeNumbers = alternativeNumbers.Where(i =&gt; i % <span class="number">4</span> != <span class="number">0</span>).ToList();</span><br></pre></td></tr></table></figure>
+<p>现在，从剩余的n中看有多少是满足题意的。<br>正如上面所分析的，只要分析前面一半，小于sqrt(n)的因数即可。这能节省一半的时间呢。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">long</span> result = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">foreach</span> (<span class="built_in">int</span> n <span class="keyword">in</span> alternativeNumbers)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">bool</span> meet = <span class="literal">true</span>;</span><br><span class="line">	<span class="built_in">int</span> h = (<span class="built_in">int</span>)Math.Sqrt(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">2</span>; i &lt;= h; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (n % i != <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">int</span> d = n / i;</span><br><span class="line">		<span class="keyword">if</span> (Array.BinarySearch(primes, d + i) &lt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			meet = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (meet)</span><br><span class="line">	&#123;</span><br><span class="line">		result += n;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
+<p>我们之前已经得到了1亿之前的所有质数，那么利用二分法来判断是否是质数比传统的方式要快很多。<br>整个流程大约用时25s。<br>可优化的地方还很多，比如在筛选法的时候，使用了长度为1亿bool数组而不是bitset；多次去整理数组，这也是没有必要的，要知道，每次创建一个数百万大小的数组并复制所有的值，还是很耗时间的。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" rel="tag"># 欧拉项目</a>
+              <a href="/tags/Project-Euler/" rel="tag"># Project Euler</a>
+              <a href="/tags/%E8%B4%A8%E6%95%B0/" rel="tag"># 质数</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E7%AC%AC80%E9%A2%98-%E8%AE%A1%E7%AE%97%E6%97%A0%E7%90%86%E5%B9%B3%E6%96%B9%E6%A0%B9%E5%B0%8F%E6%95%B0%E9%83%A8%E5%88%86%E7%9A%84%E5%90%84%E4%BD%8D%E5%92%8C/" rel="prev" title="欧拉项目 | 第80题 | 计算无理平方根小数部分的各位和">
+      <i class="fa fa-chevron-left"></i> 欧拉项目 | 第80题 | 计算无理平方根小数部分的各位和
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E7%AE%97%E6%B3%95/%E6%B1%82max-aj-ai-%EF%BC%8C0-i-j-n/" rel="next" title="求max{aj - ai}，0 <= i < j < n">
+      求max{aj - ai}，0 <= i < j < n <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo SHEN"
+      src="/images/300+300.png">
+  <p class="site-author-name" itemprop="name">Leo SHEN</p>
+  <div class="site-description" itemprop="description">记录点什么帮助自己进步，如果能帮助别人，手有余香</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shenlei149" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shenlei149" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo SHEN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://guozi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE357-%E8%B4%A8%E6%95%B0%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/",
+            identifier: "数学/欧拉项目/欧拉项目-题目357-质数相关问题/",
+            title: "欧拉项目 | 题目357 | 质数相关问题"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://guozi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zQPDvt_a5mVoBX5SrOvohtgGBUHrwI2PZDck7uTXa_w">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://guozi149.me').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="题目的原始链接 定义s(n) &#x3D; m，给定一个整数n，m是最小的整数，使得m!能够整除n。举两个简单的例子，s(10)&#x3D;5，s(25)&#x3D;10。定义S(n) &#x3D; ∑s(i) 2 ≤ i ≤ n题目中给了一个当n &#x3D; 100的值用于测试：S(100)&#x3D;2012 求S(10^8)   首先要意识到，不可能把阶乘本身算出来，比如1517，由质数37和41相乘得到，那么对应的m应该是41，但是41的阶乘非常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欧拉项目 549题 | 阶乘的整除性问题">
+<meta property="og:url" content="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-549%E9%A2%98-%E9%98%B6%E4%B9%98%E7%9A%84%E6%95%B4%E9%99%A4%E6%80%A7%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="guozi">
+<meta property="og:description" content="题目的原始链接 定义s(n) &#x3D; m，给定一个整数n，m是最小的整数，使得m!能够整除n。举两个简单的例子，s(10)&#x3D;5，s(25)&#x3D;10。定义S(n) &#x3D; ∑s(i) 2 ≤ i ≤ n题目中给了一个当n &#x3D; 100的值用于测试：S(100)&#x3D;2012 求S(10^8)   首先要意识到，不可能把阶乘本身算出来，比如1517，由质数37和41相乘得到，那么对应的m应该是41，但是41的阶乘非常">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-02T05:08:40.000Z">
+<meta property="article:modified_time" content="2021-06-23T12:19:18.778Z">
+<meta property="article:author" content="Leo SHEN">
+<meta property="article:tag" content="欧拉项目">
+<meta property="article:tag" content="Project Euler">
+<meta property="article:tag" content="整除">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-549%E9%A2%98-%E9%98%B6%E4%B9%98%E7%9A%84%E6%95%B4%E9%99%A4%E6%80%A7%E9%97%AE%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>欧拉项目 549题 | 阶乘的整除性问题 | guozi</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37751416-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-37751416-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd84cd65db62dc79ad1a7f36217ce10d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">guozi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一点一点前进...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-549%E9%A2%98-%E9%98%B6%E4%B9%98%E7%9A%84%E6%95%B4%E9%99%A4%E6%80%A7%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/300+300.png">
+      <meta itemprop="name" content="Leo SHEN">
+      <meta itemprop="description" content="记录点什么帮助自己进步，如果能帮助别人，手有余香">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="guozi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          欧拉项目 549题 | 阶乘的整除性问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-02 13:08:40" itemprop="dateCreated datePublished" datetime="2016-06-02T13:08:40+08:00">2016-06-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">欧拉项目</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-549%E9%A2%98-%E9%98%B6%E4%B9%98%E7%9A%84%E6%95%B4%E9%99%A4%E6%80%A7%E9%97%AE%E9%A2%98/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="数学/欧拉项目/欧拉项目-549题-阶乘的整除性问题/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://projecteuler.net/problem=549">题目的原始链接</a></p>
+<p>定义s(n) = m，给定一个整数n，m是最小的整数，使得m!能够整除n。<br>举两个简单的例子，s(10)=5，s(25)=10。<br>定义S(n) = ∑s(i) 2 ≤ i ≤ n<br>题目中给了一个当n = 100的值用于测试：S(100)=2012</p>
+<p>求S(10^8)  </p>
+<p>首先要意识到，不可能把阶乘本身算出来，比如1517，由质数37和41相乘得到，那么对应的m应该是41，但是41的阶乘非常之大。<br>给定一个数n，求满足题意的m，因为这里肯定需要遍历所有的n，10 ^ 8这么大了，所以求m的函数的时间复杂度最好是常量时间，nlg(n)也很快，n * sqrt(n)就太慢了，这都到10 ^ 12次了，复杂度已经高的吓人了，计算机真心无法短时间算出来了，所以我们下面的目标就是在合理的时间复杂搞定s(n)这个函数：一定要控制在nlg(n)以内。<br>首先，如果这个数n是质数，那么m肯定就是n本身。<br>对于一个非质数，一个可行的思路就是把n分解质因数，质因数出现的次数也是需要保留的，要不然25这个数，是5*5，如果不保留质因数的次数，那么计算得到的m就成了5了，显然是不对的。然后再如何处理呢？<br>假设分解质因数结果是p1 ^ n1 * p2 ^ n2 * … * pq^ nq<br>想办法凑够n1个p1，p1包含1个p1，2*p1又包含一个（如果p1等于2，这里还会多包含一个），3*p1又包含一个p1，依次类推。<br>再想办法凑够n2个p2。<br>依此类推。<br>共计q个结果，最大的那个数字就是我们要求的m。</p>
+<p>以上想法计算S(100)没啥问题。但是：虽然我把之前分解质因数的函数性能提高了好几倍，但是离nlg(n)还是差很远，所以导致短时间无法运算完毕。。。</p>
+<p>如果我能过滤掉很多值不用去计算了，那么时间就能大大降低了。<br>首先10 ^ 8以内的质数占了5.7%的样子，所以这5.7%是不用计算的。<br>其次，考虑某个质数p，乘以小于它的某个数m，得到的这个值n，S(n)也是p。写一个两层for循环就能得出这些n值，这占了大概66.7%，这一下子就节省了大多数的时间。<br>再次，在上一条的基础上再进一步，某个质数p，乘以两个小于它的数m1和m2，得到的n值，S(n)也是p。三层for循环能搞定，这大概占了22.3%，又能节约挺多时间的了。<br>这里可以做一个小的优化，m2可以从m1+1和p/m1+1两者比较大的一方开始，因为如果m2*m1小于p，那么这个数字肯定在上一步的时候就被标记了。优化之后，三层for循环，用时不到2s。<br>再再次，还能再排除3.4%的数据，这里也可以使用上面提到的优化思想。<br>最后，只剩约1.9%的数据需要按照之前说的逻辑进行判定了。</p>
+<p>生成1亿以内的质数用时约3.9s，中间若干步耗时约5s，最后处理1.9%的数据耗时10s。。。<br>其实沿着中间那一段优化的想法，可能可以在线性时间复杂度做完，但是想了半天，没有太好的想法，暂时就这样子吧。  </p>
+<p>下面是我写的代码：<br>话说这次代码又丑又长，特别是中间的几个for循环嵌套。。。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">long</span> <span class="title">GetAnswer</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> primes = Utils.GenPrimes(N);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">long</span>[N + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> p <span class="keyword">in</span> primes)</span><br><span class="line">    &#123;</span><br><span class="line">        result[p] = p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> index = <span class="number">0</span>; primes[index] &lt; N / <span class="number">2</span>; index++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">2</span>; j &lt; primes[index]; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> tmp = j * primes[index];</span><br><span class="line">            <span class="keyword">if</span> (tmp &gt; N)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                result[tmp] = primes[index];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> index = <span class="number">0</span>; primes[index] &lt; N / <span class="number">6</span>; index++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">2</span>; j &lt; primes[index] - <span class="number">1</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">long</span> k = Math.Max(j + <span class="number">1</span>, primes[index] / j);</span><br><span class="line">            <span class="keyword">var</span> test = j * k * primes[index];</span><br><span class="line">            <span class="keyword">if</span> (test &lt; <span class="number">0</span> || test &gt; N)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (; k &lt; primes[index]; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> tmp = j * k * primes[index];</span><br><span class="line">                <span class="keyword">if</span> (tmp &lt; <span class="number">0</span> || tmp &gt; N)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    result[tmp] = primes[index];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> index = <span class="number">0</span>; primes[index] &lt; N / <span class="number">24</span>; index++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">2</span>; j &lt; primes[index] - <span class="number">2</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">long</span> k = Math.Max(j + <span class="number">1</span>, primes[index] / j);</span><br><span class="line">            <span class="keyword">var</span> test = j * k * (k + <span class="number">1</span>) * primes[index];</span><br><span class="line">            <span class="keyword">if</span> (test &lt; <span class="number">0</span> || test &gt; N)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (; k &lt; primes[index] - <span class="number">1</span>; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">long</span> m = Math.Max(k + <span class="number">1</span>, primes[index] * primes[index] / (j * k));</span><br><span class="line">                <span class="keyword">var</span> test2 = j * k * m * primes[index];</span><br><span class="line">                <span class="keyword">if</span> (test2 &lt; <span class="number">0</span> || test2 &gt; N)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (; m &lt; primes[index]; m++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">var</span> tmp = j * k * m * primes[index];</span><br><span class="line">                    <span class="keyword">if</span> (tmp &lt; <span class="number">0</span> || tmp &gt; N)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        result[tmp] = primes[index];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">2</span>; i &lt;= N; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (result[i] == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> facs = Utils.TrialDivisioFac(i, primes);</span><br><span class="line">            <span class="keyword">var</span> maps = GetFactorsCounts(facs);</span><br><span class="line">            <span class="built_in">long</span> m = <span class="built_in">long</span>.MinValue;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> map <span class="keyword">in</span> maps)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> temp = GetMaxMByPrime(map);</span><br><span class="line">                <span class="keyword">if</span> (temp &gt; m)</span><br><span class="line">                &#123;</span><br><span class="line">                    m = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result[i] = m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result.Sum();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">long</span> <span class="title">GetMaxMByPrime</span>(<span class="params">KeyValuePair&lt;<span class="built_in">long</span>, <span class="built_in">int</span>&gt; map</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">long</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">long</span> count = map.Value;</span><br><span class="line">    <span class="keyword">while</span> (count &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        result += map.Key;</span><br><span class="line">        <span class="built_in">long</span> cur = result;</span><br><span class="line">        <span class="keyword">while</span> (cur &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur % map.Key == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                cur /= map.Key;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Dictionary&lt;<span class="built_in">long</span>, <span class="built_in">int</span>&gt; <span class="title">GetFactorsCounts</span>(<span class="params">List&lt;<span class="built_in">long</span>&gt; facs</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> maps = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">long</span>, <span class="built_in">int</span>&gt;();</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> fac <span class="keyword">in</span> facs)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (maps.ContainsKey(fac))</span><br><span class="line">        &#123;</span><br><span class="line">            maps[fac]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            maps[fac] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maps;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" rel="tag"># 欧拉项目</a>
+              <a href="/tags/Project-Euler/" rel="tag"># Project Euler</a>
+              <a href="/tags/%E6%95%B4%E9%99%A4/" rel="tag"># 整除</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E6%80%8E%E6%A0%B7%E8%A7%A3%E9%A2%98-%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="prev" title="怎样解题 | 读后感">
+      <i class="fa fa-chevron-left"></i> 怎样解题 | 读后感
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Life/%E8%B4%AA%E5%A4%9A%E5%9A%BC%E4%B8%8D%E7%83%82/" rel="next" title="贪多嚼不烂">
+      贪多嚼不烂 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo SHEN"
+      src="/images/300+300.png">
+  <p class="site-author-name" itemprop="name">Leo SHEN</p>
+  <div class="site-description" itemprop="description">记录点什么帮助自己进步，如果能帮助别人，手有余香</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shenlei149" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shenlei149" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo SHEN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://guozi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-549%E9%A2%98-%E9%98%B6%E4%B9%98%E7%9A%84%E6%95%B4%E9%99%A4%E6%80%A7%E9%97%AE%E9%A2%98/",
+            identifier: "数学/欧拉项目/欧拉项目-549题-阶乘的整除性问题/",
+            title: "欧拉项目 549题 | 阶乘的整除性问题"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://guozi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

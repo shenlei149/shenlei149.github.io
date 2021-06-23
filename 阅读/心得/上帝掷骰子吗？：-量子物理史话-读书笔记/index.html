@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zQPDvt_a5mVoBX5SrOvohtgGBUHrwI2PZDck7uTXa_w">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://guozi149.me').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="今年一月的时候，端着Kindle，经常随手翻翻，偶尔随手写写阅读笔记（真的是用笔和纸写的笔记）。以下内容是当时写的笔记，现在总结成所谓的“电子版”。 这本书从光学讲起，微粒说（牛顿等人），波动说（胡克等人）。微粒说由于牛顿的权威性统治了约百年时间。波动说由托马斯杨双缝干涉，菲涅尔等人的贡献打了翻身仗，不过致命伤挺大的，引入了以太这么个看不见摸不着的东西。看到这里，我觉得，相比时间简史这种科普书籍，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="上帝掷骰子吗？： 量子物理史话 | 读书笔记">
+<meta property="og:url" content="http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E4%B8%8A%E5%B8%9D%E6%8E%B7%E9%AA%B0%E5%AD%90%E5%90%97%EF%BC%9F%EF%BC%9A-%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%E5%8F%B2%E8%AF%9D-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="guozi">
+<meta property="og:description" content="今年一月的时候，端着Kindle，经常随手翻翻，偶尔随手写写阅读笔记（真的是用笔和纸写的笔记）。以下内容是当时写的笔记，现在总结成所谓的“电子版”。 这本书从光学讲起，微粒说（牛顿等人），波动说（胡克等人）。微粒说由于牛顿的权威性统治了约百年时间。波动说由托马斯杨双缝干涉，菲涅尔等人的贡献打了翻身仗，不过致命伤挺大的，引入了以太这么个看不见摸不着的东西。看到这里，我觉得，相比时间简史这种科普书籍，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-07-07T07:45:51.000Z">
+<meta property="article:modified_time" content="2021-06-23T12:19:18.774Z">
+<meta property="article:author" content="Leo SHEN">
+<meta property="article:tag" content="阅读">
+<meta property="article:tag" content="物理学史">
+<meta property="article:tag" content="科普">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E4%B8%8A%E5%B8%9D%E6%8E%B7%E9%AA%B0%E5%AD%90%E5%90%97%EF%BC%9F%EF%BC%9A-%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%E5%8F%B2%E8%AF%9D-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>上帝掷骰子吗？： 量子物理史话 | 读书笔记 | guozi</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37751416-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-37751416-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd84cd65db62dc79ad1a7f36217ce10d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">guozi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一点一点前进...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E4%B8%8A%E5%B8%9D%E6%8E%B7%E9%AA%B0%E5%AD%90%E5%90%97%EF%BC%9F%EF%BC%9A-%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%E5%8F%B2%E8%AF%9D-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/300+300.png">
+      <meta itemprop="name" content="Leo SHEN">
+      <meta itemprop="description" content="记录点什么帮助自己进步，如果能帮助别人，手有余香">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="guozi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          上帝掷骰子吗？： 量子物理史话 | 读书笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-07-07 15:45:51" itemprop="dateCreated datePublished" datetime="2015-07-07T15:45:51+08:00">2015-07-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">阅读</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">心得</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E4%B8%8A%E5%B8%9D%E6%8E%B7%E9%AA%B0%E5%AD%90%E5%90%97%EF%BC%9F%EF%BC%9A-%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%E5%8F%B2%E8%AF%9D-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="阅读/心得/上帝掷骰子吗？：-量子物理史话-读书笔记/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>今年一月的时候，端着Kindle，经常随手翻翻，偶尔随手写写阅读笔记（真的是用笔和纸写的笔记）。<br>以下内容是当时写的笔记，现在总结成所谓的“电子版”。</p>
+<p>这本书从光学讲起，微粒说（牛顿等人），波动说（胡克等人）。微粒说由于牛顿的权威性统治了约百年时间。波动说由托马斯杨双缝干涉，菲涅尔等人的贡献打了翻身仗，不过致命伤挺大的，引入了以太这么个看不见摸不着的东西。<br>看到这里，我觉得，相比时间简史这种科普书籍，这本更像是物理史方面的东西而不是“科普”，可能是我要求太高了吧。不过书中穿插了些小故事，茶余饭后的谈资，不过，谁又愿意听人扯物理而不是八卦呢。</p>
+<p>普朗克沉下心，6年时间，“无意”中发现了量子，即将对已经建立起来的经典物理发起挑战。这本书还用了通俗的语言解释了量子——能力是一份一份的，很小很小，但是不能再分了。终于有点“科普”的意味了。<br>在普朗克提出（1900年）之后的若干年，发展很慢，直到爱因斯坦于1905年发表了关于光电效应的文章（那年，他有6篇伟大的论文，这是其中之一），该理论才有了进步。1913年，玻尔利用量子假说解释了原子模型、光谱等一系列问题，进一步发展了该理论。量子学说进入了“青年”，但是距离人们接受他还有一段路要走。同时，随着量子化的发展，光的“波”“粒”第三次大战即将到来。</p>
+<p>原子模型被完善，各种实验证明量子的正确性，眼看量子要大爆发，但是“粒子”学说后院起火，德布罗意发表了他的博士论文，说电子是一种波。我擦，三次波粒大战被推向了高潮。不管是哪种学说，都不能说服所有人。<br>另一方面，海森堡和其他几个人发明了矩阵力学，把量子又往前推了一大把，曙光就在前方。</p>
+<p>时势造英雄。在物理大发展的年代，物理学家稍不留神就跟不上节奏了。但一旦有什么突破成果，往往又再促进这个风起云涌的年代进一步快速的朝前发展。一个个闪耀的物理学家顺势而出，创造着新纪元。</p>
+<p>薛定谔创造了波动方程，阐述了量子力学，与海森堡的矩阵力学在数学上是等价的。但是前者的解释是波，后者的解释是粒子。波恩对波动方程给出了相对正确的解释，波动方程描述的是粒子在某个空间位置出现的概率。就此，很快，物理学又引入了新的概念——不确定性。<br>不确定性原理，玻尔提出的互斥原理，加上波恩的概率解释，哥本哈根学派理论的三驾马车到齐了。</p>
+<p>物理属性依赖于观察的方式，是波还是粒子，取决于人们观察这个事物的角度。这是物理，更是哲学。</p>
+<p>玻尔和爱因斯坦三次华山论剑，玻尔大获全胜，量子物理日益壮大。不过，关于其物理意义的解释，就不那么顺利了。哥本哈根学派的弱点在于“观察者”，如何鉴定他，由此诞生了比薛定谔还出名的薛定谔的猫。而后，有用“意识”去解释的，这简直解释玄而又玄的东西，到了哲学范畴。</p>
+<p>在物理学界，如何解释一个理论不是鉴定这个理论的标准，而是这个理论能否去预测未知的观察到的事实。</p>
+<p>贝尔，站在爱因斯坦这一派，搞出了贝尔公式，等价于爱因斯坦向往的那种经典的一切都符合因果律的物理。但是，随着科学的进步，EPR实验越来越精确，一次又一次的突破了贝尔公式，预示着爱因斯坦是错误的。是的，上帝是掷骰子的。</p>
+<p>还有一些关于量子物理的解释，有些很玄很扯的，靠谱的有什么多宇宙了，退相干理论等等。但是，都无法说服所有人。</p>
+<p>量子力学确立并应用了近百年，深刻的变革着世界的方方面面。毫无夸张的说，今日的计算机科学、信息科学、生物科学等等，都有着量子力学的功劳。我们无法说20世纪的量子力学和相对论谁更伟大，但若说应用之广泛，影响之深刻，必定是量子力学。</p>
+<p>量子方面最新最时髦的进展：弦，超对称下的超弦，粒子之间有一根弦，粒子共振产生的各种效应。超弦理论最新的进展是世界有11个维度，它能否或成为万能理论呢？量子史话就此结束，未来还等待人类去探索。</p>
+<p>本书外送一篇海森堡之谜。他作为德国原子弹计划的领导者，高尚的品质还是算错了导致失败呢？事实是后者，虽然他为了他的荣誉，极力表达自己是高尚的。究其本质，他也是一个普通人，一个经历了二战的普通人。<br>不管怎么样，人们应该记住他，记住他的贡献，建立了量子力学。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%98%85%E8%AF%BB/" rel="tag"># 阅读</a>
+              <a href="/tags/%E7%89%A9%E7%90%86%E5%AD%A6%E5%8F%B2/" rel="tag"># 物理学史</a>
+              <a href="/tags/%E7%A7%91%E6%99%AE/" rel="tag"># 科普</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E7%BC%96%E8%AF%91%E5%99%A8%E5%92%8C%E9%93%BE%E6%8E%A5%E5%99%A8/" rel="prev" title="C语言：编译器和链接器">
+      <i class="fa fa-chevron-left"></i> C语言：编译器和链接器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E5%8F%AF%E8%83%BD%E4%B8%8E%E4%B8%8D%E5%8F%AF%E8%83%BD%E7%9A%84%E8%BE%B9%E7%95%8C%EF%BC%9AP-NP%E9%97%AE%E9%A2%98%E8%B6%A3%E5%8F%B2-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="next" title="可能与不可能的边界：P NP问题趣史 | 读书笔记">
+      可能与不可能的边界：P NP问题趣史 | 读书笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo SHEN"
+      src="/images/300+300.png">
+  <p class="site-author-name" itemprop="name">Leo SHEN</p>
+  <div class="site-description" itemprop="description">记录点什么帮助自己进步，如果能帮助别人，手有余香</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shenlei149" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shenlei149" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo SHEN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://guozi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E4%B8%8A%E5%B8%9D%E6%8E%B7%E9%AA%B0%E5%AD%90%E5%90%97%EF%BC%9F%EF%BC%9A-%E9%87%8F%E5%AD%90%E7%89%A9%E7%90%86%E5%8F%B2%E8%AF%9D-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/",
+            identifier: "阅读/心得/上帝掷骰子吗？：-量子物理史话-读书笔记/",
+            title: "上帝掷骰子吗？： 量子物理史话 | 读书笔记"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://guozi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

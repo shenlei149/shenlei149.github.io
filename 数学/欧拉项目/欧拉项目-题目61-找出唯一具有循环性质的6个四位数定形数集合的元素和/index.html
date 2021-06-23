@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zQPDvt_a5mVoBX5SrOvohtgGBUHrwI2PZDck7uTXa_w">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://guozi149.me').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="题目如下： 三角形数，四角形数，五角形数，六角形数，七角形数和八角形数都是定形数，他们分别由以下公式产生：三角形数  P3,n&#x3D;n(n+1)&#x2F;2     1, 3, 6, 10, 15, …四角形数  P4,n&#x3D;n2           1, 4, 9, 16, 25, …五角形数  P5,n&#x3D;n(3n−1)&#x2F;2    1, 5, 12, 22, 35, …六角形数  P6,n&#x3D;n(2n−1)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欧拉项目 | 题目61 | 找出唯一具有循环性质的6个四位数定形数集合的元素和">
+<meta property="og:url" content="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE61-%E6%89%BE%E5%87%BA%E5%94%AF%E4%B8%80%E5%85%B7%E6%9C%89%E5%BE%AA%E7%8E%AF%E6%80%A7%E8%B4%A8%E7%9A%846%E4%B8%AA%E5%9B%9B%E4%BD%8D%E6%95%B0%E5%AE%9A%E5%BD%A2%E6%95%B0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%83%E7%B4%A0%E5%92%8C/index.html">
+<meta property="og:site_name" content="guozi">
+<meta property="og:description" content="题目如下： 三角形数，四角形数，五角形数，六角形数，七角形数和八角形数都是定形数，他们分别由以下公式产生：三角形数  P3,n&#x3D;n(n+1)&#x2F;2     1, 3, 6, 10, 15, …四角形数  P4,n&#x3D;n2           1, 4, 9, 16, 25, …五角形数  P5,n&#x3D;n(3n−1)&#x2F;2    1, 5, 12, 22, 35, …六角形数  P6,n&#x3D;n(2n−1)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-02-02T03:36:18.000Z">
+<meta property="article:modified_time" content="2021-06-23T12:19:18.778Z">
+<meta property="article:author" content="Leo SHEN">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="欧拉项目">
+<meta property="article:tag" content="Project Euler">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE61-%E6%89%BE%E5%87%BA%E5%94%AF%E4%B8%80%E5%85%B7%E6%9C%89%E5%BE%AA%E7%8E%AF%E6%80%A7%E8%B4%A8%E7%9A%846%E4%B8%AA%E5%9B%9B%E4%BD%8D%E6%95%B0%E5%AE%9A%E5%BD%A2%E6%95%B0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%83%E7%B4%A0%E5%92%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>欧拉项目 | 题目61 | 找出唯一具有循环性质的6个四位数定形数集合的元素和 | guozi</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37751416-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-37751416-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd84cd65db62dc79ad1a7f36217ce10d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">guozi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一点一点前进...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE61-%E6%89%BE%E5%87%BA%E5%94%AF%E4%B8%80%E5%85%B7%E6%9C%89%E5%BE%AA%E7%8E%AF%E6%80%A7%E8%B4%A8%E7%9A%846%E4%B8%AA%E5%9B%9B%E4%BD%8D%E6%95%B0%E5%AE%9A%E5%BD%A2%E6%95%B0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%83%E7%B4%A0%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/300+300.png">
+      <meta itemprop="name" content="Leo SHEN">
+      <meta itemprop="description" content="记录点什么帮助自己进步，如果能帮助别人，手有余香">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="guozi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          欧拉项目 | 题目61 | 找出唯一具有循环性质的6个四位数定形数集合的元素和
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-02-02 11:36:18" itemprop="dateCreated datePublished" datetime="2015-02-02T11:36:18+08:00">2015-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">欧拉项目</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE61-%E6%89%BE%E5%87%BA%E5%94%AF%E4%B8%80%E5%85%B7%E6%9C%89%E5%BE%AA%E7%8E%AF%E6%80%A7%E8%B4%A8%E7%9A%846%E4%B8%AA%E5%9B%9B%E4%BD%8D%E6%95%B0%E5%AE%9A%E5%BD%A2%E6%95%B0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%83%E7%B4%A0%E5%92%8C/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="数学/欧拉项目/欧拉项目-题目61-找出唯一具有循环性质的6个四位数定形数集合的元素和/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://projecteuler.net/problem=61" title="Problem 61 - Project Euler">题目</a>如下：</p>
+<p>三角形数，四角形数，五角形数，六角形数，七角形数和八角形数都是定形数，他们分别由以下公式产生：<br>三角形数  P3,n=n(n+1)/2     1, 3, 6, 10, 15, …<br>四角形数  P4,n=n2           1, 4, 9, 16, 25, …<br>五角形数  P5,n=n(3n−1)/2    1, 5, 12, 22, 35, …<br>六角形数  P6,n=n(2n−1)      1, 6, 15, 28, 45, …<br>七角形数  P7,n=n(5n−3)/2    1, 7, 18, 34, 55, …<br>八角形数  P8,n=n(3n−2)      1, 8, 21, 40, 65, …</p>
+<p>三个四位数形成的有序集合: 8128, 2882, 8281,有三个有趣的性质：</p>
+<p>这个集合是循环的：每个数的后两位数是下一个数的前两位数，包括第三个和第一个的关系。<br>三种定形数中的每一种都能被这三个数中的一个不同的数代表：三角形数 (P3,127=8128), 四角形数 (P4,91=8281), 和五角形数 (P5,44=2882)。<br>这是唯一具有以上性质的四位数的集合。</p>
+<p>找出唯一的一个六个四位数的循环集合，使得从三角形数到八角形数中的每一种都能由该集合中的一个不同的数代表。</p>
+<p>求这个集合中元素之和。</p>
+<p>首先，我们应该初始化这六个数组。同时排除倒数第二位为0的数字，因为这种数不可能在循环集合里面（不可能有数字以0开始）。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Initialize</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">out</span> List&lt;<span class="built_in">int</span>&gt; P3, <span class="keyword">out</span> List&lt;<span class="built_in">int</span>&gt; P4, <span class="keyword">out</span> List&lt;<span class="built_in">int</span>&gt; P5,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">out</span> List&lt;<span class="built_in">int</span>&gt; P6, <span class="keyword">out</span> List&lt;<span class="built_in">int</span>&gt; P7, <span class="keyword">out</span> List&lt;<span class="built_in">int</span>&gt; P8</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	P3 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">	P4 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">	P5 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">	P6 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">	P7 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">	P8 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">	<span class="built_in">int</span> n = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (n * (n + <span class="number">1</span>) / <span class="number">2</span> &gt; <span class="number">10000</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		P3.Add(n * (n + <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">		P4.Add(n * n);</span><br><span class="line">		P5.Add(n * (<span class="number">3</span> * n - <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">		P6.Add(n * (<span class="number">2</span> * n - <span class="number">1</span>));</span><br><span class="line">		P7.Add(n * (<span class="number">5</span> * n - <span class="number">3</span>) / <span class="number">2</span>);</span><br><span class="line">		P8.Add(n * (<span class="number">3</span> * n - <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">		n++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	P3 = P3.Where(Meet).ToList();</span><br><span class="line">	P4 = P4.Where(Meet).ToList();</span><br><span class="line">	P5 = P5.Where(Meet).ToList();</span><br><span class="line">	P6 = P6.Where(Meet).ToList();</span><br><span class="line">	P7 = P7.Where(Meet).ToList();</span><br><span class="line">	P8 = P8.Where(Meet).ToList();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">Meet</span>(<span class="params"><span class="built_in">int</span> i</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (i &lt;= <span class="number">1000</span> || i &gt;= <span class="number">10000</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ((i / <span class="number">10</span>) % <span class="number">10</span> == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>循环集合，不管最终的数字顺序是怎么样的，都可以看作是从P3开始，最后循环到P3。当然，你也可以从P4什么的开始，都一样的。<br>我的思路是遍历P3数组，然后再遍历其他的数组，若P3里面数字的后两位等于其他数组中的前两位，就把他们拼接起来组成新的集合M1，M1中都是可能的解。<br>再接着，遍历M1和剩余数组，这里剩余数组指的是排除P3和某个数组之后的其他数组。比如第一次遍历P4的某个数拼接在P3的某个数后面，那么这里的剩余数组就是指P5，P6，P7和P8。和第一次遍历一样，继续拼接可能的字符串，组成集合M2。<br>以此类推。最后，每个数组贡献一个数字，拼接成了一个满足题意的字符串。</p>
+<p>为了能知道在5次遍历中，那个数组用过了，那个数组没有被使用，我使用了下面这个数据结构：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title">OrderedSet</span> : <span class="title">ICloneable</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OrderedSet</span>(<span class="params"><span class="built_in">string</span> content</span>)</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">this</span>.Content = content;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">string</span> Content &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">bool</span> Has4 &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">bool</span> Has5 &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">bool</span> Has6 &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">bool</span> Has7 &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">bool</span> Has8 &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="built_in">object</span> <span class="title">Clone</span>(<span class="params"></span>)</span></span><br><span class="line">	&#123;</span><br><span class="line">		OrderedSet other = <span class="keyword">new</span> OrderedSet(<span class="keyword">this</span>.Content);</span><br><span class="line">		other.Has4 = <span class="keyword">this</span>.Has4;</span><br><span class="line">		other.Has5 = <span class="keyword">this</span>.Has5;</span><br><span class="line">		other.Has6 = <span class="keyword">this</span>.Has6;</span><br><span class="line">		other.Has7 = <span class="keyword">this</span>.Has7;</span><br><span class="line">		other.Has8 = <span class="keyword">this</span>.Has8;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> other;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我把P3的数组扔到一个队列中，作为循环的初始：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Queue&lt;OrderedSet&gt; cur = <span class="keyword">new</span> Queue&lt;OrderedSet&gt;();</span><br><span class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> i <span class="keyword">in</span> P3)</span><br><span class="line">&#123;</span><br><span class="line">	cur.Enqueue(<span class="keyword">new</span> OrderedSet(i.ToString()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后进行五次遍历，把P4到P8五个数组拼接到后面，代码有点丑。。。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">	Queue&lt;OrderedSet&gt; next = <span class="keyword">new</span> Queue&lt;OrderedSet&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">foreach</span> (<span class="keyword">var</span> orderedSet <span class="keyword">in</span> cur)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!orderedSet.Has4)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">foreach</span> (<span class="keyword">var</span> j <span class="keyword">in</span> P4)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (orderedSet.Content.EndsWith(j.ToString().Substring(<span class="number">0</span>, <span class="number">2</span>)))</span><br><span class="line">				&#123;</span><br><span class="line">					OrderedSet other = (OrderedSet)orderedSet.Clone();</span><br><span class="line">					other.Content = orderedSet.Content + j.ToString().Substring(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">					other.Has4 = <span class="literal">true</span>;</span><br><span class="line">					next.Enqueue(other);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!orderedSet.Has5)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">foreach</span> (<span class="keyword">var</span> j <span class="keyword">in</span> P5)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (orderedSet.Content.EndsWith(j.ToString().Substring(<span class="number">0</span>, <span class="number">2</span>)))</span><br><span class="line">				&#123;</span><br><span class="line">					OrderedSet other = (OrderedSet)orderedSet.Clone();</span><br><span class="line">					other.Content = orderedSet.Content + j.ToString().Substring(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">					other.Has5 = <span class="literal">true</span>;</span><br><span class="line">					next.Enqueue(other);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!orderedSet.Has6)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">foreach</span> (<span class="keyword">var</span> j <span class="keyword">in</span> P6)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (orderedSet.Content.EndsWith(j.ToString().Substring(<span class="number">0</span>, <span class="number">2</span>)))</span><br><span class="line">				&#123;</span><br><span class="line">					OrderedSet other = (OrderedSet)orderedSet.Clone();</span><br><span class="line">					other.Content = orderedSet.Content + j.ToString().Substring(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">					other.Has6 = <span class="literal">true</span>;</span><br><span class="line">					next.Enqueue(other);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!orderedSet.Has7)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">foreach</span> (<span class="keyword">var</span> j <span class="keyword">in</span> P7)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (orderedSet.Content.EndsWith(j.ToString().Substring(<span class="number">0</span>, <span class="number">2</span>)))</span><br><span class="line">				&#123;</span><br><span class="line">					OrderedSet other = (OrderedSet)orderedSet.Clone();</span><br><span class="line">					other.Content = orderedSet.Content + j.ToString().Substring(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">					other.Has7 = <span class="literal">true</span>;</span><br><span class="line">					next.Enqueue(other);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!orderedSet.Has8)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">foreach</span> (<span class="keyword">var</span> j <span class="keyword">in</span> P8)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (orderedSet.Content.EndsWith(j.ToString().Substring(<span class="number">0</span>, <span class="number">2</span>)))</span><br><span class="line">				&#123;</span><br><span class="line">					OrderedSet other = (OrderedSet)orderedSet.Clone();</span><br><span class="line">					other.Content = orderedSet.Content + j.ToString().Substring(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">					other.Has8 = <span class="literal">true</span>;</span><br><span class="line">					next.Enqueue(other);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	cur = next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，离胜利还有两步了。<br>第一步，遍历cur集合中的字符串，根据题目要求，最后两位和开头两位是相等的：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">string</span>&gt; results = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> orderedSet <span class="keyword">in</span> cur)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (orderedSet.Content.Substring(<span class="number">0</span>, <span class="number">2</span>).Equals(orderedSet.Content.Substring(<span class="number">12</span>, <span class="number">2</span>)))</span><br><span class="line">	&#123;</span><br><span class="line">		results.Add(orderedSet.Content);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>题目已经告诉我们结果是唯一的了，这时，results集合里面应该只有一个元素。<br>最后一步，得到了这六个数字，求和即可。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/" rel="tag"># 欧拉项目</a>
+              <a href="/tags/Project-Euler/" rel="tag"># Project Euler</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E7%AE%97%E6%B3%95/%E4%BD%BF%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/" rel="prev" title="使用两个栈实现队列">
+      <i class="fa fa-chevron-left"></i> 使用两个栈实现队列
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE120-%E6%B1%82-a-1-n-a-1-n%E9%99%A4%E4%BB%A5a-2%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BD%99%E6%95%B0/" rel="next" title="欧拉项目 | 题目120 | 求(a-1)^n + (a+1)^n除以a^2的最大余数">
+      欧拉项目 | 题目120 | 求(a-1)^n + (a+1)^n除以a^2的最大余数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo SHEN"
+      src="/images/300+300.png">
+  <p class="site-author-name" itemprop="name">Leo SHEN</p>
+  <div class="site-description" itemprop="description">记录点什么帮助自己进步，如果能帮助别人，手有余香</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shenlei149" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shenlei149" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo SHEN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://guozi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://guozi149.me/%E6%95%B0%E5%AD%A6/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE/%E6%AC%A7%E6%8B%89%E9%A1%B9%E7%9B%AE-%E9%A2%98%E7%9B%AE61-%E6%89%BE%E5%87%BA%E5%94%AF%E4%B8%80%E5%85%B7%E6%9C%89%E5%BE%AA%E7%8E%AF%E6%80%A7%E8%B4%A8%E7%9A%846%E4%B8%AA%E5%9B%9B%E4%BD%8D%E6%95%B0%E5%AE%9A%E5%BD%A2%E6%95%B0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%83%E7%B4%A0%E5%92%8C/",
+            identifier: "数学/欧拉项目/欧拉项目-题目61-找出唯一具有循环性质的6个四位数定形数集合的元素和/",
+            title: "欧拉项目 | 题目61 | 找出唯一具有循环性质的6个四位数定形数集合的元素和"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://guozi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

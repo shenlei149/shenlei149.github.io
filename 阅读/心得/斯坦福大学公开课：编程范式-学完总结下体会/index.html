@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zQPDvt_a5mVoBX5SrOvohtgGBUHrwI2PZDck7uTXa_w">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://guozi149.me').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="陆陆续续的，花了一个多月的时间，在网易公开课上看完了编程范式这门斯坦福的公开课，收益匪浅。公开课地址：http:&#x2F;&#x2F;open.163.com&#x2F;special&#x2F;opencourse&#x2F;paradigms.html虽说翻译多多少少有些问题，甚至包括英文字幕，但是瑕不掩瑜，课程本身是极好的。 花了半数的时间，讲了C语言底层的事情，包括内存布局，C-Style“泛型”方法和结构体，类型强转，函数调用，预处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学公开课：编程范式 | 学完总结下体会">
+<meta property="og:url" content="http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E5%85%AC%E5%BC%80%E8%AF%BE%EF%BC%9A%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F-%E5%AD%A6%E5%AE%8C%E6%80%BB%E7%BB%93%E4%B8%8B%E4%BD%93%E4%BC%9A/index.html">
+<meta property="og:site_name" content="guozi">
+<meta property="og:description" content="陆陆续续的，花了一个多月的时间，在网易公开课上看完了编程范式这门斯坦福的公开课，收益匪浅。公开课地址：http:&#x2F;&#x2F;open.163.com&#x2F;special&#x2F;opencourse&#x2F;paradigms.html虽说翻译多多少少有些问题，甚至包括英文字幕，但是瑕不掩瑜，课程本身是极好的。 花了半数的时间，讲了C语言底层的事情，包括内存布局，C-Style“泛型”方法和结构体，类型强转，函数调用，预处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-07-17T08:15:12.000Z">
+<meta property="article:modified_time" content="2021-06-23T12:19:18.774Z">
+<meta property="article:author" content="Leo SHEN">
+<meta property="article:tag" content="阅读">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E5%85%AC%E5%BC%80%E8%AF%BE%EF%BC%9A%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F-%E5%AD%A6%E5%AE%8C%E6%80%BB%E7%BB%93%E4%B8%8B%E4%BD%93%E4%BC%9A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>斯坦福大学公开课：编程范式 | 学完总结下体会 | guozi</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37751416-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-37751416-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd84cd65db62dc79ad1a7f36217ce10d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">guozi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">一点一点前进...</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E5%85%AC%E5%BC%80%E8%AF%BE%EF%BC%9A%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F-%E5%AD%A6%E5%AE%8C%E6%80%BB%E7%BB%93%E4%B8%8B%E4%BD%93%E4%BC%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/300+300.png">
+      <meta itemprop="name" content="Leo SHEN">
+      <meta itemprop="description" content="记录点什么帮助自己进步，如果能帮助别人，手有余香">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="guozi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          斯坦福大学公开课：编程范式 | 学完总结下体会
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-07-17 16:15:12" itemprop="dateCreated datePublished" datetime="2015-07-17T16:15:12+08:00">2015-07-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">阅读</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">心得</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E5%85%AC%E5%BC%80%E8%AF%BE%EF%BC%9A%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F-%E5%AD%A6%E5%AE%8C%E6%80%BB%E7%BB%93%E4%B8%8B%E4%BD%93%E4%BC%9A/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="阅读/心得/斯坦福大学公开课：编程范式-学完总结下体会/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>陆陆续续的，花了一个多月的时间，在网易公开课上看完了编程范式这门斯坦福的公开课，收益匪浅。公开课地址：<a target="_blank" rel="noopener" href="http://open.163.com/special/opencourse/paradigms.html">http://open.163.com/special/opencourse/paradigms.html</a><br>虽说翻译多多少少有些问题，甚至包括英文字幕，但是瑕不掩瑜，课程本身是极好的。</p>
+<p>花了半数的时间，讲了C语言底层的事情，包括内存布局，C-Style“泛型”方法和结构体，类型强转，函数调用，预处理器，编译器，链接器等等，让我对计算机的底层理解又上了一个层次；<br>花了几节课讲了多线程编程范式，由于课程是很久之前的了，只涉及了传统的多线程模型，讲了信号量，互斥，临界区，死锁，同步，生产者-消费者模型，还有哲学家问题等等。好几年过去了，我对计算机的理解俨然比考研时增进了很多，加之这个老师解释的到位，手把手的写代码，很容易就理解了当时考研时不懂的问题，对多线程这块的理解加深的不是一心半点，好赞；<br>几节课时间讲了Scheme这门函数式语言，函数式编程在当今又有再创辉煌的迹象，因为数据的不可变性，对于多线程来说是个天然优势，课程通过写常用的函数，或者实现一些内置的函数，深入的讲解了递归思想，阐述了如何用递归思想去解决问题，而且，让我了解了另外一个编程世界（之前只是听说过函数式编程而没有实践过）。<br>最后，还简单的介绍了Python和Haskell，前者是动态语言，后者是后起的函数式语言，介绍了它们和其他语言的异同，有对比，才有直观的感受，更容易让人理解。</p>
+<p>除了学习到计算机知识本身，通过课程，也让我明白世界一流高校和我国高校的差距，没能力上清华北大，准确地说，是斯坦福和北邮的对比。<br>先说说老师，会多门编程语言，实现各种库函数得心应手，我不知道我校有多少老师能做到这个，应该还是有的，只是不多罢了；<br>更重要的是，全程几乎都是黑板粉笔板书，这才是最容易让人接受、跟着老师思路学习的方式，而不是一页页PPT的翻过去而不管学生到底能吸收多少，在我大学期间，见过三个老师全程板书，高数老师胡细宝老师，力学老师朱洪波老师，电动力学田贵花老师，本人脑子笨，学艺不精，但还是能懂得多数内容的，而那种直接放PPT的，实在是非我所能及啊。</p>
+<p>再来说说学生。通常来说，好老师和好学生是相互映衬的，特别是好学生更重要，谁成就了清华北大，是那些各个省的拔尖人才啊。斯坦福大学的学生，毋庸置疑，北美（可能还有中印人才）最好的学生了，从上课可以看出，有些人提的问题是很有想法的，当然，也有些问题或者想法挺简单幼稚的，不过我都研究生毕业又工作2年多了，人家才大学二年级。<br>从公开课页面可以下载相关的讲义和作业，作业不能说很困难，但是每一次作业都很费时费力，要写代码，要求严格，特别是Scheme讲完居然要学生实现简单的解释器，逆天啊，老师仅仅讲了下内存分布之类的原理性内容，就要求这么高，实打实的培养工程能力。再反观国内，很多人大四毕业，也写不出个像样的小程序。</p>
+<p>最后简单说说课程设置。他们一学期几门课，我们十几门课，我们还没有人家累。一个学期十来门课程，还要上些马哲毛概之类的没什么卵用的课程，能有多少时间精力去搞真正专业的东西呢？听课中，感觉他们除了上课，还有专门的讨论时间，老师或者助教也会去参与，我上课期间，基本就是老师来了讲课，我们听着，下课做作业，一般也就期末前能有一次或者两次答疑，更关键的是，我们教师学生比小的可怜，几百人就指望着一个老师，各种维度考量下来，我们能分到的资源少的可怜，没有讨论，没有和老师的切磋，自己瞎折腾，进步势必要慢一些。</p>
+<p>国外发展了数百年到了发达国家，我们不到百年，相对底子弱些，只能自己加倍努力了。说到努力，比起国外顶尖的人，我这智商不足就算了，努力程度也不及啊，真替自己捉急。<br>一步一个脚印，慢慢进步，会通向彼岸的。</p>
+<p>最后的最后，感谢Jerry Cain带来的精彩课程！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%98%85%E8%AF%BB/" rel="tag"># 阅读</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E5%9C%B0%E5%BF%83%E6%B8%B8%E8%AE%B0-%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="prev" title="地心游记 | 读后感">
+      <i class="fa fa-chevron-left"></i> 地心游记 | 读后感
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/%E7%A5%9E%E5%A5%87%E7%9A%84Scheme%E4%B9%8B%E5%BC%BA%E5%A4%A7%E7%9A%84%E9%80%92%E5%BD%92%E6%80%9D%E6%83%B3/" rel="next" title="神奇的Scheme之强大的递归思想">
+      神奇的Scheme之强大的递归思想 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo SHEN"
+      src="/images/300+300.png">
+  <p class="site-author-name" itemprop="name">Leo SHEN</p>
+  <div class="site-description" itemprop="description">记录点什么帮助自己进步，如果能帮助别人，手有余香</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shenlei149" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shenlei149" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo SHEN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://guozi.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://guozi149.me/%E9%98%85%E8%AF%BB/%E5%BF%83%E5%BE%97/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E5%85%AC%E5%BC%80%E8%AF%BE%EF%BC%9A%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F-%E5%AD%A6%E5%AE%8C%E6%80%BB%E7%BB%93%E4%B8%8B%E4%BD%93%E4%BC%9A/",
+            identifier: "阅读/心得/斯坦福大学公开课：编程范式-学完总结下体会/",
+            title: "斯坦福大学公开课：编程范式 | 学完总结下体会"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://guozi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
