@@ -1,0 +1,10 @@
+nav:
+    - 05 Rvalue References, Move Semantics, and Perfect Forwarding: README.md
+    - 23 Understand std::move and std::forward: 23_Understand_std_move_and_std_forward.md
+    - 24 Distinguish universal references from rvalue references: 24_Distinguish_universal_references_from_rvalue_references.md
+    - 25 Use std::move on rvalue references, std::forward on universal references: 25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md
+    - 26 Avoid overloading on universal references: 26_Avoid_overloading_on_universal_references.md
+    - 27 Familiarize yourself with alternatives to overloading on universal references: 27_Familiarize_yourself_with_alternatives_to_overloading_on_universal_references.md
+    - 28 Understand reference collapsing: 28_Understand_reference_collapsing.md
+    - 29 Assume that move operations are not present, not cheap, and not used: 29_Assume_that_move_operations_are_not_present_not_cheap_and_not_used.md
+    - 30 Familiarize yourself with perfect forwarding failure cases: 30_Familiarize_yourself_with_perfect_forwarding_failure_cases.md

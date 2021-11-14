@@ -1,0 +1,38 @@
+nav:
+    - 面试题: README.md
+    - 洗牌算法: Shuffle.md
+    - 100 亿条 URL 去重: 10B-URL.md
+    - 找出缺少的数字: Find-Absent-Number.md
+    - 找到重复的数字: Find-Dup-Number.md
+    - 打印括号组合: Print-Paren.md
+    - 从点 (0,0) 到 (X,Y) 的通路: Find-Path.md
+    - 求 $a_j-a_i$ 的最大值: Max-aj-ai.md
+    - 更新 0 所在的行和列: Update-as-Zero.md
+    - 不使用加操作实现加法: Add-without-Plus.md
+    - 不使用临时变量交换两个数: Swap-without-Temp.md
+    - 旋转矩阵: Rotate-Matrix.md
+    - 判断一个整数是否是回文: Palindrome-Int.md
+    - 翻转字符串: Reverse-String.md
+    - 两个字符串是否由同样的字符组成: Two-String-Permutation.md
+    - 一个字符串是否能旋转得到另一个字符串: Rotation-String.md
+    - 字符串压缩: Compress-String.md
+    - 将空格替换成 %20: Replace-Space-by-%2520.md
+    - 不使用额外的数据结构对栈元素进行排序: Sort-Stack.md
+    - 常数时间返回最小值的栈: Min-Stack.md
+    - 使用两个栈实现队列: Two-Stack-to-Queue.md
+    - 使用两个队列实现栈: Two-Queue-to-Stack.md
+    - 找到单链表中环的入口: Find-Entry-Point-to-Cycle.md
+    - 从单链表中删除内容一样的节点: Dedup-in-List.md
+    - 从单链表中删除指定节点: Delete-Node-in-List.md
+    - 使用链表实现加法: Add-for-List.md
+    - 单链表中找到倒数第 $k$ 个节点: Kth-Element-in-List.md
+    - 分割单链表: Split-List.md
+    - 判断链表是回文: Palindrome-List.md
+    - 查询 x 所在排位: RankX-BST.md
+    - 二叉树是平衡的吗？: Balanced-Binary-Tree.md
+    - 对有序数组生成高度最低的二叉搜索树: Create-BST.md
+    - 找出重量较大的一瓶药: Find-Largest.md
+    - 有多少蓝眼睛的人？: People-with-Blue-Eye.md
+    - 鸡蛋从多少层掉下不破: Egg-not-Broken.md
+    - 能完全覆盖吗？: Cover-All.md
+    - 有多少锁是开着的: Open-Lock.md

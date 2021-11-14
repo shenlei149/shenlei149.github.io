@@ -1,0 +1,9 @@
+nav:
+    - Effective Modern C++: README.md
+    - 01 Deducing Types: ch01_Deducing_Types
+    - 02 auto: ch02_auto
+    - 03 Moving to Modern C++: ch03_Moving_to_Modern_C++
+    - 04 Smart Pointers: ch04_Smart_Pointers
+    - 05 Rvalue References, Move Semantics, and Perfect Forwarding: ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding
+    - 06 Lambda Expressions: ch06_Lambda_Expressions
+    - 08 Tweaks: ch08_Tweaks

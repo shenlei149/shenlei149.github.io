@@ -1,0 +1,9 @@
+nav:
+    - README.md
+    - 渐进符号: AsymptoticNotation.md
+    - 主方法: MasterMethod.md
+    - 分治法: DivideConquer.md
+    - 数值计算: Arithmetic.md
+    - 几何: Geometry.md
+    - 排序: Sort.md
+    - 其他: Others.md

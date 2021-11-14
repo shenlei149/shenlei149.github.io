@@ -1,0 +1,1 @@
+In this session we introduce the concept of an **operator** and see how they work in general. Then we specialize to the case of differential operators and show how they can be used to simplify the notations (as we already previewed in the session on Gain & Phase Lag) and the calculations used in solving linear constant-coefficient DE's.

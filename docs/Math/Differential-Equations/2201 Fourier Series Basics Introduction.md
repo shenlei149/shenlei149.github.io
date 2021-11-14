@@ -1,0 +1,3 @@
+In this session we will introduce the Fourier series of a periodic function and show how to compute it. Fourier analysis is a large subject with wideranging applications. The main use we will make of these powerful tools will be to solve the inhomogeneous linear time invariant DE $p(D)x = f(t)$, where $f(t)$ is a periodic function.
+
+The Fourier series expansion of the periodic solution $x_p(t)$ will, for example, show clearly when resonances occur, and at what frequencies. Nature abounds with examples of these types of phenomena. To give just one example: the inner ear is equiped with a cellular array which acts as a "Fourier analyzer" and allows us to detect the different frequencies of the in-coming sound by resonanting in tune with just those frequencies.

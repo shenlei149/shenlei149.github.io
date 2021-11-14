@@ -1,0 +1,1 @@
+In this session we introduce and develop the basic properties of *autonomous* $2 \times 2$ systems. In the next session we will see how to get key information about the solutions to such a system directly from the DE itself, without having to actually solve it. This is an example of what is called the **qualitative theory** of differential equations.

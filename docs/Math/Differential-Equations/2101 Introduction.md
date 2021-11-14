@@ -1,0 +1,3 @@
+In this session we study one widely-used application of the linear time invariant DE analysis we have developed in this unit, namely, RLC circuits. Remarkably, these circuits can be modeled with the exact same differential equations as the mechanical systems studied in the previous sessions. The symbols used and their interpretation will change, but the fact that the DE's are identical means that, in some sense the behavior of the systems is the same.
+
+We will also use complex techniques to define and understand impedance. Impedance generalizes the notion of resistance and like resistance it follows Ohm's law. These techniques will also allow us to understand phasors and the phase angles between the different voltages in the circuit.

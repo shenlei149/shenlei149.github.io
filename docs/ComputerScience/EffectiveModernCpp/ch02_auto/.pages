@@ -1,0 +1,4 @@
+nav:
+    - 02 auto: README.md
+    - 05 Prefer auto to explicit type declarations: 05_Prefer_auto_to_explicit_type_declarations.md
+    - 06 Use the explicitly typed initializer idiom when auto deduces undesired types: 06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md

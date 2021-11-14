@@ -1,0 +1,51 @@
+site_name: guozi
+site_url: https://guozi149.me/
+repo_url: https://github.com/shenlei149/shenlei149.github.io
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.path
+    - navigation.indexes
+    - content.action.view
+    - content.action.edit
+    - content.code.copy
+  palette:
+    accent: cyan
+  logo: logo.png
+  favicon: logo.png
+  icon:
+    repo: fontawesome/brands/github
+  edit_uri: edit/master/docs/
+
+plugins:
+  - search:
+      lang: zh
+  - awesome-pages
+
+markdown_extensions:
+  - toc:
+      toc_depth: 2-3
+  - pymdownx.magiclink
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - mdx_math:
+      enable_dollar_delimiter: True
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML
+
+extra:
+  analytics:
+    provider: google
+    property: G-5XEQQ0PMY0

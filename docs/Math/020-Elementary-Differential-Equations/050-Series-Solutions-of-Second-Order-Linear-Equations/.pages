@@ -1,0 +1,9 @@
+nav:
+    - 050 Series Solutions of Second-Order Linear Equations 二阶线性方程的级数解 : README.md
+    - 010 回顾幂级数 Review of Power Series: 010-Review-of-Power-Series.md
+    - 020 常点附近的级数解（1） Series Solutions Near an Ordinary Point, Part I: 020-Series-Solutions-Near-an-Ordinary-Point-Part-I.md
+    - 030 常点附近的级数解（2） Series Solutions Near an Ordinary Point, Part I: 030-Series-Solutions-Near-an-Ordinary-Point-Part-II.md
+    - 040 "欧拉方程；正则奇点 Euler Equations; Regular Singular Points": 040-Euler-Equations-Regular-Singular-Points.md
+    - 050 正则奇点附近的级数解（1） Series Solutions Near a Regular Singular Point, Part I: 050-Series-Solutions-Near-a-Regular-Singular-Point-Part-I.md
+    - 060 正则奇点附近的级数解（2） Series Solutions Near a Regular Singular Point, Part II: 060-Series-Solutions-Near-a-Regular-Singular-Point-Part-II.md
+    - 070 贝塞尔方程 Bessel's Equation: 060-Bessel-Equation.md
