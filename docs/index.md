@@ -22,9 +22,9 @@
 
 ## 有生之年系列
 * 自学计算机科学 - https://guozi149.me/TeachMyselfComputerScience/
-  - 真的有生之年之 TAOCP - https://guozi149.me/TeachMyselfComputerScience/#/TAOCP/
+    - 真的有生之年之 TAOCP - https://guozi149.me/TeachMyselfComputerScience/#/TAOCP/
 * 34 岁开始系统学数学 - https://guozi149.me/Mathematics/
 * 自娱自乐的 Project Euler - https://guozi149.me/ProjectEuler/
 * 其他方面的涉猎也有益人生 - https://guozi149.me/reading/
 * 以前写的东西，涉及计算机、Project Euler、阅读等等 - https://guozi149.me/blog/
-  - [ ] 会慢慢挪到其他几个“文档化”的文档中
+    - [ ] 会慢慢挪到其他几个“文档化”的文档中
