@@ -1,0 +1,8 @@
+- [Home](/)
+- [010 Calculus](/010-Calculus/)
+- [010 函数 Functions](/010-Calculus/010-Functions/)
+  - [010 函数及其图像 Functions and Their Graphs](/010-Calculus/010-Functions/010-Functions-and-Their-Graphs.md)
+  - [020 组合函数；变换与缩放图像 Combining Functions; Shifting and Scaling Graphs](/010-Calculus/010-Functions/020-Combining-Functions;-Shifting-and-Scaling-Graphs.md)
+  - [030 三角函数 Trigonometric Functions](/010-Calculus/010-Functions/030-Trigonometric-Functions.md)
+  - [040 指数函数 Exponential Functions](/010-Calculus/010-Functions/040-Exponential-Functions.md)
+  - [050 反函数和对数 Inverse Functions and Logarithms](/010-Calculus/010-Functions/050-Inverse-Functions-and-Logarithms.md)
