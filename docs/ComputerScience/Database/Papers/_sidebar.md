@@ -1,0 +1,5 @@
+- [Home](/)
+- [Database](/Database/)
+- [Papers](/Database/Papers/)
+  - [Concise Hash Table](/Database/Papers/CHT.md)
+  - [Modern Column-Oriented Database Systems](/Database/Papers/columnstoresfntdbs.md)

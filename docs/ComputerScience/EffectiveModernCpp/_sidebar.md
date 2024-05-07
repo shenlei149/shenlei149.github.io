@@ -1,0 +1,7 @@
+- [Home](/)
+- [Effective Modern C++](/EffectiveModernCpp/)
+  - [01 Deducing Types](/EffectiveModernCpp/ch01_Deducing_Types/)
+  - [02 auto](/EffectiveModernCpp/ch02_auto/)
+  - [03 Moving to Modern C++](/EffectiveModernCpp/ch03_Moving_to_Modern_C%2B%2B/)
+  - [04 Smart Pointers](/EffectiveModernCpp/ch04_Smart_Pointers/)
+  - [05 Rvalue References, Move Semantics, and Perfect Forwarding](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/)

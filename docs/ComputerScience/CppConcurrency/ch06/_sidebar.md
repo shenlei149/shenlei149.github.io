@@ -1,0 +1,5 @@
+- [Home](/)
+- [C++ Concurrency](/CppConcurrency/)
+- [Designing lock-based concurrent data structures](/CppConcurrency/ch06/)
+  - [What does it mean to design for concurrency](/CppConcurrency/ch06/01-What-does-it-mean-to-design-for-concurrency.md)
+  - [Lock-based concurrent data structures](/CppConcurrency/ch06/02-Lock-based-concurrent-data-structures.md)

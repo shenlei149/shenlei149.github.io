@@ -1,0 +1,6 @@
+- [Home](/)
+- [Effective Modern C++](/EffectiveModernCpp/)
+- [05 Rvalue References, Move Semantics, and Perfect Forwarding](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/)
+  - [23 Understand std::move and std::forward](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/23_Understand_std_move_and_std_forward.md)
+  - [24 Distinguish universal references from rvalue references](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md)
+  - [25 Use std::move on rvalue references, std::forward on universal references](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md)

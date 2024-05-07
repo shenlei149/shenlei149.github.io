@@ -1,0 +1,8 @@
+- [Home](/)
+- [C++ Concurrency](/CppConcurrency/)
+- [Managing threads](/CppConcurrency/ch02/)
+  - [Basic thread management](/CppConcurrency/ch02/01-Basic-thread-management.md)
+  - [Passing arguments to a thread function](/CppConcurrency/ch02/02-Passing-arguments-to-a-thread-function.md)
+  - [Transferring ownership of a thread](/CppConcurrency/ch02/03-Transferring-ownership-of-a-thread.md)
+  - [Choosing the number of threads at runtime](/CppConcurrency/ch02/04-Choosing-the-number-of-threads-at-runtime.md)
+  - [Identifying threads](/CppConcurrency/ch02/05-Identifying-threads.md)
