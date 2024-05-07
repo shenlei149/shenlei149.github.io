@@ -4,7 +4,7 @@
 
 引用计数的存在会有一些性能问题：
 * `std::shared_ptr` 大小是两倍于裸指针的大小。除了指向对象的指针外，还有一个指针指向引用计数。
-* 引用计数占用的空间需要动态分配。引用计数的值和指向的对象绑定，但是原始对象并不知道引用计数的存在，所以没有地方存这个值。[Item 21](/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md) 会解释通过 `std::make_shared` 构造 `std::shared_ptr` 可以避免动态分配的开销，但是 `std::make_shared` 并不适用于所有场景。
+* 引用计数占用的空间需要动态分配。引用计数的值和指向的对象绑定，但是原始对象并不知道引用计数的存在，所以没有地方存这个值。[Item 21](/ComputerScience/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md) 会解释通过 `std::make_shared` 构造 `std::shared_ptr` 可以避免动态分配的开销，但是 `std::make_shared` 并不适用于所有场景。
 * 引用计数的自增和自减必须是原子操作。因为读写可能在不同的进程，如果不是原子操作，那么结果是错误的。原子操作往往比非原子操作耗时，哪怕只有一个字的长度，所以可以假设读写是相对耗时的。
 
 从一个 `std::shared_ptr` 移动构造一个 `std::shared_ptr`，原始的 `std::shared_ptr` 会被设置成 `nullptr`，不再指向原来的对象，而新的 `std::shared_ptr` 开始指向这个对象，那么该对象对应的引用计数既不需要自增也不需要自减。拷贝 `std::shared_ptr` 需要自增而移动 `std::shared_ptr` 不需要，因此，移动操作要快些。
@@ -41,9 +41,9 @@ std::vector<std::shared_ptr<Widget>> vpw{pw1, pw2};
 ![](1901.png)
 
 当第一次构造 `std::shared_ptr` 时，会构造控制块。一般情况下，构造 `std::shared_ptr` 的函数无法知道是否已经有 `std::shared_ptr` 指向该对象了。因此，创建控制块遵循以下几条规则。
-* 使用 `std::make_shared`（[Item 21](/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md)）构造 `std::shared_ptr` 时会创建控制块，因为这是构造新的对象，不可能有其他 `std::shared_ptr` 指向该对象。
+* 使用 `std::make_shared`（[Item 21](/ComputerScience/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md)）构造 `std::shared_ptr` 时会创建控制块，因为这是构造新的对象，不可能有其他 `std::shared_ptr` 指向该对象。
 * 从独占指针 `std::unique_ptr` 构造 `std::shared_ptr` 时会创建，因为独占指针没有控制块。同时，`std::shared_ptr` 破坏了独占指针的所有权，所以独占指针被设置成了 `nullptr`。
-* 使用裸指针构造 `std::shared_ptr` 时会创建控制块。如果想用已有的控制块的对象构造 `std::shared_ptr`，那么应该使用 `std::shared_ptr` 或 `std::weak_ptr`（[Item 20](/EffectiveModernCpp/ch04_Smart_Pointers/20_Use_std_weak_ptr_for_std_shared_ptr_like_pointers_that_can_dangle.md)）作为参数，而不是裸指针。`std::shared_ptr` 构造函数会使用 `std::shared_ptr` 或 `std::weak_ptr` 的控制块而不是创建一个新的。
+* 使用裸指针构造 `std::shared_ptr` 时会创建控制块。如果想用已有的控制块的对象构造 `std::shared_ptr`，那么应该使用 `std::shared_ptr` 或 `std::weak_ptr`（[Item 20](/ComputerScience/EffectiveModernCpp/ch04_Smart_Pointers/20_Use_std_weak_ptr_for_std_shared_ptr_like_pointers_that_can_dangle.md)）作为参数，而不是裸指针。`std::shared_ptr` 构造函数会使用 `std::shared_ptr` 或 `std::weak_ptr` 的控制块而不是创建一个新的。
 
 如果使用裸指针构造 `std::shared_ptr`，就在向未定义行为狂奔，因为这样会有多个控制块，那么就会有多个引用计数，当每个引用计数都归为零的时候，会析构对象多次！因此，下面代码是相当不好的示范。
 ```cpp
@@ -55,7 +55,7 @@ std::shared_ptr<Widget> spw2(pw, loggingDel); // create 2nd control block for *p
 
 随后，我们用裸指针 `pw` 构造了两个 `std::shared_ptr<Widget>`，当它们的引用计数归零时，会 `delete` `pw` 两次，而这才是导致未定义行为的原因。
 
-这里有两个需要注意的点。第一是不要用裸指针构造 `std::shared_ptr`，而要使用 `std::make_shared`（[Item 21](/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md)），但是如果需要自定义删除器，那么不能用这个方法。第二是如果不得不使用裸指针构造 `std::shared_ptr`，直接传 `new` 对象而不是指针变量。因此，上面的代码改写为：
+这里有两个需要注意的点。第一是不要用裸指针构造 `std::shared_ptr`，而要使用 `std::make_shared`（[Item 21](/ComputerScience/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md)），但是如果需要自定义删除器，那么不能用这个方法。第二是如果不得不使用裸指针构造 `std::shared_ptr`，直接传 `new` 对象而不是指针变量。因此，上面的代码改写为：
 ```cpp
 std::shared_ptr<Widget> spw1(new Widget, // direct use of new
                              loggingDel);
@@ -128,7 +128,7 @@ private:
 
 一个控制块可能有几个字的大小，如果有自定义删除器和分配器，还会更大一些。其实现比想象的还要复杂。使用了继承，还有一个虚函数，确保正确释放对象。也就是说，使用 `std::shared_ptr` 还存在虚函数调用的开销。
 
-这里会有额外的开销，毕竟对资源管理而言，没有最佳方案。就功能而言，这些开销很合理。通常情况下，使用默认删除器和分配器，使用 `std::make_shared` 创建 `std::shared_ptr`，控制块三个字，分配开销近乎没有（详见 [Item 21](/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md)）。对其的解引用不会比裸指针高。引用计数的原子操基本就是一个指令，虽然比非原子操作高。虚函数的开销只有在销毁对象时那么一次。
+这里会有额外的开销，毕竟对资源管理而言，没有最佳方案。就功能而言，这些开销很合理。通常情况下，使用默认删除器和分配器，使用 `std::make_shared` 创建 `std::shared_ptr`，控制块三个字，分配开销近乎没有（详见 [Item 21](/ComputerScience/EffectiveModernCpp/ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md)）。对其的解引用不会比裸指针高。引用计数的原子操基本就是一个指令，虽然比非原子操作高。虚函数的开销只有在销毁对象时那么一次。
 
 付出了一点点性能开销，但是得到了自动管理动态分配资源的生命周期的能力。大部分时候，都倾向于使用 `std::shared_ptr` 管理而不是手动管理。如果犹豫其开销，可以想想是否真的需要共享所有权。如果独占所有权可行或者可能可行，那么 `std::unique_ptr` 是更好的选择。性能与裸指针基本没差，还能容易的转化为 `std::shared_ptr`。
 

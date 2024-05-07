@@ -82,7 +82,7 @@ param = class Widget const *
 
 三个编译器给出了相同的结果，那么应该是准确的。但是仔细思考，`T` 和 `param` 的类型会一样吗？考察一个简单的例子，`T` 的类型是 `int`，那么 `param` 的类型是 `const int&`，两者不同。
 
-事实上，`std::type_info::name` 的结果并不可行，具体到这个例子，`param` 的类型是不对的。`std::type_info::name` 的规范要求它们将类型看做是按值传递的情况，所以不应该要求这些函数一定能返回正确结果。正如 [Item 1](/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中的解释，引用和 `const` 这两个属性会被忽略。这就是为什么 `param` 的真实类型是 `const Widget * const &`，但是输出是 `const Widget*`。首先引用被移除了，接着 `const` 也被移除了。
+事实上，`std::type_info::name` 的结果并不可行，具体到这个例子，`param` 的类型是不对的。`std::type_info::name` 的规范要求它们将类型看做是按值传递的情况，所以不应该要求这些函数一定能返回正确结果。正如 [Item 1](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中的解释，引用和 `const` 这两个属性会被忽略。这就是为什么 `param` 的真实类型是 `const Widget * const &`，但是输出是 `const Widget*`。首先引用被移除了，接着 `const` 也被移除了。
 
 这个例子告诉我们 `std::type_info::name` 不可靠。后续给出了两个例子，说明编辑器的结果也不完全可靠，实际使用 clangd 的经验也是如此，特别复杂的类型推导不太靠谱。
 

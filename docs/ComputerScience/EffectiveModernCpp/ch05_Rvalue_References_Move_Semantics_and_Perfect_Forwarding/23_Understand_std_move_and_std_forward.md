@@ -12,9 +12,9 @@ move(T &&param)
     return static_cast<ReturnType>(param);
 }
 ```
-首先函数名是 `move`。其次，最核心的就是类型转换。给定一个对象的引用（准确的说是通用引用，详见 [Item 24](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md)），返回的也是该对象的引用。
+首先函数名是 `move`。其次，最核心的就是类型转换。给定一个对象的引用（准确的说是通用引用，详见 [Item 24](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md)），返回的也是该对象的引用。
 
-函数返回类型中 `&&` 表示 `std::move` 返回右值引用，但是如 Item 28 TODO link 所说，如果 `T` 是左值引用，那么 `T&&` 是左值引用。为了正确性，我们使用 type traits（[Item 9](/EffectiveModernCpp/ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md)）`std::remove_reference` 确保 `&&` 应用于非引用类型。`std::move` 最后返回右值引用，从函数中返回右值引用，那么结果类型是右值。这就是 `std::move` 所做的全部了：将参数转换成右值。
+函数返回类型中 `&&` 表示 `std::move` 返回右值引用，但是如 Item 28 TODO link 所说，如果 `T` 是左值引用，那么 `T&&` 是左值引用。为了正确性，我们使用 type traits（[Item 9](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md)）`std::remove_reference` 确保 `&&` 应用于非引用类型。`std::move` 最后返回右值引用，从函数中返回右值引用，那么结果类型是右值。这就是 `std::move` 所做的全部了：将参数转换成右值。
 
 C++14 可以简化实现
 ```cpp

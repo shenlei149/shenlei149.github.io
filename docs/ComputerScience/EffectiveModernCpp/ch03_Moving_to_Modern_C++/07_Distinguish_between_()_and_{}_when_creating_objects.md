@@ -76,7 +76,7 @@ Widget w3{}; // calls Widget ctor with no args
 
 统一初始化到处可以用，能够阻止向窄类型转化，还能调用无参构造函数。好处很多，但是标题不是首选这个方式呢？
 
-因为统一初始化有很多缺陷导致了非预期的行为。[Item 2](/EffectiveModernCpp/ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 就描述了它和 `auto` 配合时可能会产生的问题。
+因为统一初始化有很多缺陷导致了非预期的行为。[Item 2](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 就描述了它和 `auto` 配合时可能会产生的问题。
 
 当 `std::initializer_list` 没有掺和构造函数时，大括号和小括号两种方式调用构造函数的行为是一致的。
 ```cpp

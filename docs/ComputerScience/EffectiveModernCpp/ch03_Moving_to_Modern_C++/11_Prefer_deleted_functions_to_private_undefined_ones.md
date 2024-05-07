@@ -1,4 +1,4 @@
-如果不想让用户不能使用某个函数，不写就完事了。不过 C++ 会帮你生成一些函数，即一些特殊的类的成员函数。[Item 17](/EffectiveModernCpp/ch03_Moving_to_Modern_C++/17_Understand_special_member_function_generation.md) 会详细解释这函数。这里只会涉及拷贝构造和拷贝赋值函数。C++98 的做法，在 C++11 中有更好的实现方式。
+如果不想让用户不能使用某个函数，不写就完事了。不过 C++ 会帮你生成一些函数，即一些特殊的类的成员函数。[Item 17](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/17_Understand_special_member_function_generation.md) 会详细解释这函数。这里只会涉及拷贝构造和拷贝赋值函数。C++98 的做法，在 C++11 中有更好的实现方式。
 
 C++98 通过声明成员函数为 `private` 且不定义这些函数来使得无法使用这些函数。下面是 STL 中禁止拷贝 I/O 流的实现：
 ```cpp

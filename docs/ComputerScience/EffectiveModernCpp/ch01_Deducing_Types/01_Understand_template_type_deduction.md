@@ -8,7 +8,7 @@ void f(ParamType param);
 f(expr);
 ```
 编译器会自动推断 `T` 和 `ParamType` 的类型。而这两者往往不同，因为后者会有 `const` 或者引用等修饰。从 `expr` 中需要同时推导 `T` 和 `ParamType`，我们需要考虑如下三种场景：
-* `ParamType` 是指针或者引用，但不是通用引用（`universal reference`）（参考 [Item 24](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md)）
+* `ParamType` 是指针或者引用，但不是通用引用（`universal reference`）（参考 [Item 24](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md)）
 * `ParamType` 是通用引用
 * `ParamType` 既不是指针也不是引用
 
@@ -75,9 +75,9 @@ f(px); // T is const int,
 至此，C++的类型推导基本符合直觉。
 
 ## Case 2: ParamType is a Universal Reference
-如果是通用引用的话，事情就不这么明显了。参数声明像右值引用，但是当左值传入的时候，行为却不一样。具体参见 [Item 24](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md)，这里先大致介绍一下。
+如果是通用引用的话，事情就不这么明显了。参数声明像右值引用，但是当左值传入的时候，行为却不一样。具体参见 [Item 24](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md)，这里先大致介绍一下。
 * 如果 `expr` 是左值，那么 `T` 和 `ParamType` 都被推导成了左值引用。这是唯一一个场景使得 `T` 是引用类型，其次 `ParamType` 语法是右值引用，但是被推导成左值引用。
-* 如果 `expr` 是右值，那么一切都回到了直观的场景（参见 [Case 1](/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction?id=case-1-paramtype-is-a-reference-or-pointer-but-not-a-universal-reference)）。
+* 如果 `expr` 是右值，那么一切都回到了直观的场景（参见 [Case 1](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction?id=case-1-paramtype-is-a-reference-or-pointer-but-not-a-universal-reference)）。
 
 比如
 ```cpp
@@ -97,7 +97,7 @@ f(rx); // rx is lvalue, so T is const int&,
 f(27); // 27 is rvalue, so T is int,
        // param's type is therefore int&&
 ```
-[Item 24](/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md) 会详细解释。这里关键点是对于通用引用参数的类型推导规则和参数类型是左值引用或者右值引用是不同的。当使用通用引用时，类型推导会区别对待左值引用和右值引用，对于非通用引用不会有这样的不同。
+[Item 24](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md) 会详细解释。这里关键点是对于通用引用参数的类型推导规则和参数类型是左值引用或者右值引用是不同的。当使用通用引用时，类型推导会区别对待左值引用和右值引用，对于非通用引用不会有这样的不同。
 
 ## Case 3: ParamType is Neither a Pointer nor a Reference
 这里就是按值传递了。
@@ -175,7 +175,7 @@ constexpr std::size_t arraySize(T (&)[N]) noexcept
     return N;
 }
 ```
-`constexpr` 使得可以编译器得到结果（参见 [Item 15](/EffectiveModernCpp/ch03_Moving_to_Modern_C++/15_Use_constexpr_whenever_possible.md)）。`noexcept` 可以帮助编译器更好的优化（参见 [Item 14](/EffectiveModernCpp/ch03_Moving_to_Modern_C++/14_Declare_functions_noexcept_if_they_wont_emit_exceptions.md)）。
+`constexpr` 使得可以编译器得到结果（参见 [Item 15](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/15_Use_constexpr_whenever_possible.md)）。`noexcept` 可以帮助编译器更好的优化（参见 [Item 14](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/14_Declare_functions_noexcept_if_they_wont_emit_exceptions.md)）。
 
 使用这个函数可以容易的创建处大小一样的数组。
 ```cpp

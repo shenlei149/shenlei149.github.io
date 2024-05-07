@@ -1,6 +1,6 @@
 `auto` 类型推导和模板类型推导类似，只有一个例外。
 
-在 [Item 1](/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中，使用下面这样通用的模板函数进行描述。
+在 [Item 1](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中，使用下面这样通用的模板函数进行描述。
 ```cpp
 template<typename T>
 void f(ParamType param);
@@ -37,7 +37,7 @@ void func_for_rx(const T& param);   // deducing rx's type
 func_for_rx(x);     // conceptual call: param's deduced type is rx's type
 ```
 
-根据 `ParamType` 的不同特征，[Item 1](/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 讨论时分成了三种情况，这里也是类似的：
+根据 `ParamType` 的不同特征，[Item 1](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 讨论时分成了三种情况，这里也是类似的：
 * 类型说明符是指针或者引用，但不是通用引用
 * 类型说明符是通用引用
 * 类型说明符既不是指针也不是引用
@@ -56,7 +56,7 @@ auto&& uref2 = cx;      // cx is const int and lvalue, so uref2's type is const 
 auto&& uref3 = 27;      // 27 is int and rvalue, so uref3's type is int&&
 ```
 
-[Item 1](/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中讨论了对于非引用类型，数组和函数退化成了指针，`auto` 类型推导也是类似的：
+[Item 1](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中讨论了对于非引用类型，数组和函数退化成了指针，`auto` 类型推导也是类似的：
 ```cpp
 const char name[] = "R. N. Briggs";     // name's type is const char[13]
 
@@ -81,7 +81,7 @@ int x3 = { 27 };
 int x4{ 27 };
 ```
 
-[Item 5](/EffectiveModernCpp/ch02_auto/05_Prefer_auto_to_explicit_type_declarations.md) 阐述了使用 `auto` 替代固定类型有很多好处，所以这里直接把 `int` 替换成 `auto` 得到如下代码。
+[Item 5](/ComputerScience/EffectiveModernCpp/ch02_auto/05_Prefer_auto_to_explicit_type_declarations.md) 阐述了使用 `auto` 替代固定类型有很多好处，所以这里直接把 `int` 替换成 `auto` 得到如下代码。
 ```cpp
 auto x1 = 27;
 auto x2(27);
@@ -123,7 +123,7 @@ f({ 11, 23, 9 });   // T deduced as int, and initList's
 
 所以唯一的区别就是 `auto` 假设使用统一初始化的变量类型是 `std::initializer_list` 而不模板类型推导没有这个假设。
 
-本书作者也没有搞明白为什么要有这个规则。不过规则就是规则，记住就好了。正是由于有这个陷阱，很多开发者只有在必要的时候才加大括号。参见 [Item 7](/EffectiveModernCpp/ch03_Moving_to_Modern_C++/07_Distinguish_between_()_and_{}_when_creating_objects.md)。
+本书作者也没有搞明白为什么要有这个规则。不过规则就是规则，记住就好了。正是由于有这个陷阱，很多开发者只有在必要的时候才加大括号。参见 [Item 7](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/07_Distinguish_between_()_and_{}_when_creating_objects.md)。
 
 C++14 中函数的返回值允许是 `auto`，lambda 表达式的参数也可以使用 `auto`，不过此时类型推导使用的模板类型推导规则而不是 `auto` 类型推导规则。也就是说，函数返回或者是向 lambda 传入一个大括号写作的统一初始化语句，会编译失败。
 ```cpp

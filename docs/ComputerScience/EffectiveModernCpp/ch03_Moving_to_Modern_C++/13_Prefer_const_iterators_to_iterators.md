@@ -22,7 +22,7 @@ ConstIterT ci =
 values.insert(static_cast<IterT>(ci), 1998); // may not compile; see below
 ```
 
-`typedef` 不是必须的，如 [Item 9](/EffectiveModernCpp/ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md) 所言，更应该使用 `using`，不过那是 C++11 的语法而这是 C++98 的例子。
+`typedef` 不是必须的，如 [Item 9](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md) 所言，更应该使用 `using`，不过那是 C++11 的语法而这是 C++98 的例子。
 
 `std::find` 中有两次类型转化，原因是 `values` 不是 `const` 容器，没有很简单的方式获取 `const_iterator`。另一个可选的方法是将 `values` 绑定到一个 `const` 引用上，然后用这个引用替代 `values`。不管怎么说，都很麻烦。
 
