@@ -1,0 +1,3 @@
+- [Home](/)
+- [心理](/psychology/)
+  - [自控力](/psychology/willpower.md)

@@ -1,0 +1,3 @@
+- [Home](/)
+- [教育](/edu/)
+  - [有吸引力的心灵](/edu/the_absorbent_mind.md)
