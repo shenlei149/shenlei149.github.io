@@ -1,0 +1,9 @@
+In this session we will introduce the transfer function (often called the system function). For a system $p(D)x = f(t)$, the transfer function is simply $1/p(s)$. It is also the Laplace transform of the unit impulse response.  
+The operator $p(D)$ contains complete information about the system, but it can be hard to see at a glance. Things like stability, oscillatory behavior and resonanant frequencies are not always obvious just by looking at the polynomial operator.  
+The transfer function $W(s) = 1/p(s)$ also contains complete information. After all, you can easily find $p(D)$ if you know $W(s).$ The transfer function has several big advantages.
+1. Not all linear time invariant systems come from differential equations. So they don't necessarily have a $p(D)$. However, they all have transfer functions which are used in exactly the same way as we will learn for our systems.
+2. When we studied convolution we learned Green's formula. This allows us to solve an ODE with rest initial conditions and any input once we know the unit impulse response. The Laplace transform will make Green's formula very simple to understand and use. Since the transfer function is the Laplace transform of the unit impulse response it will play a prominent role in this.
+3. We can understand a combination of systems if we know the system functions of its constituent parts.
+4. In the next session we will use the transfer function's *pole diagram* to to make many of the system's properties obvious at a glance.
+
+In this session we will start by defining the transfer function and use it to solve IVP's with rest initial conditions. Then we will see that Laplace transform changes convolution of functions in time into multiplication of functions in frequency. This will make Green's formula particularly simple to state. Finally, we will look at block diagrams and use them to combine systems in much the same way that simple circuits can be combined to make complicated ones.
