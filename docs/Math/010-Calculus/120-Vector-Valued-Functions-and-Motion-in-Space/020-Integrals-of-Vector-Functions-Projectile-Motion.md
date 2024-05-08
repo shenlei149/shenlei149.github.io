@@ -84,6 +84,46 @@ $$\boldsymbol{r}(t)=(1+3\cos t)\boldsymbol{i}+(3\sin t)\boldsymbol{j}+t^2\boldsy
 
 ![](020.010.png)
 
-
-
 ### 抛射体运动的矢量和参数方程
+一个经典例子是抛射体运动。这里，我们仅考虑重力作用于抛射体而没有其他力的作用，同时也忽略诸如地球转动等其他因素。对于大部分场景，这是一个合理的近似。
+
+假定抛射体仅受到垂直地面的力，在一个垂直平面内运动。初始时 $t=0$，位于原点，初始速度是 $\boldsymbol{v}_0$，其与水平面之间的夹角是 $\alpha$。
+
+![](020.021.png)
+
+因此，可以得到速度矢量方程
+$$
+\boldsymbol{v}_0=(|\boldsymbol{v}_0|\cos\alpha)\boldsymbol{i}+(|\boldsymbol{v}_0|\sin\alpha)\boldsymbol{j}
+$$
+如果使用 $v_0$ 表示 $|\boldsymbol{v}_0|$，那么
+$$
+\boldsymbol{v}_0=(v_0\cos\alpha)\boldsymbol{i}+(v_0\sin\alpha)\boldsymbol{j}
+$$
+初始位置矢量
+$$
+\boldsymbol{r}_0=0\boldsymbol{i}+0\boldsymbol{j}=\boldsymbol{0}
+$$
+根据牛顿力学第二定律，力等于质量 $m$ 乘以加速度 $d^2\boldsymbol{r}/dt^2$，其中 $\boldsymbol{r}$ 表示 $t$ 时刻的位置矢量。重力等于 $-mg\boldsymbol{j}$，因此
+$$
+m\frac{d^2\boldsymbol{r}}{dt^2}=-mg\boldsymbol{j}
+$$
+$$
+\frac{d^2\boldsymbol{r}}{dt^2}=-g\boldsymbol{j}
+$$
+积分一次可以得到
+$$
+\frac{d\boldsymbol{r}}{dt}=-(gt)\boldsymbol{j}+\boldsymbol{v}_0
+$$
+再次积分得到
+$$
+\boldsymbol{r}=-\frac{1}{2}gt^2\boldsymbol{j}+\boldsymbol{v}_0+\boldsymbol{r}_0
+$$
+将初始值 $\boldsymbol{v}_0,\boldsymbol{r}_0$ 代入方程得到
+$$
+\boldsymbol{r}=-\frac{1}{2}gt^2\boldsymbol{j}+(v_0\cos\alpha)t\boldsymbol{i}+(v_0\sin\alpha)t\boldsymbol{j}+\boldsymbol{0}
+$$
+
+**理想抛射体运动方程**
+> $$
+> \boldsymbol{r}=(v_0\cos\alpha)t\boldsymbol{i}+((v_0\sin\alpha)t-\frac{1}{2}gt^2)\boldsymbol{j}
+> $$
