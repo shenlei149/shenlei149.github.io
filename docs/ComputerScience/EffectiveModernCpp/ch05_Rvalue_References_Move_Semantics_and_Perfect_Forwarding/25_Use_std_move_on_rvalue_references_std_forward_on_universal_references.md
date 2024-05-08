@@ -77,6 +77,61 @@ public:
 };
 ```
 这可以工作，但是有缺陷。首先，维护两份代码的成本比维护一个模板要高。第二，可能会有性能问题。比如如下使用 `setName`
+```cpp
+w.setName("Adela Novak");
+```
+对于通用引用的版本而言，字面量 `"Adela Novak"` 可以传递给 `setName`，也可以传递给 `w` 内部的 `std::string` 的赋值运算符。`w` 的 `name` 字段直接通过字面量赋值，没有 `std::string` 的临时对象会被创建。但是对于后面重载版本，必须创建一个 `std::string` 临时对象，绑定到 `setName` 的参数上，这个临时对象被移动给 `w` 的字段。这就涉及 `std::string` 的构造、移动复制操作和析构。这比调用接受 `const char*` 参数类型的 `std::string` 赋值运算符耗时的多。事实就是，将通用引用参数的模板函数改成接受左值和右值引用的函数重载，某些情况下会有性能损失。如果 `Widget` 成员类型是任意类型，额外开销可能会更大，因为不是所有类型的移动操作都和 `std::string` 一样小。参考 Item 29 TODO。
 
+重载版本引入的最重要的问题是扩展性问题。现在 `Widget::setName` 只有一个参数，那么只需要两个重载版本，如果是 $n$ 个参数呢？$2^n$ 个重载函数，指数级爆炸，不现实。更甚，一些函数有不限个参数，每一个可能是左值也可能是右值。比如 `std::make_shared` 和 `std::make_unique`：
+```cpp
+template <class T, class... Args>
+shared_ptr<T> make_shared(Args &&...args);
+
+template <class T, class... Args>
+unique_ptr<T> make_unique(Args &&...args);
+```
+对于这种情况，通用引用是唯一的选择。这时，要使用 `std::forward` 传递通用引用参数给其他函数。
+
+某些情况下，可能一开始不是这样的，需要在一个函数内多次使用绑定到右值引用或通用引用的对象，那么需要确保在其他操作完成前，不会移动这个对象。因此，最后一次使用的时候，可以使用 `std::move` 或 `std::forward`。比如
+```cpp
+template <typename T> // text is univ. reference
+void setSignText(T &&text)
+{
+    sign.setText(text); // use text, but don't modify it
+
+    // get current time
+    auto now = std::chrono::system_clock::now();
+
+    // conditionally cast text to rvalue
+    signHistory.add(now, std::forward<T>(text));
+}
+```
+我们想要确保 `text` 的内容不会被 `sign.setText` 修改，原因是这个值需要再 `signHistory.add` 中再次被使用。因此只能再最后使用 `std::forward`。
+
+对于 `std::move` 而言，规则是一样的。不过在一些情况下，需要使用 `std::move_if_noexcept`。
+
+在一个按值返回的函数中，返回的是右值引用或者通用引用的对象，需要对返回的引用调用 `std::move` 或 `std::forward`。考虑如下两个矩阵相加的 `operator+` 操作，左边的矩阵是右值，用于保存结果。
+```cpp
+Matrix // by-value return
+operator+(Matrix && lhs, const Matrix & rhs)
+{
+    lhs += rhs;
+
+    return std::move(lhs); // move lhs into  return value
+}
+```
+`lhs` 转化成了右值，那么可以移动到返回值的内存中。如果不调用 `std::move`
+```cpp
+Matrix // as above
+operator+(Matrix && lhs, const Matrix & rhs)
+{
+    lhs += rhs;
+
+    return lhs; // copy lhs into return value
+}
+```
+此时，`lhs` 是左值，那么会拷贝到返回值的内存中。如果 `Matrix` 支持移动操作，比拷贝操作更轻量，那么使用 `std::move` 就更高效。
+
+如果 `Matrix` 不支持移动，那么也不会更差，因为右值也能用于 `Matrix` 的拷贝构造函数（[Item 23](./23_Understand_std_move_and_std_forward.md)）。如果随后 `Matrix` 支持了移动操作，那么 `operator+` 就会受益。
 
 ##
