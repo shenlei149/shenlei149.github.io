@@ -134,4 +134,67 @@ operator+(Matrix && lhs, const Matrix & rhs)
 
 如果 `Matrix` 不支持移动，那么也不会更差，因为右值也能用于 `Matrix` 的拷贝构造函数（[Item 23](./23_Understand_std_move_and_std_forward.md)）。如果随后 `Matrix` 支持了移动操作，那么 `operator+` 就会受益。
 
-##
+通用引用和 `std::forward` 也要类似使用。考虑函数模板 `reduceAndCopy` 接受一个未约化的对象 `Fraction`，约化，然后返回一个拷贝对象。如果原始对象是右值，那么可以移动到返回值中，避免拷贝，如果是左值，就不得不拷贝了。
+```cpp
+template <typename T>
+Fraction                // by-value return
+reduceAndCopy(T &&frac) // universal reference param
+{
+    frac.reduce();
+    return std::forward<T>(frac); // move rvalue into return
+}
+```
+如果忽略 `std::forward`，那么会无条件地拷贝返回值。
+
+注意，上述优化仅适用于返回参数是右值引用参数或者通用引用参数，不可以用于按值返回局部变量的情况。比如
+```cpp
+Widget makeWidget() // "Copying" version of makeWidget
+{
+    Widget w; // local variable
+
+    // configure w
+
+    return w; // "copy" w into return value
+}
+```
+不应该优化为
+```cpp
+Widget makeWidget() // Moving version of makeWidget
+{
+    Widget w;
+
+    return std::move(w); // move w into return value (don't do this!)
+}
+```
+标准委员会的人很早就意识到对于第一个版本的 `makeWidget`，可以避免拷贝局部变量 `w`，而直接在返回值的内存处构造这个对象。这就是 RVO（`return value optimization`）。
+
+对于这种拷贝消除只在不影响软件行为的地方才可以实施。要满足两个条件：1）局部对象与函数返回值类型相同；2）局部对象就是要返回的东西。
+
+第一个版本的 `makeWidget` 满足这两个条件，所以编译器会进行 RVO 从而避免拷贝。
+
+而第二个版本的 `makeWidget` 不满足第二个条件，返回的已经不是局部对象 `w` 了而是对 `w` 的引用（`std::move` 的返回结果）。开发者试图帮助编译器优化，反而限制了编译器的优化。
+
+RVO 仅仅是一个优化。万一编译器没有优化呢？那么就会拷贝吗？是不是此时就应该使用 `std::move` 呢？答案依旧是否定的。
+
+C++ 标准规定如果满足 RVO 条件时，没有进行 RVO 优化，那么就必须视返回值为右值。因此，要么实现了 RVO 优化，避免了拷贝，要么代码与显式地写了 `std::move` 一样。不管发生那种情况，结果要么比显式地写了 `std::move` 好，要么与显式地写了 `std::move` 一样。因此，不要画蛇添足。
+
+这种情况与按值传递参数的函数很像。不过这里无法对返回参数做拷贝消除的优化，但是如果返回的是按值传递的参数，编译器应该视为右值。因此，如下代码
+```cpp
+// by-value parameter of same type as function's return
+Widget makeWidget(Widget w)
+{
+    return w;
+}
+```
+在编译器看来与下面代码一样
+```cpp
+Widget makeWidget(Widget w)
+{
+    return std::move(w); // treat w as rvalue
+}
+```
+
+## Things to Remember
+* Apply `std::move` to rvalue references and `std::forward` to universal references the last time each is used.
+* Do the same thing for rvalue references and universal references being returned from functions that return by value.
+* Never apply `std::move` or `std::forward` to local objects if they would otherwise be eligible for the return value optimization.
