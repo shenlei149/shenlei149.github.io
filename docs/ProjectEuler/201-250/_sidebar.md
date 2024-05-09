@@ -2,4 +2,5 @@
 - [201 - 250](/201-250/)
   - [203 Squarefree Binomial Coefficients](/201-250/203-Squarefree-Binomial-Coefficients.md)
   - [205 Dice Game](/201-250/205-Dice-Game.md)
+  - [206 Concealed Square](/201-250/206-Concealed-Square.md)
   - [243 Resilience](/201-250/243-Resilience.md)
