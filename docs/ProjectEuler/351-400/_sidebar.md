@@ -1,4 +1,0 @@
-- [Home](/)
-- [351 - 400](/351-400/)
-  - [357 Prime Generating Integers](/351-400/357-Prime-Generating-Integers.md)
-  - [381 (prime - k) Factorial](/351-400/381-Prime-Factorial.md)

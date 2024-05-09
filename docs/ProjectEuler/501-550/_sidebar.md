@@ -1,6 +1,0 @@
-- [Home](/)
-- [501 - 550](/501-550/)
-  - [504 Square on the Inside](/501-550/504-Square-on-the-Inside.md)
-  - [516 5-smooth Totients](/501-550/516-5-smooth-Totients.md)
-  - [518 Prime Triples and Geometric Sequences](/501-550/518-Prime-Triples-and-Geometric-Sequences.md)
-  - [549 Divisibility of Factorials](/501-550/549-Divisibility-of-Factorials.md)

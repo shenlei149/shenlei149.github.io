@@ -1,4 +1,0 @@
-- [Home](/)
-- [601 - 650](/601-650/)
-  - [601 Divisibility Streaks](/601-650/601-Divisibility-Streaks.md)
-  - [613 Pythagorean Ant](/601-650/613-Pythagorean-Ant.md)
