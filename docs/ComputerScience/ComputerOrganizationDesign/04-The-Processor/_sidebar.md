@@ -1,5 +1,0 @@
-- [Home](/)
-- [Computer Organization and Design (RISC-V)](/ComputerOrganizationDesign/)
-- [04 The Processor](/ComputerOrganizationDesign/04-The-Processor/)
-  - [01 Introduction](/ComputerOrganizationDesign/04-The-Processor/01-Introduction.md)
-  - [03 Building a Datapath](/ComputerOrganizationDesign/04-The-Processor/03-Building-a-Datapath.md)
