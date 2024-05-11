@@ -1,5 +1,0 @@
-- [Home](/)
-- [文学](/literature/)
-  - [1984](/literature/1984.md)
-  - [美丽新世界](/literature/new-world.md)
-  - [地心游记](/literature/journey_centre_earth.md)
