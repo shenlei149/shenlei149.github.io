@@ -122,7 +122,65 @@ public:
 Person p("Nancy");
 auto cloneOfP(p); // create new Person from p; this won't compile!
 ```
-这里使用一个 `Person` 对象构造另外一个，很明显，调用拷贝构造函数。注意，这 `p` 是左值，不能通过移动的方式完成拷贝。
+这里使用一个 `Person` 对象构造另外一个，很明显，调用拷贝构造函数。注意，这 `p` 是左值，不能通过移动的方式完成拷贝。但是这段代码不会调用拷贝构造函数，而是调用完美转发的构造函数，而 `std::string` 没有接受 `Person` 类型的构造函数，编译器会报错。
+
+为什么会出错？编译器只是严格执行了标准罢了。`cloneOfP` 由非 `const` 对象 `p` 实例化，那么模板构造函数实例化成了一个接受非 `const` 左值的函数。即 `Person` 类实际如下：
+```cpp
+class Person
+{
+public:
+    explicit Person(Person &n)            // instantiated from
+        : name(std::forward<Person &>(n)) // perfect-forwarding template
+    {
+    }
+
+    explicit Person(int idx); // as before
+
+    Person(const Person &rhs); // copy ctor (compiler-generated)
+};
+```
+语句
+```cpp
+auto cloneOfP(p);
+```
+中的 `p` 会被传递给完美转发构造函数或者拷贝构造函数。但是需要添加 `const` 才能完美匹配拷贝构造函数，而调用完美转发函数则不需要。因此编译器选择了完美转发构造函数。
+
+如果我们稍加修改，添加上 `const` 修饰，那么就会调用拷贝构造函数。
+```cpp
+const Person cp("Nancy"); // object is now const
+auto cloneOfP(cp);        // calls copy constructor!
+```
+由于添加了 `const`，此时，与拷贝构造函数精确匹配。模板函数实例化之后，与拷贝构造函数签名一致。
+```cpp
+class Person
+{
+public:
+    explicit Person(const Person &n); // instantiated from template
+
+    Person(const Person &rhs); // copy ctor (compiler-generated)
+};
+```
+这不会导致问题，因为 C++ 重载规则规定模板实例化函数与非模板函数签名一致，优先非模板函数。
+
+将继承考虑进来，完美转发构造函数、自动生成的构造函数、移动操作之间会变得更复杂。继承类的拷贝构造函数和移动构造函数的传统实现的行为可能会变得很奇怪。
+```cpp
+class SpecialPerson : public Person
+{
+public:
+    SpecialPerson(const SpecialPerson &rhs) // copy ctor; calls
+        : Person(rhs)                       // base class forwarding ctor!
+    {
+    }
+
+    SpecialPerson(SpecialPerson &&rhs) // move ctor; calls
+        : Person(std::move(rhs))       // base class forwarding ctor!
+    {
+    }
+};
+```
+如注释所说，继承类的拷贝构造函数和移动构造函数不会调用基类的相应的构造函数，而是调用完美转发的构造函数。原因很简单，因为传入的参数是 `SpecialPerson` 类型，模板函数实例化之后能精确匹配，而 `Person` 的构造函数参数类型是 `Person`。这就导致代码无法编译，因为 `std::string` 没有接受 `SpecialPerson` 类型的构造函数。
+
+重载通用引用函数是糟糕的注意，但是如果完美转发通用引用能处理大部分类型，但是又有极个别的类型需要单独处理，怎么办呢？详见 Item 27 TODO。
 
 ## Things to Remember
 * Overloading on universal references almost always leads to the universal reference overload being called more frequently than expected.
