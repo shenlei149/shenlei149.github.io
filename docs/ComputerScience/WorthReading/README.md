@@ -1,3 +1,5 @@
+# 值得一读
+
 这里收集一些值得一读的文章，或者是值得花时间看的视频。
 
 ## [std::simd: How to Express Inherent Parallelism Efficiently Via Data-parallel Types](https://www.youtube.com/watch?v=LAJ_hywLtMA)

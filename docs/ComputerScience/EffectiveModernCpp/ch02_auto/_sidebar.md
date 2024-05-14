@@ -1,5 +1,0 @@
-- [Home](/)
-- [Effective Modern C++](/ComputerScience/EffectiveModernCpp/)
-- [02 auto](/ComputerScience/EffectiveModernCpp/ch02_auto/)
-  - [05 Prefer auto to explicit type declarations](/ComputerScience/EffectiveModernCpp/ch02_auto/05_Prefer_auto_to_explicit_type_declarations.md)
-  - [06 Use the explicitly typed initializer idiom when auto deduces undesired types](/ComputerScience/EffectiveModernCpp/ch02_auto/06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md)

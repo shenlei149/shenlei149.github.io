@@ -1,5 +1,3 @@
-# 05 Rvalue References, Move Semantics, and Perfect Forwarding
-
 当初次学习移动语义（`move semantics`）和完美转发（`perfect forwarding`）时，它们相当直观：
 * 移动语义：使用相对廉价的移动操作替代昂贵的复制操作。实现移动构造函数和移动赋值操作控制其行为。移动语义允许只能移动（`move-only`）的类型，比如 `std::unique_ptr` `std::future` `std::thread`。
 * 完美转发：使得我们可以实现一个模板函数，接受任意多的参数，将其转发给其他函数，传递给目标函数和传递给转发函数的参数一致。

@@ -1,0 +1,13 @@
+nav:
+    - 03 Moving to Modern C++: README.md
+    - 07 Distinguish between () and {} when creating objects: 07_Distinguish_between_parenthesis_and_brace_when_creating_objects.md
+    - 08 Prefer nullptr to 0 and NULL: 08_Prefer_nullptr_to_0_and_NULL.md
+    - 09 Prefer alias declarations to typedefs: 09_Prefer_alias_declarations_to_typedefs.md
+    - 10 Prefer scoped enums to unscoped enums: 10_Prefer_scoped_enums_to_unscoped_enums.md
+    - 11 Prefer deleted functions to private undefined ones: 11_Prefer_deleted_functions_to_private_undefined_ones.md
+    - 12 Declare overriding functions override: 12_Declare_overriding_functions_override.md
+    - 13 Prefer const_iterators to iterators: 13_Prefer_const_iterators_to_iterators.md
+    - 14 Declare functions noexcept if they won't emit exceptions: 14_Declare_functions_noexcept_if_they_wont_emit_exceptions.md
+    - 15 Use constexpr whenever possible: 15_Use_constexpr_whenever_possible.md
+    - 16 Make const member functions thread safe: 16_Make_const_member_functions_thread_safe.md
+    - 17 Understand special member function generation: 17_Understand_special_member_function_generation.md

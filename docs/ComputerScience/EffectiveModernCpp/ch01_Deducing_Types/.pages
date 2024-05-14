@@ -1,0 +1,6 @@
+nav:
+    - 01 Deducing Types: README.md
+    - 01 Understand template type deduction: 01_Understand_template_type_deduction.md
+    - 02 Understand auto type deduction: 02_Understand_auto_type_deduction.md
+    - 03 Understand decltype: 03_Understand_decltype.md
+    - 04 Know how to view deduced types: 04_Know_how_to_view_deduced_types.md

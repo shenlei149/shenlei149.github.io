@@ -1,7 +1,0 @@
-- [Home](/)
-- [Effective Modern C++](/ComputerScience/EffectiveModernCpp/)
-- [01 Deducing Types](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/)
-  - [01 Understand template type deduction](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md)
-  - [02 Understand auto type deduction](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/02_Understand_auto_type_deduction.md)
-  - [03 Understand decltype](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/03_Understand_decltype.md)
-  - [04 Know how to view deduced types](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/04_Know_how_to_view_deduced_types.md)
