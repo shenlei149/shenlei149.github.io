@@ -1,3 +1,0 @@
-- [Home](/)
-- [哲学](/philosophy/)
-  - [老子今注今释](/philosophy/laozi.md)

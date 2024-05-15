@@ -1,6 +1,0 @@
-- [Home](/)
-- [其他](/miscellaneous/)
-  - [空谷幽兰](/miscellaneous/road_to_heaven.md)
-  - [黑客与画家](/miscellaneous/hackers_and_painters.md)
-  - [怪诞行为学](/miscellaneous/predictably_irrational.md)
-  - [谈判](/miscellaneous/negotiation.md)
