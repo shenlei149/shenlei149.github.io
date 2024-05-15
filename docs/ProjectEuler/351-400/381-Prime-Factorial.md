@@ -28,8 +28,7 @@ $(p−2)^{−1} (p−3)^{−1} (p−4)^{−1}$ 这玩意如何整成整数呢？
 对于整数 $n,p$，如果存在整数 $b$，满足 $nb\operatorname{mod} p =1$，则说，$b$ 是 $n$ 的模 $p$ 乘法逆元。并且 $n$ 存在模 $p$ 的乘法逆元的充要条件是 $\gcd(n,p) = 1$。
 显然，$p-2, p-3, p-4$ 与 $p$ 互质。
 
-那么如何求逆元呢？考虑 [扩展欧几里得算法](TODO
- LINK)
+那么如何求逆元呢？考虑 [扩展欧几里得算法](../../Math/200-Discrete-Mathematics-and-Its-Applications/040-Number-Theory-and-Cryptography/030-Primes-and-Greatest-Common-Divisors.md)
 $$ap + b(p-2) = 1$$
 显然，$p-2$ 的逆元就是扩展欧几里得算法中的 $b$。
 
