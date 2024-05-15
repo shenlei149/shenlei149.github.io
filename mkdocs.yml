@@ -7,13 +7,14 @@ theme:
     - navigation.tabs.sticky
     - navigation.path
     - navigation.indexes
-    - toc.integrate
 
 plugins:
     - search
     - awesome-pages
 
 markdown_extensions:
+  - toc:
+      toc_depth: 2-3
   - pymdownx.magiclink
   - pymdownx.tasklist:
       custom_checkbox: true
