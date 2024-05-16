@@ -130,4 +130,4 @@ $$b\leq 2b+d-c\leq a+b+d-c-1\leq a+d-1\leq r-1$$
 与(a)同理，那么共有$\begin{pmatrix}r+3\\4\end{pmatrix}$种可能性。  
 (c) $a>c,b>c$，那么$(1)(2)(3)(4)$都是冗余的。
 $$c\leq b-1\leq b+d-1\leq a+b+d-c-2\leq r-2$$
-同理，共有$\begin{pmatrix}r+2\\4\end{pmatrix}$种可能性。
+同理，共有 $\begin{pmatrix}r+2\\4\end{pmatrix}$ 种可能性。

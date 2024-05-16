@@ -1,0 +1,8 @@
+nav:
+    - 04 Number Theory and Cryptography: README.md
+    - 010 Divisibility and Modular Arithmetic: 010-Divisibility-and-Modular-Arithmetic.md
+    - 020 Integer Representations and Algorithms: 020-Integer-Representations-and-Algorithms.md
+    - 030 Primes and Greatest Common Divisors: 030-Primes-and-Greatest-Common-Divisors.md
+    - 040 Linear Congruences: 040-Solving-Congruences.md
+    - 050 Applications of Congruences: 050-Applications-of-Congruences.md
+    - 060 Classical Cryptography: 060-Cryptography.md

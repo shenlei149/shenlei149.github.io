@@ -1,4 +1,0 @@
-- [Home](/)
-- [公式](/Formula/)
-  - [大全？](/Formula/formula.md)
-  - [A Brief Table of Integrals](/Formula/A-Brief-Table-of-Integrals.md)

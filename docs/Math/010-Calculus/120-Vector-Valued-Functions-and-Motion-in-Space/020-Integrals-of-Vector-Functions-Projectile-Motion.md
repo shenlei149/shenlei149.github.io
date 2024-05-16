@@ -3,7 +3,7 @@
 
 如果 $\boldsymbol{R}_1(t)$ 和 $\boldsymbol{R}_2$ 的导数相同
 $$\boldsymbol{R}_1'=\frac{dR_{1x}}{dt}\boldsymbol{i}+\frac{dR_{1y}}{dt}\boldsymbol{j}+\frac{dR_{1z}}{dt}\boldsymbol{k}=\boldsymbol{R}_2'=\frac{dR_{2x}}{dt}\boldsymbol{i}+\frac{dR_{2y}}{dt}\boldsymbol{j}+\frac{dR_{2z}}{dt}\boldsymbol{k}$$
-根据 [4.2 小节](/010-Calculus/040-Applications-of-Derivatives/020-The-Mean-Value-Theorem.md)推论 2 有
+根据 [4.2 小节](../040-Applications-of-Derivatives/020-The-Mean-Value-Theorem.md)推论 2 有
 $$R_{1x}-R_{2x}=C_{1x}$$
 $$R_{1y}-R_{2y}=C_{1y}$$
 $$R_{1z}-R_{2z}=C_{1z}$$
