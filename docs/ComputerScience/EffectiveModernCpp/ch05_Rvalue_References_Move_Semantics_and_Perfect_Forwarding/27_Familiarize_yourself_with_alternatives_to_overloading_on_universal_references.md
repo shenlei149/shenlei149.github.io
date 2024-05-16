@@ -213,6 +213,48 @@ private:
 对于元模板编程的信徒而言，这可能很优雅。不过这种方式很好地解决了问题。使用了完美转发，最大化了效率，而且有效地使得通用引用与重载能够共存。这种方案应用于不得不重载（比如构造函数）的时候。
 
 ## Trade-offs
+本章介绍的前三种技术——不用重载，按 `const T&` 传递、按值传递——指定了函数的每一个参数类型。后两种技术——tag dispatch、限制模板函数——都使用了完美转发，没有指定参数的类型。是否指定参数类型就导致了后续一系列的问题。
+
+使用完美转发更高效，避免为了迎合参数的类型而创建临时对象。在 `Person` 构造函数这个例子中，完美转发将 `"Nancy"` 字符串字面量转发给 `Person` 内部的 `std::string`，这就避免创建一个 `std::string` 临时对象以满足 `Person` 参数类型的要求。
+
+但是完美转发也有缺点。其中一个缺点是即使一些类型的参数能够传递给指定类型的函数，仍旧不能被完美转发，参考 Item 30 TODO。
+
+另一个缺点是当客户端传了不合法的参数，报错信息十分难理解。比如，一个客户端使用 `char16_t` 的字面量传递给 `Person` 的构造函数：
+```cpp
+// "Konrad Zuse" consists of characters of type const char16_t
+Person p(u"Konrad Zuse");
+```
+如果使用前三个方法解决问题，构造函数参数是 `int` 或 `std::string`，那么错误信息比较直接，是说不能从 `const char16_t[12]` 转换成 `int` 或 `std::string`。
+
+如果使用了完美转发，`const char16_t` 可以绑定到构造函数的参数上，不会报错。然后转发给 `std::string` 成员变量，此时会出现类型不匹配，实际参数类型是 `const char16_t` 的数组，而期望值是 `std::string` 构造函数的参数类型。此时会出现上百行的编译错误信息。
+
+在这个例子中，我们只是用了一次完美转发。更复杂的系统中，参数会转发好几次之后才达到最后需要的地方，然后才能确定参数是否会被接受。转发层次越多，报错信息与实际的错误偏差就越大。很多程序员发现在性能关键点使用完美转发处会发生这种情况。
+
+在 `Person` 这个情况下，我们知道传入的参数类型应该能作为 `std::string` 的构造函数的参数，可以使用 `static_assert` 来实现这一点。type traits 中 `std::is_constructible` 可以在编译器的时候检查一个类型能够构造出另一个类型。因此这个断言如下：
+```cpp
+class Person
+{
+public: // as before
+    template <
+        typename T,
+        typename = std::enable_if_t<
+            !std::is_base_of<Person, std::decay_t<T>>::value &&
+            !std::is_integral<std::remove_reference_t<T>>::value>>
+    explicit Person(T &&n)
+        : name(std::forward<T>(n))
+    {
+        // assert that a std::string can be created from a T object
+        static_assert(
+            std::is_constructible<std::string, T>::value,
+            "Parameter n can't be used to construct a std::string");
+
+        // the usual ctor work goes here
+    }
+
+    // remainder of Person class (as before)
+};
+```
+这样，如果传入的参数不能构造一个 `std::string`，会给出更有用的信息。不过，这个语句实在构造函数内，而完美转发位于初始化列表，因此这个有用的信息会出现在上百行错误信息之后。
 
 ## Things to Remember
 * Alternatives to the combination of universal references and overloading include the use of distinct function names, passing parameters by lvalue-reference-to-`const`, passing parameters by value, and using tag dispatch.
