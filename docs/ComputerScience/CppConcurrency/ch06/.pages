@@ -1,0 +1,4 @@
+nav:
+    - Designing lock-based concurrent data structures: README.md
+    - What does it mean to design for concurrency: 01-What-does-it-mean-to-design-for-concurrency.md
+    - Lock-based concurrent data structures: 02-Lock-based-concurrent-data-structures.md

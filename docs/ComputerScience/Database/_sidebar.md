@@ -1,3 +1,0 @@
-- [Home](/)
-- [Database](/Database/)
-  - [Papers](/Database/Papers/)

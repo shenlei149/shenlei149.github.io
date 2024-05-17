@@ -1,0 +1,8 @@
+nav:
+    - C++ Concurrency: README.md
+    - Hello, world of concurrency in C++: ch01
+    - Managing threads: ch02
+    - Sharing data between threads: ch03
+    - Synchronizing concurrent operations: ch04
+    - The C++ memory model and operations on atomic types: ch05
+    - Designing lock-based concurrent data structures: ch06

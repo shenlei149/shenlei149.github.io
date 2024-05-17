@@ -1,4 +1,0 @@
-- [Home](/)
-- [TAOCP](/TAOCP/)
-  - [Concrete Mathematics](/TAOCP/ConcreteMathematics/)
-  - [05 Sorting](/TAOCP/05-Sorting/)

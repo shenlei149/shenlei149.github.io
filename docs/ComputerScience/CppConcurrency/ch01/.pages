@@ -1,0 +1,6 @@
+nav:
+    - Hello, world of concurrency in C++: README.md
+    - What is concurrency: 01-What-is-concurrency.md
+    - Why use concurrency: 02-Why-use-concurrency.md
+    - Concurrency and multithreading in C++: 03-Concurrency-and-multithreading-in-C++.md
+    - Getting started: 04-Getting-started.md

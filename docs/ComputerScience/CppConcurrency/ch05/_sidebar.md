@@ -1,6 +1,0 @@
-- [Home](/)
-- [C++ Concurrency](/CppConcurrency/)
-- [The C++ memory model and operations on atomic types](/CppConcurrency/ch05/)
-  - [Memory model basics](/CppConcurrency/ch05/01-Memory-model-basics.md)
-  - [Atomic operations and types in C++](/CppConcurrency/ch05/02-Atomic-operations-and-types-in-C++.md)
-  - [Synchronizing operations and enforcing ordering](/CppConcurrency/ch05/03-Synchronizing-operations-and-enforcing-ordering.md)
