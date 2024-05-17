@@ -1,5 +1,6 @@
 site_name: guozi
 site_url: https://guozi149.me/
+repo_url: https://github.com/shenlei149/shenlei149.github.io
 theme:
   name: material
   features:
@@ -7,10 +8,22 @@ theme:
     - navigation.tabs.sticky
     - navigation.path
     - navigation.indexes
+    - content.action.view
+    - content.action.edit
+  palette:
+    accent: cyan
+  logo: logo.png
+  favicon: logo.png
+  icon:
+    repo: fontawesome/brands/github
+  edit_uri: edit/master/docs/
 
 plugins:
-    - search
-    - awesome-pages
+  - search:
+      lang: zh
+  - awesome-pages
+  - git-revision-date-localized:
+      enable_creation_date: true
 
 markdown_extensions:
   - toc:
