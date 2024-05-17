@@ -31,11 +31,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/ArtWritingEfficientPrograms/_sidebar/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/ArtWritingEfficientPrograms/src/SubstringSort/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
@@ -251,11 +246,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/CppConcurrency/_sidebar/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch01/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
@@ -277,11 +267,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch01/04-Getting-started/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch01/_sidebar/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -316,11 +301,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch02/_sidebar/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch03/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
@@ -337,11 +317,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch03/03-Alternative-facilities-for-protecting-shared-data/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch03/_sidebar/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -371,11 +346,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch04/_sidebar/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch05/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
@@ -396,11 +366,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch05/_sidebar/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch06/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
@@ -416,17 +381,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/CppConcurrency/ch06/_sidebar/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/Database/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/ComputerScience/Database/_sidebar/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -437,11 +392,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/ComputerScience/Database/Papers/CHT/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/ComputerScience/Database/Papers/_sidebar/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -821,22 +771,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/_sidebar/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/empty_object/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://guozi149.me/ComputerScience/TAOCP/</loc>
-         <lastmod>2024-05-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/ComputerScience/TAOCP/_sidebar/</loc>
          <lastmod>2024-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
