@@ -8705,6 +8705,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      光滑曲线的速率
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位切向量
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -17996,6 +18014,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      光滑曲线的速率
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位切向量
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18057,6 +18093,63 @@ L&=\int_a^b|\boldsymbol{v}|dt\\
 &=2\pi\sqrt{2}
 \end{aligned}</script>
 </p>
+<p>参数 <script type="math/tex">t</script> 的曲线 <script type="math/tex">C</script> 上选择一基准点 <script type="math/tex">P(t_0)</script>，每一个 <script type="math/tex">t</script> 对应了一个点 <script type="math/tex">P(t)=(x(t),y(t))</script>，有向距离
+<script type="math/tex; mode=display">s(t)=\int_{t_0}^t|\boldsymbol{v}(\tau)|d\tau</script>
+<script type="math/tex">P(t)</script> 到基准点的距离。如下图所示。</p>
+<p><img alt="" src="../030.030.png" /></p>
+<p>这是弧长公式。如果 <script type="math/tex">t>t_0</script>，<script type="math/tex">s(t)</script> 表示曲线从 <script type="math/tex">P(t_0)</script> 到 <script type="math/tex">P(t)</script> 的距离。如果 <script type="math/tex">t<t_0</script>，<script type="math/tex">s</script> 是距离的负值。<script type="math/tex">s</script> 的每个值决定了 <script type="math/tex">C</script> 上的一点，这个参数化的 <script type="math/tex">C</script> 对应了 <script type="math/tex">s</script>。称 <script type="math/tex">s</script> 为弧长参数（<code>arc length parameter</code>）。随着 <script type="math/tex">t</script> 的增加，这个参数值也在增加。</p>
+<p><strong>基于点 <script type="math/tex">P(t_0)</script> 的弧长参数</strong></p>
+<blockquote>
+<p>
+<script type="math/tex; mode=display">s(t)=\int_{t_0}^t\sqrt{[x'(\tau)]^2+[y'(\tau)]^2+z'(\tau)^2}d\tau=\int_{t_0}^t|\boldsymbol{v}(\tau)|d\tau\tag{3}</script>
+</p>
+</blockquote>
+<p>由于 <script type="math/tex">t</script> 在公式 <script type="math/tex">(3)</script> 中表示积分上限，所以使用希腊字母 <script type="math/tex">\tau</script> 表示积分变量。</p>
+<p>如果曲线 <script type="math/tex">\boldsymbol{r}(t)</script> 是 <script type="math/tex">t</script> 的函数，<script type="math/tex">s(t)</script> 是公式 <script type="math/tex">(3)</script> 的弧长参数，那么我们可以解出 <script type="math/tex">t</script>，即 <script type="math/tex">t=t(s)</script>，代入 <script type="math/tex">\boldsymbol{r}(t)</script> 可以使用 <script type="math/tex">s</script> 表示曲线 <script type="math/tex">\boldsymbol{r}(t(s))</script>。新的参数化方程使用表示曲线上一点距离基准点的长度作出参数。</p>
+<p>例2 如果 <script type="math/tex">t_0=0</script>，沿着螺旋线
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j}+t\boldsymbol{k}</script>
+的弧长参数是
+<script type="math/tex; mode=display">\begin{aligned}
+s(t)&=\int_{t_0}^t|\boldsymbol{v}(\tau)|d\tau\\
+&=\int_0^t\sqrt{2}d\tau\\
+&=\sqrt{2}t
+\end{aligned}</script>
+那么 <script type="math/tex">t=s/\sqrt{2}</script>，代入位置矢量 <script type="math/tex">\boldsymbol{r}</script> 使用弧长参数表示的话是
+<script type="math/tex; mode=display">\boldsymbol{r}(t(s))=(\cos\frac{s}{\sqrt{2}})\boldsymbol{i}+(\sin\frac{s}{\sqrt{2}})\boldsymbol{j}+\frac{s}{\sqrt{2}}\boldsymbol{k}</script>
+</p>
+<h3 id="_2">光滑曲线的速率</h3>
+<p>公式 <script type="math/tex">(3)</script> 隐含着连续，曲线是光滑的。那么根据微积分基本定理 <script type="math/tex">s</script> 是 <script type="math/tex">t</script> 的可微函数
+<script type="math/tex; mode=display">\frac{ds}{dt}=|\boldsymbol{v}(t)|\tag{4}</script>
+这个公式表明沿着曲线移动的粒子的速率是速度 <script type="math/tex">\boldsymbol{v}</script> 的大小，这与之前的讨论一致。</p>
+<p>尽管点 <script type="math/tex">P(t_0)</script> 在公式 <script type="math/tex">(3)</script> 中出现了，但是却在 <script type="math/tex">(4)</script> 中消失了。这是因为速率与距离基准点的距离无关。</p>
+<p>根据定义光滑曲线中 <script type="math/tex">|\boldsymbol{v}|</script> 始终不为零，因此 <script type="math/tex">ds/dt>0</script>，这也印证了之前说的 <script type="math/tex">s</script> 是 <script type="math/tex">t</script> 的增函数。</p>
+<h3 id="_3">单位切向量</h3>
+<p>我们已经知道速度 <script type="math/tex">\boldsymbol{v}=d\boldsymbol{r}/dt</script> 与曲线 <script type="math/tex">\boldsymbol{r}</script> 相切，那么矢量
+<script type="math/tex; mode=display">\boldsymbol{T}=\frac{\boldsymbol{v}}{|\boldsymbol{v}|}</script>
+是与曲线相切的单位矢量，称为单位切向量（<code>unit tangent vector</code>），如下图所示。</p>
+<p><img alt="" src="../030.040.png" /></p>
+<p>当 <script type="math/tex">\boldsymbol{v}</script> 是 <script type="math/tex">t</script> 的可导函数，<script type="math/tex">\boldsymbol{T}</script> 也是 <script type="math/tex">t</script> 的可导函数。后面 12.5 小节会看到，<script type="math/tex">\boldsymbol{T}</script> 是描述空间中运动的粒子的三个单位矢量之一。</p>
+<p>例3 求曲线
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=(1+3\cos t)\boldsymbol{i}+(3\sin t)\boldsymbol{j}+t^2\boldsymbol{k}</script>
+的单位切向量。</p>
+<p>解：由 <script type="math/tex">\boldsymbol{r}</script> 可以得到
+<script type="math/tex; mode=display">\boldsymbol{v}=\frac{d\boldsymbol{r}}{dt}=-(\cos t)\boldsymbol{i}+(3\cos t)\boldsymbol{j}+2t\boldsymbol{k}</script>
+那么
+<script type="math/tex; mode=display">|\boldsymbol{v}|=\sqrt{9+4t^2}</script>
+因此
+<script type="math/tex; mode=display">\boldsymbol{T}=\frac{\boldsymbol{v}}{|\boldsymbol{v}|}=-\frac{3\sin t}{\sqrt{9+4t^2}}\boldsymbol{i}+\frac{3\cos t}{\sqrt{9+4t^2}}\boldsymbol{j}+\frac{2t}{\sqrt{9+4t^2}}\boldsymbol{k}</script>
+对于单位圆的逆时针运动
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j}</script>
+其速度是
+<script type="math/tex; mode=display">\boldsymbol{v}=(-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}</script>
+也是单位矢量，因此 <script type="math/tex">\boldsymbol{T}=\boldsymbol{v}</script>，其垂直于 <script type="math/tex">\boldsymbol{r}</script>。</p>
+<p><img alt="" src="../030.050.png" /></p>
+<p>
+<script type="math/tex">\boldsymbol{r}</script> 随着 <script type="math/tex">t</script> 在变化，那么速度也在变化，但是位置矢量相应于弧长是如何变化的呢？即 <script type="math/tex">d\boldsymbol{r}/ds</script>？由于 <script type="math/tex">ds/dt>0</script>，<script type="math/tex">s</script> 还是一对一函数，且是 <script type="math/tex">t</script> 的可导函数，所以可逆。反函数的导数
+<script type="math/tex; mode=display">\frac{dt}{ds}=\frac{1}{ds/dt}=\frac{1}{|\boldsymbol{v}|}</script>
+<script type="math/tex">\boldsymbol{r}</script> 是 <script type="math/tex">s</script> 的可导函数，根据链式法则
+<script type="math/tex; mode=display">\frac{d\boldsymbol{r}}{dt}=\frac{d\boldsymbol{r}}{dt}\frac{dt}{ds}=|\boldsymbol{v}|\frac{1}{|\boldsymbol{v}|}=\boldsymbol{T}</script>
+所以 <script type="math/tex">d\boldsymbol{r}/ds</script> 是速度矢量 <script type="math/tex">\boldsymbol{v}</script> 方向上的单位切向量。</p>
 
 
 
@@ -18079,7 +18172,7 @@ L&=\int_a^b|\boldsymbol{v}|dt\\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 17, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 19, 2024</span>
   </span>
 
     
