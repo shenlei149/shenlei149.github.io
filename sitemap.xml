@@ -571,6 +571,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://guozi149.me/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/29_Assume_that_move_operations_are_not_present_not_cheap_and_not_used/</loc>
+         <lastmod>2024-05-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://guozi149.me/ComputerScience/InterviewQuestions/</loc>
          <lastmod>2024-05-21</lastmod>
          <changefreq>daily</changefreq>
