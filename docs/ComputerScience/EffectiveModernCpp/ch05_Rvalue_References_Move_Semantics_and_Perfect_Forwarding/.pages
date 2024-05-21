@@ -5,3 +5,4 @@ nav:
     - 25 Use std::move on rvalue references, std::forward on universal references: 25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md
     - 26 Avoid overloading on universal references: 26_Avoid_overloading_on_universal_references.md
     - 27 Familiarize yourself with alternatives to overloading on universal references: 27_Familiarize_yourself_with_alternatives_to_overloading_on_universal_references.md
+    - 28 Understand reference collapsing: 28_Understand_reference_collapsing.md
