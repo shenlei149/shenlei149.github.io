@@ -162,7 +162,7 @@ A^TA&=A^{-1}((r-\lambda)I)A+\lambda A^{-1}JA\\
 
 对称BIBD是链接的，那么对偶设计也是BIBD。下面的定理告诉我们它的反面也成立。也就是BIBD的对偶是BIBD的话，那么BIBD是对称的。
 
-**Theorem 17.18 (Fisher’s inequality).** 如果$\mathcal{D}$是有$v$点$b$块的BIBD，那么$v\leq b$。  
+**Theorem 17.18 (Fisher's inequality).** 如果$\mathcal{D}$是有$v$点$b$块的BIBD，那么$v\leq b$。  
 **Proof.** $\mathcal{D}$的关联矩阵$A$，由**Proposition 17.15**得知$\det{AA^T}\neq 0$，$c\times v$的秩是$v$。另外两个矩阵的乘积的秩不会大于任意一个，所以
 $$v=\text{rank}(AA^T)\leq \text{rand}(A)$$
 任意矩阵的秩不能大于独立行的数量，所以
