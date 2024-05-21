@@ -3098,6 +3098,8 @@
       
         
       
+        
+      
     
     
       
@@ -3235,6 +3237,27 @@
   
   <span class="md-ellipsis">
     27 Familiarize yourself with alternatives to overloading on universal references
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/28_Understand_reference_collapsing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28 Understand reference collapsing
   </span>
   
 
@@ -18091,7 +18114,7 @@
 反链是链的对偶。如果子集<script type="math/tex">S\subseteq P</script>没有任何两个元素可以比较，那么<script type="math/tex">S</script>是反链(<code>antichain</code>)。例如<script type="math/tex">\{\{2,3\},\{1,3\},\{3,4\},\{2,4\}\}</script>是<script type="math/tex">B_4</script>的一个反链。<br />
 链的任意子集也是链，反链的任意子集还是反链。偏序集的覆盖链(<code>chain cover</code>)是不相交的链的集合，它们的并集是偏序集本身。覆盖链的大小就是链的个数。直觉上，如果一个偏序集有一个很大的反链，那么它不可能被很少的链覆盖，反之亦然。下面的定理会给出一个精确的分析。<br />
 如果<script type="math/tex">P</script>没有比<script type="math/tex">X</script>更大的链，那么<script type="math/tex">X</script>是<script type="math/tex">P</script>的最大链(<code>maximum</code>)。如果<script type="math/tex">X</script>不能被扩展，也就是无法不破坏链而增加新的元素，那么<script type="math/tex">X</script>是极大值(<code>maximal</code>)。反链也有类似定义。</p>
-<p><strong>Theorem 16.8 (Dilworth’s Theorem).</strong> 对于有限偏序集<script type="math/tex">P</script>，任意最大反链的大小等于任意最小覆盖链中链的数量。<br />
+<p><strong>Theorem 16.8 (Dilworth's Theorem).</strong> 对于有限偏序集<script type="math/tex">P</script>，任意最大反链的大小等于任意最小覆盖链中链的数量。<br />
 <strong>Proof.</strong> 令<script type="math/tex">P</script>中最大的反链<script type="math/tex">A</script>大小是<script type="math/tex">a</script>，<script type="math/tex">P</script>的最小覆盖链的大小是<script type="math/tex">b</script>。显然<script type="math/tex">a\leq b</script>，因为覆盖链必须包含反链的每一个元素。<br />
 下面证明反向的情况。如果<script type="math/tex">P</script>最大的反链的大小是<script type="math/tex">k</script>，那么<script type="math/tex">P</script>能够被分解成<script type="math/tex">k</script>个链的并集。基于<script type="math/tex">P</script>的元素的个数<script type="math/tex">n</script>来递归证明。<script type="math/tex">n=1</script>时显然成立。假设对于小于<script type="math/tex">n</script>的时候都成立。下面分两种情况讨论。<br />
 (1) <script type="math/tex">P</script>的最大反链<script type="math/tex">A</script>至少包含一个非极大值和一个非极小值。那么可以根据<script type="math/tex">A</script>把<script type="math/tex">P</script>分成两个部分，<script type="math/tex">U</script>中的元素大于等于至少一个<script type="math/tex">A</script>中的元素，<script type="math/tex">L</script>中的元素小于等于至少一个<script type="math/tex">A</script>中的元素。那么<script type="math/tex">U\cap L=A</script>。由于<script type="math/tex">A</script>包含非极大值和非极小值，那么<script type="math/tex">U,L</script>都不是空集，也都是偏序集。此外，它们元素的个数都小于<script type="math/tex">n</script>，根据假设，它们有都可以分解成<script type="math/tex">k</script>个链的并集。<script type="math/tex">U</script>中的<script type="math/tex">k</script>个链的每一个，都对应有<script type="math/tex">A</script>中<script type="math/tex">k</script>个元素之一，位于其下方（小于等于<script type="math/tex">U</script>中的链）；类似的，<script type="math/tex">L</script>中的<script type="math/tex">k</script>个链的每一个，都有对应的<script type="math/tex">A</script>中的元素位于其上方。那么这<script type="math/tex">2k</script>个链可以组成<script type="math/tex">k</script>链，覆盖<script type="math/tex">P</script>。<br />
@@ -18122,7 +18145,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 11, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 21, 2024</span>
   </span>
 
     

@@ -3098,6 +3098,8 @@
       
         
       
+        
+      
     
     
       
@@ -3235,6 +3237,27 @@
   
   <span class="md-ellipsis">
     27 Familiarize yourself with alternatives to overloading on universal references
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/28_Understand_reference_collapsing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28 Understand reference collapsing
   </span>
   
 
@@ -9789,7 +9812,7 @@
         <li class="md-nav__item">
   <a href="#minimum-weight-spanning-trees-kruskals-greedyalgorithm" class="md-nav__link">
     <span class="md-ellipsis">
-      Minimum-weight Spanning Trees. Kruskal’s GreedyAlgorithm
+      Minimum-weight Spanning Trees. Kruskal's GreedyAlgorithm
     </span>
   </a>
   
@@ -18073,7 +18096,7 @@
         <li class="md-nav__item">
   <a href="#minimum-weight-spanning-trees-kruskals-greedyalgorithm" class="md-nav__link">
     <span class="md-ellipsis">
-      Minimum-weight Spanning Trees. Kruskal’s GreedyAlgorithm
+      Minimum-weight Spanning Trees. Kruskal's GreedyAlgorithm
     </span>
   </a>
   
@@ -18187,7 +18210,7 @@
 <p>和双根树类似的，有根树(<code>rooted trees</code>)可以定义为有一个顶点被称之为根的树。集合<script type="math/tex">[n]</script>上的不同有根树的数量是<script type="math/tex">n^{n-1}</script>。有根森林(<code>rooted forest</code>)是各个连通分量都是有根树的森林。</p>
 <p><strong>Corollary 10.9.</strong> 对于所有正整数<script type="math/tex">n</script>，集合<script type="math/tex">[n]</script>上不同有根森林的数目是<script type="math/tex">(n+1)^{n-1}</script>。<br />
 <strong>Proof.</strong> 将有根树都连接到点<script type="math/tex">n+1</script>上。这是一个集合<script type="math/tex">[n]</script>上的有根森林到任意一颗<script type="math/tex">[n+1]</script>树的双射。反向的，将点<script type="math/tex">n+1</script>的相邻点都设为根，然后去掉点<script type="math/tex">n+1</script>和它们相连的边，得到若干个有根树，构成了<script type="math/tex">[n]</script>上的某个有根森林。从<strong>Theorem 10.7</strong>得到<script type="math/tex">[n+1]</script>上不同的树的数量是<script type="math/tex">(n+1)^{n-1}</script>。</p>
-<h2 id="minimum-weight-spanning-trees-kruskals-greedyalgorithm">Minimum-weight Spanning Trees. Kruskal’s GreedyAlgorithm</h2>
+<h2 id="minimum-weight-spanning-trees-kruskals-greedyalgorithm">Minimum-weight Spanning Trees. Kruskal's GreedyAlgorithm</h2>
 <p>如果<script type="math/tex">G</script>是一个连通图，如果树<script type="math/tex">T</script>的顶点包含<script type="math/tex">G</script>的所有顶点，且边都是<script type="math/tex">G</script>的边，那么<script type="math/tex">T</script>是<script type="math/tex">G</script>的生成树(<code>spanning tree</code>)。<br />
 任意连通图<script type="math/tex">G</script>都至少有一个生成树。如果<script type="math/tex">G</script>是树，那么<script type="math/tex">G</script>自身就是生成树，如果不是，那么<script type="math/tex">G</script>不是最小连通图，可以删除一条边得到连通图<script type="math/tex">G'</script>，如果<script type="math/tex">G'</script>还不是树，那么继续这个过程，总能得到一个生成树。<br />
 一般地，连通图有很多生成树。<strong>Theorem10.7</strong>说明完全图<script type="math/tex">K_n</script>有<script type="math/tex">n^{n-2}</script>个生成树。有时，想知道有多少生成树是很困难的。<br />
@@ -18371,7 +18394,7 @@ n&\cdots&0&-1&\cdots&-1\\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 11, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 21, 2024</span>
   </span>
 
     
