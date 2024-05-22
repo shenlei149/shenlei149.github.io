@@ -18102,6 +18102,41 @@
 <p>移动语义重要的使其有了传奇色彩。但是传奇，也有夸张的地方。</p>
 <p>首先看看不支持移动操作的类型。为了支持 C++11，标准库重新实现了一遍，对于移动比拷贝轻量级的类型，添加了移动操作，类库的新的实现也利用上了这些优势，但是现有的代码库可能并没有为此重写。应用或者类库中没有为 C++11 改写，那么编译器支持移动语义，也帮助不大。如果一个类型没有移动操作，编译器会自动生成一个，但是前提是没有拷贝、移动、析构函数。成员变量或者基类禁用了移动操作，那么也不会为这个类型生成移动操作。对于没有显式支持移动操作，也不符合编译器自动生成移动操作的类型，没有理由期待 C++11 比 C++98 有性能的提升。</p>
 <p>即使显式地支持了移动操作，效果可能也不如预期。比如 C++11 所有容器都实现了移动操作，但也不应该认为移动所有容器的开销都很低。对于一些容器而言，没有真正开销小的方式移动其内容；对于其他容器而言，可能有真的开销小的移动方式，但是其中的元素不满足这些条件。</p>
+<p>C++11 引入的 <code>std::array</code> 容器，满足 STL 接口，本质是内置数组。其他标准容器都是将数据放到堆上，容器自身包含一个指向堆地址的指针即可（实际可能略微复杂，但基本就是如此）。这个指针的存在使得可以在常量时间完成容器的移动。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vw1</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// put data into vw1</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// move vw1 into vw2. Runs in</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">// constant time. Only ptrs</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">// in vw1 and vw2 are modified</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">auto</span><span class="w"> </span><span class="n">vw2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">vw1</span><span class="p">);</span>
+</span></code></pre></div></p>
+<p><img alt="" src="../2901.png" /></p>
+<p>但是 <code>std::array</code> 没有这样的指针，数据是存放在 <code>std::array</code> 内部。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Widget</span><span class="p">,</span><span class="w"> </span><span class="mi">10000</span><span class="o">&gt;</span><span class="w"> </span><span class="n">aw1</span><span class="p">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">// put data into aw1</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">// move aw1 into aw2. Runs in</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1">// linear time. All elements in</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">// aw1 are moved into aw2</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">auto</span><span class="w"> </span><span class="n">aw2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">aw1</span><span class="p">);</span>
+</span></code></pre></div></p>
+<p><img alt="" src="../2902.png" /></p>
+<p>这里 <code>aw1</code> 移动到了 <code>aw2</code> 中。假定 <code>Widget</code> 支持移动操作且比拷贝操作轻量很多，那么移动 <code>Widget</code> 的 <code>std::array</code> 比拷贝 <code>Widget</code> 的 <code>std::array</code> 要快的多。所以 <code>std::array</code> 是支持移动的。不过移动或者拷贝 <code>std::array</code> 都是线性复杂度，因为容器内的元素都需要拷贝或者移动。这离“移动容器就像赋值几个指针一样轻量”相去甚远。</p>
+<p><code>std::string</code> 提供了常量时间的移动和线性时间的拷贝的操作。这听起来拷贝比移动快，但也不尽然。许多 <code>std::string</code> 实现都有 SSO（<code>small string optimization</code>），对于小于等于 15 字节的对象直接存放在 <code>std::string</code> 内部而不是堆上。显然，对于很小的字符串而言，移动和拷贝一样快。</p>
+<p>对于很多类型而言，存在快速的移动操作，但是很多场景下也会变成拷贝操作。<a href="../../ch03_Moving_to_Modern_C%2B%2B/14_Declare_functions_noexcept_if_they_wont_emit_exceptions/">Item 14</a> 解释了 STL 提供了异常安全保证，这样 C++98 代码升级到 C++11 不会被破坏，这样，只有在确定移动不会抛出异常的前提下，才会用移动替代拷贝。</p>
+<p>所以在 C++11 中存在几种情况，移动语义并没有优势。</p>
+<ul>
+<li>不存在移动操作。此时移动会变成拷贝操作。</li>
+<li>移动并不快。移动操作和拷贝操作一样快。</li>
+<li>移动操作不可用。在有些上下文，需要无异常，但是移动操作没有标记为 <code>noexcept</code>。</li>
+</ul>
+<p>还有一个场景，移动也并不那么高效。</p>
+<ul>
+<li>源对象是左值。只有少数情况（<a href="../25_Use_std_move_on_rvalue_references_std_forward_on_universal_references/">Item 25</a>）之外，必须是右值才能移动。</li>
+</ul>
+<p>这一节假定没有移动操作、不高效、不可用。这是代码中的典型情况。比如在编写模板代码，无法知道类型的信息，就要保守的使用拷贝而不是移动。对于不稳定的代码而言也是如此，经常的改动使得类型特性发生了变化。</p>
+<p>如果情况不符合本节的假设，那么就可以用移动来代替拷贝减少开销。</p>
 <h2 id="things-to-remember">Things to Remember</h2>
 <ul>
 <li>Assume that move operations are not present, not cheap, and not used.</li>
@@ -18129,7 +18164,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 22, 2024</span>
   </span>
 
     
