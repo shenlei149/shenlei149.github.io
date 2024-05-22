@@ -138,7 +138,7 @@ $$\begin{aligned}
 $$P=4a\int_0^{\pi/2}\sqrt{1-e^2\sin^2 t}dt$$
 这个积分是非初等积分，被称为第二类完全椭圆积分（`complete elliptic integral of the second kind`）。不过我们可以通过无穷级数来计算这个值。对 $\sqrt{1-x^2}$ 二项式展开
 $$\sqrt{1-e^2\sin^2 t}=1-\frac{1}{2}e^2\sin^2 t-\frac{1}{2\cdot 4}e^4\sin^4 t-\cdots$$
-使用 [积分表](/Formula/A-Brief-Table-of-Integrals.md) 的公式 157 计算 $\int_0^{\pi/2}\sin^n tdt$，那么
+使用 [积分表](../../Formula/A-Brief-Table-of-Integrals.md) 的公式 157 计算 $\int_0^{\pi/2}\sin^n tdt$，那么
 $$\begin{aligned}
 P&=4a\int_0^{\pi/2}\sqrt{1-e^2\sin^2 t}dt\\
 &=4a[\frac{\pi}{2}-(\frac{1}{2}e^2)(\frac{1}{2}\frac{\pi}{2})-(\frac{1}{2\cdot 4}e^4)(\frac{1\cdot 3}{2\cdot 4}\frac{\pi}{2})-\cdots]\\

@@ -1,0 +1,8 @@
+nav:
+    - 060 定积分的应用 Applications of Definite Integrals: README.md
+    - 010 横截面计算体积 Volumes Using Cross-Sections: 010-Volumes-Using-Cross-Sections.md
+    - 020 利用圆柱形壳计算体积 Volumes Using Cylindrical Shells: 020-Volumes-Using-Cylindrical-Shells.md
+    - 030 弧长 Arc Length: 030-Arc-Length.md
+    - 040 旋转体的表面积 Areas of Surfaces of Revolution: 040-Areas-of-Surfaces-of-Revolution.md
+    - 050 功和流体力学 Work and Fluid Forces: 050-Work-and-Fluid-Forces.md
+    - 060 矩和质心 Moments and Centers of Mass: 060-Moments-and-Centers-of-Mass.md
