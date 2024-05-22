@@ -576,6 +576,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://guozi149.me/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/30_Familiarize_yourself_with_perfect_forwarding_failure_cases/</loc>
+         <lastmod>2024-05-22</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://guozi149.me/ComputerScience/InterviewQuestions/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
@@ -1076,11 +1081,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/Math/010-Calculus/040-Applications-of-Derivatives/_sidebar/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/Math/010-Calculus/050-Integrals/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
@@ -1121,11 +1121,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/Math/010-Calculus/050-Integrals/_sidebar/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/Math/010-Calculus/060-Applications-of-Definite-Integrals/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
@@ -1161,11 +1156,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/Math/010-Calculus/060-Applications-of-Definite-Integrals/_sidebar/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/Math/010-Calculus/070-Integrals-and-Transcendental-Functions/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
@@ -1187,11 +1177,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/Math/010-Calculus/070-Integrals-and-Transcendental-Functions/040-Relative-Rates-of-Growth/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/Math/010-Calculus/070-Integrals-and-Transcendental-Functions/_sidebar/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -1242,11 +1227,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/Math/010-Calculus/080-Techniques-of-Integration/090-Exercises/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/Math/010-Calculus/080-Techniques-of-Integration/_sidebar/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -1311,11 +1291,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/Math/010-Calculus/090-Infinite-Sequences-and-Series/_sidebar/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/Math/010-Calculus/100-Parametric-Equations-and-Polar-Coordinates/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
@@ -1357,11 +1332,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/Math/010-Calculus/100-Parametric-Equations-and-Polar-Coordinates/080-Appendix/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/Math/010-Calculus/100-Parametric-Equations-and-Polar-Coordinates/_sidebar/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
