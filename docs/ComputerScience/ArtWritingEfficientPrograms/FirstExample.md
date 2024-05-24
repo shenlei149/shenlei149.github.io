@@ -2,7 +2,7 @@
 
 这个例子做的事情是生成一个很大的字符串，接着生成一些子串，这些子串的生成方式是生成一个随机数，作为字符串的开始，结束就是大字符串结束，然后对这些子串进行排序。
 
-下面是核心代码，完成代码参考 [SubstringSort.cpp](/ArtWritingEfficientPrograms/src/SubstringSort.md)。这里使用 `std::sort` 作为排序算法，传入了 `lambda` 表达式作为自定义比较函数。使用 `std::chrono::system_clock` 即时。
+下面是核心代码，完成代码参考 [SubstringSort.cpp](./src/SubstringSort.md)。这里使用 `std::sort` 作为排序算法，传入了 `lambda` 表达式作为自定义比较函数。使用 `std::chrono::system_clock` 即时。
 ```cpp
 std::sort(vs.begin(),
 		  vs.end(),

@@ -174,7 +174,7 @@ processWidget(
 
 processWidget(spw, computePriority()); // arg is lvalue
 ```
-`processWidget` 的 `std::shared_ptr` 参数是按值传递的。如果传递的是右值，涉及移动操作；如果传递左值，只能拷贝。对于 `std::shared_ptr` 而言，这两者是有差距的，拷贝需要原子操作来自增引用计数，而移动就不需要了。解决这个性能问题的方式是对 `spw` 使用 `std::move` 将其变成右值（参考 [Item 23](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/23_Understand_std_move_and_std_forward.md)）。
+`processWidget` 的 `std::shared_ptr` 参数是按值传递的。如果传递的是右值，涉及移动操作；如果传递左值，只能拷贝。对于 `std::shared_ptr` 而言，这两者是有差距的，拷贝需要原子操作来自增引用计数，而移动就不需要了。解决这个性能问题的方式是对 `spw` 使用 `std::move` 将其变成右值（参考 [Item 23](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/23_Understand_std_move_and_std_forward.md)）。
 ```cpp
 processWidget(std::move(spw),     // both efficient and
               computePriority()); // exception safe

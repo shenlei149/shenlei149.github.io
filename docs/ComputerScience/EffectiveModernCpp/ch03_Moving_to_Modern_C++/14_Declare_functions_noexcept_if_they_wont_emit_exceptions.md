@@ -27,7 +27,7 @@ Widget w;
 vw.push_back(w); // add w to vw
 ```
 
-这些代码能工作，所以没想着改成 C++11 的风格，但是又想借助移动语义来提高性能。首先，需要确保 `Widget` 支持移动，可以手写也可以由编译器自己合成，参见 [Item 17](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/17_Understand_special_member_function_generation.md)。
+这些代码能工作，所以没想着改成 C++11 的风格，但是又想借助移动语义来提高性能。首先，需要确保 `Widget` 支持移动，可以手写也可以由编译器自己合成，参见 [Item 17](./17_Understand_special_member_function_generation.md)。
 
 当新的元素插入到 `std::vector` 的时候，`std::vector` 可能已经满了，这个时候 `std::vector` 会分配更大的内存，然后把现有元素存到新的地址，然后插入新的元素。C++98 中，这个转移操作是复制每一个元素到新的地方，然后析构旧的元素，这个过程使得 `push_back` 操作是异常安全的，即使在复制过程中抛出了异常，由于旧的元素没有被析构，`std::vector` 并没有发生变化。
 

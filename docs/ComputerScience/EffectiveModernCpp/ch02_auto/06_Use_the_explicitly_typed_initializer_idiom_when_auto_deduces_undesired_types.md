@@ -1,4 +1,4 @@
-[Item 5](/ComputerScience/EffectiveModernCpp/ch02_auto/05_Prefer_auto_to_explicit_type_declarations.md) 列出了很多使用 `auto` 的优势。不过，有的时候 `auto` 的推导的类型并不是我们想要的。比如有一个接受 `Widget` 返回 `std::vector<bool>` 的函数，每一个 `bool` 表示 `Widget` 是否提供特定的能力。
+[Item 5](./05_Prefer_auto_to_explicit_type_declarations.md) 列出了很多使用 `auto` 的优势。不过，有的时候 `auto` 的推导的类型并不是我们想要的。比如有一个接受 `Widget` 返回 `std::vector<bool>` 的函数，每一个 `bool` 表示 `Widget` 是否提供特定的能力。
 ```cpp
 std::vector<bool> features(const Widget& w);
 ```

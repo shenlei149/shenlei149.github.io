@@ -70,7 +70,7 @@ makeInvestment(Ts &&...params)
 * 当使用自定义删除器的时候，`std::unique_ptr` 的第二个模板参数必须要指定。这里是 `delInvmt` 的类型，所以`makeInvestment` 返回类型是 `std::unique_ptr<Investment, decltype(delInvmt)>`。
 * `makeInvestment` 基本策略就是先构造一个指向 `null` 的 `std::unique_ptr`，然后指向合适的类型的对象，返回。这里需要将自定义删除器 `delInvmt` 与 `pInv` 关联，因此将 `delInvmt` 作为第二个实参传入。
 * 不能将原始指针直接赋值给 `std::unique_ptr`，原因这里涉及隐式转化，但是隐式转化可能会出问题，所以 C++11 禁止这么做。这里通过 `reset` 让 `std::unique_ptr` 接管新创建的对象的所有权。
-* 调用 `new` 的时候，使用 `std::forward` 完美转发传给 `makeInvestment` 的参数。参见 [Item 25](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md)。这么做的目的是将调用者传递的所有信息用于构造对象。
+* 调用 `new` 的时候，使用 `std::forward` 完美转发传给 `makeInvestment` 的参数。参见 [Item 25](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md)。这么做的目的是将调用者传递的所有信息用于构造对象。
 * 不管 `makeInvestment` 具体创建的对象类型是什么，`Stock, Bond, RealEstate` 之一，但是 lambda 表达式只接受类型 `Investment*` 的参数。需要通过指向基类的指针销毁派生类，那么基类析构函数必须是虚函数。
 ```cpp
 class Investment
@@ -110,7 +110,7 @@ makeInvestment(Ts &&...params);         // of function pointer!
 ```
 有状态的函数对象会使 `std::unique_ptr` 大小增加不少，如果过大而不能接受，需要重新考虑相关的设计了。
 
-除了工厂函数场景适合 `std::unique_ptr` 之外，Pimpl Idiom 场景也试用。[Item 22](/ComputerScience/EffectiveModernCpp/ch04_Smart_Pointers/22_When_using_the_Pimpl_Idiom_define_special_member_functions_in_the_implementation_file.md) 会讲解。
+除了工厂函数场景适合 `std::unique_ptr` 之外，Pimpl Idiom 场景也试用。[Item 22](./22_When_using_the_Pimpl_Idiom_define_special_member_functions_in_the_implementation_file.md) 会讲解。
 
 `std::unique_ptr` 有两种形式，一种是指向一个对象，`std::unique_ptr<T>`，一种是指向数组，`std::unique_ptr<T[]>`。指向那种数据类型是没有歧义的，`std::unique_ptr` 的 API 设计会匹配相应的类型。比如指向一个对象时，是没有索引 `[]` 操作的，反之指向数组的话，没有解引用操作 `->, *`。
 

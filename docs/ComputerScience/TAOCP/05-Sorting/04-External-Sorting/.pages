@@ -1,0 +1,4 @@
+nav:
+    - 00 Introduction: 00-External-Sorting.md
+    - 01 Multiway Merging and Replacement Selection: 01-Multiway-Merging-and-Replacement-Selection.md
+    - 02 The Polyphase Merge.md: 02-The-Polyphase-Merge.md

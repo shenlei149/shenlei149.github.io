@@ -39,7 +39,7 @@ void dwim(It b, It e)
 }
 ```
 
-由于 `auto` 使用 [Item 2](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 中解释的推导原则，可以表示只有编译器知道的类型，所以可以写闭包了。
+由于 `auto` 使用 [Item 2](../ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 中解释的推导原则，可以表示只有编译器知道的类型，所以可以写闭包了。
 ```cpp
 auto derefUPLess =                          // comparison func.
     [](const std::unique_ptr<Widget>& p1,   // for Widgets
@@ -113,7 +113,7 @@ for (const auto& p : m)
 
 新的代码更高效也更简洁。同时，如果获取 `p` 的指针，那么就是指向 `m` 内的某一个元素的。
 
-有很多使用 `auto` 的理由，不过它也不是完美的。`auto` 根据初始化语句进行推导，有的时候这个结果并不符合预期，也不是我们想要的。Items [2](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/02_Understand_auto_type_deduction.md) and [6](/ComputerScience/EffectiveModernCpp/ch02_auto/06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md) 有描述，这里不再赘述。
+有很多使用 `auto` 的理由，不过它也不是完美的。`auto` 根据初始化语句进行推导，有的时候这个结果并不符合预期，也不是我们想要的。Items [2](../ch01_Deducing_Types/02_Understand_auto_type_deduction.md) and [6](./06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md) 有描述，这里不再赘述。
 
 `auto` 是可选的而不是强制的，出于可维护性或者代码整洁等原因，可以显式地写类型。类型推导并不是 C++ 原创，很多语言都有类似功能，同时，社区也积攒了很多经验，已经证实类型推导和大型软件工程的可维护性不矛盾。
 
@@ -123,5 +123,5 @@ for (const auto& p : m)
 
 ## Things to Remember
 * `auto` variables must be initialized, are generally immune to type mismatches that can lead to portability or efficiency problems, can ease the process ofrefactoring, and typically require less typing than variables with explicitly specified types.
-* `auto`-typed variables are subject to the pitfalls described in Items [2](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/02_Understand_auto_type_deduction.md) and [6](/ComputerScience/EffectiveModernCpp/ch02_auto/06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md).
+* `auto`-typed variables are subject to the pitfalls described in Items [2](../ch01_Deducing_Types/02_Understand_auto_type_deduction.md) and [6](./06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md).
 

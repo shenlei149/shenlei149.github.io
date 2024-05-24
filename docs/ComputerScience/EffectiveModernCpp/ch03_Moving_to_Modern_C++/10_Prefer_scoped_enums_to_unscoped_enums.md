@@ -195,7 +195,7 @@ UserInfo uInfo; // as before
 auto val = std::get<static_cast<std::size_t>(UserInfoFields::uiEmail)>(uInfo);
 ```
 
-可以写一个接受 `UserInfoFields` 返回 `std::size_t` 的函数来简化这个写法。不过由于 `std::get` 是一个模板函数，那么需要在编译期确定这个值，那么这里需要一个 `constexpr` 修饰的函数，参考 [Item 15](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/15_Use_constexpr_whenever_possible.md)。
+可以写一个接受 `UserInfoFields` 返回 `std::size_t` 的函数来简化这个写法。不过由于 `std::get` 是一个模板函数，那么需要在编译期确定这个值，那么这里需要一个 `constexpr` 修饰的函数，参考 [Item 15](./15_Use_constexpr_whenever_possible.md)。
 
 实际上，我们需要的是 `constexpr` 模板函数，接受任意枚举，然后返回其底层类型，也就是一般化上述函数的输入和输出。`std::underlying_type` 能够帮助我们得到枚举的底层类型。下面的 `toUType` 函数接受任意枚举类型，在编译期返回它的值。
 ```cpp
@@ -207,7 +207,7 @@ toUType(E enumerator) noexcept
 }
 ```
 
-这里使用了 [Item 9](/ComputerScience/EffectiveModernCpp/ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md) 提到的 `std::underlying_type_t` 和 [Item 3](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/03_Understand_decltype.md) 提到的使用 `auto` 表示返回类型。
+这里使用了 [Item 9](./09_Prefer_alias_declarations_to_typedefs.md) 提到的 `std::underlying_type_t` 和 [Item 3](../ch01_Deducing_Types/03_Understand_decltype.md) 提到的使用 `auto` 表示返回类型。
 
 下面是简写的客户端代码。
 ```cpp

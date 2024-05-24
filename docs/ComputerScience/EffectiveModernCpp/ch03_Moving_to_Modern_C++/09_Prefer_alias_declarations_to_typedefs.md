@@ -1,4 +1,4 @@
-工作中会大量使用 STL，[Item 18](/ComputerScience/EffectiveModernCpp/ch04_Smart_Pointers/18_Use_std_unique_ptr_for_exclusive_ownership_resource_management.md) 会解释使用 `std::unique_ptr` 是一个好主意，但是我们不会想一遍遍的重复 `td::unique_ptr<std::unordered_map<std::string, std::string>>`。
+工作中会大量使用 STL，[Item 18](../ch04_Smart_Pointers/18_Use_std_unique_ptr_for_exclusive_ownership_resource_management.md) 会解释使用 `std::unique_ptr` 是一个好主意，但是我们不会想一遍遍的重复 `td::unique_ptr<std::unordered_map<std::string, std::string>>`。
 
 为了避免这个事情，我们使用 `typedef`
 ```cpp

@@ -22,7 +22,7 @@ if (v[0] == 0)              // decltype(v[0]) is int&
 
 C++11 中，`decltype` 的一个常用的地方是写模板函数的返回类型，其依赖于函数参数的类型。比如一个函数接受一个容器对象，其支持索引 `operator[]` 运算符，返回的就是某个索引对应的对象，那么返回类型应该是该容器索引 `operator[]` 运算符的返回类型。
 
-通常情况下，类型为 `T` 的容器的 `operator[]` 运算符返回类型是 `T&`。比如 `std::deque`，和大部分的 `std::vector`。对于 `std::vector<bool>` 而言，`operator[]` 返回的不是 `bool&` 而是一个新的对象。[Item 6](/ComputerScience/EffectiveModernCpp/ch02_auto/06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md) 会探究其原因，不过，这里的重点是容器的 `operator[]` 返回类型依赖于容器。
+通常情况下，类型为 `T` 的容器的 `operator[]` 运算符返回类型是 `T&`。比如 `std::deque`，和大部分的 `std::vector`。对于 `std::vector<bool>` 而言，`operator[]` 返回的不是 `bool&` 而是一个新的对象。[Item 6](../ch02_auto/06_Use_the_explicitly_typed_initializer_idiom_when_auto_deduces_undesired_types.md) 会探究其原因，不过，这里的重点是容器的 `operator[]` 返回类型依赖于容器。
 
 这种情况下，`decltype` 能够简化表达。下面是第一个版本，展示了如何使用 `decltype` 表达返回类型。
 ```cpp
@@ -49,7 +49,7 @@ auto authAndAccess(Container& c, Index i)       // not quite correct
 }
 ```
 
-[Item 2](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 解释此时 `auto` 使用的是模板函数的推导规则。这里就存在这样一个问题。`T` 类型的容器的 `operator[]` 往往返回引用类型 `T&`，而 [Item 1](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中说过，模板函数推导往往会忽略引用修饰。这样，如下代码将无法编译。
+[Item 2](../ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 解释此时 `auto` 使用的是模板函数的推导规则。这里就存在这样一个问题。`T` 类型的容器的 `operator[]` 往往返回引用类型 `T&`，而 [Item 1](../ch01_Deducing_Types/01_Understand_template_type_deduction.md) 中说过，模板函数推导往往会忽略引用修饰。这样，如下代码将无法编译。
 ```cpp
 std::deque<int> d;
 authAndAccess(d, 5) = 10;   // authenticate user, return d[5],
@@ -97,7 +97,7 @@ std::deque<std::string> makeStringDeque();      // factory function
 auto s = authAndAccess(makeStringDeque(), 5);
 ```
 
-一个解决方案是使用函数重载，但是这样需要维护两份代码。另一个解决方案是使用 [Item 24](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md) 阐述的通用引用，那么函数签名如下
+一个解决方案是使用函数重载，但是这样需要维护两份代码。另一个解决方案是使用 [Item 24](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references.md) 阐述的通用引用，那么函数签名如下
 ```cpp
 template<typename Container, typename Index>            // c is now a
 decltype(auto) authAndAccess(Container&& c, Index i);   // universal reference
@@ -105,7 +105,7 @@ decltype(auto) authAndAccess(Container&& c, Index i);   // universal reference
 
 由于不知道容器类型，也就是不知道具体返回对象的类型。如果值传递的话，可能有复制带来的性能问题。不过有的 STL 容器类，比如 `vector, string` 的 `operator[]` 也会返回值类型，所以我们也选择这么做。
 
-不过，这里根据 [Item 25](/ComputerScience/EffectiveModernCpp/ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md) 的规则对通用引用使用 `std::forward`。
+不过，这里根据 [Item 25](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md) 的规则对通用引用使用 `std::forward`。
 ```cpp
 template<typename Container, typename Index>    // final
 decltype(auto)                                  // C++14
@@ -143,7 +143,7 @@ decltype(auto) f2()
 
 注意，`f2` 和 `f1` 的返回类型不同，后者是 `int&`，而且是局部变量的引用，后续使用完全是未定义行为。
 
-这个例子告诉我们要特别注意 `decltype(auto)` 的使用。看似无关紧要的细节会影响 `decltype(auto)` 的结果。可以使用 [Item 4](/ComputerScience/EffectiveModernCpp/ch01_Deducing_Types/04_Know_how_to_view_deduced_types.md) 中描述的技术确保结果是我们期望的。
+这个例子告诉我们要特别注意 `decltype(auto)` 的使用。看似无关紧要的细节会影响 `decltype(auto)` 的结果。可以使用 [Item 4](./04_Know_how_to_view_deduced_types.md) 中描述的技术确保结果是我们期望的。
 
 同时，不要忽视全局。大部分情况下，不管是否和 `auto` 配合使用，`decltype` 只有很多的情况会给出不符合预期的结果。特别是作用于变量名的时候，就是简单返回其类型。
 

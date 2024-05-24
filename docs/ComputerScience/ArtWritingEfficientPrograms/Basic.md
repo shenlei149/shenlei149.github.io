@@ -10,10 +10,10 @@
 
 这里不会涉及算法，但是会介绍后续几点，特别是最后一个，根据场景定义清楚性能指标是一件比较困难的问题，而测试之后，分析数据就更困难了，需要一个合理的解释。
 
-这里涉及的话题有点类似 [Computer Organization and Design RISC-V Edition](/ComputerOrganizationDesign/)，不过两者的侧重不同，
+这里涉及的话题有点类似 [Computer Organization and Design RISC-V Edition](../ComputerOrganizationDesign/README.md)，不过两者的侧重不同，
 
 ## Performance measurements
-性能分析调优的第一原则：不要瞎猜。Never guess about performance! 详情参考反直觉的[例子](/ArtWritingEfficientPrograms/FirstExample.md)。
+性能分析调优的第一原则：不要瞎猜。Never guess about performance! 详情参考反直觉的[例子](./FirstExample.md)。
 
 在怎么优化之前，需要先问两个问题。
 1. 需要优化吗？
