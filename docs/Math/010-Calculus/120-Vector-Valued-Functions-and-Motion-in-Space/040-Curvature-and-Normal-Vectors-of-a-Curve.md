@@ -40,7 +40,6 @@ $$\begin{aligned}
 \end{aligned}$$
 因此，对于任意 $t$ 时刻，圆的曲率是
 $$\kappa=\frac{1}{|\boldsymbol{v}|}\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|=\frac{1}{a}$$
-尽管公式 $(1)$ 对空间中的曲线也成立，不过我们下一节还是会介绍更方便的方法。
 
 在所有与单位切矢量 $\boldsymbol{T}$ 垂直的矢量中，有一个比较特殊，它指向曲线弯曲的方向。由于 $\boldsymbol{T}$ 长度不变，那么 $d\boldsymbol{T}/ds$ 与 $\boldsymbol{T}$ 垂直（参见 [12.1](./010-Curves-in-Space-and-Their-Tangents.md) 中关于固定长度的矢量函数）。因此，用 $d\boldsymbol{T}/ds$ 除以长度 $\kappa$，得到与 $\boldsymbol{T}$ 垂直的单位矢量 $\boldsymbol{N}$。
 
@@ -86,3 +85,77 @@ $$\begin{aligned}
 显然，$\boldsymbol{T}\cdot\boldsymbol{N}=0$，验证了两者是正交的。另外还可以注意到，$\boldsymbol{N}$ 始终指向圆周运动 $\boldsymbol{r}(t)$ 的圆心。
 
 ### 平面曲线的曲率圆
+曲线的一点 $P$，此处 $\kappa\neq 0$，那么曲率圆（`circle of curvature`）或密切圆（`osculating circle`）满足
+
+1. 在点 $P$ 处与曲线相切
+2. 在点 $P$ 处的曲率与曲线一致
+3. 圆心位于曲线凹的方向
+
+![](040.040.png)
+
+点 $P$ 处的曲率半径（`radius of curvature`）是密切圆的半径，根据之前的推导半径是
+$$\rho=\frac{1}{\kappa}$$
+曲线在点 $P$ 处的曲率中心（`center of curvature`）是曲率圆的圆心。
+
+例4 求抛物线 $y=x^2$ 在原点处的密切圆。
+
+解：令 $t=x$ 得到参数方程
+$$\boldsymbol{r}(t)=t\boldsymbol{i}+t^2\boldsymbol{j}$$
+使用公式 $(1)$，需要先计算单位切矢量 $\boldsymbol{T}$。
+$$\boldsymbol{v}=\frac{d\boldsymbol{r}}{dt}=\boldsymbol{i}+2t\boldsymbol{j}$$
+$$|\boldsymbol{v}|=\sqrt{1+4t^2}$$
+那么
+$$\boldsymbol{T}=\frac{\boldsymbol{v}}{|\boldsymbol{v}|}=\frac{1}{\sqrt{1+4t^2}}\boldsymbol{i}+\frac{2t}{\sqrt{1+4t^2}}\boldsymbol{j}$$
+求导
+$$\frac{d\boldsymbol{T}}{dt}=-\frac{4t}{(\sqrt{1+4t^2})^3}\boldsymbol{i}+[\frac{2}{\sqrt{1+4t^2}}-\frac{8t^2}{(\sqrt{1+4t^2})^3}]\boldsymbol{j}$$
+因此
+$$\kappa=\frac{1}{|\boldsymbol{v}(0)|}\bigg|\frac{d\boldsymbol{T}(0)}{dt}\bigg|=|2\boldsymbol{j}|=2$$
+因此曲率半径是 $1/\kappa=1/2$。在原点处 $t=0$，$\boldsymbol{T}=\boldsymbol{i}$，所以 $\boldsymbol{N}=\boldsymbol{j}$，与 $y$ 轴同方向。因此圆心是 $(0,1/2)$。密切圆方程是
+$$x^2+(y-\frac{1}{2})^2=(\frac{1}{2})^2$$
+
+![](040.050.png)
+
+密切圆如上图所示。在原点附近，密切圆是比原点处的切线 $y=0$ 更好的近似。
+
+### 空间中的曲率和法矢量
+上述所有的推导带上第三项 $z$，或者说是 $\boldsymbol{k}$ 分量依旧成立。因此，空间中曲率的定义是
+$$\kappa=\bigg|\frac{d\boldsymbol{T}}{ds}\bigg|=\frac{1}{|\boldsymbol{v}|}\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|\tag{3}$$
+矢量 $d\boldsymbol{T}/ds$ 与 $\boldsymbol{T}$ 正交。主单位法矢量定义是
+$$\boldsymbol{N}=\frac{1}{\kappa}\frac{d\boldsymbol{T}}{ds}=\frac{d\boldsymbol{T}/dt}{|d\boldsymbol{T}/dt|}\tag{4}$$
+
+例5 求螺旋线
+$$\boldsymbol{r}(t)=(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}+bt\boldsymbol{k},a,b\geq 0,a^2+b^2\neq 0$$
+的曲率。
+
+![](040.060.png)
+
+解：从速度矢量 $\boldsymbol{v}$ 求得 $\boldsymbol{T}$。
+$$\begin{aligned}
+\boldsymbol{v}&=-(a\sin t)\boldsymbol{i}+(a\cos t)\boldsymbol{j}+b\boldsymbol{k}\\
+|\boldsymbol{v}|&=\sqrt{a^2\sin^2 t+a^2\cos^2 t+b^2}=\sqrt{a^2+b^2}\\
+\boldsymbol{T}&=\frac{\boldsymbol{v}}{|\boldsymbol{v}|}=\frac{1}{\sqrt{a^2+b^2}}[-(a\sin t)\boldsymbol{i}+(a\cos t)\boldsymbol{j}+b\boldsymbol{k}]
+\end{aligned}$$
+使用公式 $(3)$
+$$\begin{aligned}
+\kappa&=\frac{1}{|\boldsymbol{v}|}\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|\\
+&=\frac{1}{\sqrt{a^2+b^2}}\bigg|\frac{1}{\sqrt{a^2+b^2}}[-(a\cos t)\boldsymbol{i}-(a\sin t)\boldsymbol{j}]\bigg|\\
+&=\frac{a}{a^2+b^2}|-(\cos t)\boldsymbol{i}-(\sin t)\boldsymbol{j}|\\
+&=\frac{a}{a^2+b^2}
+\end{aligned}$$
+如果 $a$ 固定，随着 $b$ 的增长曲率在减小；固定 $b$，随着 $a$ 的减小，曲率也减小。
+
+如果 $b=0$，螺旋线退化成圆，曲率是 $1/a$，圆的半径是 $a$，符合预期。如果 $a=0$，螺旋线退化成了 $z$ 轴，曲率为零，也符合预期。
+
+例6 求上个例子中螺旋线的 $N$。
+
+解：根据上个例子有
+$$\frac{d\boldsymbol{T}}{dt}=-\frac{1}{\sqrt{a^2+b^2}}[(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}]$$
+那么
+$$\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|=\frac{1}{\sqrt{a^2+b^2}}\sqrt{a^2}=\frac{a}{\sqrt{a^2+b^2}}$$
+所以
+$$\begin{aligned}
+\boldsymbol{N}&=\frac{d\boldsymbol{T}/dt}{|d\boldsymbol{T}/dt|}\\
+&=-\frac{\sqrt{a^2+b^2}}{a}\frac{1}{\sqrt{a^2+b^2}}[(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}]\\
+&=-(\cos t)\boldsymbol{i}-(\sin t)\boldsymbol{j}
+\end{aligned}$$
+因此，$\boldsymbol{N}$ 平行于 $xy$ 平面，且始终指向 $z$ 轴。
