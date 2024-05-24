@@ -8645,6 +8645,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      空间中的曲率和法矢量
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -17945,6 +17954,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      空间中的曲率和法矢量
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18019,7 +18037,7 @@
 \end{aligned}</script>
 因此，对于任意 <script type="math/tex">t</script> 时刻，圆的曲率是
 <script type="math/tex; mode=display">\kappa=\frac{1}{|\boldsymbol{v}|}\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|=\frac{1}{a}</script>
-尽管公式 <script type="math/tex">(1)</script> 对空间中的曲线也成立，不过我们下一节还是会介绍更方便的方法。</p>
+</p>
 <p>在所有与单位切矢量 <script type="math/tex">\boldsymbol{T}</script> 垂直的矢量中，有一个比较特殊，它指向曲线弯曲的方向。由于 <script type="math/tex">\boldsymbol{T}</script> 长度不变，那么 <script type="math/tex">d\boldsymbol{T}/ds</script> 与 <script type="math/tex">\boldsymbol{T}</script> 垂直（参见 <a href="../010-Curves-in-Space-and-Their-Tangents/">12.1</a> 中关于固定长度的矢量函数）。因此，用 <script type="math/tex">d\boldsymbol{T}/ds</script> 除以长度 <script type="math/tex">\kappa</script>，得到与 <script type="math/tex">\boldsymbol{T}</script> 垂直的单位矢量 <script type="math/tex">\boldsymbol{N}</script>。</p>
 <p><strong>定义</strong></p>
 <blockquote>
@@ -18060,6 +18078,70 @@
 \end{aligned}</script>
 显然，<script type="math/tex">\boldsymbol{T}\cdot\boldsymbol{N}=0</script>，验证了两者是正交的。另外还可以注意到，<script type="math/tex">\boldsymbol{N}</script> 始终指向圆周运动 <script type="math/tex">\boldsymbol{r}(t)</script> 的圆心。</p>
 <h3 id="_2">平面曲线的曲率圆</h3>
+<p>曲线的一点 <script type="math/tex">P</script>，此处 <script type="math/tex">\kappa\neq 0</script>，那么曲率圆（<code>circle of curvature</code>）或密切圆（<code>osculating circle</code>）满足</p>
+<ol>
+<li>在点 <script type="math/tex">P</script> 处与曲线相切</li>
+<li>在点 <script type="math/tex">P</script> 处的曲率与曲线一致</li>
+<li>圆心位于曲线凹的方向</li>
+</ol>
+<p><img alt="" src="../040.040.png" /></p>
+<p>点 <script type="math/tex">P</script> 处的曲率半径（<code>radius of curvature</code>）是密切圆的半径，根据之前的推导半径是
+<script type="math/tex; mode=display">\rho=\frac{1}{\kappa}</script>
+曲线在点 <script type="math/tex">P</script> 处的曲率中心（<code>center of curvature</code>）是曲率圆的圆心。</p>
+<p>例4 求抛物线 <script type="math/tex">y=x^2</script> 在原点处的密切圆。</p>
+<p>解：令 <script type="math/tex">t=x</script> 得到参数方程
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=t\boldsymbol{i}+t^2\boldsymbol{j}</script>
+使用公式 <script type="math/tex">(1)</script>，需要先计算单位切矢量 <script type="math/tex">\boldsymbol{T}</script>。
+<script type="math/tex; mode=display">\boldsymbol{v}=\frac{d\boldsymbol{r}}{dt}=\boldsymbol{i}+2t\boldsymbol{j}</script>
+<script type="math/tex; mode=display">|\boldsymbol{v}|=\sqrt{1+4t^2}</script>
+那么
+<script type="math/tex; mode=display">\boldsymbol{T}=\frac{\boldsymbol{v}}{|\boldsymbol{v}|}=\frac{1}{\sqrt{1+4t^2}}\boldsymbol{i}+\frac{2t}{\sqrt{1+4t^2}}\boldsymbol{j}</script>
+求导
+<script type="math/tex; mode=display">\frac{d\boldsymbol{T}}{dt}=-\frac{4t}{(\sqrt{1+4t^2})^3}\boldsymbol{i}+[\frac{2}{\sqrt{1+4t^2}}-\frac{8t^2}{(\sqrt{1+4t^2})^3}]\boldsymbol{j}</script>
+因此
+<script type="math/tex; mode=display">\kappa=\frac{1}{|\boldsymbol{v}(0)|}\bigg|\frac{d\boldsymbol{T}(0)}{dt}\bigg|=|2\boldsymbol{j}|=2</script>
+因此曲率半径是 <script type="math/tex">1/\kappa=1/2</script>。在原点处 <script type="math/tex">t=0</script>，<script type="math/tex">\boldsymbol{T}=\boldsymbol{i}</script>，所以 <script type="math/tex">\boldsymbol{N}=\boldsymbol{j}</script>，与 <script type="math/tex">y</script> 轴同方向。因此圆心是 <script type="math/tex">(0,1/2)</script>。密切圆方程是
+<script type="math/tex; mode=display">x^2+(y-\frac{1}{2})^2=(\frac{1}{2})^2</script>
+</p>
+<p><img alt="" src="../040.050.png" /></p>
+<p>密切圆如上图所示。在原点附近，密切圆是比原点处的切线 <script type="math/tex">y=0</script> 更好的近似。</p>
+<h3 id="_3">空间中的曲率和法矢量</h3>
+<p>上述所有的推导带上第三项 <script type="math/tex">z</script>，或者说是 <script type="math/tex">\boldsymbol{k}</script> 分量依旧成立。因此，空间中曲率的定义是
+<script type="math/tex; mode=display">\kappa=\bigg|\frac{d\boldsymbol{T}}{ds}\bigg|=\frac{1}{|\boldsymbol{v}|}\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|\tag{3}</script>
+矢量 <script type="math/tex">d\boldsymbol{T}/ds</script> 与 <script type="math/tex">\boldsymbol{T}</script> 正交。主单位法矢量定义是
+<script type="math/tex; mode=display">\boldsymbol{N}=\frac{1}{\kappa}\frac{d\boldsymbol{T}}{ds}=\frac{d\boldsymbol{T}/dt}{|d\boldsymbol{T}/dt|}\tag{4}</script>
+</p>
+<p>例5 求螺旋线
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}+bt\boldsymbol{k},a,b\geq 0,a^2+b^2\neq 0</script>
+的曲率。</p>
+<p><img alt="" src="../040.060.png" /></p>
+<p>解：从速度矢量 <script type="math/tex">\boldsymbol{v}</script> 求得 <script type="math/tex">\boldsymbol{T}</script>。
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{v}&=-(a\sin t)\boldsymbol{i}+(a\cos t)\boldsymbol{j}+b\boldsymbol{k}\\
+|\boldsymbol{v}|&=\sqrt{a^2\sin^2 t+a^2\cos^2 t+b^2}=\sqrt{a^2+b^2}\\
+\boldsymbol{T}&=\frac{\boldsymbol{v}}{|\boldsymbol{v}|}=\frac{1}{\sqrt{a^2+b^2}}[-(a\sin t)\boldsymbol{i}+(a\cos t)\boldsymbol{j}+b\boldsymbol{k}]
+\end{aligned}</script>
+使用公式 <script type="math/tex">(3)</script>
+<script type="math/tex; mode=display">\begin{aligned}
+\kappa&=\frac{1}{|\boldsymbol{v}|}\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|\\
+&=\frac{1}{\sqrt{a^2+b^2}}\bigg|\frac{1}{\sqrt{a^2+b^2}}[-(a\cos t)\boldsymbol{i}-(a\sin t)\boldsymbol{j}]\bigg|\\
+&=\frac{a}{a^2+b^2}|-(\cos t)\boldsymbol{i}-(\sin t)\boldsymbol{j}|\\
+&=\frac{a}{a^2+b^2}
+\end{aligned}</script>
+如果 <script type="math/tex">a</script> 固定，随着 <script type="math/tex">b</script> 的增长曲率在减小；固定 <script type="math/tex">b</script>，随着 <script type="math/tex">a</script> 的减小，曲率也减小。</p>
+<p>如果 <script type="math/tex">b=0</script>，螺旋线退化成圆，曲率是 <script type="math/tex">1/a</script>，圆的半径是 <script type="math/tex">a</script>，符合预期。如果 <script type="math/tex">a=0</script>，螺旋线退化成了 <script type="math/tex">z</script> 轴，曲率为零，也符合预期。</p>
+<p>例6 求上个例子中螺旋线的 <script type="math/tex">N</script>。</p>
+<p>解：根据上个例子有
+<script type="math/tex; mode=display">\frac{d\boldsymbol{T}}{dt}=-\frac{1}{\sqrt{a^2+b^2}}[(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}]</script>
+那么
+<script type="math/tex; mode=display">\bigg|\frac{d\boldsymbol{T}}{dt}\bigg|=\frac{1}{\sqrt{a^2+b^2}}\sqrt{a^2}=\frac{a}{\sqrt{a^2+b^2}}</script>
+所以
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{N}&=\frac{d\boldsymbol{T}/dt}{|d\boldsymbol{T}/dt|}\\
+&=-\frac{\sqrt{a^2+b^2}}{a}\frac{1}{\sqrt{a^2+b^2}}[(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}]\\
+&=-(\cos t)\boldsymbol{i}-(\sin t)\boldsymbol{j}
+\end{aligned}</script>
+因此，<script type="math/tex">\boldsymbol{N}</script> 平行于 <script type="math/tex">xy</script> 平面，且始终指向 <script type="math/tex">z</script> 轴。</p>
 
 
 
@@ -18082,7 +18164,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 24, 2024</span>
   </span>
 
     
