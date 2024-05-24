@@ -801,11 +801,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/TAOCP/05-Sorting/_sidebar/</loc>
-         <lastmod>2024-05-24</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/TAOCP/05-Sorting/04-External-Sorting/</loc>
          <lastmod>2024-05-24</lastmod>
          <changefreq>daily</changefreq>
@@ -826,17 +821,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/TAOCP/05-Sorting/04-External-Sorting/_sidebar/</loc>
-         <lastmod>2024-05-24</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/TAOCP/ConcreteMathematics/</loc>
-         <lastmod>2024-05-24</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/ComputerScience/TAOCP/ConcreteMathematics/_sidebar/</loc>
          <lastmod>2024-05-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -861,11 +846,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/TAOCP/ConcreteMathematics/02-Sums/_sidebar/</loc>
-         <lastmod>2024-05-24</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/ComputerScience/TAOCP/ConcreteMathematics/03-Integer-Functions/</loc>
          <lastmod>2024-05-24</lastmod>
          <changefreq>daily</changefreq>
@@ -877,11 +857,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/ComputerScience/TAOCP/ConcreteMathematics/03-Integer-Functions/02-FLOOR-CEILING-APPLICATIONS/</loc>
-         <lastmod>2024-05-24</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/ComputerScience/TAOCP/ConcreteMathematics/03-Integer-Functions/_sidebar/</loc>
          <lastmod>2024-05-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -966,11 +941,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/Math/010-Calculus/020-Limits-and-Continuity/_sidebar/</loc>
-         <lastmod>2024-05-24</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://guozi149.me/Math/010-Calculus/030-Derivatives/</loc>
          <lastmod>2024-05-24</lastmod>
          <changefreq>daily</changefreq>
@@ -1027,11 +997,6 @@
     </url>
     <url>
          <loc>https://guozi149.me/Math/010-Calculus/030-Derivatives/110-Linearization-and-Differentials/</loc>
-         <lastmod>2024-05-24</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://guozi149.me/Math/010-Calculus/030-Derivatives/_sidebar/</loc>
          <lastmod>2024-05-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
