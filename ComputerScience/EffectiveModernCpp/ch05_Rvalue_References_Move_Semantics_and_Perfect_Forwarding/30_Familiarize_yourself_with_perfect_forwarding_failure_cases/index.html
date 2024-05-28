@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
@@ -3242,6 +3242,42 @@
   <a href="#declaration-only-integral-static-const-data-members" class="md-nav__link">
     <span class="md-ellipsis">
       Declaration-only integral static const data members
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overloaded-function-names-and-template-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overloaded function names and template names
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bitfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bitfields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upshot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things to Remember
     </span>
   </a>
   
@@ -17788,6 +17824,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#overloaded-function-names-and-template-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overloaded function names and template names
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bitfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bitfields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upshot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things to Remember
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -17870,6 +17942,104 @@
 <h2 id="0-or-null-as-null-pointers">0 or NULL as null pointers</h2>
 <p><a href="../../ch03_Moving_to_Modern_C%2B%2B/08_Prefer_nullptr_to_0_and_NULL/">Item 8</a> 告诉我们如果使用 0 或者 <code>NULL</code> 作为空指针传入模板函数，会导致推导出错误的类型，期望是指针类型，但是实际是整数类型。这种情况下，不能期待会完美转发一个空指针。解决方案也很简单，传入 <code>nullptr</code>。</p>
 <h2 id="declaration-only-integral-static-const-data-members">Declaration-only integral static const data members</h2>
+<p>一般而言，没有必要定义 <code>static const</code> 的成员变量，因为编译器会进行常量传播（<code>const propagation</code>），消除了需要内存存放的需求。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">MinVals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">28</span><span class="p">;</span><span class="w"> </span><span class="c1">// MinVals&#39; declaration no defn. for MinVals</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">};</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">widgetData</span><span class="p">;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">widgetData</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">Widget</span><span class="o">::</span><span class="n">MinVals</span><span class="p">);</span><span class="w"> </span><span class="c1">// use of MinVals</span>
+</span></code></pre></div>
+这里 <code>Widget::MinVals</code> 没有定义，但仍可以使用它来初始化 <code>widgetData</code> 的容量。编译器会使用 28 替换所有使用 <code>Widget::MinVals</code> 的地方。所以没有内存存储这个值也是可行的。但是如果需要取地址，比如有某个指针指向这个变量，那么上述代码虽然能编译通过，但是链接的时候会报错。</p>
+<p>考虑之前的 <code>f</code> 与 <code>fwd</code> 函数，假定 <code>f</code> 的声明如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>
+</span></code></pre></div>
+那么如下调用函数 <code>f</code> 是合法的
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">f</span><span class="p">(</span><span class="n">Widget</span><span class="o">::</span><span class="n">MinVals</span><span class="p">);</span><span class="w"> </span><span class="c1">// fine, treated as &quot;f(28)&quot;</span>
+</span></code></pre></div>
+但是无法通过 <code>fwd</code> 调用 <code>f</code>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">fwd</span><span class="p">(</span><span class="n">Widget</span><span class="o">::</span><span class="n">MinVals</span><span class="p">);</span><span class="w"> </span><span class="c1">// error! shouldn&#39;t link</span>
+</span></code></pre></div>
+链接的时候会出错，原因与之前解释一样。</p>
+<p>尽管这里并没有取 <code>MinVals</code> 的地址，但是 <code>fwd</code> 的参数是通用引用，而引用在编译器看来和指针一样。在某种程度上，引用就是自动解引用的指针。传递 <code>MinVals</code> 的引用与传递指针一样高效，但是也要求有某个内存地址，使得指针能够指向这个位置。通过引用传递 <code>static const</code> 的成员变量，一般也就要求其有定义，否则会导致完美转发失败。</p>
+<p>根据标准，传递 <code>static const</code> 整数的引用，要求有定义。但是并不是所有的实现都强制要求这一点。所以，具体问题可能依赖于编译器和链接器。你或许发现没有定义也能完美转发 <code>static const</code> 的整型成员变量，但是这并不是能这么做的理由，因为这涉及可移植性。为了提高可移植性，应该给 <code>static const</code> 变量一个定义。对于 <code>MinVals</code>，定义如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">Widget</span><span class="o">::</span><span class="n">MinVals</span><span class="p">;</span><span class="w"> </span><span class="c1">// in Widget&#39;s .cpp file</span>
+</span></code></pre></div>
+注意，这里并没有使用 28 进行初始化。因为按照要求只能初始化一次，如果在两个地方都初始化，编译器会报错。</p>
+<h2 id="overloaded-function-names-and-template-names">Overloaded function names and template names</h2>
+<p>假定函数 <code>f</code> 接受一个函数作为参数，以自定义行为。假定这个函数参数与返回值类型都是 <code>int</code>，那么 <code>f</code> 的声明如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">pf</span><span class="p">)(</span><span class="kt">int</span><span class="p">));</span><span class="w"> </span><span class="c1">// pf = &quot;processing function&quot;</span>
+</span></code></pre></div>
+也可以使用非指针的语法
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">pf</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span><span class="w"> </span><span class="c1">// declares same f as above</span>
+</span></code></pre></div>
+现在，有两个重载版本的 <code>processVal</code> 函数
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">processVal</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kt">int</span><span class="w"> </span><span class="nf">processVal</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">priority</span><span class="p">);</span>
+</span></code></pre></div>
+我们可以将 <code>processVal</code> 传递给 <code>f</code> 函数
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">f</span><span class="p">(</span><span class="n">processVal</span><span class="p">);</span><span class="w"> </span><span class="c1">// fine</span>
+</span></code></pre></div>
+编译器知道需要哪一个 <code>processVal</code>，即匹配 <code>f</code> 参数的那一个。于是乎，将接受一个 <code>int</code> 参数的 <code>processVal</code> 函数地址传递给 <code>f</code>。</p>
+<p>但是 <code>fwd</code> 是一个模板函数，并不包含任何关于需要什么类型的参数的信息，那么编译器就无法知道该使用哪一个重载。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">fwd</span><span class="p">(</span><span class="n">processVal</span><span class="p">);</span><span class="w"> </span><span class="c1">// error! which processVal?</span>
+</span></code></pre></div>
+只有 <code>processVal</code> 是没有类型的，那么无法进行类型推导，完美转发失败。</p>
+<p>如果我们使用模板函数而不是重载，也会有同样的问题。一个模板函数不是一个函数，而是需要函数
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">T</span><span class="w"> </span><span class="n">workOnVal</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">param</span><span class="p">)</span><span class="w"> </span><span class="c1">// template for processing values</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="p">{</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">}</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">fwd</span><span class="p">(</span><span class="n">workOnVal</span><span class="p">);</span><span class="w"> </span><span class="c1">// error! which workOnVal instantiation?</span>
+</span></code></pre></div>
+如果想要完美转发接受一个重载函数或者是模板函数，需要手动的指定是哪一个重载或者模板实例化的函数。比如，声明一个与 <code>f</code> 参数相同的函数指针类型，使用 <code>processVal</code> 或者 <code>workOnVal</code> 初始化，这就选择了合适的重载或模板实例，然后将指针传递给 <code>fwd</code>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">using</span><span class="w"> </span><span class="n">ProcessFuncType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">);</span><span class="w"> </span><span class="c1">// make typedef; see Item 9</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1">// specify needed signature for processVal</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">ProcessFuncType</span><span class="w"> </span><span class="n">processValPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">processVal</span><span class="p">;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="n">fwd</span><span class="p">(</span><span class="n">processValPtr</span><span class="p">);</span><span class="w">                           </span><span class="c1">// fine</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="n">fwd</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">ProcessFuncType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">workOnVal</span><span class="p">));</span><span class="w"> </span><span class="c1">// also fine</span>
+</span></code></pre></div>
+这就要求我们知道完美转发的函数指针的类型。但是没有理由一个完美转发的函数会有文档记录这些事情。毕竟，完美转发设计初衷是接受任意类型，所以如果没有文档记录这些的话，我们又怎么能知道具体类型呢？</p>
+<h2 id="bitfields">Bitfields</h2>
+<p>最后一种无法完美转发的情况是使用了位域作为函数的参数。假定 IPv4 头的定义如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">IPv4Header</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="p">{</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">        </span><span class="nl">IHL</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">        </span><span class="nl">DSCP</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">        </span><span class="nl">ECN</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">        </span><span class="nl">totalLength</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="p">};</span>
+</span></code></pre></div>
+假定 <code>f</code> 的参数是 <code>std::size_t</code>，我们传入 <code>IPv4Header</code> 的 <code>totalLength</code> 来调用 <code>f</code> 函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">sz</span><span class="p">);</span><span class="w"> </span><span class="c1">// function to call</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">IPv4Header</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">f</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">totalLength</span><span class="p">);</span><span class="w"> </span><span class="c1">// fine</span>
+</span></code></pre></div>
+但是无法以同样的方式调用 <code>fwd</code> 函数
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">fwd</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">totalLength</span><span class="p">);</span><span class="w"> </span><span class="c1">// error!</span>
+</span></code></pre></div>
+原因是 <code>fwd</code> 的参数是引用，而 <code>h.totalLength</code> 是非 <code>const</code> 位域。C++ 标准禁止这么做：非 <code>const</code> 引用不能绑定到位域。原因很简单，因为位域可以从任意比特开始，而指针或引用不能指向任意比特，C++ 寻址最小单元是 <code>char</code>，也就是一个字节而不是比特。</p>
+<p>如果意识到接受位域作为参数的函数，函数收到的一定是拷贝的话，那么这么问题就很容易解决了。如前所述，没有指针或引用能够指向位域，那么函数不能是指针参数或者引用参数。所以结果只能是按值传递，或者是 <code>const</code> 引用。按值传递的话函数收到的是位域内容的拷贝，如果参数是 <code>const</code> 引用，标准是要求引用绑定到存放位域的的整数类型（比如 <code>int</code>）的拷贝对象上。因此，并不是绑定到位域而是包含位域的对象的拷贝。</p>
+<p>解决这个问题的关键就是函数接受的是拷贝。在完美转发之前，我们可以先行拷贝一遍。在当前 <code>IPv4Header</code> 例子中，代码如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1">// copy bitfield value; see Item 6 for info on init. form</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">totalLength</span><span class="p">);</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="n">fwd</span><span class="p">(</span><span class="n">length</span><span class="p">);</span><span class="w"> </span><span class="c1">// forward the copy</span>
+</span></code></pre></div></p>
+<h2 id="upshot">Upshot</h2>
+<p>大部分时候，完美转发都工作的很好，偶尔会出错。可能是编译错误，更严重的参数是能编译但是不能按照预期行为工作。知道完美转发不完美的情况是很重要的，还需要知道如何绕过这些问题。</p>
+<h2 id="things-to-remember">Things to Remember</h2>
+<ul>
+<li>Perfect forwarding fails when template type deduction fails or when it deduces the wrong type.</li>
+<li>The kinds of arguments that lead to perfect forwarding failure are braced initializers, null pointers expressed as <code>0</code> or <code>NULL</code>, declaration-only integral <code>const static</code> data members, template and overloaded function names, and bitfields.</li>
+</ul>
 
 
 
@@ -17892,7 +18062,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 23, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 28, 2024</span>
   </span>
 
     
