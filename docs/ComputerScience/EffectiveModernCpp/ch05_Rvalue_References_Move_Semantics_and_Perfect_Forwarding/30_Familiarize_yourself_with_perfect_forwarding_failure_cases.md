@@ -64,4 +64,126 @@ fwd(il);             // fine, perfect-forwards il to f
 [Item 8](../ch03_Moving_to_Modern_C++/08_Prefer_nullptr_to_0_and_NULL.md) 告诉我们如果使用 0 或者 `NULL` 作为空指针传入模板函数，会导致推导出错误的类型，期望是指针类型，但是实际是整数类型。这种情况下，不能期待会完美转发一个空指针。解决方案也很简单，传入 `nullptr`。
 
 ## Declaration-only integral static const data members
+一般而言，没有必要定义 `static const` 的成员变量，因为编译器会进行常量传播（`const propagation`），消除了需要内存存放的需求。
+```cpp
+class Widget
+{
+public:
+    static const std::size_t MinVals = 28; // MinVals' declaration no defn. for MinVals
+};
 
+std::vector<int> widgetData;
+widgetData.reserve(Widget::MinVals); // use of MinVals
+```
+这里 `Widget::MinVals` 没有定义，但仍可以使用它来初始化 `widgetData` 的容量。编译器会使用 28 替换所有使用 `Widget::MinVals` 的地方。所以没有内存存储这个值也是可行的。但是如果需要取地址，比如有某个指针指向这个变量，那么上述代码虽然能编译通过，但是链接的时候会报错。
+
+考虑之前的 `f` 与 `fwd` 函数，假定 `f` 的声明如下
+```cpp
+void f(std::size_t val);
+```
+那么如下调用函数 `f` 是合法的
+```cpp
+f(Widget::MinVals); // fine, treated as "f(28)"
+```
+但是无法通过 `fwd` 调用 `f`
+```cpp
+fwd(Widget::MinVals); // error! shouldn't link
+```
+链接的时候会出错，原因与之前解释一样。
+
+尽管这里并没有取 `MinVals` 的地址，但是 `fwd` 的参数是通用引用，而引用在编译器看来和指针一样。在某种程度上，引用就是自动解引用的指针。传递 `MinVals` 的引用与传递指针一样高效，但是也要求有某个内存地址，使得指针能够指向这个位置。通过引用传递 `static const` 的成员变量，一般也就要求其有定义，否则会导致完美转发失败。
+
+根据标准，传递 `static const` 整数的引用，要求有定义。但是并不是所有的实现都强制要求这一点。所以，具体问题可能依赖于编译器和链接器。你或许发现没有定义也能完美转发 `static const` 的整型成员变量，但是这并不是能这么做的理由，因为这涉及可移植性。为了提高可移植性，应该给 `static const` 变量一个定义。对于 `MinVals`，定义如下
+```cpp
+const std::size_t Widget::MinVals; // in Widget's .cpp file
+```
+注意，这里并没有使用 28 进行初始化。因为按照要求只能初始化一次，如果在两个地方都初始化，编译器会报错。
+
+## Overloaded function names and template names
+假定函数 `f` 接受一个函数作为参数，以自定义行为。假定这个函数参数与返回值类型都是 `int`，那么 `f` 的声明如下
+```cpp
+void f(int (*pf)(int)); // pf = "processing function"
+```
+也可以使用非指针的语法
+```cpp
+void f(int pf(int)); // declares same f as above
+```
+现在，有两个重载版本的 `processVal` 函数
+```cpp
+int processVal(int value);
+int processVal(int value, int priority);
+```
+我们可以将 `processVal` 传递给 `f` 函数
+```cpp
+f(processVal); // fine
+```
+编译器知道需要哪一个 `processVal`，即匹配 `f` 参数的那一个。于是乎，将接受一个 `int` 参数的 `processVal` 函数地址传递给 `f`。
+
+但是 `fwd` 是一个模板函数，并不包含任何关于需要什么类型的参数的信息，那么编译器就无法知道该使用哪一个重载。
+```cpp
+fwd(processVal); // error! which processVal?
+```
+只有 `processVal` 是没有类型的，那么无法进行类型推导，完美转发失败。
+
+如果我们使用模板函数而不是重载，也会有同样的问题。一个模板函数不是一个函数，而是需要函数
+```cpp
+template <typename T>
+T workOnVal(T param) // template for processing values
+{
+}
+
+fwd(workOnVal); // error! which workOnVal instantiation?
+```
+如果想要完美转发接受一个重载函数或者是模板函数，需要手动的指定是哪一个重载或者模板实例化的函数。比如，声明一个与 `f` 参数相同的函数指针类型，使用 `processVal` 或者 `workOnVal` 初始化，这就选择了合适的重载或模板实例，然后将指针传递给 `fwd`
+```cpp
+using ProcessFuncType = int (*)(int); // make typedef; see Item 9
+
+// specify needed signature for processVal
+ProcessFuncType processValPtr = processVal;
+
+fwd(processValPtr);                           // fine
+fwd(static_cast<ProcessFuncType>(workOnVal)); // also fine
+```
+这就要求我们知道完美转发的函数指针的类型。但是没有理由一个完美转发的函数会有文档记录这些事情。毕竟，完美转发设计初衷是接受任意类型，所以如果没有文档记录这些的话，我们又怎么能知道具体类型呢？
+
+## Bitfields
+最后一种无法完美转发的情况是使用了位域作为函数的参数。假定 IPv4 头的定义如下
+```cpp
+struct IPv4Header
+{
+    std::uint32_t version : 4,
+        IHL : 4,
+        DSCP : 6,
+        ECN : 2,
+        totalLength : 16;
+};
+```
+假定 `f` 的参数是 `std::size_t`，我们传入 `IPv4Header` 的 `totalLength` 来调用 `f` 函数。
+```cpp
+void f(std::size_t sz); // function to call
+IPv4Header h;
+
+f(h.totalLength); // fine
+```
+但是无法以同样的方式调用 `fwd` 函数
+```cpp
+fwd(h.totalLength); // error!
+```
+原因是 `fwd` 的参数是引用，而 `h.totalLength` 是非 `const` 位域。C++ 标准禁止这么做：非 `const` 引用不能绑定到位域。原因很简单，因为位域可以从任意比特开始，而指针或引用不能指向任意比特，C++ 寻址最小单元是 `char`，也就是一个字节而不是比特。
+
+如果意识到接受位域作为参数的函数，函数收到的一定是拷贝的话，那么这么问题就很容易解决了。如前所述，没有指针或引用能够指向位域，那么函数不能是指针参数或者引用参数。所以结果只能是按值传递，或者是 `const` 引用。按值传递的话函数收到的是位域内容的拷贝，如果参数是 `const` 引用，标准是要求引用绑定到存放位域的的整数类型（比如 `int`）的拷贝对象上。因此，并不是绑定到位域而是包含位域的对象的拷贝。
+
+解决这个问题的关键就是函数接受的是拷贝。在完美转发之前，我们可以先行拷贝一遍。在当前 `IPv4Header` 例子中，代码如下
+```cpp
+// copy bitfield value; see Item 6 for info on init. form
+auto length = static_cast<std::uint16_t>(h.totalLength);
+
+fwd(length); // forward the copy
+```
+
+## Upshot
+大部分时候，完美转发都工作的很好，偶尔会出错。可能是编译错误，更严重的参数是能编译但是不能按照预期行为工作。知道完美转发不完美的情况是很重要的，还需要知道如何绕过这些问题。
+
+## Things to Remember
+* Perfect forwarding fails when template type deduction fails or when it deduces the wrong type.
+* The kinds of arguments that lead to perfect forwarding failure are braced initializers, null pointers expressed as `0` or `NULL`, declaration-only integral `const static` data members, template and overloaded function names, and bitfields.
