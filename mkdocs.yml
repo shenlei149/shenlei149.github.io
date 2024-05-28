@@ -10,6 +10,7 @@ theme:
     - navigation.indexes
     - content.action.view
     - content.action.edit
+    - content.code.copy
   palette:
     accent: cyan
   logo: logo.png
