@@ -93,5 +93,5 @@ $$\boldsymbol{v}=(-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}$$
 $\boldsymbol{r}$ 随着 $t$ 在变化，那么速度也在变化，但是位置矢量相应于弧长是如何变化的呢？即 $d\boldsymbol{r}/ds$？由于 $ds/dt>0$，$s$ 还是一对一函数，且是 $t$ 的可导函数，所以可逆。反函数的导数
 $$\frac{dt}{ds}=\frac{1}{ds/dt}=\frac{1}{|\boldsymbol{v}|}$$
 $\boldsymbol{r}$ 是 $s$ 的可导函数，根据链式法则
-$$\frac{d\boldsymbol{r}}{dt}=\frac{d\boldsymbol{r}}{dt}\frac{dt}{ds}=|\boldsymbol{v}|\frac{1}{|\boldsymbol{v}|}=\boldsymbol{T}$$
+$$\frac{d\boldsymbol{r}}{ds}=\frac{d\boldsymbol{r}}{dt}\frac{dt}{ds}=|\boldsymbol{v}|\frac{1}{|\boldsymbol{v}|}=\boldsymbol{T}$$
 所以 $d\boldsymbol{r}/ds$ 是速度矢量 $\boldsymbol{v}$ 方向上的单位切向量。
