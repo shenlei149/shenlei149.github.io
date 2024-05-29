@@ -107,4 +107,25 @@ $$\begin{aligned}
 因此
 $$|\boldsymbol{v}\times\boldsymbol{a}|=\kappa|\frac{ds}{dt}|^3|\boldsymbol{B}|=\kappa|\boldsymbol{v}|^3$$
 由此可以得到 $\kappa$ 的公式。
-$$\kappa=\frac{|\boldsymbol{v}\times\boldsymbol{a}|}{|\boldsymbol{v}|^3}\tag{5}$$
+
+**曲率的矢量公式**
+> $$\kappa=\frac{|\boldsymbol{v}\times\boldsymbol{a}|}{|\boldsymbol{v}|^3}\tag{5}$$
+
+公式 $(5)$ 利用速度和加速度计算曲线的几何意义——曲率，前提是 $|\boldsymbol{v}|$ 不为零。整个计算好像与参数曲线无关。
+
+下面是扭矩计算公式，推导需要更高阶的知识，这里给出行列式形式。
+
+**扭矩公式**
+> $$\tau=\frac{\begin{pmatrix}
+> \dot{x}&\dot{y}&\dot{z}\\
+> \ddot{x}&\ddot{y}&\ddot{z}\\
+> \dddot{x}&\dddot{y}&\dddot{z}
+> \end{pmatrix}}{|\boldsymbol{v}\times\boldsymbol{a}|^2},\boldsymbol{v}\times\boldsymbol{a}\neq\boldsymbol{0}\tag{6}$$
+
+这个公式使用 $\boldsymbol{r}$ 的三个分量 $x=f(t),y=g(t),z=h(t)$ 的导数计算扭矩。行列式的第一行来自速度 $\boldsymbol{v}$，第二行来自加速度 $\boldsymbol{a}$，第三行来自 $\dot{\boldsymbol{a}}=d\boldsymbol{a}/dt$。这个公式通常使用牛顿记号。
+
+例2 使用公式 $(5),(6)$ 计算螺旋线
+$$\boldsymbol{r}(t)=(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}+bt\boldsymbol{k},a,b\geq 0,a^2+b^2\neq 0$$
+的曲率 $\kappa$ 和扭矩 $\tau$。
+
+解：
