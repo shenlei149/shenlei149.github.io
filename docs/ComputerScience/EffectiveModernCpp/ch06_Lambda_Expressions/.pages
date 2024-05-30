@@ -1,3 +1,4 @@
 nav:
     - 06 ch06_Lambda_Expressions: README.md
     - 31 Avoid default capture modes: 31_Avoid_default_capture_modes.md
+    - 32 Use init capture to move objects into closures: 32_Use_init_capture_to_move_objects_into_closures.md
