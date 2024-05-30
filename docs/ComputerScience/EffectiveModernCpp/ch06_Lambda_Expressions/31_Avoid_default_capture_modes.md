@@ -157,5 +157,62 @@ void doSomeWork()
 
 } // destroy Widget; filters now holds dangling pointer!
 ```
+当 `doSomeWork` 被调用，创建了一个依赖于 `Widget` 的过滤器，`Widget` 由 `std::make_unique` 创建出来的，而过滤器有一个指向 `Widget` 对象的裸指针的拷贝。当 `doSomeWork` 结束的时候，由 `std::make_unique` 管理的 `Widget` 对象会被销毁，那么 `filters` 中有一个元素就包含了悬垂指针。
 
-## 
+这个特殊的问题可以拷贝一份成员变量，然后 lambda 捕获这个拷贝。
+```cpp
+void Widget::addFilter() const
+{
+    auto divisorCopy = divisor; // copy data member
+    filters.emplace_back(
+        [divisorCopy](int value)             // capture the copy
+        { return value % divisorCopy == 0; } // use the copy
+    );
+}
+```
+此时，使用默认按值捕获也是可以的。
+```cpp
+void Widget::addFilter() const
+{
+    auto divisorCopy = divisor; // copy data member
+    filters.emplace_back(
+        [=](int value)                       // capture the copy
+        { return value % divisorCopy == 0; } // use the copy
+    );
+}
+```
+但是何必冒险呢？一开始我们认为按值捕获了 `divisor`，但是不小心捕获的是 `this`。
+
+C++14 中，更好的做法是采用通用 lambda 捕获（参见 Item 32 TODO link）。
+```cpp
+void Widget::addFilter() const
+{
+    filters.emplace_back(                // C++14:
+        [divisor = divisor](int value)   // copy divisor to closure
+        { return value % divisor == 0; } // use the copy
+    );
+}
+```
+对通用捕获而言，就没有默认捕获模式的问题了。
+
+按值捕获的另一个缺点是让人以为闭包是自包含的，与闭包外的值更新无关。一般而言这个说法是不对的，因为 lambda 不仅仅依赖于局部变量和参数，也会依赖静态存储周期（`static storage duration`）的对象。这些对象是定义在全局或命名空间下，亦或者是在内类、函数内、文件内部声明为 `static` 的变量。lambda 能用这些变量，但是不能被捕获。按值捕获会误导以为捕获了这些变量。看下面的例子。
+```cpp
+void addDivisorFilter()
+{
+    static auto calc1 = computeSomeValue1();            // now static
+    static auto calc2 = computeSomeValue2();            // now static
+    static auto divisor = computeDivisor(calc1, calc2); // now static
+
+    filters.emplace_back(
+        [=](int value)                   // captures nothing!
+        { return value % divisor == 0; } // refers to above static
+    );
+
+    ++divisor; // modify divisor
+}
+```
+`[=]` 会让人以为闭包已经捕获了需要的变量的拷贝，是自包含的了。其实不然。这个 lambda 没有使用任何非 `static` 的局部变量，所以什么也没有捕获，而是引用了 `static` 变量 `divisor`。每次调用 `addDivisorFilter` 都会使 `divisor` 自增，那么添加到 `filters` 的过滤器行为一直在变化，因为相应的 `divisor` 变化了。事实上，lambda 捕获的是 `divisor` 的引用，这与默认按值捕获矛盾。如果一开始就避免使用默认按值捕获，就能避免这些陷阱。
+
+## Things to Remember
+* Default by-reference capture can lead to dangling references.
+* Default by-value capture is susceptible to dangling pointers (especially `this`), and it misleadingly suggests that lambdas are self-contained.
