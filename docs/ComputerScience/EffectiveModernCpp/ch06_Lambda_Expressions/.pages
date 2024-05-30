@@ -1,2 +1,3 @@
 nav:
     - 06 ch06_Lambda_Expressions: README.md
+    - 31 Avoid default capture modes: 31_Avoid_default_capture_modes.md
