@@ -591,6 +591,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://guozi149.me/ComputerScience/EffectiveModernCpp/ch06_Lambda_Expressions/32_Use_init_capture_to_move_objects_into_closures/</loc>
+         <lastmod>2024-05-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://guozi149.me/ComputerScience/InterviewQuestions/</loc>
          <lastmod>2024-05-30</lastmod>
          <changefreq>daily</changefreq>

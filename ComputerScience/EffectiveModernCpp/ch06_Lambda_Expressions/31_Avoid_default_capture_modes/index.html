@@ -14,7 +14,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../../ArtWritingEfficientPrograms/">
+        <link rel="next" href="../32_Use_init_capture_to_move_objects_into_closures/">
       
       
       <link rel="icon" href="../../../../logo.png">
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#things-to-remember" class="md-skip">
           Skip to content
         </a>
       
@@ -3218,6 +3218,8 @@
       
         
       
+        
+      
     
     
       
@@ -3308,9 +3310,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#things-to-remember" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      Things to Remember
     </span>
   </a>
   
@@ -3320,6 +3322,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32_Use_init_capture_to_move_objects_into_closures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32 Use init capture to move objects into closures
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -17854,9 +17877,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#things-to-remember" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      Things to Remember
     </span>
   </a>
   
@@ -18029,8 +18052,60 @@ lambda 引用了局部变量 <code>divisor</code>，但是当函数 <code>addDiv
 </span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="n">pw</span><span class="o">-&gt;</span><span class="n">addFilter</span><span class="p">();</span><span class="w"> </span><span class="c1">// add filter that uses Widget::divisor</span>
 </span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
 </span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="p">}</span><span class="w"> </span><span class="c1">// destroy Widget; filters now holds dangling pointer!</span>
-</span></code></pre></div></p>
-<h2 id="_1"></h2>
+</span></code></pre></div>
+当 <code>doSomeWork</code> 被调用，创建了一个依赖于 <code>Widget</code> 的过滤器，<code>Widget</code> 由 <code>std::make_unique</code> 创建出来的，而过滤器有一个指向 <code>Widget</code> 对象的裸指针的拷贝。当 <code>doSomeWork</code> 结束的时候，由 <code>std::make_unique</code> 管理的 <code>Widget</code> 对象会被销毁，那么 <code>filters</code> 中有一个元素就包含了悬垂指针。</p>
+<p>这个特殊的问题可以拷贝一份成员变量，然后 lambda 捕获这个拷贝。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Widget::addFilter</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="p">{</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">divisorCopy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">divisor</span><span class="p">;</span><span class="w"> </span><span class="c1">// copy data member</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="n">filters</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">        </span><span class="p">[</span><span class="n">divisorCopy</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w">             </span><span class="c1">// capture the copy</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">divisorCopy</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// use the copy</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">}</span>
+</span></code></pre></div>
+此时，使用默认按值捕获也是可以的。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Widget::addFilter</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">{</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">divisorCopy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">divisor</span><span class="p">;</span><span class="w"> </span><span class="c1">// copy data member</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">filters</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="p">[</span><span class="o">=</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w">                       </span><span class="c1">// capture the copy</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">divisorCopy</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// use the copy</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="p">}</span>
+</span></code></pre></div>
+但是何必冒险呢？一开始我们认为按值捕获了 <code>divisor</code>，但是不小心捕获的是 <code>this</code>。</p>
+<p>C++14 中，更好的做法是采用通用 lambda 捕获（参见 Item 32 TODO link）。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Widget::addFilter</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="p">{</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="n">filters</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="w">                </span><span class="c1">// C++14:</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">        </span><span class="p">[</span><span class="n">divisor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">divisor</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w">   </span><span class="c1">// copy divisor to closure</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">divisor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// use the copy</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+</span></code></pre></div>
+对通用捕获而言，就没有默认捕获模式的问题了。</p>
+<p>按值捕获的另一个缺点是让人以为闭包是自包含的，与闭包外的值更新无关。一般而言这个说法是不对的，因为 lambda 不仅仅依赖于局部变量和参数，也会依赖静态存储周期（<code>static storage duration</code>）的对象。这些对象是定义在全局或命名空间下，亦或者是在内类、函数内、文件内部声明为 <code>static</code> 的变量。lambda 能用这些变量，但是不能被捕获。按值捕获会误导以为捕获了这些变量。看下面的例子。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">addDivisorFilter</span><span class="p">()</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="p">{</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">calc1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">computeSomeValue1</span><span class="p">();</span><span class="w">            </span><span class="c1">// now static</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">calc2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">computeSomeValue2</span><span class="p">();</span><span class="w">            </span><span class="c1">// now static</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">divisor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">computeDivisor</span><span class="p">(</span><span class="n">calc1</span><span class="p">,</span><span class="w"> </span><span class="n">calc2</span><span class="p">);</span><span class="w"> </span><span class="c1">// now static</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="n">filters</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">        </span><span class="p">[</span><span class="o">=</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w">                   </span><span class="c1">// captures nothing!</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">divisor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// refers to above static</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">    </span><span class="o">++</span><span class="n">divisor</span><span class="p">;</span><span class="w"> </span><span class="c1">// modify divisor</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<code>[=]</code> 会让人以为闭包已经捕获了需要的变量的拷贝，是自包含的了。其实不然。这个 lambda 没有使用任何非 <code>static</code> 的局部变量，所以什么也没有捕获，而是引用了 <code>static</code> 变量 <code>divisor</code>。每次调用 <code>addDivisorFilter</code> 都会使 <code>divisor</code> 自增，那么添加到 <code>filters</code> 的过滤器行为一直在变化，因为相应的 <code>divisor</code> 变化了。事实上，lambda 捕获的是 <code>divisor</code> 的引用，这与默认按值捕获矛盾。如果一开始就避免使用默认按值捕获，就能避免这些陷阱。</p>
+<h2 id="things-to-remember">Things to Remember</h2>
+<ul>
+<li>Default by-reference capture can lead to dangling references.</li>
+<li>Default by-value capture is susceptible to dangling pointers (especially <code>this</code>), and it misleadingly suggests that lambdas are self-contained.</li>
+</ul>
 
 
 
