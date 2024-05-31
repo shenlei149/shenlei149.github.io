@@ -596,6 +596,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://guozi149.me/ComputerScience/EffectiveModernCpp/ch06_Lambda_Expressions/33_Use_decltype_on_auto_parameters_to_std_forward_them/</loc>
+         <lastmod>2024-05-31</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://guozi149.me/ComputerScience/InterviewQuestions/</loc>
          <lastmod>2024-05-31</lastmod>
          <changefreq>daily</changefreq>
