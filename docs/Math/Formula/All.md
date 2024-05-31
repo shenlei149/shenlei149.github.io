@@ -112,3 +112,25 @@ $$\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots+(-1)^n\frac{x^{2n+1}}{(2n+1)!}+\
 $$\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots+(-1)^n\frac{x^{2n}}{(2n)!}+\cdots=\sum_{n=0}^\infty\frac{(-1)^nx^{2n}}{(2n)!},|x|<\infty$$
 $$\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots+(-1)^{n-1}\frac{x^n}{n}+\cdots=\sum_{n=0}^\infty\frac{(-1)^{n-1}x^n}{n},-1<x\leq 1$$
 $$\tan^{-1}x=x-\frac{x^3}{3}+\frac{x^5}{5}-\cdots+(-1)^n\frac{x^{2n+1}}{2n+1}+\cdots=\sum_{n=0}^\infty\frac{(-1)^nx^{2n+1}}{2n+1},|x|\leq 1$$
+
+## 空间中的曲线
+单位切矢量
+$$\boldsymbol{T}=\frac{\boldsymbol{v}}{|\boldsymbol{v}|}$$
+主单位法矢量
+$$\boldsymbol{N}=\frac{d\boldsymbol{T}/dt}{|d\boldsymbol{T}/dt|}$$
+次法线矢量
+$$\boldsymbol{B}=\boldsymbol{T}\times\boldsymbol{N}$$
+曲率
+$$\kappa=\bigg|\frac{d\boldsymbol{T}}{ds}\bigg|=\frac{|\boldsymbol{v}\times\boldsymbol{a}|}{|\boldsymbol{v}|^3}$$
+扭矩
+$$\tau=-\frac{d\boldsymbol{B}}{ds}\cdot\boldsymbol{N}=\frac{\begin{pmatrix}
+\dot{x}&\dot{y}&\dot{z}\\
+\ddot{x}&\ddot{y}&\ddot{z}\\
+\dddot{x}&\dddot{y}&\dddot{z}
+\end{pmatrix}}{|\boldsymbol{v}\times\boldsymbol{a}|^2}$$
+加速度的切向和法向分量
+$$\begin{aligned}
+\boldsymbol{a}&=a_T\boldsymbol{T}+a_N\boldsymbol{N}\\
+a_T&=\frac{d}{dt}|\boldsymbol{v}|\\
+a_N&=\kappa|\boldsymbol{v}|^2=\sqrt{|\boldsymbol{a}|^2-a_T^2}
+\end{aligned}$$

@@ -128,4 +128,38 @@ $$|\boldsymbol{v}\times\boldsymbol{a}|=\kappa|\frac{ds}{dt}|^3|\boldsymbol{B}|=\
 $$\boldsymbol{r}(t)=(a\cos t)\boldsymbol{i}+(a\sin t)\boldsymbol{j}+bt\boldsymbol{k},a,b\geq 0,a^2+b^2\neq 0$$
 的曲率 $\kappa$ 和扭矩 $\tau$。
 
-解：
+解：使用公式 $(5)$ 计算曲率。
+$$\begin{aligned}
+\boldsymbol{v}&=-(a\sin t)\boldsymbol{i}+(a\cos t)\boldsymbol{j}+b\boldsymbol{k}\\
+\boldsymbol{a}&=-(a\cos t)\boldsymbol{i}-(a\sin t)\boldsymbol{j}\\
+\boldsymbol{v}\times\boldsymbol{a}&=\begin{pmatrix}
+\boldsymbol{i}&\boldsymbol{j}&\boldsymbol{k}\\
+-a\sin t&a\cos t&b\\
+-a\cos t&-a\sin t&0
+\end{pmatrix}\\
+&=(ab\sin t)\boldsymbol{i}-(ab\cos t)\boldsymbol{j}+a^2\boldsymbol{k}\\
+\kappa&=\frac{|\boldsymbol{v}\times\boldsymbol{a}|}{|\boldsymbol{v}|^3}\\
+&=\frac{\sqrt{a^2b^2+a^4}}{(a^2+b^2)^{3/2}}\\
+&=\frac{a\sqrt{a^2+b^2}}{\sqrt{a^2+b^2}^3}\\
+&=\frac{a}{a^2+b^2}
+\end{aligned}$$
+上面 $\kappa$ 的计算结果与 [12.4](./040-Curvature-and-Normal-Vectors-of-a-Curve.md) 的例 5 中直接计算曲率的结果一致。
+
+使用 $(6)$ 计算扭矩。我们还差 $\boldsymbol{a}$ 的导数。
+$$\dot{\boldsymbol{a}}=(a\sin t)\boldsymbol{i}-(a\cos t)\boldsymbol{j}$$
+因此
+$$\begin{aligned}
+\tau&=\frac{\begin{pmatrix}
+\dot{x}&\dot{y}&\dot{z}\\
+\ddot{x}&\ddot{y}&\ddot{z}\\
+\dddot{x}&\dddot{y}&\dddot{z}
+\end{pmatrix}}{|\boldsymbol{v}\times\boldsymbol{a}|^2}\\
+&=\frac{\begin{pmatrix}
+-a\sin t&a\cos t&b\\
+-a\sin t&-a\sin t&0\\
+a\sin t&-a\cos t&0
+\end{pmatrix}}{(a\sqrt{a^2+b^2})^2}\\
+&=\frac{b(a^2\cos^2 t+a^2\sin^2 t)}{a^2(a^2+b^2)}\\
+&=\frac{b}{a^2+b^2}
+\end{aligned}$$
+从上面结果可以看出，螺旋线的扭矩是常量。事实上，螺旋线的一个特征就是其曲率和扭矩是常量。
