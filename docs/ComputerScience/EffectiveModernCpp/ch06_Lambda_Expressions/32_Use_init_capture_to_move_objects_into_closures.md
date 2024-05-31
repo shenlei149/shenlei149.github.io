@@ -30,6 +30,19 @@ auto pw = std::make_unique<Widget>();
 auto func = [pw = std::move(pw)]
 { return pw->isValidated() && pw->isArchived(); };
 ```
+`pw = std::move(pw)` 这个表达式就是初始化捕获。`=` 的左边是闭包类成员变量的名字，右边是初始化表达式。`=` 左右两个部分的作用范围是不同的。左边的范围是闭包类的作用范围。右边的范围是 lambda 定义的作用范围。就上面的例子而言，`=` 左边的 `pw` 是闭包类的成员变量，右边的 `pw` 是 lambda 对象定义的范围，是通过 `std::make_unique` 创建的对象。`pw = std::move(pw)` 的含义就是在闭包内创建一个名为 `pw` 的成员变量，用 `std::move` 作用于局部变量 `pw` 的结果来初始化这个成员变量。
+
+lambda 内部的代码是在闭包类的作用范围内，因此内部的 `pw` 指的是闭包类的成员变量。
+
+代码中 `// configure *pw` 是指在使用 `std::make_unique` 创建的 `Widget` 和指向 `Widget` 的 `std::unique_ptr` 被捕获之前，需要修改 `Widget`。如果不需要，比如 `std::make_unique` 创建的 `Widget` 就可以直接被 lambda 捕获，那么局部变量 `pw` 不是必须的，可以使用 ``std::make_unique` 初始化闭包类的成员变量。
+```cpp
+// init data mbr in closure w/ result of call to make_unique
+auto func = [pw = std::make_unique<Widget>()]
+{ return pw->isValidated() && pw->isArchived(); };
+```
+C++14 的捕获是 C++11 捕获模式的推广，因此初始化捕获也称为通用捕获（`generalized lambda capture`）。
+
+后面作者大篇幅的介绍了如何在 C++11 中模拟初始化捕获，自己写一个闭包类，或者是 `std::bind`，这里都略去了。
 
 ## Things to Remember
 * Use C++14's init capture to move objects into closures.
