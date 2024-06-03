@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#things-to-remember" class="md-skip">
           Skip to content
         </a>
       
@@ -3354,9 +3354,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#things-to-remember" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      Things to Remember
     </span>
   </a>
   
@@ -17923,9 +17923,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#things-to-remember" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      Things to Remember
     </span>
   </a>
   
@@ -17964,7 +17964,76 @@
 
   <h1>33 Use decltype on auto&& parameters to std::forward them</h1>
 
-<h2 id="_1"></h2>
+<p>C++14 最令人兴奋的功能是泛型 lambda（<code>generic lambda</code>），参数能够使用 <code>auto</code>。这个功能的实现很直接，闭包类的 <code>operator()</code> 是一个模板。比如
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">x</span><span class="p">));</span><span class="w"> </span><span class="p">};</span>
+</span></code></pre></div>
+那么闭包类类似下面的实现
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SomeCompilerGeneratedClassName</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">      </span><span class="c1">// see Item 3 for</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="c1">// auto return type</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="c1">// other closure class functionality</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">};</span>
+</span></code></pre></div>
+在这个例子中，lambda 唯一需要做的事情就是将参数 <code>x</code> 转发给 <code>normalize</code>。如果 <code>normalize</code> 对左值和右值处理不同，那么这个 lambda 没有实现对，因为总是将左值传递给 <code>normalize</code>，即使传递给 lambda 的是右值。</p>
+<p>正确的方式是将 <code>x</code> 完美转发给 <code>normalize</code>。需要做两处修改，第一个将 <code>x</code> 声明为通用引用（参见 <a href="../../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/24_Distinguish_universal_references_from_rvalue_references/">Item 24</a>），第二个使用 <code>std::forward</code> 将参数传递给 <code>normalize</code>（参见 <a href="../../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/25_Use_std_move_on_rvalue_references_std_forward_on_universal_references/">Item 25</a>）。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;???&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)));</span><span class="w"> </span><span class="p">};</span>
+</span></code></pre></div>
+这里还有一个问题需要处理，<code>std::forward</code> 的模板参数是什么？也就是上面的 <code>???</code> 应该怎么写。</p>
+<p>一般使用完美转发的情况是在一个模板函数内部，有一个类型参数 <code>T</code>，那么写作 <code>std::forward&lt;T&gt;</code> 即可。但是在泛型 lambda 中，没有类型 <code>T</code> 可用。闭包类中有一个模板参数 <code>T</code>，但是 lambda 中又用不了。</p>
+<p><a href="../../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/28_Understand_reference_collapsing/">Item 28</a> 解释了，如果左值传递给通用引用参数，参数类型是左值引用。如果传递右值，参数是右值引用。这意味在 lambda 中可以通过检查 <code>x</code> 类型来区分两者。<code>decltype</code> 就是做这个事情的（参见 <a href="../../ch01_Deducing_Types/03_Understand_decltype/">Item 3</a>）。如果传递的是左值，<code>decltype(x)</code> 返回的是左值引用，如果传递的是右值，<code>decltype(x)</code> 返回的是右值引用。</p>
+<p><a href="../../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/28_Understand_reference_collapsing/">Item 28</a> 还解释了，当调用 <code>std::forward</code> 时，左值引用意味着传递左值，非引用意味着传递右值。在 lambda 中，如果 <code>x</code> 绑定的是左值，那么 <code>decltype(x)</code> 返回左值引用，这与之前的要求一致。但是如果 <code>x</code> 绑定的是右值，那么 <code>decltype(x)</code> 返回的右值引用，而不是非引用。</p>
+<p>但是再来看一下 <a href="../../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/28_Understand_reference_collapsing/">Item 28</a> 中提到的 <code>std::forward</code> 实现。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">                     </span><span class="c1">// in namespace</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">T</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">forward</span><span class="p">(</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">param</span><span class="p">)</span><span class="w"> </span><span class="c1">// std</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">param</span><span class="p">);</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
+</span></code></pre></div>
+假定客户端想要完美转发 <code>Widget</code> 的右值，使用类型 <code>Widget</code> 实例化 <code>std::forward</code>，那么 <code>std::forward</code> 模板生成的函数如下。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="nf">forward</span><span class="p">(</span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;</span><span class="n">param</span><span class="p">)</span><span class="w">           </span><span class="c1">// instantiation of</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">{</span><span class="w">                                         </span><span class="c1">// std::forward when</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">param</span><span class="p">);</span><span class="w"> </span><span class="c1">// T is Widget</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
+</span></code></pre></div>
+现在考虑，想要完美转发 <code>Widget</code>，但是 <code>T</code> 不是非引用，而是右值引用，即 <code>Widget&amp;&amp;</code>，那么实例化 <code>std::forward</code> 之后且应用了 <code>std::remove_reference_t</code>，但是没有引用折叠时，实例化的 <code>std::forward</code> 如下。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="nf">forward</span><span class="p">(</span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;</span><span class="n">param</span><span class="p">)</span><span class="w">           </span><span class="c1">// instantiation of std::forward</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span><span class="w">                                           </span><span class="c1">// when T is Widget&amp;&amp;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">param</span><span class="p">);</span><span class="w"> </span><span class="c1">// (before reference- collapsing)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span>
+</span></code></pre></div>
+右值引用的右值引用，引用折叠的结果是右值引用，因此，实例化代码如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="nf">forward</span><span class="p">(</span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;</span><span class="n">param</span><span class="p">)</span><span class="w">           </span><span class="c1">// instantiation of std::forward</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span><span class="w">                                         </span><span class="c1">// when T is Widget&amp;&amp;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">param</span><span class="p">);</span><span class="w"> </span><span class="c1">// (after reference- collapsing)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
+</span></code></pre></div>
+对比将 <code>T</code> 设置为 <code>Widget</code> 的 <code>std::forward</code> 实例化结果可以看出，使用右值引用和非引用实例化 <code>std::forward</code> 的结果是一样的。</p>
+<p>这是一个好消息，传递右值，<code>decltype(x)</code> 返回右值引用，将其作为 <code>std::forward</code> 的模板参数，结果与使用非引用结果一致。前面已经论证，传递左值 <code>decltype(x)</code> 返回左值引用是满足需要的。那么将 <code>decltype(x)</code> 作为 <code>std::forward</code> 的模板参数是我们想要的结果。那么完美转发的 lambda 如下。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="p">[](</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">param</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">param</span><span class="p">)));</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">};</span>
+</span></code></pre></div>
+再加上六个点，那么这个 lambda 将能够转发任意多的参数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="p">[](</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">params</span><span class="p">)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">{</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">params</span><span class="p">)...));</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">};</span>
+</span></code></pre></div></p>
+<h2 id="things-to-remember">Things to Remember</h2>
+<ul>
+<li>Use <code>decltype</code> on <code>auto&amp;&amp;</code> parameters to <code>std::forward</code> them.</li>
+</ul>
 
 
 
@@ -17987,7 +18056,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 31, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 3, 2024</span>
   </span>
 
     
