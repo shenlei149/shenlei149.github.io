@@ -601,6 +601,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://guozi149.me/ComputerScience/EffectiveModernCpp/ch06_Lambda_Expressions/34_Prefer_lambdas_to_std_bind/</loc>
+         <lastmod>2024-06-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://guozi149.me/ComputerScience/InterviewQuestions/</loc>
          <lastmod>2024-06-03</lastmod>
          <changefreq>daily</changefreq>
