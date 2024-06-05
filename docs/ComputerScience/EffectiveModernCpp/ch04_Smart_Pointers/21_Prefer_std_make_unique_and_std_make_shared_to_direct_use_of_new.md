@@ -88,7 +88,7 @@ auto spv = std::make_shared<std::vector<int>>(10, 20);
 ```
 是 10 个元素，每个都是 20？还是只有两个元素，分别是 10,20？
 
-结果是确定的。由于 `make` 实现使用小括号构造对象，所以是 10 个 20。如果想使用 `std::initializer_list` 构造两个元素的对象，那么不得不使用 `new`。`make` 函数需要有完美转发初始化列表的能力，但是正如 Item 30（TODO link）所说，初始化列表不能被完美转发。不过 Item 30 也给出了一个变通办法：使用 `auto` 类型推导构造一个 `std::initializer_list`，然后把这个对象传递给 `make`。
+结果是确定的。由于 `make` 实现使用小括号构造对象，所以是 10 个 20。如果想使用 `std::initializer_list` 构造两个元素的对象，那么不得不使用 `new`。`make` 函数需要有完美转发初始化列表的能力，但是正如 [Item 30](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/30_Familiarize_yourself_with_perfect_forwarding_failure_cases.md) 所说，初始化列表不能被完美转发。不过 Item 30 也给出了一个变通办法：使用 `auto` 类型推导构造一个 `std::initializer_list`，然后把这个对象传递给 `make`。
 ```cpp
 // create std::initializer_list
 auto initList = {10, 20};

@@ -75,7 +75,7 @@ logAndAdd(nameIdx); // error!
 
 `name` 绑定了 `short` 类型，一步步的传递给 `emplace`，由于 `names` 类型是 `std::multiset<std::string>`，所以会构造 `std::string` 对象。但是 `std::string` 没有接受 `short` 参数的构造函数，所以调用 `logAndAdd` 失败。根源就在于 `short` 类型的参数优先匹配了通用引用的版本而不是接受 `int` 参数的版本。
 
-接受通用引用参数的函数时 C++ 中最贪婪的函数。对于绝大部分参数，都能实例化为精确匹配的函数。很少几种类型无法匹配，在 Item 30 TODO link 中有描述。这就是为什么重载通用引用类型的函数不是一个好主意：它会匹配比开发者预期的多的多参数类型。
+接受通用引用参数的函数时 C++ 中最贪婪的函数。对于绝大部分参数，都能实例化为精确匹配的函数。很少几种类型无法匹配，在 [Item 30](./30_Familiarize_yourself_with_perfect_forwarding_failure_cases.md) 中有描述。这就是为什么重载通用引用类型的函数不是一个好主意：它会匹配比开发者预期的多的多参数类型。
 
 下面是一个完美转发构造函数与重载的接受 `int` 为参数的类。这个例子包含了 `logAndAdd` 的问题，还有更多的新问题。
 ```cpp
@@ -180,7 +180,7 @@ public:
 ```
 如注释所说，继承类的拷贝构造函数和移动构造函数不会调用基类的相应的构造函数，而是调用完美转发的构造函数。原因很简单，因为传入的参数是 `SpecialPerson` 类型，模板函数实例化之后能精确匹配，而 `Person` 的构造函数参数类型是 `Person`。这就导致代码无法编译，因为 `std::string` 没有接受 `SpecialPerson` 类型的构造函数。
 
-重载通用引用函数是糟糕的注意，但是如果完美转发通用引用能处理大部分类型，但是又有极个别的类型需要单独处理，怎么办呢？详见 Item 27 TODO。
+重载通用引用函数是糟糕的注意，但是如果完美转发通用引用能处理大部分类型，但是又有极个别的类型需要单独处理，怎么办呢？详见 [Item 27](./27_Familiarize_yourself_with_alternatives_to_overloading_on_universal_references.md)。
 
 ## Things to Remember
 * Overloading on universal references almost always leads to the universal reference overload being called more frequently than expected.

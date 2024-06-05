@@ -57,7 +57,7 @@ void logAndAdd(T &&name)
                   std::is_integral<T>()); // not quite correct
 }
 ```
-这个函数转发参数到 `logAndAddImpl`，第二个参数表明 `T` 是不是整型。对于整型右值，第二个参数是正确的。但是对于整型左值，根据 Item 28 TODO 的解释，`T` 会被推导为左值引用。如果 `int` 的左值传递给 `logAndAdd`，`T` 是 `int&`，不是整数类型。因此 `std::is_integral<T>` 对于传入左值的情况都返回 `false`，这与期望不一致。
+这个函数转发参数到 `logAndAddImpl`，第二个参数表明 `T` 是不是整型。对于整型右值，第二个参数是正确的。但是对于整型左值，根据 [Item 28](./28_Understand_reference_collapsing.md) 的解释，`T` 会被推导为左值引用。如果 `int` 的左值传递给 `logAndAdd`，`T` 是 `int&`，不是整数类型。因此 `std::is_integral<T>` 对于传入左值的情况都返回 `false`，这与期望不一致。
 
 这里意识到问题就解决了问题，[Item 9](../ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md) 告诉我们 C++ 标准库中有 type traits，其中包含函数 `std::remove_reference`，作用是去掉类型的引用修饰。那么实现 `logAndAdd` 的正确方式是
 ```cpp
@@ -217,7 +217,7 @@ private:
 
 使用完美转发更高效，避免为了迎合参数的类型而创建临时对象。在 `Person` 构造函数这个例子中，完美转发将 `"Nancy"` 字符串字面量转发给 `Person` 内部的 `std::string`，这就避免创建一个 `std::string` 临时对象以满足 `Person` 参数类型的要求。
 
-但是完美转发也有缺点。其中一个缺点是即使一些类型的参数能够传递给指定类型的函数，仍旧不能被完美转发，参考 Item 30 TODO。
+但是完美转发也有缺点。其中一个缺点是即使一些类型的参数能够传递给指定类型的函数，仍旧不能被完美转发，参考 [Item 30](./30_Familiarize_yourself_with_perfect_forwarding_failure_cases.md)。
 
 另一个缺点是当客户端传了不合法的参数，报错信息十分难理解。比如，一个客户端使用 `char16_t` 的字面量传递给 `Person` 的构造函数：
 ```cpp

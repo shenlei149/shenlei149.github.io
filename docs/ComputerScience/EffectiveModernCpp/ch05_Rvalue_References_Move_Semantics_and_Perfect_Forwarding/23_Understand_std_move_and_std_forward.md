@@ -14,7 +14,7 @@ move(T &&param)
 ```
 首先函数名是 `move`。其次，最核心的就是类型转换。给定一个对象的引用（准确的说是通用引用，详见 [Item 24](./24_Distinguish_universal_references_from_rvalue_references.md)），返回的也是该对象的引用。
 
-函数返回类型中 `&&` 表示 `std::move` 返回右值引用，但是如 Item 28 TODO link 所说，如果 `T` 是左值引用，那么 `T&&` 是左值引用。为了正确性，我们使用 type traits（[Item 9](../ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md)）`std::remove_reference` 确保 `&&` 应用于非引用类型。`std::move` 最后返回右值引用，从函数中返回右值引用，那么结果类型是右值。这就是 `std::move` 所做的全部了：将参数转换成右值。
+函数返回类型中 `&&` 表示 `std::move` 返回右值引用，但是如 [Item 28](./28_Understand_reference_collapsing.md) 所说，如果 `T` 是左值引用，那么 `T&&` 是左值引用。为了正确性，我们使用 type traits（[Item 9](../ch03_Moving_to_Modern_C++/09_Prefer_alias_declarations_to_typedefs.md)）`std::remove_reference` 确保 `&&` 应用于非引用类型。`std::move` 最后返回右值引用，从函数中返回右值引用，那么结果类型是右值。这就是 `std::move` 所做的全部了：将参数转换成右值。
 
 C++14 可以简化实现
 ```cpp
@@ -101,7 +101,7 @@ logAndProcess(std::move(w)); // call with rvalue
 
 与所有函数的参数一样，`param` 是左值，那么 `logAndProcess` 总是调用 `process` 的左值版本。为了阻止此事，当传入 `logAndProcess` 的参数 `param` 是右值时，`std::forward` 将 `param` 转换成右值，调用 `process` 的右值版本。所以说 `std::forward` 是有条件转换：当参数是右值时，将其转换成右值。
 
-`std::forward` 是如何知道参数是左值还是右值的呢？也就是它怎么判断 `param` 是左值还是右值的？简单的回答，`logAndProcess` 函数的模板参数 `T` 包含了这些信息。详见 Item 28 TODO link。
+`std::forward` 是如何知道参数是左值还是右值的呢？也就是它怎么判断 `param` 是左值还是右值的？简单的回答，`logAndProcess` 函数的模板参数 `T` 包含了这些信息。详见 [Item 28](./28_Understand_reference_collapsing.md)。
 
 这两个函数都可以归纳为转换，那么是不是只是用 `std::forward` 呢？从技术角度看，回答是肯定的。`std::forward` 可以胜任所有的工作，而无需使用 `std::move`。这两个函数都不是必须的，我们可以自己手写转换，但这相当恶心。
 
@@ -134,7 +134,7 @@ public:
 };
 ```
 
-首先，`std::move` 只需要一个函数参数 `rhs.s`，而 `std::forward` 除了函数参数 `rhs.s` 之外，还需要模板类型参数 `std::string`。其次，我们传递给 `std::forward` 的参数应该是一个右值（详见 Item 28 TODO），是非引用类型。这意味 1）使用 `std::move` 少打字，不用传递右值参数的类型参数。2）减少传了不正确类型的风险，比如写成了 `std::string&` 就会导致初始化 `s` 使用拷贝构造而不是移动构造。
+首先，`std::move` 只需要一个函数参数 `rhs.s`，而 `std::forward` 除了函数参数 `rhs.s` 之外，还需要模板类型参数 `std::string`。其次，我们传递给 `std::forward` 的参数应该是一个右值（详见 [Item 28](./28_Understand_reference_collapsing.md)），是非引用类型。这意味 1）使用 `std::move` 少打字，不用传递右值参数的类型参数。2）减少传了不正确类型的风险，比如写成了 `std::string&` 就会导致初始化 `s` 使用拷贝构造而不是移动构造。
 
 更重要的是，使用 `std::move` 意味着无条件转换为右值，而使用 `std::forward` 意味着只对绑定了右值的引用转换成右值，这完全是不同的操作。如它们应用场景那样，前者为了移动场景，而后者为了转发参数。正因如此，使用不同的函数（函数名）以示区别。
 

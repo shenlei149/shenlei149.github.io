@@ -183,7 +183,7 @@ void Widget::addFilter() const
 ```
 但是何必冒险呢？一开始我们认为按值捕获了 `divisor`，但是不小心捕获的是 `this`。
 
-C++14 中，更好的做法是采用通用 lambda 捕获（参见 Item 32 TODO link）。
+C++14 中，更好的做法是采用通用 lambda 捕获（参见 [Item 32](./32_Use_init_capture_to_move_objects_into_closures.md)）。
 ```cpp
 void Widget::addFilter() const
 {

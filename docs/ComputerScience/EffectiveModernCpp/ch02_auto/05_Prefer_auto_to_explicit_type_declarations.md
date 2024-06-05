@@ -79,7 +79,7 @@ std::function<bool(const std::unique_ptr<Widget>&,
                     { return *p1 < *p2; };
 ```
 
-除了语法上的冗余以外，`std::function` 和 `auto` 并不完全一样。`auto` 声明的闭包对象和闭包同类型，内存占用也和闭包所需内存一样。`std::function` 模板类实例化的过程，会占用固定大小的内存，如果无法放下闭包，那么会从堆上分配内存。所以通常 `std::function` 比 `auto` 占用内存要高。由于内联和间接调用函数返回等限制，``std::function` 比 `auto` 要慢。再加上 `auto` 写法简洁，`auto` 往往是更好的选择。（类似的，为了存储函数返回的结果，lambda 也比 `std::bind` 要好很多，详见 Item 34（TODO link）。
+除了语法上的冗余以外，`std::function` 和 `auto` 并不完全一样。`auto` 声明的闭包对象和闭包同类型，内存占用也和闭包所需内存一样。`std::function` 模板类实例化的过程，会占用固定大小的内存，如果无法放下闭包，那么会从堆上分配内存。所以通常 `std::function` 比 `auto` 占用内存要高。由于内联和间接调用函数返回等限制，``std::function` 比 `auto` 要慢。再加上 `auto` 写法简洁，`auto` 往往是更好的选择。（类似的，为了存储函数返回的结果，lambda 也比 `std::bind` 要好很多，详见 [Item 34](../ch06_Lambda_Expressions/34_Prefer_lambdas_to_std_bind.md)。
 
 `auto` 还能避免类型错误的问题。比如
 ```cpp

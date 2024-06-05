@@ -14,7 +14,7 @@ public:
 
 移动操作相关函数的生成规则和拷贝操作类似，只在必要时生成，如果生成了，那么行为是对所有非 `static` 成员变量进行逐字段的移动。移动构造函数对参数 `rhs` 中每一个非 `static` 成员进行移动构造，移动赋值运算符类似。如果存在基类部分，会对基类部分做同样的处理。
 
-假定现在我更倾向于使用移动操作，比如移动构造或者移动赋值运算法，但是移动操作本身并不一定发生了。成员变量的移动操作更像是一个移动操作的请求，如果类型是不可移动的，比如 C++98 的对象，那么会使用拷贝替代移动。移动成员变量的核心是使用 `std::move`，运行时是会决定使用移动操作还是拷贝操作。详见 Item 23 TODO add link。能移动才会移动，不支持的话使用拷贝。
+假定现在我更倾向于使用移动操作，比如移动构造或者移动赋值运算法，但是移动操作本身并不一定发生了。成员变量的移动操作更像是一个移动操作的请求，如果类型是不可移动的，比如 C++98 的对象，那么会使用拷贝替代移动。移动成员变量的核心是使用 `std::move`，运行时是会决定使用移动操作还是拷贝操作。详见 [Item 23](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/23_Understand_std_move_and_std_forward.md)。能移动才会移动，不支持的话使用拷贝。
 
 与拷贝类似，一旦我们自己定义了移动操作，那么编译器则不会生成。不过细节略有不同。
 
@@ -116,7 +116,7 @@ class Widget
     Widget &operator=(const T &rhs); // from anything
 };
 ```
-如果满足条件，编译器还是会生成拷贝操作，即使当 `T` 是 `Widget` 时，模板函数签名与拷贝操作一致。这是一种边缘情况，Item 26 TODO link 会解释它的影响。
+如果满足条件，编译器还是会生成拷贝操作，即使当 `T` 是 `Widget` 时，模板函数签名与拷贝操作一致。这是一种边缘情况，[Item 26](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/26_Avoid_overloading_on_universal_references.md) 会解释它的影响。
 
 ## Things to Remember
 * The special member functions are those compilers may generate on their own: default constructor, destructor, copy operations, and move operations.

@@ -116,9 +116,9 @@ auto timeFuncInvocation =
     // stop timer and record elapsed time;
 };
 ```
-`std::forward<decltype(xxx)>` 略微有点复杂，Item 33 TODO link 会解释。这里的重点是 lambda 中的参数类型是 `auto&&`。所以 `func` 是通用引用，可以绑定任意可调用对象，左值或者右值都行。`params` 是零个或多个通用引用，可以绑定任意多个、任意类型的参数。有了 `auto` 通用引用 `timeFuncInvocation` 可以几乎可以测量任意函数的执行时间（Item 30 TODO 会说明为什么是几乎任意而不是任意函数）。
+`std::forward<decltype(xxx)>` 略微有点复杂，[Item 33](../ch06_Lambda_Expressions/33_Use_decltype_on_auto_parameters_to_std_forward_them.md) 会解释。这里的重点是 lambda 中的参数类型是 `auto&&`。所以 `func` 是通用引用，可以绑定任意可调用对象，左值或者右值都行。`params` 是零个或多个通用引用，可以绑定任意多个、任意类型的参数。有了 `auto` 通用引用 `timeFuncInvocation` 可以几乎可以测量任意函数的执行时间（[Item 30](./30_Familiarize_yourself_with_perfect_forwarding_failure_cases.md) 会说明为什么是几乎任意而不是任意函数）。
 
-通用引用只是一个抽象，实际是引用折叠（`reference collapsing`），详见 Item 28。真相引用折叠并不会让通用引用变的无用。区分通用引用和右值引用，帮助我们更好的理解代码，帮助我们更好的和同时沟通。Item 25 和 Item 26 TODO link 也是基于这一点进行深入分析的，所以区分二者很重要。
+通用引用只是一个抽象，实际是引用折叠（`reference collapsing`），详见 Item 28。真相引用折叠并不会让通用引用变的无用。区分通用引用和右值引用，帮助我们更好的理解代码，帮助我们更好的和同时沟通。[Item 25](./25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md) 和 [Item 26](./26_Avoid_overloading_on_universal_references.md) 也是基于这一点进行深入分析的，所以区分二者很重要。
 
 ## Things to Remember
 * If a function template parameter has type `T&&` for a deduced type `T`, or if anobject is declared using `auto&&`, the parameter or object is a universal reference.

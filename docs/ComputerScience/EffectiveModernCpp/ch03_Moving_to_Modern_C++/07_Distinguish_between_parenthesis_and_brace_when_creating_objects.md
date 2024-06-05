@@ -211,7 +211,7 @@ void doSomeWork(Ts &&...params)
 }
 ```
 
-上述伪代码有两种实现方式（Item 25（TODO link）会讲解 `std::forward`）。
+上述伪代码有两种实现方式（[Item 25](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/25_Use_std_move_on_rvalue_references_std_forward_on_universal_references.md) 会讲解 `std::forward`）。
 ```cpp
 T localObject(std::forward<Ts>(params)...); // using parens
 T localObject{std::forward<Ts>(params)...}; // using braces
@@ -225,7 +225,7 @@ doSomeWork<std::vector<int>>(10, 20);
 
 `doSomeWork` 要使用哪种方式构造对象呢？`doSomeWork` 的作者不知道，只有使用的人知道。
 
-STL 的 `std::make_unique` `std::make_shared`（Item 21（TODO link））也面临了这个问题。他们的选择是使用小括号的方式构造对象，并在文档中说明他们的选择，这也是接口的一部分。
+STL 的 `std::make_unique` `std::make_shared`（[Item 21](../ch04_Smart_Pointers/21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new.md)）也面临了这个问题。他们的选择是使用小括号的方式构造对象，并在文档中说明他们的选择，这也是接口的一部分。
 
 ## Things to Remember
 * Braced initialization is the most widely usable initialization syntax, it prevents narrowing conversions, and it's immune to C++'s most vexing parse.

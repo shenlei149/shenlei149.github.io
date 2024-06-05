@@ -24,7 +24,7 @@ processWidget(w, highPriority);         // undefined behavior!
 
 具体行为依赖于实现。`std::vector<bool>::reference` 往往包含一个指向某个包含该 bit 的字，外加一个偏移量。这是一个临时对象。这个临时对象拷贝给了 `highPriority`，等语句结束的时候，这个临时对象就销毁了。`highPriority` 包含了一个悬垂指针。
 
-`std::vector<bool>::reference` 是代理类（`proxy class`）的例子。第四章（TODO link）介绍的智能指针也是代理类的例子。
+`std::vector<bool>::reference` 是代理类（`proxy class`）的例子。[第四章](../ch04_Smart_Pointers/README.md)介绍的智能指针也是代理类的例子。
 
 `std::shared_ptr` 和 `std::unique_ptr` 对用户可见，而 `std::vector<bool>::reference` 某种程度上是不可见的，这就导致了问题。
 
