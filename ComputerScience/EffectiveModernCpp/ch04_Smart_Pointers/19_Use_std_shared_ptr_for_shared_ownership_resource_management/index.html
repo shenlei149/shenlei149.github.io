@@ -18016,7 +18016,7 @@
 </span></code></pre></div>
 这两个对象可以互相赋值，也可以传递给接受 <code>std::shared_ptr&lt;Widget&gt;</code> 参数类型的函数中。这对于 <code>std::unique_ptr</code> 而言是行不通的。</p>
 <p>另一个问题是，当自定义删除器后，<code>std::unique_ptr</code> 的大小可能会变大，甚至由于函数对象包含大量数据而特别大，但是 <code>std::shared_ptr</code> 的大小始终是两个指针的大小。</p>
-<p>本质上，需要的内存还是会变大，但是这没有占用 <code>std::shared_ptr</code> 自身的空间。这块内存是分配到了堆上。前面说过，<code>std::shared_ptr</code> 有一个指向引用计数的指针，准确地说，指向控制块，而引用计数是控制块的一部分。如果有自定义删除器，那么控制块就会包含这部分信息，如果有自定义分配器，那么控制块也会包含自定义分配器相关信息。除此之外，还会包含一个次级引用计数，Item 21 TODO link 会解释。因此 <code>std::shared_ptr&lt;T&gt;</code> 的内存布局大致如下。</p>
+<p>本质上，需要的内存还是会变大，但是这没有占用 <code>std::shared_ptr</code> 自身的空间。这块内存是分配到了堆上。前面说过，<code>std::shared_ptr</code> 有一个指向引用计数的指针，准确地说，指向控制块，而引用计数是控制块的一部分。如果有自定义删除器，那么控制块就会包含这部分信息，如果有自定义分配器，那么控制块也会包含自定义分配器相关信息。除此之外，还会包含一个次级引用计数，<a href="../21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new/">Item 21</a> 会解释。因此 <code>std::shared_ptr&lt;T&gt;</code> 的内存布局大致如下。</p>
 <p><img alt="" src="../1901.png" /></p>
 <p>当第一次构造 <code>std::shared_ptr</code> 时，会构造控制块。一般情况下，构造 <code>std::shared_ptr</code> 的函数无法知道是否已经有 <code>std::shared_ptr</code> 指向该对象了。因此，创建控制块遵循以下几条规则。
 * 使用 <code>std::make_shared</code>（<a href="../21_Prefer_std_make_unique_and_std_make_shared_to_direct_use_of_new/">Item 21</a>）构造 <code>std::shared_ptr</code> 时会创建控制块，因为这是构造新的对象，不可能有其他 <code>std::shared_ptr</code> 指向该对象。
@@ -18122,7 +18122,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 24, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 5, 2024</span>
   </span>
 
     
