@@ -18107,7 +18107,56 @@ lambda 表达式无需改动，因为根据重载规则会选择三参的 <code>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">                        </span><span class="mi">1</span><span class="n">h</span><span class="p">),</span>
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">              </span><span class="n">_1</span><span class="p">,</span>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">              </span><span class="mi">30</span><span class="n">s</span><span class="p">);</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
+lambda 和 <code>std::bind</code> 之前还有另外一个差异。<code>setSoundL</code> 内部调用 <code>setAlarm</code> 是正常的函数调用，编译器有可能可以做内联处理。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">setSoundL</span><span class="p">(</span><span class="n">Sound</span><span class="o">::</span><span class="n">Siren</span><span class="p">);</span><span class="w"> </span><span class="c1">// body of setAlarm may well be inlined here</span>
+</span></code></pre></div>
+但是对于 <code>std::bind</code> 来说，传入的是 <code>setAlarm</code> 的函数指针，这就是说 <code>setSoundB</code> 内部是通过函数指针来调用 <code>setAlarm</code>。编译器对于函数指针通常无法进行内联优化。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">setSoundB</span><span class="p">(</span><span class="n">Sound</span><span class="o">::</span><span class="n">Siren</span><span class="p">);</span><span class="w"> </span><span class="c1">// body of setAlarm is less likely to be inlined here</span>
+</span></code></pre></div>
+这就意味着使用 lambda 可能会生成比 <code>std::bind</code> 更快的代码。</p>
+<p>上面的例子仅仅是调用一个函数。如果做更复杂的事情，那么就更倾向于 lambda 表达式了。比如给定一个值，判断是否在最大值（<code>highVal</code>）和最小值（<code>lowVal</code>）之间，<code>highVal</code> 和 <code>lowVal</code> 是局部变量。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">betweenL</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="p">[</span><span class="n">lowVal</span><span class="p">,</span><span class="w"> </span><span class="n">highVal</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="c1">// C++14</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">lowVal</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">highVal</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+</span></code></pre></div>
+但是如果使用 <code>std::bind</code>，那么代码将相当晦涩。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">placeholders</span><span class="p">;</span><span class="w"> </span><span class="c1">// as above</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">betweenB</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">logical_and</span><span class="o">&lt;&gt;</span><span class="p">(),</span><span class="w"> </span><span class="c1">// C++14</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">              </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">less_equal</span><span class="o">&lt;&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">lowVal</span><span class="p">,</span><span class="w"> </span><span class="n">_1</span><span class="p">),</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">              </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">less_equal</span><span class="o">&lt;&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">_1</span><span class="p">,</span><span class="w"> </span><span class="n">highVal</span><span class="p">));</span>
+</span></code></pre></div>
+<code>std::bind</code> 中的占位符 <code>_1</code> <code>_2</code> 很晦涩。但这不意味着只有占位符的行为不透明。假定有一个函数，可以创建 <code>Widget</code> 的压缩对象。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CompLevel</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">{</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="n">Low</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">Normal</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="n">High</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">};</span><span class="w"> </span><span class="c1">// compression level</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="n">Widget</span><span class="w"> </span><span class="nf">compress</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">CompLevel</span><span class="w"> </span><span class="n">lev</span><span class="p">);</span><span class="w"> </span><span class="c1">// make compressed copy of w</span>
+</span></code></pre></div>
+我们希望创建一个函数对象，对特定的 <code>Widget</code> 进行压缩，但是可以指定压缩等级。使用 <code>std::bind</code> 创建如下对象。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">placeholders</span><span class="p">;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">auto</span><span class="w"> </span><span class="n">compressRateB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">compress</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">_1</span><span class="p">);</span>
+</span></code></pre></div>
+当我们传入 <code>w</code> 进 <code>std::bind</code>，后续由 <code>compress</code> 调用。这个对象存储在 <code>compressRateB</code> 内部，但是它是如何存储的，按值还是按引用呢？这是有区别的。如果在调用 <code>std::bind</code> 和 <code>compressRateB</code> 之间修改了 <code>w</code>，按引用存储的 <code>w</code> 也会随之变化，但是按值传递就不会再有变化了。</p>
+<p>答案是按值传递，我们只能记忆 <code>std::bind</code> 是如何工作的这件事本身。在调用 <code>std::bind</code> 的时候，没有任何记号能让人知道这一点。如果想按引用传递的话，需要在参数上加上 <code>std::ref</code>。而 lambda 表达式中，按值或按引用捕捉是显式的。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">compressRateL</span><span class="w"> </span><span class="o">=</span><span class="w">          </span><span class="c1">// w is captured by</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="p">[</span><span class="n">w</span><span class="p">](</span><span class="n">CompLevel</span><span class="w"> </span><span class="n">lev</span><span class="p">)</span><span class="w">        </span><span class="c1">// value; lev is</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">compress</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">lev</span><span class="p">);</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// passed by value</span>
+</span></code></pre></div>
+lambda 也能显式的指定参数的传递方式。上面代码可以很清晰的看出 <code>lev</code> 是按值传递。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">compressRateL</span><span class="p">(</span><span class="n">CompLevel</span><span class="o">::</span><span class="n">High</span><span class="p">);</span><span class="w"> </span><span class="c1">// arg is passed by value</span>
+</span></code></pre></div>
+但是 <code>std::bind</code> 的参数传递方式呢？
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">compressRateB</span><span class="p">(</span><span class="n">CompLevel</span><span class="o">::</span><span class="n">High</span><span class="p">);</span><span class="w"> </span><span class="c1">// how is arg passed?</span>
+</span></code></pre></div>
+答案仍旧是只能记住 <code>std::bind</code> 是如何工作的：参数使用是引用传递，因为这些函数调用使用了完美转发。</p>
+<p><code>std::bind</code> 可读性更差，表达力更低，或许更低效。C++14 以后再也没有理由使用 <code>std::bind</code> 了。</p>
+<p>后面作者花了一些篇幅介绍 C++11 使用 <code>std::bind</code> 的两个场景，一个是 <a href="../32_Use_init_capture_to_move_objects_into_closures/">Item 32</a> 中提到的移动对象的捕获，另一个是多态函数对象，C++14 可以使用 <code>auto</code> 来解决。</p>
 <h2 id="things-to-remember">Things to Remember</h2>
 <ul>
 <li>Lambdas are more readable, more expressive, and may be more efficient than using <code>std::bind</code>.</li>
@@ -18135,7 +18184,7 @@ lambda 表达式无需改动，因为根据重载规则会选择三参的 <code>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 4, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 5, 2024</span>
   </span>
 
     
