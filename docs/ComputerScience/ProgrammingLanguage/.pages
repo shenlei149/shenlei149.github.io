@@ -1,5 +1,5 @@
 nav:
     - Programming Language: README.md
-    - C-Style “泛型”：以 swap/lsearch/stack 为例: c_generic.md
-    - C++ Empty object & unique_ptr size: empty_object.md
-    - C++ Vector 增长因子: vector_grow.md
+    - C-Style “泛型”：以 swap/lsearch/stack 为例: C-Generic.md
+    - C++ Empty object & unique_ptr size: Empty-Object.md
+    - C++ Vector 增长因子: Vector-Grow.md
