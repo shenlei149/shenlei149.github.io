@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://guozi149.me/ComputerScience/ProgrammingLanguage/empty_object/">
+        <link rel="canonical" href="https://guozi149.me/ComputerScience/ProgrammingLanguage/C-Preprocessor-Compiler-Linker/">
       
       
-        <link rel="prev" href="../c_generic/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../vector_grow/">
+        <link rel="next" href="../C-Generic/">
       
       
       <link rel="icon" href="../../../logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>C++ Empty object & unique_ptr size - guozi</title>
+        <title>C 语言预处理器、编译器、链接器简介 - guozi</title>
       
     
     
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              C++ Empty object & unique_ptr size
+              C 语言预处理器、编译器、链接器简介
             
           </span>
         </div>
@@ -3680,6 +3680,8 @@
       
         
       
+        
+      
     
     
       
@@ -3725,10 +3727,39 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    C 语言预处理器、编译器、链接器简介
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../c_generic/" class="md-nav__link">
+      <a href="../C-Generic/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3746,17 +3777,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Empty-Object/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3765,7 +3789,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -3778,7 +3801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vector_grow/" class="md-nav__link">
+      <a href="../Vector-Grow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -18064,7 +18087,7 @@
                   
 
   
-    <a href="https://github.com/shenlei149/shenlei149.github.io/edit/master/docs/ComputerScience/ProgrammingLanguage/empty_object.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/shenlei149/shenlei149.github.io/edit/master/docs/ComputerScience/ProgrammingLanguage/C-Preprocessor-Compiler-Linker.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -18073,56 +18096,94 @@
     
       
     
-    <a href="https://github.com/shenlei149/shenlei149.github.io/raw/master/docs/ComputerScience/ProgrammingLanguage/empty_object.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/shenlei149/shenlei149.github.io/raw/master/docs/ComputerScience/ProgrammingLanguage/C-Preprocessor-Compiler-Linker.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
   
 
 
-  <h1>C++ Empty object & unique_ptr size</h1>
+  <h1>C 语言预处理器、编译器、链接器简介</h1>
 
-<p>智能指针 <code>unique_ptr</code> 的大小是多少？</p>
-<p>为了处理任意自定义情况，<code>unique_ptr</code> 包含两个模板参数：
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">template</span><span class="o">&lt;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">Deleter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">unique_ptr</span><span class="p">;</span>
-</span></code></pre></div></p>
-<p>最朴素的实现，<code>unique_ptr</code> 包含两个成员变量，类型分别是 <code>T*, Deleter</code>。</p>
-<p><code>T*</code> 大小是 8 字节，<code>Deleter</code> 大小是多少呢？这个类是无状态的，没有成员变量，大小可以为零，但是实际上并不是这样。</p>
-<blockquote>
-<p>C++ 规定一个空类至少有占用一个字节，目的是声明两个空类对象，这两个对象都有唯一的内存地址。
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>class Empty
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>{
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>};
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Empty e1;
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Empty e2;
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>static_assert(&amp;e1 != &amp;e2);
-</span></code></pre></div></p>
-</blockquote>
-<p>那么 <code>Deleter</code> 至少也要有一个字节大小，那么 <code>unique_ptr</code> 至少占用 9 个字节，加上填充，很可能是 16 个字节，相比裸指针，这浪费了一倍的空间。</p>
-<p>如何优化呢？利用下面这条规定：</p>
-<blockquote>
-<p>基类子对象的大小可以为零</p>
-</blockquote>
-<p>也就是说，如果一个类继承了一个空类，那么基类可以被优化成占用零字节。继承类可能还是空类，至少一字节，或者有成员变量，不管是那种情况，继承类都不违背上一条规定。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Sub</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Empty</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">};</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Sub</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
-</span></code></pre></div></p>
-<p>那么可以使用继承类这个优化来优化 <code>unique_ptr</code> 空间。不管使用什么结构存放 <code>T*, Deleter</code>，比如 <code>compressed_pair</code> 或者 <code>tuple</code>，对于第二个模板参数，不要放一个额外的成员变量，没有必要，而是以继承的方式 <code>: public Deleter</code> 实现，<code>Deleter</code> 自身需要一个字节，但是继承类由于有其他变量，就可以把这一个字节优化掉。</p>
-<p>所以
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
-</span></code></pre></div></p>
-<p>C++20 新增了 <code>[[no_unique_address]]</code> 这个属性，目的就是直接解决空类必须占用至少一个字节的问题。这样 <code>unique_ptr</code> 的实现就能简化很多，不用弯弯绕，直接声明成员变量保存 <code>Deleter</code> 即可，同时加上这个属性。</p>
-<blockquote>
-<p>使用 <code>[[no_unique_address]]</code> 避免无状态的成员变量占用额外空间</p>
-</blockquote>
+<p>将 C 语言源代码，处理成可执行的文件，大致需要三步，预处理、编译和链接。</p>
+<p>预处理器的作用是根据一定的规则，进行<strong>纯文本的替换</strong>，递归的执行，直到没有可替换的内容结束。使用 <code>gcc -E</code> 可以仅做预处理。</p>
+<p>C 语言中，大致有以下几种做法。</p>
+<p>第一种，定义一个常量。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#define WIDTH 480</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#define HEIGHT 720</span>
+</span></code></pre></div>
+上述就定义了两个常量，宽和高。我相信，没人想在源代码的很多地方写上 480 和 720 这两个数字。使用宏定义可以给这两个数字起一个有意义的名字，代码中使用有意义的名字来提升代码的可读性。预处理器会把代码中的 <code>WIDTH</code> 和 <code>HEIGHT</code> 全部替换成 480 和 720。</p>
+<p>第二种，定义函数。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#define MAX(a,b) (((a)&gt;(b))?(a):(b))</span>
+</span></code></pre></div>
+上述就定义了一个返回最大值的函数。</p>
+<p>为啥要套这么多括号，因为 <code>a</code> 和 <code>b</code> 可以是复杂的运算而不是简单的两个数，不写括号，可能会由于运算优先级被改变而导致出现非程序员期望的结果。</p>
+<p>宏定义函数的优点是比普通的函数快，宏展开之后，不会有真正的函数调用。而普通调用需要保存上下文，传参，返回等等，浪费些许时间。</p>
+<p>但是缺点很多：缺少必要的检查；写不好会导致效率低下，比如 <code>int max = MAX(fib(a),fib(b))</code>，展开后会调用三次 <code>fib</code> 函数；多次或者不正确的副作用，比如 <code>int max = MAX(m++,n++)</code>，展开后，<code>m</code> 和 <code>n</code> 会调用不同次 <code>++</code>。</p>
+<p><code>assert</code> 就是一个经典的宏定义函数，大致如下：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#ifdef NDEBUG</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#define assert(cond) (void)0</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">#else</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">#define assert(cond) \</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="cp">        ((cond)?(void)0:\</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="cp">            fprint(xxxx), exit(0))</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="cp">#endif</span>
+</span></code></pre></div>
+对于宏函数，我个人觉得弊大于利，所以还是应该谨慎使用。</p>
+<p>联系到 C 语言被创造的时间，上个世纪六七十年代，信条是程序员知道他做得事情，让他去做，甚至包括硬件。所以 C 语言设计的是基于硬件层的抽象，都能直接的映射到硬件操作。但是时至今日，操作系统，软件，硬件都变得日益复杂，程序员这个行业也越来越庞大，codebase 也以数量级的方式增长，不能指望每个程序员都能明白他们在做的事情。所以，现代语言都从语言层面来限制程序员，最大效率的生产出软件，而软件本身的效率只是诸多关注点的一个罢了。</p>
+<p>第三种，包含头文件。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;assert.h&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;yourheaderfile.h&quot;</span>
+</span></code></pre></div>
+预处理器会查找对应文件并作替换，本来很小的文件会变的很大。如果出现了循环依赖，那么预处理器就会一直递归的处理下去，无穷无尽。如何解决这个问题呢？在需要的地方使用宏定义。</p>
+<p><div class="language-c highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#ifndef XXX_H</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">#define XXX_H</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1">// code</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="cp">#endif</span>
+</span></code></pre></div>
+智能的现代预处理器应该会自己处理这种问题，即使你没写上述的代码。但是，写上述的东西很容易，而且就算没有循环依赖也没有什么副作用，所以最佳实践是，头文件都写上上述三行代码。</p>
+<p>预处理器把 C 语言源代码处理完之后，编译器会处理成对象文件（比如 .o 文件），链接器会找到相关文件，链接组成一个二进制文件。下面看一个例子：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;assert.h&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">{</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">mem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="mi">400</span><span class="p">);</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">mem</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;HAHA</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">mem</span><span class="p">);</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">}</span>
+</span></code></pre></div>
+生成的 main.o 文件大致如下：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>CALL malloc
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>CALL printf
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>CALL free
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>RET  
+</span></code></pre></div>
+为啥没有 <code>assert</code> 呢？因为 <code>assert</code> 是宏，预处理器处理完就没有了。</p>
+<p>链接器把 main.o 和对应库文件链接生成 main.out 这个可执行文件。运行这个文件，会打印HAHA。</p>
+<p>如果我们把 <code>include &lt;stdio&gt;</code>注释掉：预处理器处理完成的文件是没有 <code>printf</code> 的声明的，编译时发现语法都是正确的，gcc 会推测 <code>printf</code> 是一个输入 <code>string</code>，返回 <code>int</code> 的函数，随之产生一个 warning，链接器根据编译器给出的结果载入对应的库文件，生成的可执行文件和正常的是一样的。这里涉及默认链接哪些文件。</p>
+<p>如果我们把 <code>include &lt;stdlib&gt;</code> 注释掉：编译器发现 <code>malloc</code> <code>free</code> 没有声明，推测其函数原型，产生 warning，后续和上面情况类似，一切都正常。</p>
+<p>如果我们把 <code>include &lt;assert&gt;</code> 注释掉：预处理不会做对应的宏展开，编译器发现 <code>assert</code>，推测原型，.o 文件中多了一行 <code>CALL assert</code>，链接器在库里面找不到 <code>assert</code> 函数，报错。</p>
+<p>对于上面三种情况的一和二，自己写一个假的原型来欺骗编译器也可以，就去掉了 warning。</p>
+<p>其实，声明函数，定义一系列的参数列表，只要是为了能够在 stack 上正确的记录上下文活动，而给编译器看是附带效果。</p>
+<p>看下面的示例，程序是诡异的，但是能够正常输出的。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">strlen</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">{</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">65</span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">num</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">);</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">);</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">}</span>
+</span></code></pre></div>
+给了 <code>strlen</code> 的原型，但是和库里面的不一致，使用 gcc 编译之后，程序能正常运行，输出多少呢？编译器看到 <code>strlen</code> 需要两个参数，且返回 <code>int</code>。链接器去找 <code>strlen</code> 定义，很开心，找到了，链接，生成文件。这里需要说明下，.o 文件没有参数类型，链接器只看名字。</p>
+<p>运行时，栈里面是什么情况呢？栈最底下是 <code>n</code>，然后分配 <code>length</code> 需要的空间，再 push <code>num</code> 和 <code>num</code> 地址进去，两个参数，SP=SP-8，保存 PC 上下文，调用 <code>strlen</code>，<code>strlen</code> 需要一个参数 <code>char*</code>，去 SP 的地址去拿，幸好，SP 指向地方还真是个指针，指向 <code>num</code>。<code>strlen</code> 把 <code>num</code> 开始的地址作为<code>char*</code> 去处理，遇到第一个 0 结束。在小端机器上，<code>num</code> 内存是 65 0 0 0，遇到第一个 0 结束，所以它认为这个字符串长度为1。所以，这个诡异的程序输出了 1！</p>
 
 
 
@@ -18145,7 +18206,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 19, 2024</span>
   </span>
 
     
@@ -18155,7 +18216,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 19, 2024</span>
   </span>
 
     

@@ -811,17 +811,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/c_generic/</loc>
+         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/C-Generic/</loc>
          <lastmod>2024-06-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/empty_object/</loc>
+         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/C-Preprocessor-Compiler-Linker/</loc>
          <lastmod>2024-06-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/vector_grow/</loc>
+         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/Empty-Object/</loc>
+         <lastmod>2024-06-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/Vector-Grow/</loc>
          <lastmod>2024-06-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
