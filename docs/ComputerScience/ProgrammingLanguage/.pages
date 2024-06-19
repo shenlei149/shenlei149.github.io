@@ -1,3 +1,4 @@
 nav:
     - Programming Language: README.md
+    - C-Style “泛型”：以 swap/lsearch/stack 为例: c_generic.md
     - C++ Empty object & unique_ptr size: empty_object.md
