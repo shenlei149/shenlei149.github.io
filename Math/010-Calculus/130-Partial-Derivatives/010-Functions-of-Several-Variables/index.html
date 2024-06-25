@@ -8813,7 +8813,16 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      定义域与值域
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二元函数
     </span>
   </a>
   
@@ -18127,7 +18136,16 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      定义域与值域
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二元函数
     </span>
   </a>
   
@@ -18166,7 +18184,7 @@
 
   <h1>010 Functions of Several Variables 多元函数</h1>
 
-<p>多个变量的师叔函数与单变量实数函数类似。定义域上的点是实数对（或者三元组、<script type="math/tex">n</script> 元组等），值域上的数是实数。</p>
+<p>多个变量的实数函数与单变量实数函数类似。定义域上的点是实数对（或者三元组、<script type="math/tex">n</script> 元组等），值域上的数是实数。</p>
 <p><strong>定义</strong></p>
 <blockquote>
 <p>假设 <script type="math/tex">D</script> 是 <script type="math/tex">n</script> 元组 <script type="math/tex">(x_1,x_2,\cdots,x_n)</script>。<script type="math/tex">D</script> 上的实数函数（<code>real-valued function</code>）<script type="math/tex">f</script> 是一个规则，对于每个元组分配唯一的实数
@@ -18177,7 +18195,104 @@
 <p><img alt="" src="../010.010.png" /></p>
 <p>如果 <script type="math/tex">f</script> 有三个自变量，自变量用 <script type="math/tex">x,y,z</script> 表示，<script type="math/tex">w</script> 表示因变量，定义域是空间的某个区域。</p>
 <p>在实际应用中，我们期望使用有意义的字母表示自变量和自变量。比如圆柱体的体积是底的半径和高的函数，写作 <script type="math/tex">V=f(r,h)</script>，或者 <script type="math/tex">V=\pi r^2h</script>，不管怎么表示，<script type="math/tex">r,h</script> 是自变量，<script type="math/tex">V</script> 是因变量。</p>
-<h3 id="_1"></h3>
+<h3 id="_1">定义域与值域</h3>
+<p>对于多元函数，我们也要遵循自变量不能使得最后结果为复数或者除零。如果 <script type="math/tex">f(x,y)=\sqrt{y-x^2}</script>，那么 <script type="math/tex">y</script> 不能小于 <script type="math/tex">x^2</script>。如果 <script type="math/tex">f(x,y)=1/(xy)</script>，那么 <script type="math/tex">xy</script> 不能为零。除非特别指明，否则一个函数的定义域是使得函数值是实数的最大集合。因变量的值的集合称为值域。</p>
+<p>例1 下面是几个二元函数的定义域和值域。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>定义域</th>
+<th>值域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<script type="math/tex">z=\sqrt{y-x^2}</script>
+</td>
+<td>
+<script type="math/tex">y\geq x^2</script>
+</td>
+<td>
+<script type="math/tex">[0, \infty)</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">z=\frac{1}{xy}</script>
+</td>
+<td>
+<script type="math/tex">xy\neq 0</script>
+</td>
+<td>
+<script type="math/tex">(-\infty, 0) \cup (0, \infty)</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">z=\sin xy</script>
+</td>
+<td>整个平面</td>
+<td>
+<script type="math/tex">[-1, 1]</script>
+</td>
+</tr>
+</tbody>
+</table>
+<p>下面是一些三元函数的定义域和值域。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>定义域</th>
+<th>值域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<script type="math/tex">w=\sqrt{x^2+y^2+z^2}</script>
+</td>
+<td>整个空间</td>
+<td>
+<script type="math/tex">[0, \infty)</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">w=\frac{1}{xy}</script>
+</td>
+<td>
+<script type="math/tex">(x,y,z)\neq (0,0,0)</script>
+</td>
+<td>
+<script type="math/tex">(0, \infty)</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">w=xy\ln z</script>
+</td>
+<td>
+<script type="math/tex">z>0</script>
+</td>
+<td>
+<script type="math/tex">(-\infty, \infty)</script>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">二元函数</h3>
+<p>平面上的一个区域有内部点和边界点，这和实数轴上的区间类似。闭区间 <script type="math/tex">[a, b]</script> 包含边界点，开区间 <script type="math/tex">(a,b)</script> 不包含边界点，而区间 <script type="math/tex">[a, b)</script> 既不是开区间也不是闭区间。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>区域集合 <script type="math/tex">R</script> 上的一点 <script type="math/tex">(x_0,y_0)</script>，如果以它为圆心的圆盘（<code>disk</code>）都位于 <script type="math/tex">R</script> 的内部，那么是 <script type="math/tex">R</script> 的内部点（<code>interior point</code>）。如下图（a）所示。如果每一个圆盘都一部分在 <script type="math/tex">R</script> 的内部，一部分位于 <script type="math/tex">R</script> 的外部，那么该点是边界点（<code>boundary point</code>）。如下图（b）所示。</p>
+<p><img alt="" src="../010.020.png" /></p>
+<p>内部点的集合组成了区域的内部（<code>interior</code>），边界点的集合组成了区域的边界（<code>boundary</code>）。如果一个区域由内部点组成，那么是开区间（<code>open</code>）。如果一个区域包含是所有的边界点，那么是闭区间（<code>close</code>）。</p>
+<p><img alt="" src="../010.030.png" /></p>
+</blockquote>
+<p>与实数半开半闭区间 <script type="math/tex">[a,b)</script> 类似，一些区域既不是开区间也不是闭区间。</p>
 
 
 
@@ -18200,7 +18315,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 18, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2024</span>
   </span>
 
     
