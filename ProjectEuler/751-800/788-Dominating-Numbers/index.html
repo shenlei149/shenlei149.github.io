@@ -18171,11 +18171,11 @@ n-1\\i-1
 n-1\\i
 \end{pmatrix}\cdot 9^{n-i-1}\cdot 8</script>
 </p>
-<p>现在问题是如何计算 <script type="math/tex">
+<p>现在问题是如何计算
 <script type="math/tex; mode=display">\begin{pmatrix}n\\i\end{pmatrix}</script>
-</script> 呢？</p>
+呢？</p>
 <p>传统的方式（或者说代码）肯定不适合。第一个原因是 <script type="math/tex">n=2022</script> 中选择 <script type="math/tex">m</script> 个，数值比较大，那么计算过程中需要考虑取模，第二个原因是性能，每次都调用一个独立函数计算这个值，由于计算次数相当大，即使这个函数挺快的，累计起来性能也很差。</p>
-<p>仔细观察这个题目的特征，每次调用 <code>Count</code> 函数是数都自增了 1，也就是说 <script type="math/tex">n</script> 从 1 到 2022 进行了变量。<script type="math/tex">i</script> 也是从某个数遍历到 <script type="math/tex">n</script>。那么我们可以利用如下公式初始化一个矩阵 <code>count[2022][2022]</code>，里面存放着组合数待查。而初始化这么小的一个矩阵几乎不消耗什么时间。
+<p>仔细观察这个题目的特征，每次调用 <code>Count</code> 函数时数都自增了 1，也就是说 <script type="math/tex">n</script> 从 1 到 2022 进行了遍历。<script type="math/tex">i</script> 也是从某个数遍历到 <script type="math/tex">n</script>。那么我们可以利用如下公式初始化一个矩阵 <code>count[2022][2022]</code>，里面存放着组合数待查。而初始化这么小的一个矩阵几乎不消耗什么时间。
 <script type="math/tex; mode=display">\begin{aligned}
 \begin{pmatrix}
 n\\0
