@@ -52,7 +52,7 @@ $$9\cdot\begin{pmatrix}
 n-1\\i
 \end{pmatrix}\cdot 9^{n-i-1}\cdot 8$$
 
-现在问题是如何计算 $\begin{pmatrix*}n\\i\end{pmatrix*}$ 呢？
+现在问题是如何计算 $\begin{pmatrix}n\\i\end{pmatrix}$ 呢？
 
 传统的方式（或者说代码）肯定不适合。第一个原因是 $n=2022$ 中选择 $m$ 个，数值比较大，那么计算过程中需要考虑取模，第二个原因是性能，每次都调用一个独立函数计算这个值，由于计算次数相当大，即使这个函数挺快的，累计起来性能也很差。
 
