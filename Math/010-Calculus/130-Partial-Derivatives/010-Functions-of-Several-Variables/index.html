@@ -8828,6 +8828,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      二元函数的图像、等高线、轮廓
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18174,6 +18183,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      二元函数的图像、等高线、轮廓
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18315,7 +18333,30 @@
 <p>内部点的集合组成了区域的内部（<code>interior</code>），边界点的集合组成了区域的边界（<code>boundary</code>）。如果一个区域由内部点组成，那么是开区间（<code>open</code>）。如果一个区域包含是所有的边界点，那么是闭区间（<code>close</code>）。</p>
 <p><img alt="" src="../010.030.png" /></p>
 </blockquote>
-<p>与实数半开半闭区间 <script type="math/tex">[a,b)</script> 类似，一些区域既不是开区间也不是闭区间。</p>
+<p>与实数半开半闭区间 <script type="math/tex">[a,b)</script> 类似，一些区域既不是开区间也不是闭区间。有两个集合比较特殊：空集和整个平面。空集没有内部点也没有边界点。这意味着空集是开放的，因为不包含不是内部点的点，同时也是封闭的，因为没有边界点需要包含。整个 <script type="math/tex">xy</script> 平面也是既开放又封闭的：开放的原因是每个点都是内部点，都被包含了，封闭的原因是没有边界点。除了这两个特殊的集合之外，其他集合要么开放、要么封闭、要么两者都不是。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>一个区域能够被一个直径有限的圆盘包含，那么它是有界的（<code>bounded</code>）。如果它不是有界的，那么是无界的（<code>unbounded</code>）。</p>
+</blockquote>
+<p>有界集合的例子包括线段、三角形、三角形的内部、正方形、圆等。无界的例子包括坐标轴、无限区间函数的图像、象限、半个平面、整个平面。</p>
+<p>例2 描述函数 <script type="math/tex">f(x,y)=\sqrt{y-x^2}</script> 的定义域。</p>
+<p>解：由于 <script type="math/tex">f</script> 仅在满足 <script type="math/tex">y-x^2\geq 0</script> 时有定义，那么定义域是闭区间、无界的。如下图所示。</p>
+<p><img alt="" src="../010.040.png" /></p>
+<p>抛物线 <script type="math/tex">y=x^2</script> 是定义域的边界，边界上面的点是内部点。</p>
+<h3 id="_3">二元函数的图像、等高线、轮廓</h3>
+<p>有两种标准方式给出 <script type="math/tex">f(x,y)</script> 的图像。一种是画出 <script type="math/tex">f</script> 为某个常量值是定义域上的等高线。另一个中是在空间中作出 <script type="math/tex">z=f(x,y)</script> 的曲面。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>使得 <script type="math/tex">f(x,y)</script> 有常量值，即 <script type="math/tex">f(x,y)=c</script>，的点的集合称为等高线（<code>level curve</code>）。对于 <script type="math/tex">f</script> 的定义域 <script type="math/tex">(x,y)</script>，所有空间中 <script type="math/tex">(x,y,f(x,y))</script> 的点的集合称为 <script type="math/tex">f</script> 的图像（<code>graph</code>）。函数图像也称为曲面（<code>surface</code>）<script type="math/tex">z=f(x,y)</script>。</p>
+</blockquote>
+<p>例3 做函数 <script type="math/tex">f(x,y)=100-x^2-y^2</script> 的图像，在平面中画出等高线 <script type="math/tex">f(x,y)=0,f(x,y)=51,f(x,y)=75</script>。</p>
+<p>解：<script type="math/tex">f</script> 的定义域是整个平面，值域是小于等于 100 的实数集合。图像是抛物面 <script type="math/tex">z=100-x^2-y^2</script>，下图显示了正的部分。</p>
+<p><img alt="" src="../010.050.png" /></p>
+<p>等高线 <script type="math/tex">f(x,y)=0</script> 是平面上曲线
+<script type="math/tex; mode=display">f(x,y)=100-x^2-y^2=0,x^2+y^2=100</script>
+这是一个圆心在原点半径为 10 的圆。等高线 <script type="math/tex">f(x,y)=51,f(x,y)=75</script> 类似。</p>
+<p>等高线 <script type="math/tex">f(x,y)=100</script> 只包含原点，但仍然是等高线。</p>
+<p>当 <script type="math/tex">x^2+y^2>100</script> 时，<script type="math/tex">f(x,y)</script> 的值是负数。比如 <script type="math/tex">x^2+y^2=144</script>，是圆心位于原点半径为 12 的圆，是 <script type="math/tex">f(x,y)=-44</script> 对应的等高线。</p>
 
 
 
@@ -18338,7 +18379,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 28, 2024</span>
   </span>
 
     
