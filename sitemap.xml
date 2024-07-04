@@ -816,12 +816,27 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/C-Memory/</loc>
+         <lastmod>2024-07-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/C-Preprocessor-Compiler-Linker/</loc>
          <lastmod>2024-07-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/C-Struct-Array/</loc>
+         <lastmod>2024-07-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/Empty-Object/</loc>
+         <lastmod>2024-07-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://guozi149.me/ComputerScience/ProgrammingLanguage/Scheme/</loc>
          <lastmod>2024-07-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
