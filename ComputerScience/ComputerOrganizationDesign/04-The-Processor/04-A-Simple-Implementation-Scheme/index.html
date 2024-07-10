@@ -2189,6 +2189,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#operation-of-the-datapath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operation of the Datapath
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finalizing-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finalizing Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-a-single-cycle-implementation-is-not-used-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why a Single-Cycle Implementation is not Used Today
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18289,6 +18316,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#operation-of-the-datapath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operation of the Datapath
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finalizing-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finalizing Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-a-single-cycle-implementation-is-not-used-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why a Single-Cycle Implementation is not Used Today
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18388,6 +18442,46 @@
 <p><img alt="" src="../0409.png" /></p>
 <p>与 4.11 相比，这张图的主要修改在于中间底部的 ALU 控制单元，多路复用器对应的 0/1 输入信号，以及标识出了指令的 bits 范围。多路复用器的六个信号由淡蓝色字标识。下图描述了这六种控制线的功能。</p>
 <p><img alt="" src="../0410.png" /></p>
+<p>上图是功能描述，下面讨论如何设置它们。除了 PCSrc 之外，仅仅依赖于 opcode 和 funct 字段。对于 PCSrc，如果指令是分支跳转且 ALU 输出是零，那么需要设置该信号，即对控制单元的信号（分支跳转）和 ALU 输出的 Zero 信号做 AND 运算。</p>
+<p>至此，八个信号（六个涉及多路复用器的信号和两个 ALUOp）均可以由控制单元的输入信号（opcode bits 6:0）来设置。下图是添加了控制单元和控制信号的数据通路。</p>
+<p><img alt="" src="../0411.png" /></p>
+<p>在列出控制单元的真值表之前，我们先来非正式地定义一下控制功能。由于控制线的设置仅仅依赖于 opcode，那么对于每一个 opcode 值，每个控制信号应该是 0，1 或者是无关项。下图展示了对于每一个 opcode，这些控制信号应该如何设置。这些信息可以从图 4.12，4.20，4.21 直接推导得到。</p>
+<p><img alt="" src="../0412.png" /></p>
+<h3 id="operation-of-the-datapath">Operation of the Datapath</h3>
+<p>在继续控制单元之前，我们先来看看每一个指令是如何使用数据通路的。在下面几个流程图中，控制信号和激活的数据通路都会被高亮出来。即使控制线没有被高亮，信号为 0 的多路复用器也有明确的操作。如果多路复用器的任意组成部分是断言的，那么对应信号会被高亮。</p>
+<p>下图是 R 指令（比如 <code>add x1 x2 x3</code>）的数据通路的使用情况。尽管所有的事情发生在一个时钟周期，但是我们可以想象成四个步骤。</p>
+<p><img alt="" src="../0413.png" /></p>
+<ol>
+<li>取指令，PC 自增。</li>
+<li>从寄存器堆中读取 <code>x2 x3</code> 的内容，同时，主要控制单元根据 opcode 设置控制线。</li>
+<li>ALU 对从寄存器堆中读取的数据进行运算，使用 opcode 的部分生成 ALU 功能（选择一个运算）。</li>
+<li>将 ALU 的输出结果写会寄存器堆 <code>x1</code> 寄存器中。</li>
+</ol>
+<p>加载指令，比如 <code>lw x1, offset(x2)</code> 很类似。下图是操作流程。类似的，可以将其分成五个部分。</p>
+<p><img alt="" src="../0414.png" /></p>
+<ol>
+<li>从指令存储中取指令，PC 自增。</li>
+<li>从寄存器堆中读取 <code>x2</code> 的值。</li>
+<li>ALU 计算从寄存器堆中读取的值与指令中 12 bits 有符号扩展数（<code>offset</code>）之和。</li>
+<li>ALU 的结果用作数据存储的地址。</li>
+<li>将数据存储的数据写到寄存器堆（<code>x1</code>）中。</li>
+</ol>
+<p>最后，展示分支跳转（比如 <code>beq x1, x2, offset</code>）操作。和 R 指令类似，不过 ALU 的输出用于确定 PC 被回写的值是 PC +4 还是跳转目标。</p>
+<p><img alt="" src="../0415.png" /></p>
+<ol>
+<li>取指令，PC 自增。</li>
+<li>从寄存器堆中读取 <code>x1 x2</code> 的值。</li>
+<li>ALU 对从寄存器堆中读取的值做减法操作。右上角的加法器将 PC 的值与 12 bits 有符号扩展数 <code>offset</code> 左移一位的值相加，结果是分支跳转目标。</li>
+<li>ALU 输出的 Zero 信息被用于决定哪一个加法器的结果会被写会 PC。</li>
+</ol>
+<h3 id="finalizing-control">Finalizing Control</h3>
+<p>控制功能的精确定义就是表格 4.22。输出是控制线，输入是 opcode。因此可以基于 opcode 列一个输出的真值表。如下图所示。</p>
+<p><img alt="" src="../0416.png" /></p>
+<h3 id="why-a-single-cycle-implementation-is-not-used-today">Why a Single-Cycle Implementation is not Used Today</h3>
+<p>上述简单实现能工作，但是不高效。原因是对于每一个指令而言，时钟周期必须是一样长。最长的路径决定了时钟周期。大概率是加载指令，因为它使用了五个功能单元：指令存储、寄存器堆、ALU、数据存储、寄存器堆。尽管 CPI 是 1，但是由于时钟周期太长，简单实现的性能还是很差。</p>
+<p>使用固定周期的单一周期设计的代价比较大，不过对于很小的指令集而言也是可以接受的。早期的计算机指令集很小，使用了这种技术。不过如果我们试图实现浮点数单元或者更复杂的指令集，这种方法就不可行了。</p>
+<p>由于我们必须假设时钟周期等于所有指令最差情况下的延迟，那么试图减少常见情况的延迟而不提升最差情况的延迟对提升整体性能而言没有帮助。单一周期的实现违反了第一章所述的原则——优化常见情况。</p>
+<p>在 4.6 节，我们会尝试另外一种技术实现，称为流水线，使用的数据通路与单一周期的数据通路很类似，但是具有更高的吞吐，更高效。流水线是通过同时执行多个指令来提高效率的。</p>
 
 
 
@@ -18410,7 +18504,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 10, 2024</span>
   </span>
 
     
