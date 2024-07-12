@@ -18305,6 +18305,64 @@
   <h1>020 更高维度的极限和连续性 Limits and Continuity in Higher Dimensions</h1>
 
 <h3 id="_1">二元函数的极限</h3>
+<p>当所有点 <script type="math/tex">(x,y)</script> 充分接近 <script type="math/tex">(x_0,y_0)</script> 时，<script type="math/tex">f(x,y)</script> 的值任意接近一个固定的实数 <script type="math/tex">L</script>，那么我们说当 <script type="math/tex">(x,y)</script> 接近 <script type="math/tex">(x_0,y_0)</script> 时 <script type="math/tex">f</script> 接近极限 <script type="math/tex">L</script>。这是一元函数定义类似。但是当 <script type="math/tex">(x_0,y_0)</script> 位于定义域内部时，<script type="math/tex">(x,y)</script> 能从任意方向靠近这个点，而不仅仅时从左右两个方向。极限存在时，任意方向的极限值都相同。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>对每一个数 <script type="math/tex">\varepsilon>0</script>，存在对应的 <script type="math/tex">\delta>0</script> 使得对于 <script type="math/tex">f</script> 的所有定义域上的点 <script type="math/tex">(x,y)</script> 都有
+<script type="math/tex; mode=display">|f(x,y)-L|<\varepsilon,0<\sqrt{(x-x_0)^2+(y-y_0)^2}<\delta</script>
+那么当 <script type="math/tex">(x,y)</script> 趋于 <script type="math/tex">(x_0,y_0)</script> 时，<script type="math/tex">f(x,y)</script> 趋于极限（<code>limit</code>）<script type="math/tex">L</script>，记作
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}f(x,y)=L</script>
+</p>
+</blockquote>
+<p>极限的定义是说当 <script type="math/tex">(x,y)</script> 与 <script type="math/tex">(x_0,y_0)</script> 的距离足够小（但不是零）的时候 <script type="math/tex">f(x,y)</script> 与 <script type="math/tex">L</script> 的距离可以任意小。定义适用于内部点 <script type="math/tex">(x_0,y_0)</script>，也适用于边界点，甚至不需要边界点在其定义域上。点 <script type="math/tex">(x,y)</script> 趋于 <script type="math/tex">(x_0,y_0)</script> 必须在定义域内。如下图所示。</p>
+<p><img alt="" src="../020.010.png" /></p>
+<p>对于单变量函数而言，以下式子成立。
+<script type="math/tex; mode=display">\begin{aligned}
+\lim_{(x,y)\to(x_0,y_0)}x&=x_0\\
+\lim_{(x,y)\to(x_0,y_0)}y&=y_0\\
+\lim_{(x,y)\to(x_0,y_0)}k&=k
+\end{aligned}</script>
+这里证明第一个式子。令任意 <script type="math/tex">\varepsilon>0</script>，根据定义，我们需要寻找对应的 <script type="math/tex">\delta</script>。如果我们令 <script type="math/tex">\delta=\varepsilon</script>，即
+<script type="math/tex; mode=display">0<\sqrt{(x-x_0)^2+(y-y_0)^2}<\delta=\varepsilon</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+\sqrt{(x-x_0)^2}&<\varepsilon\\
+|x-x_0|&<\varepsilon\\
+|f(x,y)-x_0|&<\varepsilon
+\end{aligned}</script>
+即
+<script type="math/tex; mode=display">|f(x,y)-x_0|<\varepsilon,0<\sqrt{(x-x_0)^2+(y-y_0)^2}<\delta</script>
+我们找到了这样的 <script type="math/tex">\delta</script> 满足定义，因此
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}f(x,y)=\lim_{(x,y)\to(x_0,y_0)}x=x_0</script>
+</p>
+<p>与单变量极限类似，二元函数也有这些性质。</p>
+<p><strong>定理 1 二元函数的极限的性质</strong></p>
+<blockquote>
+<p>如果 <script type="math/tex">L,M,k</script> 是实数，并且
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}f(x,y)=L,\lim_{(x,y)\to(x_0,y_0)}g(x,y)=M</script>
+那么
+加法法则
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}(f(x,y)+g(x,y))=L+M</script>
+减法法则
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}(f(x,y)-g(x,y))=L-M</script>
+常数倍
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}kf(x,y)=kL</script>
+乘法法则
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}(f(x,y)g(x,y))=LM</script>
+除法法则
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}\frac{f(x,y)}{g(x,y)}=\frac{L}{M},M\neq 0</script>
+幂次法则
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}[f(x,y)]^n=L^n,n \text{ a positive integer}</script>
+根法则
+<script type="math/tex; mode=display">\lim_{(x,y)\to(x_0,y_0)}\sqrt[n]{f(x,y)}=\sqrt[n]{L}=L^{1/n}</script>
+最后一个法则，除了要求 <script type="math/tex">n</script> 是正整数外，如果 <script type="math/tex">n</script> 是偶数，<script type="math/tex">L</script> 要大于零。</p>
+</blockquote>
+<p>这里我们忽略证明。当我们对多项式函数和有理函数应用这些法则时，一个非常有用的结果是当 <script type="math/tex">(x,y)\to(x_0,y_0)</script> 时函数的极限可以用 <script type="math/tex">(x_0,y_0)</script> 代入 <script type="math/tex">f(x,y)</script> 计算极限值，前提是 <script type="math/tex">(x_0,y_0)</script> 在定义域上。</p>
+<p>例1 使用上述法则计算下面两个函数的极限。
+<script type="math/tex; mode=display">\begin{aligned}
+\lim_{(x,y)\to(0,1)}\frac{}{}
+\end{aligned}</script>
+</p>
 
 
 
@@ -18327,7 +18385,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2024</span>
   </span>
 
     
