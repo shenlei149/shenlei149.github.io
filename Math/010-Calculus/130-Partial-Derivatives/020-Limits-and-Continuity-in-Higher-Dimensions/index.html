@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.32">
     
     
       
@@ -9011,6 +9011,33 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       二元函数的极限
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      多元函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续函数在有界封闭集合上的极值
     </span>
   </a>
   
@@ -18353,6 +18380,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      多元函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续函数在有界封闭集合上的极值
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18441,10 +18495,107 @@
 </blockquote>
 <p>这里我们忽略证明。当我们对多项式函数和有理函数应用这些法则时，一个非常有用的结果是当 <script type="math/tex">(x,y)\to(x_0,y_0)</script> 时函数的极限可以用 <script type="math/tex">(x_0,y_0)</script> 代入 <script type="math/tex">f(x,y)</script> 计算极限值，前提是 <script type="math/tex">(x_0,y_0)</script> 在定义域上。</p>
 <p>例1 使用上述法则计算下面两个函数的极限。
-<script type="math/tex; mode=display">\begin{aligned}
-\lim_{(x,y)\to(0,1)}\frac{}{}
-\end{aligned}</script>
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,1)}\frac{x-xy+3}{x^2y+5xy-y^3}=\frac{0-0+3}{0+0-1}=-3</script>
+<script type="math/tex; mode=display">\lim_{(x,y)\to(3,-3)}\sqrt{x^2+y^2}=\sqrt{3^2+(-4)^2}=5</script>
 </p>
+<p>例2 求
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}\frac{x^2-xy}{\sqrt{x}-\sqrt{y}}</script>
+解：当 <script type="math/tex">(x,y)\to(0,0)</script> 时，<script type="math/tex">\sqrt{x}-\sqrt{y}</script> 趋于零，不能使用除法法则。如果分子分母同乘 <script type="math/tex">\sqrt{x}+\sqrt{y}</script>，得到一个能求得极限的等价分式。
+<script type="math/tex; mode=display">\begin{aligned}
+\lim_{(x,y)\to(0,0)}\frac{x^2-xy}{\sqrt{x}-\sqrt{y}}&=\lim_{(x,y)\to(0,0)}\frac{(x^2-xy)(\sqrt{x}+\sqrt{y})}{(\sqrt{x}-\sqrt{y})(\sqrt{x}+\sqrt{y})}\\
+&=\lim_{(x,y)\to(0,0)}\frac{x(x-y)(\sqrt{x}+\sqrt{y})}{x-y}\\
+&=\lim_{(x,y)\to(0,0)}x(\sqrt{x}+\sqrt{y})\\
+&=0
+\end{aligned}</script>
+上面分子分母能够同时消去 <script type="math/tex">x-y</script> 的原因是路径 <script type="math/tex">y=x</script> 不在函数
+<script type="math/tex; mode=display">f(x,y)=\frac{x^2-xy}{\sqrt{x}-\sqrt{y}}</script>
+的定义域上。</p>
+<p>例3 如果极限
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}\frac{4xy^2}{x^2+y^2}</script>
+存在，求极限。</p>
+<p>解：沿着 <script type="math/tex">x=0</script> 趋于 <script type="math/tex">(0,0)</script> 当 <script type="math/tex">y\neq 0</script> 时函数值始终是零。类似地，沿着 <script type="math/tex">y=0</script> 趋近，当 <script type="math/tex">x\neq 0</script> 时，函数值也始终是零。所以如果极限存在，那么这个值必须是零。下面应用定义证明。</p>
+<p><img alt="" src="../020.020.png" /></p>
+<p>令任意 <script type="math/tex">\varepsilon>0</script>，需要找到 <script type="math/tex">\delta</script> 使得下面式子成立。
+<script type="math/tex; mode=display">\bigg|\frac{4xy^2}{x^2+y^2}-0\bigg|<\varepsilon,0<\sqrt{x^2+y^2}<\delta</script>
+即
+<script type="math/tex; mode=display">\frac{4|x|y^2}{x^2+y^2}<\varepsilon,0<\sqrt{x^2+y^2}<\delta</script>
+由于 <script type="math/tex">y^2\leq x^2+y^2</script>，那么
+<script type="math/tex; mode=display">\frac{4|x|y^2}{x^2+y^2}\leq 4|x|=4\sqrt{x^2}\leq4\sqrt{x^2+y^2}</script>
+如果选择 <script type="math/tex">\delta=\varepsilon/4</script>，并且令 <script type="math/tex">0<\sqrt{x^2+y^2}<\delta</script>，那么
+<script type="math/tex; mode=display">\bigg|\frac{4xy^2}{x^2+y^2}-0\bigg|\leq4\sqrt{x^2+y^2}<4\delta=4\frac{\varepsilon}{4}=\varepsilon</script>
+因此根据定义
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}\frac{4xy^2}{x^2+y^2}=0</script>
+</p>
+<p>例4 如果
+<script type="math/tex; mode=display">f(x,y)=\frac{y}{x}</script>
+那么极限
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}f(x,y)</script>
+存在吗？</p>
+<p>解：<script type="math/tex">f</script> 的定义域不包含 <script type="math/tex">y</script> 轴，因此无需考虑任意点 <script type="math/tex">(x,y),x\neq 0</script> 趋于 <script type="math/tex">(0,0)</script>。沿着 <script type="math/tex">x</script> 轴趋近，函数值是 <script type="math/tex">f(x,0)=0,x\neq 0</script>，如果极限存在，那么 <script type="math/tex">L=0</script>。另一方面，沿着 <script type="math/tex">y=x</script> 趋于 <script type="math/tex">(0,0)</script>，函数值是 <script type="math/tex">f(x,x)=1,x\neq 0</script>，那么函数趋于 1。这意味以 <script type="math/tex">(0,0)</script> 为圆心 <script type="math/tex">\delta</script> 的任意圆盘，包含点 <script type="math/tex">(x,0)</script>，对应函数值是 0，也包含点 <script type="math/tex">(x,x)</script>，对应函数值是 1。无论圆盘多小，圆盘内的点对应的函数值差值最小是 1。我们令 <script type="math/tex">\varepsilon</script> 为小于 1 的值就会否定 <script type="math/tex">L=0</script> 或 <script type="math/tex">L=1</script> 或任意值，因此极限不存在。极限不存在的原因也可以说是沿着不同路径趋于点 <script type="math/tex">(0,0)</script> 的极限值不同。</p>
+<h3 id="_2">连续性</h3>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>满足下面三个条件，则函数 <script type="math/tex">f(x,y)</script> 在点 <script type="math/tex">(x_0,y_0)</script> 处连续：
+1. <script type="math/tex">f</script> 在点 <script type="math/tex">(x_0,y_0)</script> 处有定义；
+2. <script type="math/tex">\lim_{(x,y)\to(x_0,y_0)}f(x,y)</script> 存在；
+3. <script type="math/tex">\lim_{(x,y)\to(x_0,y_0)}f(x,y)=f(x_0,y_0)</script>。</p>
+<p>如果函数在定义域的每一个点处都连续，那么函数是连续（<code>continuous</code>）的。</p>
+</blockquote>
+<p>连续性的定义对于边界点也是适用的。唯一的要求是 <script type="math/tex">(x_0, y_0)</script> 附近的每个点 <script type="math/tex">(x, y)</script> 都在 <script type="math/tex">f</script> 的定义域内。</p>
+<p>定理 1 的一个推论是连续函数的组合函数在定义域交集上是连续的。在存在定义的点上，连续函数的和、差、倍、积等，包括多项式和有理函数，也都是连续的。</p>
+<p>例5 证明
+<script type="math/tex; mode=display">f(x,y)=\begin{cases}
+\frac{2xy}{x^2+y^2},&&(x,y)\neq (0,0)\\
+0,&&(x,y)=(0,0)
+\end{cases}</script>
+在除了原点之外的每一个点都是连续的。</p>
+<p><img alt="" src="../020.030.png" /></p>
+<p>证明：排除原点之后，函数是连续函数 <script type="math/tex">x,y</script> 的有理函数，所以是连续的，这些点处的极限就是将 <script type="math/tex">x,y</script> 的值代入后得到的有理数。</p>
+<p>在点 <script type="math/tex">(0,0)</script> 处，<script type="math/tex">f</script> 是有定义的，值是 0，但是当 <script type="math/tex">(x,y)\to (0,0)</script> 时，<script type="math/tex">f</script> 的极限不存在。原因是沿着不同的路径趋于原点，极限不同。</p>
+<p>对于每一个 <script type="math/tex">m</script>，在直线 <script type="math/tex">y=mx,x\neq 0</script> 上，<script type="math/tex">f</script> 值不变。
+<script type="math/tex; mode=display">f(x,y)\bigg|_{y=mx}=\frac{2xy}{x^2+y^2}\bigg|_{y=mx}=\frac{2mx^2}{x^2+m^2x^2}=\frac{2m}{1+m^2}</script>
+因此，<script type="math/tex">f</script> 沿着直线趋于 <script type="math/tex">(0,0)</script> 的极限是
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}f(x,y)=\lim_{(x,y)\to(0,0)}f(x,y)\bigg|_{y=mx}=\frac{2m}{1+m^2}</script>
+显然，极限值会随着斜率 <script type="math/tex">m</script> 的变化而变化，那么极限不存在，因此在原点处函数不连续。</p>
+<p>对于二元或多元函数而言，如果在某点处的极限存在，那么沿着任意路径趋于某点，极限值都一样。这个结论与一元函数左极限和有极限必须一样类似。对于二元或多元函数，如果能找到不同的极限值，那么极限就不存在。</p>
+<p><strong>极限不存在的判定</strong></p>
+<blockquote>
+<p>如果在函数 <script type="math/tex">f(x,y)</script> 定义域内，<script type="math/tex">(x,y)</script> 沿着两条不同路径趋于 <script type="math/tex">(x_0,y_0)</script> 得到不同的极限值，那么 <script type="math/tex">\lim_{(x,y)\to(x_0,y_0)}f(x,y)</script> 不存在。</p>
+</blockquote>
+<p>例6 证明函数
+<script type="math/tex; mode=display">f(x,y)=\frac{2x^2y}{x^4+y^2}</script>
+在 <script type="math/tex">(x,y)</script> 趋于 <script type="math/tex">(0,0)</script> 时极限不存在。</p>
+<p><img alt="" src="../020.040.png" /></p>
+<p>证明：如果直接使用代入法会得到 <script type="math/tex">0/0</script> 型不定式。下面讨论沿着不同抛物线趋于原点时的极限值。沿着 <script type="math/tex">y=kx^2,x\neq 0</script> 趋于原点，函数值是常量
+<script type="math/tex; mode=display">f(x,y)\bigg|_{y=kx^2}=\frac{2x^y}{x^4+y^2}\bigg|_{y=kx^2}=\frac{2kx^4}{x^4+k^2x^4}=\frac{2k}{1+k^2}</script>
+因此
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}f(x,y)=\lim_{(x,y)\to(0,0)}f(x,y)\bigg|_{y=kx^2}=\frac{2k}{1+k^2}</script>
+极限值会随着路径的不同而不同。所以 <script type="math/tex">(x,y)</script> 趋于 <script type="math/tex">(0,0)</script> 时极限不存在。</p>
+<p>如果是沿着直线 <script type="math/tex">y=mx,x\neq 0</script> 趋于原点，那么
+<script type="math/tex; mode=display">f(x,y)=\bigg|_{y=mx}=\frac{2x^2\cdot mx}{x^4+m^2x^2}=\frac{2mx}{x^2+m^2}</script>
+所以极限
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}f(x,y)=\lim_{(x,y)\to(0,0)}f(x,y)\bigg|_{y=mx}=\lim_{(x,y)\to(0,0)}\frac{2mx}{x^2+m^2}=0</script>
+所以可以得到下面这个推论：</p>
+<blockquote>
+<p>沿着所有直线趋于 <script type="math/tex">(x_0,y_0)</script> 的极限值都相同，也不意味着在点 <script type="math/tex">(x_0,y_0)</script> 存在极限。</p>
+</blockquote>
+<p><strong>组合函数的连续性</strong></p>
+<blockquote>
+<p>如果函数 <script type="math/tex">f(x,y)</script> 在 <script type="math/tex">(x_0,y_0)</script> 是连续的，<script type="math/tex">g</script> 是在点 <script type="math/tex">f(x_0,y_0)</script> 处连续的一元函数，那么组合函数 <script type="math/tex">h=g\circ f=g(f(x,y))</script> 在 <script type="math/tex">(x_0,y_0)</script> 处是连续的。</p>
+</blockquote>
+<p>这里忽略证明（类似于 2.6 节定理 9）。</p>
+<p>根据上述定理，组合函数
+<script type="math/tex; mode=display">e^{x-y},\cos\frac{xy}{x^2+1},\ln(1+x^2y^2)</script>
+在任意点 <script type="math/tex">(x,y)</script> 处都连续。</p>
+<h3 id="_3">多元函数</h3>
+<p>二元函数的极限定义和连续性定义，以及极限的性质，都可以推及多元函数。比如函数
+<script type="math/tex; mode=display">\ln(x+y+z),\frac{y\sin z}{x-1}</script>
+在其定义域上都是连续的，再比如可以使用替换法求极限
+<script type="math/tex; mode=display">\lim_{(x,y,z)\to(1,0,-1)}\frac{e^{x+z}}{z^2+\cos(\sqrt{xy})}=\frac{e^{1-1}}{(-1)^2+\cos 0}=\frac{1}{2}</script>
+</p>
+<h3 id="_4">连续函数在有界封闭集合上的极值</h3>
+<p>4.1 节定理 1，极值定理是说一元函数在有界闭区间 <script type="math/tex">[a,b]</script> 上连续，那么至少会出现一次绝对最大值和绝对最小值。这对于二元函数也成立。函数 <script type="math/tex">z=f(x,y)</script> 在有界封闭集合 <script type="math/tex">R</script> 上连续，那么函数至少会在某点处取得一次绝对最大值，在某点处取得一次绝对最小值。</p>
+<p>多元函数也是类似的。13.7 节会阐述如何求这些极值。</p>
 
 
 
@@ -18467,7 +18618,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 19, 2024</span>
   </span>
 
     
@@ -18528,7 +18679,7 @@
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.indexes", "content.action.view", "content.action.edit", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.471ce7a9.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
