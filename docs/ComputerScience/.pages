@@ -3,6 +3,7 @@ nav:
     - TAOCP: TAOCP
     - Computer Organization and Design (RISC-V): ComputerOrganizationDesign
     - Effective Modern C++: EffectiveModernCpp
+    - C++17 The Complete Guide: CPP17
     - The Art of Writing Efficient Programs: ArtWritingEfficientPrograms
     - Database: Database
     - Programming Language: ProgrammingLanguage
