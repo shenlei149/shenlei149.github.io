@@ -2215,9 +2215,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#control-hazards" class="md-nav__link">
+  <a href="#pipeline-overview-summary" class="md-nav__link">
     <span class="md-ellipsis">
-      Control Hazards
+      Pipeline Overview Summary
     </span>
   </a>
   
@@ -18555,9 +18555,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#control-hazards" class="md-nav__link">
+  <a href="#pipeline-overview-summary" class="md-nav__link">
     <span class="md-ellipsis">
-      Control Hazards
+      Pipeline Overview Summary
     </span>
   </a>
   
@@ -18652,10 +18652,44 @@
 </span></code></pre></div>
 如果不干涉，就会遇到数据冒险。加法指令在第五阶段才写入数据，减法指令才能访问，因此浪费了三个时钟周期。</p>
 <p>尽管我们可以依赖编译期消除这些冒险，但是结果总不能令人满意。这些依赖关系太常见了，延迟也太长，不能指望编译期能将我们从这种困境中解救出来。</p>
-<p>主要的解决方法基于我们无需等待指令完成就可以尝试解决数据冒险。比如上面的例子，当 ALU 计算完加法结果之后，我们就可以将其作为减法的输入。</p>
+<p>主要的解决方法基于我们无需等待指令完成就可以尝试解决数据冒险。比如上面的例子，当 ALU 计算完加法结果之后，我们就可以将其作为减法的输入。添加额外硬件更早的获取缺失的数据，这种技术称为转发（<code>forwarding</code>）或旁路（<code>bypassing</code>）。</p>
 <h5 id="forwarding-with-two-instructions">Forwarding with Two Instructions</h5>
+<p>下面阐述针对上面的两条命令，如何添加旁路使得两个指令能够更好的利用流水线。下图展示了第一条指令。</p>
+<p><img alt="" src="../0604.png" /></p>
+<p>下图添加了旁路，当 <code>add</code> 指令的执行阶段完成之后，将 <code>x1</code> 的值转发作为 <code>sub</code> 指令的执行阶段的输入。</p>
+<p><img alt="" src="../0605.png" /></p>
+<p>从上图可以看出来，旁路技术是有时序要求的。大部分时候能解决问题，但是不能解决所有问题。比如，假定上面的例子中，第一条指令是从 <code>x1</code> 加载数据的指令，那么直到第四个阶段从内存读完数之后，才能作为第二条指令的输入，但是此时已经无法将数据转发给 <code>sub</code> 指令的执行阶段了。想要使用转发，我们需要为加载数据冒险（<code>load-use data hazard</code>）停滞一个周期。这称为流水线停滞（<code>pipeline stall</code>），或者是流水线冒泡（<code>bubble</code>）。如下图所示。</p>
+<p><img alt="" src="../0606.png" /></p>
 <h5 id="reordering-code-to-avoid-pipeline-stalls">Reordering Code to Avoid Pipeline Stalls</h5>
-<h3 id="control-hazards">Control Hazards</h3>
+<p>有如下 C 代码
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">;</span>
+</span></code></pre></div>
+假定变量均在内存中，且从 <code>x31</code> 指向的地址开始偏移，那么生成的 RISC-V 代码是
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lw x1, 0(x31)   // Load b
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>lw x2, 8(x31)   // Load e
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>add x3, x1, x2  // b + e
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>sw x3, 24(x31)  // Store a
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>ld x4, 16(x31)  // Load f
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>add x5, x1, x4  // b + f
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>sw x5, 32(x31)  // Store c
+</span></code></pre></div>
+每一个 <code>add</code> 指令都依赖于之前的 <code>lw</code> 的指令。旁路技术可以消除第一个 <code>add</code> 与第一个 <code>lw</code> 之间的数据冒险，也能消除 <code>sw</code> 的数据冒险。但是无法消除 <code>add</code> 与紧接着的 <code>lw</code> 的数据冒险。如果如下调整代码顺序那么额外两个数据冒险也能消除了。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    lw x1, 0(x31)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    lw x2, 4(x31)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>+   lw x4, 8(x31)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    add x3, x1, x2
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    sw x3, 12(x31)
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>-
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    add x5, x1, x4
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    sw x5, 16(x31)
+</span></code></pre></div>
+在一个有旁路技术的处理器上，调整代码顺序还能再减少两个时钟。</p>
+<p>旁路技术还提供了一个观察 RISC-V 的视角。RISC-V 指令只有一个写操作，并且在最后一个阶段执行。如果每条指令都有不止一个结果需要转发，或者需要在指令执行的早期就写结果，那么转发会更加困难。</p>
+<h4 id="control-hazards">Control Hazards</h4>
+<p>第三种冒险称为控制冒险（<code>control hazard</code>），要根据某条指令的结果来做出决定继续执行什么指令。</p>
+<p>条件跳转指令就会遇到这个问题。在跳转指令的后一个执行的指令的第一步是取指令，但是此时无法知道要取那一条指令，因为分支跳转指令刚加载完还没有执行。一个直接的方案是流水线停滞，等分支跳转指令计算完下一条指令地址之后再执行取指令。</p>
+<h3 id="pipeline-overview-summary">Pipeline Overview Summary</h3>
 
 
 
@@ -18678,7 +18712,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 19, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 21, 2024</span>
   </span>
 
     
