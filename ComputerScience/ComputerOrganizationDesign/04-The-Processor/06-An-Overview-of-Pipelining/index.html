@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.32">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
     
     
       
@@ -18689,6 +18689,18 @@
 <h4 id="control-hazards">Control Hazards</h4>
 <p>第三种冒险称为控制冒险（<code>control hazard</code>），要根据某条指令的结果来做出决定继续执行什么指令。</p>
 <p>条件跳转指令就会遇到这个问题。在跳转指令的后一个执行的指令的第一步是取指令，但是此时无法知道要取那一条指令，因为分支跳转指令刚加载完还没有执行。一个直接的方案是流水线停滞，等分支跳转指令计算完下一条指令地址之后再执行取指令。</p>
+<p>假定我们有充分的硬件可以在流水线的第二阶段完成测试寄存器值、计算跳转地址、更新 PC 的值。即便如此，执行条件跳转指令也会停滞一个 200ps 的时钟周期。如下图所示。</p>
+<p><img alt="" src="../0607.png" /></p>
+<h5 id="performance-of-stall-on-branch">Performance of "Stall on Branch"</h5>
+<p>预估分支跳转停滞对 CPI（指令平均时钟周期）的影响。假定其他指令的的 CPI 是 1。</p>
+<p>从第三章图 3.22 可知 SPECint2006 中分支跳转指令占比是 10%。其余的指令 CPI 是 1，分支跳转指令多停滞一个时钟周期，因此，CPI 是 1.1。</p>
+<p>如果我们无法在第二阶段解决问题（更长的流水线更常见）的话，当在跳转指令上停滞，那么延迟更大。对于大部分计算机而言，这个成本太大了，因此我们需要第二种解法：预测。</p>
+<p>计算机就是使用预测来处理分支跳转指令。一种简单的方法是时钟不采用条件分支。如果正确了，那么流水线就会全速。只有当选择了条件分支，那么才会有流水线停滞。如下图所示。</p>
+<p><img alt="" src="../0608.png" /></p>
+<p>一个更为精巧的设计是有的时候选择条件分支，有时不选择。比如循环底部的分支跳转，是调回循环的开头。因此跳转是更可能的选择，因此选择跳转回更前面的指令。</p>
+<p>这种僵化的分支预测是一种传统刻板的行为，并没有考虑每个分支的情况。与之相比，动态分支预测硬件能够根据每一个分支的行为进行预测，并在程序的生命周期的根据历史改变预测结果。</p>
+<p>一个流行的方法是保存每个分支选择路径的历史，然后使用较近的历史记录来预测下一次选择。保留历史的数列和类型越来越多，结果就是动态分支预测可以达到 90% 的准确率。如果猜测错误，必须保证错误的分支后面的执行不会有影响，那么必须从正确的路上重启流水线。</p>
+<p>和其他解决控制冒险的方法一样，流水线越长，也会增加预测错误的开销。</p>
 <h3 id="pipeline-overview-summary">Pipeline Overview Summary</h3>
 
 
@@ -18712,7 +18724,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2024</span>
   </span>
 
     
@@ -18773,7 +18785,7 @@
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.indexes", "content.action.view", "content.action.edit", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.471ce7a9.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.af256bd8.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
