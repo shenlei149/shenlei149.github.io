@@ -18748,7 +18748,41 @@
 <li>如果一个操作数不再寄存器堆或重排缓冲区，那一定需要某个功能单元计算出需要的操作数。跟踪该功能单元的名字。当结果出来的时候，直接拷贝到等待这个操作数的功能单元的保留站，这个过程绕过了寄存器堆。</li>
 </ol>
 <p>这些步骤有效地利用了重排缓冲区和保留站来实现寄存器重命名。</p>
+<p>从概念上讲，可以将动态调度的流水线视为对程序数据流结构的分析。然后，处理器按照某种顺序执行指令，以保持程序的数据流顺序。这种执行方式称为乱序执行（<code>out-of-order execution</code>），因为指令的执行顺序可以与取指令的顺序不同。</p>
+<p>为了让程序执行看起来像一个简单顺序的流水线执行的行为，取指令和解码单元需要按序发射指令，这样可以跟踪依赖，提交单元需要按照取指令的顺序将结果写到寄存器和内存中。这种保守的模式称为按序提交（<code>in-order commit</code>）。因此如果发生异常，计算机指向最后执行的指令，唯一更新的寄存器是导致异常的指令之前的指令写的寄存器。尽管前端（取指令和解码）和后端（提交）是按序的，但是功能单元可以等所需数据就位就开始执行，无需关心顺序。当前，所有的动态调度流水线都采用按序提交的方式。</p>
+<p>动态调度往往有基于硬件的推测扩展，特别是对分支跳转结果的预测。基于此，动态调度的处理器可以沿着继续取指令和执行指令。由于指令是按顺序提交的，那么我们在提交预测后续的指令结果之前可以知道预测是否正确。动态调度流水线还支持对加载地址进行推测，这样使得加载指令重排，并且使用提交单元来避免错误的推测。后续会阐述 Intel Core i7 的实现。</p>
+<p>乱序执行引出了之前没有遇见的一种冒险。两个指令使用相同的寄存器或内存地址（称为名字 <code>name</code>）就会出现名字依赖（<code>name dependence</code>），但是在关联这些名字的指令之间没有数据流动。对于顺序执行 <code>i</code> <code>j</code> 两条指令，有两种名字依赖。</p>
+<ol>
+<li>反依赖（<code>antidependence</code>）是说 <code>j</code> 写的名字是 <code>i</code> 读的名字。原始顺序就保证了 <code>i</code> 读到的是正确的值而不是 <code>j</code> 写的值。</li>
+<li>输出依赖（<code>output dependence</code>）是说 <code>i</code> <code>j</code> 写的名字相同，那么原始顺序就要保证最后结果是 <code>j</code> 写入的。</li>
+</ol>
+<p>之前遇到的冒险称为真实数据依赖（<code>true data dependence</code>）。</p>
+<p>下面例子中，<code>swc1</code> <code>addiu</code> 两者对 <code>f0</code> 是反依赖，<code>lwc1</code> <code>add.s</code> 两者对 <code>x1</code> 是真实数据依赖。单次循环中没有输出依赖，但是两次循环对应的 <code>addiu</code> 就是输出依赖。</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nl">Loop</span><span class="p">:</span><span class="w">   </span><span class="n">lwc1</span><span class="w"> </span><span class="n">$f0</span><span class="p">,</span><span class="mi">0</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w">      </span><span class="c1">//f0=array element</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">        </span><span class="n">add</span><span class="p">.</span><span class="n">s</span><span class="w"> </span><span class="n">$f4</span><span class="p">,</span><span class="n">$f0</span><span class="p">,</span><span class="n">$f2</span><span class="w">   </span><span class="c1">//add scalar in f2</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">swc1</span><span class="w"> </span><span class="n">$f4</span><span class="p">,</span><span class="mi">0</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w">      </span><span class="c1">//store result</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="n">addiu</span><span class="w"> </span><span class="n">x1</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="mi">4</span><span class="w">       </span><span class="c1">//decrement pointer 8 bytes</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="n">bne</span><span class="w"> </span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">Loop</span><span class="w">      </span><span class="c1">//branch if x1 != x2 </span>
+</span></code></pre></div>
+<p>指令之间存在名称或数据依赖，并且它们足够靠近，使得执行期间会重叠，那么会改变对涉及依赖关系的操作数的访问顺序，就存在流水线冒险。它们导致了以下更直观的流水线冒险名称：</p>
+<ul>
+<li>反依赖导致了 write-after-read (WAR) 冒险。</li>
+<li>输出依赖导致了 write-after-write (WAW) 冒险。</li>
+<li>真实数据依赖导致了 read-after-write 冒险。</li>
+</ul>
+<p>之前没有遇到前面两种冒险的原因是所以指令都是按序执行的。对于写寄存器而言，回写在流水线的最后一个阶段，对于加载和存储指令而言，也是这样的，都在流水线同一个阶段。</p>
+<p>假定编译器也可以根据数据依赖来调度代码，那么为什么超标量处理器会使用动态调度呢？有三个原因。</p>
+<p>第一个原因：不是所有停滞都是可以预测的。特别是缓存失效导致的停滞。动态调度可以隐藏其中一些停滞在等待停滞的同时继续执行指令。</p>
+<p>第二个原因：如果处理器使用动态分支预测推测分支结果，处理器依赖于分支的预测行为和实际行为，它就无法在编译时知道指令的确切顺序。如果在不采用动态调度的情况下采用动态推测来提升指令级并行性 (ILP)，会大大限制推测的优势。</p>
+<p>第三个原因：随着流水线延迟和发射宽度的变化，最佳的编译代码顺序也发生变化。比如如何调度相互依赖的指令会受流水线延迟和发射宽度的影响。流水线结构会影响循环展开的次数以避免停滞和编译器处理寄存器重命名的过程。动态调度能够让硬件屏蔽大部分问题。因此用户和软件分发商就无需考虑为统一指令集的不同实现提供多个版本的问题。同样，历史遗留代码也无需重新编译就能从新硬件上收益。</p>
+<p>现代硬件能够同时发射多个命令，不过维持发射率是很困难的事情。比如尽管现代处理器一个时钟周期能发射四或六个指令，但是很少有程序能够能维持在每个时钟两个以上指令。主要原因有二：</p>
+<p>首先，水流线的主要瓶颈是无法消除的依赖，从而降低了指令间的并行度和持续的发射率。对于真是数据依赖能够做的事情很少，但是硬件和编译器无法区分是真的数据依赖，因此必须保守的认为它们存在。比如使用指针，特别是可能导致别名的方式使用指针，会导致更多的潜在的依赖。相比之下，更规律地使用数组访问让编译器能够推断出不存在依赖。类似的，无论是运行时还是编译时都无法准确预测，这也限制了充分利用指令级并行的能力。有的时候有可用的并行指令，但是编译器或者硬件寻找很远的（有时可能是数千条指令之外）可用的并行指令的能力相当有限。</p>
+<p>第二，在存储层次中的缺失会限制保持满载流水线的能力。一些内存系统的停滞可能可以被隐藏，但是有限数量的 ILP 也限制了这类隐藏的程度。</p>
 <h3 id="energy-efficiency-and-advanced-pipelining">Energy Efficiency and Advanced Pipelining</h3>
+<p>通过动态多发射和推测来提升 ILP 的能力的缺点是耗能！创新能够将更多的晶体管转化为性能，但通常效率很低。现在我们已经遇到了功耗墙问题，我们看到每个芯片上有多个处理器的这种设计，不过这些处理器的流水线深度和积极地推测都不如其更早的处理器。</p>
+<p>虽然简单的处理器不如复杂的处理器快，但每焦耳性能更好，因此当设计更多地受能量而非晶体管数量的限制时，这样可以在每个芯片上提供更高的性能。</p>
+<p>下图显示了一些 Intel CPU 的流水线阶段数、发射宽度、推测级别、时钟周期、每个芯片上的核数等信息。注意，当前核心是核数，而不再增加流水线深度和功耗。</p>
+<p><img alt="" src="../1106.png" /></p>
 
 
 
@@ -18771,7 +18805,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 4, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 5, 2024</span>
   </span>
 
     
