@@ -9268,6 +9268,60 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      多元函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      偏微分和连续性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      二阶偏微分
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      混合偏微分定理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      更高阶偏微分
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      可微性
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18637,6 +18691,60 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      多元函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      偏微分和连续性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      二阶偏微分
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      混合偏微分定理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      更高阶偏微分
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      可微性
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18737,7 +18845,196 @@
 <p>例3 求函数
 <script type="math/tex; mode=display">f(x,y)=\frac{2y}{y+\cos x}</script>
 的偏微分函数 <script type="math/tex">f_x,f_y</script>。</p>
-<p>解：<script type="math/tex">f</script> 是两个函数的商。</p>
+<p>解：<script type="math/tex">f</script> 是两个函数的商。视 <script type="math/tex">y</script> 为常量，使用除法法则
+<script type="math/tex; mode=display">\begin{aligned}
+f_x&=\frac{\partial}{\partial x}(\frac{2y}{y+\cos x})\\
+&=\frac{(y+\cos x)\frac{\partial}{\partial x}(2y)-2y\frac{\partial}{\partial x}(y+\cos x)}{(y+\cos x)^2}\\
+&=\frac{(y+\cos x)(0)-2y(-\sin x)}{(y+\cos x)^2}\\
+&=\frac{2y\sin x}{(y+\cos x)^2}
+\end{aligned}</script>
+视 <script type="math/tex">x</script> 为常量，使用除法法则
+<script type="math/tex; mode=display">\begin{aligned}
+f_y&=\frac{\partial}{\partial y}(\frac{2y}{y+\cos x})\\
+&=\frac{(y+\cos x)\frac{\partial}{\partial y}(2y)-2y\frac{\partial}{\partial y}(y+\cos x)}{(y+\cos x)^2}\\
+&=\frac{(y+\cos x)(2)-2y(1)}{(y+\cos x)^2}\\
+&=\frac{2\cos x}{(y+\cos x)^2}
+\end{aligned}</script>
+</p>
+<p>隐式微分对偏微分也成立，参考下面的例子。</p>
+<p>例4 给定方程
+<script type="math/tex; mode=display">yz-\ln z=x+y</script>
+求 <script type="math/tex">\partial z/\partial x</script>。假定 <script type="math/tex">z</script> 是 <script type="math/tex">x,y</script> 的函数且偏微分存在。</p>
+<p>解：视 <script type="math/tex">y</script> 为常量，两边同时对 <script type="math/tex">x</script> 求导。
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial}{\partial x}(yz)-\frac{\partial}{\partial x}\ln z&=\frac{\partial x}{\partial x}+\frac{\partial y}{\partial x}\\
+y\frac{\partial z}{\partial x}-\frac{1}{z}\frac{\partial z}{\partial x}&=1+0\\
+(y-\frac{1}{z})\frac{\partial z}{\partial x}&=1\\
+\frac{\partial z}{\partial x}&=\frac{z}{yz-1}
+\end{aligned}</script>
+</p>
+<p>例5 平面 <script type="math/tex">x=1</script> 与跑物体 <script type="math/tex">z=x^2+y^2</script> 相交是抛物线。求抛物线在点 <script type="math/tex">(1,2,5)</script> 处的切线的斜率。如下图所示。</p>
+<p><img alt="" src="../030.040.png" /></p>
+<p>解：抛物线位于平行于 <script type="math/tex">yz</script> 平面的平面内，斜率是 <script type="math/tex">\partial z/\partial y</script> 在点 <script type="math/tex">(1,2)</script> 处的值。
+<script type="math/tex; mode=display">\frac{\partial z}{\partial x}\bigg|_{(1,2)}=\frac{\partial}{\partial x}(x^2+y^2)\bigg|_{(1,2)}=2y\bigg|_{(1,2)}=4</script>
+另外一种计算的方式是将 <script type="math/tex">x=1</script> 代入 <script type="math/tex">z=x^2+y^2</script> 得到抛物线方程是 <script type="math/tex">z=1+y^2</script>，问题化简为求 <script type="math/tex">y=2</script> 处曲线的斜率，即
+<script type="math/tex; mode=display">\frac{dz}{dy}\bigg|_{y=2}=\frac{d}{dy}(1+y^2)\bigg|_{y=2}=2y\bigg|_{y=2}=4</script>
+</p>
+<h3 id="_3">多元函数</h3>
+<p>多于两个变量的函数的偏微分定义与二元函数的偏微分定义类似。将求微分的变量外的变量视为常数，化解成了求解普通微分。</p>
+<p>例6 如果 <script type="math/tex">x,y,z</script> 是自变量，且
+<script type="math/tex; mode=display">f(x,y,z)=x\sin(y+3z)</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial f}{\partial z}&=\frac{\partial}{\partial z}[x\sin(y+3z)]\\
+&=x\frac{\partial}{\partial z}\sin(y+3z)\\
+&=x\cos(y+3z)\frac{\part不ial}{\partial z}(y+3z)\\
+&=3x\cos(y+3z)
+\end{aligned}</script>
+</p>
+<p>例7 电阻为 <script type="math/tex">R_1,R_2,R_3</script> 欧姆的三个电阻并行组成 <script type="math/tex">R</script> 欧姆的电阻，<script type="math/tex">R</script> 由公式
+<script type="math/tex; mode=display">\frac{1}{R}=\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3}</script>
+确定。如下图所示。当 <script type="math/tex">R_1=30,R_2=45,R_3=90</script> 时，求 <script type="math/tex">\partial R/\partial R_2</script> 的值。</p>
+<p><img alt="" src="../030.050.png" /></p>
+<p>解：视 <script type="math/tex">R_1,R_3</script> 为常量，使用隐式求导法则，两边同时对 <script type="math/tex">R_2</script> 求导。
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial}{\partial R_2}\frac{1}{R}&=\frac{\partial}{\partial R_2}\bigg(\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3}\bigg)\\
+-\frac{1}{R^2}\frac{\partial R}{\partial R_2}&=0-\frac{1}{R_2^2}+0\\
+\frac{\partial R}{\partial R_2}&=\frac{R^2}{R_2^2}=\bigg(\frac{R}{R_2}\bigg)^2
+\end{aligned}</script>
+当 <script type="math/tex">R_1=30,R_2=45,R_3=90</script> 时，
+<script type="math/tex; mode=display">\frac{1}{R}=\frac{1}{30}+\frac{1}{45}+\frac{1}{90}=\frac{3+2+1}{90}=\frac{1}{15}</script>
+所以
+<script type="math/tex; mode=display">R=15</script>
+因此偏微分的值是
+<script type="math/tex; mode=display">\frac{\partial R}{\partial R_2}=\frac{1}{9}</script>
+<script type="math/tex">R_2</script> 很小的变化会导致 <script type="math/tex">R</script> 只变化 <script type="math/tex">1/9</script>。</p>
+<h3 id="_4">偏微分和连续性</h3>
+<p>函数 <script type="math/tex">f(x,y)</script> 能够对连续的某点对 <script type="math/tex">x, y</script> 求偏微分，这与一元函数不同，后者可导隐含着连续。本小节最后会讨论 <script type="math/tex">f</script> 在点 <script type="math/tex">(x_0,y_0)</script> 的连续性。</p>
+<p>例8 令
+<script type="math/tex; mode=display">f(x,y)=\begin{cases}
+0,xy\neq 0\\
+1,xy=0
+\end{cases}</script>
+</p>
+<p><img alt="" src="../030.060.png" /></p>
+<p>（a）求沿着直线 <script type="math/tex">y=x</script> 趋于 <script type="math/tex">(0,0)</script> 时 <script type="math/tex">f</script> 的极限。</p>
+<p>（b）证明 <script type="math/tex">f</script> 在 <script type="math/tex">(0,0)</script> 处不连续。</p>
+<p>（c）证明偏微分 <script type="math/tex">\partial f/\partial x,\partial f/\partial y</script> 在原点处都存在。</p>
+<p>解：（a）沿着 <script type="math/tex">y=x</script>，函数 <script type="math/tex">f(x,y)</script> 的值始终为零，因此
+<script type="math/tex; mode=display">\lim_{(x,y)\to(0,0)}f(x,y)\bigg|_{y=x}=\lim_{(x,y)\to(0,0)}0=0</script>
+</p>
+<p>（b）由于 <script type="math/tex">f(0,0)=1</script>，与 （a）中求得的极限不同，因此 <script type="math/tex">f</script> 在 <script type="math/tex">(0,0)</script> 处不连续。</p>
+<p>（c）令 <script type="math/tex">y=0</script>，求 <script type="math/tex">\partial f/\partial x</script>。此时 <script type="math/tex">f(x,y)=1</script>，即上图中的直线 <script type="math/tex">L_1</script>。<script type="math/tex">x</script> 为任意值，斜率都是零，即 <script type="math/tex">\partial f/\partial x=0</script>，那么在 <script type="math/tex">(0,0)</script> 处也有 <script type="math/tex">\partial f/\partial x=0</script>。类似的，<script type="math/tex">\partial f/\partial y</script> 是 <script type="math/tex">y</script> 为任意值时直线 <script type="math/tex">L_2</script> 斜率，因此在 <script type="math/tex">(0,0)</script> 处有 <script type="math/tex">\partial f/\partial y=0</script>。</p>
+<p>例 8 说明多元函数的可微性需要比偏导数存在更强的条件。本小节最后会讨论。</p>
+<h3 id="_5">二阶偏微分</h3>
+<p>对函数 <script type="math/tex">f(x,y)</script> 求导两次，得到二阶导数。通常用下面这些符号表示
+<script type="math/tex; mode=display">\frac{\partial^2 f}{\partial x^2},\frac{\partial^2 f}{\partial y^2},\frac{\partial^2 f}{\partial x\partial y},\frac{\partial^2 f}{\partial y\partial x}</script>
+或
+<script type="math/tex; mode=display">f_{xx},f_{yy},f_{yx},f_{xy}</script>
+其定义是
+<script type="math/tex; mode=display">\frac{\partial^2 f}{\partial x^2}=\frac{\partial}{\partial x}\bigg(\frac{\partial f}{\partial x}\bigg),\frac{\partial^2 f}{\partial y^2}=\frac{\partial}{\partial y}\bigg(\frac{\partial f}{\partial y}\bigg)</script>
+注意，混合偏微分是有顺序要求的。
+<script type="math/tex; mode=display">\frac{\partial^2 f}{\partial x\partial y}=\frac{\partial}{\partial x}\bigg(\frac{\partial f}{\partial y}\bigg)</script>
+即先对 <script type="math/tex">y</script> 求偏微分，再对 <script type="math/tex">x</script> 求偏微分。
+符号
+<script type="math/tex; mode=display">f_{yx}=(f_y)_x</script>
+含义一样。</p>
+<p>例9 令
+<script type="math/tex; mode=display">f(x,y)=x\cos y+ye^x</script>
+求二阶导
+<script type="math/tex; mode=display">\frac{\partial^2 f}{\partial x^2},\frac{\partial^2 f}{\partial y^2},\frac{\partial^2 f}{\partial x\partial y},\frac{\partial^2 f}{\partial y\partial x}</script>
+解：首先求一阶偏微分
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial f}{\partial x}&=\frac{\partial}{\partial x}(x\cos y+ye^x)\\
+&=\cos y+ye^x\\
+\frac{\partial f}{\partial y}&=\frac{\partial f}{\partial y}(x\cos y+ye^x)\\
+&=-x\sin y+e^x
+\end{aligned}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial^2 f}{\partial y\partial x}&=\frac{\partial f}{\partial y}\bigg(\frac{\partial f}{\partial x}\bigg)&&=-\sin y+e^x\\
+\frac{\partial^2 f}{\partial x\partial y}&=\frac{\partial f}{\partial x}\bigg(\frac{\partial f}{\partial y}\bigg)&&=-\sin y+e^x\\
+\frac{\partial^2 f}{\partial x^2}&=\frac{\partial}{\partial x}\bigg(\frac{\partial f}{\partial x}\bigg)&&=ye^x\\
+\frac{\partial^2 f}{\partial y^2}&=\frac{\partial}{\partial y}\bigg(\frac{\partial f}{\partial y}\bigg)&&=-x\cos y
+\end{aligned}</script>
+</p>
+<h3 id="_6">混合偏微分定理</h3>
+<p>在例 9 中，混合偏微分
+<script type="math/tex; mode=display">\frac{\partial^2 f}{\partial y\partial x},\frac{\partial^2 f}{\partial x\partial y}</script>
+是一样的。这并不是巧合，如果一个函数 <script type="math/tex">f</script> 及其偏微分 <script type="math/tex">f_x,f_y,f_{xy},f_{yx}</script> 是连续的，那么就必然相等。不过如果不连续，混合偏微分就可能不同。</p>
+<p><strong>定理2 混合偏微分定理</strong></p>
+<blockquote>
+<p>如果 <script type="math/tex">f(x,y)</script> 及其偏微分 <script type="math/tex">f_x,f_y,f_{xy},f_{yx}</script> 在包含点 <script type="math/tex">(a,b)</script> 的开区间上有定义且连续，那么
+<script type="math/tex; mode=display">f_{xy}(a,b)=f_{yx}(a,b)</script>
+</p>
+</blockquote>
+<p>这个定理也称为克莱罗定理，法国科学家  Alexis Clairaut 发现的。</p>
+<p>证明这个定理需要使用四次中值定理。假设 <script type="math/tex">(a,b)</script> 位于矩形 <script type="math/tex">R</script> 内，<script type="math/tex">f_x,f_y,f_{xy},f_{yx}</script> 均有定义。令 <script type="math/tex">h,k</script> 满足 <script type="math/tex">(a+h,b+k)</script> 也在矩形 <script type="math/tex">R</script> 内。令
+<script type="math/tex; mode=display">\Delta = F(a+h)-F(a)\tag{1}</script>
+其中
+<script type="math/tex; mode=display">F(x)=f(x,b+k)-f(x,b)\tag{2}</script>
+函数 <script type="math/tex">F</script> 是可微的，所以其连续，那么使用中值定理，得到
+<script type="math/tex; mode=display">\Delta=hF'(c_1)\tag{3}</script>
+其中 <script type="math/tex">c_1</script> 介于 <script type="math/tex">a</script> 和 <script type="math/tex">a+h</script> 之间。从 <script type="math/tex">(2)</script> 可以得到
+<script type="math/tex; mode=display">F'(x)=f_x(x,b+k)-f_x(x,b)</script>
+代入 <script type="math/tex">(3)</script> 得到
+<script type="math/tex; mode=display">\Delta=h[f_x(c_1,b+k)-f_x(c_1,b)]\tag{4}</script>
+对函数 <script type="math/tex">g(y)=f_x(c_1,y)</script> 使用中值定理，那么
+<script type="math/tex; mode=display">g(b+k)-g(b)=kg'(d_1)</script>
+其中 <script type="math/tex">d_1</script> 介于 <script type="math/tex">b</script> 和 <script type="math/tex">b+k</script> 之间。写成 <script type="math/tex">f_x</script> 的形式
+<script type="math/tex; mode=display">f_x(c_1,b+k)-f_x(c_1,b)=kf_{xy}(c_1,d_1)</script>
+代入 <script type="math/tex">(4)</script> 得到
+<script type="math/tex; mode=display">\Delta=hkf_{xy}(c_1,d_2)\tag{5}</script>
+其中 <script type="math/tex">(c_1,d_1)</script> 是 <script type="math/tex">R'</script> 内的某一点。如下图所示。</p>
+<p><img alt="" src="../030.070.png" /></p>
+<p>将 <script type="math/tex">(2)</script> 代入 <script type="math/tex">(1)</script> 可以得到另一种形式
+<script type="math/tex; mode=display">\begin{aligned}
+\Delta&=f(a+h,b+k)-f(a+h,b)-f(a,b+k)+f(a,b)\\
+&=[f(a+h,b+k)-f(a,b+k)]-[f(a+h,b)-f(a,b)]\\
+&=\phi(b+k)-\phi(b)
+\end{aligned}\tag{6}</script>
+其中
+<script type="math/tex; mode=display">\phi(y)=f(a+h,y)-f(a,y)\tag{7}</script>
+对 <script type="math/tex">(6)</script> 使用中值定理，得到
+<script type="math/tex; mode=display">\Delta=k\phi'(d_2)\tag{8}</script>
+其中 <script type="math/tex">d_2</script> 介于 <script type="math/tex">b</script> 和 <script type="math/tex">b+k</script> 之间。对 <script type="math/tex">(7)</script> 微分得到
+<script type="math/tex; mode=display">\phi'(y)=f_y(a+h,y)-f_y(a,y)\tag{9}</script>
+代入 <script type="math/tex">(8)</script> 得到
+<script type="math/tex; mode=display">\Delta=k[f_y(a+h,d_2)-f_y(a,d_2)]</script>
+再一次使用中值定理得到
+<script type="math/tex; mode=display">\Delta=khf_{yx}(c_2,d_2)\tag{10}</script>
+其中 <script type="math/tex">c_2</script> 介于 <script type="math/tex">a</script> 和 <script type="math/tex">a+h</script> 之间。</p>
+<p>结合 <script type="math/tex">(5),(10)</script> 得到
+<script type="math/tex; mode=display">f_{xy}(c_1,d_1)=f_{yx}(c_2,d_2)\tag{11}</script>
+其中点 <script type="math/tex">(c_2,d_2)</script> 也位于 <script type="math/tex">R'</script> 内。<script type="math/tex">(11)</script> 不完全是要证明的等式，因为这里是说 <script type="math/tex">(c_1,d_1)</script> 处的 <script type="math/tex">f_{xy}</script> 与 <script type="math/tex">(c_2,d_2)</script> 处的 <script type="math/tex">f_{yx}</script> 相等。不过 <script type="math/tex">h,k</script> 可以任意小。题目假设 <script type="math/tex">f_{xy},f_{yx}</script> 在 <script type="math/tex">(a,b)</script> 处连续意味着 <script type="math/tex">f_{xy}(c_1,d_1)=f_{xy}(a,b)+\varepsilon_1</script>，<script type="math/tex">f_{yx}(c_2,d_2)=f_{yx}(a,b)+\varepsilon_2</script>，随着 <script type="math/tex">h,k\to 0</script>，<script type="math/tex">\varepsilon_1,\varepsilon_2\to 0</script>，那么就有
+<script type="math/tex; mode=display">f_{xy}(a,b)=f_{yx}(a,b)</script>
+</p>
+<p>如果满足条件的话，我们可以交换求偏微分的顺序来计算二阶偏微分。这使得我们可以简化运算。</p>
+<p>例10 求函数
+<script type="math/tex; mode=display">w=xy+\frac{e^y}{y^2+1}</script>
+的偏导数
+<script type="math/tex; mode=display">\frac{\partial^2 w}{\partial x\partial y}</script>
+解：<script type="math/tex">\frac{\partial^2 w}{\partial x\partial y}</script> 的含义是先对 <script type="math/tex">y</script> 求导再对 <script type="math/tex">x</script> 求导。不过我们如果交换求导顺序，很容易就能得到结果。
+<script type="math/tex; mode=display">\frac{\partial w}{\partial x}=y,\frac{\partial^2 w}{\partial y\partial x}=1</script>
+如果先对 <script type="math/tex">y</script> 求导也能得到结果 <script type="math/tex">\frac{\partial^2 w}{\partial x\partial y}=1</script>，不过要繁琐很多。我们能够交换顺序的前提是 <script type="math/tex">w</script> 对所有点 <script type="math/tex">(x_0,y_0)</script> 都满足定理 2 的条件。</p>
+<h3 id="_7">更高阶偏微分</h3>
+<p>应用中出现的往往是一阶和二阶微分。不过只要涉及的微分存在，微分的定义并没有限制阶数。比如我们可以得到如下三阶和四阶微分
+<script type="math/tex; mode=display">\frac{\partial^3 f}{\partial x\partial y^2}=f_{yyx}</script>
+<script type="math/tex; mode=display">\frac{\partial^4 f}{\partial x^2\partial y^2}=f_{yyxx}</script>
+和二阶偏微分类似，高阶偏微分也可以任意交换微分顺序。</p>
+<p>例11 求函数
+<script type="math/tex; mode=display">f(x,y,z)=1-2xy^2z+x^2y</script>
+的偏微分
+<script type="math/tex; mode=display">f_{yxyz}</script>
+解：依次求导
+<script type="math/tex; mode=display">\begin{aligned}
+f_y&=-4xyz+x^2\\
+f_{yx}&=-4yz+2x\\
+f_{yxy}&=-4z\\
+f_{yxyz}&=-4
+\end{aligned}</script>
+</p>
+<h3 id="_8">可微性</h3>
 
 
 
@@ -18760,7 +19057,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 7, 2024</span>
   </span>
 
     
