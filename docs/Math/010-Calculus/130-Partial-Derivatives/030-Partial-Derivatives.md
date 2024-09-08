@@ -290,3 +290,76 @@ f_{yxyz}&=-4
 \end{aligned}$$
 
 ### 可微性
+多变量函数的可微性比一元函数的要复杂，因为能够沿着不同的路径趋于定义域的某一点。在二元函数的偏微分定义中，我们用平行于 $xz$ $yz$ 平面的平面与曲面相交，得到一个曲线，称为轨迹。偏微分可以看作是轨迹在该点处的斜率。对于可微函数，如果我们轻微旋转平面，平面依旧垂直，但是不再平行于 $xz$ 或 $yz$ 平面，得到一个光滑的轨迹，新的轨迹在该点处的斜率可能不同。原始偏微分的存在不能保证这一点。比如之前讨论的例 8。可微性要确保沿着任意路径趋于点 $(x_0,y_0)$，$x,y$ 均可以变化而不是其中一个是固定值，那么自变量微小的变化不会引起突变。
+
+在一元函数中，如果函数 $y=f(x)$ 在 $x=x_0$ 可微，那么随着 $x$ 从 $x_0$ 到 $x_0+\Delta x$，$\Delta y$ 接近切线的变化 $\Delta L$。这就是 3.11 小节下面的方程所描述的。
+$$\Delta y=f'(x_0)\Delta x+\varepsilon\Delta x$$
+随着 $\Delta x\to 0$ 有 $\varepsilon\to 0$。二元函数的可微性定义也类似。
+
+**定义**
+> 如果函数 $z=f(x,y)$ 在 $(x_0,y_0)$ 处的偏微分 $f_x(x_0,y_0),f_y(x_0,y_0)$ 存在，并且 $\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)$ 满足
+> $$\Delta z=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y+\varepsilon_1\Delta x+\varepsilon_2\Delta y$$
+> 随着 $\Delta x,\Delta y\to 0$，$\varepsilon_1,\varepsilon_2\to 0$，那么函数 $z=f(x,y)$ 在 $(x_0,y_0)$ 处可微。如果在定义域的各点处均可微，那么函数是可微函数，其图像是光滑曲线。
+
+下面的定理和推论告诉我们在 $(x_0,y_0)$ 处有连续的一阶偏微分的函数在该点可导，且可以使用线性函数近似。13.6 讨论近似。
+
+**定理 3 二元函数的增量定理**
+> 假定函数 $f(x,y)$ 的一阶偏微分在包含 $(x_0,y_0)$ 的开区间 $R$ 上有定义，并且 $f_x,f_y$ 在 $(x_0,y_0)$ 处连续。那么从 $(x_0,y_0)$ 到 $R$ 上另一点 $(x_0+\Delta x,y_0+\Delta)$ 函数 $f$ 值的变化
+> $$\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)$$
+> 满足
+> $$\Delta z=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y+\varepsilon_1\Delta x+\varepsilon_2\Delta y$$
+> 其中当 $\Delta x,\Delta y\to 0$ 时，$\varepsilon_1,\varepsilon_2\to 0$。
+
+证明：假定以 $(x_0,y_0)$ 为中心的矩阵 $T$ 位于 $R$ 内，并且 $\Delta x,\Delta y$ 使得 $A$ 到 $B(x_0+\Delta x,y_0)$ 和 $B$ 到 $C(x_0+\Delta x,y_0+\Delta y)$ 均在 $T$ 内。如下图所示。
+
+![](030.080.png)
+
+那么我们可以把 $\Delta z=\Delta z_1+\Delta z_2$ 看作是两段增量的叠加。其中
+$$\Delta z_1=f(x_0+\Delta x,y_0)-f(x_0,y_0)$$
+是 $A$ 到 $B$ 函数 $f$ 的变化。
+$$\Delta z_2=f(x_0+\Delta x,y_0+\Delta y)-f(x_0+\Delta x,y_0)$$
+是 $B$ 到 $C$ 函数 $f$ 的变化。
+
+![](030.090.png)
+
+在闭区间 $x_0$ 到 $x_0+\Delta x$，函数 $F(x)=f(x,y_0)$ 是可微（且连续）的函数，那么
+$$F'(x)=f_x(x,y_0)$$
+根据中值定理，$c$ 介于 $x_0$ 和 $x_0+\Delta x$ 之间，有
+$$F(x_0+\Delta x)-F(x_0)=F'(c)\Delta x$$
+所以
+$$f(x_0+\Delta x,y_0)-f(x_0,y_0)=f_x(c,y_0)\Delta x$$
+得到
+$$z_1=f_x(c,y_0)\Delta x\tag{12}$$
+类似的，$G(y)=f(x_0+\Delta x,y)$ 也是可微（且连续）是 $y_0$ 到 $y_0+\Delta y$ 上的函数，那么
+$$G'(y)=f_y(x_0+\Delta x,y)$$
+在 $y_0$ 和 $y_0+\Delta y$ 存在一点 $d$，使得
+$$G(y_0+\Delta y)-G(y_0)=G'(d)\Delta y$$
+那么
+$$f(x_0+\Delta x,y_0+\Delta y)-f(x_0+\Delta x,y_0)=f'(x_0+\Delta x,d)\Delta y$$
+得到
+$$z_2=f_y(x_0+\Delta x,d)\Delta y\tag{13}$$
+当 $\Delta x,\Delta y\to 0$，有 $c\to x_0,d\to y_0$。根据定理的前提假设，$f_x,f_y$ 在 $(x_0,y_0)$ 处连续，所以随着 $\Delta x,\Delta y\to 0$
+$$\begin{aligned}
+\varepsilon_1&=f_x(c,y_0)-f_x(x_0,y_0)\\
+\varepsilon_2&=f_y(x_0+\Delta x,d)-f_y(x_0+\Delta x,y_0)
+\end{aligned}\tag{14}$$
+也趋于零。
+
+最后，我们结合 $(12),(13),(14)$ 可以得到
+$$\begin{aligned}
+\Delta z&=\Delta z_1+\Delta z_2\\
+&=f_x(c,y_0)\Delta x+f_y(x_0+\Delta x,d)\Delta y\\
+&=[f_x(c,y_0+\varepsilon_1)]\Delta x+[f_y(x_0+\Delta x,d)+\varepsilon_2]\Delta y\\
+&=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y+\varepsilon_1\Delta x+\varepsilon_2\Delta y
+\end{aligned}$$
+其中当 $\Delta x,\Delta y\to 0$ 时 $\varepsilon_1,\varepsilon_2\to 0$。
+
+**定理 3 的推论**
+> 如果函数 $f(x,y)$ 的偏微分 $f_x,f_y$ 在开区间 $R$ 上连续，那么 $f$ 在 $R$ 上每一点都是可微的。
+
+如果函数 $z=f(x,y)$ 是可微的，根据定义，当 $\Delta x,\Delta y\to 0$ 时，$\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)$ 趋于零。这就是说可微函数在每一点处都是连续的。
+
+**定理 4 可微性蕴涵着连续性**
+> 如果函数 $f(x,y)$ 在 $(x_0,y_0)$ 处可微，那么 $f$ 在 $(x_0,y_0)$ 处连续。
+
+从定理 3 的推论和定理 4，如果 $f_x,f_y$ 在包含 $(x_0,y_0)$ 的开区间上是连续的，那么函数 $f(x,y)$ 在点 $(x_0,y_0)$ 处是连续的。正如例 8 所示，在某点处的偏微分存在，并不能说明这个二元函数在该点连续。偏微分在某点处的存在性不足以确保可微性，而偏微分的连续性确保可微性。
