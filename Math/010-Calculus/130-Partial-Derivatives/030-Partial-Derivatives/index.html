@@ -19035,6 +19035,74 @@ f_{yxyz}&=-4
 \end{aligned}</script>
 </p>
 <h3 id="_8">可微性</h3>
+<p>多变量函数的可微性比一元函数的要复杂，因为能够沿着不同的路径趋于定义域的某一点。在二元函数的偏微分定义中，我们用平行于 <script type="math/tex">xz</script>
+<script type="math/tex">yz</script> 平面的平面与曲面相交，得到一个曲线，称为轨迹。偏微分可以看作是轨迹在该点处的斜率。对于可微函数，如果我们轻微旋转平面，平面依旧垂直，但是不再平行于 <script type="math/tex">xz</script> 或 <script type="math/tex">yz</script> 平面，得到一个光滑的轨迹，新的轨迹在该点处的斜率可能不同。原始偏微分的存在不能保证这一点。比如之前讨论的例 8。可微性要确保沿着任意路径趋于点 <script type="math/tex">(x_0,y_0)</script>，<script type="math/tex">x,y</script> 均可以变化而不是其中一个是固定值，那么自变量微小的变化不会引起突变。</p>
+<p>在一元函数中，如果函数 <script type="math/tex">y=f(x)</script> 在 <script type="math/tex">x=x_0</script> 可微，那么随着 <script type="math/tex">x</script> 从 <script type="math/tex">x_0</script> 到 <script type="math/tex">x_0+\Delta x</script>，<script type="math/tex">\Delta y</script> 接近切线的变化 <script type="math/tex">\Delta L</script>。这就是 3.11 小节下面的方程所描述的。
+<script type="math/tex; mode=display">\Delta y=f'(x_0)\Delta x+\varepsilon\Delta x</script>
+随着 <script type="math/tex">\Delta x\to 0</script> 有 <script type="math/tex">\varepsilon\to 0</script>。二元函数的可微性定义也类似。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>如果函数 <script type="math/tex">z=f(x,y)</script> 在 <script type="math/tex">(x_0,y_0)</script> 处的偏微分 <script type="math/tex">f_x(x_0,y_0),f_y(x_0,y_0)</script> 存在，并且 <script type="math/tex">\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)</script> 满足
+<script type="math/tex; mode=display">\Delta z=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y+\varepsilon_1\Delta x+\varepsilon_2\Delta y</script>
+随着 <script type="math/tex">\Delta x,\Delta y\to 0</script>，<script type="math/tex">\varepsilon_1,\varepsilon_2\to 0</script>，那么函数 <script type="math/tex">z=f(x,y)</script> 在 <script type="math/tex">(x_0,y_0)</script> 处可微。如果在定义域的各点处均可微，那么函数是可微函数，其图像是光滑曲线。</p>
+</blockquote>
+<p>下面的定理和推论告诉我们在 <script type="math/tex">(x_0,y_0)</script> 处有连续的一阶偏微分的函数在该点可导，且可以使用线性函数近似。13.6 讨论近似。</p>
+<p><strong>定理 3 二元函数的增量定理</strong></p>
+<blockquote>
+<p>假定函数 <script type="math/tex">f(x,y)</script> 的一阶偏微分在包含 <script type="math/tex">(x_0,y_0)</script> 的开区间 <script type="math/tex">R</script> 上有定义，并且 <script type="math/tex">f_x,f_y</script> 在 <script type="math/tex">(x_0,y_0)</script> 处连续。那么从 <script type="math/tex">(x_0,y_0)</script> 到 <script type="math/tex">R</script> 上另一点 <script type="math/tex">(x_0+\Delta x,y_0+\Delta)</script> 函数 <script type="math/tex">f</script> 值的变化
+<script type="math/tex; mode=display">\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)</script>
+满足
+<script type="math/tex; mode=display">\Delta z=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y+\varepsilon_1\Delta x+\varepsilon_2\Delta y</script>
+其中当 <script type="math/tex">\Delta x,\Delta y\to 0</script> 时，<script type="math/tex">\varepsilon_1,\varepsilon_2\to 0</script>。</p>
+</blockquote>
+<p>证明：假定以 <script type="math/tex">(x_0,y_0)</script> 为中心的矩阵 <script type="math/tex">T</script> 位于 <script type="math/tex">R</script> 内，并且 <script type="math/tex">\Delta x,\Delta y</script> 使得 <script type="math/tex">A</script> 到 <script type="math/tex">B(x_0+\Delta x,y_0)</script> 和 <script type="math/tex">B</script> 到 <script type="math/tex">C(x_0+\Delta x,y_0+\Delta y)</script> 均在 <script type="math/tex">T</script> 内。如下图所示。</p>
+<p><img alt="" src="../030.080.png" /></p>
+<p>那么我们可以把 <script type="math/tex">\Delta z=\Delta z_1+\Delta z_2</script> 看作是两段增量的叠加。其中
+<script type="math/tex; mode=display">\Delta z_1=f(x_0+\Delta x,y_0)-f(x_0,y_0)</script>
+是 <script type="math/tex">A</script> 到 <script type="math/tex">B</script> 函数 <script type="math/tex">f</script> 的变化。
+<script type="math/tex; mode=display">\Delta z_2=f(x_0+\Delta x,y_0+\Delta y)-f(x_0+\Delta x,y_0)</script>
+是 <script type="math/tex">B</script> 到 <script type="math/tex">C</script> 函数 <script type="math/tex">f</script> 的变化。</p>
+<p><img alt="" src="../030.090.png" /></p>
+<p>在闭区间 <script type="math/tex">x_0</script> 到 <script type="math/tex">x_0+\Delta x</script>，函数 <script type="math/tex">F(x)=f(x,y_0)</script> 是可微（且连续）的函数，那么
+<script type="math/tex; mode=display">F'(x)=f_x(x,y_0)</script>
+根据中值定理，<script type="math/tex">c</script> 介于 <script type="math/tex">x_0</script> 和 <script type="math/tex">x_0+\Delta x</script> 之间，有
+<script type="math/tex; mode=display">F(x_0+\Delta x)-F(x_0)=F'(c)\Delta x</script>
+所以
+<script type="math/tex; mode=display">f(x_0+\Delta x,y_0)-f(x_0,y_0)=f_x(c,y_0)\Delta x</script>
+得到
+<script type="math/tex; mode=display">z_1=f_x(c,y_0)\Delta x\tag{12}</script>
+类似的，<script type="math/tex">G(y)=f(x_0+\Delta x,y)</script> 也是可微（且连续）是 <script type="math/tex">y_0</script> 到 <script type="math/tex">y_0+\Delta y</script> 上的函数，那么
+<script type="math/tex; mode=display">G'(y)=f_y(x_0+\Delta x,y)</script>
+在 <script type="math/tex">y_0</script> 和 <script type="math/tex">y_0+\Delta y</script> 存在一点 <script type="math/tex">d</script>，使得
+<script type="math/tex; mode=display">G(y_0+\Delta y)-G(y_0)=G'(d)\Delta y</script>
+那么
+<script type="math/tex; mode=display">f(x_0+\Delta x,y_0+\Delta y)-f(x_0+\Delta x,y_0)=f'(x_0+\Delta x,d)\Delta y</script>
+得到
+<script type="math/tex; mode=display">z_2=f_y(x_0+\Delta x,d)\Delta y\tag{13}</script>
+当 <script type="math/tex">\Delta x,\Delta y\to 0</script>，有 <script type="math/tex">c\to x_0,d\to y_0</script>。根据定理的前提假设，<script type="math/tex">f_x,f_y</script> 在 <script type="math/tex">(x_0,y_0)</script> 处连续，所以随着 <script type="math/tex">\Delta x,\Delta y\to 0</script>
+<script type="math/tex; mode=display">\begin{aligned}
+\varepsilon_1&=f_x(c,y_0)-f_x(x_0,y_0)\\
+\varepsilon_2&=f_y(x_0+\Delta x,d)-f_y(x_0+\Delta x,y_0)
+\end{aligned}\tag{14}</script>
+也趋于零。</p>
+<p>最后，我们结合 <script type="math/tex">(12),(13),(14)</script> 可以得到
+<script type="math/tex; mode=display">\begin{aligned}
+\Delta z&=\Delta z_1+\Delta z_2\\
+&=f_x(c,y_0)\Delta x+f_y(x_0+\Delta x,d)\Delta y\\
+&=[f_x(c,y_0+\varepsilon_1)]\Delta x+[f_y(x_0+\Delta x,d)+\varepsilon_2]\Delta y\\
+&=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y+\varepsilon_1\Delta x+\varepsilon_2\Delta y
+\end{aligned}</script>
+其中当 <script type="math/tex">\Delta x,\Delta y\to 0</script> 时 <script type="math/tex">\varepsilon_1,\varepsilon_2\to 0</script>。</p>
+<p><strong>定理 3 的推论</strong></p>
+<blockquote>
+<p>如果函数 <script type="math/tex">f(x,y)</script> 的偏微分 <script type="math/tex">f_x,f_y</script> 在开区间 <script type="math/tex">R</script> 上连续，那么 <script type="math/tex">f</script> 在 <script type="math/tex">R</script> 上每一点都是可微的。</p>
+</blockquote>
+<p>如果函数 <script type="math/tex">z=f(x,y)</script> 是可微的，根据定义，当 <script type="math/tex">\Delta x,\Delta y\to 0</script> 时，<script type="math/tex">\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)</script> 趋于零。这就是说可微函数在每一点处都是连续的。</p>
+<p><strong>定理 4 可微性蕴涵着连续性</strong></p>
+<blockquote>
+<p>如果函数 <script type="math/tex">f(x,y)</script> 在 <script type="math/tex">(x_0,y_0)</script> 处可微，那么 <script type="math/tex">f</script> 在 <script type="math/tex">(x_0,y_0)</script> 处连续。</p>
+</blockquote>
+<p>从定理 3 的推论和定理 4，如果 <script type="math/tex">f_x,f_y</script> 在包含 <script type="math/tex">(x_0,y_0)</script> 的开区间上是连续的，那么函数 <script type="math/tex">f(x,y)</script> 在点 <script type="math/tex">(x_0,y_0)</script> 处是连续的。正如例 8 所示，在某点处的偏微分存在，并不能说明这个二元函数在该点连续。偏微分在某点处的存在性不足以确保可微性，而偏微分的连续性确保可微性。</p>
 
 
 
@@ -19057,7 +19125,7 @@ f_{yxyz}&=-4
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 7, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 8, 2024</span>
   </span>
 
     
