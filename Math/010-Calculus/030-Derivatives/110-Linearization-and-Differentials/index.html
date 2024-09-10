@@ -9260,6 +9260,8 @@
       
         
       
+        
+      
     
     
       
@@ -9355,6 +9357,27 @@
   
   <span class="md-ellipsis">
     030 偏微分 Partial Derivatives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../130-Partial-Derivatives/040-The-Chain-Rule/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    040 链式法则 The Chain Rule
   </span>
   
 
@@ -19007,7 +19030,7 @@ f(\pi/6+0.01)&=f(a+dx)\\
 <script type="math/tex; mode=display">\Delta A=\pi(10.1)^2-\pi(10)^2=2.01\pi=(2\pi+0.01\pi)</script>
 前者是<script type="math/tex">dA=2\pi</script>，后者<script type="math/tex">\varepsilon\Delta r=0.01\pi</script>是误差，那么<script type="math/tex">\varepsilon=0.01\pi/\Delta r=0.01\pi/0.1=0.1\pi</script>。</p>
 <h3 id="_5">链式法则的证明</h3>
-<p>目标是证明<script type="math/tex">f(u)</script>是<script type="math/tex">u</script>的可导函数，<script type="math/tex">g(x)</script>是<script type="math/tex">x</script>的可导函数，那么组合函数<script type="math/tex">y=f(g(x))</script>是<script type="math/tex">x</script>的可导函数。函数可导等价于在定义域内任一点都可导，必须证明<script type="math/tex">g</script>在任一点<script type="math/tex">x_0</script>是可导的，<script type="math/tex">f</script>在任一点<script type="math/tex">g(x_0)</script>上是可导的，那么组合函数在<script type="math/tex">x_0</script>处可导，且导数满足
+<p>目标是证明<script type="math/tex">f(u)</script>是<script type="math/tex">u</script>的可导函数，<script type="math/tex">g(x)</script>是<script type="math/tex">x</script>的可导函数，那么复合函数<script type="math/tex">y=f(g(x))</script>是<script type="math/tex">x</script>的可导函数。函数可导等价于在定义域内任一点都可导，必须证明<script type="math/tex">g</script>在任一点<script type="math/tex">x_0</script>是可导的，<script type="math/tex">f</script>在任一点<script type="math/tex">g(x_0)</script>上是可导的，那么复合函数在<script type="math/tex">x_0</script>处可导，且导数满足
 <script type="math/tex; mode=display">\frac{dy}{dx}\bigg|_{x=x_0}=f'(g(x_0))g'(x_0)</script>
 令<script type="math/tex">\Delta x</script>是<script type="math/tex">x</script>的增加量，<script type="math/tex">\Delta u,\Delta y</script>分别是<script type="math/tex">u,y</script>的变化量。运用上一节得到的公式有
 <script type="math/tex; mode=display">\Delta u=g'(x_0)\Delta x+\epsilon_1\Delta x=(g'(x_0)+\epsilon_1)\Delta x</script>
@@ -19074,7 +19097,7 @@ f(\pi/6+0.01)&=f(a+dx)\\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 10, 2024</span>
   </span>
 
     

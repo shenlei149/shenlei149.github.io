@@ -6832,7 +6832,7 @@
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      组合函数的连续性
+      复合函数的连续性
     </span>
   </a>
   
@@ -9269,6 +9269,8 @@
       
         
       
+        
+      
     
     
       
@@ -9364,6 +9366,27 @@
   
   <span class="md-ellipsis">
     030 偏微分 Partial Derivatives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../130-Partial-Derivatives/040-The-Chain-Rule/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    040 链式法则 The Chain Rule
   </span>
   
 
@@ -18745,7 +18768,7 @@
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      组合函数的连续性
+      复合函数的连续性
     </span>
   </a>
   
@@ -18901,7 +18924,7 @@
 <h3 id="_3">反函数和连续性</h3>
 <p>如果一个连续函数在某个区间上存在反函数，那么反函数也自己的定义域上也是连续的。观察<script type="math/tex">f^{-1}</script>的图像，它和<script type="math/tex">f</script>的图像关于<script type="math/tex">y=x</script>对称，如果原函数没有间断，那么反函数不会有任何的不连续。严格证明需要更高等的数学知识。由此可知六个反三角函数是在其定义域上是连续的。<br />
 1.4节给出了<script type="math/tex">y=a^x</script>的定义，我们用光滑的曲线连接了<script type="math/tex">x</script>为无理数的情况，所以它在实数范围内都是连续的。那么其反函数对数函数<script type="math/tex">y=\log_a x</script>也是连续函数。特别地，自然指数<script type="math/tex">e^x</script>和自然对数<script type="math/tex">\ln x</script>也是连续函数。严格的证明会在第七章给出。</p>
-<h3 id="_4">组合函数的连续性</h3>
+<h3 id="_4">复合函数的连续性</h3>
 <p>通过组合连续函数得到的函数也是连续函数。如果函数<script type="math/tex">f(x),g(x)</script>分别在<script type="math/tex">x=c,x=f(c)</script>处连续，那么<script type="math/tex">g\circ f</script>在<script type="math/tex">x=c</script>处也连续。如下图所示。当<script type="math/tex">x\to c</script>时，<script type="math/tex">g\circ f</script>的极限是<script type="math/tex">g(f(c))</script>。<br />
 <img alt="" src="../060.070.png" />  </p>
 <p><strong>定理10</strong> 连续函数的组合</p>
@@ -18909,7 +18932,7 @@
 <p>如果 <script type="math/tex">f</script> 在 <script type="math/tex">c</script> 处连续，<script type="math/tex">g</script> 在 <script type="math/tex">f(c)</script> 处连续，那么 <script type="math/tex">g\circ f</script> 在 <script type="math/tex">c</script> 处连续。</p>
 </blockquote>
 <p>定理10是比较直观的。因为<script type="math/tex">x</script>趋近<script type="math/tex">c</script>，那么<script type="math/tex">f(x)</script>趋近于<script type="math/tex">f(c)</script>，由于<script type="math/tex">g</script>在<script type="math/tex">f(x)</script>处连续，那么<script type="math/tex">g(f(x))</script>趋于<script type="math/tex">g(f(c))</script>。<br />
-组合函数的连续性对有限多函数都成立。唯一的条件是当应用规则时在对应点是连续的。证明大概可以参考下图。<br />
+复合函数的连续性对有限多函数都成立。唯一的条件是当应用规则时在对应点是连续的。证明大概可以参考下图。<br />
 <img alt="" src="../060.080.png" /></p>
 <p>例8 证明下列函数是连续函数。<br />
 （a）<script type="math/tex">y=\sqrt{x^2-2x-5}</script>
@@ -18971,7 +18994,7 @@
 <script type="math/tex; mode=display">\sqrt{2x+5}=4-x^2</script>
 有一个解。<br />
 <img alt="" src="../060.120.png" /><br />
-证明：令<script type="math/tex">f(x)=\sqrt{2x+5}+x^2-4,g(x)=\sqrt{2x+5}</script>。首先证明连续性。<script type="math/tex">g(x)</script>是平方函数和多项式函数的组合函数，所以在定义域<script type="math/tex">[-5/2,\infty)</script>上是连续的，<script type="math/tex">f(x)</script>是<script type="math/tex">g(x)</script>和一个多项式函数的和，所以也是连续的。<script type="math/tex">f(0)=\sqrt{5}-4<0,f(2)=3+4-4=3>0</script>，而<script type="math/tex">[0,2]\subset [-5/2,\infty)</script>，所以在0和2之间存在某个<script type="math/tex">c</script>使得<script type="math/tex">f(c)=0</script>，而这个<script type="math/tex">c</script>就是原方程的解。</p>
+证明：令<script type="math/tex">f(x)=\sqrt{2x+5}+x^2-4,g(x)=\sqrt{2x+5}</script>。首先证明连续性。<script type="math/tex">g(x)</script>是平方函数和多项式函数的复合函数，所以在定义域<script type="math/tex">[-5/2,\infty)</script>上是连续的，<script type="math/tex">f(x)</script>是<script type="math/tex">g(x)</script>和一个多项式函数的和，所以也是连续的。<script type="math/tex">f(0)=\sqrt{5}-4<0,f(2)=3+4-4=3>0</script>，而<script type="math/tex">[0,2]\subset [-5/2,\infty)</script>，所以在0和2之间存在某个<script type="math/tex">c</script>使得<script type="math/tex">f(c)=0</script>，而这个<script type="math/tex">c</script>就是原方程的解。</p>
 <h3 id="_6">连续延拓</h3>
 <p>有时，某个函数<script type="math/tex">f</script>在<script type="math/tex">x=c</script>点处无意义导致了不连续。扩展<script type="math/tex">f</script>的定义域，包括<script type="math/tex">x=c</script>，以此构造一个新函数在<script type="math/tex">x=c</script>处是连续的。比如函数<script type="math/tex">y=f(x)=\sin x/x</script>在除了<script type="math/tex">x=0</script>之外都连续，这是因为<script type="math/tex">x=0</script>不在其定义域。定理7告诉我们<script type="math/tex">y=\sin x/x</script>的<script type="math/tex">x\to 0</script>时的极限是1，我们可以拓展函数在<script type="math/tex">x=0</script>处的行为使之连续。新函数是
 <script type="math/tex; mode=display">F(x)=\begin{cases}
@@ -19035,7 +19058,7 @@ L, &&x=c
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 10, 2024</span>
   </span>
 
     
