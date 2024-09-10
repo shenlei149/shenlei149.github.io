@@ -30,7 +30,7 @@ $$f(x)=\sqrt{x},g(x)=\sqrt{1-x}$$
 ### 复合函数
 复合是另一种组合函数的方法。一个函数的输出是另一个函数的输入。
 
-**定义** 如果$f,g$都是函数，那么组合函数（`composite function`）$f\circ g$定义是
+**定义** 如果$f,g$都是函数，那么复合函数（`composite function`）$f\circ g$定义是
 $$(f\circ g)(x)=f(g(x))$$
 $f\circ g$的定义域是$g$定义域的子集$x$，其中每个$x$使得$g(x)$属于$f$的定义域。
 
