@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#things-to-remember" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -3564,6 +3569,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    41 Consider pass by value for copyable parameters that are cheap to move and always copied
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -3573,6 +3589,32 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things to Remember
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -18636,6 +18678,23 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things to Remember
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -18732,7 +18791,135 @@
 </ul>
 <p>这一节的标题略微有点复杂，因为包含了四个要素：</p>
 <p><strong>对于可拷贝参数，如果其总是要被拷贝且移动开销低，那么考虑按值传递。</strong></p>
-<p>首先，</p>
+<p>首先，仅仅是“考虑”按值传递。只用写一份代码，只有一份目标代码，没有通用引用传递的问题。不过，毕竟比可选方案要多一点开销。下面还会接着讨论一些其他开销。</p>
+<p>其次，仅对“可拷贝”的类型考虑按值传递。只可移动的类型不满足条件，如果无法拷贝，而函数一定会为参数创建一个副本，那么会使用移动构造。按值传递的好处是只用写一个函数。但是对于只可移动的参数，没有必要实现一个左参版本的重载，因为这涉及到拷贝，但是只可移动的类型不支持拷贝。这就意味着只需要支持右值版本：“重载”一个右值版本就足够了。</p>
+<p>看下面的例子，需要设置类型为 <code>std::unique_ptr&lt;std::string&gt;</code> 的成员变量，只要一个函数，即对右值类型做处理就足够了。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">setPtr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">ptr</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">};</span>
+</span></code></pre></div>
+可能的调用如下：
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">w</span><span class="p">.</span><span class="n">setPtr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Modern C++&quot;</span><span class="p">));</span>
+</span></code></pre></div>
+<code>std::make_unique</code> 返回的右值 <code>std::make_unique&lt;std::string&gt;</code> 通过右值引用传递给 <code>setPtr</code>，然后移动到 <code>p</code> 中。全程只有一次移动开销。</p>
+<p>如果使用按值传递，代码如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">setPtr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">};</span>
+</span></code></pre></div>
+同样的调用，会先移动构造 <code>ptr</code>，然后再移动赋值给 <code>p</code>，两次移动开销，比之前的方案多了一倍。</p>
+<p>其次，按值传递只考虑“移动成本小”的类型。如果移动成本很低，那么额外一次移动是可以接受的，反之移动开销不低，那么就应该和避免不必要拷贝一样，尽可能避免不必要移动。</p>
+<p>最后，按值传递的参数“总是被拷贝”。这很重要。假定在拷贝到 <code>names</code> 之前，<code>addName</code> 先检查长度，满足要求再添加到 <code>names</code>。代码可能如下。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">addName</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">newName</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">newName</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">minLen</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">            </span><span class="p">(</span><span class="n">newName</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">maxLen</span><span class="p">))</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">            </span><span class="n">names</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">newName</span><span class="p">));</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names</span><span class="p">;</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">};</span>
+</span></code></pre></div>
+付出了构造和析构 <code>newName</code> 的代价，但是也有可能什么也不做，并没有往 <code>names</code> 中添加任何元素。如果使用引用就不会有这个问题。</p>
+<p>即使上述条件都满足，有的时候按值传递也不是一个好的选择。这是因为函数实现可以有两种方式拷贝参数：构造和赋值。之前的 <code>addName</code> 是使用了构造，<code>newName</code> 传递给 <code>vector::push_back</code>，在函数内部 <code>newName</code> 构造了一个新的对象，其位于容器末尾。对于使用构造的函数，上述分析是成立：使用按值传递多一次移动成本。</p>
+<p>当函数使用赋值来拷贝参数，情况就更复杂了。假设我们有一个类存放密码，因为密码可以更新，所以有一个 <code>changeTo</code> 来实现这个功能。我们使用按值传递，所以这个类大致如下。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Password</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Password</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">pwd</span><span class="p">)</span><span class="w"> </span><span class="c1">// pass by value construct text</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">text</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pwd</span><span class="p">))</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">changeTo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">newPwd</span><span class="p">)</span><span class="w"> </span><span class="c1">// pass by value assign text</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">newPwd</span><span class="p">);</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">text</span><span class="p">;</span><span class="w"> </span><span class="c1">// text of password</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="p">};</span>
+</span></code></pre></div>
+客户端代码如下
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">initPwd</span><span class="p">(</span><span class="s">&quot;Supercalifragilisticexpialidocious&quot;</span><span class="p">);</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">Password</span><span class="w"> </span><span class="nf">p</span><span class="p">(</span><span class="n">initPwd</span><span class="p">);</span>
+</span></code></pre></div>
+用给定的密码初始化 <code>p.text</code>，按值传递，在构造函数内部会多一次 <code>std::string</code> 移动开销，使用重载方式或者通用引用可以消除这个问题。</p>
+<p>现在用户需要更新密码。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">newPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Beware the Jabberwock&quot;</span><span class="p">;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">p</span><span class="p">.</span><span class="n">changeTo</span><span class="p">(</span><span class="n">newPassword</span><span class="p">);</span>
+</span></code></pre></div>
+现在 <code>changeTo</code> 使用赋值操作来拷贝参数 <code>newPwd</code>，会导致按值传递策略的代价提升相当大。</p>
+<p><code>newPassword</code> 是左值，所以构造参数 <code>newPwd</code> 的时候，会调用 <code>std::string</code> 的拷贝构造函数，构造函数会为新的密码分配内存。<code>newPwd</code> 移动给 <code>text</code>，会导致 <code>text</code> 原来持有的内存被释放掉。因此 <code>changeTo</code> 会有两次内存分配操作。</p>
+<p>在当前这个例子中，旧密码比新密码长很多，所以无需分配和释放内存。如果使用重载方案就可以避免这个问题。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Password</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">changeTo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">newPwd</span><span class="p">)</span><span class="w"> </span><span class="c1">// the overload for lvalues</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="c1">// can reuse text&#39;s memory if text.capacity() &gt;= newPwd.size()</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newPwd</span><span class="p">;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">text</span><span class="p">;</span><span class="w"> </span><span class="c1">// as above</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="p">};</span>
+</span></code></pre></div>
+在这个场景中，按值传递包含了额外的分配内存和释放内存的操作，其开销比 <code>std::string</code> 的移动开销大多了。</p>
+<p>如果旧密码比新密码要短，那么赋值的时候无法避免分配内存和释放内存，那么传值就和传引用速度一样了。也就是说，基于赋值的拷贝参数性能依赖于参数本身。上述分析仅适用于动态分配内存的参数类型，并不是所有类型都是这样的，不过也有很多满足，比如 <code>std::string</code> <code>std::vector</code>。</p>
+<p>只有传递左值的时候才会有这个潜在的额外开销，因为只有此时才会执行拷贝然后有内存的分配和释放。对于传递右值，都是移动操作。</p>
+<p>结论就是使用赋值进行拷贝的话，按值传递的额外开销取决于传递左值和右值的比例，类型是否动态分配内存，类型的赋值操作，旧值至少和新值占用内存一样多的可能性。对于 <code>std::string</code>，还需要考虑是否有 SSO，有的话还要考虑新值能否放进 SSO buffer。</p>
+<p>所以，想要分析赋值拷贝情况下按值传递的开销是非常复杂的事情。实践中可以采取有罪推定的原则，除非能够确定按值传递的额外开销很小，否则就使用重载方案或者通用引用的方案。</p>
+<p>对于尽可能快的软件来说，由于避免轻量的移动操作也很重要，所以按值传递不太可行。此外，很多时候不确定额外的移动操作有多少次。比如在 <code>Widget::addName</code> 例子中，如果其实现又调用了 <code>Widget::validateName</code>，也是按值传递。假定后者又调用了按值传递的函数，以此下去。</p>
+<p>每一个函数都多了一次额外移动开销，但是累计开销可能就无法接受了。此时，如果按引用传递，就可以避免此类累计开销。</p>
+<p>一个和性能无关，但是也是按照传递可能会导致的问题也需要讨论一下。这就是切片问题（<code>the slicing problem</code>）。如果一个函数可以接受基类及其派生类，那么不应该按值传递，否则派生类特有的数据会被切掉。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">// base class</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">};</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1">// derived class</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">SpecialWidget</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Widget</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">{</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="p">};</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="kt">void</span><span class="w"> </span><span class="nf">processWidget</span><span class="p">(</span><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">);</span><span class="w"> </span><span class="c1">// func for any kind of Widget,</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">                              </span><span class="c1">// including derived types;</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">                              </span><span class="c1">// suffers from slicing problem</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="n">SpecialWidget</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="n">processWidget</span><span class="p">(</span><span class="n">sw</span><span class="p">);</span><span class="w"> </span><span class="c1">// processWidget sees a Widget, not a SpecialWidget!</span>
+</span></code></pre></div>
+这也是为什么 C++98 要避免按值传递的另一个原因，不是效率问题，但是更严重。这也是为什么 C++ 编程首先学习的一个原则就是避免按值传递用户自定义的类型。</p>
+<p>C++11 并没有改变这一点。按值传递仍旧有希望避免的性能问题，也会有切片问题。C++11 区别左值和右值参数。实现利用可拷贝对象的右值移动语义的函数，需要用重载方式或者通用引用，但是两者都有缺陷。对于特殊的可拷贝类型，移动代价很低，函数又总是需要拷贝参数，并且无需考虑切片的情况下，按值传递是一个性能近似接近的可选方案，能够避免其他方案的缺陷。</p>
+<h2 id="things-to-remember">Things to Remember</h2>
+<ul>
+<li>For copyable, cheap-to-move parameters that are always copied, pass by value may be nearly as efficient as pass by reference, it's easier to implement, and it
+can generate less object code.</li>
+<li>Copying parameters via construction may be significantly more expensive than copying them via assignment.</li>
+<li>Pass by value is subject to the slicing problem, so it's typically inappropriate for base class parameter types.</li>
+</ul>
 
 
 
@@ -18755,7 +18942,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 11, 2024</span>
   </span>
 
     
