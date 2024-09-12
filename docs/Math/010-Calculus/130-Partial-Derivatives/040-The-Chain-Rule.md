@@ -143,3 +143,74 @@ $$\begin{aligned}
 这种情况下，我们使用普通一元微分 $dw/dx$。依赖图如下所示。
 
 ![](040.050.png)
+
+### 重新审视隐式函数
+从两个变量的定理 5 开始，通过一些代数运算，可以得到下面的结论。
+
+假设
+
+1. 函数 $F(x,y)$ 可导。
+2. 方程 $F(x,y)=0$ 隐式定义了 $y$ 是 $x$ 的可导函数。
+
+由于 $w=F(x,y)=0$，所以 $dw/dx=0$。由链式法则得到
+$$\begin{aligned}
+0&\frac{dw}{dx}\\
+&=F_x\frac{dx}{dx}+F_y\frac{dy}{dx}\\
+&=F_x+F_y\frac{dy}{dx}
+\end{aligned}$$
+如果 $F_y=\partial w/\partial x\neq 0$，可以得到
+$$\frac{dy}{dx}=-\frac{F_x}{F_y}$$
+
+**定理 8 隐式微分公式**
+> 假设 $F(x,y)$ 是可微的，且 $F(x,y)=0$ 定义了 $y$ 是 $x$ 的可导函数，在任意 $F_y\neq 0$ 的点处都有
+> $$\frac{dy}{dx}=-\frac{F_x}{F_y}\tag{1}$$
+
+例5 如果
+$$y^2-x^2-\sin xy=0$$
+使用定理 8 求 $dy/dx$。
+
+解：令 $F(x,y)=y^2-x^2-\sin xy$，那么
+$$\frac{dy}{dx}=-\frac{F_x}{F_y}=-\frac{-2x-y\cos xy}{2y-x\sin xy}=\frac{2x+y\cos xy}{2y-x\sin xy}$$
+使用定理 8 计算比使用一元函数的隐式微分要方便。
+
+上面的结论很容易推广到三个变量。假设方程 $F(x,y,z)=0$ 定义了变量 $z$ 的隐式函数 $z=f(x,y)$。那么对所有在 $f$ 定义域的 $(x,y)$，都有 $F(x,y,f(x,y))=0$。假定 $F,f$ 均为可微函数，可以用链式法则对 $x$ 求 $F(x,y,z)=0$ 的导数。
+$$\begin{aligned}
+0&=\frac{\partial F}{\partial x}\frac{\partial x}{\partial x}+\frac{\partial F}{\partial y}\frac{\partial y}{\partial x}+\frac{\partial F}{\partial z}\frac{\partial z}{\partial x}\\
+&=F_x\cdot 1+F_y\cdot 0+F_z\cdot\frac{\partial z}{\partial x}
+\end{aligned}$$
+所以
+$$F_x+F_z\frac{\partial z}{\partial x}=0$$
+类似的，对 $y$ 求导可以得到
+$$F_y+F_z\frac{\partial z}{\partial y}=0$$
+当 $F_z\neq 0$，通过上面两个式子可以得到 $z=f(x,y)$ 的偏微分方程
+$$\frac{\partial z}{\partial x}=-\frac{F_x}{F_z},\frac{\partial z}{\partial y}=-\frac{F_y}{F_z}\tag{2}$$
+更高级的微积分会阐述一个重要定理：隐式函数定理（`Implicit Function Theorem`），是说满足什么条件 $(2)$ 成立。如果偏微分 $F_x,F_y,F_z$ 在包含 $(x_0,y_0,z_0)$ 的开放区间 $R$ 上连续，并且对于某些常量 $c$，有 $F(x_0,y_0,z_0)=c$ 且有 $F_z(x_0,y_0,z_0)\neq 0$，那么方程 $F(x,y,z)=c$ 定义了 $z$ 是自变量 $x,y$ 的隐式函数，且 $z$ 的偏微分如 $(2)$ 所述。
+
+例6 如果
+$$x^3+z^2+ye^{xz}+z\cos y=0$$
+求 $\partial z/\partial x,\partial z/\partial y$ 在 $(0,0,0)$ 处的值。
+
+解：令
+$$F(x,y,z)=x^3+z^2+ye^{xz}+z\cos y$$
+那么
+$$\begin{aligned}
+F_x&=3x^2+zye^{xz}\\
+F_y&=e^{xz}-z\sin y\\
+F_z&=2z+xye^{xz}+\cos y
+\end{aligned}$$
+由于 $F(0,0,0)=0,F_z(0,0,0)=1\neq 0$，并且所有的一阶偏微分都是连续函数，那么隐式函数定理说 $F(x,y,z)=0$ 定义了 $z$ 在 $(0,0,0)$ 附近是 $x,y$ 的隐式可微函数，那么
+$$\frac{\partial z}{\partial x}=-\frac{F_x}{F_z}=-\frac{3x^2+zye^{xz}}{2z+xye^{xz}+\cos y}$$
+$$\frac{\partial z}{\partial y}=-\frac{F_y}{F_z}=-\frac{e^{xz}-z\sin y}{2z+xye^{xz}+\cos y}$$
+代入 $(0,0,0)$ 得到
+$$\frac{\partial z}{\partial x}=-\frac{0}{1}=0$$
+$$\frac{\partial z}{\partial y}=-\frac{1}{1}=-1$$
+
+### 更多变量的函数
+上面描述了很多链式法则的公式，但是它们都只是通用公式的特例罢了。当我们解决问题时，画出依赖图能够帮助理解，最上面是应变量，中间是中间变量，下面是选择被微分的自变量。从应变量开始向下选择一条路径到选择的自变量，将沿着路径下来的各个偏微分相乘，最后将不同路径的偏微分相加。
+
+一般地，假设 $w=f(x,y,\cdots,v)$ 是中间变量 $x,y,\cdots v$ 的可微函数，$x,y,\cdots,v$ 是自变量 $p,q,\cdots,t$ 的可微函数。那么 $w$ 是 $p$ 到 $t$ 的可微函数，$w$ 对于变量 $p$ 的偏微分公式是
+$$\frac{\partial w}{\partial p}=\frac{\partial w}{\partial x}\frac{\partial x}{\partial p}+\frac{\partial w}{\partial y}\frac{\partial y}{\partial p}+\cdots+\frac{\partial w}{\partial v}\frac{\partial v}{\partial p}$$
+将 $p$ 替换为 $q,\cdots,r$ 中的一个，就是对其他自变量的偏微分公式。
+
+一种记忆方式是下面两个矢量的点积，第一个是 $w$ 相对于中间变量的偏微分，第二个是中间变量对选择的自变量的偏微分。
+$$\bigg(\frac{\partial w}{\partial x},\frac{\partial w}{\partial y},\cdots\frac{\partial w}{\partial v}\bigg),\bigg(\frac{\partial x}{\partial p},\frac{\partial y}{\partial p},\cdots,\frac{\partial v}{\partial p}\bigg)$$
