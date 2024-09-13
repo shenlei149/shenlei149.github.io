@@ -20,7 +20,7 @@ void fwd(Ts &&...params) // accept any arguments
     f(std::forward<Ts>(params)...); // forward them to f
 }
 ```
-这种形式在标准库中很常见，比如 `emplace` 函数（见 Item 42 TODO）和智能指针的 `std::make_shared` 和 `std::make_unique`。
+这种形式在标准库中很常见，比如 `emplace` 函数（见 [Item 42](../ch08_Tweaks/42_Consider_emplacement_instead_of_insertion.md)）和智能指针的 `std::make_shared` 和 `std::make_unique`。
 
 在给定 `f` 和转发函数 `fwd` 的前提下，完美转发失败指的是给定参数 `f` 所作的事情与 `fwd` 转发相同参数时做的事情不同。
 ```cpp

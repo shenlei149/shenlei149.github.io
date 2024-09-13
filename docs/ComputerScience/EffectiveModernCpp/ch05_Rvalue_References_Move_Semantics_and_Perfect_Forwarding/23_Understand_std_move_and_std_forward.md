@@ -30,7 +30,7 @@ decltype(auto) move(T &&param) // namespace std
 
 右值是移动操作的候选，所以 `std::move` 就是告诉编译器这个对象更适合移动。所以叫 `std::move`。
 
-但是，右值往往是移动操作的候选。假定有一个类，表示一段注解，其构造函数接受 `std::string` 类型参数，然后复制到类成员变量。假定使用 Item 41（TODO link）的建议，使用值传递的方式。
+但是，右值往往是移动操作的候选。假定有一个类，表示一段注解，其构造函数接受 `std::string` 类型参数，然后复制到类成员变量。假定使用 [Item 41](../ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md) 的建议，使用值传递的方式。
 ```cpp
 class Annotation
 {
@@ -47,7 +47,7 @@ public:
     explicit Annotation(const std::string text);
 };
 ```
-为了避免一次拷贝成本，根据 Item 41（TODO）的建议，使用 `std::move`
+为了避免一次拷贝成本，根据 [Item 41](../ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md) 的建议，使用 `std::move`
 ```cpp
 class Annotation
 {

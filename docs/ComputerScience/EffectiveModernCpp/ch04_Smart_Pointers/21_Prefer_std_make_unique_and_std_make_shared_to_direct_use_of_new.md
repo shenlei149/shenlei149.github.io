@@ -21,7 +21,7 @@ std::shared_ptr<Widget> spw2(new Widget); // without make func
 ```cpp
 void processWidget(std::shared_ptr<Widget> spw, int priority);
 ```
-按值传递 `std::shared_ptr` 看起来有点奇怪，不过 Item 41（TODO link）给出了合理的理由，如果 `processWidget` 总是复制 `std::shared_ptr`。
+按值传递 `std::shared_ptr` 看起来有点奇怪，不过 [Item 41](../ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md) 给出了合理的理由，如果 `processWidget` 总是复制 `std::shared_ptr`。
 
 假定我们有一个计算优先级的函数
 ```cpp

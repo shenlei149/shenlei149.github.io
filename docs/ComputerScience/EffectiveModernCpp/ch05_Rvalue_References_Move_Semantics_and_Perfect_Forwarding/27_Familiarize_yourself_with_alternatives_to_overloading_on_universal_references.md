@@ -7,7 +7,7 @@
 另一个可选方式是回到 C++98，参数类型是 `const` 左值引用。其实 [Item 26](./26_Avoid_overloading_on_universal_references.md) 最开始的方案就是这个。缺点是性能略微差一点。在知道通用引用和重载导致的问题后，放弃一点效率，选择简单正确的方式，也不失为一种好的折衷。
 
 ## Pass by value
-一种不损失性能又不增加复杂度的方式是按值传递，这或许有点违反直觉。当你知道将会拷贝的时候，可以使用这种方法，Item 41 TODO link。会讨论如何实现这种方法并且会分析效率。这里，仅仅展示如何使用这种方法解决 `Person` 类重载的问题。
+一种不损失性能又不增加复杂度的方式是按值传递，这或许有点违反直觉。当你知道将会拷贝的时候，可以使用这种方法，[Item 41](../ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md)。会讨论如何实现这种方法并且会分析效率。这里，仅仅展示如何使用这种方法解决 `Person` 类重载的问题。
 ```cpp
 class Person
 {
