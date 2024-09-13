@@ -18841,8 +18841,59 @@
 <li><code>new Widget</code> 创建的指针被完美转发，然后创建一个 <code>list</code> 节点准备持有该裸指针，但此时 OOM 了。</li>
 <li>异常从 <code>emplace_back</code> 中出来，那个在栈上的裸指针是唯一访问 <code>Widget</code> 对象的途径，此时消失了，那个 <code>Widget</code> 及其持有的资源泄露了。</li>
 </ol>
-<p>这种情况下，对象的生命周期处理问题，但是不是 <code>std::shared_ptr</code> 的错。有自定义删除器的 <code>std::unique_ptr</code> 也会有这个问题。</p>
+<p>这种情况下，对象的生命周期处理问题，但是不是 <code>std::shared_ptr</code> 的错。有自定义删除器的 <code>std::unique_ptr</code> 也会有这个问题。类似 <code>std::shared_ptr</code> <code>std::unique_ptr</code> 资源管理的有效性的基础是自愿（比如 <code>new</code> 的裸指针）要立即传给资源管理对象。这也是 <code>std::make_shared</code> <code>std::make_unique</code> 这类函数自动做这些事情的原因。</p>
+<p>利用资源管理对象的容器（比如 <code>std::list&lt;std::shared_ptr&lt;Widget&gt;&gt;)</code>）插入函数，函数的参数确保了在获取资源（比如 <code>new</code>）和构造管理资源的对象之间没有其他操作。在 <code>emplace</code> 中，完美转发延迟了资源管理对象的创建，即当容器中有内存的时候再构造，这就为发生异常导致内存泄露开了一个窗。所有的标准容器都会有这个问题。所有当使用资源管理对象的容器，选择 <code>emplace</code> 而不是插入函数，要确保不能为了性能而损失了异常安全。</p>
+<p>直白地说，我们不应该传入诸如 <code>new Widget</code> 到 <code>emplace_back</code> 或 <code>push_back</code> 或其他函数，这可能会导致异常安全问题。解决方法是使用独立的语句将 <code>new Widget</code> 的指针放到资源管理对象中，然后传递右值到你想传入 <code>new Widget</code> 的函数。下面是 <code>push_back</code> 和 <code>emplace_back</code> 的例子。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spw</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Widget</span><span class="p">,</span><span class="w">  </span><span class="c1">// create Widget and</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">                            </span><span class="n">killWidget</span><span class="p">);</span><span class="w"> </span><span class="c1">// have spw manage it</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">ptrs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">spw</span><span class="p">));</span><span class="w">          </span><span class="c1">// add spw as rvalue</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spw</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Widget</span><span class="p">,</span><span class="w"> </span><span class="n">killWidget</span><span class="p">);</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">ptrs</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">spw</span><span class="p">));</span>
+</span></code></pre></div>
+这两种方法都会有创建和销毁 <code>spw</code> 的成本。为了保证资源创建和转移给资源管理对象之间没有任何操作，这个开销是必须付出的。因此 <code>emplace</code> 就不会比插入快了。</p>
+<p>第二个值得讨论的是 <code>emplace</code> 与 <code>explicit</code> 构造函数交互。C++11 已经支持了正则表达式，假设创建了一个包含正则表达式的容器
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">regex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">regexes</span><span class="p">;</span>
+</span></code></pre></div>
+由于分心写了如下代码
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">regexes</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// add nullptr to container of regexes?</span>
+</span></code></pre></div>
+编译器不会报错。不小心创建了一个 <code>nullptr</code> 指针表示的正在表达式，这是如何成功的呢？尝试写如下代码
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>std::regex r = nullptr; // error! won&#39;t compile
+</span></code></pre></div>
+如果使用 <code>push_back</code> 而不是 <code>emplace_back</code>，编译器也会报错。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">regexes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// error! won&#39;t compile</span>
+</span></code></pre></div>
+可能的原因是可以使用字符串来创建 <code>std::regex</code> 对象。如下代码是合法的。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">std</span><span class="o">::</span><span class="n">regex</span><span class="w"> </span><span class="n">upperCaseWord</span><span class="p">(</span><span class="s">&quot;[A-Z]+&quot;</span><span class="p">);</span>
+</span></code></pre></div>
+从字符串构造 <code>std::regex</code> 是相对耗时的事情，为了降低意外出现这种开销的可能性，接受 <code>const char *</code> 的 <code>std::regex</code> 构造函数是 <code>explicit</code>。这就是什么下面的代码无法编译。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">std</span><span class="o">::</span><span class="n">regex</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w">     </span><span class="c1">// error! won&#39;t compile</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">regexes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// error! won&#39;t compile</span>
+</span></code></pre></div>
+这两种情况都需要将指针转化为 <code>std::regex</code>，但是 <code>explicit</code> 使得这种隐式转化被禁止。</p>
+<p>当调用 <code>emplace_back</code> 的时候，没有声明要传入 <code>std::regex</code> 对象，传入的参数是能够构造 <code>std::regex</code> 的参数。无需考虑隐式转化。下面的代码是合法的。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">std</span><span class="o">::</span><span class="n">regex</span><span class="w"> </span><span class="nf">r</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// compiles</span>
+</span></code></pre></div>
+上述代码能够编译，但是是未定义行为。接受 <code>const char *</code> 的 <code>std::regex</code> 构造函数需要指向的字符串是一个合法的正则表达式，但是空指针不是。</p>
+<p>我们先讨论如下类似的代码有着不同的结果。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">std</span><span class="o">::</span><span class="n">regex</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// error! won&#39;t compile</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">std</span><span class="o">::</span><span class="n">regex</span><span class="w"> </span><span class="nf">r2</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span><span class="w">  </span><span class="c1">// compiles</span>
+</span></code></pre></div>
+使用标准术语说，用于 <code>r1</code> 的初始化语法是拷贝初始化。初始化 <code>r2</code> 的语法（小括号，大括号也适用）是直接初始化。拷贝初始化不允许使用 <code>explicit</code> 构造函数，但是直接初始化可以用。这就是为什么第一个不能编译而第二个可以。</p>
+<p>回到 <code>push_back</code> 和 <code>emplace_back</code>，<code>emplace</code> 使用直接初始化，可以用 <code>explicit</code> 构造函数，而插入函数使用拷贝初始化，不能用。因此
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">regexes</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// compiles. Direct init permits use of explicit std::regex</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">                               </span><span class="c1">// ctor taking a pointer</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="n">regexes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// error! copy init forbids use of that ctor</span>
+</span></code></pre></div>
+这里想说明的是如果使用 <code>emplace</code> 函数，要小心确保传入正确的参数，因为编译器会考虑 <code>explicit</code> 来寻找一种合理的方式解释代码。</p>
 <h2 id="things-to-remember">Things to Remember</h2>
+<ul>
+<li>In principle, emplacement functions should sometimes be more efficient than their insertion counterparts, and they should never be less efficient.</li>
+<li>In practice, they're most likely to be faster when (1) the value being added is constructed into the container, not assigned; (2) the argument type(s) passed differ from the type held by the container; and (3) the container won'’'t reject the value being added due to it being a duplicate.</li>
+<li>Emplacement functions may perform type conversions that would be rejected by insertion functions.</li>
+</ul>
 
 
 
@@ -18865,7 +18916,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 12, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2024</span>
   </span>
 
     
