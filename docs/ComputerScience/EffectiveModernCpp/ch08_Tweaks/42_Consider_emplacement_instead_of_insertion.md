@@ -117,6 +117,71 @@ ptrs.emplace_back(new Widget, killWidget);
 1. `new Widget` 创建的指针被完美转发，然后创建一个 `list` 节点准备持有该裸指针，但此时 OOM 了。
 2. 异常从 `emplace_back` 中出来，那个在栈上的裸指针是唯一访问 `Widget` 对象的途径，此时消失了，那个 `Widget` 及其持有的资源泄露了。
 
-这种情况下，对象的生命周期处理问题，但是不是 `std::shared_ptr` 的错。有自定义删除器的 `std::unique_ptr` 也会有这个问题。
+这种情况下，对象的生命周期处理问题，但是不是 `std::shared_ptr` 的错。有自定义删除器的 `std::unique_ptr` 也会有这个问题。类似 `std::shared_ptr` `std::unique_ptr` 资源管理的有效性的基础是自愿（比如 `new` 的裸指针）要立即传给资源管理对象。这也是 `std::make_shared` `std::make_unique` 这类函数自动做这些事情的原因。
+
+利用资源管理对象的容器（比如 `std::list<std::shared_ptr<Widget>>)`）插入函数，函数的参数确保了在获取资源（比如 `new`）和构造管理资源的对象之间没有其他操作。在 `emplace` 中，完美转发延迟了资源管理对象的创建，即当容器中有内存的时候再构造，这就为发生异常导致内存泄露开了一个窗。所有的标准容器都会有这个问题。所有当使用资源管理对象的容器，选择 `emplace` 而不是插入函数，要确保不能为了性能而损失了异常安全。
+
+直白地说，我们不应该传入诸如 `new Widget` 到 `emplace_back` 或 `push_back` 或其他函数，这可能会导致异常安全问题。解决方法是使用独立的语句将 `new Widget` 的指针放到资源管理对象中，然后传递右值到你想传入 `new Widget` 的函数。下面是 `push_back` 和 `emplace_back` 的例子。
+```cpp
+std::shared_ptr<Widget> spw(new Widget,  // create Widget and
+                            killWidget); // have spw manage it
+ptrs.push_back(std::move(spw));          // add spw as rvalue
+
+std::shared_ptr<Widget> spw(new Widget, killWidget);
+ptrs.emplace_back(std::move(spw));
+```
+这两种方法都会有创建和销毁 `spw` 的成本。为了保证资源创建和转移给资源管理对象之间没有任何操作，这个开销是必须付出的。因此 `emplace` 就不会比插入快了。
+
+第二个值得讨论的是 `emplace` 与 `explicit` 构造函数交互。C++11 已经支持了正则表达式，假设创建了一个包含正则表达式的容器
+```cpp
+std::vector<std::regex> regexes;
+```
+由于分心写了如下代码
+```cpp
+regexes.emplace_back(nullptr); // add nullptr to container of regexes?
+```
+编译器不会报错。不小心创建了一个 `nullptr` 指针表示的正在表达式，这是如何成功的呢？尝试写如下代码
+```ccp
+std::regex r = nullptr; // error! won't compile
+```
+如果使用 `push_back` 而不是 `emplace_back`，编译器也会报错。
+```cpp
+regexes.push_back(nullptr); // error! won't compile
+```
+可能的原因是可以使用字符串来创建 `std::regex` 对象。如下代码是合法的。
+```cpp
+std::regex upperCaseWord("[A-Z]+");
+```
+从字符串构造 `std::regex` 是相对耗时的事情，为了降低意外出现这种开销的可能性，接受 `const char *` 的 `std::regex` 构造函数是 `explicit`。这就是什么下面的代码无法编译。
+```cpp
+std::regex r = nullptr;     // error! won't compile
+regexes.push_back(nullptr); // error! won't compile
+```
+这两种情况都需要将指针转化为 `std::regex`，但是 `explicit` 使得这种隐式转化被禁止。
+
+当调用 `emplace_back` 的时候，没有声明要传入 `std::regex` 对象，传入的参数是能够构造 `std::regex` 的参数。无需考虑隐式转化。下面的代码是合法的。
+```cpp
+std::regex r(nullptr); // compiles
+```
+上述代码能够编译，但是是未定义行为。接受 `const char *` 的 `std::regex` 构造函数需要指向的字符串是一个合法的正则表达式，但是空指针不是。
+
+我们先讨论如下类似的代码有着不同的结果。
+```cpp
+std::regex r1 = nullptr; // error! won't compile
+std::regex r2(nullptr);  // compiles
+```
+使用标准术语说，用于 `r1` 的初始化语法是拷贝初始化。初始化 `r2` 的语法（小括号，大括号也适用）是直接初始化。拷贝初始化不允许使用 `explicit` 构造函数，但是直接初始化可以用。这就是为什么第一个不能编译而第二个可以。
+
+回到 `push_back` 和 `emplace_back`，`emplace` 使用直接初始化，可以用 `explicit` 构造函数，而插入函数使用拷贝初始化，不能用。因此
+```cpp
+regexes.emplace_back(nullptr); // compiles. Direct init permits use of explicit std::regex
+                               // ctor taking a pointer
+
+regexes.push_back(nullptr); // error! copy init forbids use of that ctor
+```
+这里想说明的是如果使用 `emplace` 函数，要小心确保传入正确的参数，因为编译器会考虑 `explicit` 来寻找一种合理的方式解释代码。
 
 ## Things to Remember
+* In principle, emplacement functions should sometimes be more efficient than their insertion counterparts, and they should never be less efficient.
+* In practice, they're most likely to be faster when (1) the value being added is constructed into the container, not assigned; (2) the argument type(s) passed differ from the type held by the container; and (3) the container won'’'t reject the value being added due to it being a duplicate.
+* Emplacement functions may perform type conversions that would be rejected by insertion functions.
