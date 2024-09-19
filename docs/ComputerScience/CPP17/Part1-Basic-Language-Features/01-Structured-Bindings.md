@@ -420,3 +420,163 @@ for (const auto &[first, last, val] : coll)
 由于使用了 `const auto&`，所以不会拷贝 `Customer`，但是由于 `first` `last` 按值返回，所以会拷贝字符串。当每一次迭代结束，拷贝的字符串会销毁。
 
 使用 `decltype` 推导是变量自身的类型，与匿名对象修饰无关，因此 `decltype(first)` `decltype(last)` 是 `const std::string` 而不是引用。
+
+现在分析如何实现提供可写的类元组 API。首先，自定义类需要提供可以修改成员变量的 API，即提供返回 `const` 和非 `const` 引用的 API。
+```cpp
+#include <string>
+#include <utility> // for std::move()
+class Customer
+{
+private:
+    std::string first;
+    std::string last;
+    long val;
+
+public:
+    Customer(std::string f, std::string l, long v)
+        : first{std::move(f)}, last{std::move(l)}, val{v}
+    {
+    }
+
+    const std::string &firstname() const
+    {
+        return first;
+    }
+
+    std::string &firstname()
+    {
+        return first;
+    }
+
+    const std::string &lastname() const
+    {
+        return last;
+    }
+
+    std::string &lastname()
+    {
+        return last;
+    }
+
+    long value() const
+    {
+        return val;
+    }
+
+    long &value()
+    {
+        return val;
+    }
+};
+```
+下面是类元组 API 的实现。首先 `get<>` 有三个重载，分别用于处理 `const` 对象、非 `const` 对象和可移动对象。另外，为了让接口返回引用，返回类型需要写成 `decltype(auto)`，否则会丢掉引用修饰。
+```cpp
+#include "customer2.hpp"
+#include <utility> // for tuple-like API
+
+// provide a tuple-like API for class Customer for structured bindings:
+template <>
+struct std::tuple_size<Customer>
+{
+    static constexpr int value = 3; // we have 3 attributes
+};
+template <>
+
+struct std::tuple_element<2, Customer>
+{
+    using type = long; // last attribute is a long
+};
+
+template <std::size_t Idx>
+struct std::tuple_element<Idx, Customer>
+{
+    using type = std::string; // the other attributes are strings
+};
+
+// define specific getters:
+template <std::size_t I>
+decltype(auto) get(Customer &c)
+{
+    static_assert(I < 3);
+    if constexpr (I == 0)
+    {
+        return c.firstname();
+    }
+    else if constexpr (I == 1)
+    {
+        return c.lastname();
+    }
+    else
+    { // I == 2
+        return c.value();
+    }
+}
+
+template <std::size_t I>
+decltype(auto) get(const Customer &c)
+{
+    static_assert(I < 3);
+    if constexpr (I == 0)
+    {
+        return c.firstname();
+    }
+    else if constexpr (I == 1)
+    {
+        return c.lastname();
+    }
+    else
+    { // I == 2
+        return c.value();
+    }
+}
+
+template <std::size_t I>
+decltype(auto) get(Customer &&c)
+{
+    static_assert(I < 3);
+    if constexpr (I == 0)
+    {
+        return std::move(c.firstname());
+    }
+    else if constexpr (I == 1)
+    {
+        return std::move(c.lastname());
+    }
+    else
+    { // I == 2
+        return c.value();
+    }
+}
+```
+
+下面是对使用结构化绑定的代码，现在可以真的修改成员变量的值了。
+```cpp
+#include "structbind2.hpp"
+#include <iostream>
+int main()
+{
+    Customer c{"Tim", "Starr", 42};
+
+    auto [f, l, v] = c;
+
+    std::cout << "f/l/v: " << f << ' ' << l << ' ' << v << '\n';
+
+    // modify structured bindings via references:
+    auto &&[f2, l2, v2] = c;
+    std::string s{std::move(f2)};
+    f2 = "Ringo";
+    v2 += 10;
+
+    std::cout << "f2/l2/v2: " << f2 << ' ' << l2 << ' ' << v2 << '\n';
+    std::cout << "c: " << c.firstname() << ' '
+              << c.lastname() << ' ' << c.value() << '\n';
+    std::cout << "s: " << s << '\n';
+}
+```
+输出如下
+```cpp
+f/l/v:    Tim Starr 42
+f2/l2/v2: Ringo Starr 52
+c:        Ringo Starr 52
+s:        Tim
+```
