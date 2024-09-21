@@ -163,4 +163,63 @@ x-2y&=-4
 如果我们知道了 $f,g$ 的梯度，那么它们的和、差、积、商的梯度也就很容易知道了。它们的性质类似于单变量微分的性质。
 
 **梯度法则**
-> 
+> $$\nabla(f+g)=\nabla f+\nabla g$$
+> $$\nabla(f-g)=\nabla f-\nabla g$$
+> $$\nabla(kf)=k\nabla f, \text{ any number } k$$
+> $$\nabla(fg)=f\nabla g+g\nabla f$$
+> $$\nabla\frac{f}{g}=\frac{g\nabla f-f\nabla g}{g^2}$$
+
+这里证明乘法法则，其他证明类似，使用梯度的定义和微分法则。
+
+$$\begin{aligned}
+\nabla(fg)&=\frac{\partial(fg)}{\partial x}\boldsymbol{i}+\frac{\partial(fg)}{\partial y}\boldsymbol{j}+\frac{\partial(fg)}{\partial z}\boldsymbol{k}\\
+&=(g\frac{\partial f}{\partial x}+f\frac{\partial g}{\partial x})\boldsymbol{i}+(g\frac{\partial f}{\partial y}+f\frac{\partial g}{\partial y})\boldsymbol{j}+(g\frac{\partial f}{\partial z}+f\frac{\partial g}{\partial z})\boldsymbol{k}\\
+&=f(\frac{\partial g}{\partial x}\boldsymbol{i}+\frac{\partial g}{\partial y}\boldsymbol{j}+\frac{\partial g}{\partial z}\boldsymbol{k})+g(\frac{\partial f}{\partial x}\boldsymbol{i}+\frac{\partial f}{\partial y}\boldsymbol{j}+\frac{\partial f}{\partial z}\boldsymbol{k})\\
+&=f\nabla g+g\nabla f
+\end{aligned}$$
+
+例5 由于上面证明了乘法法则，下面仅使用
+$$f(x,y)=x-y,g(x,y)=3y$$
+$$\nabla f=\boldsymbol{i}-\boldsymbol{j},\nabla g=3\boldsymbol{j}$$
+验证减法法则。
+
+$$\nabla(f-g)=\nabla(x-4y)=\boldsymbol{i}-4\boldsymbol{j}=\nabla f-\nabla g$$
+
+### 三元函数
+对可微函数 $f(x,y,z)$ 和单位矢量 $\boldsymbol{u}=u_1\boldsymbol{i}+u_2\boldsymbol{j}+u_3\boldsymbol{k}$，我们有
+$$\nabla f=\frac{\partial f}{\partial x}\boldsymbol{i}+\frac{\partial f}{\partial y}\boldsymbol{j}+\frac{\partial f}{\partial z}\boldsymbol{k}$$
+那么
+$$D_{\boldsymbol{u}}f=\nabla f\cdot\boldsymbol{u}=\frac{\partial f}{\partial x}u_1+\frac{\partial f}{\partial y}u_2+\frac{\partial f}{\partial z}u_3$$
+三元函数方向导数也能写作
+$$D_{\boldsymbol{u}}f=\nabla f\cdot\boldsymbol{u}=|\nabla f||\boldsymbol{u}|\cos\theta=|\nabla f|\cos\theta$$
+之前分析的属性也依旧成立。在任意给定点，$f$ 在 $\nabla f$ 方向增加的最快，在 $-\nabla f$ 方向减少最快，任意与 $\nabla f$ 正交的方向，导数为零。
+
+例 6
+
+（a）求函数 $f(x,y,z)=x^3-xy^2-z$ 在 $P_0(1,1,0)$ 点处 $\boldsymbol{v}=2\boldsymbol{i}-3\boldsymbol{j}+6\boldsymbol{k}$ 方向的导数。
+
+（b）在 $P_0$ 处，什么方向 $f$ 变化最快？这个方向上的变化率是多少？
+
+解：（a）首先计算 $\boldsymbol{v}$ 方向的单位矢量
+$$|\boldsymbol{v}|=\sqrt{(2)^2+(-3)^2+(6)^2}=7$$
+$$\boldsymbol{u}=\frac{2}{7}\boldsymbol{i}-\frac{3}{7}\boldsymbol{j}+\frac{6}{7}\boldsymbol{k}$$
+在 $P_0$ 处的偏微分是
+$$f_x=(3x^2-y^2)|_{(1,1,0)}=2$$
+$$f_y=(-2xy)|_{(1,1,0)}=-2$$
+$$f_z=-1|_{(1,1,0)}=-1$$
+那么方向导数是
+$$\begin{aligned}
+D_{\boldsymbol{u}}f|_{(1,1,0)}&=\nabla f|_{(1,1,0)}\cdot\boldsymbol{u}\\
+&=(2\boldsymbol{i}-2\boldsymbol{j}-\boldsymbol{k})\cdot(\frac{2}{7}\boldsymbol{i}-\frac{3}{7}\boldsymbol{j}+\frac{6}{7}\boldsymbol{k})\\
+&=\frac{4+6-6}{7}\\
+&=\frac{4}{7}
+\end{aligned}$$
+（b）函数在 $\nabla f=2\boldsymbol{i}-2\boldsymbol{j}-\boldsymbol{k}$ 方向增加最快，在 $-\nabla f$ 方向减少最快。其变化率是
+$$|\nabla f|=\sqrt{(2)^2+(-2)^2+(1)^2}=3,-|\nabla f|=-3$$
+
+### 路径链式法则
+如果 $\boldsymbol{r}(t)=x(t)\boldsymbol{i}+y(t)\boldsymbol{j}+z(t)\boldsymbol{k}$ 是光滑曲线 $C$，$w=f(\boldsymbol{r}(t))$ 是沿着 $C$ 的标量函数，根据链式法则
+$$\frac{dw}{dt}=\frac{\partial w}{\partial x}\frac{dx}{dt}+\frac{\partial w}{\partial y}\frac{dy}{dt}+\frac{\partial w}{\partial z}\frac{dz}{dt}$$
+右边的偏导数是对曲线（中间变量） $\boldsymbol{r}(t)$ 求导，和中间变量对 $t$ 求导。如果写成矢量形式
+$$\frac{d}{dt}f(\boldsymbol{r}(t))=\nabla f(\boldsymbol{r}(r))\cdot\boldsymbol{r}'(t)\tag{7}$$
+上面的式子是说复合函数 $f(\boldsymbol{r}(t))$ 的导数是外层函数 $f$ 的导数（梯度）与内层函数 $\boldsymbol{r}$ 的导数的点积。
