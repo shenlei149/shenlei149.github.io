@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.06209087.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -9452,6 +9452,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      三元函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      路径链式法则
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18862,6 +18880,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      三元函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      路径链式法则
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19046,7 +19082,65 @@ x-2y&=-4
 </p>
 <p>如果我们知道了 <script type="math/tex">f,g</script> 的梯度，那么它们的和、差、积、商的梯度也就很容易知道了。它们的性质类似于单变量微分的性质。</p>
 <p><strong>梯度法则</strong></p>
-<blockquote></blockquote>
+<blockquote>
+<p>
+<script type="math/tex; mode=display">\nabla(f+g)=\nabla f+\nabla g</script>
+<script type="math/tex; mode=display">\nabla(f-g)=\nabla f-\nabla g</script>
+<script type="math/tex; mode=display">\nabla(kf)=k\nabla f, \text{ any number } k</script>
+<script type="math/tex; mode=display">\nabla(fg)=f\nabla g+g\nabla f</script>
+<script type="math/tex; mode=display">\nabla\frac{f}{g}=\frac{g\nabla f-f\nabla g}{g^2}</script>
+</p>
+</blockquote>
+<p>这里证明乘法法则，其他证明类似，使用梯度的定义和微分法则。</p>
+<p>
+<script type="math/tex; mode=display">\begin{aligned}
+\nabla(fg)&=\frac{\partial(fg)}{\partial x}\boldsymbol{i}+\frac{\partial(fg)}{\partial y}\boldsymbol{j}+\frac{\partial(fg)}{\partial z}\boldsymbol{k}\\
+&=(g\frac{\partial f}{\partial x}+f\frac{\partial g}{\partial x})\boldsymbol{i}+(g\frac{\partial f}{\partial y}+f\frac{\partial g}{\partial y})\boldsymbol{j}+(g\frac{\partial f}{\partial z}+f\frac{\partial g}{\partial z})\boldsymbol{k}\\
+&=f(\frac{\partial g}{\partial x}\boldsymbol{i}+\frac{\partial g}{\partial y}\boldsymbol{j}+\frac{\partial g}{\partial z}\boldsymbol{k})+g(\frac{\partial f}{\partial x}\boldsymbol{i}+\frac{\partial f}{\partial y}\boldsymbol{j}+\frac{\partial f}{\partial z}\boldsymbol{k})\\
+&=f\nabla g+g\nabla f
+\end{aligned}</script>
+</p>
+<p>例5 由于上面证明了乘法法则，下面仅使用
+<script type="math/tex; mode=display">f(x,y)=x-y,g(x,y)=3y</script>
+<script type="math/tex; mode=display">\nabla f=\boldsymbol{i}-\boldsymbol{j},\nabla g=3\boldsymbol{j}</script>
+验证减法法则。</p>
+<p>
+<script type="math/tex; mode=display">\nabla(f-g)=\nabla(x-4y)=\boldsymbol{i}-4\boldsymbol{j}=\nabla f-\nabla g</script>
+</p>
+<h3 id="_5">三元函数</h3>
+<p>对可微函数 <script type="math/tex">f(x,y,z)</script> 和单位矢量 <script type="math/tex">\boldsymbol{u}=u_1\boldsymbol{i}+u_2\boldsymbol{j}+u_3\boldsymbol{k}</script>，我们有
+<script type="math/tex; mode=display">\nabla f=\frac{\partial f}{\partial x}\boldsymbol{i}+\frac{\partial f}{\partial y}\boldsymbol{j}+\frac{\partial f}{\partial z}\boldsymbol{k}</script>
+那么
+<script type="math/tex; mode=display">D_{\boldsymbol{u}}f=\nabla f\cdot\boldsymbol{u}=\frac{\partial f}{\partial x}u_1+\frac{\partial f}{\partial y}u_2+\frac{\partial f}{\partial z}u_3</script>
+三元函数方向导数也能写作
+<script type="math/tex; mode=display">D_{\boldsymbol{u}}f=\nabla f\cdot\boldsymbol{u}=|\nabla f||\boldsymbol{u}|\cos\theta=|\nabla f|\cos\theta</script>
+之前分析的属性也依旧成立。在任意给定点，<script type="math/tex">f</script> 在 <script type="math/tex">\nabla f</script> 方向增加的最快，在 <script type="math/tex">-\nabla f</script> 方向减少最快，任意与 <script type="math/tex">\nabla f</script> 正交的方向，导数为零。</p>
+<p>例 6</p>
+<p>（a）求函数 <script type="math/tex">f(x,y,z)=x^3-xy^2-z</script> 在 <script type="math/tex">P_0(1,1,0)</script> 点处 <script type="math/tex">\boldsymbol{v}=2\boldsymbol{i}-3\boldsymbol{j}+6\boldsymbol{k}</script> 方向的导数。</p>
+<p>（b）在 <script type="math/tex">P_0</script> 处，什么方向 <script type="math/tex">f</script> 变化最快？这个方向上的变化率是多少？</p>
+<p>解：（a）首先计算 <script type="math/tex">\boldsymbol{v}</script> 方向的单位矢量
+<script type="math/tex; mode=display">|\boldsymbol{v}|=\sqrt{(2)^2+(-3)^2+(6)^2}=7</script>
+<script type="math/tex; mode=display">\boldsymbol{u}=\frac{2}{7}\boldsymbol{i}-\frac{3}{7}\boldsymbol{j}+\frac{6}{7}\boldsymbol{k}</script>
+在 <script type="math/tex">P_0</script> 处的偏微分是
+<script type="math/tex; mode=display">f_x=(3x^2-y^2)|_{(1,1,0)}=2</script>
+<script type="math/tex; mode=display">f_y=(-2xy)|_{(1,1,0)}=-2</script>
+<script type="math/tex; mode=display">f_z=-1|_{(1,1,0)}=-1</script>
+那么方向导数是
+<script type="math/tex; mode=display">\begin{aligned}
+D_{\boldsymbol{u}}f|_{(1,1,0)}&=\nabla f|_{(1,1,0)}\cdot\boldsymbol{u}\\
+&=(2\boldsymbol{i}-2\boldsymbol{j}-\boldsymbol{k})\cdot(\frac{2}{7}\boldsymbol{i}-\frac{3}{7}\boldsymbol{j}+\frac{6}{7}\boldsymbol{k})\\
+&=\frac{4+6-6}{7}\\
+&=\frac{4}{7}
+\end{aligned}</script>
+（b）函数在 <script type="math/tex">\nabla f=2\boldsymbol{i}-2\boldsymbol{j}-\boldsymbol{k}</script> 方向增加最快，在 <script type="math/tex">-\nabla f</script> 方向减少最快。其变化率是
+<script type="math/tex; mode=display">|\nabla f|=\sqrt{(2)^2+(-2)^2+(1)^2}=3,-|\nabla f|=-3</script>
+</p>
+<h3 id="_6">路径链式法则</h3>
+<p>如果 <script type="math/tex">\boldsymbol{r}(t)=x(t)\boldsymbol{i}+y(t)\boldsymbol{j}+z(t)\boldsymbol{k}</script> 是光滑曲线 <script type="math/tex">C</script>，<script type="math/tex">w=f(\boldsymbol{r}(t))</script> 是沿着 <script type="math/tex">C</script> 的标量函数，根据链式法则
+<script type="math/tex; mode=display">\frac{dw}{dt}=\frac{\partial w}{\partial x}\frac{dx}{dt}+\frac{\partial w}{\partial y}\frac{dy}{dt}+\frac{\partial w}{\partial z}\frac{dz}{dt}</script>
+右边的偏导数是对曲线（中间变量） <script type="math/tex">\boldsymbol{r}(t)</script> 求导，和中间变量对 <script type="math/tex">t</script> 求导。如果写成矢量形式
+<script type="math/tex; mode=display">\frac{d}{dt}f(\boldsymbol{r}(t))=\nabla f(\boldsymbol{r}(r))\cdot\boldsymbol{r}'(t)\tag{7}</script>
+上面的式子是说复合函数 <script type="math/tex">f(\boldsymbol{r}(t))</script> 的导数是外层函数 <script type="math/tex">f</script> 的导数（梯度）与内层函数 <script type="math/tex">\boldsymbol{r}</script> 的导数的点积。</p>
 
 
 
@@ -19069,7 +19163,7 @@ x-2y&=-4
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 21, 2024</span>
   </span>
 
     
