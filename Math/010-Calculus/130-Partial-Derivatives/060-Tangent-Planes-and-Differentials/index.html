@@ -9471,6 +9471,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      估计指定方向的变化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何线性化二元函数
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18854,6 +18872,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      估计指定方向的变化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何线性化二元函数
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18892,7 +18928,138 @@
 <script type="math/tex; mode=display">\frac{d}{dt}f(\boldsymbol{r}(t))=\nabla f(\boldsymbol{r}(r))\cdot\boldsymbol{r}'(t)</script>
 沿着曲线 <script type="math/tex">\boldsymbol{r}</script> 的 <script type="math/tex">f</script> 是常量，所以方程左边的微分是零，因此梯度 <script type="math/tex">\nabla f</script> 与曲线的速度矢量 <script type="math/tex">\boldsymbol{r}'</script> 正交。</p>
 <p>现在聚焦于过某点 <script type="math/tex">P_0</script> 的曲线，所有 <script type="math/tex">P_0</script> 处的速度矢量均垂直于 <script type="math/tex">\nabla f</script>，所以所有的曲线的切线都位于垂直于 <script type="math/tex">\nabla f</script> 的平面。</p>
+<p><img alt="" src="../060.010.png" /></p>
 <p><strong>定义</strong></p>
+<blockquote>
+<p>可微函数 <script type="math/tex">f</script> 的等高平面 <script type="math/tex">f(x,y,z)</script> 上点 <script type="math/tex">P_0</script> 处的切平面（<code>tangent plane</code>）通过 <script type="math/tex">P_0</script> 且正交与 <script type="math/tex">\nabla f|_{P_0}</script>，前提是该点处梯度不为零。</p>
+<p>
+<script type="math/tex">P_0</script> 处的曲面的法线（<code>normal line</code>）过 <script type="math/tex">P_0</script> 点且平行于 <script type="math/tex">\nabla f|_{P_0}</script>。</p>
+</blockquote>
+<p><strong>点 <script type="math/tex">P_0</script> 处 <script type="math/tex">f(x,y,z)=c</script> 的切平面方程</strong></p>
+<blockquote>
+<p>
+<script type="math/tex; mode=display">f_x(P_0)(x-x_0)+f_y(P_0)(y-y_0)+f_z(P_0)(z-z_0)=0\tag{1}</script>
+</p>
+</blockquote>
+<p><strong>点 <script type="math/tex">P_0</script> 处 <script type="math/tex">f(x,y,z)=c</script> 的法线方程</strong></p>
+<blockquote>
+<p>
+<script type="math/tex; mode=display">x=x_0+f_x(P_0)t,y=y_0+f_y(P_0),z=z_0+f_z(P_0)\tag{2}</script>
+</p>
+</blockquote>
+<p>例1 求等高线
+<script type="math/tex; mode=display">f(x,y,z)=x^2+y^2+z-9=0</script>
+在点 <script type="math/tex">P_0(1,2,4)</script> 处的切平面与法线。</p>
+<p>解：曲面如下图所示。</p>
+<p><img alt="" src="../060.020.png" /></p>
+<p>首先计算梯度。
+<script type="math/tex; mode=display">\nabla f(P_0)=(2x\boldsymbol{i}+2y\boldsymbol{j}+\boldsymbol{k})|_{(1,2,4)}=2\boldsymbol{i}+4\boldsymbol{j}+\boldsymbol{k}</script>
+那么切平面方程是
+<script type="math/tex; mode=display">2(x-1)+4(y-2)+(z-4)=0</script>
+<script type="math/tex; mode=display">2x+4y+z=14</script>
+法线方程是
+<script type="math/tex; mode=display">x=1+2t,y=2+4t,z=4+t</script>
+</p>
+<p>对于光滑曲面 <script type="math/tex">z=f(x,y)</script>，我们可以计算点 <script type="math/tex">P_0(x_0,y_0,z_0),z_0=f(x_0,y_0)</script> 处的切平面。首先 <script type="math/tex">z=f(x,y)</script> 可以改写为 <script type="math/tex">f(x,y)-z=0</script>，那么曲面 <script type="math/tex">z=f(x,y)</script> 可以看作是函数 <script type="math/tex">F(x,y,z)=f(x,y)-z=0</script> 的等高面。对 <script type="math/tex">F</script> 求偏微分
+<script type="math/tex; mode=display">\begin{aligned}
+F_x&=\frac{\partial}{\partial x}(f(x,y)-z)=f_x-0&&=f_x\\
+F_y&=\frac{\partial}{\partial y}(f(x,y)-z)=f_y-0&&=f_y\\
+F_z&=\frac{\partial}{\partial z}(f(x,y)-z)=0-1&&=-1
+\end{aligned}</script>
+等高面在 <script type="math/tex">P_0</script> 的处的切平面方程
+<script type="math/tex; mode=display">F_x(P_0)(x-x_0)+F_y(P_0)(y-y_0)+F_z(P_0)(z-z_0)=0</script>
+可以简写作
+<script type="math/tex; mode=display">f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)-(z-z_0)=0\tag{3}</script>
+前提是 <script type="math/tex">P_0</script> 处的梯度不为零。</p>
+<p>例2 求曲面 <script type="math/tex">z=x\cos y-ye^x</script> 在点 <script type="math/tex">(0,0,0)</script> 处的切平面。</p>
+<p>解：首先计算 <script type="math/tex">f(x,y)=x\cos y-ye^x</script> 在点 <script type="math/tex">(0,0,0)</script> 处的偏导数。
+<script type="math/tex; mode=display">f_x(0,0,0)=(\cos y-ye^x)|_{(0,0)}=1-0=1</script>
+<script type="math/tex; mode=display">f_y(0,0,0)=(-x\sin y-e^x)|_{(0,0)}=0-1=-1</script>
+切平面是
+<script type="math/tex; mode=display">(x-0)-(y-0)-(z-0)=0</script>
+即
+<script type="math/tex; mode=display">x-y-z=0</script>
+</p>
+<p>例3 曲面
+<script type="math/tex; mode=display">f(x,y,z)=x^2+y^2-2=2</script>
+和曲面
+<script type="math/tex; mode=display">g(x,y,z)=x+z-4=0</script>
+相交椭圆 <script type="math/tex">E</script>。如下图所示。求 <script type="math/tex">E</script> 在点 <script type="math/tex">P_0(1,1,3)</script> 处的切线的参数方程。</p>
+<p><img alt="" src="../060.030.png" /></p>
+<p>解：在 <script type="math/tex">P_0</script> 处的切线垂直于 <script type="math/tex">\nabla f,\nabla g</script>，因此平行于 <script type="math/tex">\boldsymbol{v}=\nabla f\times\nabla g</script>。因此
+<script type="math/tex; mode=display">\begin{aligned}
+\nabla f|_{(1,1,3)}&=(2x\boldsymbol{i}+2y\boldsymbol{j})|_{(1,1,3)}=2\boldsymbol{i}+2\boldsymbol{j}\\
+\nabla g|_{(1,1,3)}&=(\boldsymbol{i}+\boldsymbol{k})|_{(1,1,3)}=\boldsymbol{i}+\boldsymbol{k}\\
+\boldsymbol{v}&=\begin{vmatrix}
+\boldsymbol{i}&\boldsymbol{j}&\boldsymbol{k}\\
+2&2&0\\
+1&0&1
+\end{vmatrix}=2\boldsymbol{i}-2\boldsymbol{j}-2\boldsymbol{k}
+\end{aligned}</script>
+那么切线的参数方程是
+<script type="math/tex; mode=display">x=1+2t,y=1-2t,z=3-2t</script>
+</p>
+<h3 id="_2">估计指定方向的变化</h3>
+<p>如果从 <script type="math/tex">P_0</script> 处移动很小的距离 <script type="math/tex">ds</script>，我们可以估计函数 <script type="math/tex">f</script> 的变化。如果 <script type="math/tex">f</script> 是单变量函数，那么
+<script type="math/tex; mode=display">df=f'(P_0)ds</script>
+对于二元或多元函数，方向导数有类似作用，那么
+<script type="math/tex; mode=display">df=(\nabla f(P_0)\cdot\boldsymbol{u})ds</script>
+其中 <script type="math/tex">\boldsymbol{u}</script> 是从 <script type="math/tex">P_0</script> 开始移动的方向。</p>
+<p><strong>估计函数 <script type="math/tex">f</script> 在 <script type="math/tex">\boldsymbol{u}</script> 方向上的变化</strong></p>
+<blockquote>
+<p>当从点 <script type="math/tex">P_0</script> 沿着 <script type="math/tex">\boldsymbol{u}</script> 方向移动很小的距离 <script type="math/tex">s</script>，<script type="math/tex">f</script> 的变化是
+<script type="math/tex; mode=display">df=(\nabla f(P_0)\cdot\boldsymbol{u})ds</script>
+</p>
+</blockquote>
+<p>例4 估计函数
+<script type="math/tex; mode=display">f(x,y,z)=y\sin x+2yz</script>
+从点 <script type="math/tex">P_0(0,1,0)</script> 向点 <script type="math/tex">P_1(2,2,-2)</script> 方向移动 0.1 各单位长度时值的变化。</p>
+<p>解：从点 <script type="math/tex">P_0(0,1,0)</script> 到点 <script type="math/tex">P_1(2,2,-2)</script> 的方向矢量是
+<script type="math/tex; mode=display">\boldsymbol{u}=\frac{\overrightarrow{P_0P_1}}{|\overrightarrow{P_0P_1}|}=\frac{\overrightarrow{P_0P_1}}{3}=\frac{2}{3}\boldsymbol{i}+\frac{1}{3}\boldsymbol{j}-\frac{2}{3}\boldsymbol{k}</script>
+点 <script type="math/tex">P_0</script> 处的梯度是
+<script type="math/tex; mode=display">\nabla f(0,1,0)=((y\cos x)\boldsymbol{i}+(\sin x+2z)\boldsymbol{j}+(2y)\boldsymbol{k})|_{(0,1,0)}=\boldsymbol{i}+2\boldsymbol{k}</script>
+那么
+<script type="math/tex; mode=display">\nabla f(0,1,0)\cdot\boldsymbol{u}=\frac{2+0-4}{3}=-\frac{2}{3}</script>
+所以
+<script type="math/tex; mode=display">df=(\nabla f(P_0)\cdot\boldsymbol{u})ds=-\frac{2}{3}\cdot 0.1=-0.0667</script>
+</p>
+<p><img alt="" src="../060.040.png" /></p>
+<h3 id="_3">如何线性化二元函数</h3>
+<p>二元函数可以相当复杂，我们需要找到一种近似的方法，在应用给定的精度内很容易的给出解。这和单变量函数使用线性近似是类似的。</p>
+<p>假定希望找到 <script type="math/tex">z=f(x,y)</script> 在点 <script type="math/tex">(x_0,y_0)</script> 附近的近似，已知 <script type="math/tex">f</script> 可微和 <script type="math/tex">f,f_x,f_y</script> 的值。如果从 <script type="math/tex">(x_0,y_0)</script> 移动到附近一点 <script type="math/tex">(x,y)</script>，增量是 <script type="math/tex">\Delta x=x-x_0,\Delta y=y-y_0</script>，那么根据 13.3 的可微性定义有
+<script type="math/tex; mode=display">f(x,y)-f(x_0,y_0)=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y+\varepsilon_1\Delta x+\varepsilon_2\Delta y</script>
+</p>
+<p><img alt="" src="../060.050.png" /></p>
+<p>随着 <script type="math/tex">\Delta x\Delta y\to 0</script>，<script type="math/tex">\varepsilon_1,\varepsilon_2\to 0</script>。如果 <script type="math/tex">\Delta x,\Delta y</script> 很小，<script type="math/tex">\varepsilon_1\Delta x,\varepsilon_2\Delta y</script> 更小，因此有如下近似
+<script type="math/tex; mode=display">f(x,y)\approx f(x_0,y_0)+f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)</script>
+换句话说，只要 <script type="math/tex">\Delta x,\Delta y</script> 足够小，<script type="math/tex">f</script> 近似等于线性函数 <script type="math/tex">L</script> 的值。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>
+<script type="math/tex">f(x,y)</script> 是可微函数，在点 <script type="math/tex">(x_0,y_0)</script> 处的线性化（<code>linearization</code>）是函数
+<script type="math/tex; mode=display">L(x,y)=f(x_0,y_0)+f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)</script>
+近似
+<script type="math/tex; mode=display">f(x,y)\approx L(x,y)</script>
+是 <script type="math/tex">f(x,y)</script> 在 <script type="math/tex">(x_0,y_0)</script> 处的标准线性近似（<code>standard linear approximation</code>）。</p>
+</blockquote>
+<p>从 <script type="math/tex">(3)</script> 可以得到平面 <script type="math/tex">z=L(x,y)</script> 是曲面 <script type="math/tex">z=f(x,y)</script> 在点 <script type="math/tex">P_0(x_0,y_0)</script> 的切平面。因此二元函数的线性化是切平面近似，这与单变量函数的线性近似是切线近似是一致的。</p>
+<p>例5 求
+<script type="math/tex; mode=display">f(x,y)=x^2-xy+\frac{1}{2}y^2+3</script>
+在点 <script type="math/tex">(3,2)</script> 处的线性化。</p>
+<p>解：先计算在 <script type="math/tex">(3,2)</script> 处 <script type="math/tex">f,f_x,f_y</script> 的值。
+<script type="math/tex; mode=display">\begin{aligned}
+f(3,2)&=\bigg(x^2-xy+\frac{1}{2}y^2+3\bigg)\bigg|_{(3,2)}=8\\
+f_x(3,2)&=(2x-y)|_{(3,2)}=4\\
+f_y(3,2)&=(-x+y)|_{(3,2)}=-1
+\end{aligned}</script>
+所以
+<script type="math/tex; mode=display">\begin{aligned}
+L(x,y)&=f(x_0,y_0)+f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)\\
+&=8+4(x-3)-(y-2)\\
+&=4x-y-2
+\end{aligned}</script>
+</p>
+<p><img alt="" src="../060.060.png" /></p>
 
 
 
@@ -18915,7 +19082,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 23, 2024</span>
   </span>
 
     
