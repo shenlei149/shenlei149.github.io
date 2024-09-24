@@ -9512,6 +9512,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -18913,6 +18922,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19083,6 +19101,55 @@ L(x,y)&=f(x_0,y_0)+f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)\\
 \end{aligned}</script>
 </p>
 <p><img alt="" src="../060.060.png" /></p>
+<p>当我们使用线性函数 <script type="math/tex">L(x,y)</script> 在 <script type="math/tex">(x_0,y_0)</script> 近似可微函数 <script type="math/tex">f(x,y)</script> 时，一个问题是近似有多精确。</p>
+<p>在以 <script type="math/tex">(x_0,y_0)</script> 为中心的矩形 <script type="math/tex">R</script> 内，找到 <script type="math/tex">|f_{xx}|,|f_{yy}|,|f_{xy}|</script> 的公共上界 <script type="math/tex">M</script>，那么 <script type="math/tex">R</script> 上的误差 <script type="math/tex">E</script> 能够用简单的式子表示（13.9 给出证明）。误差的定义是 <script type="math/tex">E(x,y)=f(x,y)-L(x,y)</script>。</p>
+<p><img alt="" src="../060.070.png" /></p>
+<p><strong>标准线性近似的误差</strong></p>
+<blockquote>
+<p>在包含中心位于 <script type="math/tex">(x_0,y_0)</script> 的矩形 <script type="math/tex">R</script> 的开放集合上 <script type="math/tex">f</script> 有连续的一阶、二阶偏微分，在 <script type="math/tex">R</script> 上，<script type="math/tex">M</script> 是 <script type="math/tex">|f_{xx}|,|f_{yy}|,|f_{xy}|</script> 的任意上界，那么在 <script type="math/tex">R</script> 上用线性近似
+<script type="math/tex; mode=display">L(x,y)=f(x_0,y_0)+f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)</script>
+替代 <script type="math/tex">f(x,y)</script> 的误差 <script type="math/tex">E(x,y)</script> 满足
+<script type="math/tex; mode=display">|E(x,y)|\leq\frac{1}{2}M(|x-x_0|+|y-y_0|)^2</script>
+</p>
+</blockquote>
+<p>对于给定 <script type="math/tex">M</script> 而言，想要 <script type="math/tex">|E(x,y)|</script> 小，就要使得 <script type="math/tex">|x-x_0|,|y-y_0|</script> 小。</p>
+<h3 id="_4">微分</h3>
+<p>对于单变量函数 <script type="math/tex">y=f(x)</script>，当 <script type="math/tex">x</script> 从 <script type="math/tex">a</script> 到 <script type="math/tex">a+\Delta x</script>，<script type="math/tex">f</script> 的变化是
+<script type="math/tex; mode=display">\Delta f=f(a+\Delta x)-f(a)</script>
+<script type="math/tex">f</script> 的微分是
+<script type="math/tex; mode=display">df=f'(a)\Delta x</script>
+类似的，假定可微函数 <script type="math/tex">f(x,y)</script> 在点 <script type="math/tex">(x_0,y_0)</script> 处偏微分存在，移动到附近一点 <script type="math/tex">(x_0+\Delta x,y_0+\Delta y)</script>，<script type="math/tex">f</script> 的变化是
+<script type="math/tex; mode=display">\Delta f=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)</script>
+基于 <script type="math/tex">L(x,y)</script> 的定义，使用记号 <script type="math/tex">x-x_0=\Delta x,y-y_0=\Delta y</script>，可以直接得到 <script type="math/tex">L</script> 的变化
+<script type="math/tex; mode=display">\Delta L=L(x_0+\Delta x,y_0+\Delta y)-L(x_0,y_0)=f_x(x_0,y_0)\Delta x+f_y(x_0,y_0)\Delta y</script>
+微分 <script type="math/tex">dx,dy</script> 是独立变量，可以是任意值。不过通常 <script type="math/tex">dx=\Delta x=x-x_0,dy=\Delta y=y-y_0</script>，那么可以得到 <script type="math/tex">f</script> 的微分定义。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>从 <script type="math/tex">(x_0,y_0)</script> 到 <script type="math/tex">(x_0+dx,y_0+dy)</script>，<script type="math/tex">f</script> 的线性化的变化
+<script type="math/tex; mode=display">df=f_x(x_0,y_0)dx+f_y(x_0,y_0)dy</script>
+称为 <script type="math/tex">f</script> 的全微分（<code>total differential</code>）。</p>
+</blockquote>
+<p>例6 圆柱体半径是 1cm，高 5cm，偏差分别是 <script type="math/tex">dr=+0.03,dh=-0.1</script>，估算体积的误差。</p>
+<p>解：圆柱体体积是 <script type="math/tex">V=\pi r^2h</script>，那么
+<script type="math/tex; mode=display">\Delta V\approx dV=V_r(r_0,h_0)dr+V_h(r_0,h_0)dh</script>
+代入偏导数
+<script type="math/tex; mode=display">V_r=2\pi rh,V_h=\pi r^2</script>
+得到
+<script type="math/tex; mode=display">\begin{aligned}
+dV&=2\pi r_0h_0dr+\pi r^2dh\\
+&=2\pi(1)(5)(0.03)+\pi(1)^2(-0.1)\\
+&=0.2\pi\\
+&\approx 0.63
+\end{aligned}</script>
+</p>
+<p>例7 半径为 0.5m 高为 2.5m 的不锈钢圆柱体。对于半径和高度的微小变化，体积的变化有多敏感？</p>
+<p>解：利用上一题的信息有
+<script type="math/tex; mode=display">\begin{aligned}
+dV&=V_r(0.5,2.5)dr+V_h(0.5,2.5)dh\\
+&=(2\pi rh)_{(0.5,2.5)}dr+(\pi r^2)_{(0.5,2.5)}dh\\
+&=2.5\pi dr+0.25\pi dh
+\end{aligned}</script>
+<script type="math/tex">r</script> 变化一个单元，体积变化 2.5 个单元。</p>
 
 
 
@@ -19105,7 +19172,7 @@ L(x,y)&=f(x_0,y_0)+f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)\\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 23, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 24, 2024</span>
   </span>
 
     
