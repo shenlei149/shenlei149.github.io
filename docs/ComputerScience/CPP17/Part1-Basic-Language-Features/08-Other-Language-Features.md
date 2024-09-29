@@ -296,6 +296,156 @@ char c = u8'¨o';
 ```
 
 ## Exception Specifications as Part of the Type
+从 C++17 开始，`noexcept` 是函数类型的一部分，所以下面两个函数类型不同。
+```cpp
+void fMightThrow();
+void fNoexcept() noexcept; // different type
+```
+在此之前，可以用可能会抛出异常的函数给定义为不能抛出异常的函数指针赋值，这样可能会有运行时的问题，现在不能这么做了。
+```cpp
+void (*fp)() noexcept; // pointer to function that doesn’t throw
+fp = fNoexcept;        // OK
+fp = fMightThrow;      // ERROR since C++17
+```
+不过反之是可行的，即不抛出异常的函数给可能抛出异常的函数指针赋值。
+```cpp
+void (*fp2)();     // pointer to function that might throw
+fp2 = fNoexcept;   // OK
+fp2 = fMightThrow; // OK
+```
+只有 `noexcept` 不同的重载是不允许的，这和只有返回类型不同类似。
+```cpp
+void f3();
+void f3() noexcept; // ERROR
+```
+其他规则不受影响。比如不能忽略基类的 `noexcept`。下面这个例子中，不写 `override` 也无法编译，因为覆盖一个函数不能异常更宽松。
+```cpp
+class Base
+{
+public:
+    virtual void foo() noexcept;
+};
+
+class Derived : public Base
+{
+public:
+    void foo() override; // ERROR: does not override
+};
+```
+
+#### Using Conditional Exception Specifications
+可以使用带条件的 `noexcept`，那么函数是否会抛出异常取决于条件是否满足。
+```cpp
+void f1();
+void f2() noexcept;
+void f3() noexcept(sizeof(int) < 4);  // same type as either f1() or f2()
+void f4() noexcept(sizeof(int) >= 4); // different type to f3()
+```
+`f3()` 是否抛出异常取决于 `sizeof(int)` 与 4 那个大，如果前者小，条件为真，与 `f2()` 类型一样，否则和 `f1()` 的类型一样。
+
+不过 `f3()` 和 `f4()` 的条件恰好相反，所以他俩的类型总是不一样。
+
+旧的不抛出异常的写法仍旧有效但是被废弃了。
+```cpp
+void f5() throw(); // same as void f5() noexcept but deprecated
+```
+带参数的动态异常声明不再有效。
+```cpp
+void f6() throw(std::bad_alloc); // ERROR: invalid since C++17
+```
+
+#### Consequences for Generic Libraries
+`noexcept` 作为函数声明的一部分这个修改对泛型库有影响。比如下面的代码 C++14 合法但是 C++17 就无法编译了。由于 `f1()` 和 `f2()` 不是一个类型，导致 `call` 的模板参数 `T` 无法推导出合理的类型了。
+```cpp
+#include <iostream>
+
+template <typename T>
+void call(T op1, T op2)
+{
+    op1();
+    op2();
+}
+
+void f1()
+{
+    std::cout << "f1()\n";
+}
+
+void f2() noexcept
+{
+    std::cout << "f2()\n";
+}
+
+int main()
+{
+    call(f1, f2); // ERROR since C++17
+}
+```
+修复方式是声明两个模板参数。
+```cpp
+template <typename T1, typename T2>
+void call(T1 op1, T2 op2)
+{
+    op1();
+    op2();
+}
+```
+现在如果想重载所有的函数类型，数量需要多一倍！比如标准库 type traits `std::is_function<>`，主模版定义如下，表示 `T` 不是函数
+```cpp
+// primary template (in general type T is no function):
+template <typename T>
+struct is_function : std::false_type
+{
+};
+```
+对于函数类型，有一系列的偏特化。C++17 有 24 个，因为参数可以加 `const` 和 `volatile` 修饰，还需要处理左值和右值引用，另外还需要处理可变参数。
+```cpp
+// partial specializations for all function types:
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...)> : std::true_type
+{
+};
+
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...) const> : std::true_type
+{
+};
+
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...) &> : std::true_type
+{
+};
+
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...) const &> : std::true_type
+{
+};
+```
+现在又多了 24 个，因为需要考虑 `noexcept`。
+```cpp
+// partial specializations for all function types with noexcept:
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...) noexcept> : std::true_type
+{
+};
+
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...) const noexcept> : std::true_type
+{
+};
+
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...) & noexcept> : std::true_type
+{
+};
+
+template <typename Ret, typename... Params>
+struct is_function<Ret(Params...) const & noexcept> : std::true_type
+{
+};
+```
+
+如果类库没有针对 `noexcept` 实现重载，那么如果传入带 `noexcept` 的函数或者函数指针，将无法编译。
 
 ## Single-Argument `static_assert`
 从 C++17 开始 `static_assert()` 的错误信息是可选参数，这样错误信息完全依赖于实现。
