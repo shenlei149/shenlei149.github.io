@@ -11,6 +11,7 @@ nav:
     - 不使用加操作实现加法: Add-without-Plus.md
     - 不使用临时变量交换两个数: Swap-without-Temp.md
     - 旋转矩阵: Rotate-Matrix.md
+    - 判断一个整数是否是回文: Palindrome-Int.md
     - 翻转字符串: Reverse-String.md
     - 两个字符串是否由同样的字符组成: Two-String-Permutation.md
     - 一个字符串是否能旋转得到另一个字符串: Rotation-String.md
