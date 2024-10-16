@@ -9719,6 +9719,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉格朗日乘子法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      两个约束条件的拉格朗日乘子
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19125,6 +19143,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉格朗日乘子法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      两个约束条件的拉格朗日乘子
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19159,6 +19195,202 @@
   <h1>080 拉格朗日乘子 Lagrange Multipliers</h1>
 
 <h3 id="_1">受约束的最大值和最小值</h3>
+<p>我们先看一个能够通过消除一个变量求解带约束条件的最小值问题。</p>
+<p>例1 求点 <script type="math/tex">p(x,y,z)</script> 在平面 <script type="math/tex">2x+y-z-5=0</script> 上距离原点最近的点。</p>
+<p>解：这个问题本质上就是求解带约束条件
+<script type="math/tex; mode=display">2x+y-z=5</script>
+时
+<script type="math/tex; mode=display">|\overrightarrow{OP}|=\sqrt{x^2+y^2+z^2}</script>
+的最小值。</p>
+<p>由于 <script type="math/tex">|\overrightarrow{OP}|</script> 有最小值，即函数
+<script type="math/tex; mode=display">f(x,y,z)=x^2+y^2+z^2</script>
+的最小值，约束条件不变。如果将 <script type="math/tex">x,y</script> 看作自变量那么 <script type="math/tex">z</script> 可以写作
+<script type="math/tex; mode=display">z=2x+y-5</script>
+那么问题就变成了求解
+<script type="math/tex; mode=display">h(x,y)=f(x,y,2x+y-5)=x^2+y^2+(2x+y-5)^2</script>
+的最小值。那么根据上一小节的理论，最小值出现在满足条件
+<script type="math/tex; mode=display">h_x=2x+2(2x+y-5)(2)=0,h_y=2y+2(2x+y-5)=0</script>
+的点。那么
+<script type="math/tex; mode=display">10x+4y=20,4x+4y=10</script>
+即
+<script type="math/tex; mode=display">x=\frac{5}{3},y=\frac{5}{6}</script>
+这里忽略使用二阶偏微分证明此时 <script type="math/tex">h</script> 有最小值。那么 <script type="math/tex">z</script> 坐标是
+<script type="math/tex; mode=display">z=2\frac{5}{3}+\frac{5}{6}-5=-\frac{5}{6}</script>
+因此要求的点是
+<script type="math/tex; mode=display">P(\frac{5}{3},\frac{5}{6},-\frac{5}{6})</script>
+最小距离是
+<script type="math/tex; mode=display">\frac{5}{\sqrt{6}}</script>
+</p>
+<p>不过，使用替换法解决带约束的并不能总是成功，需要多次尝试。</p>
+<p>例2 求双曲柱面
+<script type="math/tex; mode=display">x^2-z^2-1=0</script>
+上距离原点最近的点。</p>
+<p>解：柱面如下所示。</p>
+<p><img alt="" src="../080.010.png" /></p>
+<p>我们的目标是在约束
+<script type="math/tex; mode=display">x^2-z^2-1=0</script>
+这个条件下求解函数
+<script type="math/tex; mode=display">f(x,y,z)=x^2+y^2+z^2</script>
+的最小值。如果将 <script type="math/tex">x,y</script> 看作自变量，那么
+<script type="math/tex; mode=display">z^2=x^2-1</script>
+代入函数 <script type="math/tex">f(x,y,z)</script> 得到
+<script type="math/tex; mode=display">h(x,y)=x^2+y^2+(x^2-1)=2x^2+y^2-1</script>
+根据上一节的理论，最小值点是临界点
+<script type="math/tex; mode=display">h_x=4x=0,h_y=2y=0</script>
+即点 <script type="math/tex">(0,0)</script> 处有最小值。不过当 <script type="math/tex">x=0,y=0</script> 时，点不在柱面上。</p>
+<p>问题出在那里了呢？对 <script type="math/tex">h</script> 进行一阶偏微分测试点的集合是 <script type="math/tex">xy</script> 平面，同时我们期望这个最小值对应的点就是柱面的最小值出现的点，但是后者的定义域不是整个 <script type="math/tex">xy</script> 平面，不包含 <script type="math/tex">x=-1,x=1</script> 之间的部分。如下图所示。</p>
+<p><img alt="" src="../080.020.png" /></p>
+<p>如果将 <script type="math/tex">y,z</script> 看作自变量就能避免这个问题，那么
+<script type="math/tex; mode=display">x^2=z^2+1</script>
+代入 <script type="math/tex">f(x,y,z)</script> 得到
+<script type="math/tex; mode=display">k(y,z)=z^2+1+y^2+z^2=2z^2+y^2+1</script>
+现在要求 <script type="math/tex">k</script> 的最小值。这里 <script type="math/tex">k</script> 的定义域是 <script type="math/tex">yz</script> 平面，与柱面定义域一致，没有上述问题。<script type="math/tex">k</script> 最小值出现在
+<script type="math/tex; mode=display">k_y=2y=0,k_z=4z=0</script>
+那么
+<script type="math/tex; mode=display">x^2=z^2+1=1,x=\pm 1</script>
+也就是说，距离原点最近的点是 <script type="math/tex">(\pm 1,0,0)</script>，距离是 1。从
+<script type="math/tex; mode=display">k(y,z)=1+y^2+2z^2\geq 1</script>
+也能印证这个结论。</p>
+<p>解法 2。想象在原点处有一个以原点为圆心的小球，然后膨胀与柱面相切。在接触点，柱面与球面有相同的切平面和法线。如下图所示。</p>
+<p><img alt="" src="../080.030.png" /></p>
+<p>如果令
+<script type="math/tex; mode=display">f(x,y,z)=x^2+y^2+z^2-a^2,g(x,y,z)=x^2-z^2-1</script>
+都为零得到的等高线表示球面和柱面，那么梯度 <script type="math/tex">\nabla f,\nabla g</script> 平行。在任意接触点，能够找一个 <script type="math/tex">\lambda</script>（标量）使得
+<script type="math/tex; mode=display">\nabla f=\lambda\nabla g</script>
+或者
+<script type="math/tex; mode=display">2x\boldsymbol{i}+2y\boldsymbol{j}+2z\boldsymbol{k}=\lambda(2x\boldsymbol{i}-2z\boldsymbol{k})</script>
+那么有
+<script type="math/tex; mode=display">2x=2\lambda x,2y=0,2z=-2\lambda z</script>
+由于 <script type="math/tex">x\neq 0</script>，那么为了满足 <script type="math/tex">2x=2\lambda x</script>
+<script type="math/tex; mode=display">2=2\lambda,\lambda=1</script>
+代入 <script type="math/tex">2z=-2\lambda z</script> 得到 <script type="math/tex">2z=-2z</script>，所以 <script type="math/tex">z=0</script>。那么我们要求的点是
+<script type="math/tex; mode=display">(x,0,0)</script>
+这个点满足 <script type="math/tex">x^2-z^2=1</script>，所以
+<script type="math/tex; mode=display">x^2=1,x=\pm 1</script>
+与之前结论一致。</p>
+<h3 id="_2">拉格朗日乘子法</h3>
+<p>上面的例子使用了拉格朗日乘子法（<code>method of Lagrange multiplier</code>）。这个方法是说求解带约束条件 <script type="math/tex">g(x,y,z)=0</script> 时函数 <script type="math/tex">f(x,y,z)</script> 的极值点满足
+<script type="math/tex; mode=display">\nabla f=\lambda\nabla g</script>
+其中 <script type="math/tex">\lambda</script> 是标量，称为拉格朗日乘子（<code>Lagrange multiplier</code>）。</p>
+<p>为了证明其正确性，我们先引入下面这个定理。</p>
+<p><strong>定理 12 正交梯度定理（<code>The Orthogonal Gradient Theorem</code>）</strong></p>
+<blockquote>
+<p>假定函数 <script type="math/tex">f(x,y,z)</script> 在某个区域上可微，这个区域上有一光滑曲线
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=x(t)\boldsymbol{i}+y(t)\boldsymbol{j}+z(t)\boldsymbol{k}</script>
+如果 <script type="math/tex">f</script> 在曲线上的点 <script type="math/tex">P_0</script> 处取得极值，那么 <script type="math/tex">\nabla f</script> 在该点处与曲线正交。</p>
+</blockquote>
+<p>证明：曲线上对应的 <script type="math/tex">f</script> 的值由复合函数 <script type="math/tex">f(x(t),y(t),z(t))</script> 给出，对于 <script type="math/tex">t</script> 求导是
+<script type="math/tex; mode=display">\frac{df}{dt}=\frac{\partial f}{\partial x}\frac{dx}{dt}+\frac{\partial f}{\partial y}\frac{dy}{dt}+\frac{\partial f}{\partial z}\frac{dz}{dt}=\nabla f\cdot\boldsymbol{r}'</script>
+在某点 <script type="math/tex">P_0</script> 处 <script type="math/tex">f</script> 取得极值，那么 <script type="math/tex">df/dt=0</script>，因此
+<script type="math/tex; mode=display">\nabla f\cdot\boldsymbol{r}'=0</script>
+</p>
+<p>丢弃定理 12 中的 <script type="math/tex">z</script> 项，得到如下结论。</p>
+<p><strong>推论</strong></p>
+<blockquote>
+<p>可导函数 <script type="math/tex">f(x,y)</script> 在光滑曲线 <script type="math/tex">\boldsymbol{r}(t)=x(t)\boldsymbol{i}+y(t)\boldsymbol{j}</script> 的某点处取得极值，那么在该点处有 <script type="math/tex">\nabla f\cdot\boldsymbol{r}'=0</script>。</p>
+</blockquote>
+<p>定理 12 是拉格朗日乘子的关键。假定 <script type="math/tex">f(x,y,z),g(x,y,z)</script> 是可微的，点 <script type="math/tex">P_0</script> 是曲线 <script type="math/tex">g(x,y,z)=0</script> 上的一点，在该点处 <script type="math/tex">f</script> 取得极值。假定在该处 <script type="math/tex">\nabla g\neq 0</script>。<script type="math/tex">f</script> 在 <script type="math/tex">P_0</script> 处取得极值，那么 <script type="math/tex">\nabla f</script> 正交与每一条通过 <script type="math/tex">P_0</script> 的曲线的切线。因为 <script type="math/tex">\nabla g</script> 正交与等高线 <script type="math/tex">g=0</script>，那么 <script type="math/tex">\nabla</script> 也正交与每一条通过 <script type="math/tex">P_0</script> 的曲线的切线。因此 <script type="math/tex">\nabla f</script> 是 <script type="math/tex">\nabla g</script> 与标量 <script type="math/tex">\lambda</script> 的乘积。</p>
+<p><strong>拉格朗日乘子法</strong></p>
+<blockquote>
+<p>假定 <script type="math/tex">f(x,y,z),g(x,y,z)</script> 可微，当 <script type="math/tex">g(x,y,z)=0</script> 时 <script type="math/tex">\nabla g\neq 0</script>。为了求解 <script type="math/tex">f</script> 在约束条件 <script type="math/tex">g(x,y,z)=0</script> 的极值，可以通过解满足下面方程的 <script type="math/tex">x,y,z,\lambda</script> 得到。
+<script type="math/tex; mode=display">\nabla f=\lambda\nabla g,g(x,y,z)=0\tag{1}</script>
+前提是极值存在。</p>
+</blockquote>
+<p>TODO ex45</p>
+<p>例3 求函数
+<script type="math/tex; mode=display">f(x,y)=xy</script>
+在椭圆
+<script type="math/tex; mode=display">\frac{x^2}{8}+\frac{y^2}{2}=1</script>
+上的最大值和最小值。</p>
+<p><img alt="" src="../080.040.png" /></p>
+<p>解：约束条件是
+<script type="math/tex; mode=display">g(x,y)=\frac{x^2}{8}+\frac{y^2}{2}-1</script>
+求 <script type="math/tex">f(x,y)</script> 的极值。</p>
+<p>那么求解满足下面方程的 <script type="math/tex">x,y,\lambda</script>
+<script type="math/tex; mode=display">\nabla f=\lambda\nabla g,g(x,y)=0</script>
+梯度方程是
+<script type="math/tex; mode=display">y\boldsymbol{i}+x\boldsymbol{j}=\frac{\lambda}{4}x\boldsymbol{i}+\lambda y\boldsymbol{j}</script>
+那么
+<script type="math/tex; mode=display">y=\frac{\lambda}{4}x,x=\lambda y</script>
+所以
+<script type="math/tex; mode=display">y=\frac{\lambda^2}{4}y</script>
+第一种情况，<script type="math/tex">y=0</script>，那么 <script type="math/tex">x=y=0</script>，但是该点不在椭圆上。</p>
+<p>如果 <script type="math/tex">y\neq 0</script>，那么
+<script type="math/tex; mode=display">\lambda^2=4,\lambda=\pm 2</script>
+此时 <script type="math/tex">x=\pm 2y</script>，代入约束条件得到
+<script type="math/tex; mode=display">\frac{(\pm 2y)^2}{8}+\frac{y^2}{2}=1,4y^2+4y^2=8</script>
+因此
+<script type="math/tex; mode=display">y=\pm 1</script>
+因此函数 <script type="math/tex">f(x,y)=xy</script> 在四个点 <script type="math/tex">(\pm 2,1),(\pm 2,-1)</script> 取得极值，最大值是 <script type="math/tex">xy=2</script>，最小值是 <script type="math/tex">xy=-2</script>。</p>
+<p>解的几何解释：函数 <script type="math/tex">f(x,y)=xy</script> 的等高线是双曲线 <script type="math/tex">xy=c</script>，如下图所示。</p>
+<p><img alt="" src="../080.050.png" /></p>
+<p>距离原点越远，<script type="math/tex">f</script> 的绝对值越大。给定点 <script type="math/tex">(x,y)</script> 在椭圆 <script type="math/tex">x^2+4y^2=8</script> 上，这里要求 <script type="math/tex">f(x,y)</script> 的极值。哪一个与椭圆相交的双曲线距离原点最远呢？与之相切的那条双曲线。在这些点处，任意正交与双曲线的矢量也正交与椭圆，因此 <script type="math/tex">\nabla f=y\boldsymbol{i}+x\boldsymbol{j}</script> 是 <script type="math/tex">\nabla g=(x/4)\boldsymbol{i}+y\boldsymbol{j}</script> 的 <script type="math/tex">\lambda=\pm 2</script> 倍。比如在点 <script type="math/tex">(2,1)</script> 处有
+<script type="math/tex; mode=display">\nabla f=\boldsymbol{i}+2\boldsymbol{j},\nabla g=\frac{1}{2}\boldsymbol{i}+\boldsymbol{j}</script>
+即 <script type="math/tex">\nabla f=2\nabla g</script>。在点 <script type="math/tex">(-2,1)</script> 处
+<script type="math/tex; mode=display">\nabla f=\boldsymbol{i}-2\boldsymbol{j},\nabla g=-\frac{1}{2}\boldsymbol{i}+\boldsymbol{j}</script>
+即 <script type="math/tex">\nabla f=-2\nabla g</script>。</p>
+<p>例4 求函数 <script type="math/tex">f(x,y)=3x+4y</script> 在圆 <script type="math/tex">x^2+y^2=1</script> 上的最大值与最小值。</p>
+<p>解：由梯度方程 <script type="math/tex">\nabla f=\lambda\nabla g</script> 得到
+<script type="math/tex; mode=display">3\boldsymbol{i}+4\boldsymbol{j}=2x\lambda\boldsymbol{i}+2y\lambda\boldsymbol{j}</script>
+方程 <script type="math/tex">(1)</script> 隐含了 <script type="math/tex">\lambda\neq 0</script>，因此
+<script type="math/tex; mode=display">x=\frac{3}{2\lambda},y=\frac{2}{\lambda}</script>
+代入约束条件
+<script type="math/tex; mode=display">x^2+y^2-1=0</script>
+得到
+<script type="math/tex; mode=display">(\frac{3}{2\lambda})^2+(\frac{2}{\lambda})^2=1</script>
+因此
+<script type="math/tex; mode=display">\frac{9}{4\lambda^2}+\frac{4}{\lambda^2}=1,25=4\lambda^2,\lambda=\pm\frac{5}{2}</script>
+因此
+<script type="math/tex; mode=display">x=\pm\frac{3}{5},y=\pm\frac{4}{5}</script>
+因此 <script type="math/tex">f(x,y)</script> 在点 <script type="math/tex">\pm(3/5,4/5)</script> 处取得极值。
+最大值是
+<script type="math/tex; mode=display">3(\frac{3}{5})+4(\frac{4}{5})=5</script>
+最小值是
+<script type="math/tex; mode=display">3(-\frac{3}{5})+4(-\frac{4}{5})=-5</script>
+解的几何意义：函数 <script type="math/tex">f(x,y)=3x+4y</script> 的等高线是 <script type="math/tex">3x+4y=c</script>。如下图所示。</p>
+<p><img alt="" src="../080.060.png" /></p>
+<p>距离原点越远，函数 <script type="math/tex">f</script> 越大。那么为了求极值，要找到与圆相切的点。在任意切点，正交与直线的矢量也正交与圆，因此 <script type="math/tex">\nabla f=3\boldsymbol{i}+4\boldsymbol{j}</script> 是 <script type="math/tex">\nabla g=2x\boldsymbol{i}+2y\boldsymbol{j}</script> 的 <script type="math/tex">\lambda=\pm 5/2</script> 倍。比如在点 <script type="math/tex">(3/5,4/5)</script> 处有
+<script type="math/tex; mode=display">\nabla f=3\boldsymbol{i}+4\boldsymbol{j},\nabla g=\frac{6}{5}\boldsymbol{i}+\frac{8}{5}\boldsymbol{j}</script>
+即 <script type="math/tex">\nabla f=\frac{5}{2}\nabla g</script>。</p>
+<h3 id="_3">两个约束条件的拉格朗日乘子</h3>
+<p>许多应用是要求函数 <script type="math/tex">f(x,y,z)</script> 在两个约束条件下的极值。如果约束条件是
+<script type="math/tex; mode=display">g_1(x,y,z)=0,g_2(x,y,z)=0</script>
+其中 <script type="math/tex">g_1,g_2</script> 都是可微的，并且 <script type="math/tex">\nabla g_1</script> 与 <script type="math/tex">\nabla g_2</script> 不平行。为了求解带两个约束条件时函数 <script type="math/tex">f</script> 的极值，我们引入两个拉格朗日乘子 <script type="math/tex">\lambda,\mu</script>。可以通过计算满足下面方程的 <script type="math/tex">x,y,z,\lambda,\mu</script> 找到极值点 <script type="math/tex">P(x,y,z)</script>。
+<script type="math/tex; mode=display">\nabla f=\lambda\nabla g_1+\mu\nabla g_2,g_1(x,y,z)=0,g_2(x,y,z)=0\tag{2}</script>
+方程 <script type="math/tex">(2)</script> 的几何解释如下。曲面 <script type="math/tex">g_1=0,g_2=0</script> 相交得到光滑曲线 <script type="math/tex">C</script>，如下图所示。</p>
+<p><img alt="" src="../080.070.png" /></p>
+<p>我们要在这条曲线上找到使得 <script type="math/tex">f</script> 取得极值的点。根据定理 12，在这些点处 <script type="math/tex">\nabla f</script> 正交与 <script type="math/tex">C</script>。由于 <script type="math/tex">C</script> 上的点位于 <script type="math/tex">g_1=0,g_2=0</script> 平面上，因此在这些点处 <script type="math/tex">\nabla g_1,\nabla g_2</script> 也正交与 <script type="math/tex">C</script>。因此 <script type="math/tex">\nabla f</script> 位于由 <script type="math/tex">\nabla g_1,\nabla g_2</script> 确定的平面，即对某些 <script type="math/tex">\lambda,\mu</script> 有 <script type="math/tex">\nabla f=\lambda\nabla g_1+\mu\nabla g_2</script>。由于这些点位于两个平面上，因此满足 <script type="math/tex">g_1(x,y,z)=0,g_2(x,y,z)=0</script>。</p>
+<p>例5 平面 <script type="math/tex">x+y+z=1</script> 与圆柱 <script type="math/tex">x^2+y^2=1</script> 相交得到一个椭圆。如下图所示。求椭圆上距离原点最近和最远的点。</p>
+<p><img alt="" src="../080.080.png" /></p>
+<p>解：要求极值的函数是
+<script type="math/tex; mode=display">f(x,y,z)=x^2+y^2+z^2</script>
+约束条件是
+<script type="math/tex; mode=display">g_1(x,y,z)=x^2+y^2-1=0\tag{3}</script>
+<script type="math/tex; mode=display">g_2(x,y,z)=x+y+z-1=0\tag{4}</script>
+由梯度方程
+<script type="math/tex; mode=display">\nabla f=\lambda\nabla g_1+\mu\nabla g_2</script>
+得到
+<script type="math/tex; mode=display">2x\boldsymbol{i}+2y\boldsymbol{j}+2z\boldsymbol{k}=\lambda(2x\boldsymbol{i}+2y\boldsymbol{j})+\mu(\boldsymbol{i}+\boldsymbol{j}+\boldsymbol{k})</script>
+<script type="math/tex; mode=display">2x\boldsymbol{i}+2y\boldsymbol{j}+2z\boldsymbol{k}=(2\lambda x+\mu)\boldsymbol{i}+(2y\lambda+\mu)\boldsymbol{j}+\mu\boldsymbol{k}</script>
+因此
+<script type="math/tex; mode=display">2x=2\lambda x+\mu,2y=2\lambda y+\mu,2z=\mu\tag{5}</script>
+由此可以得到
+<script type="math/tex; mode=display">\begin{aligned}
+2x=2\lambda x+2z\Rightarrow(1-\lambda)x=z\\
+2y=2\lambda y+2z\Rightarrow(1-\lambda)y=z
+\end{aligned}\tag{6}</script>
+从 <script type="math/tex">(6)</script> 可以推理得到：要么 <script type="math/tex">\lambda=1,z=0</script>，要么 <script type="math/tex">\lambda\neq 1,x=y=z/(1-\lambda)</script>。</p>
+<p>将 <script type="math/tex">z=0</script> 代入 <script type="math/tex">(3),(4)</script>，得到两个点 <script type="math/tex">(1,0,0),(0,1,0)</script>。这两个点位于椭圆上，如上所示。</p>
+<p>如果 <script type="math/tex">x=y</script>，代入 <script type="math/tex">(3),(4)</script> 得到
+<script type="math/tex; mode=display">\begin{aligned}
+x^2+x^2&=1&&x+x+z=1\\
+2x^2&=1&&z=1-2x\\
+x&=\pm\frac{\sqrt{2}}{2}&&z=1\mp\sqrt{2}
+\end{aligned}</script>
+相应的点是
+<script type="math/tex; mode=display">P_1=(\frac{\sqrt{2}}{2},\frac{\sqrt{2}}{2},1-\sqrt{2}),P_2=(-\frac{\sqrt{2}}{2},-\frac{\sqrt{2}}{2},1+\sqrt{2})</script>
+尽管 <script type="math/tex">P_1,P_2</script> 都是局部最大值所在的点，但是 <script type="math/tex">P_2</script> 距离原点更远。</p>
+<p>距离原点最近的点是 <script type="math/tex">(1,0,0),(0,1,0)</script>，距离是 1。</p>
 
 
 
@@ -19181,7 +19413,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 16, 2024</span>
   </span>
 
     
