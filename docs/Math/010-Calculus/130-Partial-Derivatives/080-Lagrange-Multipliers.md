@@ -115,8 +115,6 @@ $$\nabla f\cdot\boldsymbol{r}'=0$$
 > $$\nabla f=\lambda\nabla g,g(x,y,z)=0\tag{1}$$
 > 前提是极值存在。
 
-TODO ex45
-
 例3 求函数
 $$f(x,y)=xy$$
 在椭圆
