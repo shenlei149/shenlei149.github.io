@@ -124,7 +124,7 @@ $$f(x,y,z)=x\sin(y+3z)$$
 $$\begin{aligned}
 \frac{\partial f}{\partial z}&=\frac{\partial}{\partial z}[x\sin(y+3z)]\\
 &=x\frac{\partial}{\partial z}\sin(y+3z)\\
-&=x\cos(y+3z)\frac{\part不ial}{\partial z}(y+3z)\\
+&=x\cos(y+3z)\frac{\partial}{\partial z}(y+3z)\\
 &=3x\cos(y+3z)
 \end{aligned}$$
 

@@ -16,7 +16,7 @@ $$\frac{d}{dt}f(\boldsymbol{r}(t))=\nabla f(\boldsymbol{r}(r))\cdot\boldsymbol{r
 > $$f_x(P_0)(x-x_0)+f_y(P_0)(y-y_0)+f_z(P_0)(z-z_0)=0\tag{1}$$
 
 **点 $P_0$ 处 $f(x,y,z)=c$ 的法线方程**
-> $$x=x_0+f_x(P_0)t,y=y_0+f_y(P_0),z=z_0+f_z(P_0)\tag{2}$$
+> $$x=x_0+f_x(P_0)t,y=y_0+f_y(P_0)t,z=z_0+f_z(P_0)t\tag{2}$$
 
 例1 求等高线
 $$f(x,y,z)=x^2+y^2+z-9=0$$
