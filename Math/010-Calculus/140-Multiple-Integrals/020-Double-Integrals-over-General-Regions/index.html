@@ -9976,6 +9976,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      求积分的界限
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分的属性
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19437,6 +19455,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      求积分的界限
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分的属性
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19481,6 +19517,95 @@
 <h3 id="_2">体积</h3>
 <p>和之前一样，<script type="math/tex">f(x,y)</script> 在 <script type="math/tex">R</script> 上是连续函数，<script type="math/tex">\iint_Rf(x,y)dA</script> 是 <script type="math/tex">R</script> 之上 <script type="math/tex">z=f(x,y)</script> 以下立体区域的体积。</p>
 <p><img alt="" src="../020.020.png" /></p>
+<p>如果区域 <script type="math/tex">R</script> 如下图所示，上下界分别是曲线 <script type="math/tex">y=g_2(x),y=g_1(x)</script>，且边界是 <script type="math/tex">x=a,x=b</script>，仍旧可以使用切片法计算体积。</p>
+<p><img alt="" src="../020.030.png" /></p>
+<p>首先计算横切面的面积
+<script type="math/tex; mode=display">A(x)=\int_{y=g_1(x)}^{y=g_2(x)}f(x,y)dy</script>
+从 <script type="math/tex">x=a</script> 到 <script type="math/tex">x=b</script> 对 <script type="math/tex">A(x)</script> 积分得到体积。迭代积分如下
+<script type="math/tex; mode=display">V=\int_a^bA(x)dx=\int_a^b\int_{g_1(x)}^{g_2(x)}f(x,y)dydx\tag{1}</script>
+类似的，如果 <script type="math/tex">R</script> 如下图所示，边界是 <script type="math/tex">y=c,y=d</script>，上下界是曲线 <script type="math/tex">x=h_2(y),x=h_1(y)</script>，那么体积可以写作
+<script type="math/tex; mode=display">V=\int_c^d\int_{h_1(y)}^{h_2(y)}f(x,y)dxdy\tag{2}</script>
+</p>
+<p><img alt="" src="../020.040.png" /></p>
+<p>公式 <script type="math/tex">(1)</script> 和 <script type="math/tex">(2)</script> 的迭代积分表示体积，是 <script type="math/tex">f</script> 在 <script type="math/tex">R</script> 上的二重积分的定义。</p>
+<p><strong>定理 2 富比尼定理</strong></p>
+<blockquote>
+<p>令 <script type="math/tex">f(x,y)</script> 是 <script type="math/tex">R</script> 的连续函数。
+1. 如果区域 <script type="math/tex">R</script> 的定义是 <script type="math/tex">a\leq x\leq b,g_1(x)\leq y\leq g_2(x)</script>，且 <script type="math/tex">g_1,g_2</script> 在 <script type="math/tex">[a,b]</script> 上连续，那么
+<script type="math/tex; mode=display">\iint_Rf(x,y)dA=\int_a^b\int_{g_1(x)}^{g_2(x)}f(x,y)dydx</script>
+2. 如果区域 <script type="math/tex">R</script> 的定义是 <script type="math/tex">c\leq y\leq d,h_1(y)\leq x\leq h_2(x)</script>，且 <script type="math/tex">h_1,h_2</script> 在 <script type="math/tex">[c,d]</script> 上连续，那么
+<script type="math/tex; mode=display">\iint_Rf(x,y)dA=\int_c^d\int_{h_1(y)}^{h_2(y)}f(x,y)dxdy</script>
+</p>
+</blockquote>
+<p>例1 金字塔底是在 <script type="math/tex">xy</script> 平面上的三角形，三边分别是 <script type="math/tex">x</script> 轴，<script type="math/tex">y=x</script> 和 <script type="math/tex">x=1</script>，顶部平面公式是
+<script type="math/tex; mode=display">z=f(x,y)=3-x-y</script>
+求金字塔体积。</p>
+<p>解：如下所示，<script type="math/tex">x</script> 介于 0 和 1 之间，<script type="math/tex">y</script> 在 <script type="math/tex">y=0</script> 到 <script type="math/tex">y=x</script> 之间变化。因此
+<script type="math/tex; mode=display">\begin{aligned}
+V&=\int_0^1\int_0^x(3-x-y)dydx\\
+&=\int_0^1(3y-xy-\frac{y^2}{2})|_{y=0}^{y=x}dx\\
+&=\int_0^1(3x-\frac{3x^2}{2})dx\\
+&=(\frac{3x^2}{2}-\frac{x^3}{2})|_{x=0}^{x=1}\\
+&=1
+\end{aligned}</script>
+</p>
+<p><img alt="" src="../020.050.png" /></p>
+<p>如上图（c）所示，二重积分是
+<script type="math/tex; mode=display">\begin{aligned}
+V&=\int_0^1\int_y^1(3-x-y)dxdy\\
+&=\int_0^1(3x-\frac{x^2}{2}-xy)|_{x=y}^{x=1}dy\\
+&=\int_0^1((3-\frac{1}{2}-y)-(3y-\frac{y^2}{2}-y^2))dy\\
+&=\int_0^1(\frac{5}{2}-4y+\frac{3}{2}y^2)dy\\
+&=(\frac{5}{2}y-2y^2+\frac{y^3}{2})|_{y=0}^{y=1}\\
+&=1
+\end{aligned}</script>
+</p>
+<p>富比尼定理确保我们可以以任意顺序计算二重积分，但有的时候某种顺序比另外一种要简单容易。</p>
+<p>例2 当 <script type="math/tex">R</script> 是 <script type="math/tex">x</script> 轴，<script type="math/tex">y=x</script> 和 <script type="math/tex">x=1</script> 围成的三角形，计算
+<script type="math/tex; mode=display">\iint_R\frac{\sin x}{x}dA</script>
+解：积分区域如下图所示。</p>
+<p><img alt="" src="../020.060.png" /></p>
+<p>我们先对 <script type="math/tex">y</script> 积分再对 <script type="math/tex">x</script> 积分，那么有
+<script type="math/tex; mode=display">\begin{aligned}
+\int_0^1\int_0^x\frac{\sin x}{x}dydx&=\int_0^1(y\frac{\sin x}{x})|_0^xdx\\
+&=\int_0^1\sin xdx\\
+&=\cos x|_1^0\\
+&=1-\cos 0
+\end{aligned}</script>
+如果我们交换积分顺序，那么有
+<script type="math/tex; mode=display">\int_0^1\int_x^1\frac{\sin x}{x}dxdy</script>
+我们会遇到求 <script type="math/tex">frac{\sin x}{x}</script> 的积分这个难题，结果无法用初等函数表示。</p>
+<p>没有一般方法来判断积分顺序。如果一种顺序无法计算，尝试另外一种顺序。如果两者都走不通，或许可以使用数值法求近似解。</p>
+<h3 id="_3">求积分的界限</h3>
+<h3 id="_4">积分的属性</h3>
+<p>和一重积分类似，连续函数的二重积分也有一些代数性质帮助计算。</p>
+<blockquote>
+<p>如果 <script type="math/tex">f(x,y),g(x,y)</script> 是 <script type="math/tex">R</script> 上的连续函数，那么以下属性成立。</p>
+<ol>
+<li>
+<p>
+<script type="math/tex; mode=display">\iint_Rcf(x,y)dA=c\iint_Rf(x,y)dA</script>
+其中 <script type="math/tex">c</script> 是任意常量。</p>
+</li>
+<li>
+<p>
+<script type="math/tex; mode=display">\iint_R(f(x,y)\pm g(x,y))dA=\iint_Rf(x,y)dA+\iint_Rg(x,y)dA</script>
+3.
+    如果在 <script type="math/tex">R</script> 上有 <script type="math/tex">f(x,y)\geq 0</script>，那么
+    <script type="math/tex; mode=display">\iint_Rf(x,y)dA\geq 0</script>
+    如果在 <script type="math/tex">R</script> 上有 <script type="math/tex">f(x,y)\geq g(x,y)</script>，那么
+    <script type="math/tex; mode=display">\iint_Rf(x,y)dA\geq\iint_Rg(x,y)dA</script>
+</p>
+</li>
+<li>
+<div class="language-text highlight"><pre><span></span><code>如果 $R$ 可以分成两个不相交的区域 $R_1,R_2$，那么
+$$\iint_Rf(x,y)dA=\iint_{R_1}f(x,y)dA+\iint_{R_2}f(x,y)dA$$
+</code></pre></div>
+</li>
+</ol>
+</blockquote>
+<p>属性 4 成立的条件是要能够用有限条线段或者曲线将 <script type="math/tex">R</script> 分成不相交的 <script type="math/tex">R_1,R_2</script> 两个部分。下图是示例。</p>
+<p><img alt="" src="../020.100.png" /></p>
 
 
 
@@ -19503,7 +19628,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 28, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2024</span>
   </span>
 
     
