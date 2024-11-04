@@ -9979,7 +9979,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      求积分的界限
+      积分的界限
     </span>
   </a>
   
@@ -19458,7 +19458,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      求积分的界限
+      积分的界限
     </span>
   </a>
   
@@ -19576,7 +19576,36 @@ V&=\int_0^1\int_y^1(3-x-y)dxdy\\
 <script type="math/tex; mode=display">\int_0^1\int_x^1\frac{\sin x}{x}dxdy</script>
 我们会遇到求 <script type="math/tex">frac{\sin x}{x}</script> 的积分这个难题，结果无法用初等函数表示。</p>
 <p>没有一般方法来判断积分顺序。如果一种顺序无法计算，尝试另外一种顺序。如果两者都走不通，或许可以使用数值法求近似解。</p>
-<h3 id="_3">求积分的界限</h3>
+<h3 id="_3">积分的界限</h3>
+<p>下面阐述如何确定积分的界限。</p>
+<p><strong>垂直划分</strong> 当计算 <script type="math/tex">\iint_Rf(x,y)dA</script> 时，我们可以先对 <script type="math/tex">y</script> 积分再对 <script type="math/tex">x</script> 积分。</p>
+<ol>
+<li>画图。首先画出 <script type="math/tex">R</script> 的草图，如下图所示。</li>
+</ol>
+<p><img alt="" src="../020.071.png" /></p>
+<ol>
+<li>确定 <script type="math/tex">y</script> 的界限。使用垂直的直线 <script type="math/tex">L</script> 穿过 <script type="math/tex">R</script>，确定 <script type="math/tex">y</script> 的界限，通常是 <script type="math/tex">x</script> 的函数。</li>
+</ol>
+<p><img alt="" src="../020.072.png" /></p>
+<ol>
+<li>确定 <script type="math/tex">x</script> 的界限。确定 <script type="math/tex">x</script> 的界限以包含所有穿过 <script type="math/tex">R</script> 的垂直的直线。积分如下
+<script type="math/tex; mode=display">\iint_Rf(x,y)dA=\int_{x=0}^{x=1}\int_{y=1-x}^{y=\sqrt{1-x^2}}f(x,y)dydx</script>
+</li>
+</ol>
+<p><img alt="" src="../020.073.png" /></p>
+<p><strong>水平划分</strong> 和上述积分顺序恰好相反。上述积分可以写作
+<script type="math/tex; mode=display">\iint_Rf(x,y)dA=\int_0^1\int_{1-y}^{\sqrt{1-y^2}}f(x,y)dxdy</script>
+</p>
+<p><img alt="" src="../020.080.png" /></p>
+<p>例3 画出下面积分中积分区域的草图，并写出交换积分顺序的等价二重积分。
+<script type="math/tex; mode=display">\int_0^2\int_{x^2}^{2x}(4x+2)dydx</script>
+解：积分区域由不等式 <script type="math/tex">x^2\leq y\leq 2x,0\leq x\leq 2</script> 确定。因此区域边界曲线是 <script type="math/tex">y=x^2,y=2x</script> 和 <script type="math/tex">x=0,x=2</script>。</p>
+<p><img alt="" src="../020.091.png" /></p>
+<p>为了求交换积分顺序的界限，想象水平直线穿过区域，那么从 <script type="math/tex">x=y/2</script> 进去从 <script type="math/tex">x=\sqrt{y}</script> 出来。为了包含所有水平直线，<script type="math/tex">y</script> 从 <script type="math/tex">y=0</script> 到 <script type="math/tex">y=4</script>。</p>
+<p><img alt="" src="../020.092.png" /></p>
+<p>等价二重积分是
+<script type="math/tex; mode=display">\int_0^4\int_{y/2}^{\sqrt{y}}(4x+2)dxdy</script>
+</p>
 <h3 id="_4">积分的属性</h3>
 <p>和一重积分类似，连续函数的二重积分也有一些代数性质帮助计算。</p>
 <blockquote>
@@ -19606,6 +19635,28 @@ $$\iint_Rf(x,y)dA=\iint_{R_1}f(x,y)dA+\iint_{R_2}f(x,y)dA$$
 </blockquote>
 <p>属性 4 成立的条件是要能够用有限条线段或者曲线将 <script type="math/tex">R</script> 分成不相交的 <script type="math/tex">R_1,R_2</script> 两个部分。下图是示例。</p>
 <p><img alt="" src="../020.100.png" /></p>
+<p>这些属性背后的思想是积分行为与求和类似。如果用 <script type="math/tex">cf(x,y)</script> 替换函数 <script type="math/tex">f(x,y)</script>，那么 <script type="math/tex">f</script> 的黎曼和
+<script type="math/tex; mode=display">S_n=\sum_{k=1}^nf(x_k,y_k)\Delta A_k</script>
+被替换为
+<script type="math/tex; mode=display">\sum_{k=1}^ncf(x_k,y_k)\Delta A_k=c\sum_{k=1}^nf(x_k,y_k)\Delta A_k=cS_n</script>
+当 <script type="math/tex">n\to\infty</script> 时取极限，可以证明 <script type="math/tex">c\lim_{n\to\infty}S_n=c\iint_RfdA</script> 和 <script type="math/tex">\lim_{n\to\infty}cS_n=c\iint_RcfdA</script> 等价。乘以常量这个属性从求和转移到了二重积分。</p>
+<p>对于其他属性，也是类似的，性质从黎曼和过渡到二重积分。这里讨论的背后的思想，实际的证明需要更仔细的分析黎曼和是如何收敛的。</p>
+<p>例4 求 <script type="math/tex">R:y=2\sqrt{x},y=4x-2, y=0</script> 之上曲面 <script type="math/tex">z=16-x^2-y^2</script> 之下的楔形的体积。</p>
+<p>解：楔形如下图所示。</p>
+<p><img alt="" src="../020.111.png" /></p>
+<p>
+<script type="math/tex">R</script> 如下图所示。</p>
+<p><img alt="" src="../020.112.png" /></p>
+<p>如果以 <script type="math/tex">dydx</script> 的顺序积分，需要作两次二重积分，因为当 <script type="math/tex">0\leq x\leq 0.5</script> 时，<script type="math/tex">y</script> 从 <script type="math/tex">y=0</script> 到 <script type="math/tex">y=2\sqrt{x}</script>，当 <script type="math/tex">0.5\leq x\leq 1</script> 时，<script type="math/tex">y</script> 从 <script type="math/tex">y=4x-2</script> 到 <script type="math/tex">y=2\sqrt{2}</script>。所以这里选择 <script type="math/tex">dxdy</script> 作为积分顺序。使用迭代积分计算体积
+<script type="math/tex; mode=display">\begin{aligned}
+\iint_R(16-x^2-y^2)dA&=\int_0^2\int_{y^2/4}^{(y+2)/4}(16-x^2-y^2)dxdy\\
+&=\int_0^2(16x-\frac{x^3}{3}-xy^2)|_{x=y^2/4}^{x=(y+2)/4}dy\\
+&=\int_0^2[(4(y+2)-\frac{(y+2)^3}{3}-y^2\frac{y+2}{4})-(4y^2-\frac{y^6}{3\cdot 64}-\frac{y^4}{4})]dy\\
+&=(\frac{191y}{24}+\frac{63y^2}{32}-\frac{145y^3}{96}-\frac{49y^4}{768}+\frac{y^5}{20}+\frac{y^7}{1344})\bigg|_0^2\\
+&=\frac{20903}{1680}
+\end{aligned}</script>
+</p>
+<p>这一节的二重积分聚焦于表示在 <script type="math/tex">R</script> 和 连续正函数 <script type="math/tex">z=f(x,y)</script> 之间的体积。当 <script type="math/tex">f(x_k,y_k)</script> 是负数时，<script type="math/tex">f(x_k,y_k)\Delta A_k</script> 是体积的负值。所以对于在 <script type="math/tex">R</script> 上的任意连续函数 <script type="math/tex">f</script>，任意黎曼和的极限表示的是带符号的体积而不是总体积。</p>
 
 
 
@@ -19628,7 +19679,7 @@ $$\iint_Rf(x,y)dA=\iint_{R_1}f(x,y)dA+\iint_{R_2}f(x,y)dA$$
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 4, 2024</span>
   </span>
 
     
