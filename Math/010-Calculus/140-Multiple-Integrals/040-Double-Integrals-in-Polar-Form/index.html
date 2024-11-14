@@ -10068,6 +10068,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      笛卡尔坐标系积分到极坐标系积分
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19552,6 +19561,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      笛卡尔坐标系积分到极坐标系积分
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19661,6 +19679,58 @@ A&=4\int_0^{\pi/4}\int_0^{\sqrt{4\cos 2\theta}}rdrd\theta\\
 &=4
 \end{aligned}</script>
 </p>
+<h3 id="_3">笛卡尔坐标系积分到极坐标系积分</h3>
+<p>将笛卡尔坐标系积分 <script type="math/tex">\iint_R f(x,y)dxdy</script> 转成极坐标系积分分为两步。第一步是用 <script type="math/tex">x=r\cos\theta,y=r\sin\theta</script> 代入被积函数，同时用 <script type="math/tex">rdrd\theta</script> 替代 <script type="math/tex">dxdy</script>。第二步是把边界 <script type="math/tex">R</script> 转化成极坐标积分范围。那么
+<script type="math/tex; mode=display">\iint_Rf(x,y)dxdy=\iint_Gf(r\cos\theta,r\sin\theta)rdrd\theta</script>
+其中 <script type="math/tex">G</script> 表示相同的积分范围，不过是使用极坐标表示。注意，<script type="math/tex">dxdy</script> 替换为 <script type="math/tex">rdrd\theta</script> 而不是 <script type="math/tex">drd\theta</script>。</p>
+<p>例3 求
+<script type="math/tex; mode=display">\iint_Re^{x^2+y^2}dydx</script>
+其中 <script type="math/tex">R</script> 由 <script type="math/tex">x</script> 轴和 <script type="math/tex">y=\sqrt{1-x^2}</script> 围成的半圆。</p>
+<p><img alt="" src="../040.060.png" /></p>
+<p>解：在笛卡尔坐标系中，这个积分不是非初等积分，没有直接的方式对 <script type="math/tex">e^{x^2+y^2}</script> 积分。不过这个积分和类似积分在数学领域很重要，比如统计学。使用极坐标就比较容易了。代入 <script type="math/tex">x=r\cos\theta,y=r\sin\theta</script>，并且用 <script type="math/tex">rdrd\theta</script> 替代 <script type="math/tex">dydx</script>，那么
+<script type="math/tex; mode=display">\begin{aligned}
+\iint_Re^{x^2+y^2}dydx&=\int_0^\pi\int_0^1e^{r^2}rdrd\theta\\
+&=\int_0^\pi\frac{1}{2}e^{r^2}\bigg|_0^1d\theta\\
+&=\int_0^\pi\frac{1}{2}(e-1)d\theta\\
+&=\frac{\pi}{2}(e-1)
+\end{aligned}</script>
+<script type="math/tex">rdrd\theta</script> 中的 <script type="math/tex">r</script> 很关键，使得可以对 <script type="math/tex">e^{r^2}</script> 进行积分，否则，也无法找到反导函数。</p>
+<p>例4 求积分
+<script type="math/tex; mode=display">\int_0^1\int_0^{\sqrt{1-x^2}}(x^2+y^2)dydx</script>
+解：被积分区域和上图类似，不过只包含第一象限，因此
+<script type="math/tex; mode=display">\begin{aligned}
+\int_0^1\int_0^{\sqrt{1-x^2}}(x^2+y^2)dydx&=\int_0^{\pi/2}\int_0^2(r^2)rdrd\theta\\
+&=\int_0^{\pi/2}\frac{r^4}{4}\bigg|_0^1d\theta\\
+&=\int_0^{\pi/2}\frac{1}{4}d\theta\\
+&=\frac{\pi}{8}
+\end{aligned}</script>
+极坐标转化相当有效，因为 <script type="math/tex">x^2+y^2</script> 变成了 <script type="math/tex">r^2</script>，并且积分范围变成了常量。</p>
+<p>例5 求 <script type="math/tex">xy</script> 平面单位圆以上抛物面 <script type="math/tex">z=9-x^2-y^2</script> 以下的柱形的体积。</p>
+<p>解：积分范围 <script type="math/tex">R</script> 是单位圆，<script type="math/tex">x^2+y^2=1</script>，极坐标表示为 <script type="math/tex">r=1,0\leq\theta\leq 2\pi</script>。如下图所示。</p>
+<p><img alt="" src="../040.070.png" /></p>
+<p>体积是二重积分
+<script type="math/tex; mode=display">\begin{aligned}
+\iint_R(9-x^2-y^2)dA&=\int_0^{2\pi}\int_0^1(9-r^2)rdrd\theta\\
+&=\int_0^{2\pi}\int_0^1(9r-r^3)drd\theta\\
+&=\int_0^{2\pi}\bigg[\frac{9}{2}r^2-\frac{1}{4}r^4\bigg]_0^1d\theta\\
+&=\frac{17}{4}\int_0^{2\pi}d\theta\\
+&=\frac{17\pi}{2}
+\end{aligned}</script>
+</p>
+<p>例6 使用极坐标积分计算 <script type="math/tex">R</script> 的面积，其中 <script type="math/tex">R</script> 由 <script type="math/tex">x^2+y^2=4,y=1,y=\sqrt{3}x</script> 围成。</p>
+<p>解：<script type="math/tex">R</script> 的草图如下所示。</p>
+<p><img alt="" src="../040.080.png" /></p>
+<p>直线 <script type="math/tex">y=\sqrt{3}x</script> 的斜率是 <script type="math/tex">\sqrt{3}=\tan\theta</script>，因此 <script type="math/tex">\theta=\pi/3</script>。<script type="math/tex">y=1</script> 与圆 <script type="math/tex">x^2+y^2=4</script> 的交点是 <script type="math/tex">x^2+1=4</script>，即 <script type="math/tex">x=\sqrt{3}</script>。通过原点和点 <script type="math/tex">(\sqrt{3},1)</script> 的直线斜率是 <script type="math/tex">1/\sqrt{3}=\tan\theta</script>，即 <script type="math/tex">\theta=\pi/6</script>。</p>
+<p>因此 <script type="math/tex">\theta</script> 的范围是 <script type="math/tex">\pi/6</script> 到 <script type="math/tex">\pi/3</script>，<script type="math/tex">r</script> 的范围是 <script type="math/tex">y=1</script> 到 <script type="math/tex">x^2+y^2=4</script>。因为 <script type="math/tex">y=r\sin\theta</script>，所以下限 <script type="math/tex">r=1/\sin\theta=\csc\theta</script>。上线是圆 <script type="math/tex">r=2</script>。那么
+<script type="math/tex; mode=display">\begin{aligned}
+\iint_RdA&=\int_{\pi/6}^{\pi/3}\int_{\csc\theta}^2rdrd\theta\\
+&=\int_{\pi/6}^{\pi/3}\frac{1}{2}r^2\bigg|_{\csc\theta}^2d\theta\\
+&=\frac{1}{2}\int_{\pi/6}^{\pi/3}(4-\csc^2\theta)d\theta\\
+&=\frac{1}{2}(4\theta-\cot\theta)\bigg|_{\pi/6}^{\pi/3}\\
+&=\frac{1}{2}((\frac{4\pi}{3}+\frac{1}{\sqrt{3}})-(\frac{4\pi}{6}+\sqrt{3}))\\
+&=\frac{\pi-\sqrt{3}}{3}
+\end{aligned}</script>
+</p>
 
 
 
@@ -19683,7 +19753,7 @@ A&=4\int_0^{\pi/4}\int_0^{\sqrt{4\cos 2\theta}}rdrd\theta\\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2024</span>
   </span>
 
     
