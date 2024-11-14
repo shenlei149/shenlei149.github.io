@@ -87,3 +87,67 @@ A&=4\int_0^{\pi/4}\int_0^{\sqrt{4\cos 2\theta}}rdrd\theta\\
 &=4\sin 2\theta|_0^{\pi/4}\\
 &=4
 \end{aligned}$$
+
+### 笛卡尔坐标系积分到极坐标系积分
+将笛卡尔坐标系积分 $\iint_R f(x,y)dxdy$ 转成极坐标系积分分为两步。第一步是用 $x=r\cos\theta,y=r\sin\theta$ 代入被积函数，同时用 $rdrd\theta$ 替代 $dxdy$。第二步是把边界 $R$ 转化成极坐标积分范围。那么
+$$\iint_Rf(x,y)dxdy=\iint_Gf(r\cos\theta,r\sin\theta)rdrd\theta$$
+其中 $G$ 表示相同的积分范围，不过是使用极坐标表示。注意，$dxdy$ 替换为 $rdrd\theta$ 而不是 $drd\theta$。
+
+例3 求
+$$\iint_Re^{x^2+y^2}dydx$$
+其中 $R$ 由 $x$ 轴和 $y=\sqrt{1-x^2}$ 围成的半圆。
+
+![](040.060.png)
+
+解：在笛卡尔坐标系中，这个积分不是非初等积分，没有直接的方式对 $e^{x^2+y^2}$ 积分。不过这个积分和类似积分在数学领域很重要，比如统计学。使用极坐标就比较容易了。代入 $x=r\cos\theta,y=r\sin\theta$，并且用 $rdrd\theta$ 替代 $dydx$，那么
+$$\begin{aligned}
+\iint_Re^{x^2+y^2}dydx&=\int_0^\pi\int_0^1e^{r^2}rdrd\theta\\
+&=\int_0^\pi\frac{1}{2}e^{r^2}\bigg|_0^1d\theta\\
+&=\int_0^\pi\frac{1}{2}(e-1)d\theta\\
+&=\frac{\pi}{2}(e-1)
+\end{aligned}$$
+$rdrd\theta$ 中的 $r$ 很关键，使得可以对 $e^{r^2}$ 进行积分，否则，也无法找到反导函数。
+
+例4 求积分
+$$\int_0^1\int_0^{\sqrt{1-x^2}}(x^2+y^2)dydx$$
+解：被积分区域和上图类似，不过只包含第一象限，因此
+$$\begin{aligned}
+\int_0^1\int_0^{\sqrt{1-x^2}}(x^2+y^2)dydx&=\int_0^{\pi/2}\int_0^2(r^2)rdrd\theta\\
+&=\int_0^{\pi/2}\frac{r^4}{4}\bigg|_0^1d\theta\\
+&=\int_0^{\pi/2}\frac{1}{4}d\theta\\
+&=\frac{\pi}{8}
+\end{aligned}$$
+极坐标转化相当有效，因为 $x^2+y^2$ 变成了 $r^2$，并且积分范围变成了常量。
+
+例5 求 $xy$ 平面单位圆以上抛物面 $z=9-x^2-y^2$ 以下的柱形的体积。
+
+解：积分范围 $R$ 是单位圆，$x^2+y^2=1$，极坐标表示为 $r=1,0\leq\theta\leq 2\pi$。如下图所示。
+
+![](040.070.png)
+
+体积是二重积分
+$$\begin{aligned}
+\iint_R(9-x^2-y^2)dA&=\int_0^{2\pi}\int_0^1(9-r^2)rdrd\theta\\
+&=\int_0^{2\pi}\int_0^1(9r-r^3)drd\theta\\
+&=\int_0^{2\pi}\bigg[\frac{9}{2}r^2-\frac{1}{4}r^4\bigg]_0^1d\theta\\
+&=\frac{17}{4}\int_0^{2\pi}d\theta\\
+&=\frac{17\pi}{2}
+\end{aligned}$$
+
+例6 使用极坐标积分计算 $R$ 的面积，其中 $R$ 由 $x^2+y^2=4,y=1,y=\sqrt{3}x$ 围成。
+
+解：$R$ 的草图如下所示。
+
+![](040.080.png)
+
+直线 $y=\sqrt{3}x$ 的斜率是 $\sqrt{3}=\tan\theta$，因此 $\theta=\pi/3$。$y=1$ 与圆 $x^2+y^2=4$ 的交点是 $x^2+1=4$，即 $x=\sqrt{3}$。通过原点和点 $(\sqrt{3},1)$ 的直线斜率是 $1/\sqrt{3}=\tan\theta$，即 $\theta=\pi/6$。
+
+因此 $\theta$ 的范围是 $\pi/6$ 到 $\pi/3$，$r$ 的范围是 $y=1$ 到 $x^2+y^2=4$。因为 $y=r\sin\theta$，所以下限 $r=1/\sin\theta=\csc\theta$。上线是圆 $r=2$。那么
+$$\begin{aligned}
+\iint_RdA&=\int_{\pi/6}^{\pi/3}\int_{\csc\theta}^2rdrd\theta\\
+&=\int_{\pi/6}^{\pi/3}\frac{1}{2}r^2\bigg|_{\csc\theta}^2d\theta\\
+&=\frac{1}{2}\int_{\pi/6}^{\pi/3}(4-\csc^2\theta)d\theta\\
+&=\frac{1}{2}(4\theta-\cot\theta)\bigg|_{\pi/6}^{\pi/3}\\
+&=\frac{1}{2}((\frac{4\pi}{3}+\frac{1}{\sqrt{3}})-(\frac{4\pi}{6}+\sqrt{3}))\\
+&=\frac{\pi-\sqrt{3}}{3}
+\end{aligned}$$
