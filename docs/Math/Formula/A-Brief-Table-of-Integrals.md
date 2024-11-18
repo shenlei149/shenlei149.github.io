@@ -94,7 +94,7 @@ $$\int\frac{dx}{x\sqrt{ax-b}}=\frac{2}{\sqrt{b}}\tan^{-1}\sqrt{\frac{ax-b}{b}}+C
 $$\int\frac{\sqrt{ax+b}}{x^2}dx=-\frac{\sqrt{ax+b}}{x}+\frac{a}{2}\int\frac{dx}{x\sqrt{ax+b}}+C$$
 
 31.
-$$\int\frac{dx}{x^2\sqrt{ab+b}}=-\frac{\sqrt{ax+b}}{bx}-\frac{a}{2b}\int\frac{dx}{x\sqrt{ax+b}}+C$$
+$$\int\frac{dx}{x^2\sqrt{ax+b}}=-\frac{\sqrt{ax+b}}{bx}-\frac{a}{2b}\int\frac{dx}{x\sqrt{ax+b}}+C$$
 
 ## Forms Involving $a^2+x^2$
 32.
@@ -488,7 +488,4 @@ $$\int_0^\infty x^{n-1}e^{-x}dx=\Gamma(n)=(n-1)!, n>0$$
 $$\int_0^\infty e^{-ax^2}dx=\frac{1}{2}\sqrt{\frac{\pi}{a}},a>0$$
 
 157.
-$$\int_0^{\pi/2}\sin^n xdx=\int_0^{\pi/2}\cos^n xdx=\begin{cases}
-\frac{1\cdot 3\cdot 5\cdots(n-1)}{2\cdot 4\cdot 6\cdots n}\cdot\frac{\pi}{2}, &\text{$n$ is an even integer} \geq 2\\
-\frac{2\cdot 4\cdot 6\cdots (n-1)}{3\cdot 5\cdot 7\cdots n}, &\text{$n$ is an odd integer} \geq 3
-\end{cases}$$
+$$\int_0^{\pi/2}\sin^n xdx=\int_0^{\pi/2}\cos^n xdx=\begin{cases}\frac{1\cdot 3\cdot 5\cdots(n-1)}{2\cdot 4\cdot 6\cdots n}\cdot\frac{\pi}{2}, &\text{$n$ is an even integer} \geq 2\\\frac{2\cdot 4\cdot 6\cdots (n-1)}{3\cdot 5\cdot 7\cdots n}, &\text{$n$ is an odd integer} \geq 3\end{cases}$$
