@@ -31,8 +31,8 @@ it sometimes works if I believe
 但是其结果是没有保证的。原因在于 `find()` 被调用的时机，只要在需要其返回值的之前调用即可，可能再第一个 `replace` 调用之前就全部调用了，也可能其他时机，所以结果可能是下面几种情况
 ```
 it sometimes works if I believe
-it sometimes workIdon’t believe
-it even worsometiIdon’t believe
+it sometimes workIdon't believe
+it even worsometiIdon't believe
 it even worsometimesf youIlieve
 ```
 另一个例子如下：
@@ -303,7 +303,7 @@ void fNoexcept() noexcept; // different type
 ```
 在此之前，可以用可能会抛出异常的函数给定义为不能抛出异常的函数指针赋值，这样可能会有运行时的问题，现在不能这么做了。
 ```cpp
-void (*fp)() noexcept; // pointer to function that doesn’t throw
+void (*fp)() noexcept; // pointer to function that doesn't throw
 fp = fNoexcept;        // OK
 fp = fMightThrow;      // ERROR since C++17
 ```

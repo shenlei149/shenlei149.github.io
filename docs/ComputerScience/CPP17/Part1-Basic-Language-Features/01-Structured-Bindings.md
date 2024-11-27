@@ -210,7 +210,7 @@ auto [i, j, k] = D2{}; // compile-time ERROR
 ```cpp
 int arr[] = {47, 11};
 auto [x, y] = arr; // x and y are the int elems of a copy of arr
-auto [z] = arr;    // ERROR: number of elements doesn’t fit
+auto [z] = arr;    // ERROR: number of elements doesn't fit
 
 auto getArr() -> int (&)[2]; // getArr() returns reference to raw int array
 auto [x, y] = getArr();      // x and y are the int elems of a copy of the returned array
