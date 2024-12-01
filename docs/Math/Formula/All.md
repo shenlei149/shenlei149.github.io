@@ -134,3 +134,31 @@ $$\begin{aligned}
 a_T&=\frac{d}{dt}|\boldsymbol{v}|\\
 a_N&=\kappa|\boldsymbol{v}|^2=\sqrt{|\boldsymbol{a}|^2-a_T^2}
 \end{aligned}$$
+
+## 坐标转换公式
+详情参考 [14.7](../010-Calculus/140-Multiple-Integrals/070-Triple-Integrals-in-Cylindrical-and-Spherical-Coordinates.md)
+
+柱坐标系到直角坐标系
+$$\begin{aligned}
+x&=r\cos\theta\\
+y&=r\sin\theta\\
+z&=z
+\end{aligned}$$
+球坐标系到直角坐标系
+$$\begin{aligned}
+x&=\rho\sin\phi\cos\theta\\
+y&=\rho\sin\phi\sin\theta\\
+z&=\rho\cos\phi
+\end{aligned}$$
+球坐标系到柱坐标系
+$$\begin{aligned}
+r&=\rho\sin\phi\\
+z&=\rho\cos\phi\\
+\theta&=\theta
+\end{aligned}$$
+三维积分
+$$\begin{aligned}
+dV&=dxdydz\\
+&=rdzdrd\theta\\
+&=\rho^2\sin\phi d\rho d\phi d\theta
+\end{aligned}$$

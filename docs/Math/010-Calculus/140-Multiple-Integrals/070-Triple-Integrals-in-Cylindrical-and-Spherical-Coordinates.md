@@ -99,3 +99,122 @@ $$\bar{z}=\frac{M_{xy}}{M}=\frac{32\pi}{3}\frac{1}{8\pi}=\frac{4}{3}$$
 注意，这个形心在 $z$ 轴上，在物体之外。
 
 ### 球坐标系和积分
+球坐标系的点用两个角度和一个长度表示。第一个坐标，$\rho=|\overrightarrow{OP}|$，是点距离原点的距离，不会是负值。第二个坐标，$\phi$，是 $\overrightarrow{OP}$ 与 $z$ 的正半轴的夹角，位于区间 $[0,\pi]$。第三个坐标是 $\theta$，与柱坐标系含义一致。
+
+![](070.090.png)
+
+**定义**
+> 球坐标系（`spherical coordinates`）使用有序三元组 $\rho,\phi,\theta$ 表示空间中的点 $P$，且有
+>
+> 1. $\rho$ 是点 $P$ 到原点的距离，$\rho\geq 0$。
+> 2. $\phi$ 是 $\overrightarrow{OP}$ 与 $z$ 正半轴的夹角，$0\leq\phi\leq\pi$。
+> 3. $\theta$ 来自柱坐标系的角。
+
+$\rho=a$ 描述的是半径为 $a$ 球心位于原点的球。$\phi=\phi_0$ 描述的是顶点位于原点与 $z$ 夹角为 $\phi_0$ 的圆锥。$\phi=\pi/2$ 表示 $xy$ 平面。如果 $\phi_0$ 大于 $\pi/2$，圆锥 $\phi=\phi_0$ 朝下。$\theta=\theta_0$ 是包含 $z$ 的半个平面，角 $\theta_0$ 是与 $x$ 正半轴的夹角。
+
+![](070.100.png)
+
+**球坐标系与笛卡尔坐标系和柱坐标系的关系**
+> $$r=\rho\sin\phi,x=r\cos\theta=\rho\sin\phi\cos\phi,y=r\sin\theta=\rho\sin\phi\sin\phi$$
+> $$z=\rho\cos\phi$$
+> $$\rho=\sqrt{x^2+y^2+z^2}=\sqrt{r^2+z^2}$$
+
+例3 求球 $x^2+y^2+(z-1)^2=1$ 在球坐标系下的方程。
+
+解：使用上面的公式，代入 $x,y,z$ 有
+$$\begin{aligned}
+x^2+y^2+(z-1)^2&=1\\
+\rho^2\sin^2\phi\cos^2\theta+\rho^2\sin^2\phi\sin^2\theta+(\rho\cos\phi-1)^2&=1\\
+\rho^2\sin^2\phi(\cos^2\theta+\sin^2\theta)+\rho^2\cos^2\phi-2\rho\cos\phi+1&=1\\
+\rho^2(\sin^2\phi+\cos^2\phi)&=2\rho\cos\phi\\
+\rho^2&=2\rho\cos\phi\\
+\rho&=2\cos\phi
+\end{aligned}$$
+
+角 $\phi$ 从 0 到 $\pi/2$。角 $\theta$ 没有出现在 $\rho$ 的表达式中，反映了关于 $z$ 的对称性。
+
+![](070.110.png)
+
+例4 求圆锥 $z=\sqrt{x^2+y^2}$ 在球坐标系下的方程。
+
+解：使用几何法。圆锥关于 $z$ 轴对称，与 $yz$ 平面的第一象限的交线是 $z=y$，因此圆锥与 $z$ 的正半轴的夹角是 $\pi/4$。因此 $\phi=\pi/4$。
+
+![](070.120.png)
+
+使用代数法。使用 $\rho,\phi$ 的关系代入 $x,y,z$ 得到
+$$\begin{aligned}
+z&=\sqrt{x^2+y^2}\\
+\rho\cos\phi&=\sqrt{\rho^2\sin^2\phi}\\
+\rho\cos\phi&=\rho\sin\phi\\
+\cos\phi&=\sin\phi\\
+\phi&=\frac{\pi}{4}
+\end{aligned}$$
+
+当我们计算球坐标系下对区域 $D$ 的积分时，把这个区域分割成 $n$ 个部分。包含点 $(\rho_k,\phi_k,\theta_k)$ 的第 $k$ 个球状楔形的体积是由 $\rho,\phi,\theta$ 的变化 $\Delta\rho_k,\Delta\phi_k,\Delta\theta_k$ 决定的。这个楔形的一条边的长度是 $\rho_k\Delta\phi_k$，另一条边的长度是 $\rho_k\sin\phi_k\Delta\theta_k$，厚度是 $\Delta\rho_k$。当 $\Delta\rho_k,\Delta\phi_k,\Delta\theta_k$ 很小的时候，球状楔形近似是一个立方体，因此体积是 $\Delta V_k=\rho_k^2\sin\phi_k\Delta\rho_k,\Delta\phi_k,\Delta\theta_k$。
+
+![](070.130.png)
+
+对 $f(\rho,\phi,\theta)$ 的黎曼和是
+$$S_n=\sum_{k=1}^nf(\rho_k,\phi_k,\theta_k)\rho_k^2\sin\phi_k\Delta\rho_k,\Delta\phi_k,\Delta\theta_k$$
+随着分区的模趋于零，球状楔形越来越小，当 $f$ 连续是黎曼和存在极限。
+$$\lim_{n\to\infty}S_n=\iiint_Df(\rho,\phi,\theta)dV=\iiint_Df(\rho,\phi,\theta)\rho^2\sin\phi d\rho d\phi d\theta$$
+为了求球坐标系下的积分，通常先对 $\rho$ 积分。我们会将积分局限在物体由平面关于 $z$ 旋转而来，因此 $\theta,\phi$ 积分范围是厂里。和柱坐标系一致，对 $\theta$ 的限制是 $\alpha\leq\theta,0\leq\beta-\alpha\leq 2\pi$。
+
+### 如何计算球坐标系积分
+为了求解积分
+$$\iiint_Df(\rho,\phi,\theta)dV$$
+通常先对 $\rho$ 积分，接着对 $\phi$ 积分，最后对 $\theta$ 积分。
+
+1. 草图。画出 $D$ 及其在 $xy$ 平面 $R$ 的投影。标记 $D$ 和 $R$ 的边界。
+
+![](070.141.png)
+
+2. 求 $\rho$ 的积分范围。画一条起点是原点的射线 $M$ 穿过 $D$，与 $z$ 正半轴夹角是 $\phi$。画出 $M$ 在 $xy$ 平面的投影 $L$。射线 $L$ 与 $x$ 的正半轴夹角是 $\theta$。随着 $\rho$ 的增加，$M$ 进入 $D$ 时 $\rho=g_1(\phi,\theta)$，离开时 $\rho=g_2(\phi,\theta)$。
+
+![](070.142.png)
+
+3. 求 $\phi$ 的积分范围。对于任意给定 $\theta$，$M$ 与 $z$ 的夹角 $\phi$ 的变化范围是从 $\phi_{\min}$ 到 $\phi_{\max}$。
+4. 求 $\theta$ 的积分范围。随着 $\theta$ 从 $\alpha$ 到 $\beta$，$L$ 扫过 $R$。
+
+因此积分是
+$$\iiint_Df(\rho,\phi,\theta)dV=\int_{\theta=\alpha}^{\theta=\beta}\int_{\phi=\phi_{\min}}^{\phi_{\max}}\int_{\rho=g_1(\phi,\theta)}^{\rho=g_2(\phi,\theta)}f(\rho,\phi,\theta)\rho^2\sin\phi d\rho d\phi d\theta$$
+
+例5 求从球 $\rho\leq 1$ 到圆锥 $\phi=\pi/3$ 的类似冰淇淋圆锥 $D$ 的体积。
+
+解：体积是在 $D$ 上的积分 $V=\iiint_D\rho^2\sin\phi d\rho d\phi d\theta$。
+
+下面是 $D$ 及其在 $xy$ 平面上的投影 $R$ 的草图。
+
+![](070.150.png)
+
+$\rho$ 的范围是从 0 到 1。圆锥 $\phi=\pi/3$ 给出了 $\phi$ 的最大值，因为 $\phi$ 的范围是 0 到 $\pi/3$。$\theta$ 的范围是从 0 到 $2\pi$。
+
+因此积分是
+$$\begin{aligned}
+V&=\iiint_D\rho^2\sin\phi d\rho d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\int_0^1\rho^2\sin\phi d\rho d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\frac{\rho^3}{3}\bigg|_0^1\sin\phi d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\frac{1}{3}\sin\phi d\phi d\theta\\
+&=\int_0^{2\pi}-\frac{1}{3}\cos\phi\bigg|_0^{\pi/3} d\theta\\
+&=\int_0^{2\pi}\bigg(-\frac{1}{6}+\frac{1}{3}\bigg) d\theta\\
+&=\frac{1}{6}(2\pi)
+&=\frac{\pi}{3}
+\end{aligned}$$
+
+例6 求例 5 中关于 $z$ 轴的转动惯量。
+
+解：对于直角坐标系，转动惯量是
+$$I_z=\iiint_D(x^2+y^2)dV$$
+在球坐标系中，$x^2+y^2=r^2=\rho^2\sin^2\phi$。因此
+$$I_z=\iiint_D(\rho^2\sin^2\phi)\rho^2\sin\phi d\rho d\phi d\theta=\iiint_D\rho^4\sin^3\phi d\rho d\phi d\theta$$
+代入例 5 中的积分范围有
+$$\begin{aligned}
+I_z&=\int_0^{2\pi}\int_0^{\pi/3}\int_0^1\rho^4\sin^3\phi d\rho d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\frac{\rho^5}{5}\bigg|_0^1\sin^3\phi d\phi d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\int_0^{\pi/3}(1-\cos^2\phi)\sin\phi d\phi d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\bigg[-\cos\phi+\frac{\cos^3\phi}{3}\bigg]_0^{\pi/3}d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\bigg(-\frac{1}{2}+1+\frac{1}{24}-\frac{1}{3}\bigg)d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\frac{5}{24}d\theta\\
+&=\frac{1}{24}(2\pi)\\
+&=\frac{\pi}{2}
+\end{aligned}$$
