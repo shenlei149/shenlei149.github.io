@@ -1,8 +1,8 @@
 [Problem 120](http://projecteuler.net/problem=120 "Problem 120 - Project Euler")
 
-令 $r$ 是 $(a-1)^n + (a+1)^n$ 除以 $a^2$ 的余数。随着 $n$ 的变化，$r$ 也会变化，但是众多 $r$ 一定存在最大值 $r_{\text{max}}$。
+令 $r$ 是 $(a-1)^n + (a+1)^n$ 除以 $a^2$ 的余数。随着 $n$ 的变化，$r$ 也会变化，但是众多 $r$ 一定存在最大值 $r_{\max}$。
 
-当 $3\leq a\leq 1000$ 时，求 $\sum r_{\text{max}}$。
+当 $3\leq a\leq 1000$ 时，求 $\sum r_{\max}$。
 
 给定一个 $a，n$ 取何值时能让 $(a-1)^n + (a+1)^n \operatorname{mod} a^2$ 最大呢？
 
@@ -22,7 +22,7 @@ $$2a(1+C(n,2)+C(n,4)+\cdots+C(n,n-1)) = 2af(n)$$
 
 $2f(n)$ 一定是偶数。所以，当 $a$ 是奇数的时候，$2f(n)=a-1$，当 $a$ 是偶数的时候，$2f(n)=a-2$。
 
-有了以上的分析，很容易就能写出获取 $r_{\text{max}}$ 的函数：
+有了以上的分析，很容易就能写出获取 $r_{\max}$ 的函数：
 ``` csharp
 private static int GetMaxRByA(int a)
 {

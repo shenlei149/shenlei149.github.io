@@ -7,7 +7,7 @@
 $$f(c)=\frac{1}{b-a}\int_a^bf(x)dx$$
 
 证明：将上一节的定积分法则六（最大值最小值不等式）两边同时除以 $b-a$ 得到
-$$\text{min }f\leq\frac{1}{b-a}\int_a^bf(x)dx\leq\text{max }f$$
+$$\minf\leq\frac{1}{b-a}\int_a^bf(x)dx\leq\maxf$$
 由于 $f$ 是连续的，连续函数的中间值定理告诉我们 $f$ 的所有值都必须在最大值和最小值之间，那么存在点 $c\in [a,b]$ 的值恰好是 $\frac{1}{b-a}\int_a^bf(x)dx$。  
 ![](040.010.png)  
 连续是必要条件。如下图所示。如果 $f$ 不是连续的，可能不存在一点的函数值等于均值。  

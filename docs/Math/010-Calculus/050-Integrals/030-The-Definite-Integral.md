@@ -49,7 +49,7 @@ $$\begin{aligned}
 \int_a^bkf(x)dx&=k\int_a^bf(x)dx\\
 \int_a^b(f(x)\pm g(x))dx&=\int_a^bf(x)dx\pm \int_a^bg(x)dx\\
 \int_a^bf(x)dx+\int_b^cf(x)dx&=\int_a^cf(x)dx\\
-(\text{min } f)(b-a)&\leq \int_a^bf(x)dx\leq (\text{max }f)(b-a)\\
+(\min f)(b-a)&\leq \int_a^bf(x)dx\leq (\max f)(b-a)\\
 \int_a^bf(x)dx&\geq\int_a^bg(x)dx \text{ , if } f(x)\geq g(x)\\
 \int_a^bf(x)dx&\geq 0 \text{ , if }f(x)\geq 0
 \end{aligned}$$
@@ -58,15 +58,15 @@ $$\begin{aligned}
 
 证明法则六：规则六是说，$f$ 在 $[a,b]$ 上的积分不会小于最小值乘以区间长度，不会大于最大值乘以区间长度。在 $[a,b]$ 上的任意分区任意选取 $c_k$ 都有
 $$\begin{aligned}
-(\text{min } f)(b-a)&\leq (\text{min } f)\sum_{k=1}^n\Delta x_k\\
-&=\sum_{k=1}^n (\text{min } f) \Delta x_k\\
+(\min f)(b-a)&\leq (\min f)\sum_{k=1}^n\Delta x_k\\
+&=\sum_{k=1}^n (\min f) \Delta x_k\\
 &\leq\sum_{k=1}^n f(c_k)\Delta x_k\\
-&\leq\sum_{k=1}^n (\text{max } f) \Delta x_k\\
-&=(\text{max } f)\sum_{k=1}^n\Delta x_k\\
-&=(\text{max } f)(b-a)
+&\leq\sum_{k=1}^n (\max f) \Delta x_k\\
+&=(\max f)\sum_{k=1}^n\Delta x_k\\
+&=(\max f)(b-a)
 \end{aligned}$$
 也就是说，所有的黎曼和都满足不等式
-$$(\text{min } f)(b-a)\leq \sum_{k=1}^n f(c_k)\Delta x_k\leq (\text{max } f)(b-a)$$
+$$(\min f)(b-a)\leq \sum_{k=1}^n f(c_k)\Delta x_k\leq (\max f)(b-a)$$
 因此，黎曼和的极限，即定积分，也满足这个不等式。
 
 例2 假设
