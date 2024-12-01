@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
@@ -10325,6 +10325,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何计算球坐标系积分
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19818,6 +19827,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何计算球坐标系积分
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -19943,6 +19961,117 @@ M&=\int_0^{2\pi}\int_0^2\int_0^{r^2}dzrdrd\theta\\
 <script type="math/tex; mode=display">\bar{z}=\frac{M_{xy}}{M}=\frac{32\pi}{3}\frac{1}{8\pi}=\frac{4}{3}</script>
 注意，这个形心在 <script type="math/tex">z</script> 轴上，在物体之外。</p>
 <h3 id="_3">球坐标系和积分</h3>
+<p>球坐标系的点用两个角度和一个长度表示。第一个坐标，<script type="math/tex">\rho=|\overrightarrow{OP}|</script>，是点距离原点的距离，不会是负值。第二个坐标，<script type="math/tex">\phi</script>，是 <script type="math/tex">\overrightarrow{OP}</script> 与 <script type="math/tex">z</script> 的正半轴的夹角，位于区间 <script type="math/tex">[0,\pi]</script>。第三个坐标是 <script type="math/tex">\theta</script>，与柱坐标系含义一致。</p>
+<p><img alt="" src="../070.090.png" /></p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>球坐标系（<code>spherical coordinates</code>）使用有序三元组 <script type="math/tex">\rho,\phi,\theta</script> 表示空间中的点 <script type="math/tex">P</script>，且有</p>
+<ol>
+<li>
+<script type="math/tex">\rho</script> 是点 <script type="math/tex">P</script> 到原点的距离，<script type="math/tex">\rho\geq 0</script>。</li>
+<li>
+<script type="math/tex">\phi</script> 是 <script type="math/tex">\overrightarrow{OP}</script> 与 <script type="math/tex">z</script> 正半轴的夹角，<script type="math/tex">0\leq\phi\leq\pi</script>。</li>
+<li>
+<script type="math/tex">\theta</script> 来自柱坐标系的角。</li>
+</ol>
+</blockquote>
+<p>
+<script type="math/tex">\rho=a</script> 描述的是半径为 <script type="math/tex">a</script> 球心位于原点的球。<script type="math/tex">\phi=\phi_0</script> 描述的是顶点位于原点与 <script type="math/tex">z</script> 夹角为 <script type="math/tex">\phi_0</script> 的圆锥。<script type="math/tex">\phi=\pi/2</script> 表示 <script type="math/tex">xy</script> 平面。如果 <script type="math/tex">\phi_0</script> 大于 <script type="math/tex">\pi/2</script>，圆锥 <script type="math/tex">\phi=\phi_0</script> 朝下。<script type="math/tex">\theta=\theta_0</script> 是包含 <script type="math/tex">z</script> 的半个平面，角 <script type="math/tex">\theta_0</script> 是与 <script type="math/tex">x</script> 正半轴的夹角。</p>
+<p><img alt="" src="../070.100.png" /></p>
+<p><strong>球坐标系与笛卡尔坐标系和柱坐标系的关系</strong></p>
+<blockquote>
+<p>
+<script type="math/tex; mode=display">r=\rho\sin\phi,x=r\cos\theta=\rho\sin\phi\cos\phi,y=r\sin\theta=\rho\sin\phi\sin\phi</script>
+<script type="math/tex; mode=display">z=\rho\cos\phi</script>
+<script type="math/tex; mode=display">\rho=\sqrt{x^2+y^2+z^2}=\sqrt{r^2+z^2}</script>
+</p>
+</blockquote>
+<p>例3 求球 <script type="math/tex">x^2+y^2+(z-1)^2=1</script> 在球坐标系下的方程。</p>
+<p>解：使用上面的公式，代入 <script type="math/tex">x,y,z</script> 有
+<script type="math/tex; mode=display">\begin{aligned}
+x^2+y^2+(z-1)^2&=1\\
+\rho^2\sin^2\phi\cos^2\theta+\rho^2\sin^2\phi\sin^2\theta+(\rho\cos\phi-1)^2&=1\\
+\rho^2\sin^2\phi(\cos^2\theta+\sin^2\theta)+\rho^2\cos^2\phi-2\rho\cos\phi+1&=1\\
+\rho^2(\sin^2\phi+\cos^2\phi)&=2\rho\cos\phi\\
+\rho^2&=2\rho\cos\phi\\
+\rho&=2\cos\phi
+\end{aligned}</script>
+</p>
+<p>角 <script type="math/tex">\phi</script> 从 0 到 <script type="math/tex">\pi/2</script>。角 <script type="math/tex">\theta</script> 没有出现在 <script type="math/tex">\rho</script> 的表达式中，反映了关于 <script type="math/tex">z</script> 的对称性。</p>
+<p><img alt="" src="../070.110.png" /></p>
+<p>例4 求圆锥 <script type="math/tex">z=\sqrt{x^2+y^2}</script> 在球坐标系下的方程。</p>
+<p>解：使用几何法。圆锥关于 <script type="math/tex">z</script> 轴对称，与 <script type="math/tex">yz</script> 平面的第一象限的交线是 <script type="math/tex">z=y</script>，因此圆锥与 <script type="math/tex">z</script> 的正半轴的夹角是 <script type="math/tex">\pi/4</script>。因此 <script type="math/tex">\phi=\pi/4</script>。</p>
+<p><img alt="" src="../070.120.png" /></p>
+<p>使用代数法。使用 <script type="math/tex">\rho,\phi</script> 的关系代入 <script type="math/tex">x,y,z</script> 得到
+<script type="math/tex; mode=display">\begin{aligned}
+z&=\sqrt{x^2+y^2}\\
+\rho\cos\phi&=\sqrt{\rho^2\sin^2\phi}\\
+\rho\cos\phi&=\rho\sin\phi\\
+\cos\phi&=\sin\phi\\
+\phi&=\frac{\pi}{4}
+\end{aligned}</script>
+</p>
+<p>当我们计算球坐标系下对区域 <script type="math/tex">D</script> 的积分时，把这个区域分割成 <script type="math/tex">n</script> 个部分。包含点 <script type="math/tex">(\rho_k,\phi_k,\theta_k)</script> 的第 <script type="math/tex">k</script> 个球状楔形的体积是由 <script type="math/tex">\rho,\phi,\theta</script> 的变化 <script type="math/tex">\Delta\rho_k,\Delta\phi_k,\Delta\theta_k</script> 决定的。这个楔形的一条边的长度是 <script type="math/tex">\rho_k\Delta\phi_k</script>，另一条边的长度是 <script type="math/tex">\rho_k\sin\phi_k\Delta\theta_k</script>，厚度是 <script type="math/tex">\Delta\rho_k</script>。当 <script type="math/tex">\Delta\rho_k,\Delta\phi_k,\Delta\theta_k</script> 很小的时候，球状楔形近似是一个立方体，因此体积是 <script type="math/tex">\Delta V_k=\rho_k^2\sin\phi_k\Delta\rho_k,\Delta\phi_k,\Delta\theta_k</script>。</p>
+<p><img alt="" src="../070.130.png" /></p>
+<p>对 <script type="math/tex">f(\rho,\phi,\theta)</script> 的黎曼和是
+<script type="math/tex; mode=display">S_n=\sum_{k=1}^nf(\rho_k,\phi_k,\theta_k)\rho_k^2\sin\phi_k\Delta\rho_k,\Delta\phi_k,\Delta\theta_k</script>
+随着分区的模趋于零，球状楔形越来越小，当 <script type="math/tex">f</script> 连续是黎曼和存在极限。
+<script type="math/tex; mode=display">\lim_{n\to\infty}S_n=\iiint_Df(\rho,\phi,\theta)dV=\iiint_Df(\rho,\phi,\theta)\rho^2\sin\phi d\rho d\phi d\theta</script>
+为了求球坐标系下的积分，通常先对 <script type="math/tex">\rho</script> 积分。我们会将积分局限在物体由平面关于 <script type="math/tex">z</script> 旋转而来，因此 <script type="math/tex">\theta,\phi</script> 积分范围是厂里。和柱坐标系一致，对 <script type="math/tex">\theta</script> 的限制是 <script type="math/tex">\alpha\leq\theta,0\leq\beta-\alpha\leq 2\pi</script>。</p>
+<h3 id="_4">如何计算球坐标系积分</h3>
+<p>为了求解积分
+<script type="math/tex; mode=display">\iiint_Df(\rho,\phi,\theta)dV</script>
+通常先对 <script type="math/tex">\rho</script> 积分，接着对 <script type="math/tex">\phi</script> 积分，最后对 <script type="math/tex">\theta</script> 积分。</p>
+<ol>
+<li>草图。画出 <script type="math/tex">D</script> 及其在 <script type="math/tex">xy</script> 平面 <script type="math/tex">R</script> 的投影。标记 <script type="math/tex">D</script> 和 <script type="math/tex">R</script> 的边界。</li>
+</ol>
+<p><img alt="" src="../070.141.png" /></p>
+<ol>
+<li>求 <script type="math/tex">\rho</script> 的积分范围。画一条起点是原点的射线 <script type="math/tex">M</script> 穿过 <script type="math/tex">D</script>，与 <script type="math/tex">z</script> 正半轴夹角是 <script type="math/tex">\phi</script>。画出 <script type="math/tex">M</script> 在 <script type="math/tex">xy</script> 平面的投影 <script type="math/tex">L</script>。射线 <script type="math/tex">L</script> 与 <script type="math/tex">x</script> 的正半轴夹角是 <script type="math/tex">\theta</script>。随着 <script type="math/tex">\rho</script> 的增加，<script type="math/tex">M</script> 进入 <script type="math/tex">D</script> 时 <script type="math/tex">\rho=g_1(\phi,\theta)</script>，离开时 <script type="math/tex">\rho=g_2(\phi,\theta)</script>。</li>
+</ol>
+<p><img alt="" src="../070.142.png" /></p>
+<ol>
+<li>求 <script type="math/tex">\phi</script> 的积分范围。对于任意给定 <script type="math/tex">\theta</script>，<script type="math/tex">M</script> 与 <script type="math/tex">z</script> 的夹角 <script type="math/tex">\phi</script> 的变化范围是从 <script type="math/tex">\phi_{\min}</script> 到 <script type="math/tex">\phi_{\max}</script>。</li>
+<li>求 <script type="math/tex">\theta</script> 的积分范围。随着 <script type="math/tex">\theta</script> 从 <script type="math/tex">\alpha</script> 到 <script type="math/tex">\beta</script>，<script type="math/tex">L</script> 扫过 <script type="math/tex">R</script>。</li>
+</ol>
+<p>因此积分是
+<script type="math/tex; mode=display">\iiint_Df(\rho,\phi,\theta)dV=\int_{\theta=\alpha}^{\theta=\beta}\int_{\phi=\phi_{\min}}^{\phi_{\max}}\int_{\rho=g_1(\phi,\theta)}^{\rho=g_2(\phi,\theta)}f(\rho,\phi,\theta)\rho^2\sin\phi d\rho d\phi d\theta</script>
+</p>
+<p>例5 求从球 <script type="math/tex">\rho\leq 1</script> 到圆锥 <script type="math/tex">\phi=\pi/3</script> 的类似冰淇淋圆锥 <script type="math/tex">D</script> 的体积。</p>
+<p>解：体积是在 <script type="math/tex">D</script> 上的积分 <script type="math/tex">V=\iiint_D\rho^2\sin\phi d\rho d\phi d\theta</script>。</p>
+<p>下面是 <script type="math/tex">D</script> 及其在 <script type="math/tex">xy</script> 平面上的投影 <script type="math/tex">R</script> 的草图。</p>
+<p><img alt="" src="../070.150.png" /></p>
+<p>
+<script type="math/tex">\rho</script> 的范围是从 0 到 1。圆锥 <script type="math/tex">\phi=\pi/3</script> 给出了 <script type="math/tex">\phi</script> 的最大值，因为 <script type="math/tex">\phi</script> 的范围是 0 到 <script type="math/tex">\pi/3</script>。<script type="math/tex">\theta</script> 的范围是从 0 到 <script type="math/tex">2\pi</script>。</p>
+<p>因此积分是
+<script type="math/tex; mode=display">\begin{aligned}
+V&=\iiint_D\rho^2\sin\phi d\rho d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\int_0^1\rho^2\sin\phi d\rho d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\frac{\rho^3}{3}\bigg|_0^1\sin\phi d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\frac{1}{3}\sin\phi d\phi d\theta\\
+&=\int_0^{2\pi}-\frac{1}{3}\cos\phi\bigg|_0^{\pi/3} d\theta\\
+&=\int_0^{2\pi}\bigg(-\frac{1}{6}+\frac{1}{3}\bigg) d\theta\\
+&=\frac{1}{6}(2\pi)
+&=\frac{\pi}{3}
+\end{aligned}</script>
+</p>
+<p>例6 求例 5 中关于 <script type="math/tex">z</script> 轴的转动惯量。</p>
+<p>解：对于直角坐标系，转动惯量是
+<script type="math/tex; mode=display">I_z=\iiint_D(x^2+y^2)dV</script>
+在球坐标系中，<script type="math/tex">x^2+y^2=r^2=\rho^2\sin^2\phi</script>。因此
+<script type="math/tex; mode=display">I_z=\iiint_D(\rho^2\sin^2\phi)\rho^2\sin\phi d\rho d\phi d\theta=\iiint_D\rho^4\sin^3\phi d\rho d\phi d\theta</script>
+代入例 5 中的积分范围有
+<script type="math/tex; mode=display">\begin{aligned}
+I_z&=\int_0^{2\pi}\int_0^{\pi/3}\int_0^1\rho^4\sin^3\phi d\rho d\phi d\theta\\
+&=\int_0^{2\pi}\int_0^{\pi/3}\frac{\rho^5}{5}\bigg|_0^1\sin^3\phi d\phi d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\int_0^{\pi/3}(1-\cos^2\phi)\sin\phi d\phi d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\bigg[-\cos\phi+\frac{\cos^3\phi}{3}\bigg]_0^{\pi/3}d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\bigg(-\frac{1}{2}+1+\frac{1}{24}-\frac{1}{3}\bigg)d\theta\\
+&=\frac{1}{5}\int_0^{2\pi}\frac{5}{24}d\theta\\
+&=\frac{1}{24}(2\pi)\\
+&=\frac{\pi}{2}
+\end{aligned}</script>
+</p>
 
 
 
@@ -19965,7 +20094,7 @@ M&=\int_0^{2\pi}\int_0^2\int_0^{r^2}dzrdrd\theta\\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 29, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2024</span>
   </span>
 
     

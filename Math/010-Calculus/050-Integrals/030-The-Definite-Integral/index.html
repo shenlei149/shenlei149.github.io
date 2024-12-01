@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
@@ -19935,7 +19935,7 @@
 \int_a^bkf(x)dx&=k\int_a^bf(x)dx\\
 \int_a^b(f(x)\pm g(x))dx&=\int_a^bf(x)dx\pm \int_a^bg(x)dx\\
 \int_a^bf(x)dx+\int_b^cf(x)dx&=\int_a^cf(x)dx\\
-(\text{min } f)(b-a)&\leq \int_a^bf(x)dx\leq (\text{max }f)(b-a)\\
+(\min f)(b-a)&\leq \int_a^bf(x)dx\leq (\max f)(b-a)\\
 \int_a^bf(x)dx&\geq\int_a^bg(x)dx \text{ , if } f(x)\geq g(x)\\
 \int_a^bf(x)dx&\geq 0 \text{ , if }f(x)\geq 0
 \end{aligned}</script>
@@ -19943,15 +19943,15 @@
 <img alt="" src="../030.010.png" /></p>
 <p>证明法则六：规则六是说，<script type="math/tex">f</script> 在 <script type="math/tex">[a,b]</script> 上的积分不会小于最小值乘以区间长度，不会大于最大值乘以区间长度。在 <script type="math/tex">[a,b]</script> 上的任意分区任意选取 <script type="math/tex">c_k</script> 都有
 <script type="math/tex; mode=display">\begin{aligned}
-(\text{min } f)(b-a)&\leq (\text{min } f)\sum_{k=1}^n\Delta x_k\\
-&=\sum_{k=1}^n (\text{min } f) \Delta x_k\\
+(\min f)(b-a)&\leq (\min f)\sum_{k=1}^n\Delta x_k\\
+&=\sum_{k=1}^n (\min f) \Delta x_k\\
 &\leq\sum_{k=1}^n f(c_k)\Delta x_k\\
-&\leq\sum_{k=1}^n (\text{max } f) \Delta x_k\\
-&=(\text{max } f)\sum_{k=1}^n\Delta x_k\\
-&=(\text{max } f)(b-a)
+&\leq\sum_{k=1}^n (\max f) \Delta x_k\\
+&=(\max f)\sum_{k=1}^n\Delta x_k\\
+&=(\max f)(b-a)
 \end{aligned}</script>
 也就是说，所有的黎曼和都满足不等式
-<script type="math/tex; mode=display">(\text{min } f)(b-a)\leq \sum_{k=1}^n f(c_k)\Delta x_k\leq (\text{max } f)(b-a)</script>
+<script type="math/tex; mode=display">(\min f)(b-a)\leq \sum_{k=1}^n f(c_k)\Delta x_k\leq (\max f)(b-a)</script>
 因此，黎曼和的极限，即定积分，也满足这个不等式。</p>
 <p>例2 假设
 <script type="math/tex; mode=display">\int_{-1}^1f(x)dx=5,\int_1^4f(x)dx=-2,\int_{-1}^1h(x)dx=7</script>
@@ -20055,7 +20055,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2024</span>
   </span>
 
     

@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
@@ -19755,8 +19755,8 @@
   <h1>120 Square Remainders</h1>
 
 <p><a href="http://projecteuler.net/problem=120" title="Problem 120 - Project Euler">Problem 120</a></p>
-<p>令 <script type="math/tex">r</script> 是 <script type="math/tex">(a-1)^n + (a+1)^n</script> 除以 <script type="math/tex">a^2</script> 的余数。随着 <script type="math/tex">n</script> 的变化，<script type="math/tex">r</script> 也会变化，但是众多 <script type="math/tex">r</script> 一定存在最大值 <script type="math/tex">r_{\text{max}}</script>。</p>
-<p>当 <script type="math/tex">3\leq a\leq 1000</script> 时，求 <script type="math/tex">\sum r_{\text{max}}</script>。</p>
+<p>令 <script type="math/tex">r</script> 是 <script type="math/tex">(a-1)^n + (a+1)^n</script> 除以 <script type="math/tex">a^2</script> 的余数。随着 <script type="math/tex">n</script> 的变化，<script type="math/tex">r</script> 也会变化，但是众多 <script type="math/tex">r</script> 一定存在最大值 <script type="math/tex">r_{\max}</script>。</p>
+<p>当 <script type="math/tex">3\leq a\leq 1000</script> 时，求 <script type="math/tex">\sum r_{\max}</script>。</p>
 <p>给定一个 <script type="math/tex">a，n</script> 取何值时能让 <script type="math/tex">(a-1)^n + (a+1)^n \operatorname{mod} a^2</script> 最大呢？</p>
 <p>首先考虑n是偶数的时候。
 <script type="math/tex; mode=display">(a-1)^n + (a+1)^n  
@@ -19772,7 +19772,7 @@
 <p>想要 <script type="math/tex">2af(n)</script> 模 <script type="math/tex">a^2</script> 余数最大呢，让 <script type="math/tex">2af(n)</script> 越接近 <script type="math/tex">a^2</script> 越好，也就是 <script type="math/tex">2f(n)</script> 越接近 <script type="math/tex">a</script> 越好，但是不能等于 <script type="math/tex">a</script>。</p>
 <p>
 <script type="math/tex">2f(n)</script> 一定是偶数。所以，当 <script type="math/tex">a</script> 是奇数的时候，<script type="math/tex">2f(n)=a-1</script>，当 <script type="math/tex">a</script> 是偶数的时候，<script type="math/tex">2f(n)=a-2</script>。</p>
-<p>有了以上的分析，很容易就能写出获取 <script type="math/tex">r_{\text{max}}</script> 的函数：
+<p>有了以上的分析，很容易就能写出获取 <script type="math/tex">r_{\max}</script> 的函数：
 <div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">GetMaxRByA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
@@ -19813,7 +19813,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2024</span>
   </span>
 
     
