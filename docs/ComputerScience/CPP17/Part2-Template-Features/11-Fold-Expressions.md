@@ -286,5 +286,135 @@ std::unordered_map<Customer, std::string, CustomerHash> map;
 #### Folded Function Calls for Base Classes
 折叠函数调用可以用于更复杂的例子。比如可以用逗号表达式调用可变基类的成员函数。
 ```cpp
+#include <iostream>
 
+// template for variadic number of base classes
+template <typename... Bases>
+class MultiBase : private Bases...
+{
+public:
+    void print()
+    {
+        // call print() of all base classes:
+        (..., Bases::print());
+    }
+};
 
+struct A
+{
+    void print() { std::cout << "A::print()\n"; }
+};
+
+struct B
+{
+    void print() { std::cout << "B::print()\n"; }
+};
+
+struct C
+{
+    void print() { std::cout << "C::print()\n"; }
+};
+
+int main()
+{
+    MultiBase<A, B, C> mb;
+    mb.print();
+}
+```
+下面的模板类使得我们可以用可变个数基类来实例化对象。
+```cpp
+template <typename... Bases>
+class MultiBase : private Bases...
+{
+};
+
+MultiBase<A, B, C> mb;
+```
+下面这一句是折叠表达式，展开成调用各个基类的 `print` 函数。
+```cpp
+// (A::print() , B::print()) , C::print();
+(..., Bases::print());
+```
+
+#### Folded Path Traversals
+下面这个例子是折叠表达式使用运算符 `->*` 来遍历二叉树的一条路径。
+```cpp
+// define binary tree structure and traverse helpers:
+struct Node
+{
+    int value;
+    Node *subLeft{nullptr};
+    Node *subRight{nullptr};
+
+    Node(int i = 0)
+        : value{i}
+    {
+    }
+
+    int getValue() const
+    {
+        return value;
+    }
+
+    // traverse helpers:
+    static constexpr auto left = &Node::subLeft;
+    static constexpr auto right = &Node::subRight;
+    // traverse tree, using fold expression:
+    template <typename T, typename... TP>
+    static Node *traverse(T np, TP... paths)
+    {
+        return (np->*...->*paths); // np ->* paths1 ->* paths2 ...
+    }
+};
+
+#include "foldtraverse.hpp"
+#include <iostream>
+
+int main()
+{
+    // init binary tree structure:
+    Node *root = new Node{0};
+    root->subLeft = new Node{1};
+    root->subLeft->subRight = new Node{2};
+
+    // traverse binary tree:
+    Node *node = Node::traverse(root, Node::left, Node::right);
+    std::cout << node->getValue() << '\n';
+    node = root->*Node::left->*Node::right;
+    std::cout << node->getValue() << '\n';
+    node = root->subLeft->subRight;
+    std::cout << node->getValue() << '\n';
+}
+```
+
+### Using Fold Expressions for Types
+通过类型特征，使用折叠表达式可以处理模板参数包，包含任意个数的类型。比如下面折叠表达式的作用是返回传入的类型是否都相同。
+```cpp
+#include <type_traits>
+
+// check whether passed types are homogeneous:
+template <typename T1, typename... TN>
+struct IsHomogeneous
+{
+    static constexpr bool value = (std::is_same_v<T1, TN> && ...);
+};
+
+// check whether passed arguments have the same type:
+template <typename T1, typename... TN>
+constexpr bool isHomogeneous(T1, TN...)
+{
+    return (std::is_same_v<T1, TN> && ...);
+}
+```
+类型特征的使用示例
+```cpp
+// std::is_same_v<int, MyType> &&std::is_same_v<int, decltype(42)>
+IsHomogeneous<int, Size, decltype(42)>::value;
+```
+模板函数的使用示例。
+```cpp
+// std::is_same_v<int, int> &&std::is_same_v<int, const char *>
+//     &&std::is_same_v<int, std::nullptr_t>
+isHomogeneous(43, -1, "hello", nullptr);
+```
+这里 `&&` 也具备短路特性，只要遇到 `false` 则停止判断。
