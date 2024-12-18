@@ -263,3 +263,190 @@ if (o)
 
 std::cout << o.value(); // OK (throws if no value)
 ```
+
+`operator*` 和 `value()` 返回的是引用，在直接使用返回的临时可选对象是，可能会出问题。比如下面的例子中，`getString()` 返回了可选对象，使用引用会导致访问已经被删除的数组，因为根据引用规则，会延长 `value()` 返回对象的生命周期，但是不会延长 `getString()` 返回对象的生命周期。
+```cpp
+std::optional<std::string> getString();
+
+auto a = getString().value(); // OK: copy of contained object or exception
+
+auto b = *getString();                // ERROR: undefined behavior if std::nullopt
+const auto &r1 = getString().value(); // ERROR: reference to deleted contained object
+auto &&r2 = getString().value();      // ERROR: reference to deleted contained object
+```
+当使用 `for` 循环的时候要小心。因此不要盲目的将一个函数 `foo()` 的返回类型修改成相应的可选类型，使用 `foo().value()`。
+```cpp
+std::optional<std::vector<int>> getVector();
+
+for (int i : getVector().value()) // ERROR: iterate over deleted vector
+{
+    std::cout << i << '\n';
+}
+```
+最后，可以给可选对象传入一个默认值，当可选对象没有值的时候，返回这个默认值。
+```cpp
+std::cout << o.value_or("NO VALUE"); // OK (writes NO VALUE if no value)
+```
+`value()` 和 `value_or()` 有一个重要区别需要注意：前者返回引用而后者返回值。因此下面的使用可能会涉及内存分配，而 `value()` 不会。
+```cpp
+std::cout << middle.value_or("");
+std::cout << o.value_or("fallback");
+```
+不过，当 `value_or()` 作用于临时对象（`rvalue`）时移动对象并按值返回而不是调用拷贝构造。因为左值（`lvalue`）会拷贝构造，因此这可能是唯一适合使用 `value_or()` 的场景了。
+
+上面的代码的高效实现如下。可以看出，`value_or()` 接口更清晰，但是可能更耗时。
+```cpp
+std::cout << o ? o->c_str() : "fallback";
+```
+
+#### Comparisons
+比较操作数可以是可选对象、包含值和 `std::nullopt`。
+
+* 如果都有值，那么使用包含类型的比较运算。
+* 如果都没有值，那么两个对象相等，因此 `==` `>=` `<=` 返回 `true`，其他比较运算符返回 `false`。
+* 如果一个有值有个没有值，没有值的操作数更小。
+
+比如
+```cpp
+std::optional<int> o0;
+std::optional<int> o1{42};
+
+o0 == std::nullopt  // yields true
+o0 == 42            // yields false
+o0 < 42             // yields true
+o0 > 42             // yields false
+o1 == 42            // yields true
+o0 < o1             // yields true
+```
+不过，`unsigned int` `bool` 的可选类型的比较可能会反直觉。
+```cpp
+std::optional<unsigned> uo;
+uo < 0          // yields true
+uo < -42        // yields true
+
+std::optional<bool> bo;
+bo < false      // yields true
+```
+
+可选类型和基础类型的比较也是可以的，前提是包含类型和基础类型支持比较，同时，如果支持隐式转换，会做隐式转换再比较。
+```cpp
+std::optional<int> o1{42};
+std::optional<double> o2{42.0};
+
+o2 == 42    // yields true
+o1 == o2    // yields true
+```
+注意，`bool` 和指针类型的可选类型的比较会比较诡异。
+
+#### Changing the Value
+赋值和 `emplace()` 都可以修改已经存在的值。
+```cpp
+std::optional<std::complex<double>> o; // has no value
+std::optional ox{77};                  // optional<int> with value 77
+o = 42;                                // value becomes complex(42.0, 0.0)
+o = {9.9, 4.4};                        // value becomes complex(9.9, 4.4)
+o = ox;                                // OK, because int converts to complex<double>
+o = std::nullopt;                      // o no longer has a value
+o.emplace(5.5, 7.7);                   // value becomes complex(5.5, 7.7)
+```
+设置为 `std::nullopt` 会移除之前的值，如果之前有值，会调用析构函数。调用 `reset()` 或者赋值空初始化可以达到相同的目的。
+```cpp
+o.reset(); // o no longer has a value
+
+o = {}; // o no longer has a value
+```
+也可以使用 `operator*` 修改值，因为返回的是引用。前提是有值才可以这么做。
+```cpp
+std::optional<std::complex<double>> o;
+*o = 42; // undefined behavior
+
+if (o)
+{
+    *o = 88;         // OK: value becomes complex(88.0, 0.0)
+    *o = {1.2, 3.4}; // OK: value becomes complex(1.2, 3.4)
+}
+```
+
+#### Move Semantics
+`std::optional<>` 也支持移动语义。如果移动整个可选对象，那么状态复制到新的对象，包含的对象是移动到新对象的。也就是说，旧的可选对象状态是对的，但是包含的对象是未指定的状态。我们也可以移入或移出包含的值。
+```cpp
+std::optional<std::string> os;
+std::string s = "a very very very long string";
+os = std::move(s);               // OK, moves
+std::string s2 = *os;            // OK, copies
+std::string s3 = std::move(*os); // OK, moves
+```
+注意，最后一个 `std::move` 之后，`os` 仍旧包含一个字符串，但是这个值是未确定的。可以用，但是不要对其有任何假设。也可以继续给它赋新的值。
+
+一些重载确保临时对象是被移动的。比如下面的例子
+```cpp
+std::optional<std::string> func();
+
+std::string s4 = func().value(); // OK, moves
+std::string s5 = *func();        // OK, moves
+```
+可以这么做的原因是可选对象提供了各种各样的重载。
+```cpp
+namespace std
+{
+    template <typename T>
+    class optional
+    {
+        constexpr T &operator*() &;
+        constexpr const T &operator*() const &;
+        constexpr T &&operator*() &&;
+        constexpr const T &&operator*() const &&;
+        constexpr T &value() &;
+        constexpr const T &value() const &;
+        constexpr T &&value() &&;
+        constexpr const T &&value() const &&;
+    };
+}
+```
+因此我们甚至可以这么做
+```cpp
+std::optional<std::string> os;
+std::string s6 = std::move(os).value(); // OK, moves
+```
+
+#### Hashing
+如果有值，哈希值就是包含值的哈希值，如果没有值，未指定。
+
+## Special Cases
+### Optional of Boolean or Raw Pointer Values
+布尔类型的可选对象比较比较特殊。裸指针也类似。
+```cpp
+std::optional<bool> ob{false}; // has value, which is false
+if (!ob)                       // yields false
+if (ob == false)               // yields true
+
+std::optional<int *> op{nullptr};
+if (!op)                // yields false
+if (op == nullptr)      // yields true
+```
+
+### Optional of Optional
+理论上，可以定义可选对象的可选对象。通过隐式转换，可以直接赋值。
+```cpp
+std::optional<std::optional<std::string>> oos1;
+std::optional<std::optional<std::string>> oos2 = "hello";
+std::optional<std::optional<std::string>>
+    oos3{std::in_place, std::in_place, "hello"};
+std::optional<std::optional<std::complex<double>>>
+    ooc{std::in_place, std::in_place, 4.2, 5.3};
+
+oos1 = "hello"; // OK: assign new value
+ooc.emplace(std::in_place, 7.2, 8.3);
+```
+两层可选对象的两层都有可能没值，但是语义不同。因此需要小心处理。不过两层可选对象，从语义上说，就是两种状态下没有值，还有一种有值的情况。此时，使用两个 `bool` 或 `monostate` 的 `std::variant<>` 更合适。
+```cpp
+*oos1 = std::nullopt; // inner optional has no value
+oos1 = std::nullopt;  // outer optional has no value
+
+if (!oos1)
+    std::cout << "no value\n";
+if (oos1 && !*oos1)
+    std::cout << "no inner value\n";
+if (oos1 && *oos1)
+    std::cout << "value: " << **oos1 << '\n';
+```
