@@ -4352,6 +4352,8 @@
       
         
       
+        
+      
     
     
       
@@ -4405,6 +4407,27 @@
   
   <span class="md-ellipsis">
     15 std optional
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/CPP17/Part3-New-Library-Components/16-std-variant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16 std variant
   </span>
   
 
@@ -10481,6 +10504,15 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       二重积分的替换
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      三重积分的替换
     </span>
   </a>
   
@@ -19984,6 +20016,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      三重积分的替换
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -20032,13 +20073,414 @@
 <p>坐标变换 <script type="math/tex">x=g(u,v),y=h(u,v)</script> 的雅可比行列式（<code>Jacobian determinant</code>），雅可比式（<code>Jacobian</code>）定义是
 <script type="math/tex; mode=display">J(u,v)=\begin{vmatrix}
 \frac{\partial x}{\partial u}&\frac{\partial x}{\partial v}\\
-\frac{\partial y}{\partial u}&\frac{\partial y}{\partial v}\\
+\frac{\partial y}{\partial u}&\frac{\partial y}{\partial v}
 \end{vmatrix}=\frac{\partial x}{\partial u}\frac{\partial y}{\partial v}-\frac{\partial y}{\partial u}\frac{\partial x}{\partial v}\tag{1}</script>
 </p>
 </blockquote>
 <p>雅可比式还可以表示为
 <script type="math/tex; mode=display">J(u,v)=\frac{\partial(x,y)}{\partial(u,v)}</script>
-公式 <script type="math/tex">(1)</script> 中</p>
+公式 <script type="math/tex">(1)</script> 中 <script type="math/tex">J</script> 的行为与一元变量中 <script type="math/tex">g'</script> 是类似的。雅可比式描述的是点 <script type="math/tex">(u,v)</script> 在区域中变换的程序。<script type="math/tex">|J|</script> 描述的是将 <script type="math/tex">G</script> 中 <script type="math/tex">dudv</script> 的面积转换成 <script type="math/tex">R</script> 中相应的 <script type="math/tex">dxdy</script> 的面积。一般情况下，<script type="math/tex">|J|</script> 依赖于 <script type="math/tex">G</script> 中的点 <script type="math/tex">(u,v)</script>，即变换随着 <script type="math/tex">(u,v)</script> 在 <script type="math/tex">G</script> 内变化而变化。</p>
+<p>下面回到最开始的问题，回答 <script type="math/tex">R</script> 上 <script type="math/tex">f(x,y)</script> 的积分 与 <script type="math/tex">G 上 </script>f(g(u,v),h(u,v))$ 的积分的关系。</p>
+<p><strong>定理 3 二重积分的换元法</strong></p>
+<blockquote>
+<p>假定 <script type="math/tex">f(x,y)</script> 在 <script type="math/tex">R</script> 上是连续的。令 <script type="math/tex">G</script> 是 <script type="math/tex">R</script> 的原像，变换函数是 <script type="math/tex">x=g(u,v),y=h(u,v)</script>，这是一个一对一映射。如果函数 <script type="math/tex">g,h</script> 在 <script type="math/tex">G</script> 内有连续一节偏微分，那么
+<script type="math/tex; mode=display">\iint_Rf(x,y)dxdy=\iint_Gf(g(u,v),h(u,v))\bigg|\frac{\partial(x,y)}{\partial(u,v)}\bigg|dudv\tag{2}</script>
+</p>
+</blockquote>
+<p>公式 <script type="math/tex">(2)</script> 的推导属于高级微积分的范围，这里忽略。</p>
+<p>例1 求极坐标变换 <script type="math/tex">x=r\cos\theta,y=r\sin\theta</script> 的雅可比式，使用公式 <script type="math/tex">(2)</script> 表示笛卡尔坐标系下的积分
+<script type="math/tex; mode=display">\iint_Rf(x,y)dxdy</script>
+解：如下图所示。函数 <script type="math/tex">x=r\cos\theta,y=r\sin\theta</script> 将 <script type="math/tex">G</script> 中的区域 <script type="math/tex">0\leq r\leq 1,0\leq\theta\leq\pi/2</script> 变换成了 <script type="math/tex">R</script> 上 <script type="math/tex">x^2+y^2=1</script> 在第一象限的区域。</p>
+<p><img alt="" src="../080.020.png" /></p>
+<p>雅可比式是
+<script type="math/tex; mode=display">J(r,\theta)=\begin{vmatrix}
+\frac{\partial x}{\partial r}&\frac{\partial x}{\partial\theta}\\
+\frac{\partial y}{\partial r}&\frac{\partial y}{\partial\theta}
+\end{vmatrix}=\begin{vmatrix}
+\cos\theta&-r\sin\theta\\
+\sin\theta&r\cos\theta
+\end{vmatrix}=r(\cos^2\theta+\sin^2\theta)=r</script>
+在极坐标中，有 <script type="math/tex">r\geq 0</script>，因此 <script type="math/tex">|J(r,\theta)|=|r|=r</script>，那么根据公式 <script type="math/tex">(2)</script> 有
+<script type="math/tex; mode=display">\iint_Rf(x,y)dxdy=\iint_Gf(r\cos\theta,r\sin\theta)rdrd\theta\tag{3}</script>
+这与 14.4 小节推导结果一致。</p>
+<p>下面的例子是一个矩形变形成了梯形。这种变换称为线性变换（<code>linear transformation</code>），并且雅可比式在 <script type="math/tex">G</script> 上不变，是常量。</p>
+<p>例2 通过变换
+<script type="math/tex; mode=display">u=\frac{2x-y}{2},v=\frac{y}{2}\tag{4}</script>
+计算
+<script type="math/tex; mode=display">\int_0^4\int_{x=y/2}^{x=(y/2)+1}\frac{2x-y}{2}dxdy</script>
+解：如下图右边所示，描述了 <script type="math/tex">xy</script> 平面上 <script type="math/tex">R</script> 的边界。</p>
+<p><img alt="" src="../080.030.png" /></p>
+<p>为了使用公式 <script type="math/tex">(2)</script>，需要找到 <script type="math/tex">uv</script> 平面上 <script type="math/tex">G</script> 的区域和雅可比式。首先利用 <script type="math/tex">(4)</script> 来使用 <script type="math/tex">u,v</script> 表示 <script type="math/tex">x,y</script>。
+<script type="math/tex; mode=display">x=u+v,y=2v</script>
+下面的表格描述的是 <script type="math/tex">G</script> 的边界。</p>
+<table>
+<thead>
+<tr>
+<th>
+<script type="math/tex">R</script> 的边界</th>
+<th>相应的 <script type="math/tex">G</script> 上 <script type="math/tex">uv</script> 的边界</th>
+<th>简化 <script type="math/tex">uv</script>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<script type="math/tex">x=y/2</script>
+</td>
+<td>
+<script type="math/tex">u+v=2v/2=v</script>
+</td>
+<td>
+<script type="math/tex">u=0</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">x=(y/2)+1</script>
+</td>
+<td>
+<script type="math/tex">u+v=2v/2+1=v+1</script>
+</td>
+<td>
+<script type="math/tex">u=1</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">y=0</script>
+</td>
+<td>
+<script type="math/tex">2v=0</script>
+</td>
+<td>
+<script type="math/tex">v=0</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">y=4</script>
+</td>
+<td>
+<script type="math/tex">2v=4</script>
+</td>
+<td>
+<script type="math/tex">v=2</script>
+</td>
+</tr>
+</tbody>
+</table>
+<p>雅可比式是
+<script type="math/tex; mode=display">J(u,v)=\begin{vmatrix}
+\frac{\partial x}{\partial u}&\frac{\partial x}{\partial v}\\
+\frac{\partial y}{\partial u}&\frac{\partial y}{\partial v}
+\end{vmatrix}=\begin{vmatrix}
+\frac{\partial}{\partial u}(u+v)&\frac{\partial}{\partial v}(u+v)\\
+\frac{\partial}{\partial u}(2v)&\frac{\partial}{\partial v}(2v)
+\end{vmatrix}=\begin{vmatrix}
+1&1\\
+0&2
+\end{vmatrix}=2</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+\int_0^4\int_{x=y/2}^{x=(y/2)+1}\frac{2x-y}{2}dxdy&=\int_{v=0}^{v=2}\int_{u=0}^{u=1}u|J(u,v)|dudv\\
+&\int_0^2\int_0^22ududv\\
+&=\int_0^2 u^2\bigg|_0^2dv\\
+&=\int_0^2dv\\
+&=2
+\end{aligned}</script>
+</p>
+<p>例3 求
+<script type="math/tex; mode=display">\int_0^2\int_0^{1-x}\sqrt{x+y}(y-2x)^2dydx</script>
+解：如下图所示，给出了 <script type="math/tex">xy</script> 平面上 <script type="math/tex">R</script> 的边界。</p>
+<p><img alt="" src="../080.040.png" /></p>
+<p>从积分式可以尝试变换 <script type="math/tex">u=x+y,v=y-2x</script>，得到
+<script type="math/tex; mode=display">x=\frac{u}{3}-\frac{v}{3},y=\frac{2u}{3}-\frac{v}{3}\tag{6}</script>
+从上面式子可以得到 <script type="math/tex">G</script> 在 <script type="math/tex">uv</script> 平面的边界。</p>
+<table>
+<thead>
+<tr>
+<th>
+<script type="math/tex">R</script> 的边界</th>
+<th>相应的 <script type="math/tex">G</script> 上 <script type="math/tex">uv</script> 的边界</th>
+<th>简化 <script type="math/tex">uv</script>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<script type="math/tex">x+y=1</script>
+</td>
+<td>
+<script type="math/tex">(\frac{u}{3}-\frac{v}{3})+(\frac{2u}{3}+\frac{v}{3})=1</script>
+</td>
+<td>
+<script type="math/tex">u=1</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">x=0</script>
+</td>
+<td>
+<script type="math/tex">\frac{u}{3}-\frac{v}{3}=0</script>
+</td>
+<td>
+<script type="math/tex">v=u</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">y=0</script>
+</td>
+<td>
+<script type="math/tex">\frac{2u}{3}-\frac{v}{3}=0</script>
+</td>
+<td>
+<script type="math/tex">v=-2u</script>
+</td>
+</tr>
+</tbody>
+</table>
+<p>雅可比式是
+<script type="math/tex; mode=display">J(u,v)=\begin{vmatrix}
+\frac{\partial x}{\partial u}&\frac{\partial x}{\partial v}\\
+\frac{\partial y}{\partial u}&\frac{\partial y}{\partial v}
+\end{vmatrix}=\begin{vmatrix}
+\frac{1}{3}&-\frac{1}{3}\\
+\frac{2}{3}&\frac{1}{3}
+\end{vmatrix}=\frac{1}{3}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+\int_0^2\int_0^{1-x}\sqrt{x+y}(y-2x)^2dydx&=\int_{u=0}^{u=1}\int_{v=-2u}^{v=u}u^{1/2}v^2|J(u,v)|dvdu\\
+&=\int_0^1\int_{-2u}^uu^{1/2}v^2(\frac{1}{3})dvdu\\
+&=\frac{1}{3}\int_0^1u^{1/2}\frac{1}{3}v^3\bigg|_{v=-2u}^{v=u}du\\
+&=\frac{1}{9}\int_0^1u^{1/2}(u^3+8u^3)du\\
+&=\int_0^1u^{7/2}du\\
+&=\frac{2}{9}u^{9/2}\bigg|_0^1\\
+&=\frac{2}{9}
+\end{aligned}</script>
+</p>
+<p>下个例子简化积分式而得到的非线性变换。和极坐标转换一样，非线性变换将直线边界映射到曲线边界，或者相反。一般地，非线性变化比线性变换更复杂，完整的讨论在高等微积分中。</p>
+<p>例4 求积分
+<script type="math/tex; mode=display">\int_1^2\int_{1/y}^y\sqrt{\frac{y}{x}}e^{\sqrt{xy}}dxdy</script>
+解：根据积分式中的平方可以尝试替换 <script type="math/tex">u=\sqrt{xy},v=\sqrt{y/x}</script>。两个式子两边平方得到 <script type="math/tex">u^2=xy,v^2=y/x</script>，因此有 <script type="math/tex">u^2v^2=x^2,u^2/v^2=x^2</script>，那么
+<script type="math/tex; mode=display">x=\frac{u}{v},y=uv</script>
+其中 <script type="math/tex">u>0,v>0</script>。雅可比式是
+<script type="math/tex; mode=display">J(u,v)=\begin{vmatrix}
+\frac{\partial x}{\partial u}&\frac{\partial x}{\partial v}\\
+\frac{\partial y}{\partial u}&\frac{\partial y}{\partial v}
+\end{vmatrix}=\begin{vmatrix}
+\frac{1}{v}&\frac{-u}{v^2}\\
+v&u
+\end{vmatrix}=\frac{2u}{v}</script>
+此时不再是常量。</p>
+<p>如果 <script type="math/tex">G</script> 是 <script type="math/tex">uv</script> 平面的区域，根据公式 <script type="math/tex">(2)</script> 有
+<script type="math/tex; mode=display">\iint_R\sqrt{\frac{y}{x}}e^{\sqrt{xy}}dxdy=\iint_Rve^u\frac{2u}{v}dudv=\iint_G2ue^ududv</script>
+这个积分比原始积分要容易，所以现在确定积分范围。</p>
+<p>原始积分的区域 <script type="math/tex">R</script> 在 <script type="math/tex">xy</script> 平面上图形如下图所示。</p>
+<p><img alt="" src="../080.051.png" /></p>
+<p>
+<script type="math/tex">xy=1</script> 可以得到 <script type="math/tex">u=1,1\leq v\leq 2</script>，<script type="math/tex">y=x</script> 可以得到 <script type="math/tex">v=1,1\leq u\leq 2</script>，<script type="math/tex">y=2</script> 可以得到 <script type="math/tex">y=2</script> 可以得到 <script type="math/tex">uv=2,1\leq v\leq 2</script>。上述过程的边界是逆时针顺序，因此在 <script type="math/tex">G</script> 中的顺序也是逆时针，如下图所示。</p>
+<p><img alt="" src="../080.052.png" /></p>
+<p>知道了 <script type="math/tex">G</script> 在 <script type="math/tex">uv</script> 平面的范围，因此可以得到积分
+<script type="math/tex; mode=display">\int_1^2\int_{1/y}^y\sqrt{\frac{y}{x}}e^{\sqrt{xy}}dxdy=\int_1^2\int_1^{2/u}2ue^udvdu</script>
+因此
+<script type="math/tex; mode=display">\begin{aligned}
+\int_1^2\int_1^{2/u}2ue^udvdu&=2\int_1^2[vue^u]_{v=1}^{v=2/u}du\\
+&=2\int_1^2(2e^u-ue^u)du\\
+&=2\int_1^2(2-u)e^2du\\
+&=2\bigg[(2-u)e^2+e^2\bigg]_1^2&&&\text{分部积分}\\
+&=2(e^2-(e+e))\\
+&=2e(e-2)
+\end{aligned}</script>
+</p>
+<h3 id="_2">三重积分的替换</h3>
+<p>14.7 节中圆柱坐标系和球坐标系替换是三重积分替换的特例。</p>
+<p>假设 <script type="math/tex">uvw</script> 平面上的区域 <script type="math/tex">G</script> 到 <script type="math/tex">xyz</script> 平面上的区域 <script type="math/tex">D</script> 的一对一变换是
+<script type="math/tex; mode=display">x=g(u,v,w),y=h(u,v,w),z=k(u,v,w)</script>
+</p>
+<p><img alt="" src="../080.060.png" /></p>
+<p>那么 <script type="math/tex">D</script> 上的任意函数 <script type="math/tex">F(x,y,z)</script> 可以看作是 <script type="math/tex">G</script> 上的函数
+<script type="math/tex; mode=display">F(g(u,v,w),h(u,v,w),k(u,v,w))=H(u,v,w)</script>
+如果 <script type="math/tex">g,h,k</script> 有连续的一阶偏微分，那么 <script type="math/tex">F(x,y,z)</script> 在 <script type="math/tex">D</script> 上的积分与 <script type="math/tex">H(u,v,w)</script> 在 <script type="math/tex">G</script> 上的积分关系是
+<script type="math/tex; mode=display">\iiint_DF(x,y,z)dxdydz=\iiint_GH(u,v,w)|J(u,v,w)|dudvdw\tag{7}</script>
+其中因子 <script type="math/tex">J(u,v,w)</script> 是雅可比行列式
+<script type="math/tex; mode=display">J(u,v,w)=\begin{vmatrix}
+\frac{\partial x}{\partial u}&\frac{\partial x}{\partial v}&\frac{\partial x}{\partial w}\\
+\frac{\partial y}{\partial u}&\frac{\partial y}{\partial v}&\frac{\partial y}{\partial w}\\
+\frac{\partial z}{\partial u}&\frac{\partial z}{\partial v}&\frac{\partial z}{\partial w}
+\end{vmatrix}=\frac{\partial(x,y,z)}{\partial(u,v,w)}</script>
+这个行列式表示从 <script type="math/tex">(u,v,w)</script> 到 <script type="math/tex">(x,y,z)</script> 变换时 <script type="math/tex">G</script> 中某点附近的体积是如何变化的。和二重积分一样，公式 <script type="math/tex">(7)</script> 的推导忽略。</p>
+<p>对于柱坐标系，用 <script type="math/tex">r,\theta,z</script> 替代这里的 <script type="math/tex">u,v,w</script>。从 <script type="math/tex">r\theta z</script> 空间到 <script type="math/tex">xyz</script> 空间的变换方程是
+<script type="math/tex; mode=display">x=r\cos\theta,y=r\sin\theta,z=z</script>
+</p>
+<p><img alt="" src="../080.070.png" /></p>
+<p>变换的雅可比式是
+<script type="math/tex; mode=display">\begin{aligned}
+J(r,\theta,z)&=\begin{vmatrix}
+\frac{\partial x}{\partial r}&\frac{\partial x}{\partial \theta}&\frac{\partial x}{\partial z}\\
+\frac{\partial y}{\partial r}&\frac{\partial y}{\partial \theta}&\frac{\partial y}{\partial z}\\
+\frac{\partial z}{\partial r}&\frac{\partial z}{\partial \theta}&\frac{\partial z}{\partial z}
+\end{vmatrix}\\
+&=\begin{vmatrix}
+\cos\theta&-r\sin\theta&0\\
+\sin\theta&r\cos\theta&0\\
+0&0&1
+\end{vmatrix}\\
+&=r\cos^2\theta+r\sin^2\theta\\
+&=r
+\end{aligned}</script>
+根据公式 <script type="math/tex">(7)</script> 可以得到
+<script type="math/tex; mode=display">\iiint_DF(x,y,z)dxdydz=\iiint_GH(r,\theta,z)|r|drd\theta dz</script>
+由于 <script type="math/tex">r\geq 0</script>，可以省略上面式子中的绝对值。</p>
+<p>对于球坐标系，用 <script type="math/tex">\rho,\phi,\theta</script> 替代这里的 <script type="math/tex">u,v,w</script>。从 <script type="math/tex">\rho\phi\theta</script> 平面到 <script type="math/tex">xyz</script> 平面的变换是
+<script type="math/tex; mode=display">x=\rho\sin\phi\cos\theta,y=\rho\sin\phi\sin\theta,z=\rho\cos\phi</script>
+</p>
+<p><img alt="" src="../080.080.png" /></p>
+<p>雅可比行列式是
+<script type="math/tex; mode=display">\begin{aligned}
+J(\rho,\phi,\theta)&=\begin{vmatrix}
+\frac{\partial x}{\partial\rho}&\frac{\partial x}{\partial\phi}&\frac{\partial x}{\partial\theta}\\
+\frac{\partial y}{\partial\rho}&\frac{\partial y}{\partial\phi}&\frac{\partial y}{\partial\theta}\\
+\frac{\partial z}{\partial\rho}&\frac{\partial z}{\partial\phi}&\frac{\partial z}{\partial\theta}
+\end{vmatrix}\\
+&=\begin{vmatrix}
+\sin\phi\cos\theta&\rho\cos\phi\cos\theta&-\rho\sin\phi\sin\theta\\
+\sin\phi\sin\theta&\rho\cos\phi\sin\theta&\rho\sin\phi\cos\theta\\
+\cos\phi&-\rho\sin\phi&0
+\end{vmatrix}\\
+&=\rho^2\cos\phi\begin{vmatrix}
+\cos\phi\cos\theta&-\sin\phi\sin\theta\\
+\cos\phi\sin\theta&\sin\phi\cos\theta
+\end{vmatrix}+\rho\sin\phi\begin{vmatrix}
+\sin\phi\cos\theta&-\rho\sin\phi\sin\theta\\
+\sin\phi\sin\theta&\rho\sin\phi\cos\theta
+\end{vmatrix}\\
+&=\rho^2\cos\phi(\cos\phi\sin\phi\cos^2\theta+\cos\phi\sin\phi\sin^2\theta)+\rho\sin\phi(\rho\sin^2\phi\cos^2\theta+\rho\sin^2\phi\sin^2\theta)\\
+&=\rho^2\cos^2\phi\sin\phi+\rho^2\sin^2\phi\sin\phi\\
+&=\rho^2\sin\phi
+\end{aligned}</script>
+因此
+<script type="math/tex; mode=display">\iiint_DF(x,y,z)dxdydx=\iiint_GH(\rho,\phi,\theta)|\rho^2\sin\phi|d\rho d\phi d\theta</script>
+我们可以去掉绝对值符号，因为 <script type="math/tex">0\leq\phi\leq\pi</script> 那么 <script type="math/tex">\sin\phi\geq 0</script>，这就和 14.7 小节结论一致。</p>
+<p>下面是一个例子。尽管我们可以直接积分，但是这个例子中替换法相对简单，便于解释方法本身。</p>
+<p>例5 应用变换
+<script type="math/tex; mode=display">u=(2x-y)/2,v=y/2,w=z/3\tag{8}</script>
+求积分
+<script type="math/tex; mode=display">\int_0^3\int_0^4\int_{x=y/2}^{x=(y/2)+1}\bigg(\frac{2x-y}{2}+\frac{z}{3}\bigg)dxdydz</script>
+解：下面是区域 <script type="math/tex">D</script> 在 <script type="math/tex">xyz</script>平面上的示意图，包含其边界。</p>
+<p><img alt="" src="../080.090.png" /></p>
+<p>为了使用公式 <script type="math/tex">(7)</script>，需要找到 <script type="math/tex">uvw</script> 平面上 <script type="math/tex">G</script> 的边界和变换的雅可比式。首先从 <script type="math/tex">(8)</script> 出发用 <script type="math/tex">u,v,w</script> 表示 <script type="math/tex">x,y,z</script>，那么
+<script type="math/tex; mode=display">x=u+v,y=2v,z=3w\tag{9}</script>
+通过替换表达式找到 <script type="math/tex">G</script> 边界。</p>
+<table>
+<thead>
+<tr>
+<th>
+<script type="math/tex">xyz</script> 平面上 <script type="math/tex">D</script> 的边界</th>
+<th>相应的 <script type="math/tex">uvw</script> 平面上 <script type="math/tex">G</script> 的边界</th>
+<th>简化 <script type="math/tex">uvw</script>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<script type="math/tex">x=y/2</script>
+</td>
+<td>
+<script type="math/tex">u+v=2v/2=v</script>
+</td>
+<td>
+<script type="math/tex">u=0</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">x=(y/2)+1</script>
+</td>
+<td>
+<script type="math/tex">u+v=(2v/2)+1=v+1</script>
+</td>
+<td>
+<script type="math/tex">u=1</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">y=0</script>
+</td>
+<td>
+<script type="math/tex">2v=2</script>
+</td>
+<td>
+<script type="math/tex">v=0</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">y=4</script>
+</td>
+<td>
+<script type="math/tex">2v=4</script>
+</td>
+<td>
+<script type="math/tex">v=2</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">z=0</script>
+</td>
+<td>
+<script type="math/tex">3w=0</script>
+</td>
+<td>
+<script type="math/tex">w=0</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="math/tex">z=3</script>
+</td>
+<td>
+<script type="math/tex">3w=3</script>
+</td>
+<td>
+<script type="math/tex">w=1</script>
+</td>
+</tr>
+</tbody>
+</table>
+<p>从式子 <script type="math/tex">(9)</script> 可以得到雅可比式
+<script type="math/tex; mode=display">\begin{aligned}
+J(u,v,w)&=\begin{vmatrix}
+\frac{\partial x}{\partial u}&\frac{\partial x}{\partial v}&\frac{\partial x}{\partial w}\\
+\frac{\partial y}{\partial u}&\frac{\partial y}{\partial v}&\frac{\partial y}{\partial w}\\
+\frac{\partial z}{\partial u}&\frac{\partial z}{\partial v}&\frac{\partial z}{\partial w}
+\end{vmatrix}\\
+&=\begin{vmatrix}
+1&1&0\\
+0&2&0\\
+0&0&3
+\end{vmatrix}\\
+&=6
+\end{aligned}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+\int_0^3\int_0^4&\int_{x=y/2}^{x=(y/2)+1}\bigg(\frac{2x-y}{2}+\frac{z}{3}\bigg)dxdydz\\
+&=\int_0^1\int_0^2\int_0^1(u+w)|J(u,v,w)|dudvdw\\
+&=\int_0^1\int_0^2\int_0^16(u+w)dudvdw\\
+&=6\int_0^1\int_0^2(\frac{u^2}{2}+wu)|_0^1dvdw\\
+&=6\int_0^1\int_0^2(\frac{1}{2}+w)dvdw\\
+&=6\int_0^1(\frac{v}{2}+wv)|_0^2dw\\
+&=6\int_0^1(1+2w)dw\\
+&=6(w+w^2)\bigg|_0^1\\
+&=12
+\end{aligned}</script>
+</p>
 
 
 
@@ -20061,7 +20503,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 12, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2024</span>
   </span>
 
     
