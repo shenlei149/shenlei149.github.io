@@ -22,7 +22,7 @@ public:
 
 这个技术很酷的一个应用是创建一个重载 lambda 的集合。
 ```cpp
-// ”inherit” all function call operators of passed base types:
+// "inherit" all function call operators of passed base types:
 template <typename... Ts>
 struct overload : Ts...
 {

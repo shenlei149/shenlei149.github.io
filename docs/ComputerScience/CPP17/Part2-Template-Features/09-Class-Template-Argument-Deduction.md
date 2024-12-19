@@ -476,7 +476,7 @@ std::vector v1(s.begin(), s.end()); // OK, deduces std::vector<float>
 ```
 这里必须使用圆括号，如果使用花括号的话，那么会看作是两个元素的初始化列表，结果是一个 `std::vector` 中有两个元素，分别是指向首尾两个迭代器。
 ```cpp
-std::vector v2{s.begin(), s.end()}; // BEWARE: doesn’t deduce std::vector<float>
+std::vector v2{s.begin(), s.end()}; // BEWARE: doesn't deduce std::vector<float>
 std::vector<std::set<float>::iterator> v2{s.begin(), s.end()};
 ```
 另一个方面，考虑下面这种情况

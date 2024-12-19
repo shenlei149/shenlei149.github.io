@@ -195,7 +195,7 @@ constexpr auto val = N; // OK since C++17
 
 auto v1 = val<5>;    // v1 == 5, v1 is int
 auto v2 = val<true>; // v2 == true, v2 is bool
-auto v3 = val<'a'>;  // v3 == ’a’, v3 is char
+auto v3 = val<'a'>;  // v3 == 'a', v3 is char
 
 std::is_same_v<decltype(val<5>), int>;       // yields false
 std::is_same_v<decltype(val<5>), const int>; // yields true

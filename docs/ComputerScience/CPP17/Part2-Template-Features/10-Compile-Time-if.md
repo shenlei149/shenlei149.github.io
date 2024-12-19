@@ -180,7 +180,7 @@ constexpr auto foo(const T &val)
 }
 
 constexpr auto x1 = foo(42);   // yields 84
-constexpr auto x2 = foo("hi"); // OK, yields ”hi”
+constexpr auto x2 = foo("hi"); // OK, yields "hi"
 ```
 运行时 `if` 有短路优化，但是编译期 `if` 没有，会将表达式作为一个整体求值。下面的写法会导致传入不支持 `< 10` 的参数时编译错误。
 ```cpp

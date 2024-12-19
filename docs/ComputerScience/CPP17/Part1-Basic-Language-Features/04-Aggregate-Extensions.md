@@ -107,8 +107,8 @@ struct D : std::string, std::complex<T>
 
 D<float> s{{"hello"}, {4.5, 6.7}, "world"};       // OK since C++17
 D<float> t{"hello", {4.5, 6.7}, "world"};         // OK since C++17
-std::cout << s.data;                              // outputs: ”world”
-std::cout << static_cast<std::string>(s);         // outputs: ”hello”
+std::cout << s.data;                              // outputs: "world"
+std::cout << static_cast<std::string>(s);         // outputs: "hello"
 std::cout << static_cast<std::complex<float>>(s); // outputs: (4.5,6.7)
 ```
 

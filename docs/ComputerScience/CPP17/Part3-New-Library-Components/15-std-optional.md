@@ -253,7 +253,7 @@ std::cout << o->first; // prints 42
 ```cpp
 std::optional<std::string> o{"hello"};
 
-std::cout << *o; // OK: prints ”hello”
+std::cout << *o; // OK: prints "hello"
 
 o = std::nullopt;
 std::cout << *o; // undefined behavior
