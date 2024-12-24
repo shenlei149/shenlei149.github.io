@@ -1,4 +1,4 @@
-[Problem 173](https://projecteuler.net/problem=173 "Problem 179 - Project Euler")
+[Problem 173](https://projecteuler.net/problem=173 "Problem 173 - Project Euler")
 
 如下图所示，瓷砖可以贴成中间一个正方形洞的正方形图案。下面是 32 个瓷砖可能的两种组合。
 
