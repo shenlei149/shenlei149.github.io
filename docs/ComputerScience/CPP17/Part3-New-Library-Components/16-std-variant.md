@@ -232,3 +232,310 @@ struct NoCopy
 std::variant<int, NoCopy> v1;
 std::variant<int, NoCopy> v2{v1}; // ERROR
 ```
+
+#### Accessing the Value
+通常，我们使用 `get<>()` `get_if<>` 获取数据。 传入索引或者只出现一次的类型。对于前者而言，如果索引无效、类型无效或有歧义，编译出错。如果索引或者类型指定的值不是当前值，会抛出 `std::bad_variant_exception` 异常。`get_if<>()` 会检查当前值是否被设置，如果没有会返回 `nullptr`，否则会返回指向当前值的指针。
+```cpp
+std::variant<int, int, std::string> var; // sets first int to 0, index()==0
+
+auto a = std::get<double>(var); // compile-time ERROR: no double
+auto b = std::get<4>(var);      // compile-time ERROR: no 4th alternative
+auto c = std::get<int>(var);    // compile-time ERROR: int twice
+
+try
+{
+    auto s = std::get<std::string>(var); // throws exception (first int currently set)
+    auto i = std::get<0>(var);           // OK, i==0
+    auto j = std::get<1>(var);           // throws exception (other int currently set)
+}
+catch (const std::bad_variant_access &e)
+{ // in case of an invalid access
+    std::cout << "Exception: " << e.what() << '\n';
+}
+
+if (auto ip = std::get_if<1>(&var); ip != nullptr)
+{
+    std::cout << *ip << '\n';
+}
+else
+{
+    std::cout << "alternative with index 1 not set\n";
+}
+```
+
+#### Changing the Value
+赋值操作和 `emplace()` 都可以修改值。如果有匹配的类型的话，赋值操作直接赋新值，使用 `emplace()` 的话，总是先销毁旧址，再赋新值。
+```cpp
+std::variant<int, int, std::string> var; // sets first int to 0, index()==0
+
+var = "hello";      // sets string, index()==2
+var.emplace<1>(42); // sets second int, index()==1
+```
+使用 `get<>()` 或 `get_if<>()` 也可以修改值。
+```cpp
+std::variant<int, int, std::string> var; // sets first int to 0, index()==0
+
+std::get<0>(var) = 77; // OK, because first int already set
+std::get<1>(var) = 99; // throws exception (other int currently set)
+
+// if second int set modify it
+if (auto p = std::get_if<1>(&var); p)
+{
+    *p = 42;
+}
+```
+
+#### Comparisons
+对于两个类型相同的 `variant`，候选类型相同且同续，可以使用比较运算符。
+
+* 当前值的索引小的 `variant` 比较小
+* 如果索引相同，使用具体类型的比较。`std::monostate` 的值全都相同。
+* 两个处于特殊状态 `valueless_by_exception()` 的 `variant` 相同，如果只有一个处于特殊状态，那么特殊状态的比较小。
+
+```cpp
+std::variant<std::monostate, int, std::string> v1, v2{"hello"}, v3{42};
+std::variant<std::monostate, std::string, int> v4;
+
+v1 == v4    // COMPILE-TIME ERROR
+v1 == v2    // yields false
+v1 < v2     // yields true
+v1 < v3     // yields true
+v2 < v3     // yields false
+
+v1 = "hello";
+v1 == v2    // yields true
+
+v2 = 41;
+v2 < v3     // yields true
+```
+
+#### Move Semantics
+如果 `std::variant<>` 所有候选类型都支持移动，那么对象本身也支持移动。
+
+如果移动 `std::variant<>` 对象整体，那么状态是拷贝，当前值是移动。被移动的对象的状态不变，但是值未指定。
+
+可以移入或者移出当前值。
+
+#### Hashing
+当且仅当所有类型都支持哈希的时候 `variant` 支持哈希。哈希值可能和当前值的哈希值一致，也可能不一致，取决于平台。
+
+### Visitors
+可以使用访问器（`visitor`）处理值。访问器必须为每一种候选类型提供无歧义的函数来处理对应类型的值。当访问一个 `variant` 时，调用与 `variant` 当前值最匹配的函数。
+
+#### Using Function Objects as Visitors
+如果 `operator()` 不支持所有类型或者有歧义，那么调用 `visit()` 会编译出错。下面的例子能编译成功的原因是 `long double` 比 `int` 更匹配 `double`。
+```cpp
+#include <variant>
+#include <string>
+#include <iostream>
+
+struct MyVisitor
+{
+    void operator()(int i) const
+    {
+        std::cout << "int: " << i << '\n';
+    }
+
+    void operator()(std::string s) const
+    {
+        std::cout << "string: " << s << '\n';
+    }
+
+    void operator()(long double d) const
+    {
+        std::cout << "double: " << d << '\n';
+    }
+};
+
+int main()
+{
+    std::variant<int, std::string, double> var(42);
+    std::visit(MyVisitor(), var); // calls operator() for int
+    var = "hello";
+    std::visit(MyVisitor(), var); // calls operator() for string
+    var = 42.7;
+    std::visit(MyVisitor(), var); // calls operator() for long double
+}
+```
+
+访问器也可以修改值，不过只能修改当前值，不能赋值给其他候选类型。另外，这里只区分类型，因此无法对同一个类型有不同的行为。另外，下面的函数应该标记为 `const`，因为是无状态的。
+```cpp
+struct Twice
+{
+    void operator()(double &d) const
+    {
+        d *= 2;
+    }
+
+    void operator()(int &i) const
+    {
+        i *= 2;
+    }
+
+    void operator()(std::string &s) const
+    {
+        s = s + s;
+    }
+};
+
+std::visit(Twice(), var); // calls operator() for matching type
+```
+
+#### Using Generic Lambdas as Visitors
+最简单的使用这个功能的方法是传入泛型 lambda，其可以处理任意类型。
+```cpp
+auto printvariant = [](const auto &val)
+{
+    std::cout << val << '\n';
+};
+
+std::visit(printvariant, var)
+```
+泛型 lambda 定义了一个闭包类型，如下所示，一个模板成员函数。如果调用是合法的，这里是输出 `<<`，那么 lambda 就可以传递给 `std::visit()`。
+```cpp
+class CompilerSpecificClosureTypeName
+{
+public:
+    template <typename T>
+    auto operator()(const T &val) const
+    {
+        std::cout << val << '\n';
+    }
+};
+```
+也可以使用 lambda 修改值。
+```cpp
+// double the value of the current alternative:
+std::visit([](auto &val)
+           { val = val + val; },
+           var);
+
+// restore to the default value of the current alternative:
+std::visit([](auto &val)
+           { val = std::remove_reference_t<decltype(val)>{}; },
+           var);
+```
+还可以使用编译期的 `if` 对不同类型进行处理。下面例子中，`string` 类型使用 `+` 加倍 `string`，其余类型使用 `*=`。
+```cpp
+auto dblvar = [](auto &val)
+{
+    if constexpr (std::is_convertible_v<decltype(val),
+                                        std::string>)
+    {
+        val = val + val;
+    }
+    else
+    {
+        val *= 2;
+    }
+};
+
+std::visit(dblvar, var);
+```
+注意，如果判断条件如下的话不会如期工作，因为参数 `val` 的类型只可能是引用 `int&` `std::string&` `long double&`。
+```cpp
+if constexpr (std::is_same_v<decltype(val), std::string>)
+```
+
+#### Return Values in Visitors
+访问器的函数可以返回值，不过要求所有的返回类型都要相同。如果下面的函数不显式声明返回类型，那么无法编译，因为返回类型不同。
+```cpp
+using IntOrDouble = std::variant<int, double>;
+
+std::vector<IntOrDouble> coll{42, 7.7, 0, -0.7};
+
+double sum{0};
+for (const auto &elem : coll)
+{
+    sum += std::visit([](const auto &val) -> double
+                      { return val; },
+                      elem);
+}
+```
+
+#### Using Overloaded Lambdas as Visitors
+通过重载器（`overloader`），可以定义一系列的 lambda 来处理不同的类型。
+
+重载器定义如下
+```cpp
+// ”inherit” all function call operators of passed base types:
+template <typename... Ts>
+struct overload : Ts...
+{
+    using Ts::operator()...;
+};
+
+// base types are deduced from passed arguments:
+template <typename... Ts>
+overload(Ts...) -> overload<Ts...>;
+```
+现在通过 `overload` 定义一系列 lambda 来处理不同可选类型。
+```cpp
+std::variant<int, std::string> var(42);
+
+std::visit(overload{
+               // calls best matching lambda for current alternative
+               [](int i)
+               { std::cout << "int: " << i << '\n'; },
+               [](const std::string &s)
+               { std::cout << "string: " << s << '\n'; },
+           },
+           var);
+```
+类似的，我们可以修改值。
+```cpp
+auto twice = overload{
+    [](std::string &s)
+    { s += s; },
+    [](auto &i)
+    { i *= 2; },
+};
+
+std::variant<int, std::string> var(42);
+std::visit(twice, var); // value 42 becomes 84
+
+var = "hi";
+std::visit(twice, var); // value "hi" becomes "hihi"
+```
+
+### Valueless by Exception
+当在赋予新值或者修改旧值的时候发生了异常，`variant` 进入了一种特殊状态，失去了旧值但是还没有获取新值。比如
+```cpp
+struct S
+{
+    operator int() { throw "EXCEPTION"; } // any conversion to int throws
+};
+
+std::variant<double, int> var{12.2}; // initialized as double
+var.emplace<1>(S{});                 // OOPS: throws while set as int
+```
+此时
+
+* `var.valueless_by_exception()` 返回 `true`
+* `var.index()` 返回 `std::variant_npos`
+
+这意味着 `variant` 不再包含值了。
+
+这种情况下有如下保证
+
+* 如果 `emplace()` 抛出异常，那么 `valueless_by_exception()` 可能会返回 `false`。
+* `operator=()` 抛出异常，但是修改不改变当前候选项，那么 `index()` 和 `valueless_by_exception()` 保持不变。值的状态依赖于这个类型的异常保证。
+* `operator=()` 抛出异常，修改当前候选项，那么或许没有值，`valueless_by_exception()` 或许返回 `true`。这取决于异常发生的时间点。如果发生在实际修改值之前，那么 `variant` 还是有值的。
+
+一般情况下，此时就不应该再继续使用 `variant` 对象了。如果要继续使用，需要判断其状态。
+```cpp
+std::variant<double, int> var{12.2}; // initialized as double
+try
+{
+    var.emplace<1>(S{}); // OOPS: throws while set as int
+}
+catch (...)
+{
+    if (!var.valueless_by_exception())
+    {
+        ...
+    }
+}
+```
+
+## Polymorphism and Heterogeneous Collections with `std::variant`
