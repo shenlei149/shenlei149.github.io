@@ -539,3 +539,197 @@ catch (...)
 ```
 
 ## Polymorphism and Heterogeneous Collections with `std::variant`
+`std::variant` 提供了一种新的处理异构集合的多态方法，是一种在封闭类型集合上的运行时多态。
+
+关键在于 `variant<>` 可以持有多个候选类型的值。通过构造 `variant` 的集合，这个集合就是异构的。每一个 `variant` 知道自己持有的值，外加访问器接口，那么就可以在运行时处理不同类型的数据。由于 `variant` 是值语义，因此不需要指针（内存管理）或者虚函数。
+
+### Geometric Objects with `std::variant`
+下面是使用 `variant` 管理几何对象的例子。首先为所有可能得类型创建公共类型 `GeoObj`，候选的三个类型可以没有任何关系，无需共同基类，无需虚函数，接口也可以各异。
+```cpp
+#include <iostream>
+#include <variant>
+#include <vector>
+
+#include "coord.hpp"
+#include "line.hpp"
+#include "circle.hpp"
+#include "rectangle.hpp"
+
+// common type of all geometric object types:
+using GeoObj = std::variant<Line, Circle, Rectangle>;
+
+// create and initialize a collection of geometric objects:
+std::vector<GeoObj> createFigure()
+{
+    std::vector<GeoObj> f;
+    f.push_back(Line{Coord{1, 2}, Coord{3, 4}});
+    f.push_back(Circle{Coord{5, 5}, 2});
+    f.push_back(Rectangle{Coord{3, 3}, Coord{6, 4}});
+    return f;
+}
+
+int main()
+{
+    std::vector<GeoObj> figure = createFigure();
+    for (const GeoObj &geoobj : figure)
+    {
+        std::visit([](const auto &obj)
+                   {
+                       obj.draw(); // polymorphic call of draw()
+                   },
+                   geoobj);
+    }
+}
+
+#ifndef CIRCLE_HPP
+#define CIRCLE_HPP
+
+#include "coord.hpp"
+
+#include <iostream>
+
+class Circle
+{
+private:
+    Coord center;
+    int rad;
+
+public:
+    Circle(Coord c, int r)
+        : center{c}, rad{r}
+    {
+    }
+
+    void move(const Coord &c)
+    {
+        center += c;
+    }
+
+    void draw() const
+    {
+        std::cout << "circle at " << center
+                  << " with radius " << rad << '\n';
+    }
+};
+
+#endif
+```
+我们在 `createFigure` 中构造了不同的类型，然后放到 `GeoObj` 的 `std::vector` 中。在以前，没有继承和多态是无法做到这一点的。以前的做法是所有的类以 `GeoObj` 为公共基类，然后 `std::vector` 存放基类指针，这就需要管理内存，考虑释放内存的问题，也可以使用智能指针。但是现在不需要这些了。
+
+这里的 `visit()` 使用了一个泛型 lambda 表达式，会为 `GeoObj` 的每一个可能的类型实例化一次，当编译 `visit()` 时，会生成如下三个函数。如果有任何一个无法编译，那么 `visit()` 编译失败。编译成功后，对每个类型调用相应的函数。这不是 `if-else` 链。标准库保证了性能不会依赖于候选类型的个数。
+```cpp
+[](const Line &obj)
+{
+    obj.draw(); // call of Line::draw()
+}
+
+    [](const Circle &obj)
+{
+    obj.draw(); // call of Circle::draw()
+}
+
+[](const Rectangle &obj)
+{
+    obj.draw(); // call of Rectangle::draw()
+}
+```
+这里行为和虚函数表一致，可以看作是在 `visit()` 局部有一个虚函数表。这里 `draw()` 不是虚函数。如果不同类型接口不同，可以使用编译期 `if` 或者重载器来处理。
+
+### Other Heterogeneous Collections with `std::variant`
+下面是另一个例子。这里能够使用异构元素初始化 `std::vector` 的原因是这些都可以转成 `variant`，如果我们使用 `long` 类型的值，编译器不知道转成 `int` 还是 `double`，就会报错。
+```cpp
+#include <iostream>
+#include <string>
+#include <variant>
+#include <vector>
+#include <type_traits>
+
+int main()
+{
+    using Var = std::variant<int, double, std::string>;
+
+    std::vector<Var> values{42, 0.19, "hello world", 0.815};
+
+    for (const Var &val : values)
+    {
+        std::visit([](const auto &v)
+                   {
+                    if constexpr(std::is_same_v<decltype(v), const std::string&>) 
+                    {
+                        std::cout << '"' << v << "\" ";
+                    }
+                    else
+                    {
+                        std::cout << v << ' ';
+                    } },
+                   val);
+    }
+}
+```
+
+迭代每一个元素，使用访问器调用回调函数处理数据。这里使用了编译期 `if` 针对 `string` 类型做了特殊处理。因此输出是
+```
+42 0.19 "hello world" 0.815
+```
+通过访问器重载，也能达到相同的效果。不过这里有一个小的陷阱，泛型 lambda 可能比隐式类型转换的优先级要高，导致调用了错误的重载。
+```cpp
+for (const auto &val : values)
+{
+    std::visit(overload{[](const auto &v)
+                        {
+                            std::cout << v << ' ';
+                        },
+                        [](const std::string &v)
+                        {
+                            std::cout << '"' << v << "\" ";
+                        }},
+               val);
+}
+```
+
+### Comparing variant Polymorphism
+下面总结一下 `std::variant<>` 实现异构集合和多态的优缺点。
+
+优点
+
+* 可以用于任意类型，不需要有公共基类（非入侵式）
+* 不需要使用指针来实现异构集合
+* 不需要有虚函数
+* 值语义，无需担心内存问题
+* 元素在 `std::vector` 中是连续存放的（使用指针会分布在堆上）
+
+缺点
+
+* 类型的封闭集合，需要在编译期知道所有候选类型
+* 所以元素的大小都是体积最大的类型大小，大小差距比较大的时候这是个问题
+* 拷贝开销更大一些
+
+一般来说，并不推荐默认使用 `variant` 实现多态。优缺点都很明显。性能也是一个考量，差别很大。没有 `new` `delete` 可以节约时间，但是值传递也会耗费很多时间，所以要以测试为准。
+
+## Special Cases with `std::variant<>`
+### Having Both `bool` and `std::string` Alternatives
+如果 `std::variant<>` 同时有 `bool` 和 `std::string` 两个候选类型，当使用字符串字面量赋值的时候，可能有意想不到的结果。
+```cpp
+std::variant<bool, std::string> v;
+v = "hi"; // OOPS: sets the bool alternative
+std::cout << "index: " << v.index() << '\n';
+std::visit([](const auto &val)
+           { std::cout << "value: " << val << '\n'; },
+           v);
+```
+一种可能的输出如下。字符串字面量是给 `bool` 类型赋值而不是 `std::string` 类型。不过我使用 g++ 测试了一下，是给 `std::string` 赋值。
+```
+index: 0
+value: true
+```
+可以使用下面的方式修复这个问题。
+```cpp
+v.emplace<1>("hello"); // explicitly assign to second alternative
+
+v.emplace<std::string>("hello"); // explicitly assign to string alternative
+
+v = std::string{"hello"}; // make sure a string is assigned
+
+using namespace std::literals; // make sure a string is assigned
+v = "hello"s;
+```
