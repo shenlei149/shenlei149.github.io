@@ -1,3 +1,4 @@
 nav:
     - 150 积分和向量场 Integrals and Vector Fields: README.md
     - 010 标量函数的线积分 Line Integrals of Scalar Functions: 010-Line-Integrals-of-Scalar-Functions.md
+    - "020 矢量场和线积分：功、环量、通量 Vector Fields and Line Integrals: Work, Circulation, and Flux": 020-Vector-Fields-and-Line-Integrals-Work-Circulation-and-Flux.md
