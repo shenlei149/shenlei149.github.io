@@ -40,4 +40,94 @@ $$\boldsymbol{v}(t)=f(t)\boldsymbol{i}+g(t)\boldsymbol{j}+h(t)\boldsymbol{k}$$
 $$\nabla f=\frac{\partial f}{\partial x}\boldsymbol{i}+\frac{\partial f}{\partial y}\boldsymbol{j}+\frac{\partial f}{\partial z}\boldsymbol{k}$$
 在点 $(x,y,z)$ 处，梯度场给出了一个矢量，方向是 $f$ 变化最大的方向，大小是这个方向上方向矢量的值。梯度场可以表示力场、速度场、热的流动等。在很多物理应用中，$f$ 表示势能，梯度场表示相应的力。在这些场景中，$f$ 通常是负数，也就是说力的方向上势能减少。
 
-例1 
+例1 假定一个物体被加热，点 $(x,y,z)$ 处的温度是
+$$T=100-x^2-y^2-z^2$$
+$\boldsymbol{F}(x,y,z)$ 是 $T$ 的梯度。求矢量场 $\boldsymbol{F}$。
+
+解：梯度场 $\boldsymbol{F}$ 是
+$$\boldsymbol{F}=\nabla\boldsymbol{T}=-2x\boldsymbol{i}-2y\boldsymbol{j}-2z\boldsymbol{k}$$
+在区域上的任意点处，矢量场 $\boldsymbol{F}$ 给出了温度增加最快的方向。矢量朝向原点，该点处温度最高。矢量场如下图所示。
+
+![](020.110.png)
+
+### 矢量场的线积分
+15.1 小节定义了标量函数 $f(x,y,z)$ 在路径 $C$ 上的线积分。现在使用相同的思想计算矢量场 $\boldsymbol{F}$ 在路径 $C$ 上的线积分。这些线积分在研究流体、功、能量、电场、磁场等应用中很有用。
+
+假设矢量场是 $\boldsymbol{F}=M(x,y,z)\boldsymbol{i}+N(x,y,z)\boldsymbol{j}+P(x,y,z)\boldsymbol{k}$ 有连续的分量，并且曲线 $C$ 是光滑的，参数方程是 $\boldsymbol{r}(t)=g(t)\boldsymbol{i}+h(t)\boldsymbol{j}+k(t)\boldsymbol{k},a\leq t\leq b$。如 15.1 小节的讨论，参数方程 $\boldsymbol{r}(t)$ 定义了曲线的方向，这里称为前进方向或正向（`forward direction`）。在 $C$ 上的每一点，切向矢量 $\boldsymbol{T}=d\boldsymbol{r}/ds=\boldsymbol{v}/|\boldsymbol{v}|$ 是指向前进方向的单位矢量。矢量场的线积分是 $\boldsymbol{F}$ 沿着 $C$ 的切向分量的线积分。切向分量是矢量的点积
+$$\boldsymbol{F}\cdot\boldsymbol{T}=\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{ds}$$
+那么如下定义。
+
+**定义**
+> 令 $\boldsymbol{F}$ 是有连续分量的矢量场，光滑曲线 $C$ 的参数方程是 $\boldsymbol{r}(t),a\leq t\leq b$。$\boldsymbol{F}$ 沿着 $C$ 的线积分是
+> $$\int_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\int_C(\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{ds})ds=\int_C\boldsymbol{F}\cdot d\boldsymbol{r}\tag{1}$$
+
+计算矢量场的线积分方法和标量函数计算线积分的方法类似。
+
+**求 $\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}+P\boldsymbol{k}$ 沿 $C:\boldsymbol{r}(t)=g(t)\boldsymbol{i}+h(t)\boldsymbol{j}+k(t)\boldsymbol{k},a\leq t\leq b$ 的线积分**
+> 1. 通过将 $\boldsymbol{r}$ 中的分量 $x=g(t),y=h(t),z=k(t)$ 代入 $\boldsymbol{F}$ 的分量 $M(x,y,z),N(x,y,z),P(x,y,z)$ 来使用参数化的 $C$ 来表示矢量场 $\boldsymbol{F}$。
+> 2. 求矢量导数 $d\boldsymbol{r}/dt$。
+> 3. 对参数 $t,a\leq t\leq b$ 求线积分得到
+> $$\int_C\boldsymbol{F}\cdot d\boldsymbol{r}=\int_a^b\boldsymbol{F}(\boldsymbol{r}(t))\cdot\frac{d\boldsymbol{r}}{dt}dt\tag{2}$$
+
+例2 求 $\int_C\boldsymbol{F}\cdot d\boldsymbol{r}$，其中 $\boldsymbol{F}(x,y,z)=z\boldsymbol{i}+xy\boldsymbol{j}-y^2\boldsymbol{k}$，$C$ 的参数方程是 $\boldsymbol{r}(t)=t^2\boldsymbol{i}+t\boldsymbol{j}+\sqrt{t}\boldsymbol{k},0\leq t\leq 1$。
+
+![](020.120.png)
+
+解：使用 $t$ 表示 $\boldsymbol{F}$
+$$\boldsymbol{F}(\boldsymbol{r}(t))=\sqrt{t}\boldsymbol{i}+t^3\boldsymbol{j}-t^2\boldsymbol{k}$$
+对 $\boldsymbol{r}$ 求导
+$$\frac{d\boldsymbol{r}}{dt}=2t\boldsymbol{i}+\boldsymbol{j}+\frac{1}{2\sqrt{t}}\boldsymbol{k}$$
+那么
+$$\begin{aligned}
+\boldsymbol{F}\cdot d\boldsymbol{r}&=\int_0^1\boldsymbol{F}(\boldsymbol{r}(t))\cdot\frac{d\boldsymbol{r}}{dt}dt\\
+&=\int_0^1\bigg(2t^{3/2}+t^3-\frac{1}{2}t^{3/2}\bigg)dt\\
+&=\bigg[\frac{3}{2}\frac{2}{5}t^{5/2}+\frac{1}{4}t^4\bigg]_0^1\\
+&=\frac{17}{20}
+\end{aligned}$$
+
+### 对 $dx,dy,dz$ 的线积分
+当研究力或者流体的时候，单独考虑每个分量是很有用的。比如分析重力的影响，只需要考虑垂直方向的运动。此时，想要求的是某个方向上标量函数的线积分，比如 $\int_C Mdx$。这类积分与 15.1 定义的线积分 $\int_C Mds$ 不同，这里只考虑一个方向上的位移。为了求 标量函数 $M(x,y,z)$ 的线积分 $\int_C Mdx$，定义只有 $x$ 方向的矢量场 $\boldsymbol{F}=M(x,y,z)\boldsymbol{i}$，忽略其他方向。那么沿着 $C$ 的参数方程 $\boldsymbol{r}(t)=g(t)\boldsymbol{i}+h(t)\boldsymbol{j}+k(t)\boldsymbol{k},a\leq t\leq b$，我们有 $x=g(t),dx=g'(t)$
+$$\begin{aligned}
+\boldsymbol{F}\cdot d\boldsymbol{r}&=\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
+&=M(x,y,z)\boldsymbol{i}\cdot(g'(t)\boldsymbol{i}+h'(t)\boldsymbol{j}+k'(t)\boldsymbol{k})dt\\
+&=M(x,y,z)g'(t)dt\\
+&=M(x,y,z)dx
+\end{aligned}$$
+因此 $\boldsymbol{F}$ 沿着 $C$ 的线积分是
+$$\int_CM(x,y,z)dx=\int_C\boldsymbol{F}\cdot d\boldsymbol{r},\text{ where }\boldsymbol{F}=M(x,y,z)\boldsymbol{i}$$
+同样的，通过只有 $y$ 方向的矢量场 $\boldsymbol{F}=N(x,y,z)\boldsymbol{j}$ 和只有 $z$ 方向的 $\boldsymbol{F}=P(x,y,z)\boldsymbol{k}$，可以得到线积分 $\int_CNdy$ 和 $\int_CPdz$。将这些式子表达成只有变量 $t$ 的形式的话，形式如下
+$$\int_CM(x,y,z)dx=\int_a^bM(g(t),h(t),k(t))g'(t)dt\tag{3}$$
+$$\int_CN(x,y,z)dy=\int_a^bN(g(t),h(t),k(t))h'(t)dt\tag{4}$$
+$$\int_CP(x,y,z)dz=\int_a^bP(g(t),h(t),k(t))k'(t)dt\tag{5}$$
+这些积分经常以组合的形式出现，因此可以缩写为
+$$\int_CM(x,y,z)dx+\int_CN(x,y,z)dy+\int_CP(x,y,z)dz=\int_CMdx+Ndy+Pdz$$
+
+例3 求线积分 $\int_C-ydx+zdy+2xdz$，其中 $C$ 是螺旋线 $\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j}+t\boldsymbol{k},0\leq t\leq 2\pi$。
+
+解：使用参数 $t$ 表示这些函数，那么 $x=\cos t,y=\sin t,z=t,dx=-\sin tdt,dy=\cos t,dz=dt$，那么
+$$\begin{aligned}
+\int_C-ydx+zdy+2xdz&=\int_0^{2\pi}[(-\sin t)(-\sin t)+(t)(\cos t)+(2\cos t)(1)]dt\\
+&=\int_0^{2\pi}(2\cos t+t\cos t+\sin^2t)dt\\
+&=\bigg[2\sin t+(t\sin t+\cos t)+(\frac{t}{2}-\frac{\sin 2t}{4})\bigg]_0^{2\pi}\\
+&=\pi
+\end{aligned}$$
+
+### 力沿着空间曲线做的功
+假定矢量场 $\boldsymbol{F}=M(x,y,z)\boldsymbol{i}+N(x,y,z)\boldsymbol{j}+P(x,y,z)\boldsymbol{k}$ 表示空间中的力，光滑曲线
+$$\boldsymbol{r}(t)=g(t)\boldsymbol{i}+h(t)\boldsymbol{j}+k(t)\boldsymbol{k},a\leq t\leq b$$
+
+推理过程与之前类似，如下图所示，分割，求和，取极限。
+
+![](020.130.png)
+
+$\boldsymbol{F}$ 沿着 $C$ 的线积分就是力沿着曲线做的功
+$$W=\int_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\int_a^b\boldsymbol{F}(\boldsymbol{r}(t))\cdot\frac{d\boldsymbol{r}}{dt}dt\tag{6}$$
+
+积分结果的符号取决于运动的方向。如果反转运动方向，比如下图中 $\boldsymbol{T}$ 的方向，那么 $\boldsymbol{F}\cdot\boldsymbol{T}$ 的符号发生了变化，所以积分结果符号也会变化。
+
+下面的公式给出了几种公式 $(6)$ 的变形，根据场景选择最合适的表达方式。其中 $M,N,P$ 是中间变量 $x,y,z$ 的函数，它们又是自变量 $t$ 的函数，所以沿着曲线运动，$x=g(t),y=h(t),z=k(t),dx=g'(t)dt,dy=h'(t)dt,dz=k'(t)dt$。
+
+$$\begin{aligned}
+
+\end{aligned}$$
+
