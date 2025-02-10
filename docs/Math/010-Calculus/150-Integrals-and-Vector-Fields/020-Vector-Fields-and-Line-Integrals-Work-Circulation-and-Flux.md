@@ -128,6 +128,75 @@ $$W=\int_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\int_a^b\boldsymbol{F}(\boldsymbol
 下面的公式给出了几种公式 $(6)$ 的变形，根据场景选择最合适的表达方式。其中 $M,N,P$ 是中间变量 $x,y,z$ 的函数，它们又是自变量 $t$ 的函数，所以沿着曲线运动，$x=g(t),y=h(t),z=k(t),dx=g'(t)dt,dy=h'(t)dt,dz=k'(t)dt$。
 
 $$\begin{aligned}
-
+W&=\int_C\boldsymbol{F}\cdot\boldsymbol{T}ds\\
+&=\int_C\boldsymbol{F}\cdot d\boldsymbol{r}\\
+&=\int_a^b\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
+&=\int_a^b(Mg'(t)+Nh'(t)+Pk'(t))dt\\
+&=\int_C Mdx+Ndy+Pdz
 \end{aligned}$$
 
+例4 求力场 $\boldsymbol{F}=(y-x^2)\boldsymbol{i}+(z-y^2)\boldsymbol{j}+(x-z^2)\boldsymbol{k}$ 沿着曲线 $\boldsymbol{r}(t)=t\boldsymbol{i}+t^2\boldsymbol{j}+t^3\boldsymbol{k},0\leq t\leq 1$ 从 $(0,0)$ 到 $(1,1)$ 做的功。
+
+![](020.150.png)
+
+解：使用 $t$ 表示 $\boldsymbol{F}$
+$$\begin{aligned}
+\boldsymbol{F}&=(y-x^2)\boldsymbol{i}+(z-y^2)\boldsymbol{j}+(x-z^2)\boldsymbol{k}\\
+&=(t^2-t^2)\boldsymbol{i}+(t^3-t^4)\boldsymbol{j}+(t-t^6)\boldsymbol{k}
+\end{aligned}$$
+然后求 $d\boldsymbol{r}/dt$
+$$\frac{d\boldsymbol{r}}{dt}=\frac{d}{dt}(t\boldsymbol{i}+t^2\boldsymbol{j}+t^3\boldsymbol{k})=\boldsymbol{i}+2t\boldsymbol{j}+3t^2\boldsymbol{k}$$
+因此
+$$\begin{aligned}
+\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}&=((t^3-t^4)\boldsymbol{j}+(t-t^6)\boldsymbol{k})\cdot(\boldsymbol{i}+2t\boldsymbol{j}+3t^2\boldsymbol{k})\\
+&=(t^3-t^4)(2t)+(t-t^6)(3t^2)\\
+&=2t^4-2t^5+3t^3-3t^8
+\end{aligned}$$
+那么
+$$\begin{aligned}
+W&=\int_a^b\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
+&=\int_0^1(2t^4-2t^5+3t^3-3t^8)dt\\
+&=\bigg[\frac{2}{5}t^5-\frac{1}{3}t^6+\frac{3}{4}t^4-\frac{1}{3}t^9\bigg]_0^1\\
+&=\frac{29}{60}
+\end{aligned}$$
+
+例5 求力场 $\boldsymbol{F}=x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}$ 沿着曲线 $\boldsymbol{r}(t)=\cos(\pi t)\boldsymbol{i}+t^2\boldsymbol{j}+\sin(\pi t)\boldsymbol{k},0\leq t\leq 1$ 做的功。
+
+解：使用 $t$ 表示 $\boldsymbol{F}$
+$$\boldsymbol{F}(\boldsymbol{r}(t))=\cos(\pi t)\boldsymbol{i}+t^2\boldsymbol{j}+\sin(\pi t)\boldsymbol{k}$$
+求 $d\boldsymbol{r}/dt$
+$$\frac{d\boldsymbol{r}}{dt}=-\pi\sin(\pi t)\boldsymbol{i}+2t\boldsymbol{j}+\pi\cos(\pi t)\boldsymbol{k}$$
+因此
+$$\boldsymbol{F}(\boldsymbol{r}(t))\cdot\frac{d\boldsymbol{r}}{dt}=-\pi\sin(\pi t)\cos(\pi t)+2t^3+\pi\sin(\pi t)\cos(\pi t)=2t^3$$
+那么
+$$W=\int_a^b\boldsymbol{F}(\boldsymbol{r}(t))\cdot\frac{d\boldsymbol{r}}{dt}dt=\int_0^12t^3dt=\frac{t^4}{2}\bigg|_0^1=\frac{1}{2}$$
+
+### 流量积分和环量
+**定义**
+> 如果 $\boldsymbol{r}(t)$ 是在连续速度场 $\boldsymbol{F}$ 的定义域内的光滑曲线 $C$ 的参数方程，沿着曲线从 $A=\boldsymbol{r}(a)$ 到 $B=\boldsymbol{r}(b)$ 的流量（`flow`）是
+> $$F=\int_C\boldsymbol{F}\cdot\boldsymbol{T}ds$$
+> 这个积分是流量积分（`flow integral`）。如果曲线开始和结束与同一点，即 $A=B$，那么流量称为环量（`circulation`）。
+
+沿着曲线运动方向很重要。如果方向相反，那么 $\boldsymbol{T}$ 变成了 $-\boldsymbol{T}$，积分的符号也发生了变化。
+
+例6 流体的速度场是 $\boldsymbol{F}=x\boldsymbol{i}+z\boldsymbol{j}+y\boldsymbol{k}$，求沿着螺旋线 $\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j}+t\boldsymbol{k},0\leq t\leq \pi/2$ 的流量。
+
+解：用 $t$ 表示 $\boldsymbol{F}$
+$$\boldsymbol{F}=x\boldsymbol{i}+z\boldsymbol{j}+y\boldsymbol{k}=(\cos t)\boldsymbol{i}+t\boldsymbol{j}+(\sin t)\boldsymbol{k}$$
+求 $d\boldsymbol{r}/dt$
+$$\frac{d\boldsymbol{r}}{dt}=(-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}+\boldsymbol{k}$$
+因此
+$$\begin{aligned}
+\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}&=(\cos t)(-\sin t)+t(\cos t)+(\sin t)\\
+&=-\cos t\sin t+t\cos t+sin t
+\end{aligned}$$
+那么
+$$\begin{aligned}
+F&=\int_a^b\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
+&=\int_0^{\pi/2}(-\cos t\sin t+t\cos t+sin t)dt\\
+&=\bigg[\frac{\cos^2 t}{2}+t\sin t\bigg]_0^{\pi/2}\\
+&=(0+\frac{\pi}{2})-(\frac{1}{2})\\
+&=\frac{\pi-1}{2}
+\end{aligned}$$
+
+例7 求场 $\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}$ 绕着圆 $\boldsymbol{r}(t)$
