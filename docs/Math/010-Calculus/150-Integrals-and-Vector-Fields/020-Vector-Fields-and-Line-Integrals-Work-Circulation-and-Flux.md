@@ -199,4 +199,79 @@ F&=\int_a^b\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
 &=\frac{\pi-1}{2}
 \end{aligned}$$
 
-例7 求场 $\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}$ 绕着圆 $\boldsymbol{r}(t)$
+例7 求场 $\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}$ 绕着圆 $\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j},0\leq t\leq 2\pi$ 的流量。
+
+![](020.160.png)
+
+解：在圆上
+$$\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}=(\cos t-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}$$
+并且
+$$\frac{d\boldsymbol{r}}{dt}=(-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}$$
+那么
+$$\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}=-\sin t\cos t+\sin^2 t+\cos^2 t=1-\sin t\cos t$$
+因此环量是
+$$\begin{aligned}
+\int_0^{2\pi}\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt&=\int_0^{2\pi}(1-\sin t\cos t)dt\\
+&=\bigg[t-\frac{\sin^2 t}{2}\bigg]_0^{2\pi}\\
+&=2\pi
+\end{aligned}$$
+如上图所示，速度场的流动是逆时针的，因此环量是正的。
+
+### 通过平面简单封闭曲线的通量
+如果 $xy$ 平面上的曲线自身不交叉，那么是简单（`simple`）曲线。如果曲线开始和结束是同一个点，那么是封闭曲线（`closed curve`）或环（`loop`）。
+
+![](020.170.png)
+
+通过计算 $C$ 上 $\boldsymbol{F}\cdot\boldsymbol{n}$ 的线积分，即速度场在曲线向外的法线方向上的分量，可以得到流体进入或者离开 $xy$ 平面上简单光滑曲线 $C$ 的速率。我们仅使用 $\boldsymbol{F}$ 的法线分量，忽略切线分量，这是因为法线方向对通过 $C$ 有贡献。这个积分值是 $\boldsymbol{F}$ 通过 $C$ 的通量（`flux`）。`flus` 是 `flow` 的拉丁语，但是很多通量的计算不涉及运动。当 $\boldsymbol{F}$ 是电场或者磁场时，$\boldsymbol{F}\cdot\boldsymbol{n}$ 仍旧称为通量。
+
+**定义**
+> 如果 $C$ 是连续向量场 $\boldsymbol{F}=M(x,y)\boldsymbol{i}+N(x,y)\boldsymbol{j}$ 定义域上的光滑简单封闭曲线，并且 $\boldsymbol{n}$ 是 $C$ 上向外的法线方向，$\boldsymbol{F}$ 通过 $C$ 的通量是
+> $$\int_C\boldsymbol{F}\cdot\boldsymbol{n}ds\tag{8}$$
+
+注意环量与通量的区别。一个是切向方向，一个是方向方向。
+
+为了计算 $(8)$，先从光滑参数曲线入手，$t$ 从 $a$ 到 $b$ 恰好遍历 $C$ 一次。
+$$x=g(t),y=h(t),a\leq t\leq b$$
+通过单位切向矢量 $\boldsymbol{T}$ 和 $\boldsymbol{k}$ 可以表示 $\boldsymbol{n}$。方向向外，那么是 $\boldsymbol{T}\times\boldsymbol{k}$ 还是 $\boldsymbol{k}\times\boldsymbol{T}$ 呢？这依赖于随着 $t$ 遍历 $C$ 的方向。如果是顺时针方向，那么 $\boldsymbol{k}\times\boldsymbol{T}$ 向外，如果是逆时针运动，$\boldsymbol{T}\times\boldsymbol{k}$ 指向外。
+
+![](020.180.png)
+
+通常假设是逆时针运动，因此选择 $\boldsymbol{n}=\boldsymbol{T}\times\boldsymbol{k}$。尽管公式 $(8)$ 的积分不依赖与 $C$ 遍历的方向，但是推导计算的过程假设逆时针运动。因此
+$$\begin{aligned}
+\boldsymbol{n}&=\boldsymbol{T}\times\boldsymbol{k}\\
+&=\bigg(\frac{dx}{ds}\boldsymbol{i}+\frac{dy}{ds}\boldsymbol{i}\bigg)\times\boldsymbol{k}\\
+&=\begin{pmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{dx}{ds}&&\frac{dy}{ds}&&0\\
+0&&0&&1
+\end{pmatrix}\\
+&=\frac{dy}{ds}\boldsymbol{i}-\frac{dx}{ds}\boldsymbol{j}
+\end{aligned}$$
+如果
+$$\boldsymbol{F}=M(x,y)\boldsymbol{i}+N(x,y)\boldsymbol{j}$$
+那么
+$$\boldsymbol{F}\cdot\boldsymbol{n}=M(x,y)\frac{dy}{ds}-N(x,y)\frac{dx}{ds}$$
+因此
+$$\int_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\int_C\bigg(M\frac{dy}{ds}-N\frac{dx}{ds}\bigg)ds=\oint_CMdy-Ndx$$
+积分上的圈表示在封闭曲线 $C$ 上以逆时针运动进行积分。使用 $t$ 表示 $M,dy,N,dx$，然后从 $t=a$ 到 $t=b$ 积分。也就是说，计算通量无须显式知道 $\boldsymbol{n}$ 或 $ds$。
+
+例8 求 $\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}$ 通过单位圆 $x^2+y^2=1$ 的通量。如例 7 的图。
+
+解：曲线的参数方程是
+$$\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j},0\leq t\leq 2\pi$$
+恰好绕单位圆一周。那么
+$$\begin{aligned}
+M&=x-y=\cos t-\sin t\\
+dy&=d(\sin t)=\cos tdt\\
+N&=x=\cos t\\
+dx&=d(\cos t)=-\sin tdt
+\end{aligned}$$
+因此
+$$\begin{aligned}
+\oint_CMdy-Ndx&=\int_0^{2\pi}(\cos^2 t-\sin t\cos t+\cos t\sin t)dt\\
+&=\int_0^{2\pi}\cos^2 tdt\\
+&=\int_0^{2\pi}\frac{1+\cos 2t}{2}dt\\
+&=\bigg[\frac{t}{2}+\frac{\sin 2t}{4}\bigg]_0^{2\pi}\\
+&=\pi
+\end{aligned}$$
+$\boldsymbol{F}$ 通过圆的通量是 $\pi$。因为结果是正的，所以通过圆的净流量是向外的。净流量向内的话通量是负值。
