@@ -11197,6 +11197,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过平面简单封闭曲线的通量
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21154,6 +21163,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过平面简单封闭曲线的通量
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21364,8 +21382,73 @@ F&=\int_a^b\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
 &=\frac{\pi-1}{2}
 \end{aligned}</script>
 </p>
-<p>例7 求场 <script type="math/tex">\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}</script> 绕着圆 <script type="math/tex">\boldsymbol{r}(t)</script>
+<p>例7 求场 <script type="math/tex">\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}</script> 绕着圆 <script type="math/tex">\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j},0\leq t\leq 2\pi</script> 的流量。</p>
+<p><img alt="" src="../020.160.png" /></p>
+<p>解：在圆上
+<script type="math/tex; mode=display">\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}=(\cos t-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}</script>
+并且
+<script type="math/tex; mode=display">\frac{d\boldsymbol{r}}{dt}=(-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}</script>
+那么
+<script type="math/tex; mode=display">\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}=-\sin t\cos t+\sin^2 t+\cos^2 t=1-\sin t\cos t</script>
+因此环量是
+<script type="math/tex; mode=display">\begin{aligned}
+\int_0^{2\pi}\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt&=\int_0^{2\pi}(1-\sin t\cos t)dt\\
+&=\bigg[t-\frac{\sin^2 t}{2}\bigg]_0^{2\pi}\\
+&=2\pi
+\end{aligned}</script>
+如上图所示，速度场的流动是逆时针的，因此环量是正的。</p>
+<h3 id="_6">通过平面简单封闭曲线的通量</h3>
+<p>如果 <script type="math/tex">xy</script> 平面上的曲线自身不交叉，那么是简单（<code>simple</code>）曲线。如果曲线开始和结束是同一个点，那么是封闭曲线（<code>closed curve</code>）或环（<code>loop</code>）。</p>
+<p><img alt="" src="../020.170.png" /></p>
+<p>通过计算 <script type="math/tex">C</script> 上 <script type="math/tex">\boldsymbol{F}\cdot\boldsymbol{n}</script> 的线积分，即速度场在曲线向外的法线方向上的分量，可以得到流体进入或者离开 <script type="math/tex">xy</script> 平面上简单光滑曲线 <script type="math/tex">C</script> 的速率。我们仅使用 <script type="math/tex">\boldsymbol{F}</script> 的法线分量，忽略切线分量，这是因为法线方向对通过 <script type="math/tex">C</script> 有贡献。这个积分值是 <script type="math/tex">\boldsymbol{F}</script> 通过 <script type="math/tex">C</script> 的通量（<code>flux</code>）。<code>flus</code> 是 <code>flow</code> 的拉丁语，但是很多通量的计算不涉及运动。当 <script type="math/tex">\boldsymbol{F}</script> 是电场或者磁场时，<script type="math/tex">\boldsymbol{F}\cdot\boldsymbol{n}</script> 仍旧称为通量。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>如果 <script type="math/tex">C</script> 是连续向量场 <script type="math/tex">\boldsymbol{F}=M(x,y)\boldsymbol{i}+N(x,y)\boldsymbol{j}</script> 定义域上的光滑简单封闭曲线，并且 <script type="math/tex">\boldsymbol{n}</script> 是 <script type="math/tex">C</script> 上向外的法线方向，<script type="math/tex">\boldsymbol{F}</script> 通过 <script type="math/tex">C</script> 的通量是
+<script type="math/tex; mode=display">\int_C\boldsymbol{F}\cdot\boldsymbol{n}ds\tag{8}</script>
 </p>
+</blockquote>
+<p>注意环量与通量的区别。一个是切向方向，一个是方向方向。</p>
+<p>为了计算 <script type="math/tex">(8)</script>，先从光滑参数曲线入手，<script type="math/tex">t</script> 从 <script type="math/tex">a</script> 到 <script type="math/tex">b</script> 恰好遍历 <script type="math/tex">C</script> 一次。
+<script type="math/tex; mode=display">x=g(t),y=h(t),a\leq t\leq b</script>
+通过单位切向矢量 <script type="math/tex">\boldsymbol{T}</script> 和 <script type="math/tex">\boldsymbol{k}</script> 可以表示 <script type="math/tex">\boldsymbol{n}</script>。方向向外，那么是 <script type="math/tex">\boldsymbol{T}\times\boldsymbol{k}</script> 还是 <script type="math/tex">\boldsymbol{k}\times\boldsymbol{T}</script> 呢？这依赖于随着 <script type="math/tex">t</script> 遍历 <script type="math/tex">C</script> 的方向。如果是顺时针方向，那么 <script type="math/tex">\boldsymbol{k}\times\boldsymbol{T}</script> 向外，如果是逆时针运动，<script type="math/tex">\boldsymbol{T}\times\boldsymbol{k}</script> 指向外。</p>
+<p><img alt="" src="../020.180.png" /></p>
+<p>通常假设是逆时针运动，因此选择 <script type="math/tex">\boldsymbol{n}=\boldsymbol{T}\times\boldsymbol{k}</script>。尽管公式 <script type="math/tex">(8)</script> 的积分不依赖与 <script type="math/tex">C</script> 遍历的方向，但是推导计算的过程假设逆时针运动。因此
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{n}&=\boldsymbol{T}\times\boldsymbol{k}\\
+&=\bigg(\frac{dx}{ds}\boldsymbol{i}+\frac{dy}{ds}\boldsymbol{i}\bigg)\times\boldsymbol{k}\\
+&=\begin{pmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{dx}{ds}&&\frac{dy}{ds}&&0\\
+0&&0&&1
+\end{pmatrix}\\
+&=\frac{dy}{ds}\boldsymbol{i}-\frac{dx}{ds}\boldsymbol{j}
+\end{aligned}</script>
+如果
+<script type="math/tex; mode=display">\boldsymbol{F}=M(x,y)\boldsymbol{i}+N(x,y)\boldsymbol{j}</script>
+那么
+<script type="math/tex; mode=display">\boldsymbol{F}\cdot\boldsymbol{n}=M(x,y)\frac{dy}{ds}-N(x,y)\frac{dx}{ds}</script>
+因此
+<script type="math/tex; mode=display">\int_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\int_C\bigg(M\frac{dy}{ds}-N\frac{dx}{ds}\bigg)ds=\oint_CMdy-Ndx</script>
+积分上的圈表示在封闭曲线 <script type="math/tex">C</script> 上以逆时针运动进行积分。使用 <script type="math/tex">t</script> 表示 <script type="math/tex">M,dy,N,dx</script>，然后从 <script type="math/tex">t=a</script> 到 <script type="math/tex">t=b</script> 积分。也就是说，计算通量无须显式知道 <script type="math/tex">\boldsymbol{n}</script> 或 <script type="math/tex">ds</script>。</p>
+<p>例8 求 <script type="math/tex">\boldsymbol{F}=(x-y)\boldsymbol{i}+x\boldsymbol{j}</script> 通过单位圆 <script type="math/tex">x^2+y^2=1</script> 的通量。如例 7 的图。</p>
+<p>解：曲线的参数方程是
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j},0\leq t\leq 2\pi</script>
+恰好绕单位圆一周。那么
+<script type="math/tex; mode=display">\begin{aligned}
+M&=x-y=\cos t-\sin t\\
+dy&=d(\sin t)=\cos tdt\\
+N&=x=\cos t\\
+dx&=d(\cos t)=-\sin tdt
+\end{aligned}</script>
+因此
+<script type="math/tex; mode=display">\begin{aligned}
+\oint_CMdy-Ndx&=\int_0^{2\pi}(\cos^2 t-\sin t\cos t+\cos t\sin t)dt\\
+&=\int_0^{2\pi}\cos^2 tdt\\
+&=\int_0^{2\pi}\frac{1+\cos 2t}{2}dt\\
+&=\bigg[\frac{t}{2}+\frac{\sin 2t}{4}\bigg]_0^{2\pi}\\
+&=\pi
+\end{aligned}</script>
+<script type="math/tex">\boldsymbol{F}</script> 通过圆的通量是 <script type="math/tex">\pi</script>。因为结果是正的，所以通过圆的净流量是向外的。净流量向内的话通量是负值。</p>
 
 
 
@@ -21388,7 +21471,7 @@ F&=\int_a^b\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 11, 2025</span>
   </span>
 
     
