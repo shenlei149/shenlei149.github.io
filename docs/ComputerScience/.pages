@@ -2,6 +2,7 @@ nav:
     - README.md
     - TAOCP: TAOCP
     - Computer Organization and Design (RISC-V): ComputerOrganizationDesign
+    - Professional C++: ProfessionalCPP
     - Effective Modern C++: EffectiveModernCpp
     - C++17 The Complete Guide: CPP17
     - The Art of Writing Efficient Programs: ArtWritingEfficientPrograms
