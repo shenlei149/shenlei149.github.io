@@ -44,4 +44,96 @@ $$\int_C\boldsymbol{F}\cdot d\boldsymbol{r}=f(0,0,2)-f(1,0,0)=-\frac{1}{4}-(-1)=
 
 重力场和电场可以使用例 1 中的 $\boldsymbol{F}$ 来建模。在对重力建模时，函数 $f$ 表示重力势能，$f$ 的符号是负号，在原点处 $f$ 趋于 $-\infty$。这种选择使得重力 $\boldsymbol{F}$ 朝向原点，因此所有物体向下落而不是向上运动。
 
+证明：假定在区域 $D$ 中两点 $A, B$ 之间的光滑曲线的参数方程是 $C:\boldsymbol{r}(t)=g(t)\boldsymbol{i}+h(t)\boldsymbol{j}+k(t)\boldsymbol{k},a\leq t\leq b$。13.5 小节给出了一个结论，标量函数 $f$ 沿着曲线 $C$ 的导数可以是点积 $\nabla f(\boldsymbol{r}(t))\cdot \boldsymbol{r}'(t)$，因此
+$$\begin{aligned}
+\int_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\int_A^B\nabla f\cdot d\boldsymbol{r}\\
+&=\int_{t=a}^{t=b}\nabla f(\boldsymbol{r}(t))\cdot \boldsymbol{r}'(t)dt\\
+&=\int_a^b\frac{d}{dt}(f\boldsymbol{r}(t))dt\\
+&=f(\boldsymbol{r}(b))-f(\boldsymbol{r}(a))\\
+&=f(B)-f(A)
+\end{aligned}$$
+
+从定理 1 可知，如果我们知道了函数 $f$，计算梯度场 $\boldsymbol{F}=\nabla f$ 的线积分就非常直接了。很多重要应用都是梯度场。下面证明保守场是这种类型的场。
+
+**定理 2 - 保守场是梯度场**
+> 令 $\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}+P\boldsymbol{k}$ 是矢量场，各个分量在空间开放连通区域 $D$ 上连续，那么 $\boldsymbol{F}$ 是保守场等价于 $\boldsymbol{F}$ 是可微函数 $f$ 的梯度场 $\boldsymbol{F}=\nabla f$。
+
+定理 2 是说 $\boldsymbol{F}=\nabla f$ 等价于线积分 $\int_C\boldsymbol{F}\cdot d\boldsymbol{r}$ 与 $A$ 到 $B$ 的曲线 $C$ 无关，其中 $A, B, C$ 均在 $D$ 内。
+
+证明：如果 $\boldsymbol{F}$ 是梯度场，那么 $\boldsymbol{F}=\nabla f$，其中 $f$ 是可微函数，定理 1 证明了 $\int_C\boldsymbol{F}\cdot d\boldsymbol{r}=f(B)-f(A)$，线积分的值不依赖于 $C$，只和 $A,B$ 相关。所以线积分是路径无关的，$\boldsymbol{F}$ 满足保守场的定义。
+
+反过来，假定 $\boldsymbol{F}$ 是保守场。需要找到一个 $D$ 上的函数 $f$ 满足 $\nabla f=\boldsymbol{F}$。首先选取一点 $A$，并令 $f(A)=0$，再选择一点 $B$，令 $f(B)=\int_C\boldsymbol{F}\cdot d\boldsymbol{r}$，其中 $C$ 是 $D$ 内连接 $A,B$ 的光滑曲线。由于 $\boldsymbol{F}$ 是保守场，因此 $f(B)$ 不依赖于 $C$ 的选择。为了证明 $\nabla f=\boldsymbol{F}$，需要证明 $\partial{f}/\partial{x}=M,\partial{f}/\partial{y}=N,\partial{f}/\partial{z}=P$。
+
+假定 $B$ 的坐标是 $(x,y,z)$。根据 $f$ 的定义，在附近一点 $B_0(x_0,y,z)$ 处 $f$ 的值是 $\int_{C_0}\boldsymbol{F}\cdot d\boldsymbol{r}$，其中 $C_0$ 是从 $A$ 到 $B_0$ 的任意路径。那么从 $A$ 到 $B$ 可以分成两段：$C=C_0\cup L$，其中 $L$ 是 $B_0$ 到 $B$ 的线段。当 $B_0$ 足够靠近 $B$ 时，线段 $L$ 位于 $D$ 内。
+
+![](030.020.png)
+
+由于 $f(B)$ 的值是路径无关的，
+$$f(x,y,z)=\int_{C_0}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_L\boldsymbol{F}\cdot d\boldsymbol{r}$$
+微分得到
+$$\frac{\partial}{\partial x}f(x,y,z)=\frac{\partial}{\partial x}\bigg(\int_{C_0}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_L\boldsymbol{F}\cdot d\boldsymbol{r}\bigg)$$
+右边的第一项与 $x_0$ 相关与 $x$ 无关，因此
+$$\frac{\partial}{\partial x}f(x,y,z)=\frac{\partial}{\partial x}\int_L\boldsymbol{F}\cdot d\boldsymbol{r}$$
+$L$ 的参数化方程是 $\boldsymbol{r}(t)=t\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k},x_0\leq t\leq x$。那么
+$$\frac{d\boldsymbol{r}}{dt}=\boldsymbol{i}$$
+由于
+$$\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}+P\boldsymbol{k}$$
+因此
+$$\boldsymbol{F}\cdot d\boldsymbol{r}/dt=M$$
+代入积分式子得到
+$$\int_L\boldsymbol{F}\cdot d\boldsymbol{r}=\int_{x_0}^xM(t,y,z)dt$$
+根据微积分基本定理得到
+$$\frac{\partial}{\partial x}f(x,y,z)=\frac{\partial}{\partial x}\int_{x_0}^xM(t,y,z)dt=M(x,y,z)$$
+类似的可以证明 $\partial{f}/\partial{y}=N,\partial{f}/\partial{z}=P$，那么就得到
+$$\boldsymbol{F}=\nabla f$$
+
+例2 求在保守场
+$$\boldsymbol{F}=yz\boldsymbol{i}+xz\boldsymbol{j}+xy\boldsymbol{k}=\nabla f,f(x,y,z)=xyz$$
+内，沿着任意曲线 $C$ 从 $A(-1,3,9)$ 到 $B(1,6,-4)$ 移动物体所做的功。
+
+解：
+$$\begin{aligned}
+\int_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\int_A^B\nabla f\cdot d\boldsymbol{r}\\
+&=f(B)-f(A)\\
+&=(1)(6)(-4)-(-1)(3)(9)\\
+&=3
+\end{aligned}$$
+
+保守场内的线积分一个有用的性质是当积分路径是环时，积分为零。通常使用 $\oint_C$ 表示封闭路径的积分。
+
+**定理 3 - 保守场的环属性**
+> 下面两种陈述是等价的。
+> 1. 对 $D$ 内任意闭合曲线 $C$ 有 $\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}$。
+> 2. $\boldsymbol{F}$ 是 $D$ 内的保守场。
+
+证明：首先证明 1 到 2 是成立的。我们需要证明对任意 $D$ 内两点 $A,B$，线积分 $\boldsymbol{F}\cdot d\boldsymbol{r}$ 对任意两条不同曲线 $C_1,C_2$ 的值相同。如下图所示。我们反转 $C_2$ 得到 $C_1$，那么 $C_1,-C_2$ 形成了环。
+
+![](030.030.png)
+
+根据假设
+$$\int_{C_1}\boldsymbol{F}\cdot d\boldsymbol{r}-\int_{C_2}\boldsymbol{F}\cdot d\boldsymbol{r}=\int_{C_1}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_{-C_2}\boldsymbol{F}\cdot d\boldsymbol{r}=\int_C\boldsymbol{F}\cdot d\boldsymbol{r}=0$$
+因此沿着 $C_1,C_2$ 的积分值相同。
+
+接着证明 2 到 1 是成立的。在封闭曲线 $C$ 上任取两点 $A,B$，将 $C$ 分成两段 $C_1,C_2$。
+
+![](030.040.png)
+
+$$\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=\int_{C_1}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_{C_2}\boldsymbol{F}\cdot d\boldsymbol{r}=\int_A^B\boldsymbol{F}\cdot d\boldsymbol{r}-\int_A^B\boldsymbol{F}\cdot d\boldsymbol{r}=0$$
+最后一步推导用到了保守场的性质。
+
+结合定理 2 和定理 3，可以得到 $\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=0$，$\boldsymbol{F}=\nabla$ 和 $\boldsymbol{F}$ 是保守场三者等价。
+
+下面要解决两个问题：
+1. 如果知道一个 $\boldsymbol{F}$ 是保守场？
+2. 如果 $\boldsymbol{F}$ 是保守场，如何求满足 $\nabla f=\boldsymbol{F}$ 的势函数 $f$？
+
+### 求保守场的势函数
+**保守场的分量测试**
+> 令 $\boldsymbol{F}=M(x,y,z)\boldsymbol{i}+N(x,y,z)\boldsymbol{j}+P(x,y,z)\boldsymbol{k}$ 是简单连通域上的场，各个分量有连续的一阶偏微分。那么 $\boldsymbol{F}$ 是保守场等价于
+> $$\frac{\partial P}{\partial y}=\frac{\partial N}{\partial z},\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\frac{\partial N}{\partial x}=\frac{\partial M}{\partial y}\tag{2}$$
+
+这个测试是说在简单连通区域内，矢量
+$$\bigg(\frac{\partial P}{\partial y}-\frac{\partial N}{\partial z}\bigg)\boldsymbol{i}+\bigg(\frac{\partial M}{\partial z}-\frac{\partial P}{\partial x}\bigg)\boldsymbol{j}+\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)\boldsymbol{k}=\boldsymbol{0}$$
+等价于 $\boldsymbol{F}$ 保守场。这个矢量称为 $\boldsymbol{F}$ 的旋度（`curl`）。
+
 证明：
