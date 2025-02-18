@@ -21197,6 +21197,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      求保守场的势函数
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21269,6 +21278,86 @@
 <script type="math/tex; mode=display">\int_C\boldsymbol{F}\cdot d\boldsymbol{r}=f(0,0,2)-f(1,0,0)=-\frac{1}{4}-(-1)=\frac{3}{4}</script>
 </p>
 <p>重力场和电场可以使用例 1 中的 <script type="math/tex">\boldsymbol{F}</script> 来建模。在对重力建模时，函数 <script type="math/tex">f</script> 表示重力势能，<script type="math/tex">f</script> 的符号是负号，在原点处 <script type="math/tex">f</script> 趋于 <script type="math/tex">-\infty</script>。这种选择使得重力 <script type="math/tex">\boldsymbol{F}</script> 朝向原点，因此所有物体向下落而不是向上运动。</p>
+<p>证明：假定在区域 <script type="math/tex">D</script> 中两点 <script type="math/tex">A, B</script> 之间的光滑曲线的参数方程是 <script type="math/tex">C:\boldsymbol{r}(t)=g(t)\boldsymbol{i}+h(t)\boldsymbol{j}+k(t)\boldsymbol{k},a\leq t\leq b</script>。13.5 小节给出了一个结论，标量函数 <script type="math/tex">f</script> 沿着曲线 <script type="math/tex">C</script> 的导数可以是点积 <script type="math/tex">\nabla f(\boldsymbol{r}(t))\cdot \boldsymbol{r}'(t)</script>，因此
+<script type="math/tex; mode=display">\begin{aligned}
+\int_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\int_A^B\nabla f\cdot d\boldsymbol{r}\\
+&=\int_{t=a}^{t=b}\nabla f(\boldsymbol{r}(t))\cdot \boldsymbol{r}'(t)dt\\
+&=\int_a^b\frac{d}{dt}(f\boldsymbol{r}(t))dt\\
+&=f(\boldsymbol{r}(b))-f(\boldsymbol{r}(a))\\
+&=f(B)-f(A)
+\end{aligned}</script>
+</p>
+<p>从定理 1 可知，如果我们知道了函数 <script type="math/tex">f</script>，计算梯度场 <script type="math/tex">\boldsymbol{F}=\nabla f</script> 的线积分就非常直接了。很多重要应用都是梯度场。下面证明保守场是这种类型的场。</p>
+<p><strong>定理 2 - 保守场是梯度场</strong></p>
+<blockquote>
+<p>令 <script type="math/tex">\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}+P\boldsymbol{k}</script> 是矢量场，各个分量在空间开放连通区域 <script type="math/tex">D</script> 上连续，那么 <script type="math/tex">\boldsymbol{F}</script> 是保守场等价于 <script type="math/tex">\boldsymbol{F}</script> 是可微函数 <script type="math/tex">f</script> 的梯度场 <script type="math/tex">\boldsymbol{F}=\nabla f</script>。</p>
+</blockquote>
+<p>定理 2 是说 <script type="math/tex">\boldsymbol{F}=\nabla f</script> 等价于线积分 <script type="math/tex">\int_C\boldsymbol{F}\cdot d\boldsymbol{r}</script> 与 <script type="math/tex">A</script> 到 <script type="math/tex">B</script> 的曲线 <script type="math/tex">C</script> 无关，其中 <script type="math/tex">A, B, C</script> 均在 <script type="math/tex">D</script> 内。</p>
+<p>证明：如果 <script type="math/tex">\boldsymbol{F}</script> 是梯度场，那么 <script type="math/tex">\boldsymbol{F}=\nabla f</script>，其中 <script type="math/tex">f</script> 是可微函数，定理 1 证明了 <script type="math/tex">\int_C\boldsymbol{F}\cdot d\boldsymbol{r}=f(B)-f(A)</script>，线积分的值不依赖于 <script type="math/tex">C</script>，只和 <script type="math/tex">A,B</script> 相关。所以线积分是路径无关的，<script type="math/tex">\boldsymbol{F}</script> 满足保守场的定义。</p>
+<p>反过来，假定 <script type="math/tex">\boldsymbol{F}</script> 是保守场。需要找到一个 <script type="math/tex">D</script> 上的函数 <script type="math/tex">f</script> 满足 <script type="math/tex">\nabla f=\boldsymbol{F}</script>。首先选取一点 <script type="math/tex">A</script>，并令 <script type="math/tex">f(A)=0</script>，再选择一点 <script type="math/tex">B</script>，令 <script type="math/tex">f(B)=\int_C\boldsymbol{F}\cdot d\boldsymbol{r}</script>，其中 <script type="math/tex">C</script> 是 <script type="math/tex">D</script> 内连接 <script type="math/tex">A,B</script> 的光滑曲线。由于 <script type="math/tex">\boldsymbol{F}</script> 是保守场，因此 <script type="math/tex">f(B)</script> 不依赖于 <script type="math/tex">C</script> 的选择。为了证明 <script type="math/tex">\nabla f=\boldsymbol{F}</script>，需要证明 <script type="math/tex">\partial{f}/\partial{x}=M,\partial{f}/\partial{y}=N,\partial{f}/\partial{z}=P</script>。</p>
+<p>假定 <script type="math/tex">B</script> 的坐标是 <script type="math/tex">(x,y,z)</script>。根据 <script type="math/tex">f</script> 的定义，在附近一点 <script type="math/tex">B_0(x_0,y,z)</script> 处 <script type="math/tex">f</script> 的值是 <script type="math/tex">\int_{C_0}\boldsymbol{F}\cdot d\boldsymbol{r}</script>，其中 <script type="math/tex">C_0</script> 是从 <script type="math/tex">A</script> 到 <script type="math/tex">B_0</script> 的任意路径。那么从 <script type="math/tex">A</script> 到 <script type="math/tex">B</script> 可以分成两段：<script type="math/tex">C=C_0\cup L</script>，其中 <script type="math/tex">L</script> 是 <script type="math/tex">B_0</script> 到 <script type="math/tex">B</script> 的线段。当 <script type="math/tex">B_0</script> 足够靠近 <script type="math/tex">B</script> 时，线段 <script type="math/tex">L</script> 位于 <script type="math/tex">D</script> 内。</p>
+<p><img alt="" src="../030.020.png" /></p>
+<p>由于 <script type="math/tex">f(B)</script> 的值是路径无关的，
+<script type="math/tex; mode=display">f(x,y,z)=\int_{C_0}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_L\boldsymbol{F}\cdot d\boldsymbol{r}</script>
+微分得到
+<script type="math/tex; mode=display">\frac{\partial}{\partial x}f(x,y,z)=\frac{\partial}{\partial x}\bigg(\int_{C_0}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_L\boldsymbol{F}\cdot d\boldsymbol{r}\bigg)</script>
+右边的第一项与 <script type="math/tex">x_0</script> 相关与 <script type="math/tex">x</script> 无关，因此
+<script type="math/tex; mode=display">\frac{\partial}{\partial x}f(x,y,z)=\frac{\partial}{\partial x}\int_L\boldsymbol{F}\cdot d\boldsymbol{r}</script>
+<script type="math/tex">L</script> 的参数化方程是 <script type="math/tex">\boldsymbol{r}(t)=t\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k},x_0\leq t\leq x</script>。那么
+<script type="math/tex; mode=display">\frac{d\boldsymbol{r}}{dt}=\boldsymbol{i}</script>
+由于
+<script type="math/tex; mode=display">\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}+P\boldsymbol{k}</script>
+因此
+<script type="math/tex; mode=display">\boldsymbol{F}\cdot d\boldsymbol{r}/dt=M</script>
+代入积分式子得到
+<script type="math/tex; mode=display">\int_L\boldsymbol{F}\cdot d\boldsymbol{r}=\int_{x_0}^xM(t,y,z)dt</script>
+根据微积分基本定理得到
+<script type="math/tex; mode=display">\frac{\partial}{\partial x}f(x,y,z)=\frac{\partial}{\partial x}\int_{x_0}^xM(t,y,z)dt=M(x,y,z)</script>
+类似的可以证明 <script type="math/tex">\partial{f}/\partial{y}=N,\partial{f}/\partial{z}=P</script>，那么就得到
+<script type="math/tex; mode=display">\boldsymbol{F}=\nabla f</script>
+</p>
+<p>例2 求在保守场
+<script type="math/tex; mode=display">\boldsymbol{F}=yz\boldsymbol{i}+xz\boldsymbol{j}+xy\boldsymbol{k}=\nabla f,f(x,y,z)=xyz</script>
+内，沿着任意曲线 <script type="math/tex">C</script> 从 <script type="math/tex">A(-1,3,9)</script> 到 <script type="math/tex">B(1,6,-4)</script> 移动物体所做的功。</p>
+<p>解：
+<script type="math/tex; mode=display">\begin{aligned}
+\int_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\int_A^B\nabla f\cdot d\boldsymbol{r}\\
+&=f(B)-f(A)\\
+&=(1)(6)(-4)-(-1)(3)(9)\\
+&=3
+\end{aligned}</script>
+</p>
+<p>保守场内的线积分一个有用的性质是当积分路径是环时，积分为零。通常使用 <script type="math/tex">\oint_C</script> 表示封闭路径的积分。</p>
+<p><strong>定理 3 - 保守场的环属性</strong></p>
+<blockquote>
+<p>下面两种陈述是等价的。
+1. 对 <script type="math/tex">D</script> 内任意闭合曲线 <script type="math/tex">C</script> 有 <script type="math/tex">\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}</script>。
+2. <script type="math/tex">\boldsymbol{F}</script> 是 <script type="math/tex">D</script> 内的保守场。</p>
+</blockquote>
+<p>证明：首先证明 1 到 2 是成立的。我们需要证明对任意 <script type="math/tex">D</script> 内两点 <script type="math/tex">A,B</script>，线积分 <script type="math/tex">\boldsymbol{F}\cdot d\boldsymbol{r}</script> 对任意两条不同曲线 <script type="math/tex">C_1,C_2</script> 的值相同。如下图所示。我们反转 <script type="math/tex">C_2</script> 得到 <script type="math/tex">C_1</script>，那么 <script type="math/tex">C_1,-C_2</script> 形成了环。</p>
+<p><img alt="" src="../030.030.png" /></p>
+<p>根据假设
+<script type="math/tex; mode=display">\int_{C_1}\boldsymbol{F}\cdot d\boldsymbol{r}-\int_{C_2}\boldsymbol{F}\cdot d\boldsymbol{r}=\int_{C_1}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_{-C_2}\boldsymbol{F}\cdot d\boldsymbol{r}=\int_C\boldsymbol{F}\cdot d\boldsymbol{r}=0</script>
+因此沿着 <script type="math/tex">C_1,C_2</script> 的积分值相同。</p>
+<p>接着证明 2 到 1 是成立的。在封闭曲线 <script type="math/tex">C</script> 上任取两点 <script type="math/tex">A,B</script>，将 <script type="math/tex">C</script> 分成两段 <script type="math/tex">C_1,C_2</script>。</p>
+<p><img alt="" src="../030.040.png" /></p>
+<p>
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=\int_{C_1}\boldsymbol{F}\cdot d\boldsymbol{r}+\int_{C_2}\boldsymbol{F}\cdot d\boldsymbol{r}=\int_A^B\boldsymbol{F}\cdot d\boldsymbol{r}-\int_A^B\boldsymbol{F}\cdot d\boldsymbol{r}=0</script>
+最后一步推导用到了保守场的性质。</p>
+<p>结合定理 2 和定理 3，可以得到 <script type="math/tex">\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=0</script>，<script type="math/tex">\boldsymbol{F}=\nabla</script> 和 <script type="math/tex">\boldsymbol{F}</script> 是保守场三者等价。</p>
+<p>下面要解决两个问题：
+1. 如果知道一个 <script type="math/tex">\boldsymbol{F}</script> 是保守场？
+2. 如果 <script type="math/tex">\boldsymbol{F}</script> 是保守场，如何求满足 <script type="math/tex">\nabla f=\boldsymbol{F}</script> 的势函数 <script type="math/tex">f</script>？</p>
+<h3 id="_4">求保守场的势函数</h3>
+<p><strong>保守场的分量测试</strong></p>
+<blockquote>
+<p>令 <script type="math/tex">\boldsymbol{F}=M(x,y,z)\boldsymbol{i}+N(x,y,z)\boldsymbol{j}+P(x,y,z)\boldsymbol{k}</script> 是简单连通域上的场，各个分量有连续的一阶偏微分。那么 <script type="math/tex">\boldsymbol{F}</script> 是保守场等价于
+<script type="math/tex; mode=display">\frac{\partial P}{\partial y}=\frac{\partial N}{\partial z},\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\frac{\partial N}{\partial x}=\frac{\partial M}{\partial y}\tag{2}</script>
+</p>
+</blockquote>
+<p>这个测试是说在简单连通区域内，矢量
+<script type="math/tex; mode=display">\bigg(\frac{\partial P}{\partial y}-\frac{\partial N}{\partial z}\bigg)\boldsymbol{i}+\bigg(\frac{\partial M}{\partial z}-\frac{\partial P}{\partial x}\bigg)\boldsymbol{j}+\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)\boldsymbol{k}=\boldsymbol{0}</script>
+等价于 <script type="math/tex">\boldsymbol{F}</script> 保守场。这个矢量称为 <script type="math/tex">\boldsymbol{F}</script> 的旋度（<code>curl</code>）。</p>
 <p>证明：</p>
 
 
@@ -21292,7 +21381,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 18, 2025</span>
   </span>
 
     
