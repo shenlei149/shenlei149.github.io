@@ -14,7 +14,7 @@
         <link rel="prev" href="../02-Designing-Professional-C%2B%2B-Programs/">
       
       
-        <link rel="next" href="../../EffectiveModernCpp/">
+        <link rel="next" href="../04-Designing-for-Reuse/">
       
       
       <link rel="icon" href="../../../logo.png">
@@ -2750,6 +2750,8 @@
       
         
       
+        
+      
     
     
       
@@ -2883,6 +2885,28 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-Designing-for-Reuse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 Designing for Reuse
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -21252,6 +21276,7 @@
 <p>第二种是 is-a，类继承其他类。</p>
 <p>两个类之间的关系有时很清楚，有时不清楚，不清楚的时候，倾向于 has-a。</p>
 <p>其实，两个类之间也可以没有任何关系，两个类之间没有关系就不要硬联系。比如两个类，子类没有特别的属性或者成员函数，不要强行派生一个子类；除了抽象类之外，如果一个继承类 override 了所有函数，那么也不必强行发生关系。</p>
+<p>C++ 提供了多重继承的能力，用不好会导致很多问题。比如从类的继承角度看会非常复杂，比如实现的时候两个基类有同样的函数但是实现不同要怎么办等。因此很多新的编程语言只支持多继承接口（可以看作是抽象基类），能避免很多不必要的问题。其实 C++ 也可以这么用。比如一个图片按钮，可以是两个基类 <code>Image</code> 和 <code>Button</code> 的子类，也可以是 <code>Image</code> 的子类，同时实现 <code>Clickable</code> 抽象基类。</p>
 
 
 
@@ -21274,7 +21299,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 21, 2025</span>
   </span>
 
     
