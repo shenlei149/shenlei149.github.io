@@ -34,6 +34,85 @@ $$\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}$$
 > $$\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\tag{1}$$
 > 表达式称为旋度的 $\boldsymbol{k}$ 分量，用 $\text{curl }\boldsymbol{F}\cdot\boldsymbol{k}$ 表示。
 
-如果水在 $xy$ 平面上流动，那么在 $(x_0,y_0)$ 处的 $\boldsymbol{k}$ 分量表示把一个轮桨放入水中（轴在 $(x_0,y_0)$ 且垂直于水面）运动的有多快。如下图所示。从上往下看，当 $\text{curl } \boldsymbol{F}\cdot\boldsymbol{k}$ 是正的，逆时针转动，否则顺时针转动。
+如果水在 $xy$ 平面上流动，那么在 $(x_0,y_0)$ 处的 $\boldsymbol{k}$ 分量表示把一个轮桨放入水中（轴在 $(x_0,y_0)$ 且垂直于水面）运动的有多快。如下图所示。从上往下看，当 $(\text{curl } \boldsymbol{F})\cdot\boldsymbol{k}$ 是正的，逆时针转动，否则顺时针转动。
 
 ![](040.020.png)
+
+例1 球下面矢量场的环量密度并给出物理解释。
+
+![](040.030.png)
+
+（a）均匀膨胀或压缩：$\boldsymbol{F}(x,y)=cx\boldsymbol{i}+cy\boldsymbol{j}$。
+$$(\text{curl } \boldsymbol{F})\cdot\boldsymbol{k}=\frac{\partial}{\partial x}(cy)-\frac{\partial}{\partial y}(cx)=0$$
+气体不会循环。
+
+（b）匀速旋转：$\boldsymbol{F}(x,y)=-cy\boldsymbol{i}+cx\boldsymbol{j}$
+$$(\text{curl } \boldsymbol{F})\cdot\boldsymbol{k}=\frac{\partial}{\partial x}(cx)-\frac{\partial}{\partial y}(cy)=2c$$
+环量密度是常量，在每一点都旋转。如果 $c>0$，逆时针旋转，否则顺时针旋转。
+
+（c）剪流：$\boldsymbol{F}(x,y)=y\boldsymbol{i}$。
+$$(\text{curl } \boldsymbol{F})\cdot\boldsymbol{k}=-\frac{\partial}{\partial y}(y)=-1$$
+环量密度是常量，且是负值。垂直于平面的桨顺时针旋转，每点处旋转速率一样。效果如下图。
+
+![](040.040.png)
+
+（d）涡流效应：$\boldsymbol{F}(x,y)=\frac{-y}{x^2+y^2}\boldsymbol{i}+\frac{x}{x^2+y^2}\boldsymbol{j}$。
+$$(\text{curl } \boldsymbol{F})\cdot\boldsymbol{k}=\frac{\partial}{\partial x}(\frac{x}{x^2+y^2})-\frac{\partial}{\partial y}(\frac{-y}{x^2+y^2})=0$$
+原点以外其他点处环量密度是 0，不旋转。
+
+格林定理的一个形式是说可以利用环量密度计算线积分。第二个形式告诉我们可以利用通量密度来计算通量。
+
+### 散度
+假定 $\boldsymbol{F}(x,y)=M(x,y)\boldsymbol{i}+N(x,y)\boldsymbol{j}$ 是平面上液体流动的矢量场，如下图所示。依旧假定在矩形 $A$ 内场的分量符号不变。下面研究流体跨过边界 $A$ 的速率。
+
+![](040.050.png)
+
+流体离开底边的速率是
+$$\boldsymbol{F}(x,y)\cdot(-\boldsymbol{j})\Delta x=-N(x,y)\Delta x$$
+这是在 $(x,y)$ 处垂直向外的速度乘以线段的长度。其他三边计算类似。依赖于 $\boldsymbol{F}$ 分量的符号，流速可以是正的也可以是负的。净流速是流出矩形 $A$ 四边速率之和。
+
+除了底边之外，顶边是
+$$\boldsymbol{F}(x,y+\Delta y)\cdot\boldsymbol{j}=N(x,y+\Delta y)\Delta x$$
+两者之和是
+$$(N(x,y+\Delta y)-N(x,y))\Delta x\approx\frac{\partial N}{\partial y}\Delta y\Delta x$$
+左边是
+$$\boldsymbol{F}(x,y)\cdot(-\boldsymbol{i})\Delta y=-M(x,y)\Delta y$$
+右边是
+$$\boldsymbol{F}(x+\Delta x,y)\cdot\boldsymbol{i}\Delta y=M(x+\Delta x,y)\Delta y$$
+两者之和是
+$$(M(x+\Delta x,y)-M(x,y)\Delta y)\Delta y=\frac{\partial M}{\partial x}\Delta x\Delta y$$
+因此四边之和的近似值是
+$$\bigg(\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}\bigg)\Delta x\Delta y$$
+$\Delta x\Delta y$ 是矩形面积，因此通量密度值是
+$$\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}$$
+当 $\Delta x,\Delta y$ 趋于零时，上述就是 $\boldsymbol{F}$ 在 $(x,y)$ 处通量密度的定义。数学术语是散度，符号是 $\text{div }\boldsymbol{F}$。
+
+**定义**
+> 矢量场 $\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}$ 在点 $(x,y)$ 处的散度、通量密度定义是
+> $$\text{div }\boldsymbol{F}=\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}$$
+
+气体不像流体，是可以压缩的，速度场的散度描述的是每点处压缩或膨胀的程度。如果气体在 $(x_0,y_0)$ 处膨胀，气体要离开小的矩形，流体要散开，$\boldsymbol{F}$ 在该点处的散度是正的。如果是压缩，那么散度是负数。
+
+![](040.060.png)
+
+例2 求例 1 中各个矢量场的散度。
+
+解：
+
+（a）
+$$\text{div }\boldsymbol{F}=\frac{\partial}{\partial x}(cx)+\frac{\partial}{\partial y}(cy)=2c$$
+如果 $c>0$ 气体匀速膨胀，如果 $c<0$ 气体匀速压缩。
+
+（b）
+$$\text{div }\boldsymbol{F}=\frac{\partial}{\partial x}(-cy)+\frac{\partial}{\partial y}(cx)=0$$
+气体既不压缩也不膨胀。
+
+（c）
+$$\text{div }\boldsymbol{F}=\frac{\partial}{\partial x}(y)=0$$
+
+（d）
+$$\text{div }\boldsymbol{F}=\frac{\partial}{\partial x}(\frac{-y}{x^2+y^2})+\frac{\partial}{\partial y}(\frac{x}{x^2+y^2})=0$$
+
+### 格林定理的两种形式
+有两种方式遍历简单闭合曲线 $C$。逆时针遍历，称为正向，当遍历时封闭区域始终在左边。
+
