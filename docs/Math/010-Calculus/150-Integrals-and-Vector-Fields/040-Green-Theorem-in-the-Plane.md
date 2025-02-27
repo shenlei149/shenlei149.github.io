@@ -114,5 +114,147 @@ $$\text{div }\boldsymbol{F}=\frac{\partial}{\partial x}(y)=0$$
 $$\text{div }\boldsymbol{F}=\frac{\partial}{\partial x}(\frac{-y}{x^2+y^2})+\frac{\partial}{\partial y}(\frac{x}{x^2+y^2})=0$$
 
 ### 格林定理的两种形式
-有两种方式遍历简单闭合曲线 $C$。逆时针遍历，称为正向，当遍历时封闭区域始终在左边。
+有两种方式遍历简单闭合曲线 $C$。逆时针遍历，称为正向，遍历时封闭区域始终在左边。顺时针遍历，称为逆向，遍历时封闭区域始终在右边。如果方向反过来，那么矢量场 $\boldsymbol{F}$ 在 $C$ 上的线积分符号也反转。我们使用符号
+$$\oint_C\boldsymbol{F}(x,y)\cdot d\boldsymbol{r}$$
+表示当逆时针遍历简单封闭曲线 $C$ 时的线积分。
 
+第一种格式的格林定理是说矢量场在封闭曲线上的逆时针环量是矢量场的旋度的 $\boldsymbol{k}$ 分量在封闭区域上的二重积分。
+
+**定理 4 - 格林定理（环量-旋度或切向形式）**
+> 令 $C$ 是分段光滑、简单闭合曲线，围成的区域是 $R$。令 $\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}$ 是矢量场，$M,N$ 在包含 $R$ 的开放区域上有连续的一阶偏微分。那么 $\boldsymbol{F}$ 在 $C$ 上的逆时针环量等于 $R$ 上 $(\text{curl }\boldsymbol{F})\cdot\boldsymbol{k}$ 的二重积分。
+> $$\oint_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\oint_CMdx+Ndy=\iint_R\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)dxdy\tag{3}$$
+
+第二种格式的格林定理是说矢量场跨越简单封闭曲线向外的通量等于矢量场的散度在封闭区域上的二重积分。
+
+**定理 5 - 格林定理（通量-散度或法向形式）**
+> 令 $C$ 是分段光滑、简单闭合曲线，围成的区域是 $R$。令 $\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}$ 是矢量场，$M,N$ 在包含 $R$ 的开放区域上有连续的一阶偏微分。那么 $\boldsymbol{F}$ 跨过 $C$ 向外的通量等于 $R$ 上 $\boldsymbol{F}$ 的散度的二重积分。
+> $$\oint_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\oint_CMdy-Ndx=\iint_R\bigg(\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}\bigg)dxdy\tag{4}$$
+
+两种格林定理是等价的。将 $\boldsymbol{G}_1=-N\boldsymbol{i}+M\boldsymbol{j}$ 代入公式 $(3)$ 就能得到公式 $(4)$，将 $\boldsymbol{G}_2=N\boldsymbol{i}-M\boldsymbol{j}$ 代入公式 $(4)$ 就能得到公式 $(3)$。
+
+两个格林公式可以看作是微积分基本定理的二维泛化形式。公式 $(3)$ 左边的线积分定义了 $\boldsymbol{F}$ 在 $C$ 上逆时针环量，环量也是其变化率（环流密度）在 $C$ 围成的 $R$ 上的二重积分，即公式 $(3)$ 的右边。类似的，公式 $(4)$ 左边的线积分定义了 $\boldsymbol{F}$ 在 $C$ 上向外的通量，通量也是其变化率（通量密度）在 $C$ 围成的 $R$ 上的二重积分，即公式 $(4)$ 的右边。
+
+例3 验证格林公式的两种形式。矢量场是
+$$\boldsymbol{F}(x,y)=(x-y)\boldsymbol{i}+x\boldsymbol{j}$$
+区域 $R$ 由单位圆 $C$
+$$\boldsymbol{r}(t)=\cos t\boldsymbol{i}+\sin t\boldsymbol{j}$$
+围成。
+
+解：根据题意
+$$\begin{aligned}
+M&=x-y&&=\cos t-\sin t\\
+N&=x&&=\cos t\\
+dx&=d(\cos t)&&=-\sin t\\
+dy&=d(\sin t)&&=\cos t\\
+\frac{\partial M}{\partial x}&=1\\
+\frac{\partial M}{\partial y}&=-1\\
+\frac{\partial N}{\partial x}&=1\\
+\frac{\partial N}{\partial y}&=0\\
+\end{aligned}$$
+因此公式 $(3)$ 的左边是
+$$\begin{aligned}
+\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\oint_CMdx+Ndy\\
+&=\int_0^{2\pi}(\cos t-\sin t)(-\sin t)dt+(\cos t)(\cos t)dt\\
+&=\int_0^{2\pi}(-\cos t\sin t+1)dt\\
+&=2\pi
+\end{aligned}$$
+公式 $(3)$ 的右边是
+$$\begin{aligned}
+\iint_R\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)dxdy&=\iint_R(1-(-1))dxdy\\
+&=2\iint_Rdxdy\\
+&=2\pi
+\end{aligned}$$
+
+下图展示了矢量场和环量。
+
+![](040.070.png)
+
+下面验证公式 $(4)$ 的左右两边。
+$$\begin{aligned}
+\oint_CMdy-Ndx&=\int_0^{2\pi}(\cos t-\sin t)(\cos t)dt-(\cos t)(-\sin t)dt\\
+&=\int_0^{2\pi}\cos^2 tdt\\
+&=\pi
+\end{aligned}$$
+$$\begin{aligned}
+\iint_R\bigg(\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}\bigg)dxdy&=\iint_R(1+0)dxdy\\
+&=\iint_Rdxdy\\
+&=\pi
+\end{aligned}$$
+
+### 使用格林定理求线积分
+如果我们连接多条曲线得到一个封闭曲线 $C$，由于有许多不同的积分要求，因此计算在 $C$ 上的线积分需要很久。不过，如果 $C$ 围成的区域 $R$ 适用于格林定理，那么线积分变成了 $R$ 上的二重积分。
+
+例4 求线积分
+$$\oint_Cxydy-y^2dx$$
+其中 $C$ 是由 $x,y$ 轴和 $x=1,y=1$ 组成的正方形。
+
+解：下面用两种形式的格林定理来求解。
+
+（1）应用公式 $(3)$，取 $M=-y^2,N=xy$，那么
+$$\begin{aligned}
+\oint_C-y^2dx+xydy&=\iint_R\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)dxdy\\
+&=\iint_R(y-(-2y))dxdy\\
+&=\int_0^1\int_0^13ydxdy\\
+&=\int_0^13xy\bigg|_{x=0}^{x=1}dy\\
+&=\int_0^13ydy\\
+&=\frac{3y^2}{2}\bigg|_0^1\\
+&=\frac{3}{2}
+\end{aligned}$$
+（2）应用公式 $(4)$，取 $M=xy,N=y^2$，那么
+$$\begin{aligned}
+\oint_Cxydy-y^2dx&=\iint_R\bigg(\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}\bigg)dxdy\\
+&=\iint_R(y+2y)dxdy\\
+&=\frac{3}{2}
+\end{aligned}$$
+
+### 特殊区域上格林定理的证明
+令 $C$ 是 $xy$ 平面上简单光滑闭合曲线，与平行于坐标轴的直线最多有两个交点。令 $R$ 是 $C$ 围成的区域，假设 $M,N$ 及其一阶偏微分在包含 $C,R$ 的开放区间上连续。下面证明环量-旋度形式的格林定理
+$$\oint_CMdx+Ndy=\iint_R\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)dxdy\tag{5}$$
+如下图所示，$C$ 由两个有方向的曲线组成：
+$$\begin{aligned}
+C_1:y=f_1(x),a\leq x\leq b\\
+C_2:y=f_2(x),b\geq x\geq a
+\end{aligned}$$
+
+![](040.080.png)
+
+对于 $a,b$ 间任意 $x$，$\frac{\partial M}{\partial y}$ 对 $y$ 积分，从 $y=f_1(x)$ 到 $y=f_2(x)$，那么有
+$$\int_{f_1(x)}^{f_2(x)}\frac{\partial M}{\partial y}dy=M(x,y)\bigg|_{y=f_1(x)}^{y=f_2(x)}=M(x,f_2(x))-M(x,f_1(x))$$
+然后在对 $x$ 积分有
+$$\begin{aligned}
+\int_a^b\int_{f_1(x)}^{f_2(x)}\frac{\partial M}{\partial y}dydx&=\int_a^b[M(x,f_2(x))-M(x,f_1(x))]dx\\
+&=-\int_b^aM(x,f_2(x))dx-\int_a^bM(x,f_1(x))dx\\
+&=-\int_{C_2}Mdx-\int_{C_1}Mdx\\
+&=-\oint_CMdx
+\end{aligned}$$
+因此可以得到
+$$\oint_CMdx=\iint_R-\frac{\partial M}{\partial y}dxdy\tag{6}$$
+公式 $(6)$ 是想要证明的公式 $(5)$ 的一部分。下面推导另一部分，$\frac{\partial N}{\partial x}$ 先对 $x$ 积分再对 $y$ 积分，如下图所示。
+
+![](040.090.png)
+
+这和之前类似。曲线 $C$ 分成两个部分
+$$\begin{aligned}
+C_1':x=g_1(y),d\geq y\geq c\\
+C_2':x=g_2(y),c\leq y\leq d
+\end{aligned}$$
+二重积分的积分过程也和上面类似，因此可以得到
+$$\oint_CNdy=\iint_R\frac{\partial N}{\partial x}dxdy\tag{7}$$
+公式 $(6),(7)$ 相加就得到了要证明的公式 $(5)$。
+
+格林公式对更一般的区域也成立。
+
+![](040.100.png)
+
+注意，上面的（c）图并不是简单连通的。$C_1,C_h$ 上的方向使得区域 $R$ 始终在左手边，并且消除发生在方向相反的公共线段上。因此，格林定理对非简单连通图也成立。证明过程是将不重叠的各个部分对应的积分相加。消除发生在遍历了两次的弧上，两次遍历方向相反。
+
+### 使用格林定理计算面积
+区域 $R$ 的面积是
+$$A_R=\frac{1}{2}\oint_Cxdy-ydx$$
+证明：
+$$\begin{aligned}
+A_R&=\iint_Rdxdy\\
+&=\iint_R\bigg(\frac{1}{2}+\frac{1}{2}\bigg)dydx\\
+&=\oint_C\frac{1}{2}xdy-\frac{1}{2}ydx\\
+&=\frac{1}{2}\oint_Cxdy-ydx
+\end{aligned}$$
