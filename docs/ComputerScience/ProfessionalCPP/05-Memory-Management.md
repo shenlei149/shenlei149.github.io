@@ -2,10 +2,10 @@
 
 下面动态分配回收内存的示例，如果只分配不回收就会导致内存泄漏。
 ```cpp
-int* ptr { nullptr };
+int *ptr { nullptr };
 ptr = new int;
 
-int* ptr { new int };
+int *ptr { new int };
 
 delete ptr;
 ptr = nullptr;
@@ -16,14 +16,17 @@ ptr = nullptr;
 
 C++ 中推荐使用统一初始化列表来初始化数据，当然，更推荐使用 `std::array`，也依旧推荐使用初始化列表。
 ```cpp
-int myArray[5]{1, 2, 3, 4, 5};
-int myArray[5]{1, 2, 3, 4, 5};
-int myArray[5]{}; // 0, 0, 0, 0, 0
-int myArray[]{1, 2, 3, 4, 5};
+int myArray[5] { 1, 2, 3, 4, 5 };
+int myArray[5] { 1, 2, 3, 4, 5 };
+int myArray[5] {}; // 0, 0, 0, 0, 0
+int myArray[] { 1, 2, 3, 4, 5 };
 ```
 动态创建和删除数组。
 ```cpp
-int *myArrayPtr{new int[]{1, 2, 3, 4, 5}};
+int *myArrayPtr {
+	new int[] { 1, 2, 3, 4, 5 }
+};
+
 delete[] myArrayPtr;
 myArrayPtr = nullptr;
 ```
@@ -32,22 +35,22 @@ myArrayPtr = nullptr;
 
 编译期决定大小的多维数组如下。
 ```cpp
-char board[3][3]{};
+char board[3][3] {};
 
 board[2][1] = 'O'; // O puts marker in position (2,1)
 ```
 但是运行时决定大小的多维数组就稍微难用一些了。
 ```cpp
-char **board{new char *[x]}; // Allocate first dimension
-for (size_t i{0}; i < x; ++i)
+char **board { new char *[x] }; // Allocate first dimension
+for (size_t i { 0 }; i < x; ++i)
 {
-    myArray[i] = new char[y]; // Allocate ith subarray
+	myArray[i] = new char[y]; // Allocate ith subarray
 }
 
-for (size_t i{0}; i < x; ++i)
+for (size_t i { 0 }; i < x; ++i)
 {
-    delete[] board[i]; // Delete ith subarray
-    board[i] = nullptr;
+	delete[] board[i]; // Delete ith subarray
+	board[i] = nullptr;
 }
 
 delete[] board; // Delete first dimension
@@ -58,18 +61,18 @@ board = nullptr;
 
 数组会退化成指针，比如下面两个例子，第二个例子还使用了指针运算（向前或者向后移动若干个对象）。
 ```cpp
-int myIntArray[10]{};
-int *myIntPtr{myIntArray};
+int myIntArray[10] {};
+int *myIntPtr { myIntArray };
 // Access the array through the pointer.
 myIntPtr[4] = 5;
 
-void doubleInts(int* theArray, size_t size);
+void doubleInts(int *theArray, size_t size);
 doubleInts(myIntArray, 10);
 doubleInts(myIntArray + 4, 6);
 ```
 但是不是所有的指针都是数组，当然，也可以看作是长度为 1 的数组，不过这么写是代码充满了迷惑性，还容易出错。
 ```cpp
-int *ptr{new int};
+int *ptr { new int };
 
 ptr[0] // ok
 ```
@@ -95,11 +98,11 @@ C++ 提供两种智能指针，独占所有权（`unique ownership`）时使用 
 ```cpp
 uniquePtr->callFunc();
 
-uniquePtr.get();    // get raw pointer
-uniquePtr.reset();  // free resource and set to nullptr
-uniquePtr.reset(new Object());  // free resource and set to a new instance
+uniquePtr.get();			   // get raw pointer
+uniquePtr.reset();			   // free resource and set to nullptr
+uniquePtr.reset(new Object()); // free resource and set to a new instance
 
-auto rawPtr = uniquePtr.release();  // release ownership and set to nullptr
+auto rawPtr = uniquePtr.release(); // release ownership and set to nullptr
 
 // use the rawPtr then...
 delete rawPtr;
@@ -114,7 +117,7 @@ Func(std::move(uniquePtr));
 
 `std::unique_ptr` 支持自定义自定义删除器。当和第三方 C 类库交互时可能能用上，比如类库需要调用 `c_alloc` `c_free` 来管理对象，那么 C++ 可以如下使用 `std::unique_ptr` 来做到自动管理。
 ```cpp
-std::unique_ptr<T, decltype(&c_free)> uniquePtr{c_alloc(), c_free};
+std::unique_ptr<T, decltype(&c_free)> uniquePtr { c_alloc(), c_free };
 ```
 第二个模板参数是 `c_free` 指针函数的类型。
 
@@ -124,7 +127,7 @@ std::unique_ptr<T, decltype(&c_free)> uniquePtr{c_alloc(), c_free};
 
 `std::shared_ptr` 也可以自定义删除器，且比 `std::unique_ptr` 方便使用一点，这是因为底层机制不同。
 ```cpp
-shared_ptr<int> smartPtr{c_alloc(42), c_free};
+shared_ptr<int> smartPtr { c_alloc(42), c_free };
 ```
 
 `std::shared_ptr` 使用引用计数（`reference counting`）来实现在最后一个实例销毁时释放资源。当构造一个新的 `std::shared_ptr` 实例，引用计数原子自增，`std::shared_ptr` 实例销毁或者重置时，引用计数原子自减。`std::shared_ptr` 可以正确使用可以解决双重删除的问题，但是一旦智能指针和裸指针混用，仍旧会有这个问题。
@@ -136,12 +139,18 @@ shared_ptr<int> smartPtr{c_alloc(42), c_free};
 class Foo
 {
 public:
-    Foo(int value) : data_{value} {}
-    int data_;
+	Foo(int value)
+		: data_ { value }
+	{
+	}
+
+	int data_;
 };
 
-auto foo{std::make_shared<Foo>(42)};
-auto aliasing{std::shared_ptr<int>{foo, &foo->data_}};
+auto foo { std::make_shared<Foo>(42) };
+auto aliasing {
+	std::shared_ptr<int> { foo, &foo->data_ }
+};
 ```
 
 `std::weak_ptr` 与 `std::shared_ptr` 类似，不过不拥有资源，也就是说不会对引用计数有影响。可以通过 `std::shared_ptr` 或 `std::weak_ptr` 构造一个 `std::weak_ptr` 对象。当想使用 `std::weak_ptr` 指向的对象时，可以 1）调用 `lock()` 方法得到一个 `std::shared_ptr`，如果对象不存在返回 `nullptr`，否则返回持有对象的 `std::shared_ptr`；2）用 `std::weak_ptr` 构造一个 `std::shared_ptr` 实例，不过如果资源已经释放了，会抛异常 `std::bad_weak_ptr`。
@@ -154,22 +163,24 @@ C++23 新增了一个和 C 风格函数交互的机制。C 风格函数往往通
 ```cpp
 using errorcode = int;
 
-errorcode c_alloc(int value, int **data)
+errorcode
+c_alloc(int value, int **data)
 {
-    *data = new int{value};
-    return 0;
+	*data = new int { value };
+	return 0;
 }
 
-errorcode c_free(int *data)
+errorcode
+c_free(int *data)
 {
-    delete data;
-    return 0;
+	delete data;
+	return 0;
 }
 ```
 在 C++23 之前，不能直接使用智能指针作为出参，如果又想通过智能指针自动管理资源，那么只能如下这么做。
 ```cpp
 std::unique_ptr<int, decltype(&c_free)> smartPtr(nullptr, c_free);
-int *data{nullptr};
+int *data { nullptr };
 c_alloc(42, &data);
 smartPtr.reset(data);
 ```
