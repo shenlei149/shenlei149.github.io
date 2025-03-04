@@ -14,11 +14,11 @@
         <link rel="prev" href="../05-Memory-Management/">
       
       
-        <link rel="next" href="../../EffectiveModernCpp/">
+        <link rel="next" href="../070-Mastering-Classes-and-Objects/">
       
       
       <link rel="icon" href="../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -2756,6 +2756,8 @@
       
         
       
+        
+      
     
     
       
@@ -2955,6 +2957,28 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../070-Mastering-Classes-and-Objects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    070 Mastering Classes and Objects
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -21491,6 +21515,30 @@
 </span></code></pre></div>
 这种转化可能是无意的，可以在构造函数前面加上 <code>explicit</code> 避免这种情况。推荐至少给一参版本的构造函数加上 <code>explicit</code> 确保不会有无意的类型转化。对于多参版本的构造函数，也可以加，不过使用时候至少需要大括号括起来，这样代码看起来是在构造新的类型，因此也可以不加，问题比一参版本的少很多。</p>
 <p>当对象被销毁的时候，比如智能指针被销毁了，会调用析构函数（<code>destructor</code>），然后释放内存。析构函数中可以执行清理工作，释放动态分配的内存、关闭文件等。析构函数是在构造函数前面加一个 <code>~</code> 来声明和定义。成员变量构造顺序是成员变量声明的顺序，而析构顺序恰恰相反。</p>
+<p>我们希望能够像 <code>int</code> 赋值一样可以给自定义类型（类）赋值，此时就需要重载赋值运算符（<code>assignment operator</code>）<code>operator=</code>，参数类型是 <code>const</code> 引用。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">SpreadsheetCell</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SpreadsheetCell</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">);</span>
+</span></code></pre></div>
+返回类型是引用（可以返回其他类型甚至是 <code>void</code>，但是使用者会期待返回的是引用）的话可以链式调用。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">myCell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anotherCell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aThirdCell</span><span class="p">;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">myCell</span><span class="p">.</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">anotherCell</span><span class="p">.</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">aThirdCell</span><span class="p">));</span>
+</span></code></pre></div>
+实现的话和拷贝构造函数类似，不过由于可以自己给自己赋值，所以当出现这种情况时，最好什么也不做直接返回，正确且高效。避免的方式如下。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ths</span><span class="p">)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">{</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">}</span>
+</span></code></pre></div>
+和拷贝构造函数一样，可以给一个默认实现或删除赋值运算符。</p>
+<p>C++11 开始，如果有自定义的析构函数或赋值运算符，会放弃自动生成拷贝构造函数，如果有自定义的析构函数或拷贝构造函数，也会放弃生成赋值运算符。这是因为这几个函数要么都需要特殊实现，要么默认生成的就足够了。</p>
+<p>拷贝构造和赋值运算符有一个核心区别，前者是构造，说明还没有对象，后者已经有了对象再次赋值。因此下面前面三行都是构造，特别是第三行，虽然是 <code>=</code>，但是仅仅是第二行的另一种写法罢了，只有最后一个是赋值。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">SpreadsheetCell</span><span class="w"> </span><span class="n">myCell</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">SpreadsheetCell</span><span class="w"> </span><span class="n">anotherCell</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">myCell</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">SpreadsheetCell</span><span class="w"> </span><span class="n">aThirdCell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCell</span><span class="p">;</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">anotherCell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCell</span><span class="p">;</span><span class="w"> </span><span class="c1">// Calls operator= for anotherCell</span>
+</span></code></pre></div>
+在实现构造函数的时候，如果在函数体中实现，调用的是赋值运算符，因为此时对象已经存在并且初始化好了，使用初始化列表的写法，对象还没有构造，因此调用的是拷贝构造函数。</p>
 
 
 
@@ -21513,7 +21561,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 28, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 4, 2025</span>
   </span>
 
     
