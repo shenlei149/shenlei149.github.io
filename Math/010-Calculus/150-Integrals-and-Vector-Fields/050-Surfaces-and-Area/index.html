@@ -11490,6 +11490,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      隐式曲面
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21435,6 +21444,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      隐式曲面
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21543,6 +21561,189 @@ z&=z
 </blockquote>
 <p>
 <script type="math/tex">\boldsymbol{r}_u\times\boldsymbol{r}_v</script> 始终不是零矢量意味着矢量 <script type="math/tex">\boldsymbol{r}_u,\boldsymbol{r}_v</script> 不是零矢量且不会沿着同一个方向，因此总是可以确定一个与曲面相切的平面。在定义域的边界处可以放宽这个要求，不影响面积计算。</p>
+<p>现在考虑 <script type="math/tex">R</script> 上一个很小的矩形，四边分别是 <script type="math/tex">u=u_0,u=u_0+\Delta u,v=v_0,v=v_0+\Delta v</script>。</p>
+<p><img alt="" src="../050.050.png" /></p>
+<p>
+<script type="math/tex">\Delta A_{uv}</script> 的边映射到 <script type="math/tex">S</script> 上的曲线，曲线围成的区域是 <script type="math/tex">\Delta\sigma_{uv}</script>。边 <script type="math/tex">v=v_0</script> 映射到 <script type="math/tex">C_1</script>，<script type="math/tex">u=u_0</script> 映射到 <script type="math/tex">C_2</script>，公共点 <script type="math/tex">(u_0,v_0)</script> 映射为 <script type="math/tex">P_0</script> 点。</p>
+<p>下图是放大的 <script type="math/tex">\Delta\sigma_{uv}</script>。偏微分矢量 <script type="math/tex">\boldsymbol{r}_u(u_0,v_0)</script> 在 <script type="math/tex">P_0</script> 点与 <script type="math/tex">C_1</script> 相切，<script type="math/tex">\boldsymbol{r}_v(u_0,v_0)</script> 在 <script type="math/tex">P_0</script> 点与 <script type="math/tex">C_2</script> 相切。叉积 <script type="math/tex">\boldsymbol{r}_u\times\boldsymbol{r}_v</script> 在 <script type="math/tex">P_0</script> 点处与曲面正交。这里就用到了 <script type="math/tex">S</script> 光滑这一条件，确保 <script type="math/tex">\boldsymbol{r}_u\times\boldsymbol{r}_v\neq\boldsymbol{0}</script>。</p>
+<p><img alt="" src="../050.060.png" /></p>
+<p>用与 <script type="math/tex">\Delta\sigma_{uv}</script> 平行的切面来近似曲面，平行的平面由矢量 <script type="math/tex">\Delta u\boldsymbol{r}_u</script> 与 <script type="math/tex">\Delta v\boldsymbol{r}_v</script> 确定。</p>
+<p><img alt="" src="../050.070.png" /></p>
+<p>平行的矩形面积是
+<script type="math/tex; mode=display">|\Delta u\boldsymbol{r}_u\times\Delta v\boldsymbol{r}_v|=|\boldsymbol{r}_u\times\boldsymbol{r}_v|\Delta u\Delta v\tag{2}</script>
+区域 <script type="math/tex">R</script> 上的分区 <script type="math/tex">\Delta A_{uv}</script> 引出了曲面 <script type="math/tex">S</script> 上的分区 <script type="math/tex">\Delta\sigma_{uv}</script>。用 <script type="math/tex">(2)</script> 的近似并对各个分区求和得到
+<script type="math/tex; mode=display">\sum_n|\boldsymbol{r}_u\times\boldsymbol{r}_v|\Delta u\Delta v\tag{3}</script>
+随着 <script type="math/tex">\Delta u,\Delta v</script> 独立趋于零，<script type="math/tex">n</script> 趋于 <script type="math/tex">\infty</script>，并且 <script type="math/tex">\boldsymbol{r}_u,\boldsymbol{r}_v</script> 的连续性确保 <script type="math/tex">(3)</script> 趋于二重积分 <script type="math/tex">\int_c^d\int_a^b|\boldsymbol{r}_u\times\boldsymbol{r}_v|dudv</script>。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>曲面
+<script type="math/tex; mode=display">\boldsymbol{r}(u,v)=f(u,v)\boldsymbol{i}+g(u,v)\boldsymbol{j}+h(u,v)\boldsymbol{k},a\leq u\leq b,c\leq v\leq d</script>
+的面积是
+<script type="math/tex; mode=display">A=\iint_R|\boldsymbol{r}_u\times\boldsymbol{r}_v|dA=\int_c^d\int_a^b|\boldsymbol{r}_u\times\boldsymbol{r}_v|dudv\tag{4}</script>
+</p>
+</blockquote>
+<p>通过 <script type="math/tex">d\sigma=|\boldsymbol{r}_u\times\boldsymbol{r}_v|dudv</script> 可以简化上面的式子。这里的 <script type="math/tex">d\sigma</script> 类似于 12.3 小节的 <script type="math/tex">ds</script>。</p>
+<p><strong>参数化曲面的面积微分</strong></p>
+<blockquote>
+<p>
+<script type="math/tex; mode=display">d\sigma=|\boldsymbol{r}_u\times\boldsymbol{r}_v|dudv,\iint_Sd\sigma\tag{5}</script>
+</p>
+</blockquote>
+<p>例4 求例 1 中圆锥曲面的面积。</p>
+<p>解：例 1 中我们得到了参数方程
+<script type="math/tex; mode=display">\boldsymbol{r}(r,\theta)=(r\cos\theta)\boldsymbol{i}+(r\sin\theta)\boldsymbol{j}+r\boldsymbol{k},0\leq r\leq 1,0\leq\theta\leq 2\pi</script>
+首先计算叉积
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{r}_r\times\boldsymbol{r}_{\theta}&=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\cos\theta&&\sin\theta&&1\\
+-r\sin\theta&&r\cos\theta&&0
+\end{vmatrix}\\
+&=-(r\cos\theta)\boldsymbol{i}-(r\sin\theta)\boldsymbol{j}+(r\cos^2\theta+r\sin^2\theta)\boldsymbol{k}
+\end{aligned}</script>
+因此
+<script type="math/tex; mode=display">|\boldsymbol{r}_u\times\boldsymbol{r}_v|=\sqrt{r^2\cos^2\theta+r^2\sin^2\theta+r^2}=\sqrt{2}r</script>
+因此面积是
+<script type="math/tex; mode=display">\begin{aligned}
+A&=\int_0^{2\pi}|\boldsymbol{r}_u\times\boldsymbol{r}_v|drd\theta\\
+&=\int_0^{2\pi}\int_0^1\sqrt{2}rdrd\theta\\
+&=\int_0^{2\pi}\frac{\sqrt{2}}{2}d\theta\\
+&=\pi\sqrt{2}
+\end{aligned}</script>
+</p>
+<p>例5 求半径为 <script type="math/tex">a</script> 的球面表面积。</p>
+<p>解：使用例 2 中的参数方程
+<script type="math/tex; mode=display">\boldsymbol{r}(\phi,\theta)=(a\sin\phi\cos\theta)\boldsymbol{i}+(a\sin\phi\sin\theta)\boldsymbol{j}+(a\cos\phi)\boldsymbol{k},0\leq\phi\pi,0\leq\theta\leq 2\pi</script>
+叉积
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{r}_{\phi}\times\boldsymbol{r}_{\theta}&=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+a\cos\phi\cos\theta&&a\cos\phi\sin\theta&&-a\sin\phi\\
+-a\sin\phi\sin\theta&&a\sin\phi\cos\theta&&0
+\end{vmatrix}\\
+&=(a^2\sin^2\phi\cos\theta)\boldsymbol{i}+(a^2\sin^2\phi\sin\theta)\boldsymbol{j}+(a^2\sin\phi\cos\phi)
+\end{aligned}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+|\boldsymbol{r}_{\phi}\times\boldsymbol{r}_{\theta}|&=\sqrt{a^4\sin^4\phi\cos^2\theta+a^4\sin^4\phi\sin^2\cos^2\theta+a^4\sin^2\phi\cos^2\theta}\\
+&=\sqrt{a^4\sin^4\phi+a^4\sin^2\phi+\cos^2\phi}\\
+&=\sqrt{a^4\sin^2\phi}\\
+&=a^2\sin\phi
+\end{aligned}</script>
+上面最后一步需要用 <script type="math/tex">\sin\phi\geq 0,0\leq\phi\leq\pi</script>。因此面积
+<script type="math/tex; mode=display">\begin{aligned}
+A&=\int_0^{2\pi}\int_0^\pi a^2\sin\phi d\phi d\theta\\
+&=\int_0^{2\pi}-a^2\cos\phi\bigg|_0^{\pi}d\theta\\
+&=\int_0^{2\pi}2a^2d\theta\\
+&=4a^2\pi
+\end{aligned}</script>
+结果就是众所周知的圆的表面积公式。</p>
+<p>例6 令 <script type="math/tex">S</script> 是由曲线 <script type="math/tex">x=\cos z,y=0,-\pi/2\leq z\leq\pi/2</script> 绕着 <script type="math/tex">z</script> 轴旋转得到的橄榄球的曲面。求 <script type="math/tex">S</script> 的参数方程并求其面积。</p>
+<p><img alt="" src="../050.080.png" /></p>
+<p>解：这里使用柱坐标系。掉 <script type="math/tex">(x,0,z)</script> 绕着 <script type="math/tex">z</script> 轴旋转得到一个半径为 <script type="math/tex">r=\cos z</script> 的圆。令 <script type="math/tex">u=z,v=\theta</script>，<script type="math/tex">(x,y,z)</script> 是 <script type="math/tex">S</script> 上任意一点，那么 <script type="math/tex">x=r\cos\theta=\cos u\cos v,y=r\sin\theta=\cos u\sin v,z=u</script>，那么参数方程是
+<script type="math/tex; mode=display">\boldsymbol{r}(u,v)=\cos u\cos v\boldsymbol{i}+\cos u\sin v\boldsymbol{j}+u\boldsymbol{k},-\frac{\pi}{2}\leq u\leq\frac{\pi}{2},0\leq v\leq 2\pi</script>
+叉积
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{r}_u\times\boldsymbol{r}_v&=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+-\sin u\cos v&&\sin u\sin v&&1\\
+-\cos u\sin v&&\cos u\cos v&&0
+\end{vmatrix}\\
+&=-\cos u\cos v\boldsymbol{i}-\cos u\sin v\boldsymbol{j}+(\sin u\cos u\cos^2 v+\sin u\cos u\sin^2 v)\boldsymbol{k}\\
+&=-\cos u\cos v\boldsymbol{i}-\cos u\sin v\boldsymbol{j}+(\sin u\cos u)\boldsymbol{k}
+\end{aligned}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+|\boldsymbol{r}_u\times\boldsymbol{r}_v|&=\sqrt{\cos^2 u(\cos^2 v+\sin^2 v)+\sin^2 u\cos^2 u}\\
+&=\sqrt{\cos^2u(1+\sin^2u)}\\
+&=\cos u\sqrt{1+\sin^2u}
+\end{aligned}</script>
+最后一步用到了 <script type="math/tex">\cos u\geq 0,-\frac{\pi}{2}\leq u\leq\frac{\pi}{2}</script>。</p>
+<p>因此
+<script type="math/tex; mode=display">A=\int_0^{2\pi}\int_{-\pi/2}^{\pi/2}\cos u\sqrt{1+\sin^2 u}dudv</script>
+令 <script type="math/tex">w=\sin u</script>，那么 <script type="math/tex">dw=\cos udu,-1\leq w\leq 1</script>。<script type="math/tex">S</script> 上下对称，因此积分 <script type="math/tex">w</script> 范围可以 0 到 1，然后结果乘以 2。因此
+<script type="math/tex; mode=display">\begin{aligned}
+A&=2\int_0^{2\pi}\int_0^1\sqrt{1+w^2}dwdv\\
+&=2\int_0^{2\pi}\bigg[\frac{w}{2}\sqrt{1+w^2}+\frac{1}{2}\ln(w+\sqrt{1+w^2})\bigg]_0^1dv\\
+&=2\int_0^{2\pi}\bigg[\frac{1}{2}\sqrt{2}+\frac{1}{2}\ln(1+\sqrt{2})\bigg]_0^1dv\\
+&=2\pi[\sqrt{2}+\ln(1+\sqrt{2})]
+\end{aligned}</script>
+</p>
+<h3 id="_3">隐式曲面</h3>
+<p>曲面经常用函数的水平集表示。
+<script type="math/tex; mode=display">F(x,y,z)=c</script>
+其中 <script type="math/tex">c</script> 是常量。这样的曲面没有显式参数，称为隐式定义曲面（<code>implicitly defined surface</code>）。电场和重力场的等势面往往就是隐式曲面。有时很难找到显式的 <script type="math/tex">f,g,h</script> 将曲面表示为 <script type="math/tex">\boldsymbol{r}(u,v)=f(u,v)\boldsymbol{i}+g(u,v)\boldsymbol{j}+h(u,v)\boldsymbol{k}</script> 这种形式。</p>
+<p><img alt="" src="../050.090.png" /></p>
+<p>上图是隐式曲面 <script type="math/tex">S</script> 及其影子 <script type="math/tex">R</script>。<script type="math/tex">S</script> 的定义是 <script type="math/tex">F(x,y,z)=c</script>，<script type="math/tex">\boldsymbol{p}</script> 是垂直于 <script type="math/tex">R</script> 的单位矢量。假定曲面是光滑的，即 <script type="math/tex">F</script> 是可微函数，且 <script type="math/tex">\nabla F</script> 在 <script type="math/tex">S</script> 上连续且不为零，并且 <script type="math/tex">\nabla F\cdot\boldsymbol{p}\neq 0</script>，即曲面不折回。</p>
+<p>假定法向矢量 <script type="math/tex">\boldsymbol{p}</script> 是单位矢量 <script type="math/tex">\boldsymbol{k}</script>，因此上图 <script type="math/tex">R</script> 位于 <script type="math/tex">xy</script> 平面。根据假设有 <script type="math/tex">\nabla F\cdot\boldsymbol{p}=\nabla F\cdot\boldsymbol{k}=F_z\neq 0</script>。13.4 小节隐式函数定理是说 <script type="math/tex">S</script> 是可微函数 <script type="math/tex">z=h(x,y)</script> 的图像，虽然我们不知道 <script type="math/tex">h(x,y)</script> 的具体形式。令参数 <script type="math/tex">u=x,v=y</script> 可以得到
+<script type="math/tex; mode=display">\boldsymbol{r}(u,v)=u\boldsymbol{i}+v\boldsymbol{j}+h(u,v)\boldsymbol{k}\tag{6}</script>
+这就是 <script type="math/tex">S</script> 的参数公式。下面使用 <script type="math/tex">(4)</script> 求 <script type="math/tex">S</script> 的面积。</p>
+<p>计算 <script type="math/tex">\boldsymbol{r}</script> 的偏微分
+<script type="math/tex; mode=display">\boldsymbol{r}_u=\boldsymbol{i}+\frac{\partial h}{\partial u}\boldsymbol{k},\boldsymbol{r}_v=\boldsymbol{j}+\frac{\partial h}{\partial v}\boldsymbol{k}</script>
+根据 13.4 小节公式 <script type="math/tex">(2)</script>，对隐式函数 <script type="math/tex">F(x,y,z)=c,x=u,y=v,z=h(u,v)</script> 使用链式法则，可以得到偏微分
+<script type="math/tex; mode=display">\frac{\partial h}{\partial u}=-\frac{F_x}{F_z},\frac{\partial h}{\partial v}=-\frac{F_y}{F_z}</script>
+那么
+<script type="math/tex; mode=display">\boldsymbol{r}_u=\boldsymbol{i}-\frac{F_x}{F_z}\boldsymbol{k},\boldsymbol{r}_v=\boldsymbol{j}-\frac{F_y}{F_z}\boldsymbol{k}</script>
+那么叉积是
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{r}_u\times\boldsymbol{r}_v&=\frac{F_x}{F_z}\boldsymbol{i}+\frac{F_y}{F_z}\boldsymbol{j}+\boldsymbol{k}\\
+&=\frac{1}{F_z}(F_x\boldsymbol{i}+F_y\boldsymbol{j}+F_z\boldsymbol{k})\\
+&=\frac{\nabla F}{F_z}\\
+&=\frac{\nabla F}{\nabla F\cdot\boldsymbol{k}}\\
+&=\frac{\nabla F}{\nabla F\cdot\boldsymbol{p}}
+\end{aligned}</script>
+因此曲面面积微分是
+<script type="math/tex; mode=display">d\sigma=|\boldsymbol{r}_u\times\boldsymbol{r}_v|dudv=\frac{|\nabla F|}{|\nabla F\cdot\boldsymbol{p}|}dxdy</script>
+类似的，当 <script type="math/tex">F_y\neq 0</script> 时，使用垂直于 <script type="math/tex">xz</script> 平面的单位矢量 <script type="math/tex">\boldsymbol{p}=\boldsymbol{j}</script> 代入上式；当 <script type="math/tex">F_x\neq 0</script>，使用垂直于 <script type="math/tex">yz</script> 平面的单位矢量 <script type="math/tex">\boldsymbol{p}=\boldsymbol{i}</script> 代入上式。</p>
+<p><strong>隐式曲面的面积公式</strong></p>
+<blockquote>
+<p>在封闭有界区域 <script type="math/tex">R</script> 上的曲面 <script type="math/tex">F(x,y,z)=c</script> 的面积是
+<script type="math/tex; mode=display">A=\iint_R\frac{\nabla F}{\nabla F\cdot\boldsymbol{P}}dA\tag{7}</script>
+其中 <script type="math/tex">\boldsymbol{p}</script> 是 <script type="math/tex">\boldsymbol{i},\boldsymbol{j},\boldsymbol{k}</script> 之一，是 <script type="math/tex">R</script> 的法向单位矢量，且 <script type="math/tex">\nabla\cdot\boldsymbol{p}\neq 0</script>。</p>
+</blockquote>
+<p>公式 <script type="math/tex">(7)</script> 成立的条件是在 <script type="math/tex">R</script> 上都有 <script type="math/tex">\nabla F\cdot\boldsymbol{p}\neq 0</script> 且 <script type="math/tex">\nabla F</script> 是连续的。</p>
+<p>例7 求抛物面 <script type="math/tex">x^2+y^2-z=0</script> 被平面 <script type="math/tex">z=4</script> 截取的下半部分曲面面接。</p>
+<p><img alt="" src="../050.100.png" /></p>
+<p>解：示意图如上所示。曲面 <script type="math/tex">S</script> 是 <script type="math/tex">F(x,y,z)=x^2+y^2-z</script> 的一部分，<script type="math/tex">R</script> 在 <script type="math/tex">xy</script> 平面，满足 <script type="math/tex">x^2+y^2\leq 4</script>。取与 <script type="math/tex">R</script> 正交的单位矢量 <script type="math/tex">\boldsymbol{p}=\boldsymbol{k}</script>。</p>
+<p>在曲面上任意一点 <script type="math/tex">(x,y,z)</script>，有
+<script type="math/tex; mode=display">\begin{aligned}
+F(x,y,z)&=x^2+y^2-z\\
+\nabla F&=2x\boldsymbol{i}+2y\boldsymbol{j}-\boldsymbol{k}\\
+|\nabla F|&=\sqrt{4x^2+4y^2+1}\\
+|\nabla F\cdot\boldsymbol{p}|&=|\nabla F\cdot\boldsymbol{k}|=|-1|=1
+\end{aligned}</script>
+在区域 <script type="math/tex">R</script> 上有 <script type="math/tex">dA=dxdy</script>。因此
+<script type="math/tex; mode=display">\begin{aligned}
+A&=\iint_R\frac{|\nabla F|}{|\nabla F\cdot\boldsymbol{p}|}dA\\
+&=\iint_{x^2+y^2\leq 4}\sqrt{4x^2+4y^2+1}dxdy\\
+&=\int_0^{2\pi}\int_0^2\sqrt{4r^2+1}rdrd\theta\\
+&=\int_0^{2\pi}\bigg[\frac{}{12}(4r^2+1)^{3/2}\bigg]_0^2d\theta\\
+&=\int_0^{2\pi}\frac{1}{12}(17^{3/2}-1)d\theta\\
+&=\frac{\pi}{6}(17\sqrt{17}-1)
+\end{aligned}</script>
+</p>
+<p>例 7 给出了一种求 <script type="math/tex">xy</script> 平面上区域 <script type="math/tex">R</script> 上曲面 <script type="math/tex">z=f(x,y)</script> 的方式。求曲面微分有两种方式，如下面例子所示。</p>
+<p>例8 使用两种方法推导 <script type="math/tex">xy</script> 平面上区域 <script type="math/tex">R</script> 上曲面 <script type="math/tex">z=f(x,y)</script> 的曲面面积微分 <script type="math/tex">d\sigma</script>：（a）使用公式 <script type="math/tex">(5)</script> 参数化方法；（b）使用公式 <script type="math/tex">(7)</script> 隐式函数。</p>
+<p>解：（a）令 <script type="math/tex">x=u,y=v,z=f(x,y)</script> 得到参数化曲面
+<script type="math/tex; mode=display">\boldsymbol{r}(u,v)=u\boldsymbol{i}+v\boldsymbol{j}+f(u,v)\boldsymbol{k}</script>
+偏微分
+<script type="math/tex; mode=display">\boldsymbol{r}_u=\boldsymbol{i}+f_u\boldsymbol{k},\boldsymbol{r}_v=\boldsymbol{j}+f_v\boldsymbol{k}</script>
+那么叉积是
+<script type="math/tex; mode=display">\boldsymbol{r}_u\times\boldsymbol{r}_v=-f_u\boldsymbol{i}-f_v\boldsymbol{j}+\boldsymbol{k}</script>
+因此
+<script type="math/tex; mode=display">d\sigma=\sqrt{f_x^2+f_y^2+1}dxdy</script>
+（b）隐式函数是 <script type="math/tex">F(x,y,z)=f(x,y)-z</script>。取垂直于 <script type="math/tex">R</script> 的单位矢量 <script type="math/tex">\boldsymbol{p}=\boldsymbol{k}</script>。又 <script type="math/tex">\nabla F=f_x\boldsymbol{i}+f_y\boldsymbol{j}-\boldsymbol{k}</script>，因此 <script type="math/tex">|\nabla F\cdot\boldsymbol{p}|=|-1|=1</script>，<script type="math/tex">|\nabla F|=\sqrt{f_x^2+f_y^2+1}</script>，所以
+<script type="math/tex; mode=display">\frac{|\nabla F|}{|\nabla F\cdot\boldsymbol{p}|}=|\nabla F|</script>
+曲面面积微分就是
+<script type="math/tex; mode=display">d\sigma=\sqrt{f_x^2+f_y^2+1}dxdy</script>
+</p>
+<p><strong><script type="math/tex">z=f(x,y)</script> 曲面面积公式</strong></p>
+<blockquote>
+<p>
+<script type="math/tex">xy</script> 平面上区域 <script type="math/tex">R</script> 上曲面 <script type="math/tex">z=f(x,y)</script> 的面积公式是
+<script type="math/tex; mode=display">A=\iint_R\sqrt{f_x^2+f_y^2+1}dxdy\tag{8}</script>
+</p>
+</blockquote>
 
 
 
@@ -21565,7 +21766,7 @@ z&=z
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 5, 2025 15:16:43">March 5, 2025</span>
   </span>
 
     
@@ -21575,7 +21776,7 @@ z&=z
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 1, 2025 15:53:37">March 1, 2025</span>
   </span>
 
     
