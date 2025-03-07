@@ -171,7 +171,7 @@ A&=\int_0^{2\pi}\int_0^\pi a^2\sin\phi d\phi d\theta\\
 
 ![](050.080.png)
 
-解：这里使用柱坐标系。掉 $(x,0,z)$ 绕着 $z$ 轴旋转得到一个半径为 $r=\cos z$ 的圆。令 $u=z,v=\theta$，$(x,y,z)$ 是 $S$ 上任意一点，那么 $x=r\cos\theta=\cos u\cos v,y=r\sin\theta=\cos u\sin v,z=u$，那么参数方程是
+解：这里使用柱坐标系。点 $(x,0,z)$ 绕着 $z$ 轴旋转得到一个半径为 $r=\cos z$ 的圆。令 $u=z,v=\theta$，$(x,y,z)$ 是 $S$ 上任意一点，那么 $x=r\cos\theta=\cos u\cos v,y=r\sin\theta=\cos u\sin v,z=u$，那么参数方程是
 $$\boldsymbol{r}(u,v)=\cos u\cos v\boldsymbol{i}+\cos u\sin v\boldsymbol{j}+u\boldsymbol{k},-\frac{\pi}{2}\leq u\leq\frac{\pi}{2},0\leq v\leq 2\pi$$
 叉积
 $$\begin{aligned}
