@@ -197,3 +197,118 @@ int linearizedMatrix[matrix.getSize()];
 如果不想修改 `static`，还可以添加 `const` `constexpr` 修饰，比如定义一些类级别的常量，用于默认参数或者其他场景。
 
 在类的外部，使用 `ClassName::StaticVariable` 的方式访问。
+
+类的成员变量也可以使用引用修饰，即持有某个对象的引用，由于引用必须在定义的时候初始化，因此必须在构造的时候传入被引用的对象。由于引用初始化完之后，不能再次引用其他对象，那么赋值运算符无法对引用变量赋值，因此赋值运算符应该被删除。如果没有修改这个引用对象的需求，应该声明为 `const`。
+
+一个类里面除了能包含成员变量和成员函数之外，还能包含类、枚举和类型别名。如果是 `public` 的，在外部可以访问 `ClassName::`。对于类，嵌套类可以访问外部类的 `public` `protected` `private` 的成员，但是外部类只能访问内部类的 `public` 的成员。
+
+重载运算符可以使得代码简洁，更直观。比如表格系统往往允许两个单元格的值相加，如果每次都写 `add()` 就会显得很啰嗦，而使用 `+` 就比较符合人而不是机器的习惯。C++ 支持重载运算符。
+```cpp
+SpreadsheetCell operator+(const SpreadsheetCell &cell) const;
+
+SpreadsheetCell
+SpreadsheetCell::operator+(const SpreadsheetCell &cell) const
+{
+	return SpreadsheetCell(GetValue() + cell.GetValue());
+}
+```
+`+` 运算符两边的操作数都是 `SpreadsheetCell` 对象，这里可能会出现隐式转换，因为 `SpreadsheetCell` 并没有将构造函数标记为 `explicit`，那么下面的代码也是合法的.
+```cpp
+SpreadsheetCell myCell { 4 }, aThirdCell;
+string str { "hello" };
+aThirdCell = myCell + string_view { str };
+aThirdCell = myCell + 5.6;
+aThirdCell = myCell + 4;
+```
+不过对于右边参数是 `double` 的情况，效率相当低，通过 `double` 值构造了一个 `SpreadsheetCell` 对象，执行完 `+` 之后立即被销毁了。我们可以实现一个 `double` 类型作为参数的版本。
+```cpp
+SpreadsheetCell operator+(double value) const;
+
+SpreadsheetCell
+SpreadsheetCell::operator+(double value) const
+{
+	return SpreadsheetCell(GetValue() + value);
+}
+```
+这里还有另外一个问题，现在这种重载是类的成员，隐含着左操作数必须是 `SpreadsheetCell` 类型，那么如果交换下面前两行的代码，就无法编译了，可以一般对 `+` 的认识，是要符合交换律的。
+```cpp
+
+aThirdCell = myCell + 5.6; // Works fine.
+aThirdCell = myCell + 4;   // Works fine.
+
+aThirdCell = 5.6 + myCell; // FAILS TO COMPILE!
+aThirdCell = 4 + myCell;   // FAILS TO COMPILE!
+```
+我们可以实现一个全局的 `+` 运算符重载来解决这个问题，声明和定义都在类之外。
+```cpp
+SpreadsheetCell operator+(const SpreadsheetCell &lhs, const SpreadsheetCell &rhs);
+
+SpreadsheetCell
+operator+(const SpreadsheetCell &lhs, const SpreadsheetCell &rhs)
+{
+	return SpreadsheetCell(lhs.GetValue() + rhs.GetValue());
+}
+```
+除了 `+` 之外，还能重载 `-` `*` `/`，甚至 `%`，但是是否重载一个运算符，首要考虑的因素是是否直观，是否合理。
+
+C++ 运算符的重载不改变运算符的优先级，也不能修改运算符的参数个数，更不能发明新的运算符。唯一能做的事情是实现自己的函数。
+
+一般来说，如果重载了 `+`，那么同时重载 `+=` 是个好习惯。后者的语义略有不同，并不是创建一个新的对象而是修改左边的操作数，同时返回左边操作数的引用。
+```cpp
+SpreadsheetCell &operator+=(const SpreadsheetCell &rhs);
+SpreadsheetCell &operator+=(double value);
+
+SpreadsheetCell &
+SpreadsheetCell::operator+=(const SpreadsheetCell &rhs)
+{
+	SetValue(GetValue() + rhs.GetValue());
+	return *this;
+}
+
+SpreadsheetCell &
+SpreadsheetCell::operator+=(double value)
+{
+	SetValue(GetValue() + value);
+	return *this;
+}
+```
+
+C++ 还支持重载 `>` `<` `>=` `<=` `==` `!=` 六种比较运算符，在 C++20 之前，必须一一实现，一般情况是实现 `==` 和 `<`，其他运算符调用这两个的组合实现。对于上面的例子，为了与 `double` 类型高效的比较，还要再写留个函数，相当啰嗦。
+
+到了 C++20 引入了 `<=>`，那么仅仅需要实现 `==` 和 `<=>` 即可，编译期会用 `==` 合成 `!=`，使用 `<=>` 合成其余四种比较运算，大大简化了比较实现的代码量。为什么不用 `<=>` 合成 `==` 呢？这样代码量可以更少。原因是等于比较在很多场景下可以做特殊优化，比一定要知道哪个大哪个小要快。
+```cpp
+[[nodiscard]]
+std::partial_ordering operator<=>(const SpreadsheetCell &rhs) const;
+[[nodiscard]]
+bool operator==(const SpreadsheetCell &rhs) const;
+
+std::partial_ordering
+SpreadsheetCell::operator<=>(const SpreadsheetCell &rhs) const
+{
+	return GetValue() <=> rhs.GetValue();
+}
+
+bool
+operator==(const SpreadsheetCell &lhs, const SpreadsheetCell &rhs)
+{
+	return (lhs.GetValue() == rhs.GetValue());
+}
+```
+
+这里比较我们使用了所有的成员变量，因此和构造函数类似，编译器的默认实现就足够了，因此可以简化为
+```cpp
+[[nodiscard]]
+auto operator<=>(const SpreadsheetCell &) const = default;
+[[nodiscard]]
+bool operator==(const SpreadsheetCell &) const = default;
+```
+对于 `double` 类型的比较，要自己实现，编译器无法自动生成。
+
+上述基本上是类相关的知识了，最后谈谈如何进行接口与实现分离。C++ 的头文件需要暴露给用户，那么写在头文件中的东西会被客户端知道，比如私有字段这些，相当于暴露了细节。另外，如果头文件修改了实现，比如新增字段，修改类型等，会导致依赖的地方都重新编译。
+
+为了结局上述问题，C++ 中有一种模式称为 `pimpl idiom`，是 `private implementation idiom` 的缩写，有时也称为 `bridge pattern`。为了隐藏细节，要暴露出去的类包含一个嵌套类的指针，然后所有的实现都在这个嵌套类中，暴露出去的类仅仅调用一下这个方法。由于有了指针，那么需要自己实现拷贝、移动、赋值运算符等函数。
+```cpp
+private:
+	class Impl;
+	std::unique_ptr<Impl> m_impl;
+```
