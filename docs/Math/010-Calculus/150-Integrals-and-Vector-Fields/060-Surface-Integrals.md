@@ -24,7 +24,7 @@ $$\iint_SG(x,y,z)d\sigma=\lim_{n\to\infty}\sum_{k=1}^nG(x_k,y_k,z_k)\Delta\sigma
 > 2. 光滑曲面 $S$ 由隐式函数 $F(x,y,z)=c$ 定义，$F$ 是连续可微函数，$S$ 位于封闭有界区域 $R$ 上，$R$ 在 $S$ 下的坐标平面上，此时连续 $G$ 在 $S$ 上的曲面积分也可以写作 $R$ 上的二重积分。其中 $\boldsymbol{p}$ 是 $R$ 的法向单位矢量，且 $\nabla F\cdot\boldsymbol{p}\neq 0$。
 > $$\iint_SG(x,y,z)d\sigma=\iint_RG(x,y,z)\frac{|\nabla F|}{|\nabla F\cdot\boldsymbol{p}|}dA\tag{3}$$
 > 3. 曲面 $S$ 是显式函数 $z=f(x,y)$ 的图像，其中 $f$ 是 $xy$ 平面上区域 $R$ 上的连续可微函数，连续函数 $G$ 在 $S$ 的曲面积分是 $R$ 上的二重积分。
-> $$\iint_SG(x,y,z)d\sigma=\iint_RG(x,y,f(x,y))\sqrt{f_x^2+f_y^2+1}\tag{4}$$
+> $$\iint_SG(x,y,z)d\sigma=\iint_RG(x,y,f(x,y))\sqrt{f_x^2+f_y^2+1}dxdy\tag{4}$$
 
 公式 $(1)$ 在不同的应用中有不同的含义。如果 $G$ 是常量 1，那么积分是 $S$ 的面积。如果 $G$ 是质量密度，那么积分是 $S$ 的质量。如果 $G$ 表示电荷密度，那么积分是 $S$ 上总的电荷量。
 
