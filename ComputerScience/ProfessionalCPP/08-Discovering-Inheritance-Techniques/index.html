@@ -21493,6 +21493,31 @@
 <p>用派生类初始化一个基类对象，会出现切片问题，有一些信息丢掉了。如果类型是引用或者指针，就没有这个问题，这称为向上转型（<code>upcasting</code>）。与之相对的还有向下转型（<code>downcasting</code>），将一个基类指针转成一个派生类的指针。如果出现了向下转型，意味着设计可能不合理，应该改善设计尽可能避免这种情况。如果不得不做向下转型，使用 <code>dynamic_cast</code>，它会使用 <code>vtable</code> 里面的内置信息判断是否可以向下转型，如果不行，如果目标类型是指针，返回 <code>nullptr</code>，如果目标类型是引用，抛出 <code>std::bad_cast</code> 异常，这总比得到乱七八糟不合理的数据强多了。</p>
 <p>继承加上虚函数的作用之一是重用代码，更重要的是运行时多态的能力。</p>
 <p>至少包含一个纯虚函数（<code>pure virtual</code>）的类称为抽象类（<code>abstract class</code>），编译器保证无法实例化抽象类，语法是 <code>virtual T FunctionName() = 0</code>。如果继承自抽象类的派生类仍旧没有实现所有的纯虚函数，那么派生类依旧是抽象类。</p>
+<p>技术上讲，可以给纯虚函数一个实现，这个实现需要在类的定义的外部，这个函数也可以被调用。但是即便给了一个实现，这个函数依旧是纯虚函数，类还是抽象类，派生类如果需要被实例化，依旧需要实现这个函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">DoSomething</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Pure virtual member function.</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">};</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">// An out-of-class implementation of a pure virtual member function.</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kt">void</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nf">Base::DoSomething</span><span class="p">()</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">{</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Base::DoSomething()&quot;</span><span class="p">);</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<p>C++ 允许多继承，即继承多个类。比如
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Baz</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Foo</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Bar</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">{</span><span class="w"> </span><span class="cm">/* Etc. */</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">};</span>
+</span></code></pre></div>
+<code>Baz</code> 拥有 <code>Foo</code> <code>Bar</code> 的 <code>public</code> 成员函数和成员变量。<code>Baz</code> 可以访问 <code>Foo</code> <code>Bar</code> 的 <code>protect</code> 成员函数和成员变量。<code>Baz</code> 可以向上转型成 <code>Foo</code> 或者 <code>Bar</code>。<code>Baz</code> 需要调用 <code>Foo</code> <code>Bar</code> 的构造函数，按照继承的顺序构造，反之析构的时候按照反向顺序调用父类析构函数。</p>
+<p>如果派生类 <code>D</code> 继承了 <code>B1</code> <code>B2</code> 两个类，两个基类有相同签名的函数 <code>Func()</code>，那么就会有名字歧义。解决方式是指定希望调用的函数 <code>d.B1::Func()</code>，另一种方式是 <code>D</code> 自己 <code>override</code> <code>Func()</code>，或者直接 <code>using</code> 其中一个基类的。</p>
+<p>多继承会导致另一个问题是菱形继承。此时根部基类是纯虚函数即可，这也是推荐做法。</p>
+<p><code>override</code> 的时候可以修改函数的返回类型。基类函数的返回类型是某个类的指针或者是引用，那么派生类 <code>override</code> 时返回类型可以是基类返回的类型的派生类。这满足里氏替换原则（<code>Liskov substitution principle</code>）。不过需要注意，如果返回类型是智能指针，那么不能这么用，因为智能指针是模板类，两个有继承关系的类实例化的两个版本类之间没有继承关系。</p>
 
 
 
@@ -21515,7 +21540,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 12, 2025 13:21:23">March 12, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2025 12:25:43">March 14, 2025</span>
   </span>
 
     
