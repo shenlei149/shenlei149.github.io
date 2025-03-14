@@ -21521,7 +21521,7 @@
 
   <h1>05 Memory Management</h1>
 
-<p>现代 C++ 代码中应该尽可能避免底层的内存分配，比如 <code>new</code> <code>new[]</code> <code>delete</code> <code>delete[]</code>，在涉及声明周期的时候避免使用裸指针，避免 C 风格的构造和相关的函数。使用更安全的 C++ 替代项，比如类似 C++ 的 <code>std::string</code> 类自动管理内存，使用只能指针等等。</p>
+<p>现代 C++ 代码中应该尽可能避免底层的内存分配，比如 <code>new</code> <code>new[]</code> <code>delete</code> <code>delete[]</code>，在涉及生命周期的时候避免使用裸指针，避免 C 风格的构造和相关的函数。使用更安全的 C++ 替代项，比如类似 C++ 的 <code>std::string</code> 类自动管理内存，使用只能指针等等。</p>
 <p>下面动态分配回收内存的示例，如果只分配不回收就会导致内存泄漏。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="p">};</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">;</span>
@@ -21692,7 +21692,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 28, 2025 09:31:07">February 28, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2025 08:32:59">March 14, 2025</span>
   </span>
 
     
