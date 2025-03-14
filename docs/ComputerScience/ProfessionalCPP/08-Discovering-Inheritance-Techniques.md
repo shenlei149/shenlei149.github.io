@@ -46,3 +46,35 @@ class Derived : public Base
 继承加上虚函数的作用之一是重用代码，更重要的是运行时多态的能力。
 
 至少包含一个纯虚函数（`pure virtual`）的类称为抽象类（`abstract class`），编译器保证无法实例化抽象类，语法是 `virtual T FunctionName() = 0`。如果继承自抽象类的派生类仍旧没有实现所有的纯虚函数，那么派生类依旧是抽象类。
+
+技术上讲，可以给纯虚函数一个实现，这个实现需要在类的定义的外部，这个函数也可以被调用。但是即便给了一个实现，这个函数依旧是纯虚函数，类还是抽象类，派生类如果需要被实例化，依旧需要实现这个函数。
+```cpp
+class Base
+{
+public:
+	virtual void DoSomething() = 0; // Pure virtual member function.
+};
+
+// An out-of-class implementation of a pure virtual member function.
+void
+Base::DoSomething()
+{
+	std::println("Base::DoSomething()");
+}
+```
+
+C++ 允许多继承，即继承多个类。比如
+```cpp
+class Baz
+	: public Foo
+	, public Bar
+{ /* Etc. */
+};
+```
+`Baz` 拥有 `Foo` `Bar` 的 `public` 成员函数和成员变量。`Baz` 可以访问 `Foo` `Bar` 的 `protect` 成员函数和成员变量。`Baz` 可以向上转型成 `Foo` 或者 `Bar`。`Baz` 需要调用 `Foo` `Bar` 的构造函数，按照继承的顺序构造，反之析构的时候按照反向顺序调用父类析构函数。
+
+如果派生类 `D` 继承了 `B1` `B2` 两个类，两个基类有相同签名的函数 `Func()`，那么就会有名字歧义。解决方式是指定希望调用的函数 `d.B1::Func()`，另一种方式是 `D` 自己 `override` `Func()`，或者直接 `using` 其中一个基类的。
+
+多继承会导致另一个问题是菱形继承。此时根部基类是纯虚函数即可，这也是推荐做法。
+
+`override` 的时候可以修改函数的返回类型。基类函数的返回类型是某个类的指针或者是引用，那么派生类 `override` 时返回类型可以是基类返回的类型的派生类。这满足里氏替换原则（`Liskov substitution principle`）。不过需要注意，如果返回类型是智能指针，那么不能这么用，因为智能指针是模板类，两个有继承关系的类实例化的两个版本类之间没有继承关系。
