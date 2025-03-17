@@ -6,3 +6,4 @@ nav:
     - "040 平面内的格林定理 Green's Theorem in the Plane": 040-Green-Theorem-in-the-Plane.md
     - 050 曲面和面积 Surfaces and Area: 050-Surfaces-and-Area.md
     - 060 曲面积分 Surface Integrals: 060-Surface-Integrals.md
+    - "070 斯托克斯定理 Stokes' Theorem": 070-Stokes-Theorem.md
