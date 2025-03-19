@@ -234,7 +234,7 @@ $$d\sigma=|\boldsymbol{r}_u\times\boldsymbol{r}_v|dudv=\frac{|\nabla F|}{|\nabla
 
 **隐式曲面的面积公式**
 > 在封闭有界区域 $R$ 上的曲面 $F(x,y,z)=c$ 的面积是
-> $$A=\iint_R\frac{\nabla F}{\nabla F\cdot\boldsymbol{P}}dA\tag{7}$$
+> $$A=\iint_R\frac{|\nabla F|}{|\nabla F\cdot\boldsymbol{P}|}dA\tag{7}$$
 > 其中 $\boldsymbol{p}$ 是 $\boldsymbol{i},\boldsymbol{j},\boldsymbol{k}$ 之一，是 $R$ 的法向单位矢量，且 $\nabla\cdot\boldsymbol{p}\neq 0$。
 
 公式 $(7)$ 成立的条件是在 $R$ 上都有 $\nabla F\cdot\boldsymbol{p}\neq 0$ 且 $\nabla F$ 是连续的。
