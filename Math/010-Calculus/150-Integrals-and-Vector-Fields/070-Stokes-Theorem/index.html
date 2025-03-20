@@ -11562,6 +11562,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nablatimesboldsymbolf" class="md-nav__link">
+    <span class="md-ellipsis">
+      \nabla\times\boldsymbol{F} 的直观解释
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21531,6 +21540,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nablatimesboldsymbolf" class="md-nav__link">
+    <span class="md-ellipsis">
+      \nabla\times\boldsymbol{F} 的直观解释
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21640,6 +21658,145 @@ d\boldsymbol{r}&=(-3\sin\theta d\theta)\boldsymbol{i}+(3\cos\theta d\theta)\bold
 那么
 <script type="math/tex; mode=display">\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_{x^2+y^2\leq 9}-2dA=-18\pi</script>
 </p>
+<p>例3 计算例 2 绕着 <script type="math/tex">C</script> 的环量，<script type="math/tex">S</script> 使用 <script type="math/tex">xy</script> 平面上圆心位于原点半径为 3 的圆而不是半球。</p>
+<p>解：根据例 2 得到 <script type="math/tex">\nabla\times\boldsymbol{F}=-2\boldsymbol{k}</script>。<script type="math/tex">xy</script> 平面的圆的法向矢量是 <script type="math/tex">\boldsymbol{n}=\boldsymbol{k}</script>，因此
+<script type="math/tex; mode=display">(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=-2dA</script>
+那么
+<script type="math/tex; mode=display">\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_{x^2+y^2\leq 9}-2dA=-18\pi</script>
+</p>
+<p>例4 求场 <script type="math/tex">\boldsymbol{F}=(x^2-y)\boldsymbol{i}+4z\boldsymbol{j}+x^2\boldsymbol{k}</script> 绕着 <script type="math/tex">C</script> 的环量，其中 <script type="math/tex">C</script> 是 <script type="math/tex">z=2</script> 与 <script type="math/tex">z=\sqrt{x^2+y^2}</script> 的交线，从上看逆时针运动。</p>
+<p><img alt="" src="../070.050.png" /></p>
+<p>解：曲面的参数化方程是
+<script type="math/tex; mode=display">\boldsymbol{r}(r,\theta)=(r\cos\theta)\boldsymbol{i}+(r\sin\theta)\boldsymbol{j}+r\boldsymbol{k},0\leq r\leq 2,0\leq\theta\leq 2\pi</script>
+根据 15.5 的例 4 有
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{n}&=\frac{\boldsymbol{r}_r\times\boldsymbol{r}_{\theta}}{|\boldsymbol{r}_r\times\boldsymbol{r}_{\theta}|}\\
+&=\frac{-(r\cos\theta)\boldsymbol{i}-(r\sin\theta)\boldsymbol{j}+r\boldsymbol{k}}{r\sqrt{2}}\\
+&=\frac{1}{\sqrt{2}}(-\cos\theta\boldsymbol{i}-\sin\theta\boldsymbol{j}+\boldsymbol{k})\\
+d\sigma&=r\sqrt{2}drd\theta
+\end{aligned}</script>
+旋度是
+<script type="math/tex; mode=display">\begin{aligned}
+\nabla\times\boldsymbol{F}&=-4\boldsymbol{i}-2x\boldsymbol{j}+\boldsymbol{k}\\
+&=-4\boldsymbol{i}-2r\cos\theta\boldsymbol{j}+\boldsymbol{k}
+\end{aligned}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}&=\frac{1}{\sqrt{2}}(4\cos\theta+2r\sin\theta\cos\theta+1)\\
+&=\frac{1}{\sqrt{2}}(4\cos\theta+2r\sin 2\theta+1)
+\end{aligned}</script>
+环量是
+<script type="math/tex; mode=display">\begin{aligned}
+\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma\\
+&=\int_0^{2\pi}\int_0^2\frac{1}{\sqrt{2}}(4\cos\theta+2r\sin 2\theta+1)(r\sqrt{2}drd\theta)\\
+&=4\pi
+\end{aligned}</script>
+</p>
+<p>例5 明显例 4 中 <script type="math/tex">S</script> 的选择不是最佳的。如果我们选择 <script type="math/tex">z=2</script> 上圆心在 <script type="math/tex">z</script> 轴上半径为 2 的圆，那么这个 <script type="math/tex">S</script> 的 <script type="math/tex">\boldsymbol{n}=\boldsymbol{k}</script>。从例 4 可以得知 <script type="math/tex">\nabla\times\boldsymbol{F}=-4\boldsymbol{i}-2x\boldsymbol{j}+\boldsymbol{k}</script>，那么很容易得到 <script type="math/tex">(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}=1</script>，那么
+<script type="math/tex; mode=display">\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_{x^2+y^2\leq 4}dA=4\pi</script>
+</p>
+<p>例6 求曲面 <script type="math/tex">S</script> 的参数方程，这里 <script type="math/tex">S</script> 是双曲抛物面 <script type="math/tex">z=y^2-x^2</script> 在半径为 1 轴为 <script type="math/tex">z</script> 轴的圆柱内部分，<script type="math/tex">S</script> 的边界是 <script type="math/tex">C</script>。假定 <script type="math/tex">S</script> 的方向是 <script type="math/tex">\boldsymbol{k}</script>，使用矢量场 <script type="math/tex">\boldsymbol{F}=y\boldsymbol{i}-x\boldsymbol{j}+x^2\boldsymbol{k}</script> 来验证斯托克斯定理。</p>
+<p><img alt="" src="../070.060.png" /></p>
+<p>解：曲线 <script type="math/tex">C</script> 是 <script type="math/tex">z=y^2-x^2</script>，逆时针。使用柱坐标系可以得到参数方程
+<script type="math/tex; mode=display">\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j}+(\sin^2 t-\cos^2 t)\boldsymbol{k},0\leq t\leq 2\pi</script>
+求导
+<script type="math/tex; mode=display">\frac{d\boldsymbol{r}}{dt}=(-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}+(4\sin t\cos t)\boldsymbol{k},0\leq t\leq 2\pi</script>
+使用曲线 <script type="math/tex">\boldsymbol{r}(t)</script> 表示矢量场 <script type="math/tex">\boldsymbol{F}</script>
+<script type="math/tex; mode=display">\boldsymbol{F}=(\sin t)\boldsymbol{i}-(\cos t)\boldsymbol{j}+(\cos^2 t)\boldsymbol{k}</script>
+那么沿着 <script type="math/tex">C</script> 的逆时针积分是
+<script type="math/tex; mode=display">\begin{aligned}
+\int_0^{2\pi}\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt&=\int_0^{2\pi}(-\sin^2 t-\cos^2 t+4\sin t\cos^3 t)dt\\
+&=\int_0^{2\pi}(4\sin t\cos^3 t-1)dt\\
+&=-\cos^4 t-t\bigg|_0^{2\pi}\\
+&=-2\pi
+\end{aligned}</script>
+</p>
+<p>利用参数 <script type="math/tex">(r,\theta)</script> 来表示曲面 <script type="math/tex">S</script>
+<script type="math/tex; mode=display">\boldsymbol{r}(r,\theta)=(r\cos\theta)\boldsymbol{i}+(r\sin\theta)\boldsymbol{j}+r^2(\sin^2\theta-\cos^2\theta)\boldsymbol{k},0\leq r\leq 1,0\leq\theta\leq 2\pi</script>
+旋度
+<script type="math/tex; mode=display">\nabla\times\boldsymbol{F}=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{\partial}{\partial x}&&\frac{\partial}{\partial y}&&\frac{\partial}{\partial z}\\
+y&&-x&&x^2
+\end{vmatrix}=-2x\boldsymbol{j}-2\boldsymbol{k}=-2(2r\cos\theta)\boldsymbol{j}-2\boldsymbol{k}</script>
+求 <script type="math/tex">\boldsymbol{r}</script> 求导
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{r}_r&=(\cos\theta)\boldsymbol{i}+(\sin\theta)\boldsymbol{j}+2r(\sin^2\theta-\cos^2\theta)\boldsymbol{k}\\
+\boldsymbol{r}_\theta&=(-r\sin\theta)\boldsymbol{i}+(r\cos\theta)\boldsymbol{j}+4r^2(\sin\theta\cos\theta)\boldsymbol{k}
+\end{aligned}</script>
+因此
+<script type="math/tex; mode=display">\begin{aligned}
+\boldsymbol{r}_r\times\boldsymbol{r}_\theta&=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\cos\theta&&\sin\theta&&2r(\sin^2\theta-\cos^2\theta)\\
+-r\sin\theta&&r\cos\theta&&4r^2(\sin\theta\cos\theta)
+\end{vmatrix}\\
+&=2r^2(2\sin^2\theta\cos\theta-\sin^2\theta\cos\theta+\cos^3\theta)\boldsymbol{i}\\
+&-2r^2(2\sin\theta\cos^2\theta+\sin^3\theta+\sin\theta\cos^2\theta)\boldsymbol{j}+r\boldsymbol{k}
+\end{aligned}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma&=\int_0^{2\pi}\int_0^1(\nabla\times\boldsymbol{F})\cdot(\boldsymbol{r}_r\times\boldsymbol{r}_\theta)drd\theta\\
+&=\int_0^{2\pi}\int_0^1[4r^3(3\sin\theta\cos^3\theta+\sin^3\theta\cos\theta)-2r]drd\theta\\
+&=\int_0^{2\pi}[r^4(3\sin\theta\cos^3\theta+\sin^3\theta\cos\theta)-r^2]_0^1d\theta\\
+&=\int_0^{2\pi}(3\sin\theta\cos^3\theta+\sin^3\theta\cos\theta-1)d\theta\\
+&=-\frac{3}{4}\cos^4\theta+\frac{1}{4}\sin^4\theta-\theta\bigg|_0^{2\pi}\\
+&=-2\pi
+\end{aligned}</script>
+这就验证了斯托克斯定理公式的左右两边相等。</p>
+<p>例7 求矢量场
+<script type="math/tex; mode=display">\boldsymbol{F}=(x^2+z)\boldsymbol{i}+(y^2+2x)\boldsymbol{j}+(z^2-y)\boldsymbol{k}</script>
+沿着曲线 <script type="math/tex">C</script> 逆时针（从 <script type="math/tex">z</script> 轴正向看）的环量，其中 <script type="math/tex">C</script> 是球面 <script type="math/tex">x^2+y^2+z^2+1</script> 与圆锥 <script type="math/tex">z=\sqrt{x^2+y^2}</script> 的交线。</p>
+<p><img alt="" src="../070.070.png" /></p>
+<p>解：交线方程是
+<script type="math/tex; mode=display">1=x^2+y^2+z^2=z^2+z^2=2z^2</script>
+即
+<script type="math/tex; mode=display">z=\frac{1}{\sqrt{2}}</script>
+那么 <script type="math/tex">S</script> 是 <script type="math/tex">z=\frac{1}{\sqrt{2}},x^2+y^2\leq 1/2</script>。因此 <script type="math/tex">\boldsymbol{n}=\boldsymbol{k}</script>。旋度是
+<script type="math/tex; mode=display">\nabla\times\boldsymbol{F}=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{\partial}{\partial x}&&\frac{\partial}{\partial y}&&\frac{\partial}{\partial z}\\
+x^2+z&&y^2+2x&&z^2-y
+\end{vmatrix}=-\boldsymbol{i}+\boldsymbol{j}+2\boldsymbol{k}</script>
+因此
+<script type="math/tex; mode=display">(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}=2</script>
+那么环量是
+<script type="math/tex; mode=display">\begin{aligned}
+\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}d\sigma\\
+&=\iint_S2d\sigma\\
+&=2\pi(\frac{1}{\sqrt{2}})^2\\
+&=\pi
+\end{aligned}</script>
+</p>
+<h3 id="nablatimesboldsymbolf">
+<script type="math/tex">\nabla\times\boldsymbol{F}</script> 的直观解释</h3>
+<p>假定 <script type="math/tex">\boldsymbol{F}</script> 是空间区域 <script type="math/tex">R</script> 上液体流动的速度场，<script type="math/tex">R</script> 包含封闭曲线 <script type="math/tex">C</script>。那么
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}</script>
+绕 <script type="math/tex">C</script> 的环量。根据斯托克斯定理
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma</script>
+假定固定 <script type="math/tex">R</script> 内一点 <script type="math/tex">Q</script> 和该点处的方向 <script type="math/tex">\boldsymbol{u}</script>。令 <script type="math/tex">C</script> 是圆心位于 <script type="math/tex">Q</script> 半径为 <script type="math/tex">\rho</script> 的圆，与 <script type="math/tex">\boldsymbol{u}</script> 正交。如果 <script type="math/tex">\nabla\times\boldsymbol{F}</script> 在 <script type="math/tex">Q</script> 处连续，当 <script type="math/tex">\rho\to 0</script> 时，<script type="math/tex">\nabla\times\boldsymbol{F}</script> 在由 <script type="math/tex">C</script> 围成的区域 <script type="math/tex">S</script> 上 <script type="math/tex">\boldsymbol{u}</script> 方向分量的平均值趋于 <script type="math/tex">\nabla\times\boldsymbol{F}</script> 在 <script type="math/tex">Q</script> 点处 <script type="math/tex">\boldsymbol{u}</script> 方向分量的值。
+<script type="math/tex; mode=display">((\nabla\times\boldsymbol{F})\cdot\boldsymbol{u})(Q)=\lim_{\rho\to 0}\frac{1}{\pi\rho^2}(\nabla\times\boldsymbol{F})\cdot\boldsymbol{u}d\sigma</script>
+使用斯托克斯定理替换右边为 <script type="math/tex">C</script> 上的线积分可以得到
+<script type="math/tex; mode=display">((\nabla\times\boldsymbol{F})\cdot\boldsymbol{u})(Q)=\lim_{\rho\to 0}\frac{1}{\pi\rho^2}\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}\tag{6}</script>
+左边的最大值就是 <script type="math/tex">\boldsymbol{u}</script> 就是 <script type="math/tex">\nabla\times\boldsymbol{F}</script> 的方向。当 <script type="math/tex">\rho</script> 很小的时候，右边近似为
+<script type="math/tex; mode=display">\frac{1}{\pi\rho^2}\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}</script>
+这是环量密度。假定一个桨放到 <script type="math/tex">Q</script> 点，环量会影响桨转动的速率。轴与 <script type="math/tex">\boldsymbol{u}</script> 同向时最快，即桨的轴与 <script type="math/tex">\nabla\times\boldsymbol{F}</script> 方向一致。</p>
+<p><img alt="" src="../070.080.png" /></p>
+<p>例8 流体绕着 <script type="math/tex">z</script> 轴流动的速度场是 <script type="math/tex">\boldsymbol{F}=\omega(-y\boldsymbol{i}+x\boldsymbol{j})</script>，其中 <script type="math/tex">\omega</script> 是旋转的角速度。求 <script type="math/tex">\nabla\times\boldsymbol{F}</script>，并于环量密度联系起来。</p>
+<p><img alt="" src="../070.090.png" /></p>
+<p>解：旋度
+<script type="math/tex; mode=display">\nabla\times\boldsymbol{F}=\bigg(\frac{\partial P}{\partial y}-\frac{\partial N}{\partial z}\bigg)\boldsymbol{i}+\bigg(\frac{\partial M}{\partial z}-\frac{\partial P}{\partial x}\bigg)\boldsymbol{j}+\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)\boldsymbol{k}=2\omega\boldsymbol{k}</script>
+因此
+<script type="math/tex; mode=display">(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}=2\omega</script>
+根据斯托克斯定理，<script type="math/tex">\boldsymbol{F}</script> 绕着半径为 <script type="math/tex">\rho</script> 的圆 <script type="math/tex">C</script> 的环量是
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_S(2\omega\boldsymbol{k})\cdot\boldsymbol{k}dxdy=2\omega\pi\rho^2</script>
+其中 <script type="math/tex">C</script> 围成了与 <script type="math/tex">\nabla\times\boldsymbol{F}</script> 正交的曲面 <script type="math/tex">S</script>。
+两边同除 <script type="math/tex">2\omega</script> 得到
+<script type="math/tex; mode=display">(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}=2\omega=\frac{1}{\pi\rho^2}\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}</script>
+当 <script type="math/tex">\boldsymbol{u}=\boldsymbol{k}</script> 时，与公式 <script type="math/tex">(6)</script> 一致。</p>
+<p>例9 使用斯托克斯定理计算 <script type="math/tex">\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}</script>，其中 <script type="math/tex">\boldsymbol{F}=xz\boldsymbol{i}+xy\boldsymbol{j}+3xz\boldsymbol{k}</script>，<script type="math/tex">C</script> 是平面 <script type="math/tex">2x+y+z=2</script> 在第一象限的边界，从上看方向为逆时针。</p>
+<p><img alt="" src="../070.100.png" /></p>
+<p>解：</p>
 
 
 
@@ -21662,7 +21819,7 @@ d\boldsymbol{r}&=(-3\sin\theta d\theta)\boldsymbol{i}+(3\cos\theta d\theta)\bold
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 17, 2025 15:04:29">March 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 20, 2025 15:07:15">March 20, 2025</span>
   </span>
 
     
