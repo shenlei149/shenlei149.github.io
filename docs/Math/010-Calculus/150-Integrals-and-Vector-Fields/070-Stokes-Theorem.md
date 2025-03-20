@@ -81,3 +81,157 @@ $$d\sigma=\frac{3}{z}dA$$
 $$(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=-\frac{2z}{3}\frac{3}{z}dA=-2dA$$
 那么
 $$\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_{x^2+y^2\leq 9}-2dA=-18\pi$$
+
+例3 计算例 2 绕着 $C$ 的环量，$S$ 使用 $xy$ 平面上圆心位于原点半径为 3 的圆而不是半球。
+
+解：根据例 2 得到 $\nabla\times\boldsymbol{F}=-2\boldsymbol{k}$。$xy$ 平面的圆的法向矢量是 $\boldsymbol{n}=\boldsymbol{k}$，因此
+$$(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=-2dA$$
+那么
+$$\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_{x^2+y^2\leq 9}-2dA=-18\pi$$
+
+例4 求场 $\boldsymbol{F}=(x^2-y)\boldsymbol{i}+4z\boldsymbol{j}+x^2\boldsymbol{k}$ 绕着 $C$ 的环量，其中 $C$ 是 $z=2$ 与 $z=\sqrt{x^2+y^2}$ 的交线，从上看逆时针运动。
+
+![](070.050.png)
+
+解：曲面的参数化方程是
+$$\boldsymbol{r}(r,\theta)=(r\cos\theta)\boldsymbol{i}+(r\sin\theta)\boldsymbol{j}+r\boldsymbol{k},0\leq r\leq 2,0\leq\theta\leq 2\pi$$
+根据 15.5 的例 4 有
+$$\begin{aligned}
+\boldsymbol{n}&=\frac{\boldsymbol{r}_r\times\boldsymbol{r}_{\theta}}{|\boldsymbol{r}_r\times\boldsymbol{r}_{\theta}|}\\
+&=\frac{-(r\cos\theta)\boldsymbol{i}-(r\sin\theta)\boldsymbol{j}+r\boldsymbol{k}}{r\sqrt{2}}\\
+&=\frac{1}{\sqrt{2}}(-\cos\theta\boldsymbol{i}-\sin\theta\boldsymbol{j}+\boldsymbol{k})\\
+d\sigma&=r\sqrt{2}drd\theta
+\end{aligned}$$
+旋度是
+$$\begin{aligned}
+\nabla\times\boldsymbol{F}&=-4\boldsymbol{i}-2x\boldsymbol{j}+\boldsymbol{k}\\
+&=-4\boldsymbol{i}-2r\cos\theta\boldsymbol{j}+\boldsymbol{k}
+\end{aligned}$$
+那么
+$$\begin{aligned}
+(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}&=\frac{1}{\sqrt{2}}(4\cos\theta+2r\sin\theta\cos\theta+1)\\
+&=\frac{1}{\sqrt{2}}(4\cos\theta+2r\sin 2\theta+1)
+\end{aligned}$$
+环量是
+$$\begin{aligned}
+\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma\\
+&=\int_0^{2\pi}\int_0^2\frac{1}{\sqrt{2}}(4\cos\theta+2r\sin 2\theta+1)(r\sqrt{2}drd\theta)\\
+&=4\pi
+\end{aligned}$$
+
+例5 明显例 4 中 $S$ 的选择不是最佳的。如果我们选择 $z=2$ 上圆心在 $z$ 轴上半径为 2 的圆，那么这个 $S$ 的 $\boldsymbol{n}=\boldsymbol{k}$。从例 4 可以得知 $\nabla\times\boldsymbol{F}=-4\boldsymbol{i}-2x\boldsymbol{j}+\boldsymbol{k}$，那么很容易得到 $(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}=1$，那么
+$$\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_{x^2+y^2\leq 4}dA=4\pi$$
+
+例6 求曲面 $S$ 的参数方程，这里 $S$ 是双曲抛物面 $z=y^2-x^2$ 在半径为 1 轴为 $z$ 轴的圆柱内部分，$S$ 的边界是 $C$。假定 $S$ 的方向是 $\boldsymbol{k}$，使用矢量场 $\boldsymbol{F}=y\boldsymbol{i}-x\boldsymbol{j}+x^2\boldsymbol{k}$ 来验证斯托克斯定理。
+
+![](070.060.png)
+
+解：曲线 $C$ 是 $z=y^2-x^2$，逆时针。使用柱坐标系可以得到参数方程
+$$\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\sin t)\boldsymbol{j}+(\sin^2 t-\cos^2 t)\boldsymbol{k},0\leq t\leq 2\pi$$
+求导
+$$\frac{d\boldsymbol{r}}{dt}=(-\sin t)\boldsymbol{i}+(\cos t)\boldsymbol{j}+(4\sin t\cos t)\boldsymbol{k},0\leq t\leq 2\pi$$
+使用曲线 $\boldsymbol{r}(t)$ 表示矢量场 $\boldsymbol{F}$
+$$\boldsymbol{F}=(\sin t)\boldsymbol{i}-(\cos t)\boldsymbol{j}+(\cos^2 t)\boldsymbol{k}$$
+那么沿着 $C$ 的逆时针积分是
+$$\begin{aligned}
+\int_0^{2\pi}\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt&=\int_0^{2\pi}(-\sin^2 t-\cos^2 t+4\sin t\cos^3 t)dt\\
+&=\int_0^{2\pi}(4\sin t\cos^3 t-1)dt\\
+&=-\cos^4 t-t\bigg|_0^{2\pi}\\
+&=-2\pi
+\end{aligned}$$
+
+利用参数 $(r,\theta)$ 来表示曲面 $S$
+$$\boldsymbol{r}(r,\theta)=(r\cos\theta)\boldsymbol{i}+(r\sin\theta)\boldsymbol{j}+r^2(\sin^2\theta-\cos^2\theta)\boldsymbol{k},0\leq r\leq 1,0\leq\theta\leq 2\pi$$
+旋度
+$$\nabla\times\boldsymbol{F}=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{\partial}{\partial x}&&\frac{\partial}{\partial y}&&\frac{\partial}{\partial z}\\
+y&&-x&&x^2
+\end{vmatrix}=-2x\boldsymbol{j}-2\boldsymbol{k}=-2(2r\cos\theta)\boldsymbol{j}-2\boldsymbol{k}$$
+求 $\boldsymbol{r}$ 求导
+$$\begin{aligned}
+\boldsymbol{r}_r&=(\cos\theta)\boldsymbol{i}+(\sin\theta)\boldsymbol{j}+2r(\sin^2\theta-\cos^2\theta)\boldsymbol{k}\\
+\boldsymbol{r}_\theta&=(-r\sin\theta)\boldsymbol{i}+(r\cos\theta)\boldsymbol{j}+4r^2(\sin\theta\cos\theta)\boldsymbol{k}
+\end{aligned}$$
+因此
+$$\begin{aligned}
+\boldsymbol{r}_r\times\boldsymbol{r}_\theta&=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\cos\theta&&\sin\theta&&2r(\sin^2\theta-\cos^2\theta)\\
+-r\sin\theta&&r\cos\theta&&4r^2(\sin\theta\cos\theta)
+\end{vmatrix}\\
+&=2r^2(2\sin^2\theta\cos\theta-\sin^2\theta\cos\theta+\cos^3\theta)\boldsymbol{i}\\
+&-2r^2(2\sin\theta\cos^2\theta+\sin^3\theta+\sin\theta\cos^2\theta)\boldsymbol{j}+r\boldsymbol{k}
+\end{aligned}$$
+那么
+$$\begin{aligned}
+\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma&=\int_0^{2\pi}\int_0^1(\nabla\times\boldsymbol{F})\cdot(\boldsymbol{r}_r\times\boldsymbol{r}_\theta)drd\theta\\
+&=\int_0^{2\pi}\int_0^1[4r^3(3\sin\theta\cos^3\theta+\sin^3\theta\cos\theta)-2r]drd\theta\\
+&=\int_0^{2\pi}[r^4(3\sin\theta\cos^3\theta+\sin^3\theta\cos\theta)-r^2]_0^1d\theta\\
+&=\int_0^{2\pi}(3\sin\theta\cos^3\theta+\sin^3\theta\cos\theta-1)d\theta\\
+&=-\frac{3}{4}\cos^4\theta+\frac{1}{4}\sin^4\theta-\theta\bigg|_0^{2\pi}\\
+&=-2\pi
+\end{aligned}$$
+这就验证了斯托克斯定理公式的左右两边相等。
+
+例7 求矢量场
+$$\boldsymbol{F}=(x^2+z)\boldsymbol{i}+(y^2+2x)\boldsymbol{j}+(z^2-y)\boldsymbol{k}$$
+沿着曲线 $C$ 逆时针（从 $z$ 轴正向看）的环量，其中 $C$ 是球面 $x^2+y^2+z^2+1$ 与圆锥 $z=\sqrt{x^2+y^2}$ 的交线。
+
+![](070.070.png)
+
+解：交线方程是
+$$1=x^2+y^2+z^2=z^2+z^2=2z^2$$
+即
+$$z=\frac{1}{\sqrt{2}}$$
+那么 $S$ 是 $z=\frac{1}{\sqrt{2}},x^2+y^2\leq 1/2$。因此 $\boldsymbol{n}=\boldsymbol{k}$。旋度是
+$$\nabla\times\boldsymbol{F}=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{\partial}{\partial x}&&\frac{\partial}{\partial y}&&\frac{\partial}{\partial z}\\
+x^2+z&&y^2+2x&&z^2-y
+\end{vmatrix}=-\boldsymbol{i}+\boldsymbol{j}+2\boldsymbol{k}$$
+因此
+$$(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}=2$$
+那么环量是
+$$\begin{aligned}
+\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}d\sigma\\
+&=\iint_S2d\sigma\\
+&=2\pi(\frac{1}{\sqrt{2}})^2\\
+&=\pi
+\end{aligned}$$
+
+### $\nabla\times\boldsymbol{F}$ 的直观解释
+假定 $\boldsymbol{F}$ 是空间区域 $R$ 上液体流动的速度场，$R$ 包含封闭曲线 $C$。那么
+$$\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}$$
+绕 $C$ 的环量。根据斯托克斯定理
+$$\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma$$
+假定固定 $R$ 内一点 $Q$ 和该点处的方向 $\boldsymbol{u}$。令 $C$ 是圆心位于 $Q$ 半径为 $\rho$ 的圆，与 $\boldsymbol{u}$ 正交。如果 $\nabla\times\boldsymbol{F}$ 在 $Q$ 处连续，当 $\rho\to 0$ 时，$\nabla\times\boldsymbol{F}$ 在由 $C$ 围成的区域 $S$ 上 $\boldsymbol{u}$ 方向分量的平均值趋于 $\nabla\times\boldsymbol{F}$ 在 $Q$ 点处 $\boldsymbol{u}$ 方向分量的值。
+$$((\nabla\times\boldsymbol{F})\cdot\boldsymbol{u})(Q)=\lim_{\rho\to 0}\frac{1}{\pi\rho^2}(\nabla\times\boldsymbol{F})\cdot\boldsymbol{u}d\sigma$$
+使用斯托克斯定理替换右边为 $C$ 上的线积分可以得到
+$$((\nabla\times\boldsymbol{F})\cdot\boldsymbol{u})(Q)=\lim_{\rho\to 0}\frac{1}{\pi\rho^2}\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}\tag{6}$$
+左边的最大值就是 $\boldsymbol{u}$ 就是 $\nabla\times\boldsymbol{F}$ 的方向。当 $\rho$ 很小的时候，右边近似为
+$$\frac{1}{\pi\rho^2}\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}$$
+这是环量密度。假定一个桨放到 $Q$ 点，环量会影响桨转动的速率。轴与 $\boldsymbol{u}$ 同向时最快，即桨的轴与 $\nabla\times\boldsymbol{F}$ 方向一致。
+
+![](070.080.png)
+
+例8 流体绕着 $z$ 轴流动的速度场是 $\boldsymbol{F}=\omega(-y\boldsymbol{i}+x\boldsymbol{j})$，其中 $\omega$ 是旋转的角速度。求 $\nabla\times\boldsymbol{F}$，并于环量密度联系起来。
+
+![](070.090.png)
+
+解：旋度
+$$\nabla\times\boldsymbol{F}=\bigg(\frac{\partial P}{\partial y}-\frac{\partial N}{\partial z}\bigg)\boldsymbol{i}+\bigg(\frac{\partial M}{\partial z}-\frac{\partial P}{\partial x}\bigg)\boldsymbol{j}+\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)\boldsymbol{k}=2\omega\boldsymbol{k}$$
+因此
+$$(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}=2\omega$$
+根据斯托克斯定理，$\boldsymbol{F}$ 绕着半径为 $\rho$ 的圆 $C$ 的环量是
+$$\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=\iint_S(2\omega\boldsymbol{k})\cdot\boldsymbol{k}dxdy=2\omega\pi\rho^2$$
+其中 $C$ 围成了与 $\nabla\times\boldsymbol{F}$ 正交的曲面 $S$。
+两边同除 $2\omega$ 得到
+$$(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}=2\omega=\frac{1}{\pi\rho^2}\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}$$
+当 $\boldsymbol{u}=\boldsymbol{k}$ 时，与公式 $(6)$ 一致。
+
+例9 使用斯托克斯定理计算 $\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}$，其中 $\boldsymbol{F}=xz\boldsymbol{i}+xy\boldsymbol{j}+3xz\boldsymbol{k}$，$C$ 是平面 $2x+y+z=2$ 在第一象限的边界，从上看方向为逆时针。
+
+![](070.100.png)
+
+解：
