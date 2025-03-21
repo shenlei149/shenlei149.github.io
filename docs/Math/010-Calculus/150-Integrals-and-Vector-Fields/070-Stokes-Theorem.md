@@ -234,4 +234,97 @@ $$(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}=2\omega=\frac{1}{\pi\rho^2}\oi
 
 ![](070.100.png)
 
-解：
+解：平面是函数 $f(x,y,z)=2x+y+z$ 的等高面 $f(x,y,z)=2$。那么单位法向矢量是
+$$\boldsymbol{n}=\frac{\nabla f}{|\nabla f|}=\frac{2\boldsymbol{i}+\boldsymbol{j}+\boldsymbol{k}}{|2\boldsymbol{i}+\boldsymbol{j}+\boldsymbol{k}|}=\frac{1}{\sqrt{6}}(2\boldsymbol{i}+\boldsymbol{j}+\boldsymbol{k})$$
+这个方向与沿着 $C$ 逆时针运动一致。为了应用斯托克斯定理，旋度是
+$$\nabla\times\boldsymbol{F}=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{\partial}{\partial x}&&\frac{\partial}{\partial y}&&\frac{\partial}{\partial z}\\
+xz&&xy&&3xz
+\end{vmatrix}=(x-3z)\boldsymbol{i}+y\boldsymbol{k}$$
+将 $z=2-2x-2y$ 代入得到
+$$\nabla\times\boldsymbol{F}=(7x+3y-6)\boldsymbol{j}+y\boldsymbol{k}$$
+那么
+$$(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}=\frac{1}{\sqrt{6}}(7x+4y-6)$$
+曲面微分是
+$$d\sigma=\frac{|\nabla f|}{|\nabla f\cdot\boldsymbol{k}|}dA=\sqrt{6}dxdy$$
+因此环量是
+$$\begin{aligned}
+\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma\\
+&=\int_0^1\int_0^{2-2x}\frac{1}{\sqrt{6}}(7x+4y-6)\sqrt{6}dydx\\
+&=\int_0^1\int_0^{2-2x}(7x+4y-6)dydx\\
+&=-1
+\end{aligned}$$
+
+例10 令曲面 $S$ 是椭圆抛物面 $z=x^2+4y^2$ 位于 $z=1$ 以下的部分。$S$ 的方向向内，$\boldsymbol{n}$ 如下图所示。矢量场 $\boldsymbol{F}=y\boldsymbol{i}-xz\boldsymbol{j}+xz^2\boldsymbol{k}$，求 $\nabla\times\boldsymbol{F}$ 穿过 $S$ 的通量。
+
+![](070.110.png)
+
+解：根据斯托克斯定理，通量等于 $\boldsymbol{F}$ 逆时针绕着曲线 $C$ 的线积分。$C$ 的曲线是 $z=1,x^2+4y^2=1$，椭圆的参数方程是 $x=\cos t,y=\frac{1}{2}\sin t,z=1,0\leq t\leq 2\pi$，那么
+$$\boldsymbol{r}(t)=(\cos t)\boldsymbol{i}+(\frac{1}{2}\sin t)\boldsymbol{j}+\boldsymbol{k},0\leq t\leq 2\pi$$
+因此
+$$\boldsymbol{F}(\boldsymbol{r}(t))=\frac{1}{2}(\sin t)\boldsymbol{i}-(\cos t)\boldsymbol{j}+(\cos t)\boldsymbol{k}$$
+$$\frac{d\boldsymbol{r}}{dt}=-(\sin t)\boldsymbol{i}+\frac{1}{2}(\cos t)\boldsymbol{j}$$
+环量是
+$$\begin{aligned}
+\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}&=\int_0^{2\pi}\boldsymbol{F}\cdot\frac{d\boldsymbol{r}}{dt}dt\\
+&=\int_0^{2\pi}-\frac{1}{2}\sin^2t-\frac{1}{2}\cos^2tdt\\
+&=-\frac{1}{2}\int_0^{2\pi}dt\\
+&=-\pi
+\end{aligned}$$
+这也是题目要求的通量。
+
+### 对多面体的曲面斯托克斯定理证明概述
+令 $S$ 是包含有限数量的区域或者面。
+
+![](070.120.png)
+
+对各个分离的部分使用格林定理。有两类面：
+
+1. 所有的边都是其他面的边
+2. 至少有一条边不是其他面的边
+
+$S$ 的边由第二类面的不与其他面相交的边组成。尽管格林公式声明时指定了 $xy$ 平面上的面，一个更泛化的版本可以用于空间平面，即 $\boldsymbol{n}$ 是平面的法向矢量而不一定非要是 $\boldsymbol{k}$。对上图 $(a)$，可以得到
+$$\bigg(\oint_{EAB}+\oint_{BCE}+\oint_{CDE}\bigg)\boldsymbol{F}\cdot d\boldsymbol{r}=\bigg(\iint_{EAB}+\iint_{BCE}+\iint_{CDE}\bigg)(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma\tag{7}$$
+左边是三个线积分，公共边对两个面而言方向相反，相互抵消。右边是区域相加。因此得到
+$$\oint_{ABCDE}\boldsymbol{F}\cdot d\boldsymbol{r}=\iint_{ABCDE}(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma$$
+如果上述分析应用于 $S$ 所有的面，求和得到
+$$\oint_{\text{boundary(S)}}\boldsymbol{F}\cdot d\boldsymbol{r}=\iint_{S}(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma$$
+更一般的多面体曲面如上图 $(b)$ 所示。光滑曲面的推广要利用极限求和的思想。
+
+### 有洞的曲面的斯托克斯定理
+斯托克斯定理对有一个或多个洞的有向曲面仍旧成立。
+
+![](070.130.png)
+
+$\nabla\times\boldsymbol{F}$ 的法向分量在 $S$ 上的曲面积分等于 $\boldsymbol{F}$ 切向分量绕着所有边界的线积分之和，曲线的方向由 $S$ 的方向确定。定理仍旧成立，只是 $C$ 是简单封闭曲线的并集。
+
+### 重要恒等式
+下面恒等式经常出现在数学和物理学中。
+$$\nabla\times\nabla f=\boldsymbol{0}\tag{8}$$
+在电磁学和重力应用中 $f$ 是势函数。$(8)$ 是说这些力的旋度为零。$(8)$ 对任意二阶偏微分连续的函数 $f(x,y,z)$ 都成立。
+$$\nabla\times\nabla f=\begin{vmatrix}
+\boldsymbol{i}&&\boldsymbol{j}&&\boldsymbol{k}\\
+\frac{\partial}{\partial x}&&\frac{\partial}{\partial y}&&\frac{\partial}{\partial z}\\
+\frac{\partial f}{\partial x}&&\frac{\partial f}{\partial y}&&\frac{\partial f}{\partial z}
+\end{vmatrix}=(f_{zy}-f{yz})\boldsymbol{i}-(f_{zx}-f_{xz})\boldsymbol{j}+(f_{yx}-f_{xy})\boldsymbol{k}$$
+根据 13.3 小节定理 2，如果二阶导连续，那么混合二阶导相等，因此是零矢量。
+
+### 保守场和斯托克斯定理
+在 15.3 小节，空间开放区域 $D$ 上的矢量场 $\boldsymbol{F}$ 是保守场等价于 $D$ 上任意闭合曲线上 $\boldsymbol{F}$ 的线积分等于零。那么这也等价于简单连通的开放区域上有 $\nabla\times\boldsymbol{F}=\boldsymbol{0}$，可以用于测试 $\boldsymbol{F}$ 是否是保守场。
+
+**定理 7 $\nabla\times\boldsymbol{F}$ 与闭合曲线的关系**
+> 如果在简单连通开放区域 $D$ 上的每一点处都有 $\nabla\times\boldsymbol{F}=\boldsymbol{0}$，那么 $D$ 内任意分段光滑闭合路径 $C$ 都满足
+> $$\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=0$$
+
+证明大纲：可以分成两个步骤证明定理 7。第一步是对与简单闭合但自身不相交曲线，如下图 $(a)$ 所示。
+
+![](070.140.png)
+
+拓扑学中一个重要定理是说在简单连通开放区域 $D$ 内的每一个光滑简单闭合曲线 $C$ 都是一个光滑有两个面的曲线 $S$ 的边界，$S$ 也在 $D$ 内。因此根据斯托克斯定理有
+$$\oint_C\boldsymbol{F}\cdot d\boldsymbol{r}=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma=0$$
+第二部对于自身相交的曲线，如上图 $(b)$ 所示。将曲线分成两个部分，分别应用斯托克斯定理并相加。
+
+下图总结了定义在连通、简单连通开放区域上的保守场相关的等价关系。
+
+![](070.150.png)
