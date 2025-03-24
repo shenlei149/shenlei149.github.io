@@ -1,0 +1,183 @@
+### 三维散度
+矢量场 $\boldsymbol{F}=M(x,y,z)\boldsymbol{i}+N(x,y,z)\boldsymbol{j}+P(x,y,z)\boldsymbol{j}$ 的散度（`divergence`）是标量函数
+$$\text{div }\boldsymbol{F}=\nabla\cdot\boldsymbol{F}=\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}+\frac{\partial P}{\partial z}\tag{1}$$
+如果 $\boldsymbol{F}$ 是流动气体的矢量场，在点 $(x,y,z)$ 处 $\boldsymbol{F}$ 散度值是气体在该点处膨胀或者压缩的速率。散度是通量密度。
+
+例1 求下面矢量场的散度并给出物理解释。
+
+（a）膨胀 $\boldsymbol{F}(x,y,z)=x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}$。
+
+（b）压缩 $\boldsymbol{F}(x,y,z)=-x\boldsymbol{i}-y\boldsymbol{j}-z\boldsymbol{k}$。
+
+（c）绕 $z$ 轴旋转 $\boldsymbol{F}(x,y,z)=-y\boldsymbol{i}+x\boldsymbol{j}$。
+
+（d）沿着水平面的应力（剪切面） $\boldsymbol{F}(x,y,z)=z\boldsymbol{j}$。
+
+![](080.010.png)
+
+解：（a）
+$$\nabla\cdot\boldsymbol{F}=\frac{\partial}{\partial x}x+\frac{\partial}{\partial y}y+\frac{\partial}{\partial z}z=3$$
+气体在各点处均匀膨胀。
+
+（b）
+$$\nabla\cdot\boldsymbol{F}=\frac{\partial}{\partial x}(-x)+\frac{\partial}{\partial y}(-y)+\frac{\partial}{\partial z}(-z)=-3$$
+气体在各点处均匀收缩。
+
+（c）
+$$\nabla\cdot\boldsymbol{F}=\frac{\partial}{\partial x}(-y)+\frac{\partial}{\partial y}(x)=0$$
+在各点处既不膨胀也不收缩。
+
+（d）
+$$\nabla\cdot\boldsymbol{F}=\frac{\partial}{\partial y}z=0$$
+在各点处既不膨胀也不收缩。
+
+### 散度定理
+**定理 8 散度定理**
+> 令 $\boldsymbol{F}$ 是矢量场，各个分量的一阶偏微分连续。令 $S$ 是分段光滑有向封闭曲面。$\boldsymbol{F}$ 穿过 $S$ 的通量，方向由单位矢量 $\boldsymbol{n}$ 确定，等于散度 $\nabla\cdot\boldsymbol{F}$ 在由曲面围成的区域 $D$ 上的三重积分。
+> $$\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\iiint_D\nabla\cdot\boldsymbol{F}dV\tag{2}$$
+
+例2 求公式 $(2)$ 左右两边的值，其中矢量场 $\boldsymbol{F}=x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}$，曲面是 $x^2+y^2+z^2=a^2$，方向向外。
+
+![](080.020.png)
+
+解：计算函数 $f(x,y,z)=x^2+y^2+z^2$ 的梯度可以得到 $S$ 向外的单位矢量
+$$\boldsymbol{n}=\frac{2(x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k})}{\sqrt{4(x^2+y^2+z^2)}}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{a}$$
+那么
+$$\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\frac{x^2+y^2+z^2}{a}d\sigma=ad\sigma$$
+因此向外的通量是
+$$\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\iint_Sad\sigma=a\iint_Sd\sigma=4\pi a^3$$
+为了计算 $(2)$ 的右侧，首先计算 $\boldsymbol{F}$ 的散度，例 1 中给出了答案
+$$\nabla\cdot\boldsymbol{F}=3$$
+那么散度的积分是
+$$\iiint_D\nabla\cdot\boldsymbol{F}dV=\iiint_D3dV=4\pi a^3$$
+
+很多应用场景中各点处的散度都为零。常见例子有不可压缩的流体的矢量场，常量矢量场，或者例 1 中（d）矢量场。散度为零，也就是 $(2)$ 的右侧是零。所以如果 $S$ 是封闭曲面且满足散度定理，那么穿过 $S$ 向外的通量是零。
+
+**推论**
+> 曲面 $S$ 是分段光滑有向封闭曲面，在其围成的区域内，矢量场 $\boldsymbol{F}$ 在各点处散度为零，那么穿过 $S$ 向外的通量为零。
+
+例3 求 $\boldsymbol{F}=xy\boldsymbol{i}+yz\boldsymbol{j}+xz\boldsymbol{k}$ 向外通过 $x=1,y=1,z=1$ 和坐标平面组成的立方体的通量。
+
+解：立方体有六个面，与其六个面一个一个计算通量，可以计算三重积分来计算通量。
+$$\nabla\cdot\boldsymbol{F}=\frac{\partial}{\partial x}(xy)+\frac{\partial}{\partial y}(yz)+\frac{\partial}{\partial z}(xz)=y+z+x$$
+因此通量是
+$$\begin{aligned}
+\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma&=\iiint_D\nabla\cdot\boldsymbol{F}dV\\
+&=\int_0^1\int_0^1\int_0^1(y+z+x)dxdydx\\
+&=\frac{3}{2}
+\end{aligned}$$
+
+例4 使用两种方式计算 $\boldsymbol{F}=x^2\boldsymbol{i}+y^2\boldsymbol{j}+z^2\boldsymbol{k}$ 向外穿过立方体 $D:0\leq x\leq 3,0\leq y\leq 2,0\leq z\leq 1$ 的通量，以此验证 $(2)$。
+
+![](080.030.png)
+
+解：首先计算面 $z=1$，此时 $\boldsymbol{n}=\boldsymbol{k}$。穿过这个面的通量由 $\boldsymbol{F}\cdot\boldsymbol{n}=ze^x$ 确定，因此
+$$\int_0^2\int_0^3e^xdxdy=2e^3-2$$
+其他面类似，下面是各个面的通量
+
+| 面 | $\boldsymbol{n}$ | $\boldsymbol{F}\cdot\boldsymbol{n}$ | 通量 |
+|--|--|--|--|
+| $x=0$ | $-\boldsymbol{i}$ | $-x^2=0$ | $0$ |
+| $x=3$ | $\boldsymbol{i}$ | $x^2=0$ | $18$ |
+| $y=0$ | $-\boldsymbol{j}$ | $-4xyz=0$ | $0$ |
+| $y=2$ | $\boldsymbol{j}$ | $4xyz=8xz$ | $18$ |
+| $z=0$ | $-\boldsymbol{k}$ | $-ze^x=0$ | $0$ |
+| $z=1$ | $\boldsymbol{k}$ | $ze^x=e^x$ | $2e^3-2$ |
+
+因此总的通量是
+$$18+18+2e^3-2=34+2e^3$$
+
+下面计算 $(2)$ 的右边。首先散度是
+$$\nabla\cdot\boldsymbol{F}=2x+4xz+e^x$$
+$\boldsymbol{F}$ 的散度在 $D$ 上的三重积分是
+$$\begin{aligned}
+\iiint_D\nabla\cdot\boldsymbol{F}dV&=\int_0^1\int_0^2\int_0^3(2x+4xz+e^x)dxdydz\\
+&=\int_0^1\int_0^2(8+18z+e^3)dydz\\
+&=\int_0^1(16+36z+2e^3)dz\\
+&=34+2e^3
+\end{aligned}$$
+
+### 散度和旋度
+如果 $\boldsymbol{F}$ 三维空间矢量场，那么旋度 $\nabla\times\boldsymbol{F}$ 也是三维矢量场。下面是 $\nabla\times\boldsymbol{F}$ 的散度，始终为零。
+
+**定理 9**
+> 如果 $\boldsymbol{F}=M\boldsymbol{i}+N\boldsymbol{j}+p\boldsymbol{k}$ 是矢量场且有连续的二阶偏微分，那么
+> $$\nabla\cdot(\nabla\times\boldsymbol{F})=0$$
+
+证明：从定义出发，有
+$$\begin{aligned}
+\nabla\cdot(\nabla\times\boldsymbol{F})&=\frac{\partial}{\partial x}\bigg(\frac{\partial P}{\partial y}-\frac{\partial N}{\partial z}\bigg)+\frac{\partial}{\partial y}\bigg(\frac{\partial M}{\partial z}-\frac{\partial P}{\partial x}\bigg)+\frac{\partial}{\partial z}\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)\\
+&=\frac{\partial^2 P}{\partial x\partial y}-\frac{\partial^2 N}{\partial x\partial z}+\frac{\partial^2 M}{\partial y\partial z}-\frac{\partial^2 P}{\partial y\partial x}+\frac{\partial^2 N}{\partial z\partial x}-\frac{\partial^2 M}{\partial z\partial y}\\
+&=0
+\end{aligned}$$
+这里使用了 13.3 小节的混合微分定理。
+
+定理 9 有很多有意思的应用。如果 $\boldsymbol{G}=\text{curl } \boldsymbol{F}$，那么 $\boldsymbol{G}$ 的散度为零。如果 $\text{div }\boldsymbol{G}\neq 0$，那么 $G$ 不可能是任意矢量场 $\boldsymbol{F}$ 的旋度，其中 $\boldsymbol{F}$ 有连续的二阶偏微分。如果 $\boldsymbol{G}=\text{curl }\boldsymbol{F}$，那么根据散度定理，$\boldsymbol{G}$ 穿过封闭曲面 $S$ 向外的通量是零，前提是满足定理的条件。如果通量不是零，那么 $G$ 不可能是任意矢量场 $\boldsymbol{F}$ 的旋度。
+
+### 特殊区域下散度定理的证明
+为了证明散度定理，$\boldsymbol{F}$ 的各个分量要有连续一阶偏微分。假定 $D$ 是凸多面体，没有洞，也没有气泡，比如实心球、立方体等，$S$ 是分段光滑曲面。$D$ 在 $xy$ 平面的投影是 $R_{xy}$，穿过 $R_{xy}$ 内部的点且垂直于 $xy$ 直线与 $S$ 的交点是两个，那么 $S$ 可以分成两个部分：
+$$S_1:z=f_1(x,y),(x,y)\in R_{xy}$$
+$$S_2:z=f_2(x,y),(x,y)\in R_{xy}$$
+其中 $f_1\leq f_2$。$D$ 投影到其他坐标面也是类似的。
+
+![](080.040.png)
+
+单位法向矢量 $\boldsymbol{n}=n_1\boldsymbol{i}+n_2\boldsymbol{j}+n_3\boldsymbol{k}$ 与三个坐标轴的夹角分别是 $\alpha,\beta,\gamma$。
+
+![](080.050.png)
+
+根据上图有
+$$n_1=\boldsymbol{n}\cdot\boldsymbol{i}=|\boldsymbol{n}||\boldsymbol{i}|\cos\alpha$$
+$$n_2=\boldsymbol{n}\cdot\boldsymbol{j}=|\boldsymbol{n}||\boldsymbol{j}|\cos\beta$$
+$$n_3=\boldsymbol{n}\cdot\boldsymbol{k}=|\boldsymbol{n}||\boldsymbol{k}|\cos\gamma$$
+那么
+$$\boldsymbol{n}=\cos\alpha\boldsymbol{i}+\cos\beta\boldsymbol{j}+\cos\gamma\boldsymbol{k}$$
+因此
+$$\boldsymbol{F}\cdot\boldsymbol{n}=M\cos\alpha+N\cos\beta+P\cos\gamma$$
+使用分量表示散度定理
+$$\iint_S(M\cos\alpha+N\cos\beta+P\cos\gamma)d\sigma=\iiint_D\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}+\frac{\partial P}{\partial z}dxdydz$$
+接下来证明下面三个等式进而证明散度定理。
+$$\iint_SM\cos\alpha d\sigma=\iiint_D\frac{\partial M}{\partial x}dxdydz\tag{3}$$
+$$\iint_SN\cos\beta d\sigma=\iiint_D\frac{\partial N}{\partial y}dxdydz\tag{4}$$
+$$\iint_SP\cos\gamma d\sigma=\iiint_D\frac{\partial P}{\partial z}dxdydz\tag{5}$$
+
+下面证明 $(5)$。
+
+![](080.060.png)
+
+曲面 $S$ 分成上下两个部分。上半部分 $S_2$ 的方程是 $z=f_2(x,y)$，下半部分 $S_1$ 的方程是 $z=f_1(x,y)$。对于 $S_2$，$\boldsymbol{n}$ 的 $\boldsymbol{k}$ 分量是正的。因为
+$$d\sigma=\frac{dA}{|\cos\gamma|}=\frac{dxdy}{\cos\gamma}$$
+所以
+$$\cos\gamma d\sigma=dxdy$$
+对于 $S_1$，$\boldsymbol{n}$ 的 $\boldsymbol{k}$ 分量是负的，所以
+$$\cos\gamma d\sigma=-dxdy$$
+
+![](080.070.png)
+
+因此
+$$\begin{aligned}
+\iint_SP\cos\gamma d\sigma&=\iint_{S_2}P\cos\gamma d\sigma+\iint_{S_1}P\cos\gamma d\sigma\\
+&=\iint_{R_{xy}}P(x,y,f_2(x,y))dxdy-\iint_{R_{xy}}P(x,y,f_1(x,y))dxdy\\
+&=\iint_{R_{xy}}[P(x,y,f_2(x,y))-P(x,y,f_1(x,y))]dxdy\\
+&=\iint_{R_{xy}}\bigg[\int_{f_1(x,y)}^{f_2(x,y)}\frac{\partial P}{\partial z}dz\bigg]dxdy\\
+&=\iiint_D\frac{\partial P}{\partial z}dzdxdy
+\end{aligned}$$
+类似的可以 $(3),(4)$。这就完成了对特殊区域下散度定理的证明。
+
+### 其他区域的散度定理
+散度定理可以扩展到可以分成有限个数的上述简单类型区域的区域，以及可以以某种方式定义为更简单区域的极限的区域。比如有两个同心球夹着的区域 $D$，在 $D$ 及其曲面上 $\boldsymbol{F}$ 有连续可微分量。赤道面将 $D$ 分成两个部分，并分别应用散度定理。下半部分 $D_1$，曲面 $S_1$ 由外面的球面、环形、内部的球面三个部分组成。
+
+![](080.080.png)
+
+根据散度定理有
+$$\iint_{S_1}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma_1=\iiint_{D_1}\nabla\cdot\boldsymbol{F}dV_1\tag{6}$$
+外部球面的 $\boldsymbol{n}_1$ 向外，内部球面的 $\boldsymbol{n}_1$ 朝向球心，唤醒面的 $\boldsymbol{n}_1$ 是 $\boldsymbol{k}$。类似的，分割的上半部分区域 $D_2$，曲面是 $S_2$。
+
+![](080.090.png)
+散度定理
+$$\iint_{S_2}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma_2=\iiint_{D_2}\nabla\cdot\boldsymbol{F}dV_2\tag{7}$$
+类似的，外部球面的 $\boldsymbol{n}_2$ 向外，内部球面的 $\boldsymbol{n}_2$ 朝向球心，唤醒面的 $\boldsymbol{n}_2$ 是 $-\boldsymbol{k}$。两式相加，两个环形面的方向 $\boldsymbol{n}_1,\boldsymbol{n}_2$ 恰好相反，相互抵消，那么
+$$\iint_{S}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\iiint_{D}\nabla\cdot\boldsymbol{F}dV$$
+其中 $D$ 是两个球面间的区域，$S$ 是 $D$ 的边界，两个曲面，$S$ 的方向 $\boldsymbol{n}$ 是从 $D$ 向外。
+
+例5 
