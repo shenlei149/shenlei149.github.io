@@ -180,4 +180,46 @@ $$\iint_{S_2}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma_2=\iiint_{D_2}\nabla\cdot\
 $$\iint_{S}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\iiint_{D}\nabla\cdot\boldsymbol{F}dV$$
 其中 $D$ 是两个球面间的区域，$S$ 是 $D$ 的边界，两个曲面，$S$ 的方向 $\boldsymbol{n}$ 是从 $D$ 向外。
 
-例5 
+例5 求场
+$$\boldsymbol{F}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{\rho^3},\rho=\sqrt{x^2+y^2+z^2}\tag{8}$$
+穿过区域 $D:0< b^2\leq x^2+y^2+z^2\leq a^2$ 的边界向外的净通量。
+
+![](080.100.png)
+
+解：通过计算 $\nabla\cdot\boldsymbol{F}$ 在 $D$ 上的积分来计算通量。注意这里 $\rho\neq 0$。
+$$\frac{\partial\rho}{\partial x}=\frac{1}{2}(x^2+y^2+z^2)^{-1/2}(2x)=\frac{x}{\rho}$$
+那么
+$$\frac{\partial M}{\partial x}=\frac{\partial}{\partial x}(x\rho^{-3})=\rho^{-3}-3x\rho^{-4}\frac{\partial\rho}{\partial x}=\frac{1}{\rho^3}-\frac{3x^2}{\rho^5}$$
+类似的
+$$\frac{\partial N}{\partial y}=\frac{1}{\rho^3}-\frac{3y^2}{\rho^5},\frac{\partial P}{\partial z}=\frac{1}{\rho^3}-\frac{3z^2}{\rho^5}$$
+因此
+$$\nabla\cdot\boldsymbol{F}=\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}+\frac{\partial P}{\partial z}=\frac{3}{\rho^3}-\frac{3}{\rho^5}(x^2+y^2+z^2)=\frac{3}{\rho^3}-\frac{3\rho^3}{\rho^5}=0$$
+所以 $\boldsymbol{F}$ 穿过 $D$ 的边界向外的净通量是零。因此穿过 $S_b$ 向内的通量是穿过 $S_a$ 向外的通量的负值。因此如果方向一致都是向外的话，穿过 $S_b$ 和 $S_a$ 的通量一样。因此 $\boldsymbol{F}$ 穿过球心在原点的球面的通量与球体半径无关。
+
+下面计算通过任意球面 $S_a$ 的通量。半径为 $a$ 的球面向外的单位法向矢量是
+$$\boldsymbol{n}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{\sqrt{x^2+y^2+z^2}}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{a}$$
+那么
+$$\boldsymbol{F}\cdot\boldsymbol{n}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{a^3}\cdot\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{a}=\frac{x^2+y^2+z^2}{a^4}=\frac{a^2}{a^4}=\frac{1}{a^2}$$
+因此通量是
+$$\iint_{S_a}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\frac{1}{a^2}\iint_{S_a}d\sigma=\frac{1}{a^2}(4\pi a^2)=4\pi$$
+$\boldsymbol{F}$ 穿过球心在原点任意半径的球面的通量是 $4\pi$，与半径无关。
+
+### 高斯定律：电磁理论最重要的四大定律之一
+电磁理论中，原点处电荷 $q$ 产生的电场是
+$$\boldsymbol{E}(x,y,z)=\frac{1}{4\pi\varepsilon_0}\frac{q}{|\boldsymbol{r}|^2}\frac{\boldsymbol{r}}{|\boldsymbol{r}|}=\frac{q}{4\pi\varepsilon_0}\frac{\boldsymbol{r}}{|\boldsymbol{r}|^3}=\frac{q}{4\pi\varepsilon_0}\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{\rho^3}$$
+其中 $\varepsilon_0$ 是物理常量，$\boldsymbol{r}$ 是点 $(x,y,z)$ 的位置矢量，$\rho=|\boldsymbol{r}|=\sqrt{x^2+y^2+z^2}$。从 $(8)$ 可以得到
+$$\boldsymbol{E}=\frac{q}{4\pi\varepsilon_0}\boldsymbol{F}$$
+例 5 告诉我们 $\boldsymbol{E}$ 穿过球心为原点的球面的通量是 $q/\varepsilon_0$，这个结果不限定于球面，对任意包含原点的封闭曲面均成立。假定一个较大的半径为 $a$ 的球面，其圆心在原点，和一个包含原点的曲面 $S$，如下图所示。
+
+![](080.110.png)
+
+因为
+$$\nabla\cdot\boldsymbol{E}=\nabla\cdot\frac{q}{4\pi\varepsilon_0}\boldsymbol{F}=\frac{q}{4\pi\varepsilon_0}\nabla\cdot\boldsymbol{F}=0$$
+那么 $\nabla\cdot\boldsymbol{E}$ 在 $D$ 上的三重积分是零，其中 $\rho>0$，$D$ 是 $S$ 和 $S_a$ 之间的区域。根据散度定理
+$$\iint_{\text{Boundary of }D}\boldsymbol{E}\cdot\boldsymbol{n}d\sigma=0$$
+因此 $\boldsymbol{E}$ 穿过 $S$ 向外的通量和穿过 $S_a$ 向外的通量相同，都是 $q/\varepsilon_0$。这就是高斯定律，对更一般的电荷分布也成立。对于任意包含原点的封闭曲面，都有
+$$\iint_S\boldsymbol{E}\cdot\boldsymbol{n}d\sigma=\frac{q}{\varepsilon_0}$$
+
+### 流体动力学中的连续性方程
+令 $D$ 是
+
