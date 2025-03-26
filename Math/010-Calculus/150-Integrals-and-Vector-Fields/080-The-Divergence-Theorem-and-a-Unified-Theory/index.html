@@ -11637,6 +11637,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯定律：电磁理论最重要的四大定律之一
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      流体动力学中的连续性方程
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21657,6 +21675,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯定律：电磁理论最重要的四大定律之一
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      流体动力学中的连续性方程
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -21936,7 +21972,42 @@
 类似的，外部球面的 <script type="math/tex">\boldsymbol{n}_2</script> 向外，内部球面的 <script type="math/tex">\boldsymbol{n}_2</script> 朝向球心，唤醒面的 <script type="math/tex">\boldsymbol{n}_2</script> 是 <script type="math/tex">-\boldsymbol{k}</script>。两式相加，两个环形面的方向 <script type="math/tex">\boldsymbol{n}_1,\boldsymbol{n}_2</script> 恰好相反，相互抵消，那么
 <script type="math/tex; mode=display">\iint_{S}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\iiint_{D}\nabla\cdot\boldsymbol{F}dV</script>
 其中 <script type="math/tex">D</script> 是两个球面间的区域，<script type="math/tex">S</script> 是 <script type="math/tex">D</script> 的边界，两个曲面，<script type="math/tex">S</script> 的方向 <script type="math/tex">\boldsymbol{n}</script> 是从 <script type="math/tex">D</script> 向外。</p>
-<p>例5 </p>
+<p>例5 求场
+<script type="math/tex; mode=display">\boldsymbol{F}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{\rho^3},\rho=\sqrt{x^2+y^2+z^2}\tag{8}</script>
+穿过区域 <script type="math/tex">D:0< b^2\leq x^2+y^2+z^2\leq a^2</script> 的边界向外的净通量。</p>
+<p><img alt="" src="../080.100.png" /></p>
+<p>解：通过计算 <script type="math/tex">\nabla\cdot\boldsymbol{F}</script> 在 <script type="math/tex">D</script> 上的积分来计算通量。注意这里 <script type="math/tex">\rho\neq 0</script>。
+<script type="math/tex; mode=display">\frac{\partial\rho}{\partial x}=\frac{1}{2}(x^2+y^2+z^2)^{-1/2}(2x)=\frac{x}{\rho}</script>
+那么
+<script type="math/tex; mode=display">\frac{\partial M}{\partial x}=\frac{\partial}{\partial x}(x\rho^{-3})=\rho^{-3}-3x\rho^{-4}\frac{\partial\rho}{\partial x}=\frac{1}{\rho^3}-\frac{3x^2}{\rho^5}</script>
+类似的
+<script type="math/tex; mode=display">\frac{\partial N}{\partial y}=\frac{1}{\rho^3}-\frac{3y^2}{\rho^5},\frac{\partial P}{\partial z}=\frac{1}{\rho^3}-\frac{3z^2}{\rho^5}</script>
+因此
+<script type="math/tex; mode=display">\nabla\cdot\boldsymbol{F}=\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}+\frac{\partial P}{\partial z}=\frac{3}{\rho^3}-\frac{3}{\rho^5}(x^2+y^2+z^2)=\frac{3}{\rho^3}-\frac{3\rho^3}{\rho^5}=0</script>
+所以 <script type="math/tex">\boldsymbol{F}</script> 穿过 <script type="math/tex">D</script> 的边界向外的净通量是零。因此穿过 <script type="math/tex">S_b</script> 向内的通量是穿过 <script type="math/tex">S_a</script> 向外的通量的负值。因此如果方向一致都是向外的话，穿过 <script type="math/tex">S_b</script> 和 <script type="math/tex">S_a</script> 的通量一样。因此 <script type="math/tex">\boldsymbol{F}</script> 穿过球心在原点的球面的通量与球体半径无关。</p>
+<p>下面计算通过任意球面 <script type="math/tex">S_a</script> 的通量。半径为 <script type="math/tex">a</script> 的球面向外的单位法向矢量是
+<script type="math/tex; mode=display">\boldsymbol{n}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{\sqrt{x^2+y^2+z^2}}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{a}</script>
+那么
+<script type="math/tex; mode=display">\boldsymbol{F}\cdot\boldsymbol{n}=\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{a^3}\cdot\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{a}=\frac{x^2+y^2+z^2}{a^4}=\frac{a^2}{a^4}=\frac{1}{a^2}</script>
+因此通量是
+<script type="math/tex; mode=display">\iint_{S_a}\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\frac{1}{a^2}\iint_{S_a}d\sigma=\frac{1}{a^2}(4\pi a^2)=4\pi</script>
+<script type="math/tex">\boldsymbol{F}</script> 穿过球心在原点任意半径的球面的通量是 <script type="math/tex">4\pi</script>，与半径无关。</p>
+<h3 id="_6">高斯定律：电磁理论最重要的四大定律之一</h3>
+<p>电磁理论中，原点处电荷 <script type="math/tex">q</script> 产生的电场是
+<script type="math/tex; mode=display">\boldsymbol{E}(x,y,z)=\frac{1}{4\pi\varepsilon_0}\frac{q}{|\boldsymbol{r}|^2}\frac{\boldsymbol{r}}{|\boldsymbol{r}|}=\frac{q}{4\pi\varepsilon_0}\frac{\boldsymbol{r}}{|\boldsymbol{r}|^3}=\frac{q}{4\pi\varepsilon_0}\frac{x\boldsymbol{i}+y\boldsymbol{j}+z\boldsymbol{k}}{\rho^3}</script>
+其中 <script type="math/tex">\varepsilon_0</script> 是物理常量，<script type="math/tex">\boldsymbol{r}</script> 是点 <script type="math/tex">(x,y,z)</script> 的位置矢量，<script type="math/tex">\rho=|\boldsymbol{r}|=\sqrt{x^2+y^2+z^2}</script>。从 <script type="math/tex">(8)</script> 可以得到
+<script type="math/tex; mode=display">\boldsymbol{E}=\frac{q}{4\pi\varepsilon_0}\boldsymbol{F}</script>
+例 5 告诉我们 <script type="math/tex">\boldsymbol{E}</script> 穿过球心为原点的球面的通量是 <script type="math/tex">q/\varepsilon_0</script>，这个结果不限定于球面，对任意包含原点的封闭曲面均成立。假定一个较大的半径为 <script type="math/tex">a</script> 的球面，其圆心在原点，和一个包含原点的曲面 <script type="math/tex">S</script>，如下图所示。</p>
+<p><img alt="" src="../080.110.png" /></p>
+<p>因为
+<script type="math/tex; mode=display">\nabla\cdot\boldsymbol{E}=\nabla\cdot\frac{q}{4\pi\varepsilon_0}\boldsymbol{F}=\frac{q}{4\pi\varepsilon_0}\nabla\cdot\boldsymbol{F}=0</script>
+那么 <script type="math/tex">\nabla\cdot\boldsymbol{E}</script> 在 <script type="math/tex">D</script> 上的三重积分是零，其中 <script type="math/tex">\rho>0</script>，<script type="math/tex">D</script> 是 <script type="math/tex">S</script> 和 <script type="math/tex">S_a</script> 之间的区域。根据散度定理
+<script type="math/tex; mode=display">\iint_{\text{Boundary of }D}\boldsymbol{E}\cdot\boldsymbol{n}d\sigma=0</script>
+因此 <script type="math/tex">\boldsymbol{E}</script> 穿过 <script type="math/tex">S</script> 向外的通量和穿过 <script type="math/tex">S_a</script> 向外的通量相同，都是 <script type="math/tex">q/\varepsilon_0</script>。这就是高斯定律，对更一般的电荷分布也成立。对于任意包含原点的封闭曲面，都有
+<script type="math/tex; mode=display">\iint_S\boldsymbol{E}\cdot\boldsymbol{n}d\sigma=\frac{q}{\varepsilon_0}</script>
+</p>
+<h3 id="_7">流体动力学中的连续性方程</h3>
+<p>令 <script type="math/tex">D</script> 是</p>
 
 
 
@@ -21959,7 +22030,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 24, 2025 15:10:21">March 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2025 01:13:24">March 26, 2025</span>
   </span>
 
     
