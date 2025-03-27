@@ -220,6 +220,80 @@ $$\iint_{\text{Boundary of }D}\boldsymbol{E}\cdot\boldsymbol{n}d\sigma=0$$
 因此 $\boldsymbol{E}$ 穿过 $S$ 向外的通量和穿过 $S_a$ 向外的通量相同，都是 $q/\varepsilon_0$。这就是高斯定律，对更一般的电荷分布也成立。对于任意包含原点的封闭曲面，都有
 $$\iint_S\boldsymbol{E}\cdot\boldsymbol{n}d\sigma=\frac{q}{\varepsilon_0}$$
 
-### 流体动力学中的连续性方程
-令 $D$ 是
+### 流体动力学的连续性方程
+令 $D$ 是空间中封闭曲线 $S$ 围成的区域。如果 $\boldsymbol{v}(x,y,z)$ 是 $D$ 内光滑流动的液体的速度场，$\delta=\delta(t,x,y,z)$ 是 $t$ 时刻 $(x,y,z)$ 处液体的密度，令 $\boldsymbol{F}=\delta\boldsymbol{v}$，流体动力学的连续性方程是
+$$\nabla\cdot\boldsymbol{F}+\frac{\partial\delta}{\partial t}=0$$
+如果函数连续的一阶偏微分，可以使用散度定理证明。
 
+首先积分
+$$\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma$$
+是穿过 $S$ 离开 $D$ 的质量的速率。配合下图解释这一点。
+
+![](080.120.png)
+
+在很短的时间 $\Delta t$ 内，在很小的区域上流体的体积是 $\Delta V$，等于圆柱底面积 $\Delta\sigma$ 乘以高度 $(\boldsymbol{v}\Delta t)\cdot\boldsymbol{n}$，那么
+$$\Delta V\approx\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma\Delta t$$
+对应的质量是
+$$\Delta m\approx\delta\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma\Delta t$$
+那么流出 $D$ 的质量的速率是
+$$\frac{\Delta m}{\Delta t}\approx\delta\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma$$
+那么
+$$\frac{\sum\Delta m}{\Delta t}\approx\sum\delta\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma$$
+这是穿过 $S$ 流出的质量的平均速率。令 $\Delta\sigma\to 0,\Delta t\to 0$，平均速度就是瞬时速率
+$$\frac{dm}{dt}=\iint_S\delta\boldsymbol{v}\cdot\boldsymbol{n}d\sigma$$
+那么
+$$\frac{dm}{dt}=\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma$$
+令 $B$ 是圆心在 $Q$ 的实心球。$\nabla\cdot\boldsymbol{F}$ 在 $B$ 上的均值是
+$$\frac{1}{V_B}\iiint_B\nabla\cdot\boldsymbol{F}dV$$
+散度是连续的，因此这个值等于 $\nabla\cdot\boldsymbol{F}$ 在 $B$ 内某点 $P$ 处的值。那么
+$$(\nabla\cdot\boldsymbol{F})(P)=\frac{1}{V_B}\iiint_B\nabla\cdot\boldsymbol{F}dV=\frac{1}{V_B}\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma\tag{9}$$
+上式最右边就是单位体积流出质量的速率。
+
+令 $B$ 的半径趋于零，那么 $(9)$ 的坐标收敛于 $(\nabla\cdot\boldsymbol{F})_Q$，由于 $\delta=m/V$，因此右边趋于 $(-\partial\delta/\partial t)_Q$。这两个极限相等，就得到连续性方程
+$$\nabla\cdot\boldsymbol{F}=-\frac{\partial\delta}{\partial t}$$
+上式的解释是 $\boldsymbol{F}$ 在某点处的散度是流体密度在该点处减少的速率。那么散度定理
+$$\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\iiint_D\nabla\cdot\boldsymbol{F}dV$$
+是说 $D$ 内流体密度的净减少由穿过 $S$ 的质量决定。
+
+### 统一积分理论
+如果二维矢量场 $\boldsymbol{F}=M(x,y)\boldsymbol{i}+N(x,y)\boldsymbol{j}$，那么 $\nabla\cdot\boldsymbol{F}=(\partial M/\partial x)+(\partial N/\partial y)$，因此格林定理的法向形式可以写作
+$$\oint_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\iint_R\bigg(\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}\bigg)dxdy=\iint_R\nabla\cdot\boldsymbol{F}dA$$
+类似的，$\nabla\times\boldsymbol{F}\cdot\boldsymbol{k}=(\partial N/\partial x)-(\partial M/\partial y)$，那么格林定理的切向形式可以写作
+$$\oint_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\iint_R\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)dxdy=\iint_R(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}dA$$
+格林公式使用 $\nabla$ 符号改写，可以看出其与斯托克斯定理和散度定理的关系。
+
+**格林定理和泛化三维版本**
+> 格林定理切向形式
+> $$\oint_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\iint_R(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}dA$$
+> 斯托克斯定理
+> $$\oint_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma$$
+> 格林定理法向形式
+> $$\oint_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\iint_R\nabla\cdot\boldsymbol{F}dA$$
+> 散度定理
+> $$\oint_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\iiint_D\nabla\cdot\boldsymbol{F}dV$$
+
+斯托克斯定理是格林定理切向形式从二维平面到三维曲面的泛化。$\boldsymbol{F}$ 旋度的曲面积分等于 $\boldsymbol{F}$ 在边界上的环量。
+
+散度定理是格林定理法向形式从二维平面到三维立体区域的泛化。$\nabla\cdot\boldsymbol{F}$ 在区域上的积分等于 $\boldsymbol{F}$ 矢量场穿过闭合区域边界的通量。
+
+这些可以看作是一个基本定理的形式。微积分基本定理是说 $f(x)$ 在 $[a,b]$ 上连续，在 $(a,b)$ 上可导，那么
+$$\int_a^b\frac{df}{dx}dx=f(b)-f(a)$$
+如果令 $\boldsymbol{F}=f(x)\boldsymbol{i},x\in[a,b]$，那么 $df/dx=\nabla\cdot\boldsymbol{F}$。定义单位矢量 $\boldsymbol{n}$ 是线段 $ab$ 边界向外，如下图所示。
+
+![](080.130.png)
+
+那么
+$$\begin{aligned}
+f(b)-f(a)&=f(b)\boldsymbol{i}\cdot\boldsymbol{i}-f(a)\boldsymbol{i}\cdot(-\boldsymbol{i})\\
+&=\boldsymbol{F}(b)\cdot\boldsymbol{n}+\boldsymbol{F}(a)\cdot\boldsymbol{n}
+\end{aligned}$$
+上式最后一项可以看作是 $\boldsymbol{F}$ 穿过 $[a,b]$ 边界的通量。
+
+现在基本定理可以解释为
+$$\boldsymbol{F}(b)\cdot\boldsymbol{n}+\boldsymbol{F}(a)\cdot\boldsymbol{n}=\int_{[a,b]}\nabla\cdot\boldsymbol{F}dx$$
+微积分定理、格林定理法向形式、散度定理说的是一个事情：微分算子 $\nabla\cdot$ 在某个区域上作用于场 $\boldsymbol{F}$ 的积分等于在闭合区域边界上场的法向分量的和。微积分基本定理和和，格林定理和散度定理是积分，和的另一种形式。
+
+斯托克斯定理和格林定理切向形式是说微分算子 $\nabla\times$ 作用于场 $\boldsymbol{F}$ 的曲面积分等于场的切向分量沿着闭合曲面的边界的和。
+
+**矢量积分的同意基本定理**
+> 微分算子作用于某一区域上的场的积分等于在该区域边界上相应的场分量的和。
