@@ -11673,7 +11673,16 @@
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      流体动力学中的连续性方程
+      流体动力学的连续性方程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      统一积分理论
     </span>
   </a>
   
@@ -21711,7 +21720,16 @@
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      流体动力学中的连续性方程
+      流体动力学的连续性方程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      统一积分理论
     </span>
   </a>
   
@@ -22030,8 +22048,74 @@
 因此 <script type="math/tex">\boldsymbol{E}</script> 穿过 <script type="math/tex">S</script> 向外的通量和穿过 <script type="math/tex">S_a</script> 向外的通量相同，都是 <script type="math/tex">q/\varepsilon_0</script>。这就是高斯定律，对更一般的电荷分布也成立。对于任意包含原点的封闭曲面，都有
 <script type="math/tex; mode=display">\iint_S\boldsymbol{E}\cdot\boldsymbol{n}d\sigma=\frac{q}{\varepsilon_0}</script>
 </p>
-<h3 id="_7">流体动力学中的连续性方程</h3>
-<p>令 <script type="math/tex">D</script> 是</p>
+<h3 id="_7">流体动力学的连续性方程</h3>
+<p>令 <script type="math/tex">D</script> 是空间中封闭曲线 <script type="math/tex">S</script> 围成的区域。如果 <script type="math/tex">\boldsymbol{v}(x,y,z)</script> 是 <script type="math/tex">D</script> 内光滑流动的液体的速度场，<script type="math/tex">\delta=\delta(t,x,y,z)</script> 是 <script type="math/tex">t</script> 时刻 <script type="math/tex">(x,y,z)</script> 处液体的密度，令 <script type="math/tex">\boldsymbol{F}=\delta\boldsymbol{v}</script>，流体动力学的连续性方程是
+<script type="math/tex; mode=display">\nabla\cdot\boldsymbol{F}+\frac{\partial\delta}{\partial t}=0</script>
+如果函数连续的一阶偏微分，可以使用散度定理证明。</p>
+<p>首先积分
+<script type="math/tex; mode=display">\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma</script>
+是穿过 <script type="math/tex">S</script> 离开 <script type="math/tex">D</script> 的质量的速率。配合下图解释这一点。</p>
+<p><img alt="" src="../080.120.png" /></p>
+<p>在很短的时间 <script type="math/tex">\Delta t</script> 内，在很小的区域上流体的体积是 <script type="math/tex">\Delta V</script>，等于圆柱底面积 <script type="math/tex">\Delta\sigma</script> 乘以高度 <script type="math/tex">(\boldsymbol{v}\Delta t)\cdot\boldsymbol{n}</script>，那么
+<script type="math/tex; mode=display">\Delta V\approx\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma\Delta t</script>
+对应的质量是
+<script type="math/tex; mode=display">\Delta m\approx\delta\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma\Delta t</script>
+那么流出 <script type="math/tex">D</script> 的质量的速率是
+<script type="math/tex; mode=display">\frac{\Delta m}{\Delta t}\approx\delta\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma</script>
+那么
+<script type="math/tex; mode=display">\frac{\sum\Delta m}{\Delta t}\approx\sum\delta\boldsymbol{v}\cdot\boldsymbol{n}\Delta\sigma</script>
+这是穿过 <script type="math/tex">S</script> 流出的质量的平均速率。令 <script type="math/tex">\Delta\sigma\to 0,\Delta t\to 0</script>，平均速度就是瞬时速率
+<script type="math/tex; mode=display">\frac{dm}{dt}=\iint_S\delta\boldsymbol{v}\cdot\boldsymbol{n}d\sigma</script>
+那么
+<script type="math/tex; mode=display">\frac{dm}{dt}=\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma</script>
+令 <script type="math/tex">B</script> 是圆心在 <script type="math/tex">Q</script> 的实心球。<script type="math/tex">\nabla\cdot\boldsymbol{F}</script> 在 <script type="math/tex">B</script> 上的均值是
+<script type="math/tex; mode=display">\frac{1}{V_B}\iiint_B\nabla\cdot\boldsymbol{F}dV</script>
+散度是连续的，因此这个值等于 <script type="math/tex">\nabla\cdot\boldsymbol{F}</script> 在 <script type="math/tex">B</script> 内某点 <script type="math/tex">P</script> 处的值。那么
+<script type="math/tex; mode=display">(\nabla\cdot\boldsymbol{F})(P)=\frac{1}{V_B}\iiint_B\nabla\cdot\boldsymbol{F}dV=\frac{1}{V_B}\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma\tag{9}</script>
+上式最右边就是单位体积流出质量的速率。</p>
+<p>令 <script type="math/tex">B</script> 的半径趋于零，那么 <script type="math/tex">(9)</script> 的坐标收敛于 <script type="math/tex">(\nabla\cdot\boldsymbol{F})_Q</script>，由于 <script type="math/tex">\delta=m/V</script>，因此右边趋于 <script type="math/tex">(-\partial\delta/\partial t)_Q</script>。这两个极限相等，就得到连续性方程
+<script type="math/tex; mode=display">\nabla\cdot\boldsymbol{F}=-\frac{\partial\delta}{\partial t}</script>
+上式的解释是 <script type="math/tex">\boldsymbol{F}</script> 在某点处的散度是流体密度在该点处减少的速率。那么散度定理
+<script type="math/tex; mode=display">\iint_S\boldsymbol{F}\cdot\boldsymbol{n}d\sigma=\iiint_D\nabla\cdot\boldsymbol{F}dV</script>
+是说 <script type="math/tex">D</script> 内流体密度的净减少由穿过 <script type="math/tex">S</script> 的质量决定。</p>
+<h3 id="_8">统一积分理论</h3>
+<p>如果二维矢量场 <script type="math/tex">\boldsymbol{F}=M(x,y)\boldsymbol{i}+N(x,y)\boldsymbol{j}</script>，那么 <script type="math/tex">\nabla\cdot\boldsymbol{F}=(\partial M/\partial x)+(\partial N/\partial y)</script>，因此格林定理的法向形式可以写作
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\iint_R\bigg(\frac{\partial M}{\partial x}+\frac{\partial N}{\partial y}\bigg)dxdy=\iint_R\nabla\cdot\boldsymbol{F}dA</script>
+类似的，<script type="math/tex">\nabla\times\boldsymbol{F}\cdot\boldsymbol{k}=(\partial N/\partial x)-(\partial M/\partial y)</script>，那么格林定理的切向形式可以写作
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\iint_R\bigg(\frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}\bigg)dxdy=\iint_R(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}dA</script>
+格林公式使用 <script type="math/tex">\nabla</script> 符号改写，可以看出其与斯托克斯定理和散度定理的关系。</p>
+<p><strong>格林定理和泛化三维版本</strong></p>
+<blockquote>
+<p>格林定理切向形式
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\iint_R(\nabla\times\boldsymbol{F})\cdot\boldsymbol{k}dA</script>
+斯托克斯定理
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot\boldsymbol{T}ds=\iint_S(\nabla\times\boldsymbol{F})\cdot\boldsymbol{n}d\sigma</script>
+格林定理法向形式
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\iint_R\nabla\cdot\boldsymbol{F}dA</script>
+散度定理
+<script type="math/tex; mode=display">\oint_C\boldsymbol{F}\cdot\boldsymbol{n}ds=\iiint_D\nabla\cdot\boldsymbol{F}dV</script>
+</p>
+</blockquote>
+<p>斯托克斯定理是格林定理切向形式从二维平面到三维曲面的泛化。<script type="math/tex">\boldsymbol{F}</script> 旋度的曲面积分等于 <script type="math/tex">\boldsymbol{F}</script> 在边界上的环量。</p>
+<p>散度定理是格林定理法向形式从二维平面到三维立体区域的泛化。<script type="math/tex">\nabla\cdot\boldsymbol{F}</script> 在区域上的积分等于 <script type="math/tex">\boldsymbol{F}</script> 矢量场穿过闭合区域边界的通量。</p>
+<p>这些可以看作是一个基本定理的形式。微积分基本定理是说 <script type="math/tex">f(x)</script> 在 <script type="math/tex">[a,b]</script> 上连续，在 <script type="math/tex">(a,b)</script> 上可导，那么
+<script type="math/tex; mode=display">\int_a^b\frac{df}{dx}dx=f(b)-f(a)</script>
+如果令 <script type="math/tex">\boldsymbol{F}=f(x)\boldsymbol{i},x\in[a,b]</script>，那么 <script type="math/tex">df/dx=\nabla\cdot\boldsymbol{F}</script>。定义单位矢量 <script type="math/tex">\boldsymbol{n}</script> 是线段 <script type="math/tex">ab</script> 边界向外，如下图所示。</p>
+<p><img alt="" src="../080.130.png" /></p>
+<p>那么
+<script type="math/tex; mode=display">\begin{aligned}
+f(b)-f(a)&=f(b)\boldsymbol{i}\cdot\boldsymbol{i}-f(a)\boldsymbol{i}\cdot(-\boldsymbol{i})\\
+&=\boldsymbol{F}(b)\cdot\boldsymbol{n}+\boldsymbol{F}(a)\cdot\boldsymbol{n}
+\end{aligned}</script>
+上式最后一项可以看作是 <script type="math/tex">\boldsymbol{F}</script> 穿过 <script type="math/tex">[a,b]</script> 边界的通量。</p>
+<p>现在基本定理可以解释为
+<script type="math/tex; mode=display">\boldsymbol{F}(b)\cdot\boldsymbol{n}+\boldsymbol{F}(a)\cdot\boldsymbol{n}=\int_{[a,b]}\nabla\cdot\boldsymbol{F}dx</script>
+微积分定理、格林定理法向形式、散度定理说的是一个事情：微分算子 <script type="math/tex">\nabla\cdot</script> 在某个区域上作用于场 <script type="math/tex">\boldsymbol{F}</script> 的积分等于在闭合区域边界上场的法向分量的和。微积分基本定理和和，格林定理和散度定理是积分，和的另一种形式。</p>
+<p>斯托克斯定理和格林定理切向形式是说微分算子 <script type="math/tex">\nabla\times</script> 作用于场 <script type="math/tex">\boldsymbol{F}</script> 的曲面积分等于场的切向分量沿着闭合曲面的边界的和。</p>
+<p><strong>矢量积分的同意基本定理</strong></p>
+<blockquote>
+<p>微分算子作用于某一区域上的场的积分等于在该区域边界上相应的场分量的和。</p>
+</blockquote>
 
 
 
@@ -22054,7 +22138,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2025 01:13:24">March 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 27, 2025 14:30:43">March 27, 2025</span>
   </span>
 
     
