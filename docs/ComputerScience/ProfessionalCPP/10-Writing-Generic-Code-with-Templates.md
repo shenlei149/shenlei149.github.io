@@ -179,3 +179,214 @@ Grid<T>::At(this Self &&self, std::size_t x, std::size_t y)
 template<>
 class Grid<const char *>
 ```
+
+一个类也可以继承一个类模板，它自身也是类模板。需要注意的是，在继承类模板中访问基类的成员时，需要使用 `this` 或者 `Base<T>::`。
+```cpp
+template<typename T>
+class Derived : public Base<T>
+```
+
+对于类模板，给一个别名往往用起来更方便。比如
+```cpp
+template<typename T1, typename T2>
+class MyClassTemplate
+{
+};
+
+using OtherName = MyClassTemplate<int, double>;
+
+template<typename T1>
+using OtherName = MyClassTemplate<T1, double>;
+```
+
+函数模板与类版本类似，比如下面实现了一个适用于任意类型的 `Find` 函数。调用时，可以用尖括号指定类型，或者让编译器自动推导。
+```cpp
+template<typename T>
+std::optional<size_t>
+Find(const T &value, const T *arr, size_t size)
+{
+	for (size_t i { 0 }; i < size; ++i)
+	{
+		if (arr[i] == value)
+		{
+			return i; // Found it; return the index.
+		}
+	}
+
+	return {}; // Failed to find it; return empty optional.
+}
+```
+有时，数组的大小在调用 `Find` 的上下文是包含在数组中而不是指针，那么我们可以额外提供一个版本的 `Find`，更易用。
+```cpp
+template<typename T, size_t N>
+optional<size_t>
+Find(const T &value, const T (&arr)[N])
+{
+	return Find(value, arr, N);
+}
+```
+函数模板也可以特化，但是不常用，不如写一个重载函数，因为特化不参与重载解析，可能导致不期望的行为。当模板函数和非模板函数都满足时，倾向于调用非模板函数。回到前面的例子，对于 `const char *` 的查找需要使用 `std::strcmp` 而不是 `==`。
+```cpp
+std::optional<size_t>
+Find(const char *value, const char **arr, size_t size)
+{
+	for (size_t i { 0 }; i < size; ++i)
+	{
+		if (std::strcmp(arr[i], value) == 0)
+		{
+			return i; // Found it; return the index.
+		}
+	}
+
+	return {}; // Failed to find it; return empty optional.
+}
+```
+类似普通函数，函数模板也可以是某个类的友元。
+
+函数模板类型推导很方便，不过如果返回类型是模板参数类型，那么返回类型就必须指定，无法推导，这个可以让。可以从第一个开始往后部分指定模板参数类型。如何让编译器帮忙推导返回类型呢？返回类型那里不要使用模板参数，而是写 `auto` 或 `decltype(auto)`，前面会去掉 `const` 和引用修饰，更推荐后者。
+
+问题来了，既然返回类型可以用 `auto` 自己推导，参数类型也可以推导，那能不能写 `auto` 呢？可以！下面就是函数模板的缩写语法糖版本。
+```cpp
+decltype(auto)
+Add(const auto &t1, const auto &t2)
+{
+	return t1 + t2;
+}
+```
+这种写法，每个类型都可能推导成不同类型，同时函数的实现无法做类型推导的功能，因为 `auto` 是匿名而不是 `T` 这样有名类型。如果想要类型一致，或想类型推导，那么还要写成复杂的形式。
+
+除此之外，还有变量模板，语法如下，这样可以得到与请求类型最接近的值。
+```cpp
+template<typename T>
+constexpr T PI { T { 3.141592653589793238462643383279502884 } };
+```
+
+概念（`concept`），C++20 引入的全新概念，为了对模版进行约束，报错信息更友好。
+
+概念定义的语法如下。
+```cpp
+template<parameter-list>
+concept concept-name = constraints-expression;
+```
+表达式必须是一个编译期确定的表达式，结果必须是布尔类型。`concept-name<argument-list>` 是一个概念表达式（`concept expression`），可以用于 `static_assert`。比如
+```cpp
+template<typename T>
+concept Big = sizeof(T) > 4;
+
+static_assert(!Big<char>);
+static_assert(!Big<short>);
+static_assert(Big<long double>);
+```
+
+概念的约束表达式引入了要求表达式（`requires expression`）这个概念。定义的语法如下
+```cpp
+requires (parameter-list) { requirements; }
+```
+参数列表是可选的，但是不能有默认参数。类似函数体内的表达式不能引入新的局部变量。`requirements;` 是一系列要求，以分号结尾。要求分为以下四类。
+
+简单要求（`simple requirement`）。任意表达式，不是以 `requires` 开头，不能有变量声明，循环，条件表达式等等。下面要求 `T` 类型满足自增。
+```cpp
+template<typename T>
+concept Incrementable = requires(T x) {
+	x++;
+	++x;
+};
+```
+
+类型要求（`type requirement`）。要求类型满足某种要求，以 `typename` 开头。下面是两个实例，第一个要求类型有 `value_type` 字段，第二个要求能够实例化 `SomeTemplate` 类模板。
+```cpp
+template<typename T>
+concept C = requires { typename T::value_type; };
+
+template<typename T>
+concept C = requires { typename SomeTemplate<T>; };
+```
+
+组合要求（`compound requirement`）。验证函数是否有异常、返回类型是否满足要求。语法如下
+```cpp
+{ expression } noexcept -> type-constraint;
+```
+`noexcept` `type-constraint` 均为可选。下面的例子要求类型 `T` 有不抛出异常的析构函数和 `Swap` 函数。
+```cpp
+template<typename T>
+concept C = requires(T x, T y) {
+	{ x.~T() } noexcept;
+	{ x.Swap(y) } noexcept;
+};
+```
+`->` 后面的类型约束接受零个或多个模板类型参数。默认情况将返回值类型作为第一个参数传递，因此写的时候类型约束会少一个模板参数。比如下面要求 `size()` 函数返回类型可以转换到 `size_t` 类型。
+```cpp
+template<typename T>
+concept C = requires(const T x) {
+	{ x.size() } -> convertible_to<size_t>;
+};
+```
+`std::convertible_to<From, To>` 是标准库自带的概念，由于第一个模板参数默认是表达式的凡是类型，因此上面只写了 `To` 的模板类型为 `size_t`。
+
+嵌套要求（`nested requirements`）。比如
+```cpp
+template<typename T>
+concept C = requires(T t) {
+	++t;
+	--t;
+	t++;
+	t--;
+	requires sizeof(t) == 4;
+};
+```
+
+概念可以使用 `&&` `||` 组合起来。比如
+```cpp
+template<typename T>
+concept IncrementableAndDecrementable = Incrementable<T> && Decrementable<T>;
+```
+
+标准库在 `<concept>` 头文件中提供了大量已经定义好的概念，均在 `std` 命名空间下。和语言相关的有 `same_as`, `derived_from`, `convertible_to`, `integral`,
+`floating_point`, `copy_constructible`。比较相关的概念 `equality_comparable`, `totally_ordered`。对象相关的 `movable`, `copyable`。调用对象 `invocable`, `predicate`。迭代器 `<iterator>` 相关 `random_access_iterator`, `forward_iterator`, `incrementable`, `indirectly_copyable`, `indirectly_swappable`。范围（`range`）相关的稍后在对应章节会体积。推荐使用标准库提供的概念或者组合起来使用。
+
+在 `auto` 前面写想要约束的概念名就可以约束自动推导的类型，报错更容易理解，代码也更容易读。
+
+对于模版函数的参数类型约束有下面几种形式。不过对于参数名字做约束，或者是类模板内直接定义的成员函数，必须使用后缀 `requires` 的语法。
+```cpp
+template<typename T>
+	requires std::convertible_to<T, bool>
+void process(const T &t);
+
+template<convertible_to<bool> T>
+void process(const T &t);
+
+void process(const Incrementable auto &t);
+```
+
+类模板约束类似。
+```cpp
+template<typename T>
+	requires std::derived_from<T, GamePiece>
+class GameBoard : public Grid<T>
+{
+};
+
+template<std::derived_from<GamePiece> T>
+class GameBoard : public Grid<T>
+```
+
+类的成员函数可以有附加的约束条件，比如 `GameBoard` 的移动函数要求 `T` 能移动。
+```cpp
+void move(std::size_t xSrc, std::size_t ySrc, std::size_t xDest, std::size_t yDest)
+	requires std::movable<T>;
+```
+
+约束可以用于函数模版重载、类模板的特化。比如
+```cpp
+template<typename T>
+optional<size_t>
+Find(const T &value, const T *arr, size_t size)
+{
+}
+
+template<std::floating_point T>
+optional<size_t>
+Find(const T &value, const T *arr, size_t size)
+{
+}
+```
