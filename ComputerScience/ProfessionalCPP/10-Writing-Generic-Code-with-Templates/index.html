@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -3141,6 +3146,19 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    10 Writing Generic Code with Templates
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -3152,6 +3170,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      类模板
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数模板
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量模板
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -22556,6 +22627,50 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      类模板
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数模板
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量模板
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -22588,6 +22703,7 @@
 
   <h1>10 Writing Generic Code with Templates</h1>
 
+<h2 id="_1">类模板</h2>
 <p>类是对象的蓝图，类模板是类的蓝图。类模板主要用于容器类和数据结构，用于存储对象。</p>
 <p>如果我们需要写一个通用的棋盘类，但是不使用模版，就不得不使用多态。棋盘类的容器，比如是 <code>std::vector</code>，持有基类的指针，实际存放具体类。这种方法有很多弊端。首先不能按值存放，只能存放指针。更严重的问题是类型不安全，可以创建两个不同派生类的对象的指针放到棋盘类容器中。另外，需要向下做类型转换。最后，不能放一些原始类型。</p>
 <p>使用模版可以解决上述问题。下面是模板解决方案：类模板。
@@ -22765,6 +22881,7 @@
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T1</span><span class="o">&gt;</span>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">using</span><span class="w"> </span><span class="n">OtherName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyClassTemplate</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
 </span></code></pre></div></p>
+<h2 id="_2">函数模板</h2>
 <p>函数模板与类版本类似，比如下面实现了一个适用于任意类型的 <code>Find</code> 函数。调用时，可以用尖括号指定类型，或者让编译器自动推导。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span>
@@ -22814,10 +22931,12 @@
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">}</span>
 </span></code></pre></div>
 这种写法，每个类型都可能推导成不同类型，同时函数的实现无法做类型推导的功能，因为 <code>auto</code> 是匿名而不是 <code>T</code> 这样有名类型。如果想要类型一致，或想类型推导，那么还要写成复杂的形式。</p>
+<h2 id="_3">变量模板</h2>
 <p>除此之外，还有变量模板，语法如下，这样可以得到与请求类型最接近的值。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">PI</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mf">3.141592653589793238462643383279502884</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span>
 </span></code></pre></div></p>
+<h2 id="_4">概念</h2>
 <p>概念（<code>concept</code>），C++20 引入的全新概念，为了对模版进行约束，报错信息更友好。</p>
 <p>概念定义的语法如下。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="n">parameter</span><span class="o">-</span><span class="n">list</span><span class="o">&gt;</span>
@@ -22942,7 +23061,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 31, 2025 11:26:10">March 31, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 7, 2025 03:50:28">April 7, 2025</span>
   </span>
 
     

@@ -3072,6 +3072,33 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      动态内存分配
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组与指针
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存陷阱
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
       智能指针
     </span>
   </a>
@@ -22609,6 +22636,33 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      动态内存分配
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组与指针
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存陷阱
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
       智能指针
     </span>
   </a>
@@ -22649,6 +22703,7 @@
 
   <h1>05 Memory Management</h1>
 
+<h2 id="_1">动态内存分配</h2>
 <p>现代 C++ 代码中应该尽可能避免底层的内存分配，比如 <code>new</code> <code>new[]</code> <code>delete</code> <code>delete[]</code>，在涉及生命周期的时候避免使用裸指针，避免 C 风格的构造和相关的函数。使用更安全的 C++ 替代项，比如类似 C++ 的 <code>std::string</code> 类自动管理内存，使用只能指针等等。</p>
 <p>下面动态分配回收内存的示例，如果只分配不回收就会导致内存泄漏。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="p">};</span>
@@ -22698,6 +22753,7 @@
 </span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="n">board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
 </span></code></pre></div></p>
 <p>这样使用二维数组有一个问题，次级数组在内存中不连续。一个替代办法是申请 <code>x * y</code> 这么多元素的一维数组，然后访问时候使用 <code>i * y + j</code> 访问。也可以利用 C++ 模板写一个 <code>Table&lt;T&gt;</code> 或 <code>Matrix&lt;T&gt;</code> 封装这些操作，使之更加好用。</p>
+<h2 id="_2">数组与指针</h2>
 <p>数组会退化成指针，比如下面两个例子，第二个例子还使用了指针运算（向前或者向后移动若干个对象）。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">myIntArray</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="p">{};</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">myIntPtr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">myIntArray</span><span class="w"> </span><span class="p">};</span>
@@ -22713,11 +22769,12 @@
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">ptr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="c1">// ok</span>
 </span></code></pre></div></p>
+<h2 id="_3">内存陷阱</h2>
 <p>下面总结一些导致 bugs 的用法，这也说明我们尽可能要避免这些用法，C++ 语言提供了更好的机制来管理内存，STL 也提供了更易用的组件，要善于用更好的工具。</p>
 <p>使用了未分配足够空间的缓冲区，往往后导致缓冲区溢出，然后将数据写到了不该写的地方，破坏了其他数据。</p>
 <p>内存泄漏，申请内存忘记释放了。有的时候是代码写的相当隐晦导致有 <code>delete</code> 但是行为依旧不对。</p>
 <p>双重删除一个指针，会导致未定义行为，程序可能正常也可能会出错，而且问题相当难排查，因为现象可能是不固定的，且距离有双重删除 bug 的地方相当远。</p>
-<h2 id="_1">智能指针</h2>
+<h2 id="_4">智能指针</h2>
 <p>智能指针能够动态分配内存，还能在不需要时自动释放，避免内存泄漏。</p>
 <p>C++ 提供两种智能指针，独占所有权（<code>unique ownership</code>）时使用 <code>std::unique_ptr</code>，共享所有权（<code>shared ownership</code>）时使用 <code>std::shared_ptr</code>。默认使用 <code>std::unique_ptr</code>，当真的需要共享资源的时候再使用 <code>std::shared_ptr</code>。</p>
 <p><code>std::unique_ptr</code> 在销毁或重置的时候释放资源。在一个函数中有多个返回值或者可能有异常时很好用，不用担心某个分支漏掉释放资源。</p>
@@ -22820,7 +22877,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2025 08:32:59">March 14, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 7, 2025 03:50:28">April 7, 2025</span>
   </span>
 
     

@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -2957,6 +2962,19 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    02 Designing Professional C++ Programs
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2968,6 +2986,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是程序设计及其重要性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      C++程序设计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      两个设计基本原则
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      重用已有代码
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -22556,6 +22627,50 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是程序设计及其重要性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      C++程序设计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      两个设计基本原则
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      重用已有代码
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -22588,18 +22703,22 @@
 
   <h1>02 Designing Professional C++ Programs</h1>
 
+<h2 id="_1">什么是程序设计及其重要性</h2>
 <p>这里先简单阐述下什么是程序设计，为什么这么重要。</p>
 <p>简单来说，首先要分析需求，功能需求（<code>functional requirement</code>）就是新的代码要做什么，也可能会有非功能需求（<code>non-functional requirement</code>），描述系统最终什么样子，应该做什么，比如安全、可扩展性、性能指标等。</p>
 <p>程序设计（<code>program design</code>）或软件设计（<code>software</code>）描述如何实现功能需求和非功能需求。基本需要包含两个层次。较高层次描述要涉及哪些子系统，这些子系统是如何配合的。较低层次是各个子系统内部是如何实现的。</p>
 <p>设计的目的是在写代码之前先思考。</p>
 <p>写代码之前先设计，往往不会耽误时间，反而会节省很多时间。如果没有蓝图就盖房子，结果大概率会盖的乱七八糟。写软件也是如此。</p>
+<h2 id="c">C++程序设计</h2>
 <p>C++ 提供了很多范式，比如面向对象、过程式、函数式等，还提供了很多工具来写泛化和可重用的代码，比如模板，同时提供了 STL 库。另外，C++ 很容易与各种设计模式适配。掌握这些对于设计非常重要。</p>
 <p>设计不是一蹴而就的，需要反复迭代。给出好的设计很难，不要指望一夜之间变成专家，或许掌握 C++ 设计比 C++ 编码更难。</p>
+<h2 id="_2">两个设计基本原则</h2>
 <p>设计 C++ 程序有两个原则，也适用于其他编程语言：抽象和重用。</p>
 <p>抽象（<code>abstraction</code>）将接口（<code>interface</code>）和实现（<code>implementation</code>）分开。要尽可能的对类的使用者屏蔽细节，不要操作底层数据。一般而言，成员变量要 <code>private</code>。好处有 1）可以修改实现而不修改接口；2）可以做一些额外事情，比如检查数据的有效性，返回前做一些转换等；3）更容易 debug。</p>
 <p>重用非常重要，比如使用类库就是重用。能够合理利用现有代码是非常重要的能力。</p>
 <p>让自己写的代码可以重用，自己能重用自己的类、算法、数据结构。同事能利用自己的组件来实现新功能。设计的时候避免仅仅处理当前的问题。C++ 的模板是写出通用代码的工具。</p>
 <p>学习 C++ 编程语言和成为好的 C++ 程序员是两件事情。学习语法和标准只是学习 C++ 本身，还需要大量读他人的代码，写自己的代码，才能成为好的 C++ 程序员。有很多 C++ 最佳实践，这些内容会贯穿这本书。另外，学习一些设计模式、设计技术和框架也是有必要的。</p>
+<h2 id="_3">重用已有代码</h2>
 <p>作为一个合格的程序员，要善于利用现有代码。下面先分析使用现有代码的优缺点，然后分析如何选择和确定是否要使用现有代码。另外，利用现有代码不是 copy paste 代码。</p>
 <p>重用现有代码有很多好处。无需对这些组件进行详细设计；通常而言无需 debug；对于异常、错误的处理更完善，对各种输入都有校验；类库通常支持不同平台、系统并且都经过了测试；通常是领域专家写的，比如需要加解密功能，直接用类库就无需详细学习密码学相关知识了；类库通常会持续更新，有性能、稳定性提升，使用可以免费获得这些收益。</p>
 <p>使用现有类库也会有些许劣势。需要一些时间学习类库接口，怎么正确的使用；类库可能不能提供恰好需求的功能；如果遇到 bug，比较难办，提 bug 让维护者修复，还是自己修复（没有代码就无法这么做了），亦或者是绕开，无法绕开就更难办了；许可证问题；信任维护者；升级新版本可能有问题；升级编译期也可能引入问题。</p>
@@ -22627,7 +22746,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 18, 2025 12:54:59">February 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 7, 2025 03:50:28">April 7, 2025</span>
   </span>
 
     
