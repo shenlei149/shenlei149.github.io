@@ -24,7 +24,7 @@ $$\begin{aligned}
 $$\frac{dw}{dt}=\frac{\partial w}{\partial x}\frac{dx}{dt}+\frac{\partial w}{\partial y}\frac{dy}{dt}$$
 不过，上述方程左右两边的 $w$ 含义是不同的。左边是复合函数 $w=f(x(t),y(t))$，是变量 $t$ 的函数。右边表示的是 $w=f(x,y)$，是两个自变量 $x,y$ 的函数。$dw/dt,dx/dt,dy/dt$ 是在 $t_0$ 点处求导，偏微分 $\partial w/\partial x,\partial w/\partial y$ 是在点 $(x_0,y_0)$ 处求导，其中 $x_0=x(t_0),y_0=y(t_0)$。在没有歧义的情况下会交替使用两种记号，目的是根据上下文选择更容易理解的一种形式。
 
-下面的依赖图帮助记忆链式法则。真实的自变量是 $t$，而 $x,y$ 是中间变量，$w$ 是应变量。
+下面的依赖图帮助记忆链式法则。真实的自变量是 $t$，而 $x,y$ 是中间变量，$w$ 是因变量。
 
 ![](040.010.png)
 
@@ -206,7 +206,7 @@ $$\frac{\partial z}{\partial x}=-\frac{0}{1}=0$$
 $$\frac{\partial z}{\partial y}=-\frac{1}{1}=-1$$
 
 ### 更多变量的函数
-上面描述了很多链式法则的公式，但是它们都只是通用公式的特例罢了。当我们解决问题时，画出依赖图能够帮助理解，最上面是应变量，中间是中间变量，下面是选择被微分的自变量。从应变量开始向下选择一条路径到选择的自变量，将沿着路径下来的各个偏微分相乘，最后将不同路径的偏微分相加。
+上面描述了很多链式法则的公式，但是它们都只是通用公式的特例罢了。当我们解决问题时，画出依赖图能够帮助理解，最上面是因变量，中间是中间变量，下面是选择被微分的自变量。从因变量开始向下选择一条路径到选择的自变量，将沿着路径下来的各个偏微分相乘，最后将不同路径的偏微分相加。
 
 一般地，假设 $w=f(x,y,\cdots,v)$ 是中间变量 $x,y,\cdots v$ 的可微函数，$x,y,\cdots,v$ 是自变量 $p,q,\cdots,t$ 的可微函数。那么 $w$ 是 $p$ 到 $t$ 的可微函数，$w$ 对于变量 $p$ 的偏微分公式是
 $$\frac{\partial w}{\partial p}=\frac{\partial w}{\partial x}\frac{\partial x}{\partial p}+\frac{\partial w}{\partial y}\frac{\partial y}{\partial p}+\cdots+\frac{\partial w}{\partial v}\frac{\partial v}{\partial p}$$
