@@ -11456,7 +11456,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      确定自变量与应变量
+      确定自变量与因变量
     </span>
   </a>
   
@@ -22638,7 +22638,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      确定自变量与应变量
+      确定自变量与因变量
     </span>
   </a>
   
@@ -22708,12 +22708,12 @@
 <p>求函数 <script type="math/tex">w=f(x,y)</script> 的偏微分，这里假定 <script type="math/tex">x,y</script> 是自变量。然而在有些应用中不是这样的。比如气体的内能 <script type="math/tex">U</script> 可以表示为 <script type="math/tex">U=f(P,V,T)</script>，其中 <script type="math/tex">P</script> 是压强，<script type="math/tex">V</script> 是体积，<script type="math/tex">T</script> 是温度。如果分子间没有相互作用，<script type="math/tex">P,V,T</script> 满足理想气体定理
 <script type="math/tex; mode=display">PV=nRT</script>
 其中 <script type="math/tex">n,R</script> 是常量，这三个变量不是独立的。</p>
-<h3 id="_1">确定自变量与应变量</h3>
-<p>如果函数 <script type="math/tex">w=f(x,y,z)</script> 的变量被函数 <script type="math/tex">z=x^2+y^2</script> 约束，<script type="math/tex">f</script> 的偏微分的值与几何意义取决于哪些变量视为自变量，哪些变量视为应变量。当 <script type="math/tex">w=x^2+y^2+z^2,z=x^2+y^2</script> 时，求偏微分 <script type="math/tex">\partial w/\partial</script> 这个例子可以说明选择会影响结果。</p>
+<h3 id="_1">确定自变量与因变量</h3>
+<p>如果函数 <script type="math/tex">w=f(x,y,z)</script> 的变量被函数 <script type="math/tex">z=x^2+y^2</script> 约束，<script type="math/tex">f</script> 的偏微分的值与几何意义取决于哪些变量视为自变量，哪些变量视为因变量。当 <script type="math/tex">w=x^2+y^2+z^2,z=x^2+y^2</script> 时，求偏微分 <script type="math/tex">\partial w/\partial</script> 这个例子可以说明选择会影响结果。</p>
 <p>例1 如果 <script type="math/tex">w=x^2+y^2+z^2,z=x^2+y^2</script> 时，求偏微分 <script type="math/tex">\partial w/\partial</script>。</p>
-<p>解：四个未知数 <script type="math/tex">x,y,z,w</script> 两个方程。那么其中两个是自变量，两个是应变量。题目要求 <script type="math/tex">\partial w/\partial x</script>，<script type="math/tex">w</script> 是应变量，<script type="math/tex">x</script> 是自变量。那么剩余两个变量有两种选择：<script type="math/tex">y</script> 是自变量而 <script type="math/tex">z</script> 是应变量；<script type="math/tex">z</script> 是自变量而 <script type="math/tex">y</script> 是应变量。</p>
-<p>不过哪种情况，可以通过 <script type="math/tex">z=x^2+y^2</script> 代入 <script type="math/tex">w</script> 消除应变量，将 <script type="math/tex">w</script> 表示为自变量的函数，然后求偏微分。</p>
-<p>第一种情况，应变量是 <script type="math/tex">z</script>，那么直接将 <script type="math/tex">z=x^2+y^2</script> 代入 <script type="math/tex">w</script> 即可。因此
+<p>解：四个未知数 <script type="math/tex">x,y,z,w</script> 两个方程。那么其中两个是自变量，两个是因变量。题目要求 <script type="math/tex">\partial w/\partial x</script>，<script type="math/tex">w</script> 是因变量，<script type="math/tex">x</script> 是自变量。那么剩余两个变量有两种选择：<script type="math/tex">y</script> 是自变量而 <script type="math/tex">z</script> 是因变量；<script type="math/tex">z</script> 是自变量而 <script type="math/tex">y</script> 是因变量。</p>
+<p>不过哪种情况，可以通过 <script type="math/tex">z=x^2+y^2</script> 代入 <script type="math/tex">w</script> 消除因变量，将 <script type="math/tex">w</script> 表示为自变量的函数，然后求偏微分。</p>
+<p>第一种情况，因变量是 <script type="math/tex">z</script>，那么直接将 <script type="math/tex">z=x^2+y^2</script> 代入 <script type="math/tex">w</script> 即可。因此
 <script type="math/tex; mode=display">\begin{aligned}
 w&=x^2+y^2+z^2\\
 &=x^2+y^2+(x^2+y^2)^2\\
@@ -22739,15 +22739,15 @@ w&=x^2+y^2+z^2\\
 </h3>
 <p>根据上面的例子，大约有三个步骤求解 <script type="math/tex">\frac{\partial w}{\partial x}</script>。</p>
 <ol>
-<li>决定哪些变量是自变量，哪些变量是应变量。这个决定可以基于物理、理论上下文信息。</li>
-<li>消除应变量用自变量表示 <script type="math/tex">w</script>。</li>
+<li>决定哪些变量是自变量，哪些变量是因变量。这个决定可以基于物理、理论上下文信息。</li>
+<li>消除因变量用自变量表示 <script type="math/tex">w</script>。</li>
 <li>和之前一样求导即可。</li>
 </ol>
 <p>第二步可能很难做到或者做不到，此时可以用隐式法求解。</p>
 <p>例2 如果
 <script type="math/tex; mode=display">w=x^2+y^2+z^2,z^3-xy+yz+y^3=1</script>
 求点 <script type="math/tex">(x,y,z)=(2,-1,1)</script> 处 <script type="math/tex">\frac{\partial w}{\partial x}</script> 的值，其中 <script type="math/tex">x,y</script> 是自变量。</p>
-<p>解：不能很方便消除 <script type="math/tex">z</script> 完全使用自变量表示 <script type="math/tex">w</script>。将 <script type="math/tex">x,y</script> 看作自变量，<script type="math/tex">w,z</script> 看作应变量，对两个方程进行微分操作，得到
+<p>解：不能很方便消除 <script type="math/tex">z</script> 完全使用自变量表示 <script type="math/tex">w</script>。将 <script type="math/tex">x,y</script> 看作自变量，<script type="math/tex">w,z</script> 看作因变量，对两个方程进行微分操作，得到
 <script type="math/tex; mode=display">\frac{\partial w}{\partial x}=2x+2z\frac{\partial z}{\partial x}\tag{3}</script>
 <script type="math/tex; mode=display">3z^2\frac{\partial z}{\partial x}-y+y\frac{\partial z}{\partial x}=0\tag{4}</script>
 现在可以用 <script type="math/tex">x,y,z</script> 表示 <script type="math/tex">\frac{\partial w}{\partial x}</script> 了。从 <script type="math/tex">(4)</script> 可以计算得到 <script type="math/tex">\frac{\partial z}{\partial x}</script>
@@ -22783,7 +22783,7 @@ x\\y\\z
 \end{pmatrix}\rightarrow\begin{pmatrix}
 x\\y\\z\\t
 \end{pmatrix}\rightarrow w\tag{5}</script>
-最左边是自变量，中间部分是中间变量，最右边是应变量。</p>
+最左边是自变量，中间部分是中间变量，最右边是因变量。</p>
 <p>为了避免自变量和中间变量使用同样的变量名导致混淆，可以对中间变量进行重命名。令 <script type="math/tex">u=x,v=y,s=z</script> 表示中间变量，那么箭头图如下所示
 <script type="math/tex; mode=display">\begin{pmatrix}
 x\\y\\z
@@ -22824,7 +22824,7 @@ u\\v\\s\\t
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 23, 2024 01:55:46">October 23, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 8, 2025 01:01:05">April 8, 2025</span>
   </span>
 
     
