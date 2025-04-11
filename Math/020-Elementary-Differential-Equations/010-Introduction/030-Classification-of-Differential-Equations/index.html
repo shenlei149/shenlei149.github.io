@@ -22697,6 +22697,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些重要问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      用于微分方程的技术
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -22764,6 +22791,41 @@
 <script type="math/tex; mode=display">y'=\frac{-t+\sqrt{t^2-16}}{2},y'=\frac{-t-\sqrt{t^2-16}}{2}\tag{10}</script>
 </p>
 <h3 id="_4">线性和非线性方程</h3>
+<p>微分方程的一个关键分类是线性的还是非线性的。常微分方程
+<script type="math/tex; mode=display">F(t,y,y',y'',\cdots,y^{(n)})=0</script>
+是线性的（<code>linear</code>）如果 <script type="math/tex">F</script> 是变量 <script type="math/tex">y,y',\cdots,y^{(n)}</script> 线性函数。偏微分方程的线性定义类似。因此一般线性 <script type="math/tex">n</script> 阶常微分方程是
+<script type="math/tex; mode=display">a_0(t)y^{(n)}+a_1(t)y^{(n-1)}+\cdots+a_n(t)y=g(t)\tag{11}</script>
+之前两个小节分析的微分方程都是线性的，本书大部分所见的方程也都是线性的。本节 <script type="math/tex">(1)</script> 是线性常微分方程，<script type="math/tex">(2),(3)</script> 是线性偏微分方程。不满足形式 <script type="math/tex">(11)</script> 的是非线性（<code>nonlinear</code>）方程。<script type="math/tex">(7)</script> 由于包含 <script type="math/tex">yy'</script> 因此是非线性的，<script type="math/tex">(4)</script> 也是非线性的，因为包含未知函数的积 <script type="math/tex">xy</script>。</p>
+<p>一个非线性微分方程的例子是摆锤。令 <script type="math/tex">\theta=\theta(t)</script> 是长度为 <script type="math/tex">L</script> 的摆锤与垂直方向的夹角，如下图所示。</p>
+<p><img alt="" src="../030.010.png" /></p>
+<p>它满足微分方程
+<script type="math/tex; mode=display">\frac{d^2\theta}{dt^2}+\frac{g}{L}\sin\theta=0\tag{12}</script>
+由于涉及 <script type="math/tex">\sin\theta</script>，所以是非线性的。</p>
+<p>求解线性方程的理论和方法发展的相当成熟了。相反，对于非线性方程，理论更复杂，求解方法不那么令人满意。从这个角度看，如果很多重要问题引出线性方程或者用线性方程近似，那就相当幸运了。比如上面的例子，当 <script type="math/tex">\theta</script> 很小的时候，<script type="math/tex">\sin\theta\approx\theta</script>，那么 <script type="math/tex">(12)</script> 就可以近似为线性方程
+<script type="math/tex; mode=display">\frac{d^2\theta}{dt^2}+\frac{g}{L}\theta=0\tag{13}</script>
+这个过程可以称为线性化（<code>linearization</code>）。这个处理非线性方程相当有用的方法。不过很多物理现象不能简单的用线性方程描述，为了研究这些现象，那么不得不处理非线性方程。</p>
+<p>这是一个入门级教科书，因此大部分时候讨论的都是线性方程。第八章和第九章，包括第二章的部分，会讨论非线性方程。书中还会指出为什么非线性方程通常更苦难，并且处理线性方程的方法无法应用于非线性方程。</p>
+<h3 id="_5">解</h3>
+<p>
+<script type="math/tex">n</script> 阶常微分方程 <script type="math/tex">(8)</script> 在区间 <script type="math/tex">\alpha<t<\beta</script> 的解（<code>solution</code>）是 <script type="math/tex">\phi',\phi'',\cdots,\phi^{(n)}</script> 存在且满足下面方程的函数 <script type="math/tex">\phi</script>。
+<script type="math/tex; mode=display">\phi^{(n)}(t)=f(t,\phi(t),\phi'(t),\cdot,\phi^{(n-1)})\tag{14}</script>
+其中 <script type="math/tex">t</script> 满足 <script type="math/tex">\alpha<t<\beta</script>。除非另外说明，<script type="math/tex">(8)</script> 中的 <script type="math/tex">f</script> 是实函数，解 <script type="math/tex">y=\phi(t)</script> 也是实函数。</p>
+<p>1.2 小节我们得到如下微分函数
+<script type="math/tex; mode=display">\frac{dp}{dt}=\frac{p}{2}-450\tag{15}</script>
+和它的解
+<script type="math/tex; mode=display">p(t)=900+ce^{t/2}\tag{16}</script>
+其中 <script type="math/tex">c</script> 是任意常量。</p>
+<p>很多时候并不是那么容易找到一个微分方程的解，不过如果找到了一个解，确定是不是一个解相对比较容易，代入公式计算即可。</p>
+<p>比如很容易知道函数 <script type="math/tex">y_1(t)=\cos t</script> 是不是微分方程
+<script type="math/tex; mode=display">y''+y=0\tag{17}</script>
+的解。首先计算一阶导 <script type="math/tex">y_1'(t)=-\sin t</script>，二阶导 <script type="math/tex">y_1''(t)=-\cos t</script>，那么有 <script type="math/tex">y_1''(t)+y_1(t)=0</script>。同样的方式，也可以证明 <script type="math/tex">y_2(t)=\sin t</script> 也是方程 <script type="math/tex">(17)</script> 的解。</p>
+<p>由于函数非常多，随机挑选一个恰好是解的概率很低，因此这不是求解微分方程的好方法。不过，这可以验证解是否正确。</p>
+<h3 id="_6">一些重要问题</h3>
+<p>对于 <script type="math/tex">(15),(17)</script>，我们能够验证某些简单函数是解，但是通常不容易求得这样的解。那么有一个基本问题：<script type="math/tex">(8)</script> 一定有解吗？答案是否定的。那么我们如何判断某个微分方程是有解的呢？这是一个存在性问题，一些定理能够在 <script type="math/tex">f</script> 受某些约束条件下判定 <script type="math/tex">(8)</script> 有解。这并不是一个纯理论问题，原因有二。如果一个方程没有解，那么没有必要投入时间和精力研究。第二点是如果一个合理的物理问题的建模结果是微分方程，那么应该有解，否则公式可能有问题。科学家或工程师可以依赖这一点进行交叉。</p>
+<p>如果一个微分方程有解，那么需要考虑有多少个解，且附加哪些条件使得只有一个解。这是唯一性问题。通常微分方程的解包含一个任意常数，因此有无数的解。正如之前看到的，如果指定一个初始值，那么就只有一个解，因为有一个唯一的常数与之对应。与存在性类似，唯一性既有理论意义，也有实际意义。如果我们很幸运找到一个解，并且知道就只有一个解，那么任务就完成了。如果还有其他解，那么就必须继续求解。</p>
+<p>第三个问题是对于形式如 <script type="math/tex">(8)</script> 的微分方程，我们是否真的可以找到解，如果能，怎么做？如果我们找到了解，也就回答了第一个存在性问题。如果没有存在性理论知识，我们可以使用计算机找到一个近似的数值解。另一个方面，即使知道存在解，可能无法使用初等函数——多项式、三角函数、指数函数、对数函数、双曲函数——来表示。大部分微分方程都是这种情况。因此，我们讨论一些基本方法精确求解相对简单的微分方程，也讨论复杂问题的近似求解方法。</p>
+<h3 id="_7">用于微分方程的技术</h3>
+<p>计算机软件能够辅助我们得到数值解，特别是图像，对于理解微分方程解的性质很有用。要善于利用这些资源帮助学习。</p>
 
 
 
@@ -22786,7 +22848,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 8, 2025 01:06:39">April 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 11, 2025 15:45:07">April 11, 2025</span>
   </span>
 
     
