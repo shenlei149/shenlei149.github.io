@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22823,7 +22848,7 @@
 <script type="math/tex; mode=display">R(k,l)\leq\begin{pmatrix}
 k+l-2\\k-1
 \end{pmatrix}\tag{13.3}</script>
-<strong>Proof.</strong> 和证明<strong>Theorem 13.2</strong>类似。如果<script type="math/tex">k=2</script>，那么<script type="math/tex">R(2,l)\leq<script type="math/tex; mode=display">\begin{pmatrix}l\\1\end{pmatrix}</script>=l</script>，显然成立。对称地，如果<script type="math/tex">l=2</script>也成立。<br />
+<strong>Proof.</strong> 和证明<strong>Theorem 13.2</strong>类似。如果<script type="math/tex">k=2</script>，那么<script type="math/tex">R(2,l)\leq\begin{pmatrix}l\\1\end{pmatrix}=l</script>，显然成立。对称地，如果<script type="math/tex">l=2</script>也成立。<br />
 假设<script type="math/tex">R(k,l-1),R(k-1,l)</script>也都成立。现在证明<script type="math/tex">R(k,l)</script>。根据<strong>Corollary 13.4</strong>有
 <script type="math/tex; mode=display">\begin{aligned}
 R(k,l)&\leq R(k,l-1)+R(k-1,l)\\
@@ -22861,8 +22886,7 @@ k+l-2\\k-1
 <strong>Theorem 13.11</strong>告诉我们存在一个子图<script type="math/tex">K_n</script>包含的三角形都是单色的三角形。<script type="math/tex">K_n</script>就是我们要找的凸<script type="math/tex">n</script>边形。这就是要证明任意四个点，不存在一个点在其他三个点组成的三角形里面。换句话说，下图是不存在的。<br />
 <img alt="" src="../1302.png" /><br />
 不失一般性，令<script type="math/tex">A<B<C</script>，这个<script type="math/tex">K_4</script>都是红色的边。如果<script type="math/tex">A<D<B</script>，是蓝色三角形，不可能。<script type="math/tex">A<B<D</script>也是不可能的，因为如果<script type="math/tex">D<C</script>，那么<script type="math/tex">DCB</script>是蓝色三角形，如果<script type="math/tex">D>C</script>，那么<script type="math/tex">ACD</script>是蓝色的三角形，所以红色三角形<script type="math/tex">DAB</script>必须是<script type="math/tex">D<A<B</script>。但是，这样子三角形<script type="math/tex">DAC</script>还是蓝色三角形，矛盾。</p>
-<p>上述证明非常巧妙，但是并没有告诉我们太多信息说明<script type="math/tex">ES(n)</script>是多大。<code>Paul Erdos</code>和<code>George Szekeres</code>证明了<script type="math/tex">ES(n)\leq<script type="math/tex; mode=display">\begin{pmatrix}2n-4\\n-2\end{pmatrix}</script>+1</script>。斯特林公式表明<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}2n-4\\n-2\end{pmatrix}</script>+1\thicksim c\frac{4^n}{\sqrt{n}}</script>，其中<script type="math/tex">c</script>是常量。<br />
+<p>上述证明非常巧妙，但是并没有告诉我们太多信息说明<script type="math/tex">ES(n)</script>是多大。<code>Paul Erdos</code>和<code>George Szekeres</code>证明了<script type="math/tex">ES(n)\leq\begin{pmatrix}2n-4\\n-2\end{pmatrix}+1</script>。斯特林公式表明<script type="math/tex">\begin{pmatrix}2n-4\\n-2\end{pmatrix}+1\thicksim c\frac{4^n}{\sqrt{n}}</script>，其中<script type="math/tex">c</script>是常量。<br />
 接下来的几十年，数学家仅仅提高了<script type="math/tex">c</script>的精度。直到2016年，<code>Andrew Suk</code>找到一个更好的上界。如果<script type="math/tex">n</script>充分大，<script type="math/tex">ES(n)\leq 2^{n+4n^{4/5}}</script>。<br />
 <code>Erdos</code>和<code>Szekeres</code>证明的下届是<script type="math/tex">ES(n)\geq 2^{n-2}+1</script>，他们猜测事实上<script type="math/tex">ES(n)= 2^{n-2}+1</script>。对于<script type="math/tex">n\leq 6</script>是成立的。对于<script type="math/tex">n=6</script>的证明，借助计算机验证了大量的情况。</p>
 <h2 id="ramsey-theory-in-geometry">Ramsey Theory in Geometry</h2>

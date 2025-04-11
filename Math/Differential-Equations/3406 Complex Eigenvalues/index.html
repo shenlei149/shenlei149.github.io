@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22811,12 +22836,10 @@ These solutions are linearly independent: they are two truly different solutions
 1. The complex conjugate eigenvalue <script type="math/tex">a - bi</script> gives up to sign the same two solutions <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script>.
 2. The expression <script type="math/tex">(2)</script> was not written down for you to memorize, learn, or even use; the point was just for you to get some practice in seeing how a calculation like the one in our example looks when written out in general. To actually solve ODE systems having complex eigenvalues, imitate the procedure in the following example.</p>
 <h3 id="worked-example">Worked Example</h3>
-<p><strong>Problem.</strong> Solve <script type="math/tex">\boldsymbol{u'} = A\boldsymbol{u}</script>, where <script type="math/tex">A=<script type="math/tex; mode=display">\begin{pmatrix}1&2\\-2&1\end{pmatrix}</script>
-</script>.<br />
+<p><strong>Problem.</strong> Solve <script type="math/tex">\boldsymbol{u'} = A\boldsymbol{u}</script>, where <script type="math/tex">A=\begin{pmatrix}1&2\\-2&1\end{pmatrix}</script>.<br />
 <em>Comments are given in italics; the steps initially follow those in section worked example: real distinct eigenvalues, then diverge.</em><br />
 <strong>Solution.</strong><br />
-Step 0. Write down <script type="math/tex">A-\lambda I</script>: <script type="math/tex">A-\lambda I=<script type="math/tex; mode=display">\begin{pmatrix}1-\lambda&2\\-2&1-\lambda\end{pmatrix}</script>
-</script>
+Step 0. Write down <script type="math/tex">A-\lambda I</script>: <script type="math/tex">A-\lambda I=\begin{pmatrix}1-\lambda&2\\-2&1-\lambda\end{pmatrix}</script>
 Step 1. Find the characteristic equation of <script type="math/tex">A</script>.<br />
 We use the method involving the trace and determinant of <script type="math/tex">A</script>.
 <script type="math/tex; mode=display">\text{tr}(A)=1+1=2,\det{A}=1+4=5</script>
@@ -22848,8 +22871,7 @@ a_1\\a_2
 \end{cases}
 \end{aligned}</script>
 <em>You should check that these two equations are equivalent.</em><br />
-This gives <script type="math/tex">a_1 + ia_2 = 0</script>. Pick <script type="math/tex">a_1 = 1</script>, this implies <script type="math/tex">a_2 = i</script>. Thus an eigenvec­tor for <script type="math/tex">\lambda_1</script> is <script type="math/tex">\boldsymbol{v}_1=<script type="math/tex; mode=display">\begin{pmatrix}1\\i\end{pmatrix}</script>
-</script>
+This gives <script type="math/tex">a_1 + ia_2 = 0</script>. Pick <script type="math/tex">a_1 = 1</script>, this implies <script type="math/tex">a_2 = i</script>. Thus an eigenvec­tor for <script type="math/tex">\lambda_1</script> is <script type="math/tex">\boldsymbol{v}_1=\begin{pmatrix}1\\i\end{pmatrix}</script>
 <br />
 Step 4. Find the real and imaginary parts of solution associated to <script type="math/tex">\lambda_1</script>
 <br />

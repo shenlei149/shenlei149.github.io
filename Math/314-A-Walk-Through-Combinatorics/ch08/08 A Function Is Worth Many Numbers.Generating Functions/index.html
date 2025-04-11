@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22978,11 +23003,8 @@ G(x)&=\frac{-1}{1-x}+\frac{1}{1-2x}\\
 <script type="math/tex; mode=display">A(x)B(x)=C(x)</script>
 <strong>Proof.</strong> 在<script type="math/tex">S</script>上构建第一种结构有<script type="math/tex">a_i</script>种方式，在<script type="math/tex">T</script>上构建第二种结构有<script type="math/tex">b_{n-i}</script>种方式，<script type="math/tex">i</script>的取值范围是<script type="math/tex">[0,n]</script>，那么<script type="math/tex">c_n=\sum_{i=0}^na_ib_{n-i}</script>，这就回到了<strong>Lemma 8.4.</strong>。</p>
 <p><strong>Example 8.6.</strong> 某技术大学某学期有<script type="math/tex">n</script>天。教授分成两个部分，前<script type="math/tex">k(1\leq k\leq n-2)</script>天学习理论，后<script type="math/tex">n-k</script>天实践。教授从前一个部分选择一天作为假期，从后一个部分选择两天作为假期。问有多少种方式来安排这个学期。<br />
-<strong>Solution.</strong> 令有<script type="math/tex">f_n</script>种方式安排这学期，那么最直接的方式是<script type="math/tex">f_n=\sum_{k=1}^{n-2}k<script type="math/tex; mode=display">\begin{pmatrix}n-k\\2\end{pmatrix}</script>
-</script>，但是这个很难写成闭型（没有求和号）。<br />
-换个思路，有<script type="math/tex">k</script>种方式从第一部分选择一天，有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}m\\2\end{pmatrix}</script>
-</script>种方式从第二部分选择两天，其中<script type="math/tex">m=n-k</script>。对应的生成函数是<script type="math/tex">A(x)=\sum_{k\geq 1}kx^k</script>和<script type="math/tex">B(x)=\sum_{m\geq 2}<script type="math/tex; mode=display">\begin{pmatrix}m\\2\end{pmatrix}</script>x^m</script>。从<script type="math/tex">\sum_{i\geq 0}x^i=\frac{1}{1-x}</script>出发求导，可以得到
+<strong>Solution.</strong> 令有<script type="math/tex">f_n</script>种方式安排这学期，那么最直接的方式是<script type="math/tex">f_n=\sum_{k=1}^{n-2}k\begin{pmatrix}n-k\\2\end{pmatrix}</script>，但是这个很难写成闭型（没有求和号）。<br />
+换个思路，有<script type="math/tex">k</script>种方式从第一部分选择一天，有<script type="math/tex">\begin{pmatrix}m\\2\end{pmatrix}</script>种方式从第二部分选择两天，其中<script type="math/tex">m=n-k</script>。对应的生成函数是<script type="math/tex">A(x)=\sum_{k\geq 1}kx^k</script>和<script type="math/tex">B(x)=\sum_{m\geq 2}\begin{pmatrix}m\\2\end{pmatrix}x^m</script>。从<script type="math/tex">\sum_{i\geq 0}x^i=\frac{1}{1-x}</script>出发求导，可以得到
 <script type="math/tex; mode=display">A(x)=\frac{x}{(1-x)^2}</script>
 <script type="math/tex; mode=display">B(x)=\frac{x^2}{(1-x)^3}</script>
 序列<script type="math/tex">\{f_n\}</script>的生成函数<script type="math/tex">F(x)=A(x)B(x)</script>，因此
@@ -22996,8 +23018,7 @@ n+4\\4
 n+1\\4
 \end{pmatrix}x^n
 \end{aligned}</script>
-所以<script type="math/tex">f_n=<script type="math/tex; mode=display">\begin{pmatrix}n+1\\4\end{pmatrix}</script>
-</script>。</p>
+所以<script type="math/tex">f_n=\begin{pmatrix}n+1\\4\end{pmatrix}</script>。</p>
 <blockquote>
 <p>上述<script type="math/tex">(1-x)^5</script>那里需要多次求导。</p>
 <p>这个问题从之前学习的计数角度来看，可以看作往<script type="math/tex">n</script>天里面加一个隔板隔开，然后从<script type="math/tex">n+1</script>个里面选择4个，分别是第一个假期、隔板、两天的假期。</p>
@@ -23080,11 +23101,11 @@ i\geq 1\\i\ odd
 </blockquote>
 <p>
 <script type="math/tex; mode=display">C(x)=\frac{1-\sqrt{1-4x}}{2x}</script>
-<strong>Example 4.16.</strong> 求得<script type="math/tex">\sqrt{1-4x}=1-2x-2\sum_{n\geq 2}\frac{<script type="math/tex; mode=display">\begin{pmatrix}2n-2\\n-1\end{pmatrix}</script>}{n}x^n</script>，所以
+<strong>Example 4.16.</strong> 求得<script type="math/tex">\sqrt{1-4x}=1-2x-2\sum_{n\geq 2}\frac{\begin{pmatrix}2n-2\\n-1\end{pmatrix}}{n}x^n</script>，所以
 <script type="math/tex; mode=display">C(x)=\sum_{n\geq 0}\frac{\begin{pmatrix}
 2n\\n
 \end{pmatrix}}{n+1}x^n</script>
-所以<script type="math/tex">c_n=\frac{<script type="math/tex; mode=display">\begin{pmatrix}2n\\n\end{pmatrix}</script>}{n+1}</script>。<br />
+所以<script type="math/tex">c_n=\frac{\begin{pmatrix}2n\\n\end{pmatrix}}{n+1}</script>。<br />
 <script type="math/tex">c_n</script>称为卡特兰数(<code>Catalan numbers</code>)，以法国和比利时数学家<code>Eugène Catalan</code>命名。从0开始前几个卡特兰数是<script type="math/tex">1,1,2,5,14,42</script>。</p>
 <h3 id="compositions-of-generating-functions">Compositions of Generating Functions</h3>
 <p><strong>Definition 8.12.</strong> 令<script type="math/tex">F(x)=\sum_{n\geq 0}f_nx^n</script>是形式幂级数，<script type="math/tex">G</script>是包含常数项0的形式幂级数，那么
@@ -23147,7 +23168,7 @@ G(x)&=B(A(x))\\
 所以<script type="math/tex">f_n=(2^n-1)n!</script>
 </p>
 <h3 id="products-of-exponential-generating-functions">Products of Exponential Generating Functions</h3>
-<p><strong>Lemma 8.20.</strong> 令<script type="math/tex">\{a_i\}, \{b_k\}</script>是两个序列，<script type="math/tex">A(x)=\sum_{i\geq 0}a_i\frac{x^i}{i!},B(x)=\sum_{k\geq 0}b_k\frac{x^k}{k!}</script>是其指数生成函数。那么<script type="math/tex">c_n=\sum_{i=0}^n<script type="math/tex; mode=display">\begin{pmatrix}n\\i\end{pmatrix}</script>a_ib_{n-i}</script>对应的指数生成函数<script type="math/tex">C(x)</script>满足
+<p><strong>Lemma 8.20.</strong> 令<script type="math/tex">\{a_i\}, \{b_k\}</script>是两个序列，<script type="math/tex">A(x)=\sum_{i\geq 0}a_i\frac{x^i}{i!},B(x)=\sum_{k\geq 0}b_k\frac{x^k}{k!}</script>是其指数生成函数。那么<script type="math/tex">c_n=\sum_{i=0}^n\begin{pmatrix}n\\i\end{pmatrix}a_ib_{n-i}</script>对应的指数生成函数<script type="math/tex">C(x)</script>满足
 <script type="math/tex; mode=display">A(x)B(x)=C(x)</script>
 也就是说<script type="math/tex">A(x)B(x)</script>中<script type="math/tex">x^n/n!</script>的系数是<script type="math/tex">c_n</script>。<br />
 <strong>Proof.</strong> 和证明<strong>Lemma 8.4</strong>类似，<script type="math/tex">A(x)</script>与<script type="math/tex">B(x)</script>相乘就是其每一项互乘。一般形式是
@@ -23158,9 +23179,7 @@ i+j\\i
 <p><strong>Theorem 8.21</strong> (<code>Product formula, exponential version</code>). 在<script type="math/tex">n</script>个元素集合上构建某种结构有<script type="math/tex">a_n</script>种方式，在另一个<script type="math/tex">n</script>个元素集合上构建另外某种结构有<script type="math/tex">b_n</script>种方式。将集合<script type="math/tex">[n]</script>分成两个不相交集合<script type="math/tex">S,T(S\cup T)</script>，<script type="math/tex">c_n</script>表示在<script type="math/tex">S</script>上构建第一种结构并且在<script type="math/tex">T</script>上构建第二种结构的方式数。<script type="math/tex">A(x),B(x),C(x)</script>表示对应的生成函数，那么
 <script type="math/tex; mode=display">A(x)B(x)=C(x)</script>
 和<strong>Theorems 8.5</strong>类似但有所不同，<strong>Theorems 8.5</strong>要求更高，<script type="math/tex">S,T</script>是两个区间，相当于将<script type="math/tex">n</script>个数排成一列，中间加一个隔板分成两个子集；但是<strong>Theorem 8.21</strong>没有这个要求，可以自由的分成任意两个子集。<br />
-<strong>Proof.</strong> <script type="math/tex">S</script>有<script type="math/tex">i</script>个元素，那么有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\i\end{pmatrix}</script>
-</script>种方式来选取集合<script type="math/tex">S</script>，在其上构建第一种结构有<script type="math/tex">a_i</script>种方式，有<script type="math/tex">b_{n-i}</script>种方式在<script type="math/tex">T</script>上构建第二种结构，对<script type="math/tex">i,0\leq i\leq n</script>求和，那么<script type="math/tex">c_n=\sum_{i=0}^n<script type="math/tex; mode=display">\begin{pmatrix}n\\i\end{pmatrix}</script>a_ib_{n-i}</script>，再使用<strong>Lemma 8.20</strong>即可。</p>
+<strong>Proof.</strong> <script type="math/tex">S</script>有<script type="math/tex">i</script>个元素，那么有<script type="math/tex">\begin{pmatrix}n\\i\end{pmatrix}</script>种方式来选取集合<script type="math/tex">S</script>，在其上构建第一种结构有<script type="math/tex">a_i</script>种方式，有<script type="math/tex">b_{n-i}</script>种方式在<script type="math/tex">T</script>上构建第二种结构，对<script type="math/tex">i,0\leq i\leq n</script>求和，那么<script type="math/tex">c_n=\sum_{i=0}^n\begin{pmatrix}n\\i\end{pmatrix}a_ib_{n-i}</script>，再使用<strong>Lemma 8.20</strong>即可。</p>
 <p><strong>Example 8.22.</strong> 一个足球队<script type="math/tex">n</script>个人，分成两组，第一组可以穿橘黄色、白色或蓝色的T恤，第二组只能穿红色T恤，然后每组列队成一行。问有多少种方式？<br />
 <strong>Solution.</strong> 假设第一组有<script type="math/tex">k</script>个人，那么穿不同T恤的方式有<script type="math/tex">3^k</script>，站成一行有<script type="math/tex">k!</script>种，所以<script type="math/tex">a_k=k!3^k</script>，其指数生成函数是
 <script type="math/tex; mode=display">A(x)=\sum_{k\geq 0}k!3^k\frac{x^k}{k!}=\frac{1}{1-3x}</script>
@@ -23184,7 +23203,7 @@ C(x)&=A(x)B(x)\\
 <script type="math/tex; mode=display">(\sum_{n\geq 0}a_n\frac{x^n}{n!})'=\sum_{n\geq 0}a_{n+1}\frac{x^n}{n!}</script>
 </p>
 <p><strong>Example 8.24.</strong> 令<script type="math/tex">B(x)</script>是贝尔数<script type="math/tex">B(n)</script>的指数生成函数。求证<script type="math/tex">B(x)=e^{e^x-1}</script>。<br />
-<strong>Solution.</strong> 贝尔数递归性质是<script type="math/tex">B(n+1)=\sum_{i=0}^nB(i)<script type="math/tex; mode=display">\begin{pmatrix}n\\i\end{pmatrix}</script>, n\geq 0</script>并且<script type="math/tex">B(0)=1</script>。递归式两边同乘<script type="math/tex">x^n/n!</script>并求和得到
+<strong>Solution.</strong> 贝尔数递归性质是<script type="math/tex">B(n+1)=\sum_{i=0}^nB(i)\begin{pmatrix}n\\i\end{pmatrix}, n\geq 0</script>并且<script type="math/tex">B(0)=1</script>。递归式两边同乘<script type="math/tex">x^n/n!</script>并求和得到
 <script type="math/tex; mode=display">\sum_{n\geq 0}B(n+1)\frac{x^n}{n!}=\sum_{n\geq 0}\sum_{i=0}^nB(i)\begin{pmatrix}n\\i\end{pmatrix}\frac{x^n}{n!}</script>
 左边是<script type="math/tex">B(x)'</script>，根据<strong>Lemma 8.20</strong>可知右侧是<script type="math/tex">B(x)e^x</script>，因此
 <script type="math/tex; mode=display">B'(x)=B(x)e^x</script>
@@ -23263,7 +23282,7 @@ G(x)&=B(A(x))\\
 <script type="math/tex; mode=display">a_n=\sum_{i=1}^n a_{i-1}a_{n-i}</script>
 且<script type="math/tex">a_0=1</script>。两边同乘<script type="math/tex">x^n</script>且对<script type="math/tex">n\geq 1</script>求和
 <script type="math/tex; mode=display">C(x)-1=xC(x)^2</script>
-上式与<script type="math/tex">(8.13)</script>一致，所以<script type="math/tex">a_n=c_n=<script type="math/tex; mode=display">\begin{pmatrix}2n\\n\end{pmatrix}</script>/(n+1)</script>。</p>
+上式与<script type="math/tex">(8.13)</script>一致，所以<script type="math/tex">a_n=c_n=\begin{pmatrix}2n\\n\end{pmatrix}/(n+1)</script>。</p>
 <p>(18) 一条路径从原点<script type="math/tex">(0,0)</script>到<script type="math/tex">(n, n)</script>，可走的步数是<script type="math/tex">(1,0), (1,1), (0,1)</script>，且要求不能超过对角线<script type="math/tex">x=y</script>，<script type="math/tex">f_n</script>表示满足这些条件的路径的数量。求生成函数<script type="math/tex">F(x)=\sum_{n\geq 0}f_nx^n</script>。<script type="math/tex">f_n</script>被称为<code>Schr ̈oder numbers</code>。<br />
 <strong>Solution</strong> 首先找到递归式。如果第一步是<script type="math/tex">(1,1)</script>，那么有<script type="math/tex">f_{n-1}</script>种路径，否则不妨设第一个和对角线的焦点是<script type="math/tex">(i, i)</script>，那么后半段有<script type="math/tex">f_{n-i}</script>种路径，前半段有<script type="math/tex">f_{i-1}</script>种路径。前者很明显，后者的是因为不能和对角线相交，那么第一步一定是<script type="math/tex">(1,0)</script>，最后一步一定是从<script type="math/tex">(i,i-1)</script>向上到<script type="math/tex">(i,i)</script>。<br />
 当<script type="math/tex">n\geq 1</script>时，递归式是<script type="math/tex">f_n=f_{n-1}+\sum_{n\geq 1}f_{i-1}f_{n-i}</script>；<script type="math/tex">f_0=1</script>。两边同乘<script type="math/tex">x^n</script>且对<script type="math/tex">n\geq 1</script>求和

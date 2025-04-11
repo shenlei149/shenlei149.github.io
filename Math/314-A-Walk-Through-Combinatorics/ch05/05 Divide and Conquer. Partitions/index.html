@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22815,8 +22840,7 @@ n-1\\i
 <p><strong>Definition 5.5.</strong> 集合<script type="math/tex">[n]</script>的分割(<code>partition</code>)是将每个元素唯一的分配到一个非空块(<code>block</code>)的集合。<br />
 我们将集合<script type="math/tex">[n]</script>分配到<script type="math/tex">k</script>个非空的块中表示为<script type="math/tex">S(n,k)</script>，其称之为第二类斯特朗数(<code>Stirling numbers of the secondkind</code>)。<br />
 如果<script type="math/tex">n<k</script>，那么<script type="math/tex">S(n,k)=0</script>。我们约定<script type="math/tex">S(0,0)=1</script>，下一章会解释为什么。</p>
-<p><strong>Example 5.6.</strong> <script type="math/tex">n\geq 1</script>时，<script type="math/tex">S(n,1) =S(n, n)=1</script>。<script type="math/tex">n\geq 2</script>时，<script type="math/tex">S(n,n-1)=<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>
-</script>，任选两个组成一块，其余每个元素自成一块。</p>
+<p><strong>Example 5.6.</strong> <script type="math/tex">n\geq 1</script>时，<script type="math/tex">S(n,1) =S(n, n)=1</script>。<script type="math/tex">n\geq 2</script>时，<script type="math/tex">S(n,n-1)=\begin{pmatrix}n\\2\end{pmatrix}</script>，任选两个组成一块，其余每个元素自成一块。</p>
 <p><strong>Example 5.7.</strong> 集合<script type="math/tex">[4]</script>有七种分成两个非空块的分割：
 <script type="math/tex; mode=display">\{1,2,3\}\{4\}\\\{1,2,4\}\{3\}\\\{1,3,4\}\{2\}\\\{2,3,4\}\{1\}\\\{1,2\}\{3,4\}\\\{1,3\}\{2,4\}\\\{1,4\}\{2,3\}</script>
 所以<script type="math/tex">S(4,2)=7</script>。</p>
@@ -22835,10 +22859,7 @@ n-1\\i
 <blockquote>
 <p>上面这段初看时我有两点不懂，这里是<a href="https://math.stackexchange.com/questions/3731157/why-is-it-stronger-statement-for-all-positive-integers-x-but-x-is-real-numb">我的提问和大神的回答</a>。</p>
 </blockquote>
-<p>左边是所有<script type="math/tex">[n]\to[x]</script>的函数的个数，注意，不必是满射；右边是对于<script type="math/tex">[x]\to[k]</script>上函数个数求和，先选出<script type="math/tex">k</script>个数，<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}x\\k\end{pmatrix}</script>
-</script>，根据Corollary 5.9.，函数个数是<script type="math/tex">k!\cdot S(n,k)</script>，其积是<script type="math/tex">k!\cdot S(n,k)<script type="math/tex; mode=display">\begin{pmatrix}x\\k\end{pmatrix}</script>
-</script>，<script type="math/tex">(x)_k=<script type="math/tex; mode=display">\begin{pmatrix}x\\k\end{pmatrix}</script>\cdot k!</script>
+<p>左边是所有<script type="math/tex">[n]\to[x]</script>的函数的个数，注意，不必是满射；右边是对于<script type="math/tex">[x]\to[k]</script>上函数个数求和，先选出<script type="math/tex">k</script>个数，<script type="math/tex">\begin{pmatrix}x\\k\end{pmatrix}</script>，根据Corollary 5.9.，函数个数是<script type="math/tex">k!\cdot S(n,k)</script>，其积是<script type="math/tex">k!\cdot S(n,k)\begin{pmatrix}x\\k\end{pmatrix}</script>，<script type="math/tex">(x)_k=\begin{pmatrix}x\\k\end{pmatrix}\cdot k!</script>
 </p>
 <p><strong>Definition 5.11.</strong> 集合<script type="math/tex">[n]</script>的所有分割的个数（不限定块的大小）记作<script type="math/tex">B(n)</script>，称之为第<script type="math/tex">n</script>贝尔数(<script type="math/tex">n</script>
 <code>th Bell number</code>)，习惯上<script type="math/tex">B(0)=1</script>。<br />
@@ -22847,9 +22868,7 @@ n-1\\i
 <script type="math/tex; mode=display">B(n+1)=\sum_{i=0}^n\begin{pmatrix}
 n\\i
 \end{pmatrix}B(i)</script>
-<strong>Proof.</strong> 左边是集合<script type="math/tex">[n+1]</script>所有分割的个数。假设第<script type="math/tex">n+1</script>元素所在块的大小是<script type="math/tex">n-i+1</script>，也就是有<script type="math/tex">i</script>个元素不在这个块。有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\i\end{pmatrix}</script>
-</script>种方式取出这<script type="math/tex">i</script>个数，然后有<script type="math/tex">B(i)</script>个分割数，对所有可能的<script type="math/tex">i</script>求和。</p>
+<strong>Proof.</strong> 左边是集合<script type="math/tex">[n+1]</script>所有分割的个数。假设第<script type="math/tex">n+1</script>元素所在块的大小是<script type="math/tex">n-i+1</script>，也就是有<script type="math/tex">i</script>个元素不在这个块。有<script type="math/tex">\begin{pmatrix}n\\i\end{pmatrix}</script>种方式取出这<script type="math/tex">i</script>个数，然后有<script type="math/tex">B(i)</script>个分割数，对所有可能的<script type="math/tex">i</script>求和。</p>
 <h2 id="integer-partitions">Integer Partitions</h2>
 <p>现在我们分析球和盒子都一样的情况。</p>
 <p><strong>Definition 5.13.</strong> <script type="math/tex">a_1\ge a_2\ge \cdots \ge a_k\ge 1</script>都是整数且<script type="math/tex">a_1+a_2+\cdots +a_k=n</script>，序列<script type="math/tex">(a_1,a_2,\cdots, a_k)</script>是整数<script type="math/tex">n</script>的分割(<code>partition</code>)。整数<script type="math/tex">n</script>的所有分割的数目用<script type="math/tex">p(n)</script>表示，精确的分成<script type="math/tex">k</script>个部分用<script type="math/tex">p_k(n)</script>表示。<br />
@@ -22882,20 +22901,16 @@ n\\i
 <script type="math/tex; mode=display">P_a=\frac{\begin{pmatrix}
 n\\a_1,a_2,\cdots,a_k
 \end{pmatrix}}{\prod_{i\ge 1}m_i!}</script>
-<strong>Proof.</strong> 取<script type="math/tex">a_i</script>个颜色为<script type="math/tex">i</script>的小球，共<script type="math/tex">n</script>个，排成一列，共<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\a_1,a_2,\cdots,a_k\end{pmatrix}</script>
-</script>中排法。<script type="math/tex">i</script>和<script type="math/tex">j</script>在同一块，当且仅当二者是相同的颜色。这些分割显然属于类型<script type="math/tex">a</script>。<br />
+<strong>Proof.</strong> 取<script type="math/tex">a_i</script>个颜色为<script type="math/tex">i</script>的小球，共<script type="math/tex">n</script>个，排成一列，共<script type="math/tex">\begin{pmatrix}n\\a_1,a_2,\cdots,a_k\end{pmatrix}</script>中排法。<script type="math/tex">i</script>和<script type="math/tex">j</script>在同一块，当且仅当二者是相同的颜色。这些分割显然属于类型<script type="math/tex">a</script>。<br />
 不过我们重复计算了很多。比如<script type="math/tex">a_1=a_2</script>，有<script type="math/tex">a_1</script>个颜色为1的球在子集<script type="math/tex">A</script>对应的位置上，有同样多个颜色为2的球在子集<script type="math/tex">B</script>对应的位置上，这是一种分割，相反，<script type="math/tex">a_1</script>个颜色为2的球在子集<script type="math/tex">A</script>对应的位置上和同样多个颜色为1的球在子集<script type="math/tex">B</script>对应的位置上也是一种分割，但是这两种本质上是一种。一般地，<script type="math/tex">i</script>在<script type="math/tex">a</script>中出现了<script type="math/tex">m_i</script>次，我们重复计算了<script type="math/tex">m_i!</script>次，所有结果要除以<script type="math/tex">\prod_{i\ge 1}m_i!</script>。</p>
 <p>下面是本章的总结。<br />
 如果盒子不能是空的：<br />
 <img alt="" src="../0504.png" />  </p>
 <blockquote>
 <p>
-<script type="math/tex">n</script>个一样的物体，<script type="math/tex">k</script>个不同的盒子，对应的公式应该是<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}
+<script type="math/tex">n</script>个一样的物体，<script type="math/tex">k</script>个不同的盒子，对应的公式应该是<script type="math/tex">\begin{pmatrix}
 n-1\\k-1
 \end{pmatrix}</script>
-</script>
 </p>
 </blockquote>
 <p>如果盒子能空，那么我们要说明盒子的数量，否则可以通过无限添加空盒子来增加分割数量。<br />

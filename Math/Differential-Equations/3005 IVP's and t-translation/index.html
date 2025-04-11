@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22776,10 +22801,10 @@ Remarks:
 <p><strong>Proof:</strong> The proof of <script type="math/tex">(2)</script> is a very simple change of variables on the Laplace integral.
 $$<script type="math/tex; mode=display">\begin{aligned}
 \mathcal{L}(u(t-a)f(t-a))&=\int_0^\infty u(t-a)f(t-a)e^{-st}dt\\
-&=\int_a^\infty f(t-a)e^{-st}dt &\text{($u(t - a) = 0$ for $t < a$)}\\
-&=\int_0^\infty f(\tau)e^{-s(\tau+a)}d\tau &\text{(change of variables: $\tau = t - a$)}\\
-&=e^{-as}\int_0^\infty f(\tau)e^{-s\tau}d\tau\\
-&=e^{-as}F(s)
+&=\int_a^\infty f(t-a)e^{-st}dt &\text{(<script type="math/tex">u(t - a) = 0</script> for <script type="math/tex">t < a</script>)}\
+&amp;=\int_0^\infty f(\tau)e^{-s(\tau+a)}d\tau &amp;\text{(change of variables: <script type="math/tex">\tau = t - a</script>)}\\
+&amp;=e^{-as}\int_0^\infty f(\tau)e^{-s\tau}d\tau\\
+&amp;=e^{-as}F(s)
 \end{aligned}</script>$$
 Formula <script type="math/tex">(3)</script> follows easily from <script type="math/tex">(2)</script>. The easiest way to proceed is by introducing a new function. Let <script type="math/tex">g(t) = f(t + a)</script>, so
 <script type="math/tex; mode=display">f(t)=g(t-a) \text{ and } G(s)=\mathcal{L}(g)=\mathcal{L}(f(t+a))</script>
@@ -22797,19 +22822,17 @@ The second equality follows by applying <script type="math/tex">(2)</script> to 
 <script type="math/tex; mode=display">\mathcal{L}(u(t-3)t)=e^{-3s}\mathcal{L}(t+3)=e^{-3s}(\frac{1}{s^2}+\frac{3}{s}</script>
 <strong>Example.</strong>
 <script type="math/tex; mode=display">\mathcal{L}(u(t-3)\cdot 1)=e^{-3s}\mathcal{L}(1)=e^{-3s}/s</script>
-<strong>Example.</strong> Find <script type="math/tex">\mathcal{L}(f)</script> for <script type="math/tex">f(t)=<script type="math/tex; mode=display">\begin{cases}
+<strong>Example.</strong> Find <script type="math/tex">\mathcal{L}(f)</script> for <script type="math/tex">f(t)=\begin{cases}
 0&\text{ for } t<2\\
 t^2&\text{ for } t>2
 \end{cases}</script>
-</script>
 <br />
 <strong>Solution.</strong>
 <script type="math/tex; mode=display">f(t)=u(t-2)t^2 \rArr F(s)=e^{-2s}\mathcal{L}((t+2)^2)=e^{-2s}(\frac{2}{s^3}+\frac{4}{s^2}+\frac{4}{s})</script>
-<strong>Example.</strong> Find <script type="math/tex">\mathcal{L}(f)</script> for <script type="math/tex">f(t)=<script type="math/tex; mode=display">\begin{cases}
+<strong>Example.</strong> Find <script type="math/tex">\mathcal{L}(f)</script> for <script type="math/tex">f(t)=\begin{cases}
 \cos(t)&\text{ for } 0 < t < 2\pi\\
 0&\text{ for } t>2\pi
 \end{cases}</script>
-</script>
 <br />
 <strong>Solution.</strong>
 <script type="math/tex; mode=display">\begin{aligned}

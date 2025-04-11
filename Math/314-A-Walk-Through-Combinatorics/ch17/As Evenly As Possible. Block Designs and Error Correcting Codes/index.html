@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22814,8 +22839,7 @@
 <h3 id="moto-cross-races">Moto-cross Races</h3>
 <p>十六个摩托越野比赛参赛者，需要评比第一名和其他名次。场地一次只允许四个人同时比赛，就是一场小组赛。每组得分不同，最后根据得分多少得出第一名和其他名次。<br />
 问题在于如何组织这些小组赛。比如只需要选出第一名，那么就很简单。十六个人分成四组，每组的第一名再进行一场比赛即可。但是如果还需要选出第二名，这种方法就不可行，因为第二名和可能在第一轮小组赛和第一名分到了一起，那么就没有机会参加第二轮了。<br />
-另一个极端的方法很公平合理，就是比赛会太长。比如进行<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}16\\4\end{pmatrix}</script>=1820</script>场比赛，按照总得分依次排序。问题是1820场比赛实在太多了。就算一场比赛十分钟，没有休息时间，也需要十二天多才能结束比赛。观众不会看这么久，参赛者也不可能坚持。<br />
+另一个极端的方法很公平合理，就是比赛会太长。比如进行<script type="math/tex">\begin{pmatrix}16\\4\end{pmatrix}=1820</script>场比赛，按照总得分依次排序。问题是1820场比赛实在太多了。就算一场比赛十分钟，没有休息时间，也需要十二天多才能结束比赛。观众不会看这么久，参赛者也不可能坚持。<br />
 所以问题就是要如何安排这些小组赛，使得比赛公平，同时还是能保持适合的长度。长度很容易衡量，公平就稍微复杂一点。首先参赛者要参与同样数量的比赛来积分。第二要充分利用场地，尽可能多的人参赛。任意两个参赛者至少交手过一次，如果能把至少一次变成精确一次，那就更好了。如果两个参赛者最后积分一样，那么看他们的交手历史，胜者比分更高。<br />
 如果能设计出这样的比赛，那么每位参赛者至少需要参加五场小组赛。这是因为每位参赛者至少需要在一场比赛中与其他十五个参赛者竞争，但在任何一场比赛中只能与三名参赛者竞争。接着分析，十六个参赛者中的每人至少有五场比赛意味着至少有80个有序对<script type="math/tex">(d, H)</script>，其中<script type="math/tex">d</script>是参加比赛<script type="math/tex">H</script>的参赛者。由于每场比赛由四名参赛者组成，这意味着必须至少有20场小组赛。<br />
 那么问题又变成了最小值，20，是否合理呢？也就是说组织20场小组赛。恰好每个参赛者参加其中五场，和其他十五个参赛者进行了比赛，也就是任意<script type="math/tex">d_1,d_2</script>两个参赛者都交过手。<br />
@@ -22849,9 +22873,7 @@
 <p>这样的安排是如何形成的呢？为什么满足这些需求的赛程是存在的呢？下面让我们慢慢的解答。</p>
 <h3 id="incompatible-computer-programs">Incompatible Computer Programs</h3>
 <p>假设我们下载了七个程序。我们的计算机有足够的内存同时运行任意的三个。我们需要测试两两之间的兼容性，来确定七个程序中没有两个程序<script type="math/tex">A,B</script>会导致错误（非内存错误）。假设所有的兼容性问题一定是一对程序导致的，也就是说程序子集<script type="math/tex">S</script>不能运行的话，一定有一个两个元素的子集<script type="math/tex">T\subset S</script>中的那两个程序不能兼容。如果一次测试需要三分钟，那么最高效的测试方式是什么呢？<br />
-在找到最高效的方式之前，先看看上限是什么。显然，<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}7\\3\end{pmatrix}</script>=35</script>分钟是上限，因为把所有可能性都测试了一遍，但是浪费也是巨大的，对于某一对程序而言，一起测试了五次（三个程序选定两个，第三个有五种可能性）。一个更好的上限是<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}7\\2\end{pmatrix}</script>=21</script>分钟，两两测试即可。这种方式也没能充分利用内存，三个程序一起测试。<br />
+在找到最高效的方式之前，先看看上限是什么。显然，<script type="math/tex">\begin{pmatrix}7\\3\end{pmatrix}=35</script>分钟是上限，因为把所有可能性都测试了一遍，但是浪费也是巨大的，对于某一对程序而言，一起测试了五次（三个程序选定两个，第三个有五种可能性）。一个更好的上限是<script type="math/tex">\begin{pmatrix}7\\2\end{pmatrix}=21</script>分钟，两两测试即可。这种方式也没能充分利用内存，三个程序一起测试。<br />
 最佳方案是什么呢？每一次都尽可能运行三个程序，不浪费。因为运行两个程序和三个程序的时间成本是一样的。<br />
 令<script type="math/tex">b</script>是最佳测试方案的三元组个数。一个三元组测试等价的测试了三对程序，那么最多测试了<script type="math/tex">3b</script>对，如果各不相同，那么恰好是<script type="math/tex">3b</script>对。从另一个角度看，必须测试21对程序。那么<script type="math/tex">3b\geq 21</script>，也就是说<script type="math/tex">b\geq 7</script>。<br />
 下面的问题是如何构造一个只有七个三元组的测试了。如下面的例子。<br />
@@ -22865,9 +22887,7 @@
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>{D, E, F}.
 </span></code></pre></div>
 一种验证的方式是验证某个<script type="math/tex">x\in S</script>，<script type="math/tex">x</script>恰巧出现在<script type="math/tex">\mathcal{F}</script>的三个集合中，除了<script type="math/tex">x</script>之外的元素在这三个集合中也只出现一次。</p>
-<p>上面的测试计划只要七分钟。同时，完全没有浪费，因为每对仅测试一次。通常情况下，像这样毫无浪费是不可行的。比如，我们测试八个程序，每组三个程序。对的数量是<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}8\\2\end{pmatrix}</script>=28</script>，不是三的整数倍，所以至少要测试十次，这意味着有几个对测试超过一次。再比如测试六个程序，总共有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}6\\2\end{pmatrix}</script>=15</script>，虽然15能够被3整除，但是也不能完全不浪费。因为选择一个程序，剩余五个程序，三元组去掉被选择的程序之后，只有两个空位置，测试两次不够，测试三次会出现浪费。<br />
+<p>上面的测试计划只要七分钟。同时，完全没有浪费，因为每对仅测试一次。通常情况下，像这样毫无浪费是不可行的。比如，我们测试八个程序，每组三个程序。对的数量是<script type="math/tex">\begin{pmatrix}8\\2\end{pmatrix}=28</script>，不是三的整数倍，所以至少要测试十次，这意味着有几个对测试超过一次。再比如测试六个程序，总共有<script type="math/tex">\begin{pmatrix}6\\2\end{pmatrix}=15</script>，虽然15能够被3整除，但是也不能完全不浪费。因为选择一个程序，剩余五个程序，三元组去掉被选择的程序之后，只有两个空位置，测试两次不够，测试三次会出现浪费。<br />
 正如我们看到的，很多原因都会导致完全不浪费的计划是不存在的。不过，有的时候无法证明它们不存在，可能是由于某些不存在的原因是未知的。由此得到一系列的问题，即存在完全不浪费的计划的冲要条件。</p>
 <h2 id="balanced-incomplete-block-designs">Balanced Incomplete Block Designs</h2>
 <p>令<script type="math/tex">S</script>是<script type="math/tex">v</script>个元素的有限集合，这些元素被称为顶点。令<script type="math/tex">\mathcal{B}</script>是<script type="math/tex">b</script>个<script type="math/tex">S</script>的非空子集的集合，称为块(<code>block</code>)。那么<script type="math/tex">(S,\mathcal{B})</script>被称为块设计(<code>block design</code>)或简称为设计。<script type="math/tex">\mathcal{B}</script>中的块可以出现不止一次，也就是说是可以重复的。我们大部分例子都不包含重复块。<br />
@@ -22877,8 +22897,7 @@
 <p><strong>Example 17.3.</strong> <strong>Example 17.1</strong>的设计是一个平衡不完全块设计，参数是<script type="math/tex">(20,16,5,4,1)</script>，也就是说有20个块，16个顶点，每个顶点出现在5个块中，每个块4个顶点，每个对仅出现在1个块中。<br />
 <strong>Example 17.4.</strong> <strong>Example 17.2</strong>的设计是参数为<script type="math/tex">(7,7,3,3,1)</script>的平衡不完全块设计，有7个块，7个顶点，每个顶点出现在3个块中，每个块3个顶点，每个对仅出现在1个块中。<br />
 <strong>Example 17.5.</strong> 令<script type="math/tex">S=\{a,b,c\}, \mathcal{B}=\{\{a,b\},\{b,c\},\{a,c\}\}</script>，那么<script type="math/tex">(S,\mathcal{B})</script>是参数为<script type="math/tex">(3,3,2,2,1)</script>的平衡不完全块设计。<br />
-<strong>Example 17.6.</strong> 令<script type="math/tex">1<k<n</script>，那么集合<script type="math/tex">[n]</script>的所有<script type="math/tex">k</script>个元素的子集组成集合是BIBD，参数是<script type="math/tex">(<script type="math/tex; mode=display">\begin{pmatrix}n\\k\end{pmatrix}</script>,n,<script type="math/tex; mode=display">\begin{pmatrix}n-1\\k-1\end{pmatrix}</script>,k,<script type="math/tex; mode=display">\begin{pmatrix}n-2\\k-2\end{pmatrix}</script>
-</script>。</p>
+<strong>Example 17.6.</strong> 令<script type="math/tex">1<k<n</script>，那么集合<script type="math/tex">[n]</script>的所有<script type="math/tex">k</script>个元素的子集组成集合是BIBD，参数是<script type="math/tex">(\begin{pmatrix}n\\k\end{pmatrix},n,\begin{pmatrix}n-1\\k-1\end{pmatrix},k,\begin{pmatrix}n-2\\k-2\end{pmatrix}</script>。</p>
 <p>有些BIBD比另一些更具有对称性。比如<strong>Example 17.2</strong>和<strong>Example 17.5</strong>中<script type="math/tex">b=v,r=k</script>。如果一个BIBD满足<script type="math/tex">b=v</script>或<script type="math/tex">r=k</script>（下面会证明这两者是等价的）的话，称其为对称的。所有<strong>Example 17.2</strong>和<strong>Example 17.5</strong>是对称的，而其他的例子则不是。<br />
 你可能会说有很多的BIBD。但是还不知道创建BIBD的难度，也不知道是否存在。下面两个命题会给出部分答案。</p>
 <p><strong>Proposition 17.7.</strong> 如果一个<script type="math/tex">(b,v,r,k,\lambda)</script>设计存在，那么<script type="math/tex">bk=vr</script>。<br />

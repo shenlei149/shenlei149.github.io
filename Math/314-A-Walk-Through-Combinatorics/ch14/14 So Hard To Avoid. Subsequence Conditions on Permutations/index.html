@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22776,7 +22801,7 @@
 <script type="math/tex; mode=display">f(n)=\sum_{i=1}^n f(i-1)f(n-i)\tag{14.1}</script>
 其中<script type="math/tex">n\geq 1,f(0)=1</script>。<br />
 第八章的习题16用生成函数求解了这个递归式，其解是卡特兰数。</p>
-<p><strong>Corollary 14.3.</strong> 长度为<script type="math/tex">n</script>的排列中没有132模式的个数是卡特兰数<script type="math/tex">c_n=<script type="math/tex; mode=display">\begin{pmatrix}2n\\n\end{pmatrix}</script>/(n+1)</script>。</p>
+<p><strong>Corollary 14.3.</strong> 长度为<script type="math/tex">n</script>的排列中没有132模式的个数是卡特兰数<script type="math/tex">c_n=\begin{pmatrix}2n\\n\end{pmatrix}/(n+1)</script>。</p>
 <p>我们知道了<code>132-avoiding</code>的数量。那其他模式呢？在讨论前，先给出一般模式的定义。<br />
 <strong>Definition 14.4.</strong> 令<script type="math/tex">p</script>是<script type="math/tex">n</script>排列，<script type="math/tex">q=q_1q_2\cdots q_k</script>是<script type="math/tex">k</script>排列，其中<script type="math/tex">n\geq k</script>。从<script type="math/tex">p</script>中选择<script type="math/tex">k</script>项，保持它们的相对顺序不变，各项分别是<script type="math/tex">a_1,a_2,\cdots,c_k</script>。如果对于下标<script type="math/tex">i,j</script>其中<script type="math/tex">q_i<q_j</script>，有<script type="math/tex">a_i<a_j</script>，那么我们称<script type="math/tex">a_1,a_2,\cdots,c_k</script>形成了<script type="math/tex">q</script>模式。<br />
 <strong>Definition 14.5.</strong> 令<script type="math/tex">p</script>是<script type="math/tex">n</script>排列，<script type="math/tex">q=q_1q_2\cdots q_k</script>是<script type="math/tex">k</script>排列，其中<script type="math/tex">n\geq k</script>。如果<script type="math/tex">p</script>中没有<script type="math/tex">k</script>个元素形成<script type="math/tex">q</script>模式，那么称<script type="math/tex">p</script>是<script type="math/tex">q</script>
@@ -22823,9 +22848,7 @@
 <p>回一下倒置(<code>inversion</code>)的概念，对于一个排列<script type="math/tex">p=p_1p_2\cdots p_n</script>的一个对<script type="math/tex">(p_i,p_j), i<j</script>，但是<script type="math/tex">p_i>p_j</script>，这对数就是倒置。<br />
 <strong>Lemma 14.11.</strong> 每一个非空类包含至少一个1324<code>avoiding</code>排列。<br />
 <strong>Proof.</strong> 如果一个排列存在1324模式，那么如果最左边的数不是左到右最小值，那么可以用左到右最小值替换，同理最右边可以用右到左最大值替换。那么如果一个排列是1324<code>avoiding</code>的，那么不能有一个1324模式，其第一个元素是左到右最小值，最后一个元素是右到左最大值。（下面称包含这样的模式称为好模式(<code>good pattern</code>)。）需要注意的是左到右最小值只能是第一个元素，右到左最大值也只能是最后一个元素。<br />
-任取一个包含1324模式的排列。一定有好模式（没有可以通过替换得到），然后交换32对应的元素，不破坏约束条件。没有比某个左到右最小值<script type="math/tex">y</script>还小的<script type="math/tex">x</script>换到<script type="math/tex">y</script>的左侧，右到左最大值同理。每一步都会减少一个倒置，最多<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>
-</script>之后会停止，这一系列排列都同属一个类。最后停止的排列明显没有好模式了，是1324<code>avoiding</code>排列。<br />
+任取一个包含1324模式的排列。一定有好模式（没有可以通过替换得到），然后交换32对应的元素，不破坏约束条件。没有比某个左到右最小值<script type="math/tex">y</script>还小的<script type="math/tex">x</script>换到<script type="math/tex">y</script>的左侧，右到左最大值同理。每一步都会减少一个倒置，最多<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}</script>之后会停止，这一系列排列都同属一个类。最后停止的排列明显没有好模式了，是1324<code>avoiding</code>排列。<br />
 <strong>Notation (by example)</strong> 下面我们使用<script type="math/tex">a_1*a_2**b_1</script>表示长度为6的排列类，左到右最小值是<script type="math/tex">a_1,a_2</script>，分别在第一个和第三个位置，右到左最大值是<script type="math/tex">b_1</script>，在最后一个位置。<br />
 最后我们要证明至少有一个不意味着只有一个。如果<script type="math/tex">n=7</script>，类<script type="math/tex">3*1*7*5</script>包含两个1324<code>avoiding</code>排列，分别是<script type="math/tex">3612745, 3416725</script>。这就证明了<script type="math/tex">S_7(1234)<S_7(1324)</script>。对于更大的<script type="math/tex">n</script>，扩展这个类成<script type="math/tex">n(n-1)\cdots 83*1*7*5</script>即可。</p>
 <p>我们说过只有很少的模式<script type="math/tex">q</script>有明确的公式<script type="math/tex">S_n(q)</script>。如果有很好的近似或者上界也是值得研究的。<code>Stanley–Wilf</code>猜想是任意模式<script type="math/tex">q</script>，存在一个常数<script type="math/tex">c_q</script>使得对于所有<script type="math/tex">n</script>都有<script type="math/tex">S_n(q)\leq c_q^n</script>。最终2003年<code>Adam Marcus</code>和<code>Gabor Tardos</code>证明了这个猜想，不过并没有指出<script type="math/tex">c_q</script>的值。</p>
@@ -22848,9 +22871,7 @@ q_{i-a}+a&\text{if}&i>a
 <strong>Proof.</strong> 令<script type="math/tex">p\in S_n</script>，是没有模式<script type="math/tex">q=q_1\oplus 1\oplus q_2</script>的排列。将模式<script type="math/tex">q_1\oplus 1</script>的最后一项染成红色，其余点是蓝色。<br />
 假设所有红色的项有<script type="math/tex">1\oplus q_2</script>模式，那么红色的1是某个<script type="math/tex">q_1\oplus 1</script>的最后一项，那么就组成了模式<script type="math/tex">q_1\oplus 1\oplus q_2</script>，与假设矛盾。<br />
 假设蓝色的点有<script type="math/tex">q_1\oplus 1</script>模式，也和前面的定义矛盾，因为<script type="math/tex">q_1\oplus 1</script>模式的最后一个点是红色。<br />
-如果有<script type="math/tex">k</script>个蓝色的项，<script type="math/tex">n-k</script>个红色的项，那么最多有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\k\end{pmatrix}</script>^2c_1^kc_2^{n-k}</script>个长度为<script type="math/tex">n</script>的排列没有<script type="math/tex">q</script>。<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\k\end{pmatrix}</script>^2</script>，这里是平方的意思是说选择<script type="math/tex">k</script>个元素，然后选择<script type="math/tex">k</script>个位置。对<script type="math/tex">k</script>求和
+如果有<script type="math/tex">k</script>个蓝色的项，<script type="math/tex">n-k</script>个红色的项，那么最多有<script type="math/tex">\begin{pmatrix}n\\k\end{pmatrix}^2c_1^kc_2^{n-k}</script>个长度为<script type="math/tex">n</script>的排列没有<script type="math/tex">q</script>。<script type="math/tex">\begin{pmatrix}n\\k\end{pmatrix}^2</script>，这里是平方的意思是说选择<script type="math/tex">k</script>个元素，然后选择<script type="math/tex">k</script>个位置。对<script type="math/tex">k</script>求和
 <script type="math/tex; mode=display">\begin{aligned}
 S_n(q)&\leq \sum_{k=1}^n\begin{pmatrix}n\\k\end{pmatrix}^2c_1^kc_2^{n-k}\\
 &\leq \Big(\sum_{k=1}^n\begin{pmatrix}n\\k\end{pmatrix}\sqrt{c_1^kc_2^{n-k}}\Big)^2\\

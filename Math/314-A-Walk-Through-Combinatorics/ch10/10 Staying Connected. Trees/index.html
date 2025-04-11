@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22990,9 +23015,7 @@ n&\cdots&0&-1&\cdots&-1\\
 \cdots\\
 -1&\cdots&-1&0&\cdots&m
 \end{pmatrix}</script>
-前<script type="math/tex">m</script>行和后<script type="math/tex">n-1</script>行有点类似。把除第一行外的其他行加到第一行得到<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1&\cdots&1&0&\cdots&0\end{pmatrix}</script>
-</script>，然后把这一行加到后<script type="math/tex">n-1</script>行
+前<script type="math/tex">m</script>行和后<script type="math/tex">n-1</script>行有点类似。把除第一行外的其他行加到第一行得到<script type="math/tex">\begin{pmatrix}1&\cdots&1&0&\cdots&0\end{pmatrix}</script>，然后把这一行加到后<script type="math/tex">n-1</script>行
 <script type="math/tex; mode=display">\begin{pmatrix}
 1&\cdots&1&0&\cdots&0\\
 \cdots\\
@@ -23011,18 +23034,9 @@ n&\cdots&0&-1&\cdots&-1\\
 <strong>Solution.</strong> <script type="math/tex">A+I=J</script>，其中<script type="math/tex">J</script>是元素都等于1的矩阵。很明显<script type="math/tex">J</script>的秩是1，那么其有<script type="math/tex">n-1</script>个特征值都是0，又因为<script type="math/tex">J</script>的迹是<script type="math/tex">n</script>，迹又等于特征值之和，所以<script type="math/tex">J</script>的非零特征值是<script type="math/tex">n</script>，<script type="math/tex">A=J-I</script>，所以<script type="math/tex">A</script>的特征值分别是<script type="math/tex">n-1,-1,\cdots,-1</script>。</p>
 <h2 id="exercises">Exercises</h2>
 <p>(11) 在集合<script type="math/tex">[n]</script>上不连通的简单图<script type="math/tex">G</script>最多能有多少条边？<br />
-<strong>Solution</strong> 如果其中一个顶点的度是0，其他<script type="math/tex">n-1</script>个点是完全子图，显然该图是不连通的，有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n-1\\2\end{pmatrix}</script>
-</script>条边。<br />
-下面用递归证明若<script type="math/tex">G</script>有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n-1\\2\end{pmatrix}</script>+1</script>条边那么<script type="math/tex">G</script>一定是连通的，则<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n-1\\2\end{pmatrix}</script>
-</script>是非联通图的边的最大值。<br />
-<script type="math/tex">n=2</script>时，显然是连通的。假设<script type="math/tex">n</script>时也是连通的，考察<script type="math/tex">n+1</script>个点，<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>+1</script>条边。首先，没有点是孤立点，因为剩余<script type="math/tex">n</script>个点最多只能有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>
-</script>条边。如果有个点的度是<script type="math/tex">n</script>，显然成立了，因为其他点都和这个点相连。那么移除任意一个点<script type="math/tex">V</script>，最多只能移除<script type="math/tex">n-1</script>条边，那么剩余的边数至少有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n-1\\2\end{pmatrix}</script>+1</script>，这<script type="math/tex">n</script>个点是连通的，而点<script type="math/tex">V</script>和这些点是连通的。</p>
+<strong>Solution</strong> 如果其中一个顶点的度是0，其他<script type="math/tex">n-1</script>个点是完全子图，显然该图是不连通的，有<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}</script>条边。<br />
+下面用递归证明若<script type="math/tex">G</script>有<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}+1</script>条边那么<script type="math/tex">G</script>一定是连通的，则<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}</script>是非联通图的边的最大值。<br />
+<script type="math/tex">n=2</script>时，显然是连通的。假设<script type="math/tex">n</script>时也是连通的，考察<script type="math/tex">n+1</script>个点，<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}+1</script>条边。首先，没有点是孤立点，因为剩余<script type="math/tex">n</script>个点最多只能有<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}</script>条边。如果有个点的度是<script type="math/tex">n</script>，显然成立了，因为其他点都和这个点相连。那么移除任意一个点<script type="math/tex">V</script>，最多只能移除<script type="math/tex">n-1</script>条边，那么剩余的边数至少有<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}+1</script>，这<script type="math/tex">n</script>个点是连通的，而点<script type="math/tex">V</script>和这些点是连通的。</p>
 
 
 

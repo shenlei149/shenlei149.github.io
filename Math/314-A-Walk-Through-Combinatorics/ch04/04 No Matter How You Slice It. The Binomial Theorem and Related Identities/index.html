@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22786,9 +22811,7 @@
 n\\k
 \end{pmatrix}x^ky^{n-k}</script>
 <strong>Proof.</strong> 略。</p>
-<p><strong>Theorem 4.2.</strong> 对于所有正整数<script type="math/tex">n</script>，二项式系数<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\k\end{pmatrix}</script>
-</script>的交替和为<script type="math/tex">0</script>。
+<p><strong>Theorem 4.2.</strong> 对于所有正整数<script type="math/tex">n</script>，二项式系数<script type="math/tex">\begin{pmatrix}n\\k\end{pmatrix}</script>的交替和为<script type="math/tex">0</script>。
 <script type="math/tex; mode=display">\sum_{k=0}^n(-1)^k\cdot\begin{pmatrix}
 n\\k
 \end{pmatrix}=0</script>
@@ -22823,9 +22846,7 @@ n\\k
 \end{pmatrix}=\begin{pmatrix}
 n+1\\k+1
 \end{pmatrix}</script>
-<strong>Proof.</strong> 右边是<script type="math/tex">n+1</script>个元素的集合的<script type="math/tex">k+1</script>个元素的子集的个数。左边也是计算子集的个数，但是是分成了<script type="math/tex">n-k+1</script>个部分，左边第一项是最大的元素是<script type="math/tex">k+1</script>的子集个数，第二项是最大元素是<script type="math/tex">k+2</script>的子集个数，<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}k+i\\k\end{pmatrix}</script>
-</script>是<script type="math/tex">n+1</script>个元素的集合的最大值是<script type="math/tex">k+i+1</script>的<script type="math/tex">k+1</script>个元素的子集个数，其中<script type="math/tex">i\leq n-k</script>。<br />
+<strong>Proof.</strong> 右边是<script type="math/tex">n+1</script>个元素的集合的<script type="math/tex">k+1</script>个元素的子集的个数。左边也是计算子集的个数，但是是分成了<script type="math/tex">n-k+1</script>个部分，左边第一项是最大的元素是<script type="math/tex">k+1</script>的子集个数，第二项是最大元素是<script type="math/tex">k+2</script>的子集个数，<script type="math/tex">\begin{pmatrix}k+i\\k\end{pmatrix}</script>是<script type="math/tex">n+1</script>个元素的集合的最大值是<script type="math/tex">k+i+1</script>的<script type="math/tex">k+1</script>个元素的子集个数，其中<script type="math/tex">i\leq n-k</script>。<br />
 这个定理也意味着我们从帕斯卡三角的第<script type="math/tex">k</script>行的最右的元素开始，然后往左下前进，到某个元素终止。路径上的元素之和等于终止元素的下一行右边那个元素。</p>
 <p><strong>Theorem 4.6.</strong> 对于所有非负整数<script type="math/tex">n</script>，
 <script type="math/tex; mode=display">\sum_{k=1}^nk\begin{pmatrix}
@@ -22849,11 +22870,7 @@ n\\i
 \end{pmatrix}\begin{pmatrix}
 m\\k-i
 \end{pmatrix}</script>
-<strong>Proof.</strong> 公式的左边是<script type="math/tex">n+m</script>个元素集合的有<script type="math/tex">k</script>个元素子集的个数。右边是分两步进行，先从前<script type="math/tex">n</script>个元素中选择<script type="math/tex">i</script>个，有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\i\end{pmatrix}</script>
-</script>种不同的方式，再从后<script type="math/tex">m</script>个元素中选择<script type="math/tex">k-i</script>个，有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}m\\k-i\end{pmatrix}</script>
-</script>种不同的方式，最后对不同的<script type="math/tex">i</script>求和。</p>
+<strong>Proof.</strong> 公式的左边是<script type="math/tex">n+m</script>个元素集合的有<script type="math/tex">k</script>个元素子集的个数。右边是分两步进行，先从前<script type="math/tex">n</script>个元素中选择<script type="math/tex">i</script>个，有<script type="math/tex">\begin{pmatrix}n\\i\end{pmatrix}</script>种不同的方式，再从后<script type="math/tex">m</script>个元素中选择<script type="math/tex">k-i</script>个，有<script type="math/tex">\begin{pmatrix}m\\k-i\end{pmatrix}</script>种不同的方式，最后对不同的<script type="math/tex">i</script>求和。</p>
 <p>观察帕斯卡三角的每一行，都是先增加再减少，下面两个定理说明了这一点。</p>
 <p><strong>Theorem 4.8.</strong> 对于所有非负整数<script type="math/tex">k</script>和<script type="math/tex">n</script>，其中<script type="math/tex">k\leq\frac{n-1}{2}</script>，有
 <script type="math/tex; mode=display">\begin{pmatrix}
@@ -22887,9 +22904,7 @@ n\\k+1
 <script type="math/tex; mode=display">\begin{pmatrix}
 n\\a_1,a_2,\cdots a_k
 \end{pmatrix}=\frac{n!}{a_1!\cdot a_2!\cdots a_k!}</script>
-<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\a_1,a_2,\cdots a_k\end{pmatrix}</script>
-</script>称之为多项式系数(<code>multinomial coefficients</code>)。</p>
+<script type="math/tex">\begin{pmatrix}n\\a_1,a_2,\cdots a_k\end{pmatrix}</script>称之为多项式系数(<code>multinomial coefficients</code>)。</p>
 <p><strong>Theorem 4.12</strong> [多项式理论(<code>Multinomial theorem</code>)] 对所有非负整数<script type="math/tex">n</script>和<script type="math/tex">k</script>，有
 <script type="math/tex; mode=display">(x_1+x_2+\cdots +x_k)^n=\sum_{a_1,a_2,\cdots a_k} \begin{pmatrix}
 n\\a_1,a_2,\cdots a_k
@@ -22910,11 +22925,8 @@ n-a_1-a_2-\cdots - a_{k-1}\\a_k
 \end{pmatrix}</script>
 <strong>Proof</strong> 略。</p>
 <h2 id="when-the-exponent-is-not-a-positive-integer">When the Exponent Is Not a Positive Integer</h2>
-<p>当<script type="math/tex">m</script>不是正整数时，<script type="math/tex">(1 +x)^m</script>是多少呢？首先给出<script type="math/tex">m</script>是任意实数时二项式系数<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}m\\k\end{pmatrix}</script>
-</script>的定义。<br />
-<strong>Definition 4.14.</strong> 对于任意实数<script type="math/tex">m</script>和非负整数<script type="math/tex">k</script>，<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix} m\\0 \end{pmatrix}</script>=1</script>，<script type="math/tex">k>0</script>时有
+<p>当<script type="math/tex">m</script>不是正整数时，<script type="math/tex">(1 +x)^m</script>是多少呢？首先给出<script type="math/tex">m</script>是任意实数时二项式系数<script type="math/tex">\begin{pmatrix}m\\k\end{pmatrix}</script>的定义。<br />
+<strong>Definition 4.14.</strong> 对于任意实数<script type="math/tex">m</script>和非负整数<script type="math/tex">k</script>，<script type="math/tex">\begin{pmatrix} m\\0 \end{pmatrix}=1</script>，<script type="math/tex">k>0</script>时有
 <script type="math/tex; mode=display">\begin{pmatrix}
 m\\k
 \end{pmatrix}=\frac{m(m-1)\cdots(m-k+1)}{k!}</script>
@@ -22930,11 +22942,7 @@ m\\n
 <script type="math/tex; mode=display">\sqrt{1-4x}=(1-4x)^{1/2}=\sum_{n\geq 0}\begin{pmatrix}
 1/2\\n
 \end{pmatrix}(-4x)^n</script>
-为了简化这个表达式，我们需要简化<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1/2\\n\end{pmatrix}</script>
-</script>。<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1/2\\0\end{pmatrix}</script>=1</script>，<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1/2\\1\end{pmatrix}</script>=1/2</script>，当<script type="math/tex">n\geq 2</script>时，
+为了简化这个表达式，我们需要简化<script type="math/tex">\begin{pmatrix}1/2\\n\end{pmatrix}</script>。<script type="math/tex">\begin{pmatrix}1/2\\0\end{pmatrix}=1</script>，<script type="math/tex">\begin{pmatrix}1/2\\1\end{pmatrix}=1/2</script>，当<script type="math/tex">n\geq 2</script>时，
 <script type="math/tex; mode=display">\begin{pmatrix}
 1/2\\n
 \end{pmatrix}=\frac{\frac{1}{2}\cdot\frac{-1}{2}\cdot\frac{-3}{2}\cdots\frac{-2n+3}{2}}{n!}=(-1)^{n-1}\frac{(2n-3)!!}{2^n\cdot n!}</script>
@@ -22958,17 +22966,13 @@ n\\j
 n-1-j\\k-j
 \end{pmatrix}2^j</script>
 <strong>Solution.</strong> 左边长度为<script type="math/tex">n</script>的0-1序列最多有<script type="math/tex">k</script>个1的组合方式。<br />
-右边比较复杂。如果我们能找到<script type="math/tex">n-k</script>个0，那么最多只有<script type="math/tex">k</script>个1。<script type="math/tex">k \leq n-1</script>告诉我们至少有一个0，假设这个0在<script type="math/tex">n-j</script>的位置上，其左边有<script type="math/tex">n-k-1</script>个零，有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n-j-1\\n-k-1\end{pmatrix}</script>=<script type="math/tex; mode=display">\begin{pmatrix}n-1-j\\k-j\end{pmatrix}</script>
-</script>种取法，右边<script type="math/tex">j</script>个0-1序列不管是多少个零都没有关系了，有<script type="math/tex">2^j</script>种可能性。</p>
+右边比较复杂。如果我们能找到<script type="math/tex">n-k</script>个0，那么最多只有<script type="math/tex">k</script>个1。<script type="math/tex">k \leq n-1</script>告诉我们至少有一个0，假设这个0在<script type="math/tex">n-j</script>的位置上，其左边有<script type="math/tex">n-k-1</script>个零，有<script type="math/tex">\begin{pmatrix}n-j-1\\n-k-1\end{pmatrix}=\begin{pmatrix}n-1-j\\k-j\end{pmatrix}</script>种取法，右边<script type="math/tex">j</script>个0-1序列不管是多少个零都没有关系了，有<script type="math/tex">2^j</script>种可能性。</p>
 <p>(7) 有<script type="math/tex">n</script>个石头，将其分成两堆，令<script type="math/tex">p_1</script>是两堆石头数量的乘积，对每堆石头做重复的操作，令<script type="math/tex">p_2</script>是第二次分成两堆石头数量的乘积，以此类推，直至每堆石头都只有一个为止，显然这需要<script type="math/tex">n-1</script>步。求<script type="math/tex">p_1+p_2+\cdots+p_{n-1}</script>的最大值和最小值。<br />
 <strong>Solution.</strong> 考虑极端情况，每次都取出一个石头单独一堆，那么<script type="math/tex">p_1=n-1, p_2=n-2,\cdots,p_{n-1}=1</script>，所以
 <script type="math/tex; mode=display">p_1+p_2+\cdots+p_{n-1}=\frac{n(n-1)}{2}=\begin{pmatrix}
 n\\2
 \end{pmatrix}</script>
-下面我们证明当<script type="math/tex">n\geq 2</script>时，其和都是<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>
-</script>。<script type="math/tex">n=2</script>时明显成立，假设小于<script type="math/tex">n</script>时该命题都成立，现在考察<script type="math/tex">n</script>，我们将其分成任意<script type="math/tex">k</script>和<script type="math/tex">n-k</script>两堆，其乘积是<script type="math/tex">k(n-k)</script>，那么总和为
+下面我们证明当<script type="math/tex">n\geq 2</script>时，其和都是<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}</script>。<script type="math/tex">n=2</script>时明显成立，假设小于<script type="math/tex">n</script>时该命题都成立，现在考察<script type="math/tex">n</script>，我们将其分成任意<script type="math/tex">k</script>和<script type="math/tex">n-k</script>两堆，其乘积是<script type="math/tex">k(n-k)</script>，那么总和为
 <script type="math/tex; mode=display">k(n-k)+\begin{pmatrix}
 k\\2
 \end{pmatrix}+\begin{pmatrix}
@@ -22991,14 +22995,9 @@ n\\2
 如果<script type="math/tex">y_i</script>都是偶数，那么找到第一个<script type="math/tex">i</script>，<script type="math/tex">d_i<y_i</script>，一定有这么一个<script type="math/tex">i</script>，否则<script type="math/tex">d_i</script>之和就是偶数，那么<script type="math/tex">q</script>的形式就不是<script type="math/tex">4k-1</script>了。我们构造
 <script type="math/tex; mode=display">g(q)=a_1^{c_1}\cdots a_m^{c_m}\cdot b_1^{d_1}\cdots b_i^{y_i-1-d_i}\cdots b_p^{d_p}</script>
 是形式为<script type="math/tex">4k+1</script>的因数。</p>
-<p>(24) 只能向右向上的走田字格，从<script type="math/tex">(0,0)</script>到<script type="math/tex">(n,n)</script>，且不越过对角线<script type="math/tex">x=y</script>的走法共有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}2n\\n\end{pmatrix}</script>-<script type="math/tex; mode=display">\begin{pmatrix}2n\\n-1\end{pmatrix}</script>=<script type="math/tex; mode=display">\begin{pmatrix}2n\\n\end{pmatrix}</script>/(n+1)</script>。<br />
-<strong>Solution.</strong> 从<script type="math/tex">(0,0)</script>到<script type="math/tex">(n,n)</script>，一共有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}2n\\n\end{pmatrix}</script>
-</script>种走法。如果碰到了<script type="math/tex">y=x+1</script>，那就不符合题意了，那么一共有多少种不合题意的走法呢？<br />
-设某种不符合题意的走法为<script type="math/tex">p</script>，第一个在直线<script type="math/tex">y=x+1</script>的点为<script type="math/tex">P(x,x+1)</script>，这一段记作<script type="math/tex">p_s</script>。考察点<script type="math/tex">(-1,1)</script>到点<script type="math/tex">P</script>，一个<script type="math/tex">x+1,x</script>的矩形，将<script type="math/tex">p_s</script>对称的对应到某个点<script type="math/tex">(-1,1)</script>到点<script type="math/tex">P</script>的路径<script type="math/tex">p_s'</script>，那么<script type="math/tex">p_s</script>和<script type="math/tex">p_s'</script>一一对应，如果将路径<script type="math/tex">p</script>的点<script type="math/tex">P</script>到点<script type="math/tex">(n,n)</script>那一段接到<script type="math/tex">p_s'</script>的后面，那么不符合题意的路径和点<script type="math/tex">(-1,1)</script>到点<script type="math/tex">(n,n)</script>一一对应，而后者共有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}2n\\n-1\end{pmatrix}</script>
-</script>种走法。</p>
+<p>(24) 只能向右向上的走田字格，从<script type="math/tex">(0,0)</script>到<script type="math/tex">(n,n)</script>，且不越过对角线<script type="math/tex">x=y</script>的走法共有<script type="math/tex">\begin{pmatrix}2n\\n\end{pmatrix}-\begin{pmatrix}2n\\n-1\end{pmatrix}=\begin{pmatrix}2n\\n\end{pmatrix}/(n+1)</script>。<br />
+<strong>Solution.</strong> 从<script type="math/tex">(0,0)</script>到<script type="math/tex">(n,n)</script>，一共有<script type="math/tex">\begin{pmatrix}2n\\n\end{pmatrix}</script>种走法。如果碰到了<script type="math/tex">y=x+1</script>，那就不符合题意了，那么一共有多少种不合题意的走法呢？<br />
+设某种不符合题意的走法为<script type="math/tex">p</script>，第一个在直线<script type="math/tex">y=x+1</script>的点为<script type="math/tex">P(x,x+1)</script>，这一段记作<script type="math/tex">p_s</script>。考察点<script type="math/tex">(-1,1)</script>到点<script type="math/tex">P</script>，一个<script type="math/tex">x+1,x</script>的矩形，将<script type="math/tex">p_s</script>对称的对应到某个点<script type="math/tex">(-1,1)</script>到点<script type="math/tex">P</script>的路径<script type="math/tex">p_s'</script>，那么<script type="math/tex">p_s</script>和<script type="math/tex">p_s'</script>一一对应，如果将路径<script type="math/tex">p</script>的点<script type="math/tex">P</script>到点<script type="math/tex">(n,n)</script>那一段接到<script type="math/tex">p_s'</script>的后面，那么不符合题意的路径和点<script type="math/tex">(-1,1)</script>到点<script type="math/tex">(n,n)</script>一一对应，而后者共有<script type="math/tex">\begin{pmatrix}2n\\n-1\end{pmatrix}</script>种走法。</p>
 <p>(48) 令<script type="math/tex">n=4k</script>且<script type="math/tex">k\geq 0</script>，求证
 <script type="math/tex; mode=display">\sum_{i=0}^{2k}\begin{pmatrix}
 n\\2i
@@ -23008,7 +23007,7 @@ n\\2i
 <p>准备在Mathematics Stack Exchange上面提问，敲完公式自动排配到一个链接，已经有人问且有大神<a href="https://math.stackexchange.com/questions/533978/given-n-4k-prove-that-sum-i-02k-binomn2i-1i-22k-1k">回答了</a>，个人觉得RobPratt比较容易懂，复制下来以供参考。</p>
 </blockquote>
 <p><strong>Solution.</strong> Let <script type="math/tex">i=\sqrt{-1}</script>, and note that <script type="math/tex">(1+i)^4=(1-i)^4=-4</script>. Also, for <script type="math/tex">j \ge 0</script>, we have
-$$\frac{1+(-1)^j}{2} = <script type="math/tex; mode=display">\begin{cases}1 &\text{if $2|j$}\\0 &\text{otherwise}\end{cases}</script>
+$$\frac{1+(-1)^j}{2} = <script type="math/tex; mode=display">\begin{cases}1 &\text{if <script type="math/tex">2|j</script>}\\0 &amp;\text{otherwise}\end{cases}</script>
 <script type="math/tex; mode=display">
 Then
 </script>

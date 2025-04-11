@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22808,8 +22833,7 @@
 如果<script type="math/tex">L</script>属于<script type="math/tex">P</script>，那么我们会说<script type="math/tex">L</script>的成员能在多项式时间内被检测出结果。<br />
 可能会有人觉得这里太粗略了，因为<script type="math/tex">P</script>不区分<script type="math/tex">O(n)</script>还是<script type="math/tex">O(n^{20})</script>。下面会给出答案。</p>
 <p><strong>Example 20.3.</strong> 所有包含三角的简单图组成了<script type="math/tex">L</script>，那么<script type="math/tex">L\in P</script>。<br />
-<strong>Solution.</strong> 简而言之，最多<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\3\end{pmatrix}</script>=O(n^3)</script>就能确定答案。在确定一个三角形的任意两条边之间，磁头移动的距离小于<script type="math/tex">O(n^2)</script>的。</p>
+<strong>Solution.</strong> 简而言之，最多<script type="math/tex">\begin{pmatrix}n\\3\end{pmatrix}=O(n^3)</script>就能确定答案。在确定一个三角形的任意两条边之间，磁头移动的距离小于<script type="math/tex">O(n^2)</script>的。</p>
 <p>在前面的定义中，我们没有指定<script type="math/tex">k</script>是多少。这消除了输入规模应该多大的问题，比如是图中点的个数<script type="math/tex">n</script>还是邻接矩阵项的个数<script type="math/tex">n^2</script>。<br />
 我们也没有明确磁头移动这个问题。</p>
 <p><strong>Example 20.4.</strong> 这个问题的输入规模是<script type="math/tex">n</script>。对于任意的<script type="math/tex">p=p_1p_2\cdots p_n</script>。对于每一个<script type="math/tex">i\in[n]</script>，如果<script type="math/tex">p_i=j</script>，那么需要验证<script type="math/tex">p_j=i</script>是否成立。这样有<script type="math/tex">n</script>个表示是需要去验证，每次验证，磁头最多移动<script type="math/tex">n</script>个格子，所以磁头最多移动<script type="math/tex">O(n^2)</script>次。</p>

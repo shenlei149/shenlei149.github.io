@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22853,10 +22878,8 @@
 <p><strong>Theorem 9.6.</strong> 一个有向图<script type="math/tex">G</script>有欧拉轨迹当且仅当它是平衡的且是强连通的。<br />
 <strong>Proof</strong> 先看必要性。一个欧拉轨迹<script type="math/tex">W</script>离开每个点次数和进入该点的次数一样，所以<script type="math/tex">G</script>是平衡的。<script type="math/tex">W</script>也提供了一条轨迹，能够从任一点到另外一点，那么<script type="math/tex">G</script>是强连通的。<br />
 对于充分性，和<strong>The-orem 9.2</strong>的证明类似。</p>
-<p>对于无向图来说，如果任意两点之间都有一条边，那么称之为完全图（<code>complete</code>）。有<script type="math/tex">n</script>个点完全图有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>
-</script>条边。如果给每条边一个方向，那么这个有向图是竞赛图（<code>tournament</code>）。竞赛的来自单循环赛。<script type="math/tex">n</script>个人进行单循环赛，顶点就是每个人，边的方向表示两者之间的胜负关系。<br />
-哈密顿路径和哈密顿环在有向图中也有类似的定义。对于完全无向图来说，很显然有哈密顿路径，但是对于相应的有向图而言就没有这么显然易见了。因为对于一个<script type="math/tex">n</script>个顶点的完全图，有<script type="math/tex">2^{<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>}</script>个竞赛图与之对应。下面的定理说明竞赛图也有哈密顿路径。<br />
+<p>对于无向图来说，如果任意两点之间都有一条边，那么称之为完全图（<code>complete</code>）。有<script type="math/tex">n</script>个点完全图有<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}</script>条边。如果给每条边一个方向，那么这个有向图是竞赛图（<code>tournament</code>）。竞赛的来自单循环赛。<script type="math/tex">n</script>个人进行单循环赛，顶点就是每个人，边的方向表示两者之间的胜负关系。<br />
+哈密顿路径和哈密顿环在有向图中也有类似的定义。对于完全无向图来说，很显然有哈密顿路径，但是对于相应的有向图而言就没有这么显然易见了。因为对于一个<script type="math/tex">n</script>个顶点的完全图，有<script type="math/tex">2^{\begin{pmatrix}n\\2\end{pmatrix}}</script>个竞赛图与之对应。下面的定理说明竞赛图也有哈密顿路径。<br />
 <strong>Theorem 9.7.</strong> 所有的竞赛图都有哈密顿路径。<br />
 <strong>Proof</strong> 递归法。只有1个或2个顶点，命题显然成立。假设对于所有有<script type="math/tex">n-1</script>个节点的竞赛图也成立。对于排除任意一点<script type="math/tex">V</script>，其他<script type="math/tex">n-1</script>个顶点组成的图是<script type="math/tex">T'</script>，那么<script type="math/tex">T'</script>有哈密顿路径<script type="math/tex">h=h_1h_2\cdots h_{n-1}</script>。问题转化为将点<script type="math/tex">V</script>插入到路径<script type="math/tex">h</script>里面。如果存在一个索引<script type="math/tex">i</script>有<script type="math/tex">h_iV</script>和<script type="math/tex">Vh_{i+1}</script>均有一条边，那么能将点<script type="math/tex">V</script>插入到路径<script type="math/tex">h</script>里面。<br />
 如果这样的<script type="math/tex">i</script>不存在，那么一定存在一个索引<script type="math/tex">k,0\leq k\leq n-1</script>，对于所有<script type="math/tex">j\leq k</script>，<script type="math/tex">Vh_j</script>是一条边，对于所有<script type="math/tex">j>k</script>，<script type="math/tex">h_jV</script>有一条边。因此要么<script type="math/tex">Vh_1</script>是一条边，或者<script type="math/tex">h_{n-1}V</script>是一条边，所以可以将<script type="math/tex">V</script>插入到<script type="math/tex">h</script>的头或者尾。</p>

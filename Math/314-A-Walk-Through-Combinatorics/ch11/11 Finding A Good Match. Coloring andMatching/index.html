@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22889,9 +22914,7 @@
 <strong>Proof.</strong> 图<script type="math/tex">G</script>是二分图，那么不包含长度是奇数的环，这个容易证明。反证法。假设有环<script type="math/tex">A_1A_2\cdots A_{2m+1}</script>。用红色和蓝色染色。不失一般性地用红色染第一点，那个<script type="math/tex">A_2</script>必须是蓝色，<script type="math/tex">A_3</script>是红色，依次，<script type="math/tex">A_{2m+1}</script>是红色，但是<script type="math/tex">A_1A_{2m+1}</script>是一条边，两个顶点必须是不同颜色。<br />
 现在证明另外一个方向。图<script type="math/tex">G</script>不包含长度是奇数的环，那么<script type="math/tex">G</script>是二分图。从某一个点<script type="math/tex">V</script>开始，染色成蓝色，对于其他某点<script type="math/tex">W</script>，如果<script type="math/tex">W</script>到<script type="math/tex">V</script>的最短路径是奇数，染成红色，如果是偶数，染成蓝色，这样是符合题意的染色方式。假定<script type="math/tex">P</script>和<script type="math/tex">Q</script>是同色的，同时有一条边相连。令<script type="math/tex">p,q</script>分别是两点到<script type="math/tex">V</script>的最短路径，由于这两点同色，那么<script type="math/tex">p</script>和<script type="math/tex">q</script>的长度同为奇数或者同为偶数，加上边<script type="math/tex">PQ</script>，构成了长度为<script type="math/tex">p+q+1</script>的环，由于<script type="math/tex">p,q</script>同奇偶，那么环的长度是奇数，与前提假设矛盾，所以不存在这样的点<script type="math/tex">P,Q</script>，所以<script type="math/tex">G</script>是二分图。</p>
 <p>
-<script type="math/tex">n</script>个顶点的简单图<script type="math/tex">G</script>是二分图，能有多少条边呢？这里想要求的是上限。树有<script type="math/tex">n-1</script>条边，那么答案线性于<script type="math/tex">n</script>，或者是<script type="math/tex">n^\alpha,1<\alpha<2</script>，或者是<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\2\end{pmatrix}</script>
-</script>的若干分之一？下面的定理给出了答案，边数更接近图的边的最大值。<br />
+<script type="math/tex">n</script>个顶点的简单图<script type="math/tex">G</script>是二分图，能有多少条边呢？这里想要求的是上限。树有<script type="math/tex">n-1</script>条边，那么答案线性于<script type="math/tex">n</script>，或者是<script type="math/tex">n^\alpha,1<\alpha<2</script>，或者是<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}</script>的若干分之一？下面的定理给出了答案，边数更接近图的边的最大值。<br />
 <strong>Theorem 11.6.</strong> 图<script type="math/tex">G</script>是<script type="math/tex">n</script>个顶点的简单二分图。如果<script type="math/tex">n</script>是偶数，那么最多有<script type="math/tex">n^2/4</script>条边；<script type="math/tex">n</script>是奇数，最多有<script type="math/tex">(n^2-1)/4</script>条边。<br />
 <strong>Proof</strong> 令<script type="math/tex">a,b</script>是两种颜色的点数，那么边数最大值是<script type="math/tex">ab=a(n-a)</script>，那么这个问题转换成了求解二次函数的最大值问题。</p>
 <p>在上述证明中，构造了一个非常重要的二分图种类，完全二分图(<code>complete bipartite graphs</code>)。如果完全二分图的两种点数分别是<script type="math/tex">a,b</script>，记作<script type="math/tex">K_{a,b}</script>。<br />
@@ -22981,9 +23004,7 @@
 * 边的一个顶点在<script type="math/tex">S</script>，另一个顶点<script type="math/tex">G-S</script>
 * <script type="math/tex">G-S</script>内部</p>
 <p>
-<script type="math/tex">S</script>内部有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}k\\2\end{pmatrix}</script>
-</script>条边；<script type="math/tex">G-S</script>里面的点最多和<script type="math/tex">S</script>中的<script type="math/tex">k-1</script>个点相连，有<script type="math/tex">(n-k)(k-1)</script>条边；<script type="math/tex">G-S</script>有<script type="math/tex">n-k</script>点，那么有<script type="math/tex">T(n-k,k)</script>条边。所以
+<script type="math/tex">S</script>内部有<script type="math/tex">\begin{pmatrix}k\\2\end{pmatrix}</script>条边；<script type="math/tex">G-S</script>里面的点最多和<script type="math/tex">S</script>中的<script type="math/tex">k-1</script>个点相连，有<script type="math/tex">(n-k)(k-1)</script>条边；<script type="math/tex">G-S</script>有<script type="math/tex">n-k</script>点，那么有<script type="math/tex">T(n-k,k)</script>条边。所以
 <script type="math/tex; mode=display">\begin{pmatrix}
 k\\2
 \end{pmatrix}+(n-k)(k-1)+T(n-k,k)=T(n,k)</script>

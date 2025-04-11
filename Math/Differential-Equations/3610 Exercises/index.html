@@ -2849,6 +2849,8 @@
       
         
       
+        
+      
     
     
     
@@ -3158,6 +3160,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22664,20 +22689,15 @@
   <h1>3610 Exercises</h1>
 
 <p><strong>Ex 1</strong><br />
-In this problem, <script type="math/tex">A=<script type="math/tex; mode=display">\begin{pmatrix}1&1\\-4&1\end{pmatrix}</script>
-</script> and we are interested in the equation <script type="math/tex">\boldsymbol{u'}=A\boldsymbol{u}</script>.<br />
+In this problem, <script type="math/tex">A=\begin{pmatrix}1&1\\-4&1\end{pmatrix}</script> and we are interested in the equation <script type="math/tex">\boldsymbol{u'}=A\boldsymbol{u}</script>.<br />
 (a) Find a fundamental matrix <script type="math/tex">\Phi(t)</script> for <script type="math/tex">A</script>.<br />
 (b) Find the exponential matrix <script type="math/tex">e^{At}</script>.<br />
-(c) Find the solution to <script type="math/tex">\boldsymbol{u'}=A\boldsymbol{u}</script> with <script type="math/tex">\boldsymbol{u}(0)=<script type="math/tex; mode=display">\begin{bmatrix}1\\2\end{bmatrix}</script>
-</script>.<br />
-(d) Find a solution to <script type="math/tex">\boldsymbol{u'}=A\boldsymbol{u}+<script type="math/tex; mode=display">\begin{bmatrix}5\\10\end{bmatrix}</script>
-</script>. What is the general solution? What is the solution with <script type="math/tex">\boldsymbol{u}(0)=\boldsymbol{0}</script>.<br />
+(c) Find the solution to <script type="math/tex">\boldsymbol{u'}=A\boldsymbol{u}</script> with <script type="math/tex">\boldsymbol{u}(0)=\begin{bmatrix}1\\2\end{bmatrix}</script>.<br />
+(d) Find a solution to <script type="math/tex">\boldsymbol{u'}=A\boldsymbol{u}+\begin{bmatrix}5\\10\end{bmatrix}</script>. What is the general solution? What is the solution with <script type="math/tex">\boldsymbol{u}(0)=\boldsymbol{0}</script>.<br />
 <strong>Solution</strong><br />
 (a) The eigenvalues of <script type="math/tex">A</script> are solutions to <script type="math/tex">(1-\lambda)^2+4=\lambda^2-2\lambda+5=0</script>, which are in this case the complex conjugates <script type="math/tex">1\plusmn 2i</script>.<br />
 Choose one of them, say <script type="math/tex">\lambda_1=1+2i</script>, and find an eigenvector <script type="math/tex">v_1</script> for it.<br />
-The eigenvectors corresponding to <script type="math/tex">\lambda_1</script> are the vectors in the killed by <script type="math/tex">A-\lambda_1I=<script type="math/tex; mode=display">\begin{bmatrix}-2i&1\\-4&-2i\end{bmatrix}</script>
-</script>, so we can take, say, <script type="math/tex">v_1=<script type="math/tex; mode=display">\begin{bmatrix}1\\2i\end{bmatrix}</script>
-</script>.<br />
+The eigenvectors corresponding to <script type="math/tex">\lambda_1</script> are the vectors in the killed by <script type="math/tex">A-\lambda_1I=\begin{bmatrix}-2i&1\\-4&-2i\end{bmatrix}</script>, so we can take, say, <script type="math/tex">v_1=\begin{bmatrix}1\\2i\end{bmatrix}</script>.<br />
 This means this equation has a complex-valued solution
 <script type="math/tex; mode=display">\begin{aligned}
 \boldsymbol{u}(t)&=e^{\lambda_1t}v_1=e^{(1+2i)t}\begin{bmatrix}
@@ -22754,8 +22774,7 @@ This implies
 \end{bmatrix}=\begin{bmatrix}
 1\\-6
 \end{bmatrix}</script>
-Since all homogeneous solutions are of the form <script type="math/tex">e^{At}<script type="math/tex; mode=display">\begin{bmatrix}a\\b\end{bmatrix}</script>
-</script>, the general solution is then given by
+Since all homogeneous solutions are of the form <script type="math/tex">e^{At}\begin{bmatrix}a\\b\end{bmatrix}</script>, the general solution is then given by
 <script type="math/tex; mode=display">e^{At}\begin{bmatrix}a\\b\end{bmatrix}+\begin{bmatrix}
 1\\-6
 \end{bmatrix}=\begin{bmatrix}
@@ -22776,12 +22795,8 @@ e^t(2\sin 2t+6\cos 2t)-6
 \end{bmatrix}</script>
 </p>
 <p><strong>Ex 2</strong><br />
-Suppose <script type="math/tex">\boldsymbol{u}_1(t)=<script type="math/tex; mode=display">\begin{bmatrix}1\\1\end{bmatrix}</script>
-</script> (the constant trajectory) and <script type="math/tex">\boldsymbol{u}_2(t)=<script type="math/tex; mode=display">\begin{bmatrix}e^t\\-e^{t}\end{bmatrix}</script>
-</script> are solutions to the equation <script type="math/tex">\boldsymbol{u'}=B\boldsymbol{u}</script> for some matrix <script type="math/tex">B</script>.<br />
-(a) What is the general solution? What is the solution <script type="math/tex">\boldsymbol{u}(t)</script> with <script type="math/tex">\boldsymbol{u}(0)=<script type="math/tex; mode=display">\begin{bmatrix}2\\2\end{bmatrix}</script>
-</script>? What is the solution with <script type="math/tex">\boldsymbol{u}(0)=<script type="math/tex; mode=display">\begin{bmatrix}1\\0\end{bmatrix}</script>
-</script>?<br />
+Suppose <script type="math/tex">\boldsymbol{u}_1(t)=\begin{bmatrix}1\\1\end{bmatrix}</script> (the constant trajectory) and <script type="math/tex">\boldsymbol{u}_2(t)=\begin{bmatrix}e^t\\-e^{t}\end{bmatrix}</script> are solutions to the equation <script type="math/tex">\boldsymbol{u'}=B\boldsymbol{u}</script> for some matrix <script type="math/tex">B</script>.<br />
+(a) What is the general solution? What is the solution <script type="math/tex">\boldsymbol{u}(t)</script> with <script type="math/tex">\boldsymbol{u}(0)=\begin{bmatrix}2\\2\end{bmatrix}</script>? What is the solution with <script type="math/tex">\boldsymbol{u}(0)=\begin{bmatrix}1\\0\end{bmatrix}</script>?<br />
 (b) Find a fundamental matrix, and compute the exponential <script type="math/tex">e^{Bt}</script>. What is <script type="math/tex">e^B</script>?<br />
 (c) What are the eigenvalues and eigenvectors of <script type="math/tex">B</script>?<br />
 (d) What is <script type="math/tex">B</script>?<br />
@@ -22789,15 +22804,11 @@ Suppose <script type="math/tex">\boldsymbol{u}_1(t)=<script type="math/tex; mode
 (a) The general solution is
 <script type="math/tex; mode=display">\boldsymbol{u}(t)=a\boldsymbol{u}_1(t)+b\boldsymbol{u}_2(t)=a\begin{bmatrix}1\\1\end{bmatrix}+b\begin{bmatrix}e^t\\-e^{t}\end{bmatrix}</script>
 We can find the particular solution that satisfies any given initial condition <script type="math/tex">\boldsymbol{u}(0)</script> explicitly by solving the system of equations given by <script type="math/tex">a\boldsymbol{u}_1(0) + b\boldsymbol{u}_2(0) = \boldsymbol{u}(0)</script> for <script type="math/tex">a</script> and <script type="math/tex">b</script>.<br />
-Here <script type="math/tex">\boldsymbol{u}_1(0)=<script type="math/tex; mode=display">\begin{bmatrix}1\\1\end{bmatrix}</script>
-</script> and <script type="math/tex">\boldsymbol{u}_2(0)=<script type="math/tex; mode=display">\begin{bmatrix}1\\-1\end{bmatrix}</script>
-</script>, so the solution with initial condition <script type="math/tex">\boldsymbol{u}(0)=<script type="math/tex; mode=display">\begin{bmatrix}2\\2\end{bmatrix}</script>
-</script> is the constant trajectory
+Here <script type="math/tex">\boldsymbol{u}_1(0)=\begin{bmatrix}1\\1\end{bmatrix}</script> and <script type="math/tex">\boldsymbol{u}_2(0)=\begin{bmatrix}1\\-1\end{bmatrix}</script>, so the solution with initial condition <script type="math/tex">\boldsymbol{u}(0)=\begin{bmatrix}2\\2\end{bmatrix}</script> is the constant trajectory
 <script type="math/tex; mode=display">2\boldsymbol{u}_1(t)=\begin{bmatrix}
 2\\2
 \end{bmatrix}</script>
-and the solution with initial condition <script type="math/tex">\boldsymbol{u}(0)=<script type="math/tex; mode=display">\begin{bmatrix}1\\0\end{bmatrix}</script>
-</script> is
+and the solution with initial condition <script type="math/tex">\boldsymbol{u}(0)=\begin{bmatrix}1\\0\end{bmatrix}</script> is
 <script type="math/tex; mode=display">\frac{1}{2}\boldsymbol{u}_1(t)+\frac{1}{2}\boldsymbol{u}_2(t)=\begin{bmatrix}
 1/2+e^t/2\\1/2-e^t/2
 \end{bmatrix}</script>
@@ -22805,10 +22816,7 @@ and the solution with initial condition <script type="math/tex">\boldsymbol{u}(0
 <script type="math/tex; mode=display">\begin{bmatrix}
 1&e^t\\1&-e^t
 \end{bmatrix}</script>
-Evaluating this matrix at <script type="math/tex">t = 0</script> gives <script type="math/tex">
-<script type="math/tex; mode=display">\begin{bmatrix}1&1\\1&-1\end{bmatrix}</script>
-</script> which has inverse <script type="math/tex">\frac{1}{2}<script type="math/tex; mode=display">\begin{bmatrix}1&1\\1&-1\end{bmatrix}</script>
-</script>, so the exponential matrix is
+Evaluating this matrix at <script type="math/tex">t = 0</script> gives <script type="math/tex">\begin{bmatrix}1&1\\1&-1\end{bmatrix}</script> which has inverse <script type="math/tex">\frac{1}{2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}</script>, so the exponential matrix is
 <script type="math/tex; mode=display">\begin{aligned}
 e^{Bt}&=\begin{bmatrix}
 1&e^t\\1&-e^t
@@ -22817,16 +22825,11 @@ e^{Bt}&=\begin{bmatrix}
 1+e^t&1-e^t\\1-e^t&1+e^t
 \end{bmatrix}
 \end{aligned}</script>
-Evaluating <script type="math/tex">e^{Bt}</script> at <script type="math/tex">t = 1</script> gives us <script type="math/tex">e^B=\frac{1}{2}<script type="math/tex; mode=display">\begin{bmatrix}1+e&1-e\\1-e&1+e\end{bmatrix}</script>
-</script>
+Evaluating <script type="math/tex">e^{Bt}</script> at <script type="math/tex">t = 1</script> gives us <script type="math/tex">e^B=\frac{1}{2}\begin{bmatrix}1+e&1-e\\1-e&1+e\end{bmatrix}</script>
 <br />
-(c) <script type="math/tex">\boldsymbol{u}_1=<script type="math/tex; mode=display">\begin{bmatrix}1\\1\end{bmatrix}</script>
-</script>, so <script type="math/tex">\lambda_1=0</script> and <script type="math/tex">\boldsymbol{v}_1=<script type="math/tex; mode=display">\begin{bmatrix}1\\1\end{bmatrix}</script>
-</script>
+(c) <script type="math/tex">\boldsymbol{u}_1=\begin{bmatrix}1\\1\end{bmatrix}</script>, so <script type="math/tex">\lambda_1=0</script> and <script type="math/tex">\boldsymbol{v}_1=\begin{bmatrix}1\\1\end{bmatrix}</script>
 <br />
-<script type="math/tex">\boldsymbol{u}_2(t)=<script type="math/tex; mode=display">\begin{bmatrix}e^t\\-e^{t}\end{bmatrix}</script>=e^t<script type="math/tex; mode=display">\begin{bmatrix}1\\-1\end{bmatrix}</script>
-</script>, so <script type="math/tex">\lambda_2=1</script> and <script type="math/tex">\boldsymbol{v}_2=<script type="math/tex; mode=display">\begin{bmatrix}1\\-1\end{bmatrix}</script>
-</script>
+<script type="math/tex">\boldsymbol{u}_2(t)=\begin{bmatrix}e^t\\-e^{t}\end{bmatrix}=e^t\begin{bmatrix}1\\-1\end{bmatrix}</script>, so <script type="math/tex">\lambda_2=1</script> and <script type="math/tex">\boldsymbol{v}_2=\begin{bmatrix}1\\-1\end{bmatrix}</script>
 <br />
 (d) <script type="math/tex">\boldsymbol{u'}=B\boldsymbol{u}</script>
 From the equation for the first eigenvalue
@@ -22835,9 +22838,7 @@ From the equation for the first eigenvalue
 \end{bmatrix}=B\begin{bmatrix}
 1\\1
 \end{bmatrix}</script>
-so <script type="math/tex">B</script> has the form <script type="math/tex">
-<script type="math/tex; mode=display">\begin{bmatrix}a&-a\\c&-c\end{bmatrix}</script>
-</script>
+so <script type="math/tex">B</script> has the form <script type="math/tex">\begin{bmatrix}a&-a\\c&-c\end{bmatrix}</script>
 <br />
 From the equation for the second eigenvalue
 <script type="math/tex; mode=display">e^t\begin{bmatrix}1\\-1\end{bmatrix}=\begin{bmatrix}a&-a\\c&-c\end{bmatrix}\begin{bmatrix}e^t\\-e^t\end{bmatrix}</script>
@@ -22862,8 +22863,7 @@ From 3304, we know</p>
 <blockquote>
 <p>The corresponding coefficient matrix is
 <script type="math/tex; mode=display">A=\begin{pmatrix}0&1\\-k&-b\end{pmatrix}</script>
-The companion matrix is <script type="math/tex">A=<script type="math/tex; mode=display">\begin{bmatrix}0&1\\-2&-2\end{bmatrix}</script>
-</script>.<br />
+The companion matrix is <script type="math/tex">A=\begin{bmatrix}0&1\\-2&-2\end{bmatrix}</script>.<br />
 Its characteristic polynomial is the same, <script type="math/tex">\lambda^2+2\lambda+2</script>, so its eigenvalues are the same, <script type="math/tex">-1\plusmn i</script>.<br />
 An eigenvector for value <script type="math/tex">-1+i</script> is given by <script type="math/tex">\boldsymbol{v}_1</script> such that
 <script type="math/tex; mode=display">\begin{bmatrix}
@@ -22871,8 +22871,7 @@ An eigenvector for value <script type="math/tex">-1+i</script> is given by <scri
 \end{bmatrix}\boldsymbol{v}_1=\begin{bmatrix}
 0\\0
 \end{bmatrix}</script>
-We can take <script type="math/tex">\boldsymbol{v}_1=<script type="math/tex; mode=display">\begin{bmatrix}1\\-1+i\end{bmatrix}</script>
-</script>. The corresponding normal mode is
+We can take <script type="math/tex">\boldsymbol{v}_1=\begin{bmatrix}1\\-1+i\end{bmatrix}</script>. The corresponding normal mode is
 <script type="math/tex; mode=display">\begin{aligned}
 e^{-1+i}\begin{bmatrix}
 1\\-1+i
@@ -22915,12 +22914,9 @@ e^{At}&=\Phi(t)\Phi(0)^{-1}\\
 </p>
 </blockquote>
 <p><strong>Ex 4.</strong><br />
-We have seen that a complex number <script type="math/tex">z = a + bi</script> determines a matrix <script type="math/tex">A(z)</script> in the following way: <script type="math/tex">A(a + bi) =<script type="math/tex; mode=display">\begin{bmatrix}a&-b\\b&a\end{bmatrix}</script>
-</script>. This matrix represents the operation of multiplication by <script type="math/tex">z</script>, in the sense that if <script type="math/tex">z(x + yi) = v + wi</script> then <script type="math/tex">A(z)<script type="math/tex; mode=display">\begin{bmatrix}x\\y\end{bmatrix}</script>=<script type="math/tex; mode=display">\begin{bmatrix}v\\w\end{bmatrix}</script>
-</script>. What is <script type="math/tex">e^{A(z)t}</script>? What is <script type="math/tex">A(e^{zt})</script>?<br />
+We have seen that a complex number <script type="math/tex">z = a + bi</script> determines a matrix <script type="math/tex">A(z)</script> in the following way: <script type="math/tex">A(a + bi) =\begin{bmatrix}a&-b\\b&a\end{bmatrix}</script>. This matrix represents the operation of multiplication by <script type="math/tex">z</script>, in the sense that if <script type="math/tex">z(x + yi) = v + wi</script> then <script type="math/tex">A(z)\begin{bmatrix}x\\y\end{bmatrix}=\begin{bmatrix}v\\w\end{bmatrix}</script>. What is <script type="math/tex">e^{A(z)t}</script>? What is <script type="math/tex">A(e^{zt})</script>?<br />
 <strong>Solution.</strong><br />
-With <script type="math/tex">A(z)=<script type="math/tex; mode=display">\begin{bmatrix}a&-b\\b&a\end{bmatrix}</script>
-</script>,
+With <script type="math/tex">A(z)=\begin{bmatrix}a&-b\\b&a\end{bmatrix}</script>,
 <script type="math/tex; mode=display">p_A(\lambda)=(\lambda-a)^2+b^2</script>
 so the eigenvalues are <script type="math/tex">a \plusmn bi</script>. An eigenvector for <script type="math/tex">\lambda_1 = a + bi</script> is given by <script type="math/tex">\boldsymbol{v}_1</script> such that
 <script type="math/tex; mode=display">\begin{bmatrix}
@@ -22928,8 +22924,7 @@ so the eigenvalues are <script type="math/tex">a \plusmn bi</script>. An eigenve
 \end{bmatrix}\boldsymbol{v}_1=\begin{bmatrix}
 0\\0
 \end{bmatrix}</script>
-and we can take <script type="math/tex">\boldsymbol{v}_1 = <script type="math/tex; mode=display">\begin{bmatrix}1\\-i\end{bmatrix}</script>
-</script>. The corresponding normal mode is
+and we can take <script type="math/tex">\boldsymbol{v}_1 = \begin{bmatrix}1\\-i\end{bmatrix}</script>. The corresponding normal mode is
 <script type="math/tex; mode=display">\begin{aligned}
 e^{(a+bi)t}\begin{bmatrix}1\\-i\end{bmatrix}&=e^{at}(\cos bt + i\sin bt)\begin{bmatrix}1\\-i\end{bmatrix}\\
 &=e^{at}(\cos bt\begin{bmatrix}

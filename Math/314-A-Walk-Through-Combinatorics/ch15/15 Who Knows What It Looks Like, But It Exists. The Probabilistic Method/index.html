@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22950,11 +22975,9 @@
 <strong>Theorem 15.5.</strong> 对所有正整数<script type="math/tex">k\geq 3</script>，不等式<script type="math/tex">R(k,k)>2^{k/2}</script>都成立。<br />
 <strong>Proof.</strong> 令<script type="math/tex">G=K_n</script>，对<script type="math/tex">G</script>按照如下方式染色：对于每条边而言，通过掷硬币的方式，如果正面向上染成红色，否则染成蓝色，每条边是红色或者蓝色的概率都是二分之一。我们将会证明没有同色完全子图<script type="math/tex">K_k</script>的概率是大于0的。<script type="math/tex">p=\frac{|F|}{|\Omega |}</script>，<script type="math/tex">\Omega</script>是<script type="math/tex">n</script>个顶点的完全图进行二染色的集合，<script type="math/tex">p>0</script>意味着至少有一个二染色的完全图<script type="math/tex">K_n</script>不包含同色完全子图<script type="math/tex">K_k</script>。<br />
 我们会通过证明<script type="math/tex">1-p<1</script>来证明<script type="math/tex">p>0</script>。前者的意思是对<script type="math/tex">G</script>随机染色，至少有一个同色完全子图的概率。<br />
-将<script type="math/tex">K_n</script>中的<script type="math/tex">K_k</script>子图二颜色的方式有<script type="math/tex">2^{<script type="math/tex; mode=display">\begin{pmatrix}k\\2\end{pmatrix}</script>}</script>，其中有两个是同色的。所以随机对其染色是同色的概率是
+将<script type="math/tex">K_n</script>中的<script type="math/tex">K_k</script>子图二颜色的方式有<script type="math/tex">2^{\begin{pmatrix}k\\2\end{pmatrix}}</script>，其中有两个是同色的。所以随机对其染色是同色的概率是
 <script type="math/tex; mode=display">\frac{2}{2^{\begin{pmatrix}k\\2\end{pmatrix}}}=2^{1-{\begin{pmatrix}k\\2\end{pmatrix}}}</script>
-<script type="math/tex">K_n</script>有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\k\end{pmatrix}</script>
-</script>个<script type="math/tex">K_k</script>。每一个都有可能包含同色的子图。根据<strong>Proposition 15.2</strong>这些子图中至少有一个同色子图的概率最多是这些可能性之和。如果用<script type="math/tex">A_S</script>表示<script type="math/tex">G</script>的<script type="math/tex">K_k</script>子图<script type="math/tex">S</script>是同色的，那么
+<script type="math/tex">K_n</script>有<script type="math/tex">\begin{pmatrix}n\\k\end{pmatrix}</script>个<script type="math/tex">K_k</script>。每一个都有可能包含同色的子图。根据<strong>Proposition 15.2</strong>这些子图中至少有一个同色子图的概率最多是这些可能性之和。如果用<script type="math/tex">A_S</script>表示<script type="math/tex">G</script>的<script type="math/tex">K_k</script>子图<script type="math/tex">S</script>是同色的，那么
 <script type="math/tex; mode=display">P(\bigcup_S A_S)\leq \sum_S P(A_S)=\begin{pmatrix}
 n\\k
 \end{pmatrix}2^{1-{\begin{pmatrix}k\\2\end{pmatrix}}}\tag{15.1}</script>
@@ -22967,8 +22990,7 @@ k\\2
 最后一步使用递归法很容易证明。</p>
 <p>第十三章证明了<script type="math/tex">R(k,k)\leq 4^k</script>，这里证明了<script type="math/tex">\sqrt{2}^k<R(k,k)</script>。基本上这是已知的<code>Ramsey numbers</code>最好的范围了。</p>
 <p><strong>Theorem 15.6.</strong> 令<script type="math/tex">m,n</script>是大于1的正整数，并且<script type="math/tex">m\geq 2\log_2 n</script>。对<script type="math/tex">K_{n,n}</script>进二染色，没有同色边的<script type="math/tex">K_{m,m}</script>是可能的。<br />
-<strong>Proof.</strong> 对<script type="math/tex">K_{m,m}</script>进行二颜色的方式有<script type="math/tex">2^{m^2}</script>种，其中两种是单色的。那么至少有一个同色子图的概率最多是<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\m\end{pmatrix}</script>^2 2^{1-m^2}</script>，我们需要证明
+<strong>Proof.</strong> 对<script type="math/tex">K_{m,m}</script>进行二颜色的方式有<script type="math/tex">2^{m^2}</script>种，其中两种是单色的。那么至少有一个同色子图的概率最多是<script type="math/tex">\begin{pmatrix}n\\m\end{pmatrix}^2 2^{1-m^2}</script>，我们需要证明
 <script type="math/tex; mode=display">\begin{pmatrix}n\\m\end{pmatrix}^2 2^{1-m^2}</script>
 也就是
 <script type="math/tex; mode=display">2\begin{pmatrix}n\\m\end{pmatrix}^2<2^{m^2}</script>
@@ -23175,9 +23197,7 @@ E(X_i)&=0\cdot P(X_i=0)+1\cdot P(X_i=1)\\
 <p>(13) 令<script type="math/tex">\pi</script>是随机的选择的<script type="math/tex">n</script>的分割。<script type="math/tex">X(p)</script>表示<script type="math/tex">\pi</script>的第一个部分的元素数量，<script type="math/tex">Y(p)</script>表示<script type="math/tex">\pi</script>的部分的个数。求<script type="math/tex">E(X)-E(Y)</script>。<br />
 <strong>Solution.</strong> <script type="math/tex">\pi</script>的第一部分有<script type="math/tex">i</script>个元素，那么其共轭分割就有<script type="math/tex">i</script>个部分，那么<script type="math/tex">P(X=i)=P(Y=i)</script>，因此<script type="math/tex">E(X)-E(Y)=0</script>。</p>
 <p>(16) 回忆十四章有<script type="math/tex">S_n(1234)<S_n(1324),n\geq 7</script>。令<script type="math/tex">n</script>是大于7的固定整数。令<script type="math/tex">A</script>事件表示<script type="math/tex">n</script>排列包含1234模式，<script type="math/tex">B</script>事件表示<script type="math/tex">n</script>排列包含1324模式。令<script type="math/tex">X</script>表示随机选择一个<script type="math/tex">n</script>排列包含1234模式，<script type="math/tex">Y</script>表示随机选择一个<script type="math/tex">n</script>排列包含1324模式。那么<script type="math/tex">E(X|A),E(Y|B)</script>哪个大呢？<br />
-<strong>Solution.</strong> 随机选择四个不同的数，组成<script type="math/tex">q</script>模式的概率是<script type="math/tex">1/24</script>，那么<script type="math/tex">n</script>排列任选四个数的个数是<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\4\end{pmatrix}</script>
-</script>，所以<script type="math/tex">E(X)=E(Y)=<script type="math/tex; mode=display">\begin{pmatrix}n\\4\end{pmatrix}</script>/24</script>。根据<strong>Theorem 15.25</strong>有
+<strong>Solution.</strong> 随机选择四个不同的数，组成<script type="math/tex">q</script>模式的概率是<script type="math/tex">1/24</script>，那么<script type="math/tex">n</script>排列任选四个数的个数是<script type="math/tex">\begin{pmatrix}n\\4\end{pmatrix}</script>，所以<script type="math/tex">E(X)=E(Y)=\begin{pmatrix}n\\4\end{pmatrix}/24</script>。根据<strong>Theorem 15.25</strong>有
 <script type="math/tex; mode=display">E(X) = E(X|A)P(A) + E(X|\bar{A})P(\bar{A}) = E(X|A)P(A)</script>
 <script type="math/tex; mode=display">E(Y) = E(Y|B)P(B) + E(Y|\bar{B})P(\bar{B}) = E(Y|B)P(B)</script>
 由于<script type="math/tex">E(X)=E(Y)</script>，那么<script type="math/tex">E(X|A)P(A)=E(Y|B)P(B)</script>，又有<script type="math/tex">P(A)>P(B)</script>，所以<script type="math/tex">E(Y|B)>E(X|A)</script>。</p>

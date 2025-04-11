@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22757,8 +22782,8 @@ it is represented geometrically as a vector field, and its trajectories - the so
 <script type="math/tex; mode=display">f(0,0)=0,g(0,0)\tag{2}</script>
 Then if <script type="math/tex">f</script> and <script type="math/tex">g</script> are sufficiently differentiable, we can approximate them near <script type="math/tex">(0, 0)</script> (the approximation will have no constant term by <script type="math/tex">(2)</script>):
 $$<script type="math/tex; mode=display">\begin{aligned}
-f(x, y) = a_1x + b_1y + \text{ higher order terms in $x$ and $y$}\\
-g(x, y) = a_2x + b_2y + \text{ higher order terms in $x$ and $y$}
+f(x, y) = a_1x + b_1y + \text{ higher order terms in <script type="math/tex">x</script> and <script type="math/tex">y</script>}\
+g(x, y) = a_2x + b_2y + \text{ higher order terms in <script type="math/tex">x</script> and <script type="math/tex">y</script>}
 \end{aligned}</script>$$
 If <script type="math/tex">(x, y)</script> is close to <script type="math/tex">(0, 0)</script>, then <script type="math/tex">x</script> and <script type="math/tex">y</script> will be small and we can neglect the higher order terms. Then the non-linear system <script type="math/tex">(2)</script> is approximated near <script type="math/tex">(0, 0)</script> by a linear system, the <strong>linearization</strong> of <script type="math/tex">(2)</script> at <script type="math/tex">(0,0)</script>:
 <script type="math/tex; mode=display">\begin{aligned}
@@ -22766,22 +22791,14 @@ x' = a_1x + b_1y\\
 y' = a_2x + b_2y
 \end{aligned}\tag{3}</script>
 and near <script type="math/tex">(0,0)</script>, the solutions of <script type="math/tex">(1)</script> - about which we know nothing - will be like the solutions to <script type="math/tex">(4)</script>, about which we know a great deal from our work in the previous sessions.<br />
-<strong>Example 1.</strong> Linearize the system <script type="math/tex">
-<script type="math/tex; mode=display">\begin{cases}x'=y\cos x\\y'=x(1+y)^2\end{cases}</script>
-</script> at the critical point <script type="math/tex">(0,0)</script>.<br />
-<strong>Solution.</strong> We have <script type="math/tex">
-<script type="math/tex; mode=display">\begin{cases}x'\approx y(1-\frac{1}{2}x^2)\\y'=x(1+2y+y^2)\end{cases}</script>
-</script> so the linearization is <script type="math/tex">
-<script type="math/tex; mode=display">\begin{cases}x'=y\\y'=x\end{cases}</script>
-</script>.<br />
+<strong>Example 1.</strong> Linearize the system <script type="math/tex">\begin{cases}x'=y\cos x\\y'=x(1+y)^2\end{cases}</script> at the critical point <script type="math/tex">(0,0)</script>.<br />
+<strong>Solution.</strong> We have <script type="math/tex">\begin{cases}x'\approx y(1-\frac{1}{2}x^2)\\y'=x(1+2y+y^2)\end{cases}</script> so the linearization is <script type="math/tex">\begin{cases}x'=y\\y'=x\end{cases}</script>.<br />
 <strong>Linearising at a general point</strong> More generally, suppose now the critical point of <script type="math/tex">(1)</script> is <script type="math/tex">(x_0, y_0)</script>, so that
 <script type="math/tex; mode=display">f(x_0,y_0)=0,g(x_0,y_0)=0</script>
 One way this can be handled is to make the change of variable
 <script type="math/tex; mode=display">x_1=x-x_0,y_1=y-y_0\tag{4}</script>
 in the <script type="math/tex">x_1y_1</script>-coordinate system, the critical point is <script type="math/tex">(0, 0)</script>, and we can proceed as before.<br />
-<strong>Example 2.</strong> Linearize <script type="math/tex">
-<script type="math/tex; mode=display">\begin{cases}x'=x-x^2-2xy\\y'=y-y^2-\frac{3}{2}xy\end{cases}</script>
-</script> at its critical points on the <script type="math/tex">x</script>-axis.<br />
+<strong>Example 2.</strong> Linearize <script type="math/tex">\begin{cases}x'=x-x^2-2xy\\y'=y-y^2-\frac{3}{2}xy\end{cases}</script> at its critical points on the <script type="math/tex">x</script>-axis.<br />
 <strong>Solution.</strong> When <script type="math/tex">y = 0</script>, the functions on the right are zero when <script type="math/tex">x = 0</script> and <script type="math/tex">x = 1</script>, so the critical points on the <script type="math/tex">x</script>-axis are <script type="math/tex">(0, 0)</script> and <script type="math/tex">(1, 0)</script>.<br />
 The linearization at <script type="math/tex">(0, 0)</script> is <script type="math/tex">x' = x, y' = y</script>.<br />
 To find the linearization at <script type="math/tex">(1, 0)</script> we change of variable as in <script type="math/tex">(4)</script>: <script type="math/tex">x_1 =x - 1, y_1 = y</script>; substituting for <script type="math/tex">x</script> and <script type="math/tex">y</script> in the system and keeping just the linear terms on the right gives us as the linearization:
@@ -22860,14 +22877,12 @@ To linearize at the critical points, we compute the Jacobian matrices
 Next we analyze the geometric type and stability of each critical point:<br />
 <script type="math/tex">(0, 0)</script>:<br />
 eigenvalues: <script type="math/tex">\lambda_1=-1,\lambda_2=-2</script>,sink node<br />
-eigenvectors: <script type="math/tex">\alpha_1=<script type="math/tex; mode=display">\begin{pmatrix}1\\0\end{pmatrix}</script>,\alpha_2=<script type="math/tex; mode=display">\begin{pmatrix}0\\1\end{pmatrix}</script>
-</script>
+eigenvectors: <script type="math/tex">\alpha_1=\begin{pmatrix}1\\0\end{pmatrix},\alpha_2=\begin{pmatrix}0\\1\end{pmatrix}</script>
 <br />
 By the node-sketching principle, trajectories follow <script type="math/tex">\alpha_1</script> near the origin, are parallel to <script type="math/tex">\alpha_2</script> away from the origin.<br />
 <script type="math/tex">(2,1)</script>:<br />
 eigenvalues: <script type="math/tex">\lambda_1=\sqrt{2},\lambda_2=-\sqrt{2}</script>, unstable saddle<br />
-eigenvectors: <script type="math/tex">\alpha_1=<script type="math/tex; mode=display">\begin{pmatrix}\sqrt{2}\\1\end{pmatrix}</script>,\alpha_2=<script type="math/tex; mode=display">\begin{pmatrix}-\sqrt{2}\\1\end{pmatrix}</script>
-</script>
+eigenvectors: <script type="math/tex">\alpha_1=\begin{pmatrix}\sqrt{2}\\1\end{pmatrix},\alpha_2=\begin{pmatrix}-\sqrt{2}\\1\end{pmatrix}</script>
 <br />
 Draw in these eigenvectors at the respective points <script type="math/tex">(0, 0)</script> and <script type="math/tex">(2, 1)</script>, with arrowhead indicating direction of motion (into the critical point if <script type="math/tex">\lambda < 0</script>, away from critical point if <script type="math/tex">\lambda > 0</script>.) Draw in some nearby trajectories.<br />
 Then guess at some other trajectories compatible with these. See the figure for one attempt at this. Further information could be gotten by considering the associated first-order ODE in <script type="math/tex">x</script> and <script type="math/tex">y</script>.<br />
@@ -22889,28 +22904,16 @@ Critical points:
 14-x-y&-x\\-y&16-y-x
 \end{pmatrix}</script>
 Looking at each of the critical points in turn:<br />
-<script type="math/tex">J(0,0)=<script type="math/tex; mode=display">\begin{pmatrix}14&0\\0&16\end{pmatrix}</script>
-</script>: eigenvalues 14, 16; eigenvectors <script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1\\0\end{pmatrix}</script>,<script type="math/tex; mode=display">\begin{pmatrix}0\\1\end{pmatrix}</script>
-</script>
+<script type="math/tex">J(0,0)=\begin{pmatrix}14&0\\0&16\end{pmatrix}</script>: eigenvalues 14, 16; eigenvectors <script type="math/tex">\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}</script>
 <br />
 <script type="math/tex">\rArr</script> source node (see 'Source node' picture below).<br />
-<script type="math/tex">J(0,32)=<script type="math/tex; mode=display">\begin{pmatrix}-18&0\\-32&-16\end{pmatrix}</script>
-</script>: eigenvalues -18, -16; eigenvectors <script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1\\16\end{pmatrix}</script>,<script type="math/tex; mode=display">\begin{pmatrix}0\\1\end{pmatrix}</script>
-</script>
+<script type="math/tex">J(0,32)=\begin{pmatrix}-18&0\\-32&-16\end{pmatrix}</script>: eigenvalues -18, -16; eigenvectors <script type="math/tex">\begin{pmatrix}1\\16\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}</script>
 <br />
 <script type="math/tex">\rArr</script> sink node (see 'Sink node 1' picture below).<br />
-<script type="math/tex">J(28,0)=<script type="math/tex; mode=display">\begin{pmatrix}-14&-28\\0&-12\end{pmatrix}</script>
-</script>: eigenvalues -14, -12; eigenvectors <script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1\\0\end{pmatrix}</script>,<script type="math/tex; mode=display">\begin{pmatrix}-14\\1\end{pmatrix}</script>
-</script>
+<script type="math/tex">J(28,0)=\begin{pmatrix}-14&-28\\0&-12\end{pmatrix}</script>: eigenvalues -14, -12; eigenvectors <script type="math/tex">\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}-14\\1\end{pmatrix}</script>
 <br />
 <script type="math/tex">\rArr</script> sink node (see 'Sink node 2' picture below).<br />
-<script type="math/tex">J(12,8)=<script type="math/tex; mode=display">\begin{pmatrix}-6&-12\\-8&-4\end{pmatrix}</script>
-</script>: eigenvalues <script type="math/tex">-5\plusmn\sqrt{97}\approx -15,5</script>; eigenvectors <script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}1+\sqrt{97}\\8\end{pmatrix}</script>,<script type="math/tex; mode=display">\begin{pmatrix}1-\sqrt{97}\\8\end{pmatrix}</script>\approx <script type="math/tex; mode=display">\begin{pmatrix}11\\8\end{pmatrix}</script>,<script type="math/tex; mode=display">\begin{pmatrix}-9\\8\end{pmatrix}</script>
-</script>
+<script type="math/tex">J(12,8)=\begin{pmatrix}-6&-12\\-8&-4\end{pmatrix}</script>: eigenvalues <script type="math/tex">-5\plusmn\sqrt{97}\approx -15,5</script>; eigenvectors <script type="math/tex">\begin{pmatrix}1+\sqrt{97}\\8\end{pmatrix},\begin{pmatrix}1-\sqrt{97}\\8\end{pmatrix}\approx \begin{pmatrix}11\\8\end{pmatrix},\begin{pmatrix}-9\\8\end{pmatrix}</script>
 <br />
 <script type="math/tex">\rArr</script> saddle (see 'Saddle' picture below).<br />
 <strong>Rough sketch of system:</strong><br />

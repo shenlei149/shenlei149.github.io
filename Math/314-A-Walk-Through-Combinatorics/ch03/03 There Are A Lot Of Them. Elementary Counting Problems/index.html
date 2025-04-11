@@ -2854,6 +2854,8 @@
       
         
       
+        
+      
     
     
     
@@ -3163,6 +3165,29 @@
   
   <span class="md-ellipsis">
     11 Demystifying C++ IO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/12-Handling-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 Handling Errors
     
   </span>
   
@@ -22828,9 +22853,7 @@
 <strong>Solution.</strong> 略。</p>
 <h2 id="choice-problems">Choice Problems</h2>
 <p>从给定集合中选出一个子集(<code>subset</code>)，顺序是无关紧要的。</p>
-<p><strong>Definition 3.15.</strong> 从集合<script type="math/tex">[n]</script>中选出<script type="math/tex">k</script>个元素的子集的个数用<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\k\end{pmatrix}</script>
-</script>来表示，也被称作是二项式系数(<code>binomial coefficient</code>)。</p>
+<p><strong>Definition 3.15.</strong> 从集合<script type="math/tex">[n]</script>中选出<script type="math/tex">k</script>个元素的子集的个数用<script type="math/tex">\begin{pmatrix}n\\k\end{pmatrix}</script>来表示，也被称作是二项式系数(<code>binomial coefficient</code>)。</p>
 <p><strong>Theorem 3.16.</strong> 对所有非负整数<script type="math/tex">k\leq n</script>，
 <script type="math/tex; mode=display">\begin{pmatrix}
 n\\k
@@ -22848,23 +22871,16 @@ n\\0
 \end{pmatrix}=\begin{pmatrix}
 n\\n
 \end{pmatrix}=1</script>
-<strong>Proof.</strong> 我们建立一个从<script type="math/tex">k</script>个元素的子集到<script type="math/tex">n-k</script>个元素的子集的双射<script type="math/tex">f</script>：<script type="math/tex">S</script>是任意一个<script type="math/tex">k</script>个元素的子集，<script type="math/tex">T=S^c</script>是对应的<script type="math/tex">n-k</script>个元素的子集，<script type="math/tex">f(S)=T</script>。根据双射定义，两者元素个数相等，所以<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\k\end{pmatrix}</script>=<script type="math/tex; mode=display">\begin{pmatrix}n\\n-k\end{pmatrix}</script>
-</script>。<br />
-取<script type="math/tex">k=0</script>即可得到第二个性质。<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}n\\0\end{pmatrix}</script>=0</script>，这个唯一的集合就是空集。</p>
+<strong>Proof.</strong> 我们建立一个从<script type="math/tex">k</script>个元素的子集到<script type="math/tex">n-k</script>个元素的子集的双射<script type="math/tex">f</script>：<script type="math/tex">S</script>是任意一个<script type="math/tex">k</script>个元素的子集，<script type="math/tex">T=S^c</script>是对应的<script type="math/tex">n-k</script>个元素的子集，<script type="math/tex">f(S)=T</script>。根据双射定义，两者元素个数相等，所以<script type="math/tex">\begin{pmatrix}n\\k\end{pmatrix}=\begin{pmatrix}n\\n-k\end{pmatrix}</script>。<br />
+取<script type="math/tex">k=0</script>即可得到第二个性质。<script type="math/tex">\begin{pmatrix}n\\0\end{pmatrix}=0</script>，这个唯一的集合就是空集。</p>
 <p><strong>Example 3.19.</strong> 一个医学院学生一月份要去医院工作五天，但是不能连续两天都去，他有多少种不同的选法呢？<br />
-<strong>Solution.</strong> 不妨设这个学生选择的五天依次是<script type="math/tex">a_1,a_2,a_3,a_4,a_5</script>，根据题意<script type="math/tex">1\leq a_i\leq 31</script>，那么<script type="math/tex">1\leq a_1 <a_2-1<a_3-2<a_4-3<a_5-4\leq 27</script>。我们可以选择<script type="math/tex">a_i-j</script>，然后再得到<script type="math/tex">a_i</script>，所以问题从集合<script type="math/tex">[31]</script>中选择不相邻的五个数转化成了从集合<script type="math/tex">[27]</script>选择五个数，那么有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}27\\5\end{pmatrix}</script>
-</script>种不同选法。</p>
+<strong>Solution.</strong> 不妨设这个学生选择的五天依次是<script type="math/tex">a_1,a_2,a_3,a_4,a_5</script>，根据题意<script type="math/tex">1\leq a_i\leq 31</script>，那么<script type="math/tex">1\leq a_1 <a_2-1<a_3-2<a_4-3<a_5-4\leq 27</script>。我们可以选择<script type="math/tex">a_i-j</script>，然后再得到<script type="math/tex">a_i</script>，所以问题从集合<script type="math/tex">[31]</script>中选择不相邻的五个数转化成了从集合<script type="math/tex">[27]</script>选择五个数，那么有<script type="math/tex">\begin{pmatrix}27\\5\end{pmatrix}</script>种不同选法。</p>
 <p><strong>Example 3.20.</strong> 从集合<script type="math/tex">[90]</script>中有放回的选择五个数，那么有多少种选法？<br />
 <strong>Solution.</strong> 和上题类似，这五个数满足
 <script type="math/tex; mode=display">1\leq b_1\leq b_2\leq b_3\leq b_4\leq b_5\leq 90</script>
 选择一个双射<script type="math/tex">f(b_1,b_2,b_3,b_4,b_5)=(b_1,b_2+1,b_3+2,b_4+3,b_5+4)</script>，那么
 <script type="math/tex; mode=display">1\leq b_1< b_2+1< b_3+2< b_4+3< b_5+4\leq 94</script>
-那么共有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}94\\5\end{pmatrix}</script>
-</script>种选法。</p>
+那么共有<script type="math/tex">\begin{pmatrix}94\\5\end{pmatrix}</script>种选法。</p>
 <p><strong>Theorem 3.21.</strong> 从集合<script type="math/tex">[n]</script>中选择<script type="math/tex">k</script>个元素的多重集，有
 <script type="math/tex; mode=display">\begin{pmatrix}
 n+k-1\\k
@@ -22894,19 +22910,13 @@ r+2\\4
 我们下面分三种情况讨论。<br />
 (a) <script type="math/tex">0\leq a\leq b,0\leq a\leq c</script>，那么<script type="math/tex">(1)(4)(5)</script>被<script type="math/tex">(2)(3)</script>所隐含，也就是冗余的。那么
 <script type="math/tex; mode=display">a\leq 2a+d-c\leq a+b+d-c\leq b+d\leq r</script>
-第一个不等式等价于公式(3)，第二个不等式等价于我们的假设<script type="math/tex">a\leq b</script>，第三个不等式等价于我们的假设<script type="math/tex">a\leq c</script>，最后一个就是我们的公式(2)。<script type="math/tex">a,2a+d-c,a+b+d-c,b+d</script>确定的话，那么<script type="math/tex">a,b,c,d</script>也就确定了。利用例题中的方法将不等号变成等号，那么共有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}r+4\\4\end{pmatrix}</script>
-</script>种可能性。<br />
+第一个不等式等价于公式(3)，第二个不等式等价于我们的假设<script type="math/tex">a\leq b</script>，第三个不等式等价于我们的假设<script type="math/tex">a\leq c</script>，最后一个就是我们的公式(2)。<script type="math/tex">a,2a+d-c,a+b+d-c,b+d</script>确定的话，那么<script type="math/tex">a,b,c,d</script>也就确定了。利用例题中的方法将不等号变成等号，那么共有<script type="math/tex">\begin{pmatrix}r+4\\4\end{pmatrix}</script>种可能性。<br />
 (b) <script type="math/tex">a>b,c\geq b</script>，那么<script type="math/tex">(2)(4)(5)</script>是冗余的。那么
 <script type="math/tex; mode=display">b\leq 2b+d-c\leq a+b+d-c-1\leq a+d-1\leq r-1</script>
-与(a)同理，那么共有<script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}r+3\\4\end{pmatrix}</script>
-</script>种可能性。<br />
+与(a)同理，那么共有<script type="math/tex">\begin{pmatrix}r+3\\4\end{pmatrix}</script>种可能性。<br />
 (c) <script type="math/tex">a>c,b>c</script>，那么<script type="math/tex">(1)(2)(3)(4)</script>都是冗余的。
 <script type="math/tex; mode=display">c\leq b-1\leq b+d-1\leq a+b+d-c-2\leq r-2</script>
-同理，共有 <script type="math/tex">
-<script type="math/tex; mode=display">\begin{pmatrix}r+2\\4\end{pmatrix}</script>
-</script> 种可能性。</p>
+同理，共有 <script type="math/tex">\begin{pmatrix}r+2\\4\end{pmatrix}</script> 种可能性。</p>
 
 
 
