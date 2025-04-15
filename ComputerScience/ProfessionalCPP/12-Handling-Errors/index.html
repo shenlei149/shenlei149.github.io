@@ -3261,6 +3261,60 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rethrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      rethrow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈展开和清理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码位置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      调用栈
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常安全保证
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -22867,6 +22921,60 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rethrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      rethrow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈展开和清理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码位置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      调用栈
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常安全保证
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -22982,6 +23090,95 @@
 </span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="p">};</span>
 </span></code></pre></div></p>
 <p>异常的捕获会移动或者拷贝异常对象，因此如果自定义的异常类有动态分配内存等操作导致实现了析构函数，那么根据建议，实现拷贝、移动的构造和赋值，保证自定义异常如期工作。再一次，如果按值捕获，会导致多一次拷贝，捕获 <code>const</code> 引用可以节省一次拷贝。</p>
+<p>当处理异常的时候，需要抛出第二个异常，为了保留第一个异常的信息，使用 <code>std::throw_with_nested()</code>，类型是 <code>std::nested_exception</code>，一个异常位于另一个异常中，这称为嵌套异常。<code>std::nested_exception</code> 基类的自动捕获 <code>std::current_exception()</code> 返回当前的异常，这个异常存储在 <code>std::exception_ptr</code>。可以通过 <code>const auto* nested { dynamic_cast&lt;const nested_exception*&gt;(&amp;e) };</code> 来将普通异常转换成嵌套异常。</p>
+<h2 id="rethrow">rethrow</h2>
+<p><code>throw;</code> 有再次抛出异常的语义，而不是使用 <code>throw e</code>，因为后者在捕获的实际异常的基类类型时，会截断数据。</p>
+<h2 id="_4">栈展开和清理</h2>
+<p>当发生异常时，需要寻找在栈上的异常捕获，如果找到了，调用栈回到异常捕获这一层，然后进行栈展开（<code>stack unwinding</code>），会一次析构栈上的对象并且会跳过每个函数后续的代码。不过稍有不慎，会导致内存或其他资源泄露。比如下面的例子
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">FuncOne</span><span class="p">();</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">FuncTwo</span><span class="p">();</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kt">int</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nf">main</span><span class="p">()</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">{</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="k">try</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="n">FuncOne</span><span class="p">();</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">exception</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">println</span><span class="p">(</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Exception caught!&quot;</span><span class="p">);</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="kt">void</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="nf">FuncOne</span><span class="p">()</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">{</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">str1</span><span class="p">;</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">*</span><span class="n">str2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="n">FuncTwo</span><span class="p">();</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">str2</span><span class="p">;</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="p">}</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="kt">void</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="nf">FuncTwo</span><span class="p">()</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="p">{</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="n">fileStream</span><span class="p">;</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">    </span><span class="n">fileStream</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;filename&quot;</span><span class="p">);</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">    </span><span class="n">fileStream</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="p">}</span>
+</span></code></pre></div>
+当函数 <code>FuncTwo()</code> 抛出异常，<code>fileStream.close();</code> 不会被执行，但是 <code>fileStream</code> 的析构会调用函数，也会关闭，因此这里不会有资源泄露。但是 <code>FuncOne()</code> 中的 <code>delete str2;</code> 也会被掉过执行，导致内存泄漏。</p>
+<p>使用智能指针或者 <code>std::string</code> 类型自身，由 RAII 保证内存释放。另一种方式是捕获、清理、再抛出（<code>Catch, Cleanup, and Rethrow</code>），不推荐，混乱且易出错，除非无法使用前面的解决方案。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">funcOne</span><span class="p">()</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">str1</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">*</span><span class="n">str2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">try</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="n">FuncTwo</span><span class="p">();</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(...)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">str2</span><span class="p">;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="k">throw</span><span class="p">;</span><span class="w"> </span><span class="c1">// Rethrow the exception.</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">str2</span><span class="p">;</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<h2 id="_5">代码位置</h2>
+<p><code>__FILE__</code> <code>__LINE__</code> 这两个宏用于获取文件名和行号。C++ 20 提供了 <code>std::source_location</code>，<code>static</code> 函数 <code>current()</code> 返回被调用处的相关信息，<code>file_name()</code> <code>function_name()</code> <code>line()</code> <code>column()</code> 返回相应的信息。这个类主要用于日志和自定义异常自动获取源代码信息。</p>
+<h2 id="_6">调用栈</h2>
+<p>调用栈是相当有用的信息，C++ 23 提供了类 <code>std::stacktrace</code>，<code>current()</code> 函数返回调用处的栈信息。<code>size()</code> 返回帧数量，<code>description()</code> 返回描述的帧。<code>source_file()</code> <code>source_line()</code> 返回相应的信息。和 <code>std::source_location</code> 一样，这个类对于 debug 很有帮助，比如嵌入自定义的异常中。</p>
+<h2 id="_7">常见问题</h2>
+<p>分配内存可能会遇到资源不足的情况，然后抛出 <code>std::bad_alloc</code> 异常，如果不想有异常可以使用 <code>new(nothrow)</code>，内存不足时会返回 <code>nullptr</code>。</p>
+<p>构造函数里面抛出异常的话，不会调用析构函数。一个可能的解法是在构造函数里面 <code>try/catch</code> 保证资源不泄露。</p>
+<p>一个冷门的 feature：<code>Function-Try-Block</code>。语法如下，可以保护构造函数的初始化列表抛异常。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">MyClass</span><span class="o">::</span><span class="n">MyClass</span><span class="p">()</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nl">try</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">ctor</span><span class="o">-</span><span class="n">initializer</span><span class="o">&gt;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">{</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="cm">/* ... constructor body ... */</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">exception</span><span class="o">&amp;</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">{</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="cm">/* ... */</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
+</span></code></pre></div>
+鉴于有很多限制，诸如 <code>catch</code> 必须重抛当前或者其他异常，否则运行时会抛出当前捕获的异常；在异常之前的成员变量会析构，不能访问这些变量，构造函数参数可以访问；等等。因此，这个只能用于以下几种简单场景：1）将一个异常转成另一种异常；2）打日志；3）释放一些异常前分配的资源。但是 3 完全可以使用其他手段搞定。因此这种语法没有太多应用场景。另外，这种语法也支持普通函数，但是普通函数又没有初始化列表可能会抛异常，就更没有必要使用了。</p>
+<p>析构的异常要在析构函数内捕获处理，不要让析构函数抛异常。</p>
+<h2 id="_8">异常安全保证</h2>
+<p>异常安全保证有以下四个层次，一般也要保证基本异常保证。</p>
+<ul>
+<li>无异常：函数永远不会抛异常。</li>
+<li>强异常保证：如果有抛出异常，对象回到函数调用之前的状态。</li>
+<li>弱异常保证：如果有抛出异常，对象处于不正确的状态，但是没有资源泄露。</li>
+<li>无异常保证：如果有抛出异常，应用处于不正确的状态，有资源泄露。</li>
+</ul>
 
 
 
@@ -23004,7 +23201,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 11, 2025 07:57:52">April 11, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 15, 2025 08:51:19">April 15, 2025</span>
   </span>
 
     
