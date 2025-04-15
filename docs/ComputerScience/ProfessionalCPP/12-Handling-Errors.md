@@ -97,4 +97,104 @@ public:
 
 异常的捕获会移动或者拷贝异常对象，因此如果自定义的异常类有动态分配内存等操作导致实现了析构函数，那么根据建议，实现拷贝、移动的构造和赋值，保证自定义异常如期工作。再一次，如果按值捕获，会导致多一次拷贝，捕获 `const` 引用可以节省一次拷贝。
 
+当处理异常的时候，需要抛出第二个异常，为了保留第一个异常的信息，使用 `std::throw_with_nested()`，类型是 `std::nested_exception`，一个异常位于另一个异常中，这称为嵌套异常。`std::nested_exception` 基类的自动捕获 `std::current_exception()` 返回当前的异常，这个异常存储在 ` std::exception_ptr`。可以通过 `const auto* nested { dynamic_cast<const nested_exception*>(&e) };` 来将普通异常转换成嵌套异常。
 
+## rethrow
+`throw;` 有再次抛出异常的语义，而不是使用 `throw e`，因为后者在捕获的实际异常的基类类型时，会截断数据。
+
+## 栈展开和清理
+当发生异常时，需要寻找在栈上的异常捕获，如果找到了，调用栈回到异常捕获这一层，然后进行栈展开（`stack unwinding`），会一次析构栈上的对象并且会跳过每个函数后续的代码。不过稍有不慎，会导致内存或其他资源泄露。比如下面的例子
+```cpp
+void FuncOne();
+void FuncTwo();
+
+int
+main()
+{
+	try
+	{
+		FuncOne();
+	}
+	catch (const exception &e)
+	{
+		std::println(cerr, "Exception caught!");
+		return 1;
+	}
+}
+
+void
+FuncOne()
+{
+	std::string str1;
+	std::string *str2 { new std::string {} };
+	FuncTwo();
+	delete str2;
+}
+
+void
+FuncTwo()
+{
+	std::ifstream fileStream;
+	fileStream.open("filename");
+	throw std::exception {};
+	fileStream.close();
+}
+```
+当函数 `FuncTwo()` 抛出异常，`fileStream.close();` 不会被执行，但是 `fileStream` 的析构会调用函数，也会关闭，因此这里不会有资源泄露。但是 `FuncOne()` 中的 `delete str2;` 也会被掉过执行，导致内存泄漏。
+
+使用智能指针或者 `std::string` 类型自身，由 RAII 保证内存释放。另一种方式是捕获、清理、再抛出（`Catch, Cleanup, and Rethrow`），不推荐，混乱且易出错，除非无法使用前面的解决方案。
+```cpp
+void
+funcOne()
+{
+	std::string str1;
+	std::string *str2 { new std::string {} };
+	try
+	{
+		FuncTwo();
+	}
+	catch (...)
+	{
+		delete str2;
+		throw; // Rethrow the exception.
+	}
+
+	delete str2;
+}
+```
+
+## 代码位置
+`__FILE__` `__LINE__` 这两个宏用于获取文件名和行号。C++ 20 提供了 `std::source_location`，`static` 函数 `current()` 返回被调用处的相关信息，`file_name()` `function_name()` `line()` `column()` 返回相应的信息。这个类主要用于日志和自定义异常自动获取源代码信息。
+
+## 调用栈
+调用栈是相当有用的信息，C++ 23 提供了类 `std::stacktrace`，`current()` 函数返回调用处的栈信息。`size()` 返回帧数量，`description()` 返回描述的帧。`source_file()` `source_line()` 返回相应的信息。和 `std::source_location` 一样，这个类对于 debug 很有帮助，比如嵌入自定义的异常中。
+
+## 常见问题
+分配内存可能会遇到资源不足的情况，然后抛出 `std::bad_alloc` 异常，如果不想有异常可以使用 `new(nothrow)`，内存不足时会返回 `nullptr`。
+
+构造函数里面抛出异常的话，不会调用析构函数。一个可能的解法是在构造函数里面 `try/catch` 保证资源不泄露。
+
+一个冷门的 feature：`Function-Try-Block`。语法如下，可以保护构造函数的初始化列表抛异常。
+```cpp
+MyClass::MyClass()
+try
+	: <ctor-initializer>
+{
+	/* ... constructor body ... */
+}
+catch (const exception& e)
+{
+	/* ... */
+}
+```
+鉴于有很多限制，诸如 `catch` 必须重抛当前或者其他异常，否则运行时会抛出当前捕获的异常；在异常之前的成员变量会析构，不能访问这些变量，构造函数参数可以访问；等等。因此，这个只能用于以下几种简单场景：1）将一个异常转成另一种异常；2）打日志；3）释放一些异常前分配的资源。但是 3 完全可以使用其他手段搞定。因此这种语法没有太多应用场景。另外，这种语法也支持普通函数，但是普通函数又没有初始化列表可能会抛异常，就更没有必要使用了。
+
+析构的异常要在析构函数内捕获处理，不要让析构函数抛异常。
+
+## 异常安全保证
+异常安全保证有以下四个层次，一般也要保证基本异常保证。
+
+* 无异常：函数永远不会抛异常。
+* 强异常保证：如果有抛出异常，对象回到函数调用之前的状态。
+* 弱异常保证：如果有抛出异常，对象处于不正确的状态，但是没有资源泄露。
+* 无异常保证：如果有抛出异常，应用处于不正确的状态，有资源泄露。
