@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -22907,6 +22907,96 @@
 <script type="math/tex; mode=display">y=\frac{3}{5}e^{t/3}+\frac{2}{5}e^{-t/2}\tag{19}</script>
 下图是方程 <script type="math/tex">(18)</script> 的一些 <script type="math/tex">c</script> 对应的解，背景是方向场。满足 <script type="math/tex">y(0)=1</script> 的解是绿色曲线。</p>
 <p><img alt="" src="../010.010.png" /></p>
+<p>现在扩展积分因子法到形式如下的方程
+<script type="math/tex; mode=display">\frac{dy}{dt}+ay=g(t)\tag{20}</script>
+其中 <script type="math/tex">a</script> 是常量，<script type="math/tex">g(t)</script> 是给定函数。根据例 2 积分因子 <script type="math/tex">\mu(t)</script> 要满足
+<script type="math/tex; mode=display">\frac{d\mu}{dt}=a\mu\tag{21}</script>
+那么积分因子是 <script type="math/tex">\mu(t)=e^{at}</script>，<script type="math/tex">(20)</script> 两边同乘 <script type="math/tex">\mu(t)</script> 得到
+<script type="math/tex; mode=display">e^{at}\frac{dy}{dt}+ae^{at}y=e^{at}g(t)</script>
+因此
+<script type="math/tex; mode=display">\frac{d}{dt}(e^{at}y)=e^{at}g(t)\tag{22}</script>
+两边同时积分得到
+<script type="math/tex; mode=display">e^{at}y=\int e^{at}g(t)dt+c\tag{23}</script>
+其中 <script type="math/tex">c</script> 是任意常量。对于简单的函数 <script type="math/tex">g(t)</script>，可以求解出积分，使用初等函数表示 <script type="math/tex">y</script>。不过对于很多复杂的函数 <script type="math/tex">g(t)</script>，可能必须要用积分形式表达。这样
+<script type="math/tex; mode=display">y=e^{-at}\int_{t_0}^t e^{as}g(s)ds+ce^{-at}\tag{24}</script>
+积分下限选择 <script type="math/tex">t_0</script> 会改变常量 <script type="math/tex">c</script> 的值，但不会改变解。将 <script type="math/tex">t=t_0</script> 代入 <script type="math/tex">(24)</script> 得到 <script type="math/tex">c=y(t_0)e^{at_0}</script>。</p>
+<p>例 3 求微分方程
+<script type="math/tex; mode=display">\frac{dy}{dt}-2y=4-t\tag{25}</script>
+的通解，并画出若干个解，分析讨论 <script type="math/tex">t\to\infty</script> 时的行为。</p>
+<p>解：令 <script type="math/tex">a=-2</script> 那么 <script type="math/tex">(25)</script> 就是 <script type="math/tex">(20)</script>，因此积分因子是 <script type="math/tex">\mu(t)=e^{-2t}</script>，<script type="math/tex">(25)</script> 两边同时乘以积分因子得到
+<script type="math/tex; mode=display">e^{-2t}\frac{dy}{dt}-2e^{-2t}y=4e^{-2t}-te^{-2t}</script>
+那么
+<script type="math/tex; mode=display">\frac{d}{dt}(e^{-2t}y)=4e^{-2t}-te^{-2t}\tag{26}</script>
+两边同时积分得到
+<script type="math/tex; mode=display">e^{-2t}y=-2e^{-2t}+\frac{1}{2}te^{-2t}+\frac{1}{4}e^{-2t}+c</script>
+对 <script type="math/tex">(26)</script> 的最后一项使用了分部积分法。因此 <script type="math/tex">(25)</script> 的通解是
+<script type="math/tex; mode=display">y=-\frac{7}{4}+\frac{1}{2}t+ce^{2t}\tag{27}</script>
+下图是 <script type="math/tex">(27)</script> 中若干个 <script type="math/tex">c</script> 对应的解。当 <script type="math/tex">t</script> 很大时，解的决定项是 <script type="math/tex">ce^{2t}</script>。如果 <script type="math/tex">c\neq 0</script>，解的绝对值指数级增加，符号与 <script type="math/tex">c</script> 相同。也就是说随着 <script type="math/tex">t</script> 的增加解是分散的。增长到正无穷和负无穷的分界线是 <script type="math/tex">c=0</script>。将 <script type="math/tex">c=0</script> 代入 <script type="math/tex">(27)</script>，解是 <script type="math/tex">y=-\frac{7}{4}+\frac{1}{2}t</script>，线性增长。</p>
+<p><img alt="" src="../010.020.png" /></p>
+<p>现在回到更一般的一阶线性微分方程 <script type="math/tex">(3)</script>
+<script type="math/tex; mode=display">\frac{dy}{dt}+p(t)y=g(t)</script>
+其中 <script type="math/tex">p,g</script> 是给定函数。为了确定积分因子，两边同乘 <script type="math/tex">\mu(t)</script> 得到
+<script type="math/tex; mode=display">\mu(t)\frac{dy}{dt}+p(t)\mu(t)y=\mu(t)g(t)\tag{28}</script>
+方程 <script type="math/tex">(28)</script> 的左边是 <script type="math/tex">\mu(t)y</script> 的微分，那么 <script type="math/tex">\mu(t)</script> 必须满足
+<script type="math/tex; mode=display">\frac{d\mu(t)}{dt}=p(t)\mu(t)\tag{29}</script>
+如果临时假定 <script type="math/tex">\mu(t)</script> 是正的，那么
+<script type="math/tex; mode=display">\frac{1}{\mu(t)}\frac{d\mu(t)}{dt}=p(t)</script>
+因此
+<script type="math/tex; mode=display">\ln|\mu(t)|=\int p(t)dt+k</script>
+这里选择任意常量 <script type="math/tex">k</script> 为零，这样使得 <script type="math/tex">\mu(t)</script> 尽可能简单
+<script type="math/tex; mode=display">\mu(t)=\exp\int p(t)dt\tag{30}</script>
+注意，这里 <script type="math/tex">\mu(t)</script> 是正的，和之前的假设一致。回到方程 <script type="math/tex">(28)</script>，有
+<script type="math/tex; mode=display">\frac{d}{dt}(\mu(t)y)=\mu(t)g(t)\tag{31}</script>
+因此
+<script type="math/tex; mode=display">\mu(t)y=\int \mu(t)g(t)dt+c\tag{32}</script>
+其中 <script type="math/tex">c</script> 是任意常量。有时 <script type="math/tex">(32)</script> 的积分可以用初等函数表示。不过更一般的情况是不得不使用积分形式
+<script type="math/tex; mode=display">y=\frac{1}{\mu(t)}\bigg(\int_{t_0}^t \mu(s)g(s)ds+c\bigg)\tag{33}</script>
+这里 <script type="math/tex">t_0</script> 是某个使得积分简便的下限值。上面的方程涉及两个积分，一个是 <script type="math/tex">(30)</script> 计算 <script type="math/tex">\mu(t)</script>，第二个就是 <script type="math/tex">(33)</script> 中确定 <script type="math/tex">y</script> 的积分。</p>
+<p>例 4 求初值问题
+<script type="math/tex; mode=display">ty'+2y=4t^2\tag{34}</script>
+<script type="math/tex; mode=display">y(1)=2</script>
+解：为了确定 <script type="math/tex">p(t),g(t)</script>，首先将 <script type="math/tex">(34)</script> 写作 <script type="math/tex">(3)</script> 的形式。
+<script type="math/tex; mode=display">y'+\frac{2}{t}y=4t\tag{36}</script>
+所以 <script type="math/tex">p(t)=2/t,g(t)=4t</script>。为了求解 <script type="math/tex">(36)</script>，首先计算积分因子 <script type="math/tex">\mu(t)</script>
+<script type="math/tex; mode=display">\mu(t)=\exp\bigg(\int\frac{2}{t}dt\bigg)=e^{2\ln|t|}=t^2</script>
+<script type="math/tex">(36)</script> 两边同乘 <script type="math/tex">\mu(t)</script> 得到
+<script type="math/tex; mode=display">t^2y'+2ty=(t^2y)'=4t^3</script>
+因此
+<script type="math/tex; mode=display">t^2y=\int 4t^3dt=t^4+c</script>
+其中 <script type="math/tex">c</script> 是任意常量。对于 <script type="math/tex">t>0</script> 有
+<script type="math/tex; mode=display">y=t^2+\frac{c}{t^2}\tag{37}</script>
+这就是方程 <script type="math/tex">(34)</script> 的通解。</p>
+<p>为了满足初值条件 <script type="math/tex">(36)</script>，将 <script type="math/tex">t=1,y=2</script> 代入 <script type="math/tex">(37)</script> 得到 <script type="math/tex">2=1+c</script>，那么 <script type="math/tex">c=1</script>，因此
+<script type="math/tex; mode=display">y=t^2+\frac{1}{t^2},t>0\tag{38}</script>
+是初值问题 <script type="math/tex">(34),(35)</script> 的解。这个解如下图绿色曲线所示。</p>
+<p><img alt="" src="../010.030.png" /></p>
+<p>当 <script type="math/tex">t\to 0</script> 时，<script type="math/tex">y</script> 的正半轴是边界和渐近线。这是因为 <script type="math/tex">p(t)</script> 在原点处无穷间断。</p>
+<p>这里还需要注意到 <script type="math/tex">y=t^2+1/t^2,t<0</script> 是方程 <script type="math/tex">(34)</script> 的通解，但不是初值问题的解。</p>
+<p>对于 <script type="math/tex">c<0</script>，当 <script type="math/tex">t\to 0</script> 时，曲线的渐近线是 <script type="math/tex">y</script> 的负半轴。</p>
+<p>泛化初始条件 <script type="math/tex">(35)</script> 为
+<script type="math/tex; mode=display">y(1)=y_0\tag{39}</script>
+那么 <script type="math/tex">c=y_0-1</script>，因此解 <script type="math/tex">(38)</script> 变为
+<script type="math/tex; mode=display">y=t^2+\frac{y_0-1}{t^2},t>0\tag{40}</script>
+当 <script type="math/tex">y_0=0</script> 时，<script type="math/tex">c=0</script>，那么 <script type="math/tex">y=t^2</script>，这个解也是分界线，且在 <script type="math/tex">t=0</script> 处也可导。</p>
+<p>例 5 求初值问题
+<script type="math/tex; mode=display">2y'+ty=2\tag{41}</script>
+<script type="math/tex; mode=display">y(0)=1\tag{42}</script>
+解：对 <script type="math/tex">(41)</script> 两边同除 2 变成 <script type="math/tex">(3)</script> 的形式
+<script type="math/tex; mode=display">y'+\frac{t}{2}y=1\tag{43}</script>
+那么 <script type="math/tex">p(t)=t/2</script>，因此积分因子 <script type="math/tex">\mu(t)=\exp(t^2/4)</script>，那么 <script type="math/tex">(43)</script> 两边同乘 <script type="math/tex">\mu(t)</script> 得到
+<script type="math/tex; mode=display">e^{t^2/4}y'+\frac{t}{2}e^{t^2/4}y=e^{t^2/4}\tag{44}</script>
+左边是 <script type="math/tex">e^{t^2/4}y</script> 的导数，两边同时积分得到
+<script type="math/tex; mode=display">e^{t^2/4}y=\int e^{t^2/4}dt+c\tag{45}</script>
+<script type="math/tex">(45)</script> 的右边无法无法使用初等函数表示，因此保留积分形式。积分下限选择零，那么
+<script type="math/tex; mode=display">e^{t^2/4}y=\int_0^t e^{s^2/4}ds+c\tag{46}</script>
+其中 <script type="math/tex">c</script> 是任意常量。那么方程 <script type="math/tex">(41)</script> 的通解是
+<script type="math/tex; mode=display">y=e^{-t^2/4}\int_0^t e^{s^2/4}ds+ce^{-t^2/4}\tag{47}</script>
+为了满足初始条件 <script type="math/tex">(42)</script>，令 <script type="math/tex">t=0,y=1</script> 得到
+<script type="math/tex; mode=display">1=e^0\int_0^0 e^{-s^2/4}ds+ce^0=0+c</script>
+因此 <script type="math/tex">c=1</script>。</p>
+<p>这个例子中不得不使用积分形式来表示解。不过可以使用软件来数值求解积分。或者使用第八章的数值法直接求解微分方程。</p>
+<p>下图是若干个 <script type="math/tex">c</script> 对应的解 <script type="math/tex">(47)</script> 的图像。其中满足 <script type="math/tex">y(0)=1</script> 解使用粗体表示。当 <script type="math/tex">t\to\infty</script>，从图中可以得到一个猜想，所有解都趋于某一个极限。</p>
+<p><img alt="" src="../010.040.png" /></p>
 
 
 
@@ -22929,7 +23019,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 13, 2025 23:54:53">April 13, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 18, 2025 00:07:51">April 18, 2025</span>
   </span>
 
     
