@@ -128,7 +128,7 @@ $$\begin{aligned}
 ### 正弦和余弦的积分
 许多涉及周期的应用会出现下面的积分式
 $$\int\sin mx\sin nxdx, \int\sin mx\cos nxdx, \int\cos mx\cos nxdx$$
-可以使用分布积分法，不过需要使用两次。更简单的方式是利用如下恒等式
+可以使用分部积分法，不过需要使用两次。更简单的方式是利用如下恒等式
 $$\sin mx\sin nx=\frac{1}{2}[\cos(m-n)x-\cos(m+n)x]$$
 $$\sin mx\cos nx=\frac{1}{2}[\sin(m-n)x+\sin(m+n)x]$$
 $$\cos mx\cos nx=\frac{1}{2}[\cos(m-n)x+\cos(m+n)x]$$
