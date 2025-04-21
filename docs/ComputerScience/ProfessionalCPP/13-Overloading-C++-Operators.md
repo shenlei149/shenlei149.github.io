@@ -58,3 +58,75 @@ std::string operator+(std::string &&lhs, std::string &&rhs); // Can reuse memory
 运算符有优先级，个人经验是记住乘除大于加减，逻辑运算、比较运算比算数运算低，其他时候如果不确定，加括号。结合性指的是先处理哪一个操作数，大部分是从左往右的。只有类似 `+=` `++x` `*x` `&x` `(T)` 这些是从右往左。
 
 ## 重载算数运算符
+这里需要指出一点，运算符前缀 `++` 和 后缀 `++` 有些许区别，后缀版本需要传入参数，同时返回旧值，这样就无法返回对象的引用而是一个旧的对象。
+
+## 重载流的输入输出 `<<` `>>`
+一般使用全局函数，并且返回流的引用，这样可以链式调用。
+
+## 重载下标运算符 `[]`
+一般而言，需要提供两个版本，返回 `T &` 和 `const T &`。
+
+C++23 开始支持多个参数，那么想实现多维数据类、矩阵类等很非常方便。
+
+一般情况下 `[]` 的参数类型是整数，不过也可以是其他类型，比如 `std::map` 中的 `[]` 运算符参数就是 `TKey`。
+
+C++23 还支持 `[]` 标记为 `static`，这里给出一个例子，将枚举转成 `std::string`。
+```cpp
+enum class Figure
+{
+	Diamond,
+	Heart,
+	Spade,
+	Club
+};
+
+class FigureEnumToString
+{
+public:
+	static constexpr string_view
+	operator[](Figure figure) noexcept
+	{
+		switch (figure)
+		{
+		case Figure::Diamond:
+			return "Diamond";
+		case Figure::Heart:
+			return "Heart";
+		case Figure::Spade:
+			return "Spade";
+		case Figure::Club:
+			return "Club";
+		}
+	}
+};
+
+int
+main()
+{
+	Figure f { Figure::Spade };
+	FigureEnumToString converter;
+	println("{}", converter[f]);
+	println("{}", FigureEnumToString {}[f]);
+}
+```
+
+## 重载函数运算符 `()`
+参数个数和类型都可以随意，不过实际操作中有意义更重要。
+
+C++23 也允许 `()` 重载是 `static` 的。
+
+## 重载转化运算符
+一个方便的写法是使用 `auto`，如果想返回引用类型，使用 `auto&`。
+```cpp
+operator auto() const
+{ /* ... */
+}
+
+operator const auto &() const
+{ /* ... */
+}
+```
+
+C++11 之后推荐写 `explicit` 在关键字 `operator` 之前，好处是可以在某些场景下避免歧义。
+
+由于 C++ 会自动将 `bool` 转成 `int`，进而可以转成很多整数类型。因此很多场景下一般会实现 `operator void*()` 而不是 `operator bool()`。
