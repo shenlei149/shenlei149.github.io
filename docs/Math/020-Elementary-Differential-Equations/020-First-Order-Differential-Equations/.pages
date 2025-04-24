@@ -2,3 +2,4 @@ nav:
     - 020 一阶微分方程 First-Order Differential Equations: README.md
     - 010 线性微分方程；积分因子法 Linear Differential Equations; Method of Integrating Factors: 010-Linear-Differential-Equations-Method-of-Integrating-Factors.md
     - 020 可分离变量的微分方程 Separable Differential Equations: 020-Separable-Differential-Equations.md
+    - 030 使用微分方程建模 Modeling with First-Order Differential Equations: 030-Modeling-with-First-Order-Differential-Equations.md
