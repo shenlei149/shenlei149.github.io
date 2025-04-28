@@ -3,6 +3,7 @@ site_url: https://guozi149.me/
 repo_url: https://github.com/shenlei149/shenlei149.github.io
 theme:
   name: material
+  custom_dir: overrides
   features:
     - navigation.tabs
     - navigation.tabs.sticky
