@@ -23040,39 +23040,6 @@
 
   <h1>2308 Application to Infinite Series</h1>
 
-<p>There is a famous formula found by Euler:
-<script type="math/tex; mode=display">
-\sum_{n=1}^\infty \frac{1}{n^2}=\frac{\pi^2}{6}\tag{1}
-</script>
-We'll show how you can use a Fourier series to get this result.</p>
-<p>Consider the period <script type="math/tex">2\pi</script> function given by <script type="math/tex">f(t)=t(\pi-t/2)</script> on <script type="math/tex">[0,2\pi]</script>.<br />
-<img alt="" src="../pic230801.png" /></p>
-<p>First, we compute the Fourier series of <script type="math/tex">f(t)</script>. Since <script type="math/tex">f</script> is even, the sine terms are all 0. For the cosine terms it is slightly easier to integrate over a full period from 0 to <script type="math/tex">2\pi</script> rather than doubling the integral over the halfperiod.<br />
-For <script type="math/tex">n = 0</script> we have
-<script type="math/tex; mode=display">
-\begin{aligned}
-a_0&=\frac{1}{\pi}\int_0^{2\pi}t(\pi-t/2)dt\\
-&=\frac{1}{\pi}(\frac{\pi t^2}{2}-\frac{t^3}{6})\bigg|_0^{2\pi}\\
-&=\frac{1}{\pi}(\frac{4\pi^3}{2}-\frac{8\pi^3}{6})\\
-&=\frac{2}{3}\pi^2
-\end{aligned}
-</script>
-and for <script type="math/tex">n\neq 0</script> we have
-<script type="math/tex; mode=display">
-\begin{aligned}
-a_n&=\frac{1}{\pi}\int_0^{2\pi}t(\pi-t/2)\cos (nt)dt\\
-&=\frac{1}{\pi}([t(\pi-t/2)\frac{\sin(nt)}{n}]\bigg|_0^{2\pi}-\int_0^{2\pi}(\pi-t)\frac{\sin(nt)}{n}dt)\\
-&=\frac{1}{\pi}\cdot -([(\pi-t)\cdot -\frac{\cos(nt)}{n^2}]\bigg|_0^{2\pi}-\int_0^{2\pi}\frac{\cos(nt)}{n^2}dt)\\
-&=\frac{1}{\pi}((\pi-2\pi)-(\pi-0))\frac{1}{n^2}+\frac{1}{\pi}\frac{\sin(nt)}{n^3}\bigg|_0^{2\pi}\\
-&=-\frac{2}{n^2}
-\end{aligned}
-</script>
-Thus the Fourier series is <script type="math/tex">f(t)=\frac{\pi^2}{3}-2\sum_{n=1}^\infty\frac{\cos(nt)}{n^2}</script>
-<br />
-Since the function <script type="math/tex">f(t)</script> is continuous, the series converges to <script type="math/tex">f(t)</script> for all <script type="math/tex">t</script>.<br />
-Plugging in <script type="math/tex">t = 0</script>, we then get
-<script type="math/tex; mode=display">f(0)=t(\pi-t/2)=0=\frac{\pi^2}{3}-2\sum_{n=1}^\infty\frac{1}{n^2}</script>
-A little bit of algebra then gives Euler's result <script type="math/tex">(1)</script>.</p>
 
 
 
@@ -23113,6 +23080,39 @@ A little bit of algebra then gives Euler's result <script type="math/tex">(1)</s
     
   </aside>
 
+<p>There is a famous formula found by Euler:
+<script type="math/tex; mode=display">
+\sum_{n=1}^\infty \frac{1}{n^2}=\frac{\pi^2}{6}\tag{1}
+</script>
+We'll show how you can use a Fourier series to get this result.</p>
+<p>Consider the period <script type="math/tex">2\pi</script> function given by <script type="math/tex">f(t)=t(\pi-t/2)</script> on <script type="math/tex">[0,2\pi]</script>.<br />
+<img alt="" src="../pic230801.png" /></p>
+<p>First, we compute the Fourier series of <script type="math/tex">f(t)</script>. Since <script type="math/tex">f</script> is even, the sine terms are all 0. For the cosine terms it is slightly easier to integrate over a full period from 0 to <script type="math/tex">2\pi</script> rather than doubling the integral over the halfperiod.<br />
+For <script type="math/tex">n = 0</script> we have
+<script type="math/tex; mode=display">
+\begin{aligned}
+a_0&=\frac{1}{\pi}\int_0^{2\pi}t(\pi-t/2)dt\\
+&=\frac{1}{\pi}(\frac{\pi t^2}{2}-\frac{t^3}{6})\bigg|_0^{2\pi}\\
+&=\frac{1}{\pi}(\frac{4\pi^3}{2}-\frac{8\pi^3}{6})\\
+&=\frac{2}{3}\pi^2
+\end{aligned}
+</script>
+and for <script type="math/tex">n\neq 0</script> we have
+<script type="math/tex; mode=display">
+\begin{aligned}
+a_n&=\frac{1}{\pi}\int_0^{2\pi}t(\pi-t/2)\cos (nt)dt\\
+&=\frac{1}{\pi}([t(\pi-t/2)\frac{\sin(nt)}{n}]\bigg|_0^{2\pi}-\int_0^{2\pi}(\pi-t)\frac{\sin(nt)}{n}dt)\\
+&=\frac{1}{\pi}\cdot -([(\pi-t)\cdot -\frac{\cos(nt)}{n^2}]\bigg|_0^{2\pi}-\int_0^{2\pi}\frac{\cos(nt)}{n^2}dt)\\
+&=\frac{1}{\pi}((\pi-2\pi)-(\pi-0))\frac{1}{n^2}+\frac{1}{\pi}\frac{\sin(nt)}{n^3}\bigg|_0^{2\pi}\\
+&=-\frac{2}{n^2}
+\end{aligned}
+</script>
+Thus the Fourier series is <script type="math/tex">f(t)=\frac{\pi^2}{3}-2\sum_{n=1}^\infty\frac{\cos(nt)}{n^2}</script>
+<br />
+Since the function <script type="math/tex">f(t)</script> is continuous, the series converges to <script type="math/tex">f(t)</script> for all <script type="math/tex">t</script>.<br />
+Plugging in <script type="math/tex">t = 0</script>, we then get
+<script type="math/tex; mode=display">f(0)=t(\pi-t/2)=0=\frac{\pi^2}{3}-2\sum_{n=1}^\infty\frac{1}{n^2}</script>
+A little bit of algebra then gives Euler's result <script type="math/tex">(1)</script>.</p>
 
   
 

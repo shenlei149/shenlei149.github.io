@@ -23040,46 +23040,6 @@
 
   <h1>1806 Proof of the Generalized Exponential Response Formula</h1>
 
-<p>Using the exponential shift rule, we can now give a proof of the general case of the ERF which we stated without proof in the session on Exponential Response. This is a slightly complicated proof and you can safely skip it if you are not interested.<br />
-<strong>Generalized Exponential Response Formula.</strong> Let <script type="math/tex">p(D)</script> be a polynomial operator with constant coefficients and <script type="math/tex">p^{(s)}</script> its <script type="math/tex">s</script>-th derivative. Then
-$$p(D)x=e^{at} \text{ where <script type="math/tex">a</script> is real or complex}\tag{1}<script type="math/tex; mode=display">
-has the particular solution
-</script>
-x_p=<script type="math/tex; mode=display">\begin{cases}
-i) \frac{e^{at}}{p(a)}&p(a)\neq0\\
-ii) \frac{te^{at}}{p'(a)}&p(a)=0&\text{and}&p'(a)\neq0\\
-iii) \frac{t^2e^{at}}{p''(a)}&p(a)=p'(a)=0&\text{and}&p''(a)\neq0\\
-...\\
-iv) \frac{t^se^{at}}{p^{(s)}(a)}&f\text{ a is an s-fold zero}
-\end{cases}</script>
-$$
-<strong>Proof.</strong> That <script type="math/tex">(i)</script> is a particular solution to <script type="math/tex">(1)</script> follows immediately by using the linearity and substitution rules given earlier.
-<script type="math/tex; mode=display">p(D)x_p=p(D)\frac{e^{at}}{p(a)}=\frac{1}{p(a)}p(D)e^{at}=\frac{p(a)e^{at}}{p(a)}=e^{at}</script>
-Since cases <script type="math/tex">(ii)</script> and <script type="math/tex">(iii)</script> are special cases of <script type="math/tex">(iv)</script> we skip right to that. For case <script type="math/tex">(iv)</script>, we begin by noting that to say the polynomial <script type="math/tex">p(D)</script> has the number <script type="math/tex">a</script> as an <script type="math/tex">s</script>-fold zero is the same as saying <script type="math/tex">p(D)</script> has a factorization
-<script type="math/tex; mode=display">p(D)=q(D)(D-a)^s,q(a)\neq 0\tag{2}</script>
-We will first prove that <script type="math/tex">(2)</script> implies
-<script type="math/tex; mode=display">p^{(s)}(a)=q(a)s!\tag{3}</script>
-To prove this, let <script type="math/tex">k</script> be the degree of <script type="math/tex">q(D)</script> and write it in powers of <script type="math/tex">(D-a)</script>:
-<script type="math/tex; mode=display">\begin{aligned}
-q(D)&=q(a)+c_1(D-a)+\ldots+c_k(D-a)^k; \text{ then}\\
-p(D)&=q(a)(D-a)^s+c_1(D-a)^{s+1}+\ldots+c_k(D-a)^{s+k};\\
-p^{(s)}(D)&=q(a)s!+\text{ positive powers of } (D-a)
-\end{aligned}</script>
-Substituting <script type="math/tex">a</script> for <script type="math/tex">D</script> on both sides proves <script type="math/tex">(3)</script>.
-Using <script type="math/tex">(3)</script>, we can now prove <script type="math/tex">(iv)</script> easily using the exponential-shift rule. We have
-<script type="math/tex; mode=display">\begin{aligned}
-p(D)\frac{e^{at}x^s}{p^{(s)}(a)}&=\frac{e^{at}}{p^{(s)}(a)}p(D+a)x^s&\text{by linearity and ERF case }(i)\\
-&=\frac{e^{at}}{p^{(s)}(a)}q(D+a)D^sx^s&\text{by }(2)\\
-&=\frac{e^{at}}{q(a)s!}q(D+a)s!&\text{by }(3)\\
-&=\frac{e^{at}}{q(a)s!}q(a)s!=e^{at}
-\end{aligned}</script>
-where the last line follows from <script type="math/tex">(4)</script>, since <script type="math/tex">s!</script> is a constant:
-<script type="math/tex; mode=display">q(D+a)s!=(q(a)+c_1D+\ldots+c_kD^k)s!=q(a)s!</script>
-<strong>Note:</strong> By linearity we could have stated the formula with a factor of <script type="math/tex">B</script> in the input and a corresponding factor of <script type="math/tex">B</script> to the output. That is, the DE
-<script type="math/tex; mode=display">p(D)x=Be^{at}</script>
-has a particular solution
-<script type="math/tex; mode=display">x_p=\frac{Be^{at}}{p(a)}, \text{ if } p(a)\neq 0 \text{ etc.}</script>
-</p>
 
 
 
@@ -23120,6 +23080,46 @@ has a particular solution
     
   </aside>
 
+<p>Using the exponential shift rule, we can now give a proof of the general case of the ERF which we stated without proof in the session on Exponential Response. This is a slightly complicated proof and you can safely skip it if you are not interested.<br />
+<strong>Generalized Exponential Response Formula.</strong> Let <script type="math/tex">p(D)</script> be a polynomial operator with constant coefficients and <script type="math/tex">p^{(s)}</script> its <script type="math/tex">s</script>-th derivative. Then
+$$p(D)x=e^{at} \text{ where <script type="math/tex">a</script> is real or complex}\tag{1}<script type="math/tex; mode=display">
+has the particular solution
+</script>
+x_p=<script type="math/tex; mode=display">\begin{cases}
+i) \frac{e^{at}}{p(a)}&p(a)\neq0\\
+ii) \frac{te^{at}}{p'(a)}&p(a)=0&\text{and}&p'(a)\neq0\\
+iii) \frac{t^2e^{at}}{p''(a)}&p(a)=p'(a)=0&\text{and}&p''(a)\neq0\\
+...\\
+iv) \frac{t^se^{at}}{p^{(s)}(a)}&f\text{ a is an s-fold zero}
+\end{cases}</script>
+$$
+<strong>Proof.</strong> That <script type="math/tex">(i)</script> is a particular solution to <script type="math/tex">(1)</script> follows immediately by using the linearity and substitution rules given earlier.
+<script type="math/tex; mode=display">p(D)x_p=p(D)\frac{e^{at}}{p(a)}=\frac{1}{p(a)}p(D)e^{at}=\frac{p(a)e^{at}}{p(a)}=e^{at}</script>
+Since cases <script type="math/tex">(ii)</script> and <script type="math/tex">(iii)</script> are special cases of <script type="math/tex">(iv)</script> we skip right to that. For case <script type="math/tex">(iv)</script>, we begin by noting that to say the polynomial <script type="math/tex">p(D)</script> has the number <script type="math/tex">a</script> as an <script type="math/tex">s</script>-fold zero is the same as saying <script type="math/tex">p(D)</script> has a factorization
+<script type="math/tex; mode=display">p(D)=q(D)(D-a)^s,q(a)\neq 0\tag{2}</script>
+We will first prove that <script type="math/tex">(2)</script> implies
+<script type="math/tex; mode=display">p^{(s)}(a)=q(a)s!\tag{3}</script>
+To prove this, let <script type="math/tex">k</script> be the degree of <script type="math/tex">q(D)</script> and write it in powers of <script type="math/tex">(D-a)</script>:
+<script type="math/tex; mode=display">\begin{aligned}
+q(D)&=q(a)+c_1(D-a)+\ldots+c_k(D-a)^k; \text{ then}\\
+p(D)&=q(a)(D-a)^s+c_1(D-a)^{s+1}+\ldots+c_k(D-a)^{s+k};\\
+p^{(s)}(D)&=q(a)s!+\text{ positive powers of } (D-a)
+\end{aligned}</script>
+Substituting <script type="math/tex">a</script> for <script type="math/tex">D</script> on both sides proves <script type="math/tex">(3)</script>.
+Using <script type="math/tex">(3)</script>, we can now prove <script type="math/tex">(iv)</script> easily using the exponential-shift rule. We have
+<script type="math/tex; mode=display">\begin{aligned}
+p(D)\frac{e^{at}x^s}{p^{(s)}(a)}&=\frac{e^{at}}{p^{(s)}(a)}p(D+a)x^s&\text{by linearity and ERF case }(i)\\
+&=\frac{e^{at}}{p^{(s)}(a)}q(D+a)D^sx^s&\text{by }(2)\\
+&=\frac{e^{at}}{q(a)s!}q(D+a)s!&\text{by }(3)\\
+&=\frac{e^{at}}{q(a)s!}q(a)s!=e^{at}
+\end{aligned}</script>
+where the last line follows from <script type="math/tex">(4)</script>, since <script type="math/tex">s!</script> is a constant:
+<script type="math/tex; mode=display">q(D+a)s!=(q(a)+c_1D+\ldots+c_kD^k)s!=q(a)s!</script>
+<strong>Note:</strong> By linearity we could have stated the formula with a factor of <script type="math/tex">B</script> in the input and a corresponding factor of <script type="math/tex">B</script> to the output. That is, the DE
+<script type="math/tex; mode=display">p(D)x=Be^{at}</script>
+has a particular solution
+<script type="math/tex; mode=display">x_p=\frac{Be^{at}}{p(a)}, \text{ if } p(a)\neq 0 \text{ etc.}</script>
+</p>
 
   
 

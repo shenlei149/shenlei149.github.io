@@ -23040,17 +23040,6 @@
 
   <h1>3505 Trace Determinant Diagram</h1>
 
-<p>Recall that the <em>characteristic polynomial</em> of a square matrix <script type="math/tex">A</script> is defined to be
-<script type="math/tex; mode=display">p(\lambda) = \det(A - \lambdaI)</script>
-For a <script type="math/tex">2\times2</script> matrix <script type="math/tex">A</script>, <script type="math/tex">A=\begin{bmatrix}a&b\\c&d\end{bmatrix}</script>, we have <script type="math/tex">p(\lambda)=\begin{vmatrix}a-\lambda&b\\c&d-\lambda\end{vmatrix}=\lambda^2-(a+d)\lambda+(ad-bc)</script>. If we now recall the definitions of <strong>trace</strong> and <strong>determinant</strong> for a <script type="math/tex">2\times2</script> matrix <script type="math/tex">A</script> from the linear algebra and matrix review given at the end of the previous session on Matrix Methods, namely <script type="math/tex">\text{tr}A = a+d</script> and <script type="math/tex">\det A = ad - bc</script>, we see that we can write <script type="math/tex">p(\lambda) = λ^2 - \text{tr}A\lambda + \det A</script>.<br />
-Now if we use the abbreviations <script type="math/tex">T = \text{tr}A</script> and <script type="math/tex">D = \det A</script>, we can write the characteristic polynomial as <script type="math/tex">p(\lambda) = \lambda^2 - T\lambda + D</script>. The eigenvalues are the roots of <script type="math/tex">p(\lambda)</script>, so the quadratic formula immediately gives us that the eigenvalues will be real if and only if the discriminant <script type="math/tex">T^2 - 4D > 0</script> and complex if and only if <script type="math/tex">T^2 - 4D < 0</script>. The separating curve <script type="math/tex">D = T^2/4</script> is shown on the trace-determinant graph below.<br />
-Then looking at the full quadratic formula for <script type="math/tex">p(\lambda)=0,\lambda=\frac{T\plusmn\sqrt{T^2-4D}}{2}</script>, we can determine the conditions for the signs in the case of real eigenvalues and also the signs of the real part for the complex case. We leave this as an exercise (not difficult and highly recommended) for the reader. The results are as follows:
-1. If <script type="math/tex">D < 0</script>, the eigenvalues are real and of opposite sign, and the phase portrait is a saddle (which is always unstable).
-2. If <script type="math/tex">0 < D < T^2/4</script>, the eigenvalues are real, distinct, and of the same sign, and the phase portrait is a node, stable if <script type="math/tex">T < 0</script>, unstable if <script type="math/tex">T > 0</script>.
-3. If <script type="math/tex">0 < T^2/4 < D</script>, the eigenvalues are neither real nor purely imaginary, and the phase portrait is a spiral, stable if <script type="math/tex">T < 0</script>, unstable if <script type="math/tex">T > 0</script>.</p>
-<p>Sketching this information in on the T-D graph gives the trace-determinant diagram below.<br />
-The boundary cases, where the either inequalities become equality and/or where <script type="math/tex">T = 0</script> or <script type="math/tex">D = 0</script>, are called the "borderline cases." We will discuss these further in a later session.</p>
-<p><img alt="" src="../pic350501.png" /></p>
 
 
 
@@ -23091,6 +23080,17 @@ The boundary cases, where the either inequalities become equality and/or where <
     
   </aside>
 
+<p>Recall that the <em>characteristic polynomial</em> of a square matrix <script type="math/tex">A</script> is defined to be
+<script type="math/tex; mode=display">p(\lambda) = \det(A - \lambdaI)</script>
+For a <script type="math/tex">2\times2</script> matrix <script type="math/tex">A</script>, <script type="math/tex">A=\begin{bmatrix}a&b\\c&d\end{bmatrix}</script>, we have <script type="math/tex">p(\lambda)=\begin{vmatrix}a-\lambda&b\\c&d-\lambda\end{vmatrix}=\lambda^2-(a+d)\lambda+(ad-bc)</script>. If we now recall the definitions of <strong>trace</strong> and <strong>determinant</strong> for a <script type="math/tex">2\times2</script> matrix <script type="math/tex">A</script> from the linear algebra and matrix review given at the end of the previous session on Matrix Methods, namely <script type="math/tex">\text{tr}A = a+d</script> and <script type="math/tex">\det A = ad - bc</script>, we see that we can write <script type="math/tex">p(\lambda) = λ^2 - \text{tr}A\lambda + \det A</script>.<br />
+Now if we use the abbreviations <script type="math/tex">T = \text{tr}A</script> and <script type="math/tex">D = \det A</script>, we can write the characteristic polynomial as <script type="math/tex">p(\lambda) = \lambda^2 - T\lambda + D</script>. The eigenvalues are the roots of <script type="math/tex">p(\lambda)</script>, so the quadratic formula immediately gives us that the eigenvalues will be real if and only if the discriminant <script type="math/tex">T^2 - 4D > 0</script> and complex if and only if <script type="math/tex">T^2 - 4D < 0</script>. The separating curve <script type="math/tex">D = T^2/4</script> is shown on the trace-determinant graph below.<br />
+Then looking at the full quadratic formula for <script type="math/tex">p(\lambda)=0,\lambda=\frac{T\plusmn\sqrt{T^2-4D}}{2}</script>, we can determine the conditions for the signs in the case of real eigenvalues and also the signs of the real part for the complex case. We leave this as an exercise (not difficult and highly recommended) for the reader. The results are as follows:
+1. If <script type="math/tex">D < 0</script>, the eigenvalues are real and of opposite sign, and the phase portrait is a saddle (which is always unstable).
+2. If <script type="math/tex">0 < D < T^2/4</script>, the eigenvalues are real, distinct, and of the same sign, and the phase portrait is a node, stable if <script type="math/tex">T < 0</script>, unstable if <script type="math/tex">T > 0</script>.
+3. If <script type="math/tex">0 < T^2/4 < D</script>, the eigenvalues are neither real nor purely imaginary, and the phase portrait is a spiral, stable if <script type="math/tex">T < 0</script>, unstable if <script type="math/tex">T > 0</script>.</p>
+<p>Sketching this information in on the T-D graph gives the trace-determinant diagram below.<br />
+The boundary cases, where the either inequalities become equality and/or where <script type="math/tex">T = 0</script> or <script type="math/tex">D = 0</script>, are called the "borderline cases." We will discuss these further in a later session.</p>
+<p><img alt="" src="../pic350501.png" /></p>
 
   
 

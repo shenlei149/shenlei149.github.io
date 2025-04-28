@@ -23103,39 +23103,6 @@
 
   <h1>03 Below Your Program</h1>
 
-<p>如 word 或数据库这样的应用软件，数百万行代码，但是硬件只能执行非常有限的、简单的指令。这中间有很多很多的层次，这就是抽象的力量。这些层次大致由上至下分成三层：
-* 应用软件
-* 系统软件
-* 硬件</p>
-<p>系统软件（<code>systems software</code>）鉴于两者之间，承上启下，其中最重要的系统软件有两个：</p>
-<p>一是操作系统（<code>operating system</code>），主要作用有
-* 处理输入输出
-* 分配管理内存
-* 隔离保护同时运行的多个应用</p>
-<p>二是编译器（<code>compiler</code>），将高级语言转化成低级指令。下面简单描述一下。</p>
-<h3 id="from-a-high-level-language-to-the-language-of-hardware">From a High-Level Language to the Language of Hardware</h3>
-<p>最简单的电信号就是开和关，用一个比特（<code>binary digit</code>, <code>bit</code>）表示。计算机的指令（<code>instruction</code>）和数据一样，都是一系列比特。比如
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1001010100101110
-</span></code></pre></div>
-表示两个数的加法。</p>
-<p>使用二进制操控计算机是很无趣的事情，人们发明了一些符号辅助，最早是人工把这些符号翻译成二进制，很快又发明了汇编器（<code>assembler</code>），其作用就是把程序员写的代码
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>add A, B
-</span></code></pre></div>
-翻译成二进制
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1001010100101110
-</span></code></pre></div>
-前者是汇编语言（<code>assembly language</code>），后者是机器语言（<code>machine language</code>）。</p>
-<p>虽然方便了许多，但是程序员仍旧需要像计算机一样思考，于是又发明了高级编程语言（<code>high-level programming language</code>）。通过编译器将高级编程语言
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>A + B
-</span></code></pre></div>
-翻译成汇编语言
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>add A, B
-</span></code></pre></div>
-这是一个极好的体现抽象思想的例子。</p>
-<p>高级编程语言的优势有
-* 可以使用更自然的语言思考；针对目的来设计编程语言；
-* 提高程序员的生产力；
-* 平台无关</p>
 
 
 
@@ -23176,6 +23143,39 @@
     
   </aside>
 
+<p>如 word 或数据库这样的应用软件，数百万行代码，但是硬件只能执行非常有限的、简单的指令。这中间有很多很多的层次，这就是抽象的力量。这些层次大致由上至下分成三层：
+* 应用软件
+* 系统软件
+* 硬件</p>
+<p>系统软件（<code>systems software</code>）鉴于两者之间，承上启下，其中最重要的系统软件有两个：</p>
+<p>一是操作系统（<code>operating system</code>），主要作用有
+* 处理输入输出
+* 分配管理内存
+* 隔离保护同时运行的多个应用</p>
+<p>二是编译器（<code>compiler</code>），将高级语言转化成低级指令。下面简单描述一下。</p>
+<h3 id="from-a-high-level-language-to-the-language-of-hardware">From a High-Level Language to the Language of Hardware</h3>
+<p>最简单的电信号就是开和关，用一个比特（<code>binary digit</code>, <code>bit</code>）表示。计算机的指令（<code>instruction</code>）和数据一样，都是一系列比特。比如
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1001010100101110
+</span></code></pre></div>
+表示两个数的加法。</p>
+<p>使用二进制操控计算机是很无趣的事情，人们发明了一些符号辅助，最早是人工把这些符号翻译成二进制，很快又发明了汇编器（<code>assembler</code>），其作用就是把程序员写的代码
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>add A, B
+</span></code></pre></div>
+翻译成二进制
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1001010100101110
+</span></code></pre></div>
+前者是汇编语言（<code>assembly language</code>），后者是机器语言（<code>machine language</code>）。</p>
+<p>虽然方便了许多，但是程序员仍旧需要像计算机一样思考，于是又发明了高级编程语言（<code>high-level programming language</code>）。通过编译器将高级编程语言
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>A + B
+</span></code></pre></div>
+翻译成汇编语言
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>add A, B
+</span></code></pre></div>
+这是一个极好的体现抽象思想的例子。</p>
+<p>高级编程语言的优势有
+* 可以使用更自然的语言思考；针对目的来设计编程语言；
+* 提高程序员的生产力；
+* 平台无关</p>
 
   
 

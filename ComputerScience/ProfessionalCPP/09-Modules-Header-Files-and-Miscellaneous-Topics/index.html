@@ -23173,25 +23173,6 @@
 
   <h1>09 Modules Header Files and Miscellaneous Topics</h1>
 
-<h2 id="module">module</h2>
-<p>module 主要解决了 <code>#include</code> 的问题，比如依赖顺序可能影响编译，替换机制导致很多东西一次又一次的编译，增量编译时影响范围也更小编译更快。</p>
-<p><code>std</code> 这个 module 相当好，一次引入所有标准库，还不影响编译时间和产物大小。</p>
-<p>一般情况下，我们需要分离接口和实现，比如传统的头文件和实现文件分离。对于 module，声明和定义都写在一起，那么对于编译器而言也是分离的，如果修改了 module 中某个函数的实现，使用的代码无需编译，只有修改了接口，比如修改了函数参数，使用的代码才会重新编译。不过依旧推荐接口和实现分开，这样使用者更容易看出来提供的 API 列表而不是被大量的实现分隔开。有两个例外是 <code>inline</code> 函数和模板函数，因为这些会影响到使用的代码。</p>
-<p>使用传统的头文件，会有传染问题。譬如一个类，<code>#include &lt;string&gt;</code>，那么使用这个类的地方自动就使用了这个头文件，但是对于 module 而言，类的声明需要 <code>import std</code>，但是使用这个类的地方不会默认被 <code>import std</code>，因此代码 <code>std::string str</code> 这种是无法编译的。不过如果使用类的某个返回 <code>std:string</code> 的函数，能正常使用，比如 <code>auto str = instance.GetName()</code>。这就是可见性（<code>visibility</code>）和可达性（<code>reachability</code>）的区别。</p>
-<p>C++ module 不支持 submodule，不过可以通过名字和目录组织完成这件事，比如 <code>parent.child1</code> <code>parent.child2</code>。这种方式本质上是一组相关的 module，使用者可以选择部分加载。另一个方式是 module 分区，C++ 提供的 module 内部分割方式，<code>parent:child1</code> <code>parent:child2</code>，对用户而言是透明的。</p>
-<p>还可以有 <code>private</code> 的 module 部分。一个 module 声明文件中，<code>module :private;</code> 以下的部分对于调用者就不可见了。</p>
-<h2 id="_1">预处理</h2>
-<p>预处理很强大。宏很危险，比如使用预处理宏来实现函数，有相当多的弊端，也很有用，比如局部生成一些代码，直观简洁。除此之外，预处理指令还有很多，很多用途。<code>#undef</code> 取消某个定义。<code>#if</code> <code>#elif</code> <code>#else</code> <code>#endif</code> 可以用于特定平台编译特定代码。<code>#ifdef</code> <code>#endif</code> <code>#ifndef</code> 这些可以用于解决循环 <code>#include</code>、根据宏编译不同代码。<code>#pragma</code> 后面一般是 <code>once</code>，用于头文件。<code>#error</code> <code>#warning</code> 分别停止编译给出错误信息和给出编译警告信息。</p>
-<h2 id="_2">链接</h2>
-<p>C++ 的编译大致分成三个阶段，先是预处理，结果是编译单元（<code>translation unit</code>），然后编译成对象文件（<code>object file</code>），其中一些没有定义的函数、变量等需要第三阶段链接来解决，最终得到可执行文件。根据定义的位置和访问的位置，有四类链接：仅在局部使用，不链接；任意编译单元都可以访问，外部链接；只有当前编译单元可以访问，内部链接，也叫静态链接；同一个 module 的任意编译单元可以访问，module 链接。</p>
-<p>默认情况下，函数的声明是外部链接，不过可以通过匿名命名空间或将函数标记成 <code>static</code> 使之成为内部链接。相反，<code>extern</code> 将默认的内部链接，比如 <code>const</code> <code>typedef</code>，声明成外部链接。一个变量 <code>x</code> 如果加了 <code>extern</code>，那么会被认为是声明而不是定义，编译器期望在其他编译单元找到 <code>x</code> 的定义。除了全局常量之外，不推荐全局变量。</p>
-<h2 id="_3">头文件</h2>
-<p>C++ 要求定义只能有一个，不过头文件往往会破坏这一点，使用 <code>#pragma once</code> 可以解决这个问题。循环依赖也是一个问题，可以通过前向声明来解决，即使这样，也只能使用声明对象的指针或者引用，因为编译器不知道完整的定义。<code>__has_include</code> 能够确定头文件是否存在，结合 <code>#if</code> 选择要加载的头文件。</p>
-<h2 id="static">static 关键字</h2>
-<p><code>static</code> 有很多用法，下面列举一些。比如之前提到的修改变量和函数的链接作用域。</p>
-<p><code>static</code> 可以修饰类的变量和函数，<code>static</code> 变量至于一份拷贝，在所有对象之外，<code>static</code> 成员函数也是类级别的，没有隐含 <code>this</code> 指针，因此也不能修饰为 <code>const</code>。</p>
-<p>函数内部也能声明 <code>static</code> 变量，和全局变量类似，不过访问范围是函数内部。一般来说，要通过涉及避免函数内使用 <code>static</code> 变量。有时很有用，比如实现单例模式。</p>
-<p>全局变量和 <code>static</code> 变量会在 <code>main()</code> 之前初始化，在同一个文件中，按照顺序初始化，但是不同文件中初始化顺序是未定义的，因此如果一个文件中的一个变量初始化依赖于另一个文件中的变量，未定义行为，不要依赖于此。析构的顺序与构造的顺序相反，当然，不同文件的不同变量顺序依旧不确定。</p>
 
 
 
@@ -23232,6 +23213,25 @@
     
   </aside>
 
+<h2 id="module">module</h2>
+<p>module 主要解决了 <code>#include</code> 的问题，比如依赖顺序可能影响编译，替换机制导致很多东西一次又一次的编译，增量编译时影响范围也更小编译更快。</p>
+<p><code>std</code> 这个 module 相当好，一次引入所有标准库，还不影响编译时间和产物大小。</p>
+<p>一般情况下，我们需要分离接口和实现，比如传统的头文件和实现文件分离。对于 module，声明和定义都写在一起，那么对于编译器而言也是分离的，如果修改了 module 中某个函数的实现，使用的代码无需编译，只有修改了接口，比如修改了函数参数，使用的代码才会重新编译。不过依旧推荐接口和实现分开，这样使用者更容易看出来提供的 API 列表而不是被大量的实现分隔开。有两个例外是 <code>inline</code> 函数和模板函数，因为这些会影响到使用的代码。</p>
+<p>使用传统的头文件，会有传染问题。譬如一个类，<code>#include &lt;string&gt;</code>，那么使用这个类的地方自动就使用了这个头文件，但是对于 module 而言，类的声明需要 <code>import std</code>，但是使用这个类的地方不会默认被 <code>import std</code>，因此代码 <code>std::string str</code> 这种是无法编译的。不过如果使用类的某个返回 <code>std:string</code> 的函数，能正常使用，比如 <code>auto str = instance.GetName()</code>。这就是可见性（<code>visibility</code>）和可达性（<code>reachability</code>）的区别。</p>
+<p>C++ module 不支持 submodule，不过可以通过名字和目录组织完成这件事，比如 <code>parent.child1</code> <code>parent.child2</code>。这种方式本质上是一组相关的 module，使用者可以选择部分加载。另一个方式是 module 分区，C++ 提供的 module 内部分割方式，<code>parent:child1</code> <code>parent:child2</code>，对用户而言是透明的。</p>
+<p>还可以有 <code>private</code> 的 module 部分。一个 module 声明文件中，<code>module :private;</code> 以下的部分对于调用者就不可见了。</p>
+<h2 id="_1">预处理</h2>
+<p>预处理很强大。宏很危险，比如使用预处理宏来实现函数，有相当多的弊端，也很有用，比如局部生成一些代码，直观简洁。除此之外，预处理指令还有很多，很多用途。<code>#undef</code> 取消某个定义。<code>#if</code> <code>#elif</code> <code>#else</code> <code>#endif</code> 可以用于特定平台编译特定代码。<code>#ifdef</code> <code>#endif</code> <code>#ifndef</code> 这些可以用于解决循环 <code>#include</code>、根据宏编译不同代码。<code>#pragma</code> 后面一般是 <code>once</code>，用于头文件。<code>#error</code> <code>#warning</code> 分别停止编译给出错误信息和给出编译警告信息。</p>
+<h2 id="_2">链接</h2>
+<p>C++ 的编译大致分成三个阶段，先是预处理，结果是编译单元（<code>translation unit</code>），然后编译成对象文件（<code>object file</code>），其中一些没有定义的函数、变量等需要第三阶段链接来解决，最终得到可执行文件。根据定义的位置和访问的位置，有四类链接：仅在局部使用，不链接；任意编译单元都可以访问，外部链接；只有当前编译单元可以访问，内部链接，也叫静态链接；同一个 module 的任意编译单元可以访问，module 链接。</p>
+<p>默认情况下，函数的声明是外部链接，不过可以通过匿名命名空间或将函数标记成 <code>static</code> 使之成为内部链接。相反，<code>extern</code> 将默认的内部链接，比如 <code>const</code> <code>typedef</code>，声明成外部链接。一个变量 <code>x</code> 如果加了 <code>extern</code>，那么会被认为是声明而不是定义，编译器期望在其他编译单元找到 <code>x</code> 的定义。除了全局常量之外，不推荐全局变量。</p>
+<h2 id="_3">头文件</h2>
+<p>C++ 要求定义只能有一个，不过头文件往往会破坏这一点，使用 <code>#pragma once</code> 可以解决这个问题。循环依赖也是一个问题，可以通过前向声明来解决，即使这样，也只能使用声明对象的指针或者引用，因为编译器不知道完整的定义。<code>__has_include</code> 能够确定头文件是否存在，结合 <code>#if</code> 选择要加载的头文件。</p>
+<h2 id="static">static 关键字</h2>
+<p><code>static</code> 有很多用法，下面列举一些。比如之前提到的修改变量和函数的链接作用域。</p>
+<p><code>static</code> 可以修饰类的变量和函数，<code>static</code> 变量至于一份拷贝，在所有对象之外，<code>static</code> 成员函数也是类级别的，没有隐含 <code>this</code> 指针，因此也不能修饰为 <code>const</code>。</p>
+<p>函数内部也能声明 <code>static</code> 变量，和全局变量类似，不过访问范围是函数内部。一般来说，要通过涉及避免函数内使用 <code>static</code> 变量。有时很有用，比如实现单例模式。</p>
+<p>全局变量和 <code>static</code> 变量会在 <code>main()</code> 之前初始化，在同一个文件中，按照顺序初始化，但是不同文件中初始化顺序是未定义的，因此如果一个文件中的一个变量初始化依赖于另一个文件中的变量，未定义行为，不要依赖于此。析构的顺序与构造的顺序相反，当然，不同文件的不同变量顺序依旧不确定。</p>
 
   
 

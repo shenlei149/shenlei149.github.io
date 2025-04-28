@@ -23155,30 +23155,6 @@
 
   <h1>2202 Periodic Functions</h1>
 
-<p>Periodic functions are functions which repeat: <script type="math/tex">f(t + P) = f(t)</script> for all <script type="math/tex">t</script>.</p>
-<p>We state this explicitly as the following defintion: a function <script type="math/tex">f(t)</script> is <strong>periodic</strong> with <strong>period</strong> <script type="math/tex">P > 0</script> if
-$$f(t + P) = f(t) \text{ for all <script type="math/tex">t</script>.}$$
-<strong>Example.</strong> <script type="math/tex">f(t) = \sin(2t</script>) is periodic with period <script type="math/tex">P = \pi</script>.<br />
-This is true because, for all <script type="math/tex">t</script>, 
-<script type="math/tex; mode=display">f(t + \pi) = \sin(2(t + \pi) = \sin(2t + 2\pi) = \sin(2t) = f(t)</script>
-Notice, though, that in the example above <script type="math/tex">f(t) = \sin(2t)</script> also has period <script type="math/tex">P = 2\pi</script> and period <script type="math/tex">P = 3\pi</script>. In fact, it has period <script type="math/tex">P = n\pi</script> for any integer<script type="math/tex">n = 1,2,3...</script>.<br />
-Graphically, a function with period <script type="math/tex">P</script> is one whose graph stays the same if it is shifted <script type="math/tex">P</script> to the left or right.</p>
-<h3 id="base-period">Base Period</h3>
-<p>Most periodic functions have a <em>minimal</em> period, which is often called either <em>the</em> period or <strong>the base period</strong>. For example, <script type="math/tex">\sin t</script> has minimal period is <script type="math/tex">2\pi</script>. It follows from this that the minimal period for <script type="math/tex">sin(2t)</script> is <script type="math/tex">\pi</script>.<br />
-The only exception is the constant function. Every value of <script type="math/tex">P > 0</script> is a period and so it has no minimal period. (We don't allow <script type="math/tex">P = 0</script> to be a period because then every function would be periodic with period <script type="math/tex">P = 0</script>.)</p>
-<h3 id="windows">Windows</h3>
-<p>To fully describe a periodic function you only need to specify the period and the value of the function over one full period. We call an interval containing one full period a <strong>window</strong>. Typical choices for windows are <script type="math/tex">[-P/2, P/2)</script> and <script type="math/tex">[0, P)</script>, but any interval of length <script type="math/tex">P</script> will work.</p>
-<h3 id="frequency-terminology">Frequency Terminology</h3>
-<p><strong>Angular frequency</strong>, also called <strong>circular frequency</strong> has units of radians/unit time.</p>
-<p><strong>Frequency</strong> has units of cycles/unit time.</p>
-<p>Since one cycle is <script type="math/tex">2\pi</script> radians the relationship is
-<script type="math/tex; mode=display">angular frequency = 2\pi * frequency</script>
-The above is the official terminology, but in actual practice many people say frequency when they mean angular frequency. In fact, that has been the general usage earlier in this course where we have called <script type="math/tex">\omega</script> the frequency of <script type="math/tex">cos(\omega t)</script>. You will have to use the context to decide exactly which frequency is being used.<br />
-For a function with period <script type="math/tex">P</script> the <strong>base angular frequency</strong> <script type="math/tex">\omega</script> (also called the <strong>fundamental</strong> angular frequency) means the angular frequency corresponding to the base (or minimal) period <script type="math/tex">P</script> that is
-<script type="math/tex; mode=display">\omega=\frac{2\pi}{P}</script>
-</p>
-<h3 id="fourier-series">Fourier Series</h3>
-<p>We will see that a periodic function with base frequency <script type="math/tex">\omega</script> can be written as a sum of sines and cosines whose frequencies are <em>integer multiples</em> of <script type="math/tex">\omega</script>. This is called the <strong>Fourier series</strong> for the function. That is, sines and cosines, the simplest periodic unctions, are the "building blocks" for more general periodic functions.</p>
 
 
 
@@ -23219,6 +23195,30 @@ For a function with period <script type="math/tex">P</script> the <strong>base a
     
   </aside>
 
+<p>Periodic functions are functions which repeat: <script type="math/tex">f(t + P) = f(t)</script> for all <script type="math/tex">t</script>.</p>
+<p>We state this explicitly as the following defintion: a function <script type="math/tex">f(t)</script> is <strong>periodic</strong> with <strong>period</strong> <script type="math/tex">P > 0</script> if
+$$f(t + P) = f(t) \text{ for all <script type="math/tex">t</script>.}$$
+<strong>Example.</strong> <script type="math/tex">f(t) = \sin(2t</script>) is periodic with period <script type="math/tex">P = \pi</script>.<br />
+This is true because, for all <script type="math/tex">t</script>, 
+<script type="math/tex; mode=display">f(t + \pi) = \sin(2(t + \pi) = \sin(2t + 2\pi) = \sin(2t) = f(t)</script>
+Notice, though, that in the example above <script type="math/tex">f(t) = \sin(2t)</script> also has period <script type="math/tex">P = 2\pi</script> and period <script type="math/tex">P = 3\pi</script>. In fact, it has period <script type="math/tex">P = n\pi</script> for any integer<script type="math/tex">n = 1,2,3...</script>.<br />
+Graphically, a function with period <script type="math/tex">P</script> is one whose graph stays the same if it is shifted <script type="math/tex">P</script> to the left or right.</p>
+<h3 id="base-period">Base Period</h3>
+<p>Most periodic functions have a <em>minimal</em> period, which is often called either <em>the</em> period or <strong>the base period</strong>. For example, <script type="math/tex">\sin t</script> has minimal period is <script type="math/tex">2\pi</script>. It follows from this that the minimal period for <script type="math/tex">sin(2t)</script> is <script type="math/tex">\pi</script>.<br />
+The only exception is the constant function. Every value of <script type="math/tex">P > 0</script> is a period and so it has no minimal period. (We don't allow <script type="math/tex">P = 0</script> to be a period because then every function would be periodic with period <script type="math/tex">P = 0</script>.)</p>
+<h3 id="windows">Windows</h3>
+<p>To fully describe a periodic function you only need to specify the period and the value of the function over one full period. We call an interval containing one full period a <strong>window</strong>. Typical choices for windows are <script type="math/tex">[-P/2, P/2)</script> and <script type="math/tex">[0, P)</script>, but any interval of length <script type="math/tex">P</script> will work.</p>
+<h3 id="frequency-terminology">Frequency Terminology</h3>
+<p><strong>Angular frequency</strong>, also called <strong>circular frequency</strong> has units of radians/unit time.</p>
+<p><strong>Frequency</strong> has units of cycles/unit time.</p>
+<p>Since one cycle is <script type="math/tex">2\pi</script> radians the relationship is
+<script type="math/tex; mode=display">angular frequency = 2\pi * frequency</script>
+The above is the official terminology, but in actual practice many people say frequency when they mean angular frequency. In fact, that has been the general usage earlier in this course where we have called <script type="math/tex">\omega</script> the frequency of <script type="math/tex">cos(\omega t)</script>. You will have to use the context to decide exactly which frequency is being used.<br />
+For a function with period <script type="math/tex">P</script> the <strong>base angular frequency</strong> <script type="math/tex">\omega</script> (also called the <strong>fundamental</strong> angular frequency) means the angular frequency corresponding to the base (or minimal) period <script type="math/tex">P</script> that is
+<script type="math/tex; mode=display">\omega=\frac{2\pi}{P}</script>
+</p>
+<h3 id="fourier-series">Fourier Series</h3>
+<p>We will see that a periodic function with base frequency <script type="math/tex">\omega</script> can be written as a sum of sines and cosines whose frequencies are <em>integer multiples</em> of <script type="math/tex">\omega</script>. This is called the <strong>Fourier series</strong> for the function. That is, sines and cosines, the simplest periodic unctions, are the "building blocks" for more general periodic functions.</p>
 
   
 

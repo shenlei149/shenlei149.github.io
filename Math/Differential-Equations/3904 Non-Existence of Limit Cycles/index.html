@@ -23119,32 +23119,6 @@
 
   <h1>3904 Non Existence of Limit Cycles</h1>
 
-<p>We turn our attention now to the negative side of the problem of showing limit cycles exist. Here are two theorems which can sometimes be used to show that a limit cycle does <em>not</em> exist.</p>
-<h3 id="bendixsons-criterion">Bendixson's Criterion</h3>
-<p>If <script type="math/tex">f_x</script> and <script type="math/tex">g_y</script> are continuous in a region <script type="math/tex">R</script> which is simply-connected (i.e., without holes), and
-<script type="math/tex; mode=display">\frac{\partial f}{\partial x}+\frac{\partial g}{\partial y}\neq 0 \text{ at any point of } R</script>
-then the system
-<script type="math/tex; mode=display">\begin{aligned}
-x'=f(x,y)\\y'=g(x,y)
-\end{aligned}\tag{1}</script>
-has no closed trajectories inside <script type="math/tex">R</script>.
-<strong>Proof.</strong> Assume there is a closed trajectory <script type="math/tex">C</script> inside <script type="math/tex">R</script>. We shall derive a contradiction, by applying Green's theorem, in its normal (or flux) form. This theorem says
-<script type="math/tex; mode=display">\oint_C (f\boldsymbol{i}+g\boldsymbol{j})\cdot \boldsymbol{n}ds=\oint_C fdy-gdx=\iint_D (\frac{\partial f}{\partial x}+\frac{\partial g}{\partial y})dxdy\tag{2}</script>
-where <script type="math/tex">D</script> is the region inside the simple closed curve <script type="math/tex">C</script>.<br />
-This however is a contradiction. Namely, by hypothesis, the integrand on the right-hand side is continuous and never 0 in <script type="math/tex">R</script>; thus it is either always positive or always negative, and the right-hand side of <script type="math/tex">(2)</script> is therefore either positive or negative.<br />
-On the other hand, the left-hand side must be zero. For since <script type="math/tex">C</script> is a closed trajectory, <script type="math/tex">C</script> is always tangent to the velocity field <script type="math/tex">(f\boldsymbol{i}+g\boldsymbol{j})</script> defined by the system. This means the normal vector <script type="math/tex">n</script> to <script type="math/tex">C</script> is always perpendicular to the velocity field <script type="math/tex">(f\boldsymbol{i}+g\boldsymbol{j})</script>, so that the integrand <script type="math/tex">(f\boldsymbol{i}+g\boldsymbol{j})\cdot \boldsymbol{n}</script> on the left is identically zero.<br />
-This contradiction means that our assumption that <script type="math/tex">R</script> contained a closed trajectory of <script type="math/tex">(1)</script> was false, and Bendixson's Criterion is proved.</p>
-<h3 id="critical-point-criterion">Critical-point Criterion</h3>
-<p>A closed trajectory has a critical point in its interior.<br />
-If we turn this statement around, we see that it is really a criterion for <em>non-existence</em>: it says that if a region <script type="math/tex">R</script> is simply-connected (i.e., without holes) and has no critical points, then it cannot contain any limit cycles. For if it did, the Critical-point Criterion says there would be a critical point inside the limit cycle, and this point would also lie in <script type="math/tex">R</script> since <script type="math/tex">R</script> has no holes.<br />
-Note carefully the distinction between this theorem, which says that limit cycles enclose regions which do contain critical points, and the Poincare-Bendixson theorem, which seems to imply that limit cycles tend to lie in regions which <em>don't</em> contain critical points. The difference is that these latter regions always contain a hole; the critical points are in the hole. Example 1 illustrated this.<br />
-<strong>Example 2.</strong> For what <script type="math/tex">a</script> and <script type="math/tex">d</script> does <script type="math/tex">\begin{cases}x'=ax+by\\y'=cx+dy\end{cases}</script> have closed trajectories?<br />
-<strong>Solution.</strong> By Bendixson's criterion, <script type="math/tex">a + d \neq 0 \rArr</script> no closed trajecto­ries.<br />
-What if <script type="math/tex">a + d = 0?</script> Bendixson's criterion says nothing. We go back to our analysis of the linear system. The characteristic equation of the system is
-<script type="math/tex; mode=display">\lambda^2-(a+d)\lambda+(ad-bc)=0</script>
-Assume <script type="math/tex">a + d = 0</script>. Then the characteristic roots have opposite sign if <script type="math/tex">ad - bc < 0</script> and the system is a saddle; the roots are pure imaginary if <script type="math/tex">ad - bc > 0</script> and the system is a center, which has closed trajectories. Thus
-<script type="math/tex; mode=display">\text{the system has closed trajectories} \lrArr a + d = 0, ad - bc > 0.</script>
-</p>
 
 
 
@@ -23185,6 +23159,32 @@ Assume <script type="math/tex">a + d = 0</script>. Then the characteristic roots
     
   </aside>
 
+<p>We turn our attention now to the negative side of the problem of showing limit cycles exist. Here are two theorems which can sometimes be used to show that a limit cycle does <em>not</em> exist.</p>
+<h3 id="bendixsons-criterion">Bendixson's Criterion</h3>
+<p>If <script type="math/tex">f_x</script> and <script type="math/tex">g_y</script> are continuous in a region <script type="math/tex">R</script> which is simply-connected (i.e., without holes), and
+<script type="math/tex; mode=display">\frac{\partial f}{\partial x}+\frac{\partial g}{\partial y}\neq 0 \text{ at any point of } R</script>
+then the system
+<script type="math/tex; mode=display">\begin{aligned}
+x'=f(x,y)\\y'=g(x,y)
+\end{aligned}\tag{1}</script>
+has no closed trajectories inside <script type="math/tex">R</script>.
+<strong>Proof.</strong> Assume there is a closed trajectory <script type="math/tex">C</script> inside <script type="math/tex">R</script>. We shall derive a contradiction, by applying Green's theorem, in its normal (or flux) form. This theorem says
+<script type="math/tex; mode=display">\oint_C (f\boldsymbol{i}+g\boldsymbol{j})\cdot \boldsymbol{n}ds=\oint_C fdy-gdx=\iint_D (\frac{\partial f}{\partial x}+\frac{\partial g}{\partial y})dxdy\tag{2}</script>
+where <script type="math/tex">D</script> is the region inside the simple closed curve <script type="math/tex">C</script>.<br />
+This however is a contradiction. Namely, by hypothesis, the integrand on the right-hand side is continuous and never 0 in <script type="math/tex">R</script>; thus it is either always positive or always negative, and the right-hand side of <script type="math/tex">(2)</script> is therefore either positive or negative.<br />
+On the other hand, the left-hand side must be zero. For since <script type="math/tex">C</script> is a closed trajectory, <script type="math/tex">C</script> is always tangent to the velocity field <script type="math/tex">(f\boldsymbol{i}+g\boldsymbol{j})</script> defined by the system. This means the normal vector <script type="math/tex">n</script> to <script type="math/tex">C</script> is always perpendicular to the velocity field <script type="math/tex">(f\boldsymbol{i}+g\boldsymbol{j})</script>, so that the integrand <script type="math/tex">(f\boldsymbol{i}+g\boldsymbol{j})\cdot \boldsymbol{n}</script> on the left is identically zero.<br />
+This contradiction means that our assumption that <script type="math/tex">R</script> contained a closed trajectory of <script type="math/tex">(1)</script> was false, and Bendixson's Criterion is proved.</p>
+<h3 id="critical-point-criterion">Critical-point Criterion</h3>
+<p>A closed trajectory has a critical point in its interior.<br />
+If we turn this statement around, we see that it is really a criterion for <em>non-existence</em>: it says that if a region <script type="math/tex">R</script> is simply-connected (i.e., without holes) and has no critical points, then it cannot contain any limit cycles. For if it did, the Critical-point Criterion says there would be a critical point inside the limit cycle, and this point would also lie in <script type="math/tex">R</script> since <script type="math/tex">R</script> has no holes.<br />
+Note carefully the distinction between this theorem, which says that limit cycles enclose regions which do contain critical points, and the Poincare-Bendixson theorem, which seems to imply that limit cycles tend to lie in regions which <em>don't</em> contain critical points. The difference is that these latter regions always contain a hole; the critical points are in the hole. Example 1 illustrated this.<br />
+<strong>Example 2.</strong> For what <script type="math/tex">a</script> and <script type="math/tex">d</script> does <script type="math/tex">\begin{cases}x'=ax+by\\y'=cx+dy\end{cases}</script> have closed trajectories?<br />
+<strong>Solution.</strong> By Bendixson's criterion, <script type="math/tex">a + d \neq 0 \rArr</script> no closed trajecto­ries.<br />
+What if <script type="math/tex">a + d = 0?</script> Bendixson's criterion says nothing. We go back to our analysis of the linear system. The characteristic equation of the system is
+<script type="math/tex; mode=display">\lambda^2-(a+d)\lambda+(ad-bc)=0</script>
+Assume <script type="math/tex">a + d = 0</script>. Then the characteristic roots have opposite sign if <script type="math/tex">ad - bc < 0</script> and the system is a saddle; the roots are pure imaginary if <script type="math/tex">ad - bc > 0</script> and the system is a center, which has closed trajectories. Thus
+<script type="math/tex; mode=display">\text{the system has closed trajectories} \lrArr a + d = 0, ad - bc > 0.</script>
+</p>
 
   
 

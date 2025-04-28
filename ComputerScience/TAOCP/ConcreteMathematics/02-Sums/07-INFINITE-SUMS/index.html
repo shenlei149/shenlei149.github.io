@@ -23044,6 +23044,46 @@
 
   <h1>07 INFINITE SUMS</h1>
 
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 7, 2024 01:31:15">May 7, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 7, 2024 01:31:15">May 7, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
 <p>当前处理的问题都是假设有有限多个非零项求和。我们还是不得不面对无限的情况。</p>
 <p>坏消息是事实表明当涉及无限和式的时候，处理<script type="math/tex">\sum</script>时所用的方法并不总是有效。好消息是存在一大类容易理解的无限和式，对它们做所有运算都是合法的。在我们完全审视这些和式之和，会对这两个消息理解的更透彻。</p>
 <p>对于有限和式，一项一项相加，直到都加起来。对于无限和式，需要仔细的定义，否则就会出现荒谬的结果。</p>
@@ -23121,46 +23161,6 @@
 <p>我们还需证明：对所有有限子集 <script type="math/tex">G\subseteq J</script>，<script type="math/tex">A</script> 是 <script type="math/tex">\sum_{j\in G} A_j</script> 的最小上界。下面使用反证法。假设 <script type="math/tex">G</script> 是 <script type="math/tex">J</script> 的有限子集且满足 <script type="math/tex">\sum_{j\in G} A_j=A'>A</script>。至少存在一个 <script type="math/tex">j</script>，即找到一个有限子集 <script type="math/tex">F_j\leq K_j</script>，对每一个 <script type="math/tex">A_j>0,j\in G</script> 都有 <script type="math/tex">\sum_{k\in F_j}a_{j,k}>(A/A')A_j</script>。那么此时 <script type="math/tex">\sum_{j\in G,k\in F_J}a_{j,k}>(A/A')\sum_{j\in G} A_j=A</script>，这和对所有有限集合 <script type="math/tex">F\subseteq M</script> 都有 <script type="math/tex">\sum_{(j,k)\in F}a_{j,k}\leq A</script> 矛盾。所以对所有有限子集 <script type="math/tex">G\subseteq J</script>，都有 <script type="math/tex">\sum_{j\in G} A_j\leq A</script>。</p>
 <p>假设任意 <script type="math/tex">A'<A</script>，我们都能找到一个有限集合 <script type="math/tex">G\subseteq J</script> 使得 <script type="math/tex">\sum_{j\in G} A_j> A'</script>，那么证明就完成了。我们知道存在一个有限集合 <script type="math/tex">F\subseteq M</script> 使得 <script type="math/tex">\sum_{(j,k)\in F}a_{j,k}>A'</script>，设 <script type="math/tex">G</script> 是 <script type="math/tex">F</script> 中 <script type="math/tex">j</script> 组成的集合，令 <script type="math/tex">F_j=\{k|(j,k)\in F\}</script>，那么就有 <script type="math/tex">\sum_{j\in G} A_j\geq \sum_{j\in G}\sum_{k\in F_j}a_{j,k}=\sum_{(j,k)\in F}a_{j,k}>A'</script>。</p>
 <p>至此，我们证明了只要和式的项的绝对值组成的有限和式存在上界，那么上述操作都是合法的。由于对于双向无限和式 <script type="math/tex">(2.58)</script>，我们使用不同方法得到了两个不同的答案，因此正向和式 <script type="math/tex">1+\frac{1}{2}+\frac{1}{3}+\cdots</script> 必定发散于 <script type="math/tex">\infty</script>，否则，任意方法分分组都会得到同一个答案。</p>
-
-
-
-
-
-
-
-  
-    
-  
-  
-    
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 7, 2024 01:31:15">May 7, 2024</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 7, 2024 01:31:15">May 7, 2024</span>
-  </span>
-
-    
-    
-    
-  </aside>
-
 
   
 

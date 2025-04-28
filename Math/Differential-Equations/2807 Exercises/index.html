@@ -23040,46 +23040,6 @@
 
   <h1>2807 Exercises</h1>
 
-<p><strong>Example 1.</strong> Suppose that <script type="math/tex">F(s)</script> is the Laplace transform of <script type="math/tex">f(t)</script>, and let <script type="math/tex">a > 0</script>. Find a formula for the Laplace transform of <script type="math/tex">g(t) = f(at)</script> in terms of <script type="math/tex">F(s)</script>, by using the integral definition and making a change of variable. Verify your formula by using formulas and rules to compute both <script type="math/tex">\mathcal{L}(f(t))</script> and <script type="math/tex">\mathcal{L}(f(at))</script> with <script type="math/tex">f(t) = t^n</script>.<br />
-<strong>Solution.</strong>
-<script type="math/tex; mode=display">G(s)=\int_0^\infty f(at)e^{-st}dt</script>
-make the substitution <script type="math/tex">u = at</script>. Then <script type="math/tex">du = adt</script>,
-<script type="math/tex; mode=display">\begin{aligned}
-G(s)&=\int_0^\infty f(u)e^{-su/a}\frac{1}{a}du\\
-&=\frac{1}{a}\int_0^\infty f(u)e^{-\frac{s}{a}u}du\\
-&=\frac{1}{a}F(\frac{s}{a})
-\end{aligned}</script>
-For example, take <script type="math/tex">f(t) = t^n</script>, so <script type="math/tex">F(s)=\frac{n!}{s^{n+1}}</script>, and <script type="math/tex">g(t)=a^nt^n</script>, so <script type="math/tex">G(s)=\frac{a^nn!}{s^{n+1}}</script>.
-<script type="math/tex; mode=display">\begin{aligned}
-\frac{1}{a}F(\frac{s}{a})&=\frac{1}{a}\frac{n!}{(\frac{s}{a})^{n+1}}\\
-&=\frac{a^nn!}{s^{n+1}}\\
-&=G(s)
-\end{aligned}</script>
-</p>
-<p><strong>Example 2.</strong> Use your calculus skills: Show that if <script type="math/tex">h(t) = f(t) ∗ g(t)</script> then <script type="math/tex">H(s) = F(s)G(s)</script>. Do this by writing <script type="math/tex">F(s) = \int_0^\infty f(x)e^{-sx}dx</script> and <script type="math/tex">G(s) = \int_0^\infty g(y)e^{-sy}dy</script>; expressing the product as a double integral; and changing coordinates using <script type="math/tex">x = t - \tau, y = \tau</script>.<br />
-<strong>Solution.</strong>
-<script type="math/tex; mode=display">F(s)G(s)=\int_0^\infty\int_0^\infty f(x)e^{-sx} g(y)e^{-sy} dxdy=\iint_R f(x)g(y)e^{-(x+y)s} dxdy</script>
-where <script type="math/tex">R</script> is the first quadrant.<br />
-We can use the substitution is <script type="math/tex">x = t - \tau, y = \tau</script>
-<br />
-To convert to these coordinates, note that the Jacobian is
-<script type="math/tex; mode=display">\det\begin{bmatrix}
-\frac{\partial x}{\partial t}&\frac{\partial x}{\partial \tau}\\
-\frac{\partial y}{\partial t}&\frac{\partial y}{\partial \tau}
-\end{bmatrix}=\det\begin{bmatrix}
-1&-1\\
-0&1
-\end{bmatrix}=1</script>
-For fixed <script type="math/tex">t, \tau</script> ranges over numbers between <script type="math/tex">0</script> and <script type="math/tex">t</script>, and <script type="math/tex">t</script> ranges over positive numbers.<br />
-Since <script type="math/tex">x+y=t</script>,
-<script type="math/tex; mode=display">\begin{aligned}
-F(s)G(s)&=\int_0^\infty\int_0^t f(t-\tau)g(\tau)e^{-st}d\tau dt\\
-&=\int_0^\infty(\int_0^t f(t-\tau)g(\tau)d\tau)e^{-st} dt\\
-&=\int_0^\infty (f(t)*g(t))e^{-st} dt\\
-&=\int_0^\infty h(t)e^{-st} dt\\
-&=H(s)
-\end{aligned}</script>
-</p>
 
 
 
@@ -23120,6 +23080,46 @@ F(s)G(s)&=\int_0^\infty\int_0^t f(t-\tau)g(\tau)e^{-st}d\tau dt\\
     
   </aside>
 
+<p><strong>Example 1.</strong> Suppose that <script type="math/tex">F(s)</script> is the Laplace transform of <script type="math/tex">f(t)</script>, and let <script type="math/tex">a > 0</script>. Find a formula for the Laplace transform of <script type="math/tex">g(t) = f(at)</script> in terms of <script type="math/tex">F(s)</script>, by using the integral definition and making a change of variable. Verify your formula by using formulas and rules to compute both <script type="math/tex">\mathcal{L}(f(t))</script> and <script type="math/tex">\mathcal{L}(f(at))</script> with <script type="math/tex">f(t) = t^n</script>.<br />
+<strong>Solution.</strong>
+<script type="math/tex; mode=display">G(s)=\int_0^\infty f(at)e^{-st}dt</script>
+make the substitution <script type="math/tex">u = at</script>. Then <script type="math/tex">du = adt</script>,
+<script type="math/tex; mode=display">\begin{aligned}
+G(s)&=\int_0^\infty f(u)e^{-su/a}\frac{1}{a}du\\
+&=\frac{1}{a}\int_0^\infty f(u)e^{-\frac{s}{a}u}du\\
+&=\frac{1}{a}F(\frac{s}{a})
+\end{aligned}</script>
+For example, take <script type="math/tex">f(t) = t^n</script>, so <script type="math/tex">F(s)=\frac{n!}{s^{n+1}}</script>, and <script type="math/tex">g(t)=a^nt^n</script>, so <script type="math/tex">G(s)=\frac{a^nn!}{s^{n+1}}</script>.
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{1}{a}F(\frac{s}{a})&=\frac{1}{a}\frac{n!}{(\frac{s}{a})^{n+1}}\\
+&=\frac{a^nn!}{s^{n+1}}\\
+&=G(s)
+\end{aligned}</script>
+</p>
+<p><strong>Example 2.</strong> Use your calculus skills: Show that if <script type="math/tex">h(t) = f(t) ∗ g(t)</script> then <script type="math/tex">H(s) = F(s)G(s)</script>. Do this by writing <script type="math/tex">F(s) = \int_0^\infty f(x)e^{-sx}dx</script> and <script type="math/tex">G(s) = \int_0^\infty g(y)e^{-sy}dy</script>; expressing the product as a double integral; and changing coordinates using <script type="math/tex">x = t - \tau, y = \tau</script>.<br />
+<strong>Solution.</strong>
+<script type="math/tex; mode=display">F(s)G(s)=\int_0^\infty\int_0^\infty f(x)e^{-sx} g(y)e^{-sy} dxdy=\iint_R f(x)g(y)e^{-(x+y)s} dxdy</script>
+where <script type="math/tex">R</script> is the first quadrant.<br />
+We can use the substitution is <script type="math/tex">x = t - \tau, y = \tau</script>
+<br />
+To convert to these coordinates, note that the Jacobian is
+<script type="math/tex; mode=display">\det\begin{bmatrix}
+\frac{\partial x}{\partial t}&\frac{\partial x}{\partial \tau}\\
+\frac{\partial y}{\partial t}&\frac{\partial y}{\partial \tau}
+\end{bmatrix}=\det\begin{bmatrix}
+1&-1\\
+0&1
+\end{bmatrix}=1</script>
+For fixed <script type="math/tex">t, \tau</script> ranges over numbers between <script type="math/tex">0</script> and <script type="math/tex">t</script>, and <script type="math/tex">t</script> ranges over positive numbers.<br />
+Since <script type="math/tex">x+y=t</script>,
+<script type="math/tex; mode=display">\begin{aligned}
+F(s)G(s)&=\int_0^\infty\int_0^t f(t-\tau)g(\tau)e^{-st}d\tau dt\\
+&=\int_0^\infty(\int_0^t f(t-\tau)g(\tau)d\tau)e^{-st} dt\\
+&=\int_0^\infty (f(t)*g(t))e^{-st} dt\\
+&=\int_0^\infty h(t)e^{-st} dt\\
+&=H(s)
+\end{aligned}</script>
+</p>
 
   
 

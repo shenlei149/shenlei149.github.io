@@ -23139,37 +23139,6 @@
 
   <h1>050 Applications of Congruences</h1>
 
-<h3 id="hashing-functions">Hashing Functions</h3>
-<p>我们经常使用
-<script type="math/tex; mode=display">h(k)=k\operatorname{mod}m</script>
-作为哈希函数。简答，计算快，每一个可能性都会覆盖到。</p>
-<p>如果多个 <script type="math/tex">k</script> 计算的 <script type="math/tex">h(k)</script> 相同，称为碰撞（<code>collision</code>）。解决冲突有很多方式，最简单的线性扫描法。<script type="math/tex">i</script> 从 0 开始到 <script type="math/tex">m-1</script>，按照 <script type="math/tex">h(k,i) = h(k) + i \operatorname{mod} m</script> 找下一个空位。</p>
-<h3 id="pseudorandom-numbers">Pseudorandom Numbers</h3>
-<p>系统方法产生的随机数不是真随机，所以成为伪随机数（<code>pseudorandom numbers</code>）。</p>
-<p>最常用的伪随机数生成方法是线性同余法（<code>linear congruential method</code>）。我们选择四个数：模 <script type="math/tex">m</script>，倍数 <script type="math/tex">a</script>，增量 <script type="math/tex">c</script> 和种子 <script type="math/tex">x_0</script>，生成随机数公式是
-<script type="math/tex; mode=display">x_{n+1}=(ax_n+c)\operatorname{mod}m</script>
-</p>
-<p>有的时候，我们使用 <script type="math/tex">c=0</script> 的线性同余法，此时，我们称之为纯乘法生成器（<code>pure multiplicative generator</code>）。</p>
-<p>线性同余法被用于很多任务，不过它生成的随机数不满足某些随机数统计属性。因此，在一些对随机数要求比较高的任务中，需要使用其他随机数生成方法。</p>
-<h3 id="check-digits">Check Digits</h3>
-<p>例 奇偶校验比特（<code>Parity Check Bit</code>） 任意一串数据有 <script type="math/tex">n</script> 个比特，我们会增加第 <script type="math/tex">n+1</script> 位使得
-<script type="math/tex; mode=display">x_{n+1}=(x_1+x_2+\cdots+x_n)\operatorname{mod}2</script>
-如果检验位错了，那么数据不正确。不过即使检验位是对的，也不代表数据是正确的，比如有偶数个比特发生了反转。</p>
-<p>例 通用产品代码（<code>Universal Product Code</code>, <code>UPC</code>） 一般有 12 位，第一位是产品类别，接下来五位是生产商，再接下来五位指定产品，最后一位是检验位。这些数字满足
-<script type="math/tex; mode=display">3x_1 + x_2 + 3x_3 + x_4 + 3x_5 + x_6 + 3x_7 + x_8 + 3x_9 + x_{10} + 3x_{11} + x_{12} ≡ 0 (\operatorname{mod} 10)</script>
-</p>
-<p>例 国际标准书号（<code>International Standard Book Number</code>, <code>ISBN</code>） 一般有 ISBN-10 和 ISBN-13 两种。下面分析 ISBN-10。十个数字，最后一个可能是 10，用 X 表示，这些数字满足
-<script type="math/tex; mode=display">\sum_{i=1}^{10}ix_i\equiv 0(\operatorname{mod}11)</script>
-</p>
-<p>常见的错误有单个数字错误（<code>single error</code>）和置换错误（<code>transposition error</code>），两个不同数字交换了位置。任意一种校验码都希望能校验出这些错误，甚至是其他类型的错误。下面考察 ISBN 和 UPC 的能力。</p>
-<p>假定新的 ISBN 是 <script type="math/tex">y_1y_2\cdots y_{10}</script>，假定第 <script type="math/tex">j</script> 位出粗了，那么 <script type="math/tex">y_i=x_i,i\neq j</script> 且 <script type="math/tex">y_j=x_j+a</script>，其中 <script type="math/tex">-10\leq a\leq 10,a\neq 0</script>，那么
-<script type="math/tex; mode=display">\sum_{i=0}^{10}iy_i=\sum_{i=0}^{10}ix_i+ja\equiv ja\not\equiv 0(\operatorname{mod}11)</script>
-因为 <script type="math/tex">11\not |j,11\not |a</script>，所以 <script type="math/tex">11\not |ja</script>。因此 <script type="math/tex">y_1y_2\cdots y_{10}</script> 不是合法的 ISBN。</p>
-<p>现在来看置换错误，假定第 <script type="math/tex">j,k</script> 位置交换，那么 <script type="math/tex">y_j=x_k,y_k=x_j</script>，其余有 <script type="math/tex">y_i=x_i,i\neq j,i\neq k</script>，那么
-<script type="math/tex; mode=display">\sum_{i=0}^{10}iy_i=\sum_{i=0}^{10}ix_i+j(x_k-x_j)+k(x_j-x_k)\equiv (j-k)(x_k-x_j)\not\equiv 0(\operatorname{mod}11)</script>
-原因类似，<script type="math/tex">11\not |(j-k),11\not |(x_k-x_j)</script>，所以 <script type="math/tex">y_1y_2\cdots y_{10}</script> 不是合法的 ISBN。</p>
-<p>对于 UPC 而言，单个数字的错误与原来 UPC 的差值是 <script type="math/tex">a</script> 或者 <script type="math/tex">3a</script>，因为 <script type="math/tex">a\not\equiv 0(\operatorname{mod}10),3a\not\equiv 0(\operatorname{mod}10)</script>，所以不是合法的 UPC。</p>
-<p>对于交换错误，如果交换都在奇数位置或者都在偶数位置的两个值，前面的系数都是一样的，和不变，所以同余性质不变，无法检测。如果交换奇数和偶数位置的值，比如 <script type="math/tex">x</script> 变成了 <script type="math/tex">y</script>，那么和的差值是 <script type="math/tex">2(x-y)</script>，如果差值是 5，那么能够整除 10，无法检测错误。</p>
 
 
 
@@ -23210,6 +23179,37 @@
     
   </aside>
 
+<h3 id="hashing-functions">Hashing Functions</h3>
+<p>我们经常使用
+<script type="math/tex; mode=display">h(k)=k\operatorname{mod}m</script>
+作为哈希函数。简答，计算快，每一个可能性都会覆盖到。</p>
+<p>如果多个 <script type="math/tex">k</script> 计算的 <script type="math/tex">h(k)</script> 相同，称为碰撞（<code>collision</code>）。解决冲突有很多方式，最简单的线性扫描法。<script type="math/tex">i</script> 从 0 开始到 <script type="math/tex">m-1</script>，按照 <script type="math/tex">h(k,i) = h(k) + i \operatorname{mod} m</script> 找下一个空位。</p>
+<h3 id="pseudorandom-numbers">Pseudorandom Numbers</h3>
+<p>系统方法产生的随机数不是真随机，所以成为伪随机数（<code>pseudorandom numbers</code>）。</p>
+<p>最常用的伪随机数生成方法是线性同余法（<code>linear congruential method</code>）。我们选择四个数：模 <script type="math/tex">m</script>，倍数 <script type="math/tex">a</script>，增量 <script type="math/tex">c</script> 和种子 <script type="math/tex">x_0</script>，生成随机数公式是
+<script type="math/tex; mode=display">x_{n+1}=(ax_n+c)\operatorname{mod}m</script>
+</p>
+<p>有的时候，我们使用 <script type="math/tex">c=0</script> 的线性同余法，此时，我们称之为纯乘法生成器（<code>pure multiplicative generator</code>）。</p>
+<p>线性同余法被用于很多任务，不过它生成的随机数不满足某些随机数统计属性。因此，在一些对随机数要求比较高的任务中，需要使用其他随机数生成方法。</p>
+<h3 id="check-digits">Check Digits</h3>
+<p>例 奇偶校验比特（<code>Parity Check Bit</code>） 任意一串数据有 <script type="math/tex">n</script> 个比特，我们会增加第 <script type="math/tex">n+1</script> 位使得
+<script type="math/tex; mode=display">x_{n+1}=(x_1+x_2+\cdots+x_n)\operatorname{mod}2</script>
+如果检验位错了，那么数据不正确。不过即使检验位是对的，也不代表数据是正确的，比如有偶数个比特发生了反转。</p>
+<p>例 通用产品代码（<code>Universal Product Code</code>, <code>UPC</code>） 一般有 12 位，第一位是产品类别，接下来五位是生产商，再接下来五位指定产品，最后一位是检验位。这些数字满足
+<script type="math/tex; mode=display">3x_1 + x_2 + 3x_3 + x_4 + 3x_5 + x_6 + 3x_7 + x_8 + 3x_9 + x_{10} + 3x_{11} + x_{12} ≡ 0 (\operatorname{mod} 10)</script>
+</p>
+<p>例 国际标准书号（<code>International Standard Book Number</code>, <code>ISBN</code>） 一般有 ISBN-10 和 ISBN-13 两种。下面分析 ISBN-10。十个数字，最后一个可能是 10，用 X 表示，这些数字满足
+<script type="math/tex; mode=display">\sum_{i=1}^{10}ix_i\equiv 0(\operatorname{mod}11)</script>
+</p>
+<p>常见的错误有单个数字错误（<code>single error</code>）和置换错误（<code>transposition error</code>），两个不同数字交换了位置。任意一种校验码都希望能校验出这些错误，甚至是其他类型的错误。下面考察 ISBN 和 UPC 的能力。</p>
+<p>假定新的 ISBN 是 <script type="math/tex">y_1y_2\cdots y_{10}</script>，假定第 <script type="math/tex">j</script> 位出粗了，那么 <script type="math/tex">y_i=x_i,i\neq j</script> 且 <script type="math/tex">y_j=x_j+a</script>，其中 <script type="math/tex">-10\leq a\leq 10,a\neq 0</script>，那么
+<script type="math/tex; mode=display">\sum_{i=0}^{10}iy_i=\sum_{i=0}^{10}ix_i+ja\equiv ja\not\equiv 0(\operatorname{mod}11)</script>
+因为 <script type="math/tex">11\not |j,11\not |a</script>，所以 <script type="math/tex">11\not |ja</script>。因此 <script type="math/tex">y_1y_2\cdots y_{10}</script> 不是合法的 ISBN。</p>
+<p>现在来看置换错误，假定第 <script type="math/tex">j,k</script> 位置交换，那么 <script type="math/tex">y_j=x_k,y_k=x_j</script>，其余有 <script type="math/tex">y_i=x_i,i\neq j,i\neq k</script>，那么
+<script type="math/tex; mode=display">\sum_{i=0}^{10}iy_i=\sum_{i=0}^{10}ix_i+j(x_k-x_j)+k(x_j-x_k)\equiv (j-k)(x_k-x_j)\not\equiv 0(\operatorname{mod}11)</script>
+原因类似，<script type="math/tex">11\not |(j-k),11\not |(x_k-x_j)</script>，所以 <script type="math/tex">y_1y_2\cdots y_{10}</script> 不是合法的 ISBN。</p>
+<p>对于 UPC 而言，单个数字的错误与原来 UPC 的差值是 <script type="math/tex">a</script> 或者 <script type="math/tex">3a</script>，因为 <script type="math/tex">a\not\equiv 0(\operatorname{mod}10),3a\not\equiv 0(\operatorname{mod}10)</script>，所以不是合法的 UPC。</p>
+<p>对于交换错误，如果交换都在奇数位置或者都在偶数位置的两个值，前面的系数都是一样的，和不变，所以同余性质不变，无法检测。如果交换奇数和偶数位置的值，比如 <script type="math/tex">x</script> 变成了 <script type="math/tex">y</script>，那么和的差值是 <script type="math/tex">2(x-y)</script>，如果差值是 5，那么能够整除 10，无法检测错误。</p>
 
   
 

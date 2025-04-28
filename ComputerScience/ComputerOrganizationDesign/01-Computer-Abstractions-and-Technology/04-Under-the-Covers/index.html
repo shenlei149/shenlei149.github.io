@@ -23157,26 +23157,6 @@
 
   <h1>04 Under the Covers</h1>
 
-<p>计算机由输入、输出、内存、控制器和数据通路五个部分组成，后面两者统称为处理器。书中的插图不错，形象的描绘了这几个部分的关系，包括之前小节提到的软件。</p>
-<p><img alt="" src="../0401.png" /></p>
-<p>输入设备（<code>input device</code>）和输出设备（<code>output device</code>）会在第五章和第六章详细说明。这里先简要看下全局。</p>
-<h3 id="through-the-looking-glass">Through the Looking Glass</h3>
-<p>现在个人移动设备或者 PC 配的显示器往往使用 LCD （<code>liquid crystal display</code>）技术，薄，功耗低。</p>
-<p>最小显式单元是像素（<code>pixel</code>）。</p>
-<h3 id="touchscreen">Touchscreen</h3>
-<p>个人移动设备使用触摸屏作为输入，替代了 PC 的键盘和鼠标。</p>
-<h3 id="opening-the-box">Opening the Box</h3>
-<p>拆开一个智能手机，也包含计算机的五个部分。</p>
-<p>I/O 包含触摸屏、前/后置摄像头、麦克风、扬声器、加速计、陀螺仪等等。</p>
-<p>其中还有一块集成电路（<code>integrated circuit</code>），也称芯片（<code>chip</code>），其中包含若干个处理器，大家称之为 CPU（<code>central processor unit</code>）。</p>
-<p>处理器中就包含数据通路（<code>datapath</code>），执行算数操作，和控制器（<code>control</code>），告诉其他组件执行什么命令。</p>
-<p>智能手机中还有内存（<code>memory</code>），是 DRAM（<code>dynamic random-access 
-memory</code>）芯片，用于存储指令和数据。RAM 部分说明访问任意一个部分的时间是一样的。</p>
-<p>再深入看，处理器中还包含缓存（<code>cache memory</code>），使用 SRAM（<code>static random-access memory</code>）技术，用于缓存 DRAM 的数据。SRAM 密度更低，更快，更贵。SRAM 与 DRAM 组成了两层的存储层次结构（<code>memory hierarchy</code>）。</p>
-<p>这又是一个抽象的例子，定义了硬件和底层软件之间的交互接口。这就是指令集架构（<code>instruction set architecture</code>），或者简称架构（<code>architecture</code>）。操作系统会对底层做一些封装，我们一般将基本的指令集和操作系统提供的接口统称为 ABI（<code>application binary interface</code>）。</p>
-<p>架构本身与实现（<code>implementation</code>）无关，具体的实现遵循抽象的架构即可。</p>
-<h3 id="a-safe-place-for-data">A Safe Place for Data</h3>
-<p>存储分为易失性（<code>volatile</code>）和非易失性（<code>nonvolatile memory</code>）两种存储，DRAM 是易失的，DVD 是非易失的。前者往往称为主存（<code>main memory</code>, <code>primary memory</code>），后者称为辅助存储器（<code>secondary memory</code>），处于存储层次结构的下层。常见的辅助存储器有磁盘（<code>magnetic disks</code>）和闪存（<code>flash memory</code>）。</p>
 
 
 
@@ -23217,6 +23197,26 @@ memory</code>）芯片，用于存储指令和数据。RAM 部分说明访问任
     
   </aside>
 
+<p>计算机由输入、输出、内存、控制器和数据通路五个部分组成，后面两者统称为处理器。书中的插图不错，形象的描绘了这几个部分的关系，包括之前小节提到的软件。</p>
+<p><img alt="" src="../0401.png" /></p>
+<p>输入设备（<code>input device</code>）和输出设备（<code>output device</code>）会在第五章和第六章详细说明。这里先简要看下全局。</p>
+<h3 id="through-the-looking-glass">Through the Looking Glass</h3>
+<p>现在个人移动设备或者 PC 配的显示器往往使用 LCD （<code>liquid crystal display</code>）技术，薄，功耗低。</p>
+<p>最小显式单元是像素（<code>pixel</code>）。</p>
+<h3 id="touchscreen">Touchscreen</h3>
+<p>个人移动设备使用触摸屏作为输入，替代了 PC 的键盘和鼠标。</p>
+<h3 id="opening-the-box">Opening the Box</h3>
+<p>拆开一个智能手机，也包含计算机的五个部分。</p>
+<p>I/O 包含触摸屏、前/后置摄像头、麦克风、扬声器、加速计、陀螺仪等等。</p>
+<p>其中还有一块集成电路（<code>integrated circuit</code>），也称芯片（<code>chip</code>），其中包含若干个处理器，大家称之为 CPU（<code>central processor unit</code>）。</p>
+<p>处理器中就包含数据通路（<code>datapath</code>），执行算数操作，和控制器（<code>control</code>），告诉其他组件执行什么命令。</p>
+<p>智能手机中还有内存（<code>memory</code>），是 DRAM（<code>dynamic random-access 
+memory</code>）芯片，用于存储指令和数据。RAM 部分说明访问任意一个部分的时间是一样的。</p>
+<p>再深入看，处理器中还包含缓存（<code>cache memory</code>），使用 SRAM（<code>static random-access memory</code>）技术，用于缓存 DRAM 的数据。SRAM 密度更低，更快，更贵。SRAM 与 DRAM 组成了两层的存储层次结构（<code>memory hierarchy</code>）。</p>
+<p>这又是一个抽象的例子，定义了硬件和底层软件之间的交互接口。这就是指令集架构（<code>instruction set architecture</code>），或者简称架构（<code>architecture</code>）。操作系统会对底层做一些封装，我们一般将基本的指令集和操作系统提供的接口统称为 ABI（<code>application binary interface</code>）。</p>
+<p>架构本身与实现（<code>implementation</code>）无关，具体的实现遵循抽象的架构即可。</p>
+<h3 id="a-safe-place-for-data">A Safe Place for Data</h3>
+<p>存储分为易失性（<code>volatile</code>）和非易失性（<code>nonvolatile memory</code>）两种存储，DRAM 是易失的，DVD 是非易失的。前者往往称为主存（<code>main memory</code>, <code>primary memory</code>），后者称为辅助存储器（<code>secondary memory</code>），处于存储层次结构的下层。常见的辅助存储器有磁盘（<code>magnetic disks</code>）和闪存（<code>flash memory</code>）。</p>
 
   
 

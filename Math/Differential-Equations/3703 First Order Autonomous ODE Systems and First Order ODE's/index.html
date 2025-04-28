@@ -23040,24 +23040,6 @@
 
   <h1>3703 First Order Autonomous ODE Systems and First Order ODE's</h1>
 
-<p>We are still considering the first order autonomous system
-<script type="math/tex; mode=display">\begin{aligned}
-x'=f(x,y)\\y'=g(x,y)
-\end{aligned}\tag{1}</script>
-We can eliminate <script type="math/tex">t</script> from the system by dividing one equation by the other. Since by the chain rule
-<script type="math/tex; mode=display">\frac{y'}{x'}=\frac{dy/dt}{dx/dt}=\frac{dy}{dx}</script>
-we get after the division a single first-order ODE in <script type="math/tex">x</script> and <script type="math/tex">y</script>:
-<script type="math/tex; mode=display">\begin{aligned}
-x'=f(x,y)\\y'=g(x,y)
-\end{aligned}\rarr\frac{dy}{dx}=\frac{g(x,y)}{f(x,y)}\tag{2}</script>
-If the first order equation on the right is solvable, this is an important way of getting information about the solutions to the system on the left. Indeed, in the older literature, little distinction was made between the system and the single equation - "solving" meant to solve either one.<br />
-There is however a difference between them: the system involves time, whereas the single ODE does not. Consider how their respective solutions are related:
-<script type="math/tex; mode=display">\begin{aligned}
-x=x(t)\\y=y(t)
-\end{aligned}\rarr F(x,y)=0\tag{3}</script>
-where the equation on the right is the result of eliminating <script type="math/tex">t</script> from the pair of equations on the left. Geometrically, <script type="math/tex">F(x, y) = 0</script> is the equation for the trajectory of the solution <script type="math/tex">\boldsymbol{x}(t)</script> on the left. The trajectory in other words is the path traced out by the moving point <script type="math/tex">x(t), y(t)</script> ; it doesn't contain any record of how fast the point was moving; it is only the track (or trace, as one sometimes says) of its motion.<br />
-In the same way, we have the difference between the <em>velocity field</em>, which represents the left side of <script type="math/tex">(2)</script>, and the <em>direction field</em>, which represents the right side. The velocity vectors have magnitude and sense, whereas the line segments that make up the direction field only have slope. The passage from the left side of <script type="math/tex">(2)</script> to the right side is represented geometrically by changing each of the velocity vectors to a line segment of standard length. Even the arrowhead is dropped, since it represents the direction of increasing time, and time has been eliminated; only the slope of the vector is retained.<br />
-<img alt="" src="../pic370301.png" /></p>
 
 
 
@@ -23098,6 +23080,24 @@ In the same way, we have the difference between the <em>velocity field</em>, whi
     
   </aside>
 
+<p>We are still considering the first order autonomous system
+<script type="math/tex; mode=display">\begin{aligned}
+x'=f(x,y)\\y'=g(x,y)
+\end{aligned}\tag{1}</script>
+We can eliminate <script type="math/tex">t</script> from the system by dividing one equation by the other. Since by the chain rule
+<script type="math/tex; mode=display">\frac{y'}{x'}=\frac{dy/dt}{dx/dt}=\frac{dy}{dx}</script>
+we get after the division a single first-order ODE in <script type="math/tex">x</script> and <script type="math/tex">y</script>:
+<script type="math/tex; mode=display">\begin{aligned}
+x'=f(x,y)\\y'=g(x,y)
+\end{aligned}\rarr\frac{dy}{dx}=\frac{g(x,y)}{f(x,y)}\tag{2}</script>
+If the first order equation on the right is solvable, this is an important way of getting information about the solutions to the system on the left. Indeed, in the older literature, little distinction was made between the system and the single equation - "solving" meant to solve either one.<br />
+There is however a difference between them: the system involves time, whereas the single ODE does not. Consider how their respective solutions are related:
+<script type="math/tex; mode=display">\begin{aligned}
+x=x(t)\\y=y(t)
+\end{aligned}\rarr F(x,y)=0\tag{3}</script>
+where the equation on the right is the result of eliminating <script type="math/tex">t</script> from the pair of equations on the left. Geometrically, <script type="math/tex">F(x, y) = 0</script> is the equation for the trajectory of the solution <script type="math/tex">\boldsymbol{x}(t)</script> on the left. The trajectory in other words is the path traced out by the moving point <script type="math/tex">x(t), y(t)</script> ; it doesn't contain any record of how fast the point was moving; it is only the track (or trace, as one sometimes says) of its motion.<br />
+In the same way, we have the difference between the <em>velocity field</em>, which represents the left side of <script type="math/tex">(2)</script>, and the <em>direction field</em>, which represents the right side. The velocity vectors have magnitude and sense, whereas the line segments that make up the direction field only have slope. The passage from the left side of <script type="math/tex">(2)</script> to the right side is represented geometrically by changing each of the velocity vectors to a line segment of standard length. Even the arrowhead is dropped, since it represents the direction of increasing time, and time has been eliminated; only the slope of the vector is retained.<br />
+<img alt="" src="../pic370301.png" /></p>
 
   
 

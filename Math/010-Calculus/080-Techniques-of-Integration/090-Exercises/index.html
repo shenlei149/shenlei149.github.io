@@ -23121,32 +23121,6 @@
 
   <h1>090 习题 Exercises</h1>
 
-<h3 id="practice-exercises">Practice Exercises</h3>
-<p>135.
-<script type="math/tex; mode=display">\int\frac{\sin^2 x}{1+\sin^2 x}dx</script>
-解：<a href="https://math.stackexchange.com/questions/4781459/evaluate-int-frac-sin2-x1-sin2-xdx">https://math.stackexchange.com/questions/4781459/evaluate-int-frac-sin2-x1-sin2-xdx</a></p>
-<p>
-<script type="math/tex; mode=display">\frac{\sin^2 x}{1+\sin^2 x}=1-\frac{1}{1+\sin^2 x}</script>
-所以
-<script type="math/tex; mode=display">\int\frac{\sin^2 x}{1+\sin^2 x}dx=x-\int\frac{dx}{1+\sin^2 x}</script>
-我接受的答案是沿着这个思路的。由于 <script type="math/tex">\sin</script> 的幂次是偶数，所以可以用 <script type="math/tex">x=\tan^{-1}s</script> 做替换，<script type="math/tex">\sin x=\frac{s}{\sqrt{1+s^2}}, dx=\frac{ds}{1+s^2}</script>
-<script type="math/tex; mode=display">\int\frac{dx}{1+\sin^2 x}=\int\frac{ds}{2s^2+1}=\frac{1}{\sqrt{2}}\tan^{-1}(\sqrt{2}s)</script>
-令一个人的思路是将分母的 1 写成 <script type="math/tex">\sin^2 x+\cos^2 x</script>，然后分子分母同时除以 <script type="math/tex">\cos^2 x</script>，使用同样的替换就能得到相同的结果，更容易理解。</p>
-<h3 id="additional-and-advanced-exercises">Additional and Advanced Exercises</h3>
-<p>5.
-<script type="math/tex; mode=display">\int\frac{dt}{t-\sqrt{1-t^2}}</script>
-解：<a href="https://math.stackexchange.com/questions/4781860/evaluate-int-fracdtt-sqrt1-t2">https://math.stackexchange.com/questions/4781860/evaluate-int-fracdtt-sqrt1-t2</a></p>
-<p>令 <script type="math/tex">t=\sin x,dt=\cos x</script>，所以
-<script type="math/tex; mode=display">\int\frac{dt}{t-\sqrt{1-t^2}}=\int\frac{\cos xdx}{\sin x-\cos x}</script>
-我接受的答案简洁明了
-令
-<script type="math/tex; mode=display">C=\int\frac{\cos xdx}{\sin x-\cos x}</script>
-<script type="math/tex; mode=display">S=\int\frac{\sin xdx}{\sin x-\cos x}</script>
-<script type="math/tex; mode=display">C+S=\int\frac{\cos x+\sin x}{\sin x-\cos x}=\ln|\sin x-\cos x|+c_2</script>
-<script type="math/tex; mode=display">C-S=\int\frac{\cos x-\sin x}{\sin x-\cos x}=-\int dx=-x+c_2</script>
-所以
-<script type="math/tex; mode=display">C=\frac{1}{2}(\ln(t-\sqrt{1-t^2})-\sin^{-1}t)+c</script>
-</p>
 
 
 
@@ -23187,6 +23161,32 @@
     
   </aside>
 
+<h3 id="practice-exercises">Practice Exercises</h3>
+<p>135.
+<script type="math/tex; mode=display">\int\frac{\sin^2 x}{1+\sin^2 x}dx</script>
+解：<a href="https://math.stackexchange.com/questions/4781459/evaluate-int-frac-sin2-x1-sin2-xdx">https://math.stackexchange.com/questions/4781459/evaluate-int-frac-sin2-x1-sin2-xdx</a></p>
+<p>
+<script type="math/tex; mode=display">\frac{\sin^2 x}{1+\sin^2 x}=1-\frac{1}{1+\sin^2 x}</script>
+所以
+<script type="math/tex; mode=display">\int\frac{\sin^2 x}{1+\sin^2 x}dx=x-\int\frac{dx}{1+\sin^2 x}</script>
+我接受的答案是沿着这个思路的。由于 <script type="math/tex">\sin</script> 的幂次是偶数，所以可以用 <script type="math/tex">x=\tan^{-1}s</script> 做替换，<script type="math/tex">\sin x=\frac{s}{\sqrt{1+s^2}}, dx=\frac{ds}{1+s^2}</script>
+<script type="math/tex; mode=display">\int\frac{dx}{1+\sin^2 x}=\int\frac{ds}{2s^2+1}=\frac{1}{\sqrt{2}}\tan^{-1}(\sqrt{2}s)</script>
+令一个人的思路是将分母的 1 写成 <script type="math/tex">\sin^2 x+\cos^2 x</script>，然后分子分母同时除以 <script type="math/tex">\cos^2 x</script>，使用同样的替换就能得到相同的结果，更容易理解。</p>
+<h3 id="additional-and-advanced-exercises">Additional and Advanced Exercises</h3>
+<p>5.
+<script type="math/tex; mode=display">\int\frac{dt}{t-\sqrt{1-t^2}}</script>
+解：<a href="https://math.stackexchange.com/questions/4781860/evaluate-int-fracdtt-sqrt1-t2">https://math.stackexchange.com/questions/4781860/evaluate-int-fracdtt-sqrt1-t2</a></p>
+<p>令 <script type="math/tex">t=\sin x,dt=\cos x</script>，所以
+<script type="math/tex; mode=display">\int\frac{dt}{t-\sqrt{1-t^2}}=\int\frac{\cos xdx}{\sin x-\cos x}</script>
+我接受的答案简洁明了
+令
+<script type="math/tex; mode=display">C=\int\frac{\cos xdx}{\sin x-\cos x}</script>
+<script type="math/tex; mode=display">S=\int\frac{\sin xdx}{\sin x-\cos x}</script>
+<script type="math/tex; mode=display">C+S=\int\frac{\cos x+\sin x}{\sin x-\cos x}=\ln|\sin x-\cos x|+c_2</script>
+<script type="math/tex; mode=display">C-S=\int\frac{\cos x-\sin x}{\sin x-\cos x}=-\int dx=-x+c_2</script>
+所以
+<script type="math/tex; mode=display">C=\frac{1}{2}(\ln(t-\sqrt{1-t^2})-\sin^{-1}t)+c</script>
+</p>
 
   
 

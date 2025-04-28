@@ -23119,35 +23119,6 @@
 
   <h1>2803 Domain of F(s)</h1>
 
-<h3 id="complex-s-and-region-of-convergence">Complex <script type="math/tex">s</script> and region of convergence</h3>
-<p>We will allow <script type="math/tex">s</script> to be complex, using as needed the properties of the complex exponential we learned in unit 1.<br />
-<strong>Example 1.</strong> In the previous note we saw that <script type="math/tex">\mathcal{L}(1) = 1/s</script>, valid for all <script type="math/tex">s > 0</script>. Let's recompute <script type="math/tex">\mathcal{L}(1)(s)</script> for complex <script type="math/tex">s</script>. Let <script type="math/tex">s = \alpha+i\beta</script>
-<script type="math/tex; mode=display">\begin{aligned}
-\mathcal{L}(1)(s)&=\int_0^\infty e^{-st}dt\\
-&=\lim_{T \to \infty}\frac{e^{-st}}{-s}\bigg|_0^T\\
-&=\lim_{T \to \infty}\frac{e^{-\alpha t}(\cos(\beta t)+i\sin(\beta t))}{-s}\bigg|_0^T
-\end{aligned}</script>
-This converges if <script type="math/tex">\alpha > 0</script> and diverges if <script type="math/tex">\alpha < 0</script>. Since <script type="math/tex">\alpha = \text{Re}(s)</script> we have
-$$\mathcal{L}(1)=1/s, \text{ for Re(<script type="math/tex">s</script>)} &gt; 0$$
-The region Re<script type="math/tex">(s) > 0</script> is called the <strong>region of convergence</strong> of the transform. It is a right half-plane.<br />
-<img alt="" src="../pic280301.png" /><br />
-<strong>Frequency:</strong> The Laplace transform variable <script type="math/tex">s</script> can be thought of as complex frequency. It will take us a while to understand this, but we can begin here. Euler's formula says <script type="math/tex">e^{i\omega t} = \cos(\omega t) + i\sin(\omega t)</script> and we call <script type="math/tex">\omega</script> the angular frequency. By analogy for any complex number exponent we call <script type="math/tex">s</script> the <strong>complex frequency</strong> in <script type="math/tex">e^{st}. If </script>s = a + i\omega<script type="math/tex"> then </script>s<script type="math/tex"> is the complex frequency and its imaginary part </script>\omega$ is an actual frequency of a sinusoidal oscillation.</p>
-<h3 id="piecewise-continuous-functions-and-functions-of-exponential-order">Piecewise continuous functions and functions of exponential order</h3>
-<p>If the integral fails to converge for any s then the function does not have a Laplace transform.<br />
-<strong>Example.</strong> It is easy to see that <script type="math/tex">f(t) = e^{t^2}</script>
-has no Laplace transform.<br />
-The problem is the <script type="math/tex">e^{t^2}</script> grows too fast as <script type="math/tex">t</script> gets large. Fortunately, all of the functions we are interested in do have Laplace transforms valid for Re<script type="math/tex">(s) > a</script> for some value <script type="math/tex">a</script>.<br />
-<strong>Functions of Exponential Order</strong><br />
-The class of functions that do have Laplace transforms are those of <em>exponential order</em>. Fortunately for us, all the functions we use in 18.03 are of this type.<br />
-A function is said to be of <strong>exponential order</strong> if there are numbers <script type="math/tex">a</script> and <script type="math/tex">M</script> such that <script type="math/tex">|f(t)| < Me^{at}</script>. In this case, we say that <script type="math/tex">f</script> has exponential order <script type="math/tex">a</script>.<br />
-<strong>Examples.</strong> <script type="math/tex">1, \cos(\omega t), \sin(\omega t), t^n</script> all have exponential order 0. <script type="math/tex">e^{at}</script> has exponential order <script type="math/tex">a</script>.</p>
-<p>A function <script type="math/tex">f(t)</script> is <strong>piecewise continuous</strong> if it is continuous everywhere except at a finite number of points in any finite interval and if at thesepoints it has a jump discontinuity (i.e. a jump of finite height).<br />
-<strong>Example.</strong> The square wave is piecewise continuous.<br />
-<strong>Theorem:</strong> If <script type="math/tex">f(t)</script> is piecewise continuous and of exponential order <script type="math/tex">a</script> then the Laplace transform <script type="math/tex">\mathcal{L}f(s)</script> converges for all <script type="math/tex">s</script> with Re<script type="math/tex">(s) > a</script>.<br />
-<strong>Proof:</strong> Suppose Re<script type="math/tex">(s) > a</script> and <script type="math/tex">|f(t)| < Me^{at}</script>. Then we can write <script type="math/tex">s = (a + \alpha) + i\beta</script>, where <script type="math/tex">\alpha > 0</script>. Then, since <script type="math/tex">|e^{-i\beta t}| = 1</script>,
-<script type="math/tex; mode=display">|f(t)e^{-st}|=|f(t)e^{-(a+\alpha)t}e^{-i\beta t}|=|f(t)e^{-(a+\alpha)t}|<Me^{-\alpha t}</script>
-Since <script type="math/tex">\int_0^\infty Me^{-\alpha t}dt</script> converges for <script type="math/tex">\alpha > 0</script>, the Laplace transform integral also converges.</p>
-<p><strong>Domain of <script type="math/tex">F(s)</script>:</strong> For <script type="math/tex">f(t)</script> we have <script type="math/tex">F(s) = 1/s</script> with region of convergence Re<script type="math/tex">(s) > 0</script>. But, the function <script type="math/tex">1/s</script> is well defined for all <script type="math/tex">s \neq 0</script>. The process of extending the domain of <script type="math/tex">F(s)</script> from the region of convergence is called <em>analytic continuation</em>. In this class analytic continuation will always consist of extending <script type="math/tex">F(s)</script> to the complex plane minus the zeros of the denominator.</p>
 
 
 
@@ -23188,6 +23159,35 @@ Since <script type="math/tex">\int_0^\infty Me^{-\alpha t}dt</script> converges 
     
   </aside>
 
+<h3 id="complex-s-and-region-of-convergence">Complex <script type="math/tex">s</script> and region of convergence</h3>
+<p>We will allow <script type="math/tex">s</script> to be complex, using as needed the properties of the complex exponential we learned in unit 1.<br />
+<strong>Example 1.</strong> In the previous note we saw that <script type="math/tex">\mathcal{L}(1) = 1/s</script>, valid for all <script type="math/tex">s > 0</script>. Let's recompute <script type="math/tex">\mathcal{L}(1)(s)</script> for complex <script type="math/tex">s</script>. Let <script type="math/tex">s = \alpha+i\beta</script>
+<script type="math/tex; mode=display">\begin{aligned}
+\mathcal{L}(1)(s)&=\int_0^\infty e^{-st}dt\\
+&=\lim_{T \to \infty}\frac{e^{-st}}{-s}\bigg|_0^T\\
+&=\lim_{T \to \infty}\frac{e^{-\alpha t}(\cos(\beta t)+i\sin(\beta t))}{-s}\bigg|_0^T
+\end{aligned}</script>
+This converges if <script type="math/tex">\alpha > 0</script> and diverges if <script type="math/tex">\alpha < 0</script>. Since <script type="math/tex">\alpha = \text{Re}(s)</script> we have
+$$\mathcal{L}(1)=1/s, \text{ for Re(<script type="math/tex">s</script>)} &gt; 0$$
+The region Re<script type="math/tex">(s) > 0</script> is called the <strong>region of convergence</strong> of the transform. It is a right half-plane.<br />
+<img alt="" src="../pic280301.png" /><br />
+<strong>Frequency:</strong> The Laplace transform variable <script type="math/tex">s</script> can be thought of as complex frequency. It will take us a while to understand this, but we can begin here. Euler's formula says <script type="math/tex">e^{i\omega t} = \cos(\omega t) + i\sin(\omega t)</script> and we call <script type="math/tex">\omega</script> the angular frequency. By analogy for any complex number exponent we call <script type="math/tex">s</script> the <strong>complex frequency</strong> in <script type="math/tex">e^{st}. If </script>s = a + i\omega<script type="math/tex"> then </script>s<script type="math/tex"> is the complex frequency and its imaginary part </script>\omega$ is an actual frequency of a sinusoidal oscillation.</p>
+<h3 id="piecewise-continuous-functions-and-functions-of-exponential-order">Piecewise continuous functions and functions of exponential order</h3>
+<p>If the integral fails to converge for any s then the function does not have a Laplace transform.<br />
+<strong>Example.</strong> It is easy to see that <script type="math/tex">f(t) = e^{t^2}</script>
+has no Laplace transform.<br />
+The problem is the <script type="math/tex">e^{t^2}</script> grows too fast as <script type="math/tex">t</script> gets large. Fortunately, all of the functions we are interested in do have Laplace transforms valid for Re<script type="math/tex">(s) > a</script> for some value <script type="math/tex">a</script>.<br />
+<strong>Functions of Exponential Order</strong><br />
+The class of functions that do have Laplace transforms are those of <em>exponential order</em>. Fortunately for us, all the functions we use in 18.03 are of this type.<br />
+A function is said to be of <strong>exponential order</strong> if there are numbers <script type="math/tex">a</script> and <script type="math/tex">M</script> such that <script type="math/tex">|f(t)| < Me^{at}</script>. In this case, we say that <script type="math/tex">f</script> has exponential order <script type="math/tex">a</script>.<br />
+<strong>Examples.</strong> <script type="math/tex">1, \cos(\omega t), \sin(\omega t), t^n</script> all have exponential order 0. <script type="math/tex">e^{at}</script> has exponential order <script type="math/tex">a</script>.</p>
+<p>A function <script type="math/tex">f(t)</script> is <strong>piecewise continuous</strong> if it is continuous everywhere except at a finite number of points in any finite interval and if at thesepoints it has a jump discontinuity (i.e. a jump of finite height).<br />
+<strong>Example.</strong> The square wave is piecewise continuous.<br />
+<strong>Theorem:</strong> If <script type="math/tex">f(t)</script> is piecewise continuous and of exponential order <script type="math/tex">a</script> then the Laplace transform <script type="math/tex">\mathcal{L}f(s)</script> converges for all <script type="math/tex">s</script> with Re<script type="math/tex">(s) > a</script>.<br />
+<strong>Proof:</strong> Suppose Re<script type="math/tex">(s) > a</script> and <script type="math/tex">|f(t)| < Me^{at}</script>. Then we can write <script type="math/tex">s = (a + \alpha) + i\beta</script>, where <script type="math/tex">\alpha > 0</script>. Then, since <script type="math/tex">|e^{-i\beta t}| = 1</script>,
+<script type="math/tex; mode=display">|f(t)e^{-st}|=|f(t)e^{-(a+\alpha)t}e^{-i\beta t}|=|f(t)e^{-(a+\alpha)t}|<Me^{-\alpha t}</script>
+Since <script type="math/tex">\int_0^\infty Me^{-\alpha t}dt</script> converges for <script type="math/tex">\alpha > 0</script>, the Laplace transform integral also converges.</p>
+<p><strong>Domain of <script type="math/tex">F(s)</script>:</strong> For <script type="math/tex">f(t)</script> we have <script type="math/tex">F(s) = 1/s</script> with region of convergence Re<script type="math/tex">(s) > 0</script>. But, the function <script type="math/tex">1/s</script> is well defined for all <script type="math/tex">s \neq 0</script>. The process of extending the domain of <script type="math/tex">F(s)</script> from the region of convergence is called <em>analytic continuation</em>. In this class analytic continuation will always consist of extending <script type="math/tex">F(s)</script> to the complex plane minus the zeros of the denominator.</p>
 
   
 

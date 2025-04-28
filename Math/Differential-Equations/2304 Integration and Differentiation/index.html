@@ -23040,36 +23040,6 @@
 
   <h1>2304 Integration and Differentiation</h1>
 
-<p>We can integrate a Fourier series term-by-term:<br />
-<strong>Example 1</strong>. Let
-<script type="math/tex; mode=display">
-f(t)=1+\cos t+\frac{\cos 2t}{2}+\frac{\cos 3t}{3}+\ldots
-</script>
-then,
-<script type="math/tex; mode=display">
-h(t)=\int_0^tf(u)du=t+\sin t+\frac{\sin 2t}{2^2}+\frac{\sin 3t}{3^2}+\ldots
-</script>
-<strong>Note:</strong> The integrated function <script type="math/tex">h(t)</script> is not periodic (because of the <script type="math/tex">t</script> term), so the result is a series, but not a Fourier series.</p>
-<p>We can also differentiate a Fourier series term-by-term to get the Fourier series of the derivative function.<br />
-<strong>Example 2.</strong> Let <script type="math/tex">f(t)</script> be the period <script type="math/tex">2\pi</script> triangle wave (continuous sawtooth) given on the interval <script type="math/tex">[-\pi, \pi)</script> by <script type="math/tex">f(t) = |t|</script>. Its Fourier series is
-<script type="math/tex; mode=display">
-f(t)=\frac{\pi}{2}-\frac{4}{\pi}(\cos t+\frac{\cos 3t}{3^2}+\frac{\cos 5t}{5^2}+\ldots)
-</script>
-In the previous session we computed the Fourier series of a period 2 triangle wave. This series can then be obtained from that one by scaling by <script type="math/tex">\pi</script> in both time and the vertical dimension, using the methods we learned in the previous note.<br />
-The derivative of <script type="math/tex">f(t)</script> is the square wave. Differentiating the Fourier series of <script type="math/tex">f(t)</script> term-by-term gives
-<script type="math/tex; mode=display">
-f'(t)=\frac{4}{\pi}(\sin t+\frac{\sin 3t}{3}+\frac{\sin 5t}{5}+\ldots)
-</script>
-</p>
-<p><strong>Example 3.</strong> What happens if you try to differentiate the square wave
-<script type="math/tex; mode=display">
-sq(t)=\frac{4}{\pi}(\sin t+\frac{\sin 3t}{3}+\frac{\sin 5t}{5}+\ldots)
-</script>
-<strong>Solution.</strong> Differentiation term-by-term gives
-<script type="math/tex; mode=display">
-sq'(t)=\frac{4}{\pi}(\cos t+\cos 3t+cos 5t+\ldots)
-</script>
-But, what is meant by <script type="math/tex">sq'(t)</script>? Since <script type="math/tex">sq(t)</script> consists of horizontal segments its derivative at most places is 0. However we can't ignore the 'vertical' segments where the function has a <em>jump discontinuity</em>. For now, the best we can say is that the slope is infinite at these jumps and <script type="math/tex">sq'(t)</script> doesn't exist. Later in this unit we will learn about <em>delta functions</em> and <em>generalized derivatives</em>, which will allow us to make better sense of <script type="math/tex">sq'(t)</script>.</p>
 
 
 
@@ -23110,6 +23080,36 @@ But, what is meant by <script type="math/tex">sq'(t)</script>? Since <script typ
     
   </aside>
 
+<p>We can integrate a Fourier series term-by-term:<br />
+<strong>Example 1</strong>. Let
+<script type="math/tex; mode=display">
+f(t)=1+\cos t+\frac{\cos 2t}{2}+\frac{\cos 3t}{3}+\ldots
+</script>
+then,
+<script type="math/tex; mode=display">
+h(t)=\int_0^tf(u)du=t+\sin t+\frac{\sin 2t}{2^2}+\frac{\sin 3t}{3^2}+\ldots
+</script>
+<strong>Note:</strong> The integrated function <script type="math/tex">h(t)</script> is not periodic (because of the <script type="math/tex">t</script> term), so the result is a series, but not a Fourier series.</p>
+<p>We can also differentiate a Fourier series term-by-term to get the Fourier series of the derivative function.<br />
+<strong>Example 2.</strong> Let <script type="math/tex">f(t)</script> be the period <script type="math/tex">2\pi</script> triangle wave (continuous sawtooth) given on the interval <script type="math/tex">[-\pi, \pi)</script> by <script type="math/tex">f(t) = |t|</script>. Its Fourier series is
+<script type="math/tex; mode=display">
+f(t)=\frac{\pi}{2}-\frac{4}{\pi}(\cos t+\frac{\cos 3t}{3^2}+\frac{\cos 5t}{5^2}+\ldots)
+</script>
+In the previous session we computed the Fourier series of a period 2 triangle wave. This series can then be obtained from that one by scaling by <script type="math/tex">\pi</script> in both time and the vertical dimension, using the methods we learned in the previous note.<br />
+The derivative of <script type="math/tex">f(t)</script> is the square wave. Differentiating the Fourier series of <script type="math/tex">f(t)</script> term-by-term gives
+<script type="math/tex; mode=display">
+f'(t)=\frac{4}{\pi}(\sin t+\frac{\sin 3t}{3}+\frac{\sin 5t}{5}+\ldots)
+</script>
+</p>
+<p><strong>Example 3.</strong> What happens if you try to differentiate the square wave
+<script type="math/tex; mode=display">
+sq(t)=\frac{4}{\pi}(\sin t+\frac{\sin 3t}{3}+\frac{\sin 5t}{5}+\ldots)
+</script>
+<strong>Solution.</strong> Differentiation term-by-term gives
+<script type="math/tex; mode=display">
+sq'(t)=\frac{4}{\pi}(\cos t+\cos 3t+cos 5t+\ldots)
+</script>
+But, what is meant by <script type="math/tex">sq'(t)</script>? Since <script type="math/tex">sq(t)</script> consists of horizontal segments its derivative at most places is 0. However we can't ignore the 'vertical' segments where the function has a <em>jump discontinuity</em>. For now, the best we can say is that the slope is infinite at these jumps and <script type="math/tex">sq'(t)</script> doesn't exist. Later in this unit we will learn about <em>delta functions</em> and <em>generalized derivatives</em>, which will allow us to make better sense of <script type="math/tex">sq'(t)</script>.</p>
 
   
 

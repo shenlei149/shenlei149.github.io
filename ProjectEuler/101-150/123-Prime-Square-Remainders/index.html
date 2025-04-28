@@ -23040,36 +23040,6 @@
 
   <h1>123 Prime Square Remainders</h1>
 
-<p><a href="https://projecteuler.net/problem=123" title="Problem 123 - Project Euler">题目链接</a></p>
-<p>
-<script type="math/tex">p_n</script> 表示第 <script type="math/tex">n</script> 个质数，<script type="math/tex">r</script> 是 <script type="math/tex">(p_n-1)^n+(p_n+1)^n</script> 模 <script type="math/tex">p_n^2</script> 的余数。</p>
-<p>求满足余数 <script type="math/tex">r</script> 超过 <script type="math/tex">10^{10}</script> 的 <script type="math/tex">n</script> 的最小值。</p>
-<p>这问题的关键在于找到一个简单的方式来表达 <script type="math/tex">r</script>。我们先把 <script type="math/tex">(p_n-1)^n</script> 展开看看。
-<script type="math/tex; mode=display">(p_n-1)^n=\binom{n}{n}p_n^n+\binom{n}{n-1}(-1)^1p_n^{n-1}+\cdots+\binom{n}{2}(-1)^{n-2}p_n^2+\binom{n}{1}(-1)^{n-1}p_n+\binom{n}{0}(-1)^n</script>
-除了最后两项，其他能被 <script type="math/tex">p_n^2</script> 整除。<script type="math/tex">(p_n+1)^n</script> 类似。所以
-<script type="math/tex; mode=display">r=n(-1)^{n-1}p_n+(-1)^n+n(1)^{n-1}p_n+(1)^n</script>
-<script type="math/tex">n</script> 为偶数时
-<script type="math/tex; mode=display">r=n(-1)p_n+1+n(1)p_n+1=2</script>
-显然不大于 <script type="math/tex">10^{10}</script>。</p>
-<p>
-<script type="math/tex">n</script> 为奇数时
-<script type="math/tex; mode=display">r=np_n-1+np_n+1=2np_n</script>
-我们只需要考察 <script type="math/tex">n</script> 是奇数即可，同时，给定 <script type="math/tex">n</script>，我们能够很快的计算出 <script type="math/tex">r</script> 的值。</p>
-<p>写代码得到答案。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">primes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">GenPrimes</span><span class="p">(</span><span class="mi">1000000</span><span class="p">).</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7039</span><span class="p">;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">for</span><span class="w"> </span><span class="p">(;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">primes</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">{</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">primes</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">)</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
-</span></code></pre></div>
-这里说明两个事情：
-1. 7037 是题目给出的数，其对应的 <script type="math/tex">r</script> 第一次超过了 <script type="math/tex">10^9</script>，所以我们从 7039 开始找即可；其实多算 7000 多个数也消耗不了啥时间。
-2. <code>primes[n - 1]</code> 减一的原因是数组从 0 开始，而不是 1。</p>
 
 
 
@@ -23110,6 +23080,36 @@
     
   </aside>
 
+<p><a href="https://projecteuler.net/problem=123" title="Problem 123 - Project Euler">题目链接</a></p>
+<p>
+<script type="math/tex">p_n</script> 表示第 <script type="math/tex">n</script> 个质数，<script type="math/tex">r</script> 是 <script type="math/tex">(p_n-1)^n+(p_n+1)^n</script> 模 <script type="math/tex">p_n^2</script> 的余数。</p>
+<p>求满足余数 <script type="math/tex">r</script> 超过 <script type="math/tex">10^{10}</script> 的 <script type="math/tex">n</script> 的最小值。</p>
+<p>这问题的关键在于找到一个简单的方式来表达 <script type="math/tex">r</script>。我们先把 <script type="math/tex">(p_n-1)^n</script> 展开看看。
+<script type="math/tex; mode=display">(p_n-1)^n=\binom{n}{n}p_n^n+\binom{n}{n-1}(-1)^1p_n^{n-1}+\cdots+\binom{n}{2}(-1)^{n-2}p_n^2+\binom{n}{1}(-1)^{n-1}p_n+\binom{n}{0}(-1)^n</script>
+除了最后两项，其他能被 <script type="math/tex">p_n^2</script> 整除。<script type="math/tex">(p_n+1)^n</script> 类似。所以
+<script type="math/tex; mode=display">r=n(-1)^{n-1}p_n+(-1)^n+n(1)^{n-1}p_n+(1)^n</script>
+<script type="math/tex">n</script> 为偶数时
+<script type="math/tex; mode=display">r=n(-1)p_n+1+n(1)p_n+1=2</script>
+显然不大于 <script type="math/tex">10^{10}</script>。</p>
+<p>
+<script type="math/tex">n</script> 为奇数时
+<script type="math/tex; mode=display">r=np_n-1+np_n+1=2np_n</script>
+我们只需要考察 <script type="math/tex">n</script> 是奇数即可，同时，给定 <script type="math/tex">n</script>，我们能够很快的计算出 <script type="math/tex">r</script> 的值。</p>
+<p>写代码得到答案。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">primes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">GenPrimes</span><span class="p">(</span><span class="mi">1000000</span><span class="p">).</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7039</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">for</span><span class="w"> </span><span class="p">(;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">primes</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">primes</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+</span></code></pre></div>
+这里说明两个事情：
+1. 7037 是题目给出的数，其对应的 <script type="math/tex">r</script> 第一次超过了 <script type="math/tex">10^9</script>，所以我们从 7039 开始找即可；其实多算 7000 多个数也消耗不了啥时间。
+2. <code>primes[n - 1]</code> 减一的原因是数组从 0 开始，而不是 1。</p>
 
   
 

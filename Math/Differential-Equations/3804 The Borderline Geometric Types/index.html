@@ -23040,37 +23040,6 @@
 
   <h1>3804 The Borderline Geometric Types</h1>
 
-<p>All the other possibilities for the linear system we call borderline types. We will show now that none of them is structurally stable; we begin with the center.<br />
-<strong>Eigenvalues pure imaginary.</strong> Once again we use the eigenvalue with the positive imaginary part: <script type="math/tex">\lambda = 0 + si, s > 0</script>. It corresponds to a center: the trajectories are a family of concentric ellipses, centered at the origin. If the coefficients <script type="math/tex">a, b, c, d</script> are changed a little, the eigenvalue <script type="math/tex">0 + si</script> changes a little to <script type="math/tex">r' + s'i</script>, where <script type="math/tex">r' \approx 0, s' \approx s</script>, and there are three possibilities for the new eigenvalue:
-<script type="math/tex; mode=display">\begin{aligned}
-&0+si\rarr r'+s'i:&r'>0&&r'<0&&r'=0\\
-&s>0&s'>0&&s'>0&&s'>0\\
-&\text{center}&\text{source spiral }&&\text{sink spiral}&&\text{center}
-\end{aligned}</script>
-Correspondingly, there are three possibilities for how the geometric picture of the trajectories can change:<br />
-<img alt="" src="../pic380401.png" /><br />
-<strong>Eigenvalues real; one eigenvalue zero.</strong> Here <script type="math/tex">\lambda_1 = 0</script>, and <script type="math/tex">\lambda_2 > 0</script> or <script type="math/tex">\lambda_2 < 0</script>. The general solution to the system has the form (<script type="math/tex">\alpha_1, \alpha_2</script> are the eigenvectors)
-<script type="math/tex; mode=display">\boldsymbol{x}=c_1\alpha_1+c_2\alpha_2e^{\lambda_2t}</script>
-If <script type="math/tex">\lambda_2 < 0</script>, the geometric picture of its trajectories shows a line of critical points (constant solutions, corresponding to <script type="math/tex">c_2 = 0</script>), with all other trajectories being parallel lines ending up (for <script type="math/tex">t = \infty</script>) at one of the critical points, as shown below<br />
-<img alt="" src="../pic380402.png" /><br />
-We continue to assume <script type="math/tex">\lambda_2 < 0</script>. As the coefficients of the system change a little, the two eigenvalues change a little also; there are three possibilities, since the eigenvalue <script type="math/tex">\lambda = 0</script> can become positive, negative, or stay zero:
-<script type="math/tex; mode=display">\begin{aligned}
-&\lambda_1=0\rarr\lambda_1':&\lambda_1'>0&&\lambda_1'=0&&\lambda_1'<0\\
-&\lambda_2<0\rarr\lambda_2':&\lambda_2'<0&&\lambda_2'<0&&\lambda_2'<0\\
-&\text{critical line}&\text{unstable saddle}&&\text{critical line}&&\text{sink node}
-\end{aligned}</script>
-Here are the corresponding pictures. (The pictures would look the same if we assumed <script type="math/tex">\lambda_2 > 0</script>, but the arrows on the trajectories would be reversed.)<br />
-<img alt="" src="../pic380403.png" /><br />
-<strong>One repeated real eigenvalue.</strong> Finally, we consider the case where <script type="math/tex">\lambda_1 = \lambda_2</script>. Here there are a number of possibilities, depending on whether <script type="math/tex">\lambda_1</script> is positive or negative, and whether the repeated eigenvalue is complete (i.e., has two independent eigenvectors), or defective (i.e., incomplete: only one eigenvector). Let us assume that <script type="math/tex">\lambda_1 < 0</script>. We vary the coefficients of the system a little. By the same reasoning as before, the eigenvalues change a little, and by the same reasoning as before, we get as the main possibilities (omitting this time the one where the changed eigenvalue is still repeated):
-<script type="math/tex; mode=display">\begin{aligned}
-&\lambda_1<0&\rarr&&\lambda_1'<0&&r+si\\
-&\lambda_2<0&\rarr&&\lambda_2'<0&&r-si\\
-&\lambda_1=\lambda_2&&&\lambda_1'\neq\lambda_2'&&r\approx\lambda_1,s\approx 0\\
-&\text{sink node}&&&\text{sink node}&&\text{sink spiral}
-\end{aligned}</script>
-Typical corresponding pictures for the complete case and the defective (incomplete) case are (the last one is left for you to experiment with on the computer screen)<br />
-<img alt="" src="../pic380404.png" /><br />
-<strong>Remarks.</strong> Each of these three cases-one eigenvalue zero, pure imaginary eigenvalues, repeated real eigenvalue-has to be looked on as a borderline linear system: altering the coefficients slightly can give it an entirely different geometric type, and in the first two cases, possibly alter its stability as well.</p>
 
 
 
@@ -23111,6 +23080,37 @@ Typical corresponding pictures for the complete case and the defective (incomple
     
   </aside>
 
+<p>All the other possibilities for the linear system we call borderline types. We will show now that none of them is structurally stable; we begin with the center.<br />
+<strong>Eigenvalues pure imaginary.</strong> Once again we use the eigenvalue with the positive imaginary part: <script type="math/tex">\lambda = 0 + si, s > 0</script>. It corresponds to a center: the trajectories are a family of concentric ellipses, centered at the origin. If the coefficients <script type="math/tex">a, b, c, d</script> are changed a little, the eigenvalue <script type="math/tex">0 + si</script> changes a little to <script type="math/tex">r' + s'i</script>, where <script type="math/tex">r' \approx 0, s' \approx s</script>, and there are three possibilities for the new eigenvalue:
+<script type="math/tex; mode=display">\begin{aligned}
+&0+si\rarr r'+s'i:&r'>0&&r'<0&&r'=0\\
+&s>0&s'>0&&s'>0&&s'>0\\
+&\text{center}&\text{source spiral }&&\text{sink spiral}&&\text{center}
+\end{aligned}</script>
+Correspondingly, there are three possibilities for how the geometric picture of the trajectories can change:<br />
+<img alt="" src="../pic380401.png" /><br />
+<strong>Eigenvalues real; one eigenvalue zero.</strong> Here <script type="math/tex">\lambda_1 = 0</script>, and <script type="math/tex">\lambda_2 > 0</script> or <script type="math/tex">\lambda_2 < 0</script>. The general solution to the system has the form (<script type="math/tex">\alpha_1, \alpha_2</script> are the eigenvectors)
+<script type="math/tex; mode=display">\boldsymbol{x}=c_1\alpha_1+c_2\alpha_2e^{\lambda_2t}</script>
+If <script type="math/tex">\lambda_2 < 0</script>, the geometric picture of its trajectories shows a line of critical points (constant solutions, corresponding to <script type="math/tex">c_2 = 0</script>), with all other trajectories being parallel lines ending up (for <script type="math/tex">t = \infty</script>) at one of the critical points, as shown below<br />
+<img alt="" src="../pic380402.png" /><br />
+We continue to assume <script type="math/tex">\lambda_2 < 0</script>. As the coefficients of the system change a little, the two eigenvalues change a little also; there are three possibilities, since the eigenvalue <script type="math/tex">\lambda = 0</script> can become positive, negative, or stay zero:
+<script type="math/tex; mode=display">\begin{aligned}
+&\lambda_1=0\rarr\lambda_1':&\lambda_1'>0&&\lambda_1'=0&&\lambda_1'<0\\
+&\lambda_2<0\rarr\lambda_2':&\lambda_2'<0&&\lambda_2'<0&&\lambda_2'<0\\
+&\text{critical line}&\text{unstable saddle}&&\text{critical line}&&\text{sink node}
+\end{aligned}</script>
+Here are the corresponding pictures. (The pictures would look the same if we assumed <script type="math/tex">\lambda_2 > 0</script>, but the arrows on the trajectories would be reversed.)<br />
+<img alt="" src="../pic380403.png" /><br />
+<strong>One repeated real eigenvalue.</strong> Finally, we consider the case where <script type="math/tex">\lambda_1 = \lambda_2</script>. Here there are a number of possibilities, depending on whether <script type="math/tex">\lambda_1</script> is positive or negative, and whether the repeated eigenvalue is complete (i.e., has two independent eigenvectors), or defective (i.e., incomplete: only one eigenvector). Let us assume that <script type="math/tex">\lambda_1 < 0</script>. We vary the coefficients of the system a little. By the same reasoning as before, the eigenvalues change a little, and by the same reasoning as before, we get as the main possibilities (omitting this time the one where the changed eigenvalue is still repeated):
+<script type="math/tex; mode=display">\begin{aligned}
+&\lambda_1<0&\rarr&&\lambda_1'<0&&r+si\\
+&\lambda_2<0&\rarr&&\lambda_2'<0&&r-si\\
+&\lambda_1=\lambda_2&&&\lambda_1'\neq\lambda_2'&&r\approx\lambda_1,s\approx 0\\
+&\text{sink node}&&&\text{sink node}&&\text{sink spiral}
+\end{aligned}</script>
+Typical corresponding pictures for the complete case and the defective (incomplete) case are (the last one is left for you to experiment with on the computer screen)<br />
+<img alt="" src="../pic380404.png" /><br />
+<strong>Remarks.</strong> Each of these three cases-one eigenvalue zero, pure imaginary eigenvalues, repeated real eigenvalue-has to be looked on as a borderline linear system: altering the coefficients slightly can give it an entirely different geometric type, and in the first two cases, possibly alter its stability as well.</p>
 
   
 

@@ -23040,35 +23040,6 @@
 
   <h1>2403 General Case</h1>
 
-<p>It is actually just as easy to write out the formula for the Fourier series expansion of the steady-periodic solution <script type="math/tex">x_{sp}(t)</script> to the general secondorder LTI DE <script type="math/tex">p(D)x = f(t)</script> with <script type="math/tex">f(t)</script> periodic as it was to work out the previous example - the only difference is that now we use letters instead of numbers. We will choose the letters used for the spring-mass-dashpot system, but clearly the derivation and formulas will work with any three parameters.
-For simplicity we will take the case of <script type="math/tex">f(t)</script> even (i.e. cosine series).</p>
-<p><strong>Problem:</strong> Solve <script type="math/tex">mx''+bx'+kx=f(t)</script>, for the steady-periodic response <script type="math/tex">x_{sp}(t)</script>, where <script type="math/tex">f(t)=\frac{a_0}{2}+\sum_{n=1}^\infty a_n\cos(n\frac{\pi}{L}t)dt</script>
-</p>
-<p><strong>Solution</strong><br />
-Characteristic polynomial: <script type="math/tex">p(s) = ms^2 + bs + k</script>.<br />
-Solving for the component pieces:
-<script type="math/tex; mode=display">mx_n''+bx_n'+kx_n=\cos(n\frac{\pi}{L}t)</script>
-For <script type="math/tex">n=0</script> we get <script type="math/tex">x_{0,p}=\frac{1}{k}</script>.<br />
-For <script type="math/tex">n\geq1</script>:<br />
-Complex replacement:
-<script type="math/tex; mode=display">mz_n''+bz_n'+kz_n=e^{in\frac{\pi}{L}t}, x_n=Re(z_n)</script>
-Exponential Response formula:
-<script type="math/tex; mode=display">z_{n,p}(t)=\frac{e^{in\frac{\pi}{L}t}}{p(in\frac{\pi}{L})}</script>
-Polar coords:
-<script type="math/tex; mode=display">p(in\frac{\pi}{L})=(k-m(n\frac{\pi}{L})^2)+ibn\frac{\pi}{L}=|p(in\frac{\pi}{L})|e^{i\phi_n}</script>
-where 
-<script type="math/tex; mode=display">|p(in\frac{\pi}{L})|=\sqrt{(k-m(n\frac{\pi}{L})^2)^2+b^2(n\frac{\pi}{L})^2}</script>
-and
-<script type="math/tex; mode=display">\phi_n=Arg(p(in\frac{\pi}{L}))=\tan^{-1}(\frac{bn\frac{\pi}{L}}{k-m(n\frac{\pi}{L})^2})\tag{phase lag}</script>
-Thus,
-<script type="math/tex; mode=display">z_{n,p}(t)=g_ne^{i(n\frac{\pi}{L}t-\phi_n)}</script>
-with
-<script type="math/tex; mode=display">g_n=\frac{1}{|p(in\frac{\pi}{L})|}\tag{gain}</script>
-Taking the real part of <script type="math/tex">x_{n,p}</script> we get
-<script type="math/tex; mode=display">x_{n,p}(t)=g_n\cos(n\frac{\pi}{L}t-\phi_n)</script>
-Now using superposition and putting back in the coefficients <script type="math/tex">a_n</script> we get:
-<script type="math/tex; mode=display">x_{sp}(t)=\frac{a_0}{2}x_{0,p}+\sum_{n=1}^\infty a_n x_{n,p}(t)=\frac{a_0}{2k}+\sum_{n=1}^\infty a_n g_n \cos(n\frac{\pi}{L}t-\phi_n)</script>
-This is the general formula for the steady periodic response of a secondorder LTI DE to an even periodic driver <script type="math/tex">f(t)</script>.</p>
 
 
 
@@ -23109,6 +23080,35 @@ This is the general formula for the steady periodic response of a secondorder LT
     
   </aside>
 
+<p>It is actually just as easy to write out the formula for the Fourier series expansion of the steady-periodic solution <script type="math/tex">x_{sp}(t)</script> to the general secondorder LTI DE <script type="math/tex">p(D)x = f(t)</script> with <script type="math/tex">f(t)</script> periodic as it was to work out the previous example - the only difference is that now we use letters instead of numbers. We will choose the letters used for the spring-mass-dashpot system, but clearly the derivation and formulas will work with any three parameters.
+For simplicity we will take the case of <script type="math/tex">f(t)</script> even (i.e. cosine series).</p>
+<p><strong>Problem:</strong> Solve <script type="math/tex">mx''+bx'+kx=f(t)</script>, for the steady-periodic response <script type="math/tex">x_{sp}(t)</script>, where <script type="math/tex">f(t)=\frac{a_0}{2}+\sum_{n=1}^\infty a_n\cos(n\frac{\pi}{L}t)dt</script>
+</p>
+<p><strong>Solution</strong><br />
+Characteristic polynomial: <script type="math/tex">p(s) = ms^2 + bs + k</script>.<br />
+Solving for the component pieces:
+<script type="math/tex; mode=display">mx_n''+bx_n'+kx_n=\cos(n\frac{\pi}{L}t)</script>
+For <script type="math/tex">n=0</script> we get <script type="math/tex">x_{0,p}=\frac{1}{k}</script>.<br />
+For <script type="math/tex">n\geq1</script>:<br />
+Complex replacement:
+<script type="math/tex; mode=display">mz_n''+bz_n'+kz_n=e^{in\frac{\pi}{L}t}, x_n=Re(z_n)</script>
+Exponential Response formula:
+<script type="math/tex; mode=display">z_{n,p}(t)=\frac{e^{in\frac{\pi}{L}t}}{p(in\frac{\pi}{L})}</script>
+Polar coords:
+<script type="math/tex; mode=display">p(in\frac{\pi}{L})=(k-m(n\frac{\pi}{L})^2)+ibn\frac{\pi}{L}=|p(in\frac{\pi}{L})|e^{i\phi_n}</script>
+where 
+<script type="math/tex; mode=display">|p(in\frac{\pi}{L})|=\sqrt{(k-m(n\frac{\pi}{L})^2)^2+b^2(n\frac{\pi}{L})^2}</script>
+and
+<script type="math/tex; mode=display">\phi_n=Arg(p(in\frac{\pi}{L}))=\tan^{-1}(\frac{bn\frac{\pi}{L}}{k-m(n\frac{\pi}{L})^2})\tag{phase lag}</script>
+Thus,
+<script type="math/tex; mode=display">z_{n,p}(t)=g_ne^{i(n\frac{\pi}{L}t-\phi_n)}</script>
+with
+<script type="math/tex; mode=display">g_n=\frac{1}{|p(in\frac{\pi}{L})|}\tag{gain}</script>
+Taking the real part of <script type="math/tex">x_{n,p}</script> we get
+<script type="math/tex; mode=display">x_{n,p}(t)=g_n\cos(n\frac{\pi}{L}t-\phi_n)</script>
+Now using superposition and putting back in the coefficients <script type="math/tex">a_n</script> we get:
+<script type="math/tex; mode=display">x_{sp}(t)=\frac{a_0}{2}x_{0,p}+\sum_{n=1}^\infty a_n x_{n,p}(t)=\frac{a_0}{2k}+\sum_{n=1}^\infty a_n g_n \cos(n\frac{\pi}{L}t-\phi_n)</script>
+This is the general formula for the steady periodic response of a secondorder LTI DE to an even periodic driver <script type="math/tex">f(t)</script>.</p>
 
   
 

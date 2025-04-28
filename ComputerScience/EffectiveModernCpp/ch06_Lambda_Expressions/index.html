@@ -23034,28 +23034,6 @@
 
   <h1>06 Lambda Expressions</h1>
 
-<p>lambda 表达式是 C++ 中改变游戏规则的事务。因为它并没有带来新的表达能力，所以这种说法让人惊讶。所以 lambda 能做的事情，使用其他方式也能完成。但是 lambda 可以很方便的创建一个函数对象，影响着程序员的日常开发工作。有了 lambda 表达式，标准库中 <code>_if</code> 算法，比如 <code>std::find_if</code> <code>std::remove_if</code> <code>std::count_if</code>，用起来就相当简便了。对于需要自定义比较函数的地方，比如 <code>std::sort</code> <code>std::nth_element</code> <code>std::lower_bound</code>，也是类似的。lambda 还能方便的自定义 <code>std::shared_ptr</code> <code>std::unique_ptr</code> 的删除器（参见 Item <a href="../ch04_Smart_Pointers/18_Use_std_unique_ptr_for_exclusive_ownership_resource_management/">18</a> 和 <a href="../ch04_Smart_Pointers/19_Use_std_shared_ptr_for_shared_ownership_resource_management/">19</a>），还可以方便的指定线程 API 中的条件变量（参见 Item 39 TODO link）。除了标准库之外，lambda 表达式还能方便的用于回调函数、接口适配函数、一次性调用的上下文中。lambda 使得 C++ 成为了一种更令人愉快的编程语言。</p>
-<p>下面简要回顾 lambda 相关的术语。</p>
-<p>lambda 表达式（<code>lambda expression</code>）是一个表达式，是代码的一部分，下面高亮的两行就是 lambda 表达式。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">container</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="hll"><span class="w">             </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span>
-</span></span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="hll"><span class="w">             </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
-</span></span></code></pre></div>
-闭包（<code>closure</code>）是 lambda 创建的运行时对象。依赖于捕获模式，闭包持有捕获数据的拷贝或者引用。在上面的例子中，闭包是运行时传入 <code>std::find_if</code> 的对象。</p>
-<p>闭包类（<code>closure</code>）是闭包实例化的类。每一个 lambda 使得编译器生成唯一的闭包类。lambda 内的语句是对应闭包类的成员函数的可执行指令。</p>
-<p>lambda 通常创建一个闭包，作为函数的参数使用一次。比如上面 <code>std::find_if</code> 的例子。不过，闭包可以被拷贝，一个 lambda 表达式就对应了多个闭包。比如下面的代码。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="c1">// x is local variable</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">    </span><span class="c1">// c1 is copy of the closure</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">55</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// produced by the lambda</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c1</span><span class="p">;</span><span class="w"> </span><span class="c1">// c2 is copy of c1</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">;</span><span class="w"> </span><span class="c1">// c3 is copy of c2</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">}</span>
-</span></code></pre></div>
-这里 <code>c1</code> <code>c2</code> <code>c3</code> 都是 lambda 创建出来的闭包。</p>
-<p>非正式的讲，模糊 lambda、闭包和闭包类的边界是可以接受的。不过在本章涉及的条款中，区分编译期（lambda 和闭包类）与运行时（闭包）并理解它们之间的关系很重要。</p>
 
 
 
@@ -23096,6 +23074,28 @@
     
   </aside>
 
+<p>lambda 表达式是 C++ 中改变游戏规则的事务。因为它并没有带来新的表达能力，所以这种说法让人惊讶。所以 lambda 能做的事情，使用其他方式也能完成。但是 lambda 可以很方便的创建一个函数对象，影响着程序员的日常开发工作。有了 lambda 表达式，标准库中 <code>_if</code> 算法，比如 <code>std::find_if</code> <code>std::remove_if</code> <code>std::count_if</code>，用起来就相当简便了。对于需要自定义比较函数的地方，比如 <code>std::sort</code> <code>std::nth_element</code> <code>std::lower_bound</code>，也是类似的。lambda 还能方便的自定义 <code>std::shared_ptr</code> <code>std::unique_ptr</code> 的删除器（参见 Item <a href="../ch04_Smart_Pointers/18_Use_std_unique_ptr_for_exclusive_ownership_resource_management/">18</a> 和 <a href="../ch04_Smart_Pointers/19_Use_std_shared_ptr_for_shared_ownership_resource_management/">19</a>），还可以方便的指定线程 API 中的条件变量（参见 Item 39 TODO link）。除了标准库之外，lambda 表达式还能方便的用于回调函数、接口适配函数、一次性调用的上下文中。lambda 使得 C++ 成为了一种更令人愉快的编程语言。</p>
+<p>下面简要回顾 lambda 相关的术语。</p>
+<p>lambda 表达式（<code>lambda expression</code>）是一个表达式，是代码的一部分，下面高亮的两行就是 lambda 表达式。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">container</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="hll"><span class="w">             </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span>
+</span></span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="hll"><span class="w">             </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+</span></span></code></pre></div>
+闭包（<code>closure</code>）是 lambda 创建的运行时对象。依赖于捕获模式，闭包持有捕获数据的拷贝或者引用。在上面的例子中，闭包是运行时传入 <code>std::find_if</code> 的对象。</p>
+<p>闭包类（<code>closure</code>）是闭包实例化的类。每一个 lambda 使得编译器生成唯一的闭包类。lambda 内的语句是对应闭包类的成员函数的可执行指令。</p>
+<p>lambda 通常创建一个闭包，作为函数的参数使用一次。比如上面 <code>std::find_if</code> 的例子。不过，闭包可以被拷贝，一个 lambda 表达式就对应了多个闭包。比如下面的代码。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="c1">// x is local variable</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">    </span><span class="c1">// c1 is copy of the closure</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">55</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// produced by the lambda</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">c2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c1</span><span class="p">;</span><span class="w"> </span><span class="c1">// c2 is copy of c1</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c2</span><span class="p">;</span><span class="w"> </span><span class="c1">// c3 is copy of c2</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">}</span>
+</span></code></pre></div>
+这里 <code>c1</code> <code>c2</code> <code>c3</code> 都是 lambda 创建出来的闭包。</p>
+<p>非正式的讲，模糊 lambda、闭包和闭包类的边界是可以接受的。不过在本章涉及的条款中，区分编译期（lambda 和闭包类）与运行时（闭包）并理解它们之间的关系很重要。</p>
 
   
 

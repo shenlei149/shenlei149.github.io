@@ -23101,30 +23101,6 @@
 
   <h1>3205 Poles and Amplitude Response</h1>
 
-<p>We started the session by considering the poles of functions <script type="math/tex">F(s)</script>, and saw that, by definition, the graph of <script type="math/tex">|F(s)|</script> went off to infinity at the poles. Since it tells us where <script type="math/tex">|F(s)|</script> is infinite, the pole diagram provides a crude graph of <script type="math/tex">|F(s)|</script>: roughly speaking, <script type="math/tex">|F(s)|</script> will be large for values of <script type="math/tex">s</script> near the poles. In this note we show how this basic fact provides a useful graphical tool for spotting resonant or near-resonant frequencies for LTI systems.<br />
-<strong>Example 1.</strong> Figure 1 shows the pole diagram of a function <script type="math/tex">F(s)</script>. At which of the points A, B, C on the diagram would you guess <script type="math/tex">|F(s)|</script> is largest?<br />
-<img alt="" src="../pic320501.png" /><br />
-<strong>Solution.</strong> Point A is close to a pole and B and C are both far from poles so we would guess point <script type="math/tex">|F(s)|</script> is largest at point A.<br />
-<strong>Example 2.</strong> The pole diagram of a function <script type="math/tex">F(s)</script> is shown in Figure 2. At what point <script type="math/tex">s</script> on the positive imaginary axis would you guess that <script type="math/tex">|F(s)|</script> is largest?<br />
-<img alt="" src="../pic320502.png" /><br />
-<strong>Solution.</strong> We would guess that <script type="math/tex">s</script> should be close to <script type="math/tex">3i</script>, which is near a pole. There is not enough information in the pole diagram to determine the exact location of the maximum, but it is most likely to be near the pole.</p>
-<h3 id="amplitude-response-and-the-system-function">Amplitude Response and the System Function</h3>
-<p>Consider the system
-<script type="math/tex; mode=display">p(D)x=f(t)\tag{1}</script>
-where we take <script type="math/tex">f(t)</script> to be the input and <script type="math/tex">x(t)</script> to be the output. The transfer function of this system is
-<script type="math/tex; mode=display">W(s)=\frac{1}{p(s)}\tag{2}</script>
-When <script type="math/tex">f(t) = B \cos(\omega t)</script> the Exponential Response Formula from unit 2 gives the following periodic solution to <script type="math/tex">(1)</script>
-<script type="math/tex; mode=display">x_p(t)=\frac{B\cos (\omega t-\phi)}{|p(i\omega)|}, \text{ where } \phi=Arg(p(i\omega))\tag{3}</script>
-If the system is stable, then all solutions are asymptotic to the periodic solution in <script type="math/tex">(3)</script>. In this case, we saw in the session on Frequency Response in unit 2 that the amplitude response of the system as a function of <script type="math/tex">\omega</script> is
-<script type="math/tex; mode=display">g(\omega)=\frac{1}{|p(i\omega)|}\tag{4}</script>
-Comparing <script type="math/tex">(2)</script> and <script type="math/tex">(4)</script>, we see that for a stable system the amplitude response is related to the transfer function by
-<script type="math/tex; mode=display">g(\omega)=|W(i\omega)|\tag{5}</script>
-<strong>Note:</strong> The relation <script type="math/tex">(5)</script> holds for all stable LTI systems.<br />
-Using equation <script type="math/tex">(5)</script> and the language of amplitude response we will now re-do example 2 to illustrate how to use the pole diagram to estimate the practical resonant frequencies of a stable system.<br />
-<strong>Example 3.</strong> Figure 3 shows the pole diagram of a stable LTI system. At approximately what frequency will the system have the biggest response?<br />
-<img alt="" src="../pic320503.png" /><br />
-<strong>Solution.</strong> Let the transfer function be <script type="math/tex">W(s)</script>. Equation <script type="math/tex">(5)</script> says the amplitude response <script type="math/tex">g(\omega) = |W(i\omega)|</script>. Since <script type="math/tex">i\omega</script> is on the positive imaginary axis, the amplitude response <script type="math/tex">g(\omega)</script> will be largest at the point <script type="math/tex">i\omega</script> on the imaginary axis where <script type="math/tex">|W(i\omega)|</script> is largest. This is exactly the point found in example 2. Thus, we choose <script type="math/tex">i\omega \approx 3i</script>, i.e. the practical resonant frequency is approximately <script type="math/tex">\omega = 3</script>.<br />
-<strong>Note:</strong> Rephrasing this in graphical terms: we can graph the magnitude of the system function <script type="math/tex">W(s)</script> as a surface over the <script type="math/tex">s</script>-plane. The amplitude response of the system <script type="math/tex">|g(\omega)| = |W(i\omega)|</script> is given by the part of the system function graph that lies above the imaginary axis.</p>
 
 
 
@@ -23165,6 +23141,30 @@ Using equation <script type="math/tex">(5)</script> and the language of amplitud
     
   </aside>
 
+<p>We started the session by considering the poles of functions <script type="math/tex">F(s)</script>, and saw that, by definition, the graph of <script type="math/tex">|F(s)|</script> went off to infinity at the poles. Since it tells us where <script type="math/tex">|F(s)|</script> is infinite, the pole diagram provides a crude graph of <script type="math/tex">|F(s)|</script>: roughly speaking, <script type="math/tex">|F(s)|</script> will be large for values of <script type="math/tex">s</script> near the poles. In this note we show how this basic fact provides a useful graphical tool for spotting resonant or near-resonant frequencies for LTI systems.<br />
+<strong>Example 1.</strong> Figure 1 shows the pole diagram of a function <script type="math/tex">F(s)</script>. At which of the points A, B, C on the diagram would you guess <script type="math/tex">|F(s)|</script> is largest?<br />
+<img alt="" src="../pic320501.png" /><br />
+<strong>Solution.</strong> Point A is close to a pole and B and C are both far from poles so we would guess point <script type="math/tex">|F(s)|</script> is largest at point A.<br />
+<strong>Example 2.</strong> The pole diagram of a function <script type="math/tex">F(s)</script> is shown in Figure 2. At what point <script type="math/tex">s</script> on the positive imaginary axis would you guess that <script type="math/tex">|F(s)|</script> is largest?<br />
+<img alt="" src="../pic320502.png" /><br />
+<strong>Solution.</strong> We would guess that <script type="math/tex">s</script> should be close to <script type="math/tex">3i</script>, which is near a pole. There is not enough information in the pole diagram to determine the exact location of the maximum, but it is most likely to be near the pole.</p>
+<h3 id="amplitude-response-and-the-system-function">Amplitude Response and the System Function</h3>
+<p>Consider the system
+<script type="math/tex; mode=display">p(D)x=f(t)\tag{1}</script>
+where we take <script type="math/tex">f(t)</script> to be the input and <script type="math/tex">x(t)</script> to be the output. The transfer function of this system is
+<script type="math/tex; mode=display">W(s)=\frac{1}{p(s)}\tag{2}</script>
+When <script type="math/tex">f(t) = B \cos(\omega t)</script> the Exponential Response Formula from unit 2 gives the following periodic solution to <script type="math/tex">(1)</script>
+<script type="math/tex; mode=display">x_p(t)=\frac{B\cos (\omega t-\phi)}{|p(i\omega)|}, \text{ where } \phi=Arg(p(i\omega))\tag{3}</script>
+If the system is stable, then all solutions are asymptotic to the periodic solution in <script type="math/tex">(3)</script>. In this case, we saw in the session on Frequency Response in unit 2 that the amplitude response of the system as a function of <script type="math/tex">\omega</script> is
+<script type="math/tex; mode=display">g(\omega)=\frac{1}{|p(i\omega)|}\tag{4}</script>
+Comparing <script type="math/tex">(2)</script> and <script type="math/tex">(4)</script>, we see that for a stable system the amplitude response is related to the transfer function by
+<script type="math/tex; mode=display">g(\omega)=|W(i\omega)|\tag{5}</script>
+<strong>Note:</strong> The relation <script type="math/tex">(5)</script> holds for all stable LTI systems.<br />
+Using equation <script type="math/tex">(5)</script> and the language of amplitude response we will now re-do example 2 to illustrate how to use the pole diagram to estimate the practical resonant frequencies of a stable system.<br />
+<strong>Example 3.</strong> Figure 3 shows the pole diagram of a stable LTI system. At approximately what frequency will the system have the biggest response?<br />
+<img alt="" src="../pic320503.png" /><br />
+<strong>Solution.</strong> Let the transfer function be <script type="math/tex">W(s)</script>. Equation <script type="math/tex">(5)</script> says the amplitude response <script type="math/tex">g(\omega) = |W(i\omega)|</script>. Since <script type="math/tex">i\omega</script> is on the positive imaginary axis, the amplitude response <script type="math/tex">g(\omega)</script> will be largest at the point <script type="math/tex">i\omega</script> on the imaginary axis where <script type="math/tex">|W(i\omega)|</script> is largest. This is exactly the point found in example 2. Thus, we choose <script type="math/tex">i\omega \approx 3i</script>, i.e. the practical resonant frequency is approximately <script type="math/tex">\omega = 3</script>.<br />
+<strong>Note:</strong> Rephrasing this in graphical terms: we can graph the magnitude of the system function <script type="math/tex">W(s)</script> as a surface over the <script type="math/tex">s</script>-plane. The amplitude response of the system <script type="math/tex">|g(\omega)| = |W(i\omega)|</script> is given by the part of the system function graph that lies above the imaginary axis.</p>
 
   
 

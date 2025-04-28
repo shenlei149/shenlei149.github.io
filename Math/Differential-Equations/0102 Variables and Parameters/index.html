@@ -23119,45 +23119,6 @@
 
   <h1>0102 Variables and Parameters</h1>
 
-<h3 id="independent-and-dependent-variables">Independent and Dependent Variables</h3>
-<p>When we write a function such as 
-<script type="math/tex; mode=display">f(x)=3x^2+2x+1</script>
-we say that <script type="math/tex">x</script> is an <strong>independent variable</strong>: it can be freely set to any value (or any value within the given domain) and the value of the function is then computed.<br />
-When we give a name to the value of the function, such as
-<script type="math/tex; mode=display">y=3x^2+2x+1 \text{ or }y=f(x)</script>
-we say that <script type="math/tex">y</script> is a <strong>dependent variable</strong>. That is, the value of <script type="math/tex">y</script>
-<em>depends</em> on the value we choose for <script type="math/tex">x</script>.
-We can have systems of equations with more than one dependent variable. For example, 
-<script type="math/tex; mode=display">\begin{aligned}
-x&=t^2-1\\
-y&=3e^t
-\end{aligned}</script>
-Here the dependent variables <script type="math/tex">x</script> and <script type="math/tex">y</script> depend on the independent variable <script type="math/tex">t</script>.<br />
-We can have functions with more than one independent variable. For example,
-<script type="math/tex; mode=display">x=st^2-t-s</script>
-Here the independent variables are <script type="math/tex">t</script> and <script type="math/tex">s</script> and the dependent variable is <script type="math/tex">x</script>.
-And, of course, we can have more than one of each:
-<script type="math/tex; mode=display">\begin{aligned}
-x&=st^2-t-s\\
-y&=3e^{t+s}
-\end{aligned}</script>
-As a matter of notation (often referred to by mathematicians as "abuse of notation") we can use the dependent variable to also denote the function. So, for example, we can write
-<script type="math/tex; mode=display">x=x(t)=t^2-1</script>
-Most of what we do will involve <em>ordinary</em> differential equations. These have only <em>one</em> independent and <em>one</em> dependent variable. Differential equations arise from many sources, and the independent variable can signify many different things. Nonetheless, very often it represents time, and the dependent variable is some dynamical quantity which depends upon time. For this reason, in this course we will often use <script type="math/tex">t</script> for the independent variable.</p>
-<h3 id="parameters">Parameters</h3>
-<p>Parameters are similar to variables - that is, letters that stand for numbers - but have a different meaning. We use parameters to describe a set of (usually) similar things. Parameters can take on different values, with each value of the parameter specifying a member of this set of similar objects.<br />
-An example should make this clear. In calculus you learned to find the antiderivative (integral) of <script type="math/tex">t^2</script>. There are many functions whose derivative is <script type="math/tex">t^2</script>. For example,
-<script type="math/tex; mode=display">t^3/3+2 \text{ or }t^3/3+\pi</script>
-So, to give the full answer we write
-<script type="math/tex; mode=display">\int t^2dt=t^3/3+c</script>
-where <script type="math/tex">c</script> is called the <em>constant of integration</em>. In this case, each value of <script type="math/tex">c</script> specifies a single antiderivative. We call <script type="math/tex">c</script> the <strong>parameter</strong> of the set of <em>all</em> the antiderivatives of <script type="math/tex">t^2</script>. Each value of the parameter <script type="math/tex">c</script> specifies a single antiderivative.<br />
-Sets are written formally using curly braces, e.g., {<script type="math/tex">t^3/3 + c</script> : <script type="math/tex">c</script> any number}, but we will rarely do this. For example, we will write,
-<script type="math/tex; mode=display">x(t)=t^3/3+c, \text{ where } c \text{ is an arbitrary constant.}\tag{1}</script>
-This means a set of functions <script type="math/tex">x=x(t)</script>
-<em>parametrized</em> by <script type="math/tex">c</script>.<br />
-Sets can depend on more than one parameter. For example,
-<script type="math/tex; mode=display">x(t)=c_1e^{-t}+c_2e^{-7t} \text{ where } c_1, c_2 \text{ are arbitrary constants.}\tag{2}</script>
-Because each of the functions in <script type="math/tex">(1)</script> are similar - they all have a family resemblance - we say equation <script type="math/tex">(1)</script> gives a <strong>1-parameter family of functions</strong>. Likewise, we say <script type="math/tex">(2)</script> gives a <strong>2-parameter family of functions</strong>. You see the pattern!</p>
 
 
 
@@ -23198,6 +23159,45 @@ Because each of the functions in <script type="math/tex">(1)</script> are simila
     
   </aside>
 
+<h3 id="independent-and-dependent-variables">Independent and Dependent Variables</h3>
+<p>When we write a function such as 
+<script type="math/tex; mode=display">f(x)=3x^2+2x+1</script>
+we say that <script type="math/tex">x</script> is an <strong>independent variable</strong>: it can be freely set to any value (or any value within the given domain) and the value of the function is then computed.<br />
+When we give a name to the value of the function, such as
+<script type="math/tex; mode=display">y=3x^2+2x+1 \text{ or }y=f(x)</script>
+we say that <script type="math/tex">y</script> is a <strong>dependent variable</strong>. That is, the value of <script type="math/tex">y</script>
+<em>depends</em> on the value we choose for <script type="math/tex">x</script>.
+We can have systems of equations with more than one dependent variable. For example, 
+<script type="math/tex; mode=display">\begin{aligned}
+x&=t^2-1\\
+y&=3e^t
+\end{aligned}</script>
+Here the dependent variables <script type="math/tex">x</script> and <script type="math/tex">y</script> depend on the independent variable <script type="math/tex">t</script>.<br />
+We can have functions with more than one independent variable. For example,
+<script type="math/tex; mode=display">x=st^2-t-s</script>
+Here the independent variables are <script type="math/tex">t</script> and <script type="math/tex">s</script> and the dependent variable is <script type="math/tex">x</script>.
+And, of course, we can have more than one of each:
+<script type="math/tex; mode=display">\begin{aligned}
+x&=st^2-t-s\\
+y&=3e^{t+s}
+\end{aligned}</script>
+As a matter of notation (often referred to by mathematicians as "abuse of notation") we can use the dependent variable to also denote the function. So, for example, we can write
+<script type="math/tex; mode=display">x=x(t)=t^2-1</script>
+Most of what we do will involve <em>ordinary</em> differential equations. These have only <em>one</em> independent and <em>one</em> dependent variable. Differential equations arise from many sources, and the independent variable can signify many different things. Nonetheless, very often it represents time, and the dependent variable is some dynamical quantity which depends upon time. For this reason, in this course we will often use <script type="math/tex">t</script> for the independent variable.</p>
+<h3 id="parameters">Parameters</h3>
+<p>Parameters are similar to variables - that is, letters that stand for numbers - but have a different meaning. We use parameters to describe a set of (usually) similar things. Parameters can take on different values, with each value of the parameter specifying a member of this set of similar objects.<br />
+An example should make this clear. In calculus you learned to find the antiderivative (integral) of <script type="math/tex">t^2</script>. There are many functions whose derivative is <script type="math/tex">t^2</script>. For example,
+<script type="math/tex; mode=display">t^3/3+2 \text{ or }t^3/3+\pi</script>
+So, to give the full answer we write
+<script type="math/tex; mode=display">\int t^2dt=t^3/3+c</script>
+where <script type="math/tex">c</script> is called the <em>constant of integration</em>. In this case, each value of <script type="math/tex">c</script> specifies a single antiderivative. We call <script type="math/tex">c</script> the <strong>parameter</strong> of the set of <em>all</em> the antiderivatives of <script type="math/tex">t^2</script>. Each value of the parameter <script type="math/tex">c</script> specifies a single antiderivative.<br />
+Sets are written formally using curly braces, e.g., {<script type="math/tex">t^3/3 + c</script> : <script type="math/tex">c</script> any number}, but we will rarely do this. For example, we will write,
+<script type="math/tex; mode=display">x(t)=t^3/3+c, \text{ where } c \text{ is an arbitrary constant.}\tag{1}</script>
+This means a set of functions <script type="math/tex">x=x(t)</script>
+<em>parametrized</em> by <script type="math/tex">c</script>.<br />
+Sets can depend on more than one parameter. For example,
+<script type="math/tex; mode=display">x(t)=c_1e^{-t}+c_2e^{-7t} \text{ where } c_1, c_2 \text{ are arbitrary constants.}\tag{2}</script>
+Because each of the functions in <script type="math/tex">(1)</script> are similar - they all have a family resemblance - we say equation <script type="math/tex">(1)</script> gives a <strong>1-parameter family of functions</strong>. Likewise, we say <script type="math/tex">(2)</script> gives a <strong>2-parameter family of functions</strong>. You see the pattern!</p>
 
   
 

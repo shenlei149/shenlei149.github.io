@@ -23040,24 +23040,6 @@
 
   <h1>3103 Modified Input</h1>
 
-<p>Way back when we introduced the language of system, input and response we decided that the right hand side of our equations wasn't always the input. Sometimes it was a modified version of the input.</p>
-<p><strong>Example 1.</strong> Recall the heat diffusion equation
-<script type="math/tex; mode=display">x'+kx=kT_e(t)</script>
-where <script type="math/tex">T_e(t)</script> is the temperature of the environment. Consider <script type="math/tex">T_e(t)</script> to be the input and find the system function.<br />
-<strong>Solution.</strong> Look at the equation for the unit impulse response
-<script type="math/tex; mode=display">w'+kw=k\delta(t), \text{ rest IC}</script>
-Notice that since <script type="math/tex">T_e(t)</script> is the input, the unit impulse response comes by letting <script type="math/tex">T_e(t) = \delta(t)</script>. The Laplace transform now gives
-<script type="math/tex; mode=display">(s+k)W(s)=k \rArr W(s)=\frac{k}{s+k}</script>
-Note well, that with modified input on the right hand side of the DE, the system function does not automatically have a 1 in the numerator.<br />
-You might have noticed that in the previous example we could have written <script type="math/tex">W(s) = \frac{1}{s/k+1}</script>, which has our usual form. The next example shows that this is not always the case.</p>
-<p><strong>Example 2.</strong> Consider an LC circuit with input voltage <script type="math/tex">v(t)</script>. We'll assume <script type="math/tex">L</script> and <script type="math/tex">C</script> are set so the differential equation for the current <script type="math/tex">i(t)</script> is
-<script type="math/tex; mode=display">i''(t)+4i=v'(t)</script>
-We consider the input to be <script type="math/tex">v(t)</script> and the output to be <script type="math/tex">i(t)</script>.<br />
-Finding the unit impulse response is tricky, because if we set <script type="math/tex">v(t) = \delta(t)</script> then we will have <script type="math/tex">\delta(t)</script> on the right hand side of the DE. Let's avoid this by using the characterization of the transfer function as the ratio output/input. In this case, we'll have <script type="math/tex">W(s) = I(s)/V(s)</script>.<br />
-Assuming rest IC, we have <script type="math/tex">\mathcal{L}(v')=sV(s)</script>, where, as usual, we have let the uppercase letter be the Laplace transform of the lowercase one. Applying the Laplace transform gives
-<script type="math/tex; mode=display">(s^2+4)I(s)=sV(s) \rArr W(s)=\frac{I(s)}{V(s)}=\frac{s}{s^2+4}</script>
-The <script type="math/tex">s</script> in the numerator guarantees this cannot be written in the form <script type="math/tex">1/p(s)</script> for any polynomial <script type="math/tex">p(s)</script>.<br />
-As a concluding note, we'll say that we were too pessimistic about our ability to handle <script type="math/tex">\delta(t)</script>. We might not know what it is, but we do know how to find its Laplace transform.</p>
 
 
 
@@ -23098,6 +23080,24 @@ As a concluding note, we'll say that we were too pessimistic about our ability t
     
   </aside>
 
+<p>Way back when we introduced the language of system, input and response we decided that the right hand side of our equations wasn't always the input. Sometimes it was a modified version of the input.</p>
+<p><strong>Example 1.</strong> Recall the heat diffusion equation
+<script type="math/tex; mode=display">x'+kx=kT_e(t)</script>
+where <script type="math/tex">T_e(t)</script> is the temperature of the environment. Consider <script type="math/tex">T_e(t)</script> to be the input and find the system function.<br />
+<strong>Solution.</strong> Look at the equation for the unit impulse response
+<script type="math/tex; mode=display">w'+kw=k\delta(t), \text{ rest IC}</script>
+Notice that since <script type="math/tex">T_e(t)</script> is the input, the unit impulse response comes by letting <script type="math/tex">T_e(t) = \delta(t)</script>. The Laplace transform now gives
+<script type="math/tex; mode=display">(s+k)W(s)=k \rArr W(s)=\frac{k}{s+k}</script>
+Note well, that with modified input on the right hand side of the DE, the system function does not automatically have a 1 in the numerator.<br />
+You might have noticed that in the previous example we could have written <script type="math/tex">W(s) = \frac{1}{s/k+1}</script>, which has our usual form. The next example shows that this is not always the case.</p>
+<p><strong>Example 2.</strong> Consider an LC circuit with input voltage <script type="math/tex">v(t)</script>. We'll assume <script type="math/tex">L</script> and <script type="math/tex">C</script> are set so the differential equation for the current <script type="math/tex">i(t)</script> is
+<script type="math/tex; mode=display">i''(t)+4i=v'(t)</script>
+We consider the input to be <script type="math/tex">v(t)</script> and the output to be <script type="math/tex">i(t)</script>.<br />
+Finding the unit impulse response is tricky, because if we set <script type="math/tex">v(t) = \delta(t)</script> then we will have <script type="math/tex">\delta(t)</script> on the right hand side of the DE. Let's avoid this by using the characterization of the transfer function as the ratio output/input. In this case, we'll have <script type="math/tex">W(s) = I(s)/V(s)</script>.<br />
+Assuming rest IC, we have <script type="math/tex">\mathcal{L}(v')=sV(s)</script>, where, as usual, we have let the uppercase letter be the Laplace transform of the lowercase one. Applying the Laplace transform gives
+<script type="math/tex; mode=display">(s^2+4)I(s)=sV(s) \rArr W(s)=\frac{I(s)}{V(s)}=\frac{s}{s^2+4}</script>
+The <script type="math/tex">s</script> in the numerator guarantees this cannot be written in the form <script type="math/tex">1/p(s)</script> for any polynomial <script type="math/tex">p(s)</script>.<br />
+As a concluding note, we'll say that we were too pessimistic about our ability to handle <script type="math/tex">\delta(t)</script>. We might not know what it is, but we do know how to find its Laplace transform.</p>
 
   
 

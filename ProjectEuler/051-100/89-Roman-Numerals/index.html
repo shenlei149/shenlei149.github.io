@@ -23040,27 +23040,6 @@
 
   <h1>89 Roman Numerals</h1>
 
-<p><a href="https://projecteuler.net/problem=89" title="Problem 89 - Project Euler">Problem 89</a></p>
-<p>这道题就是给了 1000 个罗马数字，让你求解一下，如果能写成最简形式，能节约多少个字符。</p>
-<p>题中给出了提示，没有四个以上连续一样的，也就是说，不会出现 10 个 I 让你写成 X 或者 9 个 I 写成 IX。</p>
-<p>题目乍一看很唬人，仔细分析，能简写，无非就是应用减法，<a href="https://projecteuler.net/about=roman_numerals">这篇文章</a>给出了减法的规则，再加上提示的最多 4 个连续，那么，能简写的就无非下面 6 种情况：
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>DCCCC|LXXXX|VIIII|CCCC|XXXX|IIII
-</span></code></pre></div>
-能够简写成
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CM|XC|IX|CD|XL|IV
-</span></code></pre></div></p>
-<p>那么，代码就很简单了，找到这六种模式，然后替换简写后计算差值。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">GetAnswer</span><span class="p">()</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;\r&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DCCCC|LXXXX|VIIII|CCCC|XXXX|IIII&quot;</span><span class="p">;</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">replacement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;RR&quot;</span><span class="p">;</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">words</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">roman</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">roman</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Regex</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="n">roman</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="n">replacement</span><span class="p">).</span><span class="n">Length</span><span class="p">).</span><span class="n">Sum</span><span class="p">();</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
-</span></code></pre></div>
-这里，替换的时候用了个小技巧，反正都是换成 2 个字符，也没有必要非要一一对应（当然，如果要输出简写，那么需要对应的替换），于是乎，给了 <code>RR</code> 两个字符，算是占位符了。</p>
 
 
 
@@ -23101,6 +23080,27 @@
     
   </aside>
 
+<p><a href="https://projecteuler.net/problem=89" title="Problem 89 - Project Euler">Problem 89</a></p>
+<p>这道题就是给了 1000 个罗马数字，让你求解一下，如果能写成最简形式，能节约多少个字符。</p>
+<p>题中给出了提示，没有四个以上连续一样的，也就是说，不会出现 10 个 I 让你写成 X 或者 9 个 I 写成 IX。</p>
+<p>题目乍一看很唬人，仔细分析，能简写，无非就是应用减法，<a href="https://projecteuler.net/about=roman_numerals">这篇文章</a>给出了减法的规则，再加上提示的最多 4 个连续，那么，能简写的就无非下面 6 种情况：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>DCCCC|LXXXX|VIIII|CCCC|XXXX|IIII
+</span></code></pre></div>
+能够简写成
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CM|XC|IX|CD|XL|IV
+</span></code></pre></div></p>
+<p>那么，代码就很简单了，找到这六种模式，然后替换简写后计算差值。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">GetAnswer</span><span class="p">()</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;\r&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;DCCCC|LXXXX|VIIII|CCCC|XXXX|IIII&quot;</span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">replacement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;RR&quot;</span><span class="p">;</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">words</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">roman</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">roman</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Regex</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="n">roman</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="n">replacement</span><span class="p">).</span><span class="n">Length</span><span class="p">).</span><span class="n">Sum</span><span class="p">();</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+</span></code></pre></div>
+这里，替换的时候用了个小技巧，反正都是换成 2 个字符，也没有必要非要一一对应（当然，如果要输出简写，那么需要对应的替换），于是乎，给了 <code>RR</code> 两个字符，算是占位符了。</p>
 
   
 

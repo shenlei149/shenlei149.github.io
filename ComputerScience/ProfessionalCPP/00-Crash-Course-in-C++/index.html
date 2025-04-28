@@ -23040,19 +23040,6 @@
 
   <h1>00 Crash Course in C++</h1>
 
-<p>这一章快速过了一遍 C++ 主要涉及的语法，没有特定主题，也没有展开，这里就不总结其内容了。不过这一章有些实用的小提示值得总结一下。</p>
-<p>不要在头文件中的全局命名空间（<code>namespace</code>）下使用 <code>using</code> 指令或者声明，会传染所有包含它的文件。在更小的范围内，比如一个命名空间或者类（<code>class</code>）作用域内使用也就还好。在模块（<code>module</code>）的接口（<code>interface</code>）文件中使用也还好，但是不应该导出（<code>export</code>）。</p>
-<p>不要把 0 放到数字字面量前面，比如 0173 不是十进制的 173，而是 123。</p>
-<p>最好不要使用 C 风格的数据，用 <code>std::array</code> 或 <code>std::vector</code> 代替。</p>
-<p>最好不要用 <code>std::pair</code> 作为返回值的类型，因为使用的地方必须使用 <code>first</code> <code>second</code> 这样没有意义的名字访问结果。考虑使用 <code>std::optional</code> 或者返回结构体，或者其他方式来改进可读性。</p>
-<p>推荐使用统一初始化（<code>uniform initialization</code>），除非在一些地方不能这么勇。不过，个人习惯是对于原始类型，比如 <code>int</code> <code>bool</code> 习惯使用 <code>=</code> 初始化。不过作者说代码风格统一，也是推荐的理由吧。</p>
-<p>小心裸指针。如果涉及生命周期问题，用智能指针比较好。</p>
-<p>对于成员函数，<code>const</code> 应用尽用。个人觉得其他地方，比如参数，也应该应用尽用。</p>
-<p>引用一旦初始化，无法改变引用对象，只能改变其值。</p>
-<p>推荐返回对象的方式是按值返回，而不是靠出参。</p>
-<p>不要返回局部变量的引用，和 C 中不要返回局部变量的指针一样。</p>
-<p>尽可能使用引用，除非不得已再使用指针。</p>
-<p><code>auto</code> 会去掉引用和 <code>const</code>，而 <code>decltype</code> 不会。</p>
 
 
 
@@ -23093,6 +23080,19 @@
     
   </aside>
 
+<p>这一章快速过了一遍 C++ 主要涉及的语法，没有特定主题，也没有展开，这里就不总结其内容了。不过这一章有些实用的小提示值得总结一下。</p>
+<p>不要在头文件中的全局命名空间（<code>namespace</code>）下使用 <code>using</code> 指令或者声明，会传染所有包含它的文件。在更小的范围内，比如一个命名空间或者类（<code>class</code>）作用域内使用也就还好。在模块（<code>module</code>）的接口（<code>interface</code>）文件中使用也还好，但是不应该导出（<code>export</code>）。</p>
+<p>不要把 0 放到数字字面量前面，比如 0173 不是十进制的 173，而是 123。</p>
+<p>最好不要使用 C 风格的数据，用 <code>std::array</code> 或 <code>std::vector</code> 代替。</p>
+<p>最好不要用 <code>std::pair</code> 作为返回值的类型，因为使用的地方必须使用 <code>first</code> <code>second</code> 这样没有意义的名字访问结果。考虑使用 <code>std::optional</code> 或者返回结构体，或者其他方式来改进可读性。</p>
+<p>推荐使用统一初始化（<code>uniform initialization</code>），除非在一些地方不能这么勇。不过，个人习惯是对于原始类型，比如 <code>int</code> <code>bool</code> 习惯使用 <code>=</code> 初始化。不过作者说代码风格统一，也是推荐的理由吧。</p>
+<p>小心裸指针。如果涉及生命周期问题，用智能指针比较好。</p>
+<p>对于成员函数，<code>const</code> 应用尽用。个人觉得其他地方，比如参数，也应该应用尽用。</p>
+<p>引用一旦初始化，无法改变引用对象，只能改变其值。</p>
+<p>推荐返回对象的方式是按值返回，而不是靠出参。</p>
+<p>不要返回局部变量的引用，和 C 中不要返回局部变量的指针一样。</p>
+<p>尽可能使用引用，除非不得已再使用指针。</p>
+<p><code>auto</code> 会去掉引用和 <code>const</code>，而 <code>decltype</code> 不会。</p>
 
   
 

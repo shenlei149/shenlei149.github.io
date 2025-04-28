@@ -23040,33 +23040,6 @@
 
   <h1>3905 The Van der Pol Equation</h1>
 
-<p>An important kind of second-order non-linear autonomous equation has the form
-<script type="math/tex; mode=display">x''+u(x)x'+v(x)=0\text{ (Liénard equation)}\tag{1}</script>
-One might think of this as a model for a spring-mass system where the damping force <script type="math/tex">u(x)</script> depends on position (for example, the mass might be moving through a viscous medium of varying density), and the spring constant <script type="math/tex">v(x)</script> depends on how much the spring is stretched - this last is true of all springs, to some extent. We also allow for the possibility that <script type="math/tex">u(x) < 0</script> (i.e., that there is "negative damping").<br />
-The system equivalent to <script type="math/tex">(1)</script> is
-<script type="math/tex; mode=display">\begin{aligned}
-x'&=y\\
-y'&=-v(x)-u(x)y
-\end{aligned}\tag{2}</script>
-Under certain conditions, the system <script type="math/tex">(2)</script> has a unique stable limit cycle, or what is the same thing, the equation <script type="math/tex">(1)</script> has a unique periodic solution; and all nearby solutions tend towards this periodic solution as <script type="math/tex">t \to \infty</script>. The conditions which guarantee this were given by Liénard, and generalized in the following theorem.<br />
-<strong>Levinson-Smith Theorem</strong> Suppose the following conditions are satisfied.<br />
-(a) <script type="math/tex">u(x)</script> is even and continuous,<br />
-(b) <script type="math/tex">v(x)</script> is odd, <script type="math/tex">v(x) > 0</script> if <script type="math/tex">x > 0</script>, and <script type="math/tex">v(x)</script> is continuous for all <script type="math/tex">x</script>,<br />
-(c) <script type="math/tex">V(x) \to \infty</script> as <script type="math/tex">x \to \infty</script>, where <script type="math/tex">V(x) = \int_0^x v(t) dt</script>,<br />
-(d) for some <script type="math/tex">k > 0</script>, we have
-<script type="math/tex; mode=display">\begin{aligned}
-&U(x) < 0, &&\text{for } 0 < x < k,\\
-&U(x) > 0 \text{ and increasing}, &&\text{for } x > k,\\
-&U(x) \to \infty, &&\text{as } x \to \infty,
-\end{aligned}\bigg\} \text{ where } U(x)=\int_0^x u(t)dt</script>
-Then, the system <script type="math/tex">(2)</script> has<br />
-i) a unique critical point at the origin;<br />
-ii) a unique non-zero closed trajectory <script type="math/tex">C</script>, which is a stable limit cycle around the origin;<br />
-iii) all other non-zero trajectories spiralling towards <script type="math/tex">C</script> as <script type="math/tex">t \to \infty</script>.
-We omit the proof, as too difficult. A classic application is to the equation
-<script type="math/tex; mode=display">x'' - a(1 - x^2) x' + x = 0 \text{ (van der Pol equation)} \tag{3}</script>
-which describes the current <script type="math/tex">x(t)</script> in a certain type of vacuum tube. (The constant <script type="math/tex">a</script> is a positive parameter depending on the tube constants.) The equation has a unique non-zero periodic solution. Intuitively, think of it as modeling a non-linear spring-mass system. When <script type="math/tex">|x|</script> is large, the restoring and damping forces are large, so that <script type="math/tex">|x|</script> should decrease with time. But when <script type="math/tex">|x|</script> gets small, the damping becomes negative, which should make <script type="math/tex">|x|</script> tend to increase with time. Thus it is plausible that the solutions should oscillate; that it has exactly one periodic solution is a more subtle fact.<br />
-There is a lot of interest in limit cycles, because of their appearance in systems which model processes exhibiting periodicity. But not a great deal is known about them - this is still an area of active research.</p>
 
 
 
@@ -23107,6 +23080,33 @@ There is a lot of interest in limit cycles, because of their appearance in syste
     
   </aside>
 
+<p>An important kind of second-order non-linear autonomous equation has the form
+<script type="math/tex; mode=display">x''+u(x)x'+v(x)=0\text{ (Liénard equation)}\tag{1}</script>
+One might think of this as a model for a spring-mass system where the damping force <script type="math/tex">u(x)</script> depends on position (for example, the mass might be moving through a viscous medium of varying density), and the spring constant <script type="math/tex">v(x)</script> depends on how much the spring is stretched - this last is true of all springs, to some extent. We also allow for the possibility that <script type="math/tex">u(x) < 0</script> (i.e., that there is "negative damping").<br />
+The system equivalent to <script type="math/tex">(1)</script> is
+<script type="math/tex; mode=display">\begin{aligned}
+x'&=y\\
+y'&=-v(x)-u(x)y
+\end{aligned}\tag{2}</script>
+Under certain conditions, the system <script type="math/tex">(2)</script> has a unique stable limit cycle, or what is the same thing, the equation <script type="math/tex">(1)</script> has a unique periodic solution; and all nearby solutions tend towards this periodic solution as <script type="math/tex">t \to \infty</script>. The conditions which guarantee this were given by Liénard, and generalized in the following theorem.<br />
+<strong>Levinson-Smith Theorem</strong> Suppose the following conditions are satisfied.<br />
+(a) <script type="math/tex">u(x)</script> is even and continuous,<br />
+(b) <script type="math/tex">v(x)</script> is odd, <script type="math/tex">v(x) > 0</script> if <script type="math/tex">x > 0</script>, and <script type="math/tex">v(x)</script> is continuous for all <script type="math/tex">x</script>,<br />
+(c) <script type="math/tex">V(x) \to \infty</script> as <script type="math/tex">x \to \infty</script>, where <script type="math/tex">V(x) = \int_0^x v(t) dt</script>,<br />
+(d) for some <script type="math/tex">k > 0</script>, we have
+<script type="math/tex; mode=display">\begin{aligned}
+&U(x) < 0, &&\text{for } 0 < x < k,\\
+&U(x) > 0 \text{ and increasing}, &&\text{for } x > k,\\
+&U(x) \to \infty, &&\text{as } x \to \infty,
+\end{aligned}\bigg\} \text{ where } U(x)=\int_0^x u(t)dt</script>
+Then, the system <script type="math/tex">(2)</script> has<br />
+i) a unique critical point at the origin;<br />
+ii) a unique non-zero closed trajectory <script type="math/tex">C</script>, which is a stable limit cycle around the origin;<br />
+iii) all other non-zero trajectories spiralling towards <script type="math/tex">C</script> as <script type="math/tex">t \to \infty</script>.
+We omit the proof, as too difficult. A classic application is to the equation
+<script type="math/tex; mode=display">x'' - a(1 - x^2) x' + x = 0 \text{ (van der Pol equation)} \tag{3}</script>
+which describes the current <script type="math/tex">x(t)</script> in a certain type of vacuum tube. (The constant <script type="math/tex">a</script> is a positive parameter depending on the tube constants.) The equation has a unique non-zero periodic solution. Intuitively, think of it as modeling a non-linear spring-mass system. When <script type="math/tex">|x|</script> is large, the restoring and damping forces are large, so that <script type="math/tex">|x|</script> should decrease with time. But when <script type="math/tex">|x|</script> gets small, the damping becomes negative, which should make <script type="math/tex">|x|</script> tend to increase with time. Thus it is plausible that the solutions should oscillate; that it has exactly one periodic solution is a more subtle fact.<br />
+There is a lot of interest in limit cycles, because of their appearance in systems which model processes exhibiting periodicity. But not a great deal is known about them - this is still an area of active research.</p>
 
   
 

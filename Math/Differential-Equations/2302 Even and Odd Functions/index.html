@@ -23119,29 +23119,6 @@
 
   <h1>2302 Even and Odd Functions</h1>
 
-<h3 id="even-and-odd-functions">Even and odd functions</h3>
-<p><strong>Definition.</strong> A function <script type="math/tex">f(t)</script> is <strong>called</strong> even if <script type="math/tex">f(-t) = f(t)</script> for all <script type="math/tex">t</script>.<br />
-The graph of an even function is symmetric about the <script type="math/tex">y</script>-axis.</p>
-<p>We will need the following fact about the integral of an even function over a 'balanced' interval <script type="math/tex">[-L, L]</script>.<br />
-If <script type="math/tex">f(t)</script> is even then
-<script type="math/tex; mode=display">\int_{-L}^{L}f(t)dt=2\int_{0}^{L}f(t)dt</script>
-</p>
-<p><strong>Definition.</strong> A function <script type="math/tex">f(t)</script> is called <strong>odd</strong> if <script type="math/tex">f(-t) = -f(t)</script> for all <script type="math/tex">t</script>.<br />
-The graph of an odd function is symmetric about the the origin.</p>
-<p>We will need the following fact about the integral of an odd function over a 'balanced' interval <script type="math/tex">[-L, L]</script>.<br />
-If <script type="math/tex">f(t)</script> is odd then
-<script type="math/tex; mode=display">\int_{-L}^{L}f(t)dt=0</script>
-</p>
-<h3 id="multiplying-even-and-odd-functions">Multiplying Even and Odd Functions</h3>
-<p>When multiplying even and odd functions it is helpful to think in terms of multiply even and odd powers of <script type="math/tex">t</script>. This gives the following rules.
-1. even × even = even
-2. odd × odd = even
-3. odd × even = odd</p>
-<p>All this leads to the <strong>even and odd Fourier coefficient rules</strong>:<br />
-Assume <script type="math/tex">f(t)</script> is periodic then:
-1. If <script type="math/tex">f(t)</script> is even then we have <script type="math/tex">b_n = 0</script>, and <script type="math/tex">a_n=\frac{2}{L}\int_{0}^{L}f(t)\cos(n\frac{\pi}{L}t)dt</script>
-2. If <script type="math/tex">f(t)</script> is odd then we have <script type="math/tex">a_n = 0</script>, and <script type="math/tex">b_n=\frac{2}{L}\int_{0}^{L}f(t)\sin(n\frac{\pi}{L}t)dt</script>
-</p>
 
 
 
@@ -23182,6 +23159,29 @@ Assume <script type="math/tex">f(t)</script> is periodic then:
     
   </aside>
 
+<h3 id="even-and-odd-functions">Even and odd functions</h3>
+<p><strong>Definition.</strong> A function <script type="math/tex">f(t)</script> is <strong>called</strong> even if <script type="math/tex">f(-t) = f(t)</script> for all <script type="math/tex">t</script>.<br />
+The graph of an even function is symmetric about the <script type="math/tex">y</script>-axis.</p>
+<p>We will need the following fact about the integral of an even function over a 'balanced' interval <script type="math/tex">[-L, L]</script>.<br />
+If <script type="math/tex">f(t)</script> is even then
+<script type="math/tex; mode=display">\int_{-L}^{L}f(t)dt=2\int_{0}^{L}f(t)dt</script>
+</p>
+<p><strong>Definition.</strong> A function <script type="math/tex">f(t)</script> is called <strong>odd</strong> if <script type="math/tex">f(-t) = -f(t)</script> for all <script type="math/tex">t</script>.<br />
+The graph of an odd function is symmetric about the the origin.</p>
+<p>We will need the following fact about the integral of an odd function over a 'balanced' interval <script type="math/tex">[-L, L]</script>.<br />
+If <script type="math/tex">f(t)</script> is odd then
+<script type="math/tex; mode=display">\int_{-L}^{L}f(t)dt=0</script>
+</p>
+<h3 id="multiplying-even-and-odd-functions">Multiplying Even and Odd Functions</h3>
+<p>When multiplying even and odd functions it is helpful to think in terms of multiply even and odd powers of <script type="math/tex">t</script>. This gives the following rules.
+1. even × even = even
+2. odd × odd = even
+3. odd × even = odd</p>
+<p>All this leads to the <strong>even and odd Fourier coefficient rules</strong>:<br />
+Assume <script type="math/tex">f(t)</script> is periodic then:
+1. If <script type="math/tex">f(t)</script> is even then we have <script type="math/tex">b_n = 0</script>, and <script type="math/tex">a_n=\frac{2}{L}\int_{0}^{L}f(t)\cos(n\frac{\pi}{L}t)dt</script>
+2. If <script type="math/tex">f(t)</script> is odd then we have <script type="math/tex">a_n = 0</script>, and <script type="math/tex">b_n=\frac{2}{L}\int_{0}^{L}f(t)\sin(n\frac{\pi}{L}t)dt</script>
+</p>
 
   
 

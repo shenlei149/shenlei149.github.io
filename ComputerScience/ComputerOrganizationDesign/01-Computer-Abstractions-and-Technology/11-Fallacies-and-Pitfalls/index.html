@@ -23042,33 +23042,6 @@
 
   <h1>11 Fallacies and Pitfalls</h1>
 
-<p>每章都会有这个小节。谬论（<code>fallacies</code>）是容易误解的概念。陷阱（<code>pitfalls</code>）是容易出错的点。</p>
-<p><em>Pitfall: Expecting the improvement of one aspect of a computer to increase overall performance by an amount proportional to the size of the improvement.</em></p>
-<p><em>陷阱：期望一个方面的改进，整体性能的提高与改进收益成正比。</em></p>
-<p>优化最常见路径往往不能达到我们的目标，因为它受到优化的地方本身消耗的时间的影响。</p>
-<p>一个简单的问题能够说明了这一点。假设一个程序在计算机上运行 100 秒，其中乘法运算占了 80 秒。 如果想让程序运行速度快五倍，那么需要将乘法速度提高多少倍？</p>
-<p>改进后程序的执行时间由阿姆达尔定律（<code>Amdahl's Law</code>）的简单方程给出：
-<script type="math/tex; mode=display">\text{New Execution time}=\frac{\text{Affected Execution time}}{\text{Amount of improvement}}+\text{Unaffected Execution time}</script>
-</p>
-<p>带入这个题目的数据
-<script type="math/tex; mode=display">20=\frac{80}{n}+20</script>
-不管 <script type="math/tex">n</script> 多大都不能满足条件。</p>
-<p><em>Fallacy: Computers at low utilization use little power.</em></p>
-<p><em>谬论：负载低的时候消耗功耗很少。</em></p>
-<p>07 小节有说到，即使只有 10% 的负载，也有峰值时 30% 的功耗。Google 的 CPU 利用率多数时候也在 10%-50%。如果功耗能线性于负载，那么将节省大量的能源。</p>
-<p><em>Fallacy: Designing for performance and designing for energy efficiency are unrelated goals.</em></p>
-<p><em>谬论：性能和功耗是不相关的目标。</em></p>
-<p>一个优化能提升性能，往往能够减少功耗。</p>
-<p><em>Pitfall: Using a subset of the performance equation as a performance metric.</em></p>
-<p><em>陷阱：使用性能方程的子集作为性能评估指标。</em></p>
-<p>只是用时钟频率、指令数和 CPI 中的一个或者两个来评估性能都可能会得到错误结果。</p>
-<p>常见的错误是使用 MIPS（<code>million instructions per second</code>）来做评估。
-<script type="math/tex; mode=display">\begin{aligned}
-\text{MIPS}&=\frac{\text{nInstructions}}{\text{Execution time}\times 10^6}\\
-&=\frac{\text{nInstructions}}{\frac{\text{nInstructions}\times\text{CPI}}{\text{clock rate}}\times 10^6}\\
-&=\frac{\text{clock rate}}{\text{CPI}\times 10^6}
-\end{aligned}</script>
-本质上只用了其中两个指标。</p>
 
 
 
@@ -23109,6 +23082,33 @@
     
   </aside>
 
+<p>每章都会有这个小节。谬论（<code>fallacies</code>）是容易误解的概念。陷阱（<code>pitfalls</code>）是容易出错的点。</p>
+<p><em>Pitfall: Expecting the improvement of one aspect of a computer to increase overall performance by an amount proportional to the size of the improvement.</em></p>
+<p><em>陷阱：期望一个方面的改进，整体性能的提高与改进收益成正比。</em></p>
+<p>优化最常见路径往往不能达到我们的目标，因为它受到优化的地方本身消耗的时间的影响。</p>
+<p>一个简单的问题能够说明了这一点。假设一个程序在计算机上运行 100 秒，其中乘法运算占了 80 秒。 如果想让程序运行速度快五倍，那么需要将乘法速度提高多少倍？</p>
+<p>改进后程序的执行时间由阿姆达尔定律（<code>Amdahl's Law</code>）的简单方程给出：
+<script type="math/tex; mode=display">\text{New Execution time}=\frac{\text{Affected Execution time}}{\text{Amount of improvement}}+\text{Unaffected Execution time}</script>
+</p>
+<p>带入这个题目的数据
+<script type="math/tex; mode=display">20=\frac{80}{n}+20</script>
+不管 <script type="math/tex">n</script> 多大都不能满足条件。</p>
+<p><em>Fallacy: Computers at low utilization use little power.</em></p>
+<p><em>谬论：负载低的时候消耗功耗很少。</em></p>
+<p>07 小节有说到，即使只有 10% 的负载，也有峰值时 30% 的功耗。Google 的 CPU 利用率多数时候也在 10%-50%。如果功耗能线性于负载，那么将节省大量的能源。</p>
+<p><em>Fallacy: Designing for performance and designing for energy efficiency are unrelated goals.</em></p>
+<p><em>谬论：性能和功耗是不相关的目标。</em></p>
+<p>一个优化能提升性能，往往能够减少功耗。</p>
+<p><em>Pitfall: Using a subset of the performance equation as a performance metric.</em></p>
+<p><em>陷阱：使用性能方程的子集作为性能评估指标。</em></p>
+<p>只是用时钟频率、指令数和 CPI 中的一个或者两个来评估性能都可能会得到错误结果。</p>
+<p>常见的错误是使用 MIPS（<code>million instructions per second</code>）来做评估。
+<script type="math/tex; mode=display">\begin{aligned}
+\text{MIPS}&=\frac{\text{nInstructions}}{\text{Execution time}\times 10^6}\\
+&=\frac{\text{nInstructions}}{\frac{\text{nInstructions}\times\text{CPI}}{\text{clock rate}}\times 10^6}\\
+&=\frac{\text{clock rate}}{\text{CPI}\times 10^6}
+\end{aligned}</script>
+本质上只用了其中两个指标。</p>
 
   
 

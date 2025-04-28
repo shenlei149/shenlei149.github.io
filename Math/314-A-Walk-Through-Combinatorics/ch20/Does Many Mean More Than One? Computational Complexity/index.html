@@ -23151,6 +23151,46 @@
 
   <h1>Does Many Mean More Than One? Computational Complexity</h1>
 
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 11, 2024 10:30:30">May 11, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2024 02:01:04">May 8, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
 <h2 id="turing-machines">Turing Machines</h2>
 <p>图灵机(<code>Turing machine</code>)是以英国数学家艾伦图灵(<code>Alan Turing</code>)命名的一种理想化的计算机模型。它模拟一个算法，根据已有的规则，如何一步一步地从一个状态转移到另一个状态。一个图灵机<script type="math/tex">T</script>包含以下四个部分。<br />
 (1) 磁带(<code>Tape</code>)。这是一个一维的单元格的数组，两端无限长。每一个单元格包含来自有限集合<script type="math/tex">A</script>的一个符号，其中<em>start,blank</em>这两个是必须的。<em>start</em>是图灵机开始的地方，标识从哪里开始。磁带也称作机器的输入(<code>input</code>)。<br />
@@ -23192,46 +23232,6 @@
 <p>
 <script type="math/tex">P</script>是复杂性分类中的一类。这类问题的复杂性差不多。回到前面<script type="math/tex">P</script>不区分<script type="math/tex">O(n)</script>还是<script type="math/tex">O(n^{20})</script>的问题上。举个具体的例子，一个问题需要<script type="math/tex">n</script>步去解决和需要<script type="math/tex">n^{100}</script>步去解决是有差别的，但是这个差别远远小于和需要<script type="math/tex">2^n</script>步才能解决的问题之间的差别。如果一个计算机能够用<script type="math/tex">\log{m}</script>的时间解决一个<script type="math/tex">m</script>规模的问题，那么对应前面的例子，需要的时间分别是<script type="math/tex">\log n</script>和<script type="math/tex">100\log n</script>，差别常数倍，但是第三个问题需要<script type="math/tex">n\log 2</script>的时间，这个时间高一阶。更准确地说，如果<script type="math/tex">n</script>趋于无穷，解决前两个问题的时间相比解决最后一个问题而言，可以忽略。所以我们把<script type="math/tex">O(n)</script>和<script type="math/tex">O(n^{20})</script>归为一类。<br />
 大致上讲，<script type="math/tex">P</script>是一类能够被高效解决的问题，需要的时间是多项式复杂度。很多场景下，这可能是我们能接受的最好结果了，因为至少需要<script type="math/tex">n</script>来读取输入。</p>
-
-
-
-
-
-
-
-  
-    
-  
-  
-    
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 11, 2024 10:30:30">May 11, 2024</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2024 02:01:04">May 8, 2024</span>
-  </span>
-
-    
-    
-    
-  </aside>
-
 
   
 

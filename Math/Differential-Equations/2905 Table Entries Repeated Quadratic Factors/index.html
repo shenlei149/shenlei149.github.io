@@ -23119,37 +23119,6 @@
 
   <h1>2905 Table Entries Repeated Quadratic Factors</h1>
 
-<h3 id="repeated-quadratic-factors">Repeated Quadratic Factors</h3>
-<p>We will add three entries to our Laplace Table.
-<script type="math/tex; mode=display">\mathcal{L}(\frac{1}{2\omega^3}(\sin(\omega t)-\omega t\cos(\omega t)))=\frac{1}{(s^2+\omega^2)^2}\tag{1}</script>
-<script type="math/tex; mode=display">\mathcal{L}(\frac{t}{2\omega}\sin(\omega t))=\frac{s}{(s^2+\omega^2)^2}\tag{2}</script>
-<script type="math/tex; mode=display">\mathcal{L}(\frac{1}{2\omega}(\sin(\omega t)+\omega t\cos(\omega t)))=\frac{s^2}{(s^2+\omega^2)^2}\tag{3}</script>
-There are several ways to prove these formulas. We will give one using partial fractions by factoring the denominators on the frequency side into complex linear factors.<br />
-<strong>Proof of 1.</strong> First some algebra:
-<script type="math/tex; mode=display">\frac{1}{(s-a)^2(s+a)^2}=\frac{A}{(s-a)^2}+\frac{B}{s-a}+\frac{C}{(s+a)^2}+\frac{D}{s+a}</script>
-Cover-up gives us <script type="math/tex">A</script> and <script type="math/tex">C</script>.
-<script type="math/tex; mode=display">A=C=\frac{1}{4a^2}</script>
-Undetermined coefficients:
-<script type="math/tex; mode=display">s=0 \rArr -a^3B+a^3D=\frac{1}{2}\\
-s=2a \rArr 3a^3B+a^3D=-\frac{1}{2}</script>
-then gives <script type="math/tex">B</script> and <script type="math/tex">D</script>
-<script type="math/tex; mode=display">D=\frac{1}{4a^3}=-B</script>
-This gives the inverse Laplace transform
-<script type="math/tex; mode=display">\mathcal{L}^{-1}(\frac{1}{(s-a)^2(s+a)^2})=\frac{1}{4a^2}(te^{at}+te^{-at})-\frac{1}{4a^3}(e^{at}-e^{-at})\tag{4}</script>
-We will use this on the right hand side of <script type="math/tex">(1)</script>, but first recall
-<script type="math/tex; mode=display">e^{i\omega t}+e^{-i\omega t}=2\cos(\omega t) \text{ and } e^{i\omega t}-e^{-i\omega t}=2i\sin(\omega t)\tag{5}</script>
-Let <script type="math/tex">a = i\omega</script>, then <script type="math/tex">(4)</script> and <script type="math/tex">(5)</script> combine to prove formula <script type="math/tex">(1)</script>.
-<script type="math/tex; mode=display">\begin{aligned}
-\mathcal{L}^{-1}(\frac{1}{(s^2+\omega^2)^2})&=\mathcal{L}^{-1}(\frac{1}{(s-i\omega)^2(s+i\omega)^2})\\
-&=-\frac{1}{4\omega^2}(te^{i\omega t}+te^{-i\omega t})+\frac{1}{4\omega^3i}(e^{i\omega t}-e^{-i\omega t})\\
-&=-\frac{1}{2\omega^2}t\cos(\omega t)+\frac{1}{2\omega^3}\sin(\omega t)
-\end{aligned}</script>
-The proofs of (2) and (3) are similar, and we will omit them.</p>
-<h3 id="note-on-the-relation-to-resonance">Note on the Relation to Resonance:</h3>
-<p>Each of the formulas <script type="math/tex">(1)</script>, <script type="math/tex">(2)</script>, and <script type="math/tex">(3)</script> has a term with a factor of <script type="math/tex">t</script>. This is exactly what we saw with the response <script type="math/tex">x</script> in the resonance equation
-<script type="math/tex; mode=display">x''+\omega^2x=\cos(\omega t)</script>
-which has solution <script type="math/tex">x(t) = t\sin(\omega t)/(2\omega)</script>.<br />
-Notice that <script type="math/tex">\mathcal{L}^{-1}(1/s^2) = t</script> and the <script type="math/tex">s</script>-shift rule shows <script type="math/tex">\mathcal{L}^{-1}(1/(s - a)^2) =te^{at}</script>. So repeated factors on the frequency side always lead to multiplication by <script type="math/tex">t</script> on the time side. If the repeated factor has a higher power then we get multiplication by a higher power of <script type="math/tex">t</script>.</p>
 
 
 
@@ -23190,6 +23159,37 @@ Notice that <script type="math/tex">\mathcal{L}^{-1}(1/s^2) = t</script> and the
     
   </aside>
 
+<h3 id="repeated-quadratic-factors">Repeated Quadratic Factors</h3>
+<p>We will add three entries to our Laplace Table.
+<script type="math/tex; mode=display">\mathcal{L}(\frac{1}{2\omega^3}(\sin(\omega t)-\omega t\cos(\omega t)))=\frac{1}{(s^2+\omega^2)^2}\tag{1}</script>
+<script type="math/tex; mode=display">\mathcal{L}(\frac{t}{2\omega}\sin(\omega t))=\frac{s}{(s^2+\omega^2)^2}\tag{2}</script>
+<script type="math/tex; mode=display">\mathcal{L}(\frac{1}{2\omega}(\sin(\omega t)+\omega t\cos(\omega t)))=\frac{s^2}{(s^2+\omega^2)^2}\tag{3}</script>
+There are several ways to prove these formulas. We will give one using partial fractions by factoring the denominators on the frequency side into complex linear factors.<br />
+<strong>Proof of 1.</strong> First some algebra:
+<script type="math/tex; mode=display">\frac{1}{(s-a)^2(s+a)^2}=\frac{A}{(s-a)^2}+\frac{B}{s-a}+\frac{C}{(s+a)^2}+\frac{D}{s+a}</script>
+Cover-up gives us <script type="math/tex">A</script> and <script type="math/tex">C</script>.
+<script type="math/tex; mode=display">A=C=\frac{1}{4a^2}</script>
+Undetermined coefficients:
+<script type="math/tex; mode=display">s=0 \rArr -a^3B+a^3D=\frac{1}{2}\\
+s=2a \rArr 3a^3B+a^3D=-\frac{1}{2}</script>
+then gives <script type="math/tex">B</script> and <script type="math/tex">D</script>
+<script type="math/tex; mode=display">D=\frac{1}{4a^3}=-B</script>
+This gives the inverse Laplace transform
+<script type="math/tex; mode=display">\mathcal{L}^{-1}(\frac{1}{(s-a)^2(s+a)^2})=\frac{1}{4a^2}(te^{at}+te^{-at})-\frac{1}{4a^3}(e^{at}-e^{-at})\tag{4}</script>
+We will use this on the right hand side of <script type="math/tex">(1)</script>, but first recall
+<script type="math/tex; mode=display">e^{i\omega t}+e^{-i\omega t}=2\cos(\omega t) \text{ and } e^{i\omega t}-e^{-i\omega t}=2i\sin(\omega t)\tag{5}</script>
+Let <script type="math/tex">a = i\omega</script>, then <script type="math/tex">(4)</script> and <script type="math/tex">(5)</script> combine to prove formula <script type="math/tex">(1)</script>.
+<script type="math/tex; mode=display">\begin{aligned}
+\mathcal{L}^{-1}(\frac{1}{(s^2+\omega^2)^2})&=\mathcal{L}^{-1}(\frac{1}{(s-i\omega)^2(s+i\omega)^2})\\
+&=-\frac{1}{4\omega^2}(te^{i\omega t}+te^{-i\omega t})+\frac{1}{4\omega^3i}(e^{i\omega t}-e^{-i\omega t})\\
+&=-\frac{1}{2\omega^2}t\cos(\omega t)+\frac{1}{2\omega^3}\sin(\omega t)
+\end{aligned}</script>
+The proofs of (2) and (3) are similar, and we will omit them.</p>
+<h3 id="note-on-the-relation-to-resonance">Note on the Relation to Resonance:</h3>
+<p>Each of the formulas <script type="math/tex">(1)</script>, <script type="math/tex">(2)</script>, and <script type="math/tex">(3)</script> has a term with a factor of <script type="math/tex">t</script>. This is exactly what we saw with the response <script type="math/tex">x</script> in the resonance equation
+<script type="math/tex; mode=display">x''+\omega^2x=\cos(\omega t)</script>
+which has solution <script type="math/tex">x(t) = t\sin(\omega t)/(2\omega)</script>.<br />
+Notice that <script type="math/tex">\mathcal{L}^{-1}(1/s^2) = t</script> and the <script type="math/tex">s</script>-shift rule shows <script type="math/tex">\mathcal{L}^{-1}(1/(s - a)^2) =te^{at}</script>. So repeated factors on the frequency side always lead to multiplication by <script type="math/tex">t</script> on the time side. If the repeated factor has a higher power then we get multiplication by a higher power of <script type="math/tex">t</script>.</p>
 
   
 

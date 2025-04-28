@@ -23042,27 +23042,6 @@
 
   <h1>030 使用微分方程建模 Modeling with First-Order Differential Equations</h1>
 
-<p>例 1 混合</p>
-<p>在 <script type="math/tex">t=0</script> 时刻，罐子中 100 加仑水中含有 <script type="math/tex">Q_0</script> 磅盐。如下图所示。假定加水的速度是 <script type="math/tex">r</script> 加仑每分钟，每加仑中含有 <script type="math/tex">\frac{1}{4}</script> 磅的盐。罐子中有搅拌器将盐搅拌均匀，然后水流出的速度和加水速度一致。建立一个初值问题来描述这个过程。求任意时刻盐的重量的函数 <script type="math/tex">Q(t)</script>，并求时间相当长时极限值 <script type="math/tex">Q_L</script>。如果 <script type="math/tex">r=3,Q_0=2Q_L</script>，求多久盐含量与 <script type="math/tex">Q_L</script> 差在 2% 以内。如果要使得 <script type="math/tex">T</script> 不超过 45 分钟，那么 <script type="math/tex">r</script> 应该是多少？</p>
-<p><img alt="" src="../030.010.png" /></p>
-<p>解：<script type="math/tex">dQ/dt</script> 表示盐量的变化率，等于每分钟流入的盐量减去每分钟流出的盐量。
-<script type="math/tex; mode=display">\frac{dQ}{dt}=\text{rate in}-\text{rate out}</script>
-每分钟流入 <script type="math/tex">r</script> 加仑，每加仑含盐量是 1/4 磅，那么流入速率是每分钟 <script type="math/tex">\frac{r}{4}</script> 磅。水流出速度是每分钟 <script type="math/tex">r</script> 加仑，水量是 100 加仑，含盐量是 <script type="math/tex">Q</script> 磅，因此流出速率是每分钟 <script type="math/tex">rQ/100</script>。因此
-<script type="math/tex; mode=display">\frac{dQ}{dt}=\frac{r}{4}-\frac{rQ}{100}\tag{2}</script>
-初值条件是
-<script type="math/tex; mode=display">Q(0)=Q_0\tag{3}</script>
-从物理角度考虑这个问题，随着时间的流逝，每加仑盐含量最终应该趋于加入水的盐含量，即每加仑 1/4 磅，因此总盐量是 25 磅。因此，当 <script type="math/tex">dQ/dt</script> 为零的时候，<script type="math/tex">(2)</script> 给出的 <script type="math/tex">Q_L</script> 应该是 25 磅。</p>
-<p>为了解决初值问题 <script type="math/tex">(2),(3)</script>，先计算通解。注意到 <script type="math/tex">(2)</script> 是线性方程，因此将其写作标准形式
-<script type="math/tex; mode=display">\frac{dQ}{dt}+\frac{rQ}{100}=\frac{r}{4}\tag{4}</script>
-积分因子是 <script type="math/tex">e^{rt/100}</script>，通解是
-<script type="math/tex; mode=display">Q(t)=25+ce^{-rt/100}\tag{5}</script>
-其中 <script type="math/tex">c</script> 是任意常量。为了满足初值条件 <script type="math/tex">(3)</script>，可以解得 <script type="math/tex">c=Q_0-25</script>，因此
-<script type="math/tex; mode=display">Q(t)=25+(Q_0-25)e^{-rt/100}\tag{6}</script>
-或
-<script type="math/tex; mode=display">Q(t)=25(1-e^{-rt/100})+Q_0e^{-rt/100}\tag{7}</script>
-不管是哪种形式，当时 <script type="math/tex">t\to\infty</script> 时，都有 <script type="math/tex">Q\to 25</script>，因此 <script type="math/tex">Q_L=25</script>，与之前的分析一致。</p>
-<p>方程 <script type="math/tex">(7)</script> 的第一项是随着加入的水进入的盐量，第二项是罐子中原来的盐随着时间的流逝剩下的盐量。下图是 <script type="math/tex">r=3</script> 时不同 <script type="math/tex">Q_0</script> 对应的解。</p>
-<p><img alt="" src="../030.020.png" /></p>
 
 
 
@@ -23103,6 +23082,27 @@
     
   </aside>
 
+<p>例 1 混合</p>
+<p>在 <script type="math/tex">t=0</script> 时刻，罐子中 100 加仑水中含有 <script type="math/tex">Q_0</script> 磅盐。如下图所示。假定加水的速度是 <script type="math/tex">r</script> 加仑每分钟，每加仑中含有 <script type="math/tex">\frac{1}{4}</script> 磅的盐。罐子中有搅拌器将盐搅拌均匀，然后水流出的速度和加水速度一致。建立一个初值问题来描述这个过程。求任意时刻盐的重量的函数 <script type="math/tex">Q(t)</script>，并求时间相当长时极限值 <script type="math/tex">Q_L</script>。如果 <script type="math/tex">r=3,Q_0=2Q_L</script>，求多久盐含量与 <script type="math/tex">Q_L</script> 差在 2% 以内。如果要使得 <script type="math/tex">T</script> 不超过 45 分钟，那么 <script type="math/tex">r</script> 应该是多少？</p>
+<p><img alt="" src="../030.010.png" /></p>
+<p>解：<script type="math/tex">dQ/dt</script> 表示盐量的变化率，等于每分钟流入的盐量减去每分钟流出的盐量。
+<script type="math/tex; mode=display">\frac{dQ}{dt}=\text{rate in}-\text{rate out}</script>
+每分钟流入 <script type="math/tex">r</script> 加仑，每加仑含盐量是 1/4 磅，那么流入速率是每分钟 <script type="math/tex">\frac{r}{4}</script> 磅。水流出速度是每分钟 <script type="math/tex">r</script> 加仑，水量是 100 加仑，含盐量是 <script type="math/tex">Q</script> 磅，因此流出速率是每分钟 <script type="math/tex">rQ/100</script>。因此
+<script type="math/tex; mode=display">\frac{dQ}{dt}=\frac{r}{4}-\frac{rQ}{100}\tag{2}</script>
+初值条件是
+<script type="math/tex; mode=display">Q(0)=Q_0\tag{3}</script>
+从物理角度考虑这个问题，随着时间的流逝，每加仑盐含量最终应该趋于加入水的盐含量，即每加仑 1/4 磅，因此总盐量是 25 磅。因此，当 <script type="math/tex">dQ/dt</script> 为零的时候，<script type="math/tex">(2)</script> 给出的 <script type="math/tex">Q_L</script> 应该是 25 磅。</p>
+<p>为了解决初值问题 <script type="math/tex">(2),(3)</script>，先计算通解。注意到 <script type="math/tex">(2)</script> 是线性方程，因此将其写作标准形式
+<script type="math/tex; mode=display">\frac{dQ}{dt}+\frac{rQ}{100}=\frac{r}{4}\tag{4}</script>
+积分因子是 <script type="math/tex">e^{rt/100}</script>，通解是
+<script type="math/tex; mode=display">Q(t)=25+ce^{-rt/100}\tag{5}</script>
+其中 <script type="math/tex">c</script> 是任意常量。为了满足初值条件 <script type="math/tex">(3)</script>，可以解得 <script type="math/tex">c=Q_0-25</script>，因此
+<script type="math/tex; mode=display">Q(t)=25+(Q_0-25)e^{-rt/100}\tag{6}</script>
+或
+<script type="math/tex; mode=display">Q(t)=25(1-e^{-rt/100})+Q_0e^{-rt/100}\tag{7}</script>
+不管是哪种形式，当时 <script type="math/tex">t\to\infty</script> 时，都有 <script type="math/tex">Q\to 25</script>，因此 <script type="math/tex">Q_L=25</script>，与之前的分析一致。</p>
+<p>方程 <script type="math/tex">(7)</script> 的第一项是随着加入的水进入的盐量，第二项是罐子中原来的盐随着时间的流逝剩下的盐量。下图是 <script type="math/tex">r=3</script> 时不同 <script type="math/tex">Q_0</script> 对应的解。</p>
+<p><img alt="" src="../030.020.png" /></p>
 
   
 

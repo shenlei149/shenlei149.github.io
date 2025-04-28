@@ -23040,6 +23040,46 @@
 
   <h1>C 语言预处理器、编译器、链接器简介</h1>
 
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 19, 2024 09:31:25">June 19, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 19, 2024 09:31:25">June 19, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
 <p>将 C 语言源代码，处理成可执行的文件，大致需要三步，预处理、编译和链接。</p>
 <p>预处理器的作用是根据一定的规则，进行<strong>纯文本的替换</strong>，递归的执行，直到没有可替换的内容结束。使用 <code>gcc -E</code> 可以仅做预处理。</p>
 <p>C 语言中，大致有以下几种做法。</p>
@@ -23119,46 +23159,6 @@
 </span></code></pre></div>
 给了 <code>strlen</code> 的原型，但是和库里面的不一致，使用 gcc 编译之后，程序能正常运行，输出多少呢？编译器看到 <code>strlen</code> 需要两个参数，且返回 <code>int</code>。链接器去找 <code>strlen</code> 定义，很开心，找到了，链接，生成文件。这里需要说明下，.o 文件没有参数类型，链接器只看名字。</p>
 <p>运行时，栈里面是什么情况呢？栈最底下是 <code>n</code>，然后分配 <code>length</code> 需要的空间，再 push <code>num</code> 和 <code>num</code> 地址进去，两个参数，SP=SP-8，保存 PC 上下文，调用 <code>strlen</code>，<code>strlen</code> 需要一个参数 <code>char*</code>，去 SP 的地址去拿，幸好，SP 指向地方还真是个指针，指向 <code>num</code>。<code>strlen</code> 把 <code>num</code> 开始的地址作为<code>char*</code> 去处理，遇到第一个 0 结束。在小端机器上，<code>num</code> 内存是 65 0 0 0，遇到第一个 0 结束，所以它认为这个字符串长度为1。所以，这个诡异的程序输出了 1！</p>
-
-
-
-
-
-
-
-  
-    
-  
-  
-    
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 19, 2024 09:31:25">June 19, 2024</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 19, 2024 09:31:25">June 19, 2024</span>
-  </span>
-
-    
-    
-    
-  </aside>
-
 
   
 

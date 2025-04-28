@@ -23042,23 +23042,6 @@
 
   <h1>06 Logical Operations</h1>
 
-<p>操作一个字中的字节或者某个 bit 是非常有用的操作，所以很多编程语言和指令集，包括 RISC-V 都提供了逻辑操作（<code>logical operations</code>）直接操作位，如下图所示。</p>
-<p><img alt="" src="../0601.png" /></p>
-<p>第一类操作是移位（<code>shifts</code>），移动整体 bits 往左或往右若干位，对空出来的 bits 补零。</p>
-<p>举个例子，<code>x19</code> 的数值
-<script type="math/tex; mode=display">00000000 00000000 00000000 00001001_2=9_{10}</script>
-向左移动 4 位，得到
-<script type="math/tex; mode=display">00000000 00000000 00000000 10010000_2 = 144_{10}</script>
-右移和左移对称。RISC-V 提供了两个指令 shift left logical immediate (<code>slli</code>) 和 shift right logical immediate
-(<code>srli</code>)。上述例子写成汇编如下（假设结果放到 <code>x11</code> 中）
-<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">slli</span><span class="w"> </span><span class="n">x11</span><span class="p">,</span><span class="w"> </span><span class="n">x19</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w">    </span><span class="c1">// reg x11 = reg x19 &lt;&lt; 4 bits</span>
-</span></code></pre></div>
-对应指令是 I 类型的，如下图所示。</p>
-<p><img alt="" src="../0602.png" /></p>
-<p>左移相当于乘以 <script type="math/tex">2^i</script>。</p>
-<p>RISC-V 还提供了 shift right arithmetic immediate (<code>srai</code>) 指令，和 <code>srli</code> 类似，不过右移的时候不是补零而是补符号位。</p>
-<p>类似的，RISC-V 还提供类似的移动操作，不过参数不是立即数而是一个寄存器，这些指令分别是 <code>sll</code>, <code>srl</code>, <code>sra</code>。</p>
-<p>其余四个语义明确。AND 是两个 bit 都是 1 的时候结果才是 1；OR 与 AND 相反，有一个 1 结果就是 1；NOT 是位取反，1 变成 0,0 变成 1；XOR 是互斥异或，两个位都是 1 或者都是 0，结果是 0，否则结果是 1。</p>
 
 
 
@@ -23099,6 +23082,23 @@
     
   </aside>
 
+<p>操作一个字中的字节或者某个 bit 是非常有用的操作，所以很多编程语言和指令集，包括 RISC-V 都提供了逻辑操作（<code>logical operations</code>）直接操作位，如下图所示。</p>
+<p><img alt="" src="../0601.png" /></p>
+<p>第一类操作是移位（<code>shifts</code>），移动整体 bits 往左或往右若干位，对空出来的 bits 补零。</p>
+<p>举个例子，<code>x19</code> 的数值
+<script type="math/tex; mode=display">00000000 00000000 00000000 00001001_2=9_{10}</script>
+向左移动 4 位，得到
+<script type="math/tex; mode=display">00000000 00000000 00000000 10010000_2 = 144_{10}</script>
+右移和左移对称。RISC-V 提供了两个指令 shift left logical immediate (<code>slli</code>) 和 shift right logical immediate
+(<code>srli</code>)。上述例子写成汇编如下（假设结果放到 <code>x11</code> 中）
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">slli</span><span class="w"> </span><span class="n">x11</span><span class="p">,</span><span class="w"> </span><span class="n">x19</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w">    </span><span class="c1">// reg x11 = reg x19 &lt;&lt; 4 bits</span>
+</span></code></pre></div>
+对应指令是 I 类型的，如下图所示。</p>
+<p><img alt="" src="../0602.png" /></p>
+<p>左移相当于乘以 <script type="math/tex">2^i</script>。</p>
+<p>RISC-V 还提供了 shift right arithmetic immediate (<code>srai</code>) 指令，和 <code>srli</code> 类似，不过右移的时候不是补零而是补符号位。</p>
+<p>类似的，RISC-V 还提供类似的移动操作，不过参数不是立即数而是一个寄存器，这些指令分别是 <code>sll</code>, <code>srl</code>, <code>sra</code>。</p>
+<p>其余四个语义明确。AND 是两个 bit 都是 1 的时候结果才是 1；OR 与 AND 相反，有一个 1 结果就是 1；NOT 是位取反，1 变成 0,0 变成 1；XOR 是互斥异或，两个位都是 1 或者都是 0，结果是 0，否则结果是 1。</p>
 
   
 

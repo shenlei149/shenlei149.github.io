@@ -23040,22 +23040,6 @@
 
   <h1>3201 Poles, Amplitude Response, Connection to ERF</h1>
 
-<p>For our standard LTI system <script type="math/tex">p(D)x = f</script>, the transfer function is <script type="math/tex">W(s) = 1/p(s)</script>. In this case the poles of <script type="math/tex">W(s)</script> are simply the zeros of the characteristic polynomial <script type="math/tex">p(s)</script> (also known as the characteristic roots). We have had lots of experience using these roots in this course and know they give important information about the system. The reason we talk about the poles of the transfer function instead of just sticking with the characteristic roots is that all LTI systems have a transfer function, while the characteristic polynomial is defined only for systems described by constant coefficient linear ODE's.<br />
-Much of units 1,2 and the current unit have been devoted to the study of DE's for LTI systems:
-<script type="math/tex; mode=display">p(D)x=f(t)\tag{1}</script>
-In units 1 and 2 we saw that the stability of the system is determined by the roots of the characteristic polynomial. We saw as well that the amplitude response of the system to a sinusoidal input of frequency <script type="math/tex">\omega</script> is also determined by the characteristic polynomial, namely as the gain
-<script type="math/tex; mode=display">g(\omega)=\frac{1}{p(i\omega)}</script>
-In this unit we've learned about the Laplace transform, which gives us another view of a signal by transforming it from a function of <script type="math/tex">t</script>, say <script type="math/tex">f(t)</script>, to a function <script type="math/tex">F(s)</script> of the complex frequency <script type="math/tex">s</script>.<br />
-A key object from this point of view is the transfer function. For the system <script type="math/tex">(1)</script>, if we consider <script type="math/tex">f(t)</script> to be the input and <script type="math/tex">x(t)</script> to be the output, then the transfer function is <script type="math/tex">W(s) = 1/p(s)</script>, which is again determined by the characteristic polynomial.<br />
-In this session we will learn about poles and the pole diagram of an LTI system. This ties together the notions of stability, amplitude response and transfer function, all in one diagram in the complex <script type="math/tex">s</script>-plane. The pole
-diagram gives us a way to visualize systems which makes many of their important properties clear at a glance; in particular, and remarkably, the pole diagram
-1. shows whether the system stable;
-2. shows whether the unforced system is oscillatory;
-3. shows the exponential rate at which the unforced system returns to equilibrium (for stable systems); and
-4. gives a rough picture of the amplitude response and practical resonances of the system.</p>
-<p>For these reasons the pole diagram is a standard tool used by engineers in understanding and designing systems.<br />
-We conclude by reminding you that every LTI system has a transfer function. Everything we learn in this session will apply to such systems, including those not modeled by DE's of the form <script type="math/tex">(1)</script>
-</p>
 
 
 
@@ -23096,6 +23080,22 @@ We conclude by reminding you that every LTI system has a transfer function. Ever
     
   </aside>
 
+<p>For our standard LTI system <script type="math/tex">p(D)x = f</script>, the transfer function is <script type="math/tex">W(s) = 1/p(s)</script>. In this case the poles of <script type="math/tex">W(s)</script> are simply the zeros of the characteristic polynomial <script type="math/tex">p(s)</script> (also known as the characteristic roots). We have had lots of experience using these roots in this course and know they give important information about the system. The reason we talk about the poles of the transfer function instead of just sticking with the characteristic roots is that all LTI systems have a transfer function, while the characteristic polynomial is defined only for systems described by constant coefficient linear ODE's.<br />
+Much of units 1,2 and the current unit have been devoted to the study of DE's for LTI systems:
+<script type="math/tex; mode=display">p(D)x=f(t)\tag{1}</script>
+In units 1 and 2 we saw that the stability of the system is determined by the roots of the characteristic polynomial. We saw as well that the amplitude response of the system to a sinusoidal input of frequency <script type="math/tex">\omega</script> is also determined by the characteristic polynomial, namely as the gain
+<script type="math/tex; mode=display">g(\omega)=\frac{1}{p(i\omega)}</script>
+In this unit we've learned about the Laplace transform, which gives us another view of a signal by transforming it from a function of <script type="math/tex">t</script>, say <script type="math/tex">f(t)</script>, to a function <script type="math/tex">F(s)</script> of the complex frequency <script type="math/tex">s</script>.<br />
+A key object from this point of view is the transfer function. For the system <script type="math/tex">(1)</script>, if we consider <script type="math/tex">f(t)</script> to be the input and <script type="math/tex">x(t)</script> to be the output, then the transfer function is <script type="math/tex">W(s) = 1/p(s)</script>, which is again determined by the characteristic polynomial.<br />
+In this session we will learn about poles and the pole diagram of an LTI system. This ties together the notions of stability, amplitude response and transfer function, all in one diagram in the complex <script type="math/tex">s</script>-plane. The pole
+diagram gives us a way to visualize systems which makes many of their important properties clear at a glance; in particular, and remarkably, the pole diagram
+1. shows whether the system stable;
+2. shows whether the unforced system is oscillatory;
+3. shows the exponential rate at which the unforced system returns to equilibrium (for stable systems); and
+4. gives a rough picture of the amplitude response and practical resonances of the system.</p>
+<p>For these reasons the pole diagram is a standard tool used by engineers in understanding and designing systems.<br />
+We conclude by reminding you that every LTI system has a transfer function. Everything we learn in this session will apply to such systems, including those not modeled by DE's of the form <script type="math/tex">(1)</script>
+</p>
 
   
 

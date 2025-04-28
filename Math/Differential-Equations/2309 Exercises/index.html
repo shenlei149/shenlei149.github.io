@@ -23040,24 +23040,6 @@
 
   <h1>2309 Exercises</h1>
 
-<p><strong>Ex 1.</strong> What is the Fourier series for <script type="math/tex">\sin^2t</script>?</p>
-<p>We could compute the Fourier coefficients directly from the formulas, but instead we use a trig identity. By the double angle formula, <script type="math/tex">\cos(2t) = 1 - 2 \sin^2t</script>, so
-<script type="math/tex; mode=display">\sin^2t=\frac{1}{2}-\frac{1}{2}\cos(2t)</script>
-The right hand side is a Fourier series; it happens to be finite here. That is, the Fourier series for <script type="math/tex">\sin^2t</script> has only two nonzero coefficients. When we regard <script type="math/tex">\sin^2t</script> as having period <script type="math/tex">2\pi</script>, its series has Fourier coefficients <script type="math/tex">a_0 = 1</script> and <script type="math/tex">a_2 = -1/2</script>.</p>
-<p>This answer makes sense for two reasons. First, <script type="math/tex">\sin^2t</script> is an even function, and here all the <script type="math/tex">b_n</script>'s are zero. Second, we expect polynomial functions of sine and cosine to have short Fourier series.</p>
-<p>A remark from the point of view of material to be introduced later: This function has minimal period <script type="math/tex">\pi</script>, so it might be more natural to speak about its Fourier series for period <script type="math/tex">\pi</script>. This would be the same series, but the coefficients would be indexed differently. (If we thought of this Fourier series as having period <script type="math/tex">\pi</script>, <script type="math/tex">a_0</script> and <script type="math/tex">a_1</script> would be the nonzero coefficients.)</p>
-<p><strong>Ex 2.</strong> Explain why any function <script type="math/tex">F(x)</script> is a sum of an even function and an odd function in just one way. What is the even part of <script type="math/tex">e^x</script>? What is the odd part?</p>
-<p>This is a standard question to ask, and an important method to know.</p>
-<p>An easy way to make an even function from an arbitrary <script type="math/tex">F(x)</script> is to take the sum <script type="math/tex">F(x) + F(-x)</script>. (Why is this even? <script type="math/tex">F(x)+F(-x)=F(-x)+F(x)[f(x)=f(-x)]</script>)<br />
-Similarly, subtracting <script type="math/tex">F(x) - F(-x)</script> gives an odd function. (Check this is odd. <script type="math/tex">F(x) - F(-x)=-(F(-x)-F(x))[f(x)=-f(x)]</script>)</p>
-<p>Adding the two together would give <script type="math/tex">2F(x)</script>, so we go back and divide by this factor of two:
-<script type="math/tex; mode=display">F(x)=\frac{F(x) + F(-x)}{2}+\frac{F(x) - F(-x)}{2}</script>
-To show that this decomposition is unique, we suppose we have another decomposition <script type="math/tex">F_{even}(x) + F_{odd}(x) = F(x)</script>, where <script type="math/tex">F_{even}(x)</script> is even and <script type="math/tex">F_{odd}(x)</script> is odd.<br />
-We are assuming that<script type="math/tex">F_{even}(x) + F_{odd}(x) = F(x) = \frac{F(x) + F(-x)}{2}+\frac{F(x) - F(-x)}{2}</script>. Rearranging terms, this means that
-<script type="math/tex; mode=display">F_{even}(x)-\frac{F(x) + F(-x)}{2}=-F_{odd}(x)+\frac{F(x) - F(-x)}{2}</script>
-The left hand side here is the sum of two even functions, so it is also even, and, similarly, the right-hand side is the sum of two odd functions, so it is odd. But then each side is simultaneously both even and odd, and has to be zero.
-Thus, <script type="math/tex">F_{even}(x)=\frac{F(x) + F(-x)}{2}</script> and <script type="math/tex">F_{odd}(x)=\frac{F(x) - F(-x)}{2}</script>, so the even-odd decomposition of a function is unique.</p>
-<p>This decomposition might seem familiar from hyperbolic trig function formulas: The even part of <script type="math/tex">e^x</script> is <script type="math/tex">\frac{e^x+e^{-x}}{2}=\cosh x</script>, and the odd part of <script type="math/tex">e^x</script> is <script type="math/tex">\frac{e^x-e^{-x}}{2}=\sinh x</script>.</p>
 
 
 
@@ -23098,6 +23080,24 @@ Thus, <script type="math/tex">F_{even}(x)=\frac{F(x) + F(-x)}{2}</script> and <s
     
   </aside>
 
+<p><strong>Ex 1.</strong> What is the Fourier series for <script type="math/tex">\sin^2t</script>?</p>
+<p>We could compute the Fourier coefficients directly from the formulas, but instead we use a trig identity. By the double angle formula, <script type="math/tex">\cos(2t) = 1 - 2 \sin^2t</script>, so
+<script type="math/tex; mode=display">\sin^2t=\frac{1}{2}-\frac{1}{2}\cos(2t)</script>
+The right hand side is a Fourier series; it happens to be finite here. That is, the Fourier series for <script type="math/tex">\sin^2t</script> has only two nonzero coefficients. When we regard <script type="math/tex">\sin^2t</script> as having period <script type="math/tex">2\pi</script>, its series has Fourier coefficients <script type="math/tex">a_0 = 1</script> and <script type="math/tex">a_2 = -1/2</script>.</p>
+<p>This answer makes sense for two reasons. First, <script type="math/tex">\sin^2t</script> is an even function, and here all the <script type="math/tex">b_n</script>'s are zero. Second, we expect polynomial functions of sine and cosine to have short Fourier series.</p>
+<p>A remark from the point of view of material to be introduced later: This function has minimal period <script type="math/tex">\pi</script>, so it might be more natural to speak about its Fourier series for period <script type="math/tex">\pi</script>. This would be the same series, but the coefficients would be indexed differently. (If we thought of this Fourier series as having period <script type="math/tex">\pi</script>, <script type="math/tex">a_0</script> and <script type="math/tex">a_1</script> would be the nonzero coefficients.)</p>
+<p><strong>Ex 2.</strong> Explain why any function <script type="math/tex">F(x)</script> is a sum of an even function and an odd function in just one way. What is the even part of <script type="math/tex">e^x</script>? What is the odd part?</p>
+<p>This is a standard question to ask, and an important method to know.</p>
+<p>An easy way to make an even function from an arbitrary <script type="math/tex">F(x)</script> is to take the sum <script type="math/tex">F(x) + F(-x)</script>. (Why is this even? <script type="math/tex">F(x)+F(-x)=F(-x)+F(x)[f(x)=f(-x)]</script>)<br />
+Similarly, subtracting <script type="math/tex">F(x) - F(-x)</script> gives an odd function. (Check this is odd. <script type="math/tex">F(x) - F(-x)=-(F(-x)-F(x))[f(x)=-f(x)]</script>)</p>
+<p>Adding the two together would give <script type="math/tex">2F(x)</script>, so we go back and divide by this factor of two:
+<script type="math/tex; mode=display">F(x)=\frac{F(x) + F(-x)}{2}+\frac{F(x) - F(-x)}{2}</script>
+To show that this decomposition is unique, we suppose we have another decomposition <script type="math/tex">F_{even}(x) + F_{odd}(x) = F(x)</script>, where <script type="math/tex">F_{even}(x)</script> is even and <script type="math/tex">F_{odd}(x)</script> is odd.<br />
+We are assuming that<script type="math/tex">F_{even}(x) + F_{odd}(x) = F(x) = \frac{F(x) + F(-x)}{2}+\frac{F(x) - F(-x)}{2}</script>. Rearranging terms, this means that
+<script type="math/tex; mode=display">F_{even}(x)-\frac{F(x) + F(-x)}{2}=-F_{odd}(x)+\frac{F(x) - F(-x)}{2}</script>
+The left hand side here is the sum of two even functions, so it is also even, and, similarly, the right-hand side is the sum of two odd functions, so it is odd. But then each side is simultaneously both even and odd, and has to be zero.
+Thus, <script type="math/tex">F_{even}(x)=\frac{F(x) + F(-x)}{2}</script> and <script type="math/tex">F_{odd}(x)=\frac{F(x) - F(-x)}{2}</script>, so the even-odd decomposition of a function is unique.</p>
+<p>This decomposition might seem familiar from hyperbolic trig function formulas: The even part of <script type="math/tex">e^x</script> is <script type="math/tex">\frac{e^x+e^{-x}}{2}=\cosh x</script>, and the odd part of <script type="math/tex">e^x</script> is <script type="math/tex">\frac{e^x-e^{-x}}{2}=\sinh x</script>.</p>
 
   
 

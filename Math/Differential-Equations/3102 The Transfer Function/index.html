@@ -23173,46 +23173,6 @@
 
   <h1>3102 The Transfer Function</h1>
 
-<h3 id="definition">Definition</h3>
-<p>We start with the definition (see equation <script type="math/tex">(1)4. In subsequent sections of this note we will learn other ways of describing the transfer function. (See equations </script>(2)<script type="math/tex"> and </script>(3)<script type="math/tex">.)  
-For any linear time invariant system the transfer function is
-</script>
-<script type="math/tex">W(s)=\mathcal{L}(w(t)), \text{ where </script>w(t)<script type="math/tex"> is the unit impulse response.}\tag{1}</script>
-<script type="math/tex">
-**Example 1.** Find the transfer function for the system </script>x'+3x=f(t)<script type="math/tex">.  
-**Solution.** The unit impulse response is the solution to
-<script type="math/tex; mode=display">w'+3w=\delta(t), \text{ with rest IC}</script>
-The Laplace transform method finds </script>W(s)<script type="math/tex"> on the way to finding </script>w(t)<script type="math/tex">. Since we only want </script>W(s)<script type="math/tex"> we can stop when we get there. Taking the Laplace transform of the DE we get
-<script type="math/tex; mode=display">sW(s)-w(0^-)+3W(s)=1 \rArr W(s)=\frac{1}{s+3}</script>
-The 'annoying' term </script>w(0^-) = 0$ because we have rest initial conditions. (Subsequent to this we will not bother writing the annoying terms when we have rest IC.)</p>
-<h3 id="other-standard-terminology">Other Standard Terminology</h3>
-<p>The unit impulse response is also called the <strong>weight function</strong> and the transfer function is also called the <strong>system function</strong>. All of these terms are widely used and we will use them all to help you become familiar with them.</p>
-<h3 id="formula-for-ws">Formula for <script type="math/tex">W(s)</script>
-</h3>
-<p><strong>Example 2.</strong> Find the transfer function for <script type="math/tex">mx'' + bx' + kx = f(t)</script>.<br />
-<strong>Solution.</strong> The unit impulse response is the solution to
-<script type="math/tex; mode=display">mw''+bw'+kw=\delta(t), \text{ with rest IC}</script>
-By definition, the transfer function <script type="math/tex">W(s) = \mathcal{L}(w)</script>. So, we take the Laplace transform of the DE. There are no 'annoying terms' because with rest initial conditions <script type="math/tex">\mathcal{L}(w'')=s^2W(s)</script> and <script type="math/tex">\mathcal{L}(w')=sW(s)</script>. We get
-<script type="math/tex; mode=display">(ms^2+bs+k)W(s)=1 \rArr W(s)=\frac{1}{ms^2+bs+k}</script>
-In example 2, the differential operator is <script type="math/tex">p(D) = mD^2 + bD + kI</script>. That is, the characteristic polynomial is <script type="math/tex">p(s) = ms^2 + bs + k</script> and the transfer function is <script type="math/tex">W(s) = 1/p(s)</script>.<br />
-Exactly the same reasoning holds for operators of higher order.<br />
-<strong>Formula:</strong> For any polynomial operator <script type="math/tex">p(D)</script> the transfer function for the system
-<script type="math/tex; mode=display">p(D)x=f(t)</script>
-is given by
-<script type="math/tex; mode=display">W(s)=\frac{1}{p(s)}\tag{2}</script>
-<strong>Example 3.</strong> Suppose <script type="math/tex">W(s) = 1/(s^2 + 4)</script> is the transfer function for a system <script type="math/tex">p(D)x = f(t)</script>. What is <script type="math/tex">p(D)</script>?<br />
-<strong>Solution.</strong> Since <script type="math/tex">W(s) = 1/p(s)</script> we have <script type="math/tex">p(s) = s^2 + 4</script>, which implies <script type="math/tex">p(D) = D^2 + 4I</script>.</p>
-<h3 id="another-characterization-of-the-transfer-function">Another Characterization of the Transfer Function</h3>
-<p>The best way to think of the transfer function is as a ratio of output to input. By this we mean the following.<br />
-Suppose we have an equation
-<script type="math/tex; mode=display">p(D)x = f(t), \text{ with rest IC.}</script>
-Taking Laplace transform of both sides gives
-<script type="math/tex; mode=display">p(s)X(s) = F(s) \rArr X(s)=\frac{1}{p(s)}F(s)=W(s)F(s)</script>
-Solving for <script type="math/tex">W(s)</script> shows
-<script type="math/tex; mode=display">W(s)=\frac{X(s)}{F(s)}=\frac{\text{output}}{\text{input}}\tag{3}</script>
-</p>
-<h3 id="conclusion">Conclusion</h3>
-<p>We have characterized the transfer functions in three different ways. Equations <script type="math/tex">(1)</script> and <script type="math/tex">(3)</script> are perfectly general and apply to any LTI system. Equation <script type="math/tex">(2)</script> is specific to constant coefficient linear differential equations.</p>
 
 
 
@@ -23253,6 +23213,46 @@ Solving for <script type="math/tex">W(s)</script> shows
     
   </aside>
 
+<h3 id="definition">Definition</h3>
+<p>We start with the definition (see equation <script type="math/tex">(1)4. In subsequent sections of this note we will learn other ways of describing the transfer function. (See equations </script>(2)<script type="math/tex"> and </script>(3)<script type="math/tex">.)  
+For any linear time invariant system the transfer function is
+</script>
+<script type="math/tex">W(s)=\mathcal{L}(w(t)), \text{ where </script>w(t)<script type="math/tex"> is the unit impulse response.}\tag{1}</script>
+<script type="math/tex">
+**Example 1.** Find the transfer function for the system </script>x'+3x=f(t)<script type="math/tex">.  
+**Solution.** The unit impulse response is the solution to
+<script type="math/tex; mode=display">w'+3w=\delta(t), \text{ with rest IC}</script>
+The Laplace transform method finds </script>W(s)<script type="math/tex"> on the way to finding </script>w(t)<script type="math/tex">. Since we only want </script>W(s)<script type="math/tex"> we can stop when we get there. Taking the Laplace transform of the DE we get
+<script type="math/tex; mode=display">sW(s)-w(0^-)+3W(s)=1 \rArr W(s)=\frac{1}{s+3}</script>
+The 'annoying' term </script>w(0^-) = 0$ because we have rest initial conditions. (Subsequent to this we will not bother writing the annoying terms when we have rest IC.)</p>
+<h3 id="other-standard-terminology">Other Standard Terminology</h3>
+<p>The unit impulse response is also called the <strong>weight function</strong> and the transfer function is also called the <strong>system function</strong>. All of these terms are widely used and we will use them all to help you become familiar with them.</p>
+<h3 id="formula-for-ws">Formula for <script type="math/tex">W(s)</script>
+</h3>
+<p><strong>Example 2.</strong> Find the transfer function for <script type="math/tex">mx'' + bx' + kx = f(t)</script>.<br />
+<strong>Solution.</strong> The unit impulse response is the solution to
+<script type="math/tex; mode=display">mw''+bw'+kw=\delta(t), \text{ with rest IC}</script>
+By definition, the transfer function <script type="math/tex">W(s) = \mathcal{L}(w)</script>. So, we take the Laplace transform of the DE. There are no 'annoying terms' because with rest initial conditions <script type="math/tex">\mathcal{L}(w'')=s^2W(s)</script> and <script type="math/tex">\mathcal{L}(w')=sW(s)</script>. We get
+<script type="math/tex; mode=display">(ms^2+bs+k)W(s)=1 \rArr W(s)=\frac{1}{ms^2+bs+k}</script>
+In example 2, the differential operator is <script type="math/tex">p(D) = mD^2 + bD + kI</script>. That is, the characteristic polynomial is <script type="math/tex">p(s) = ms^2 + bs + k</script> and the transfer function is <script type="math/tex">W(s) = 1/p(s)</script>.<br />
+Exactly the same reasoning holds for operators of higher order.<br />
+<strong>Formula:</strong> For any polynomial operator <script type="math/tex">p(D)</script> the transfer function for the system
+<script type="math/tex; mode=display">p(D)x=f(t)</script>
+is given by
+<script type="math/tex; mode=display">W(s)=\frac{1}{p(s)}\tag{2}</script>
+<strong>Example 3.</strong> Suppose <script type="math/tex">W(s) = 1/(s^2 + 4)</script> is the transfer function for a system <script type="math/tex">p(D)x = f(t)</script>. What is <script type="math/tex">p(D)</script>?<br />
+<strong>Solution.</strong> Since <script type="math/tex">W(s) = 1/p(s)</script> we have <script type="math/tex">p(s) = s^2 + 4</script>, which implies <script type="math/tex">p(D) = D^2 + 4I</script>.</p>
+<h3 id="another-characterization-of-the-transfer-function">Another Characterization of the Transfer Function</h3>
+<p>The best way to think of the transfer function is as a ratio of output to input. By this we mean the following.<br />
+Suppose we have an equation
+<script type="math/tex; mode=display">p(D)x = f(t), \text{ with rest IC.}</script>
+Taking Laplace transform of both sides gives
+<script type="math/tex; mode=display">p(s)X(s) = F(s) \rArr X(s)=\frac{1}{p(s)}F(s)=W(s)F(s)</script>
+Solving for <script type="math/tex">W(s)</script> shows
+<script type="math/tex; mode=display">W(s)=\frac{X(s)}{F(s)}=\frac{\text{output}}{\text{input}}\tag{3}</script>
+</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>We have characterized the transfer functions in three different ways. Equations <script type="math/tex">(1)</script> and <script type="math/tex">(3)</script> are perfectly general and apply to any LTI system. Equation <script type="math/tex">(2)</script> is specific to constant coefficient linear differential equations.</p>
 
   
 

@@ -23040,20 +23040,6 @@
 
   <h1>求 $a_j-a_i$ 的最大值</h1>
 
-<p>给定一个整数数组 <code>a[n]</code>，求 <script type="math/tex">\max(a_j - a_i), 0\leq i<j<n</script>。要求时间复杂度为 <script type="math/tex">O(n)</script>，空间复杂度为 <script type="math/tex">O(1)</script>。</p>
-<p>这道题若没有最后的空间复杂度时间复杂度的要求，很简单，两层循环就能解决了。</p>
-<p>这个题看似要使用动态规划，但仔细一想，不好弄，不能使用额外的存储空间。</p>
-<p>比如假定前 <script type="math/tex">i</script> 个的解是 <script type="math/tex">a_m-a_n</script>，考虑第 <script type="math/tex">i+1</script> 个，若 <script type="math/tex">a_m</script> 到 <script type="math/tex">a_i</script> 之间有个很小的数 <script type="math/tex">a_k</script>，可以使得 <script type="math/tex">a_{i+1}-a_k</script> 比 <script type="math/tex">a_m-a_n</script> 大，同时也比 <script type="math/tex">a_{i+1}-a_n</script> 大。怎么弄？很难办。</p>
-<p>退回原始问题，看着有点像求连续最大子数组之和。</p>
-<p>想办法把 <script type="math/tex">\max(a_j - a_i)</script> 转化为 <script type="math/tex">\max(a_i+\cdots+a_j)</script>。这里我对使用下标使用有点随意。</p>
-<p>我们构造如下数组：
-<script type="math/tex; mode=display">a_1,a_2-a_1,a_3-a_2,\cdots,a_n-a_{n-1}</script>
-</p>
-<p>那么连续最大子数组之和就是：
-<script type="math/tex; mode=display">(a_{i+1}-a_i)+(a_{i+2}-a_{i+1})+\cdots+{a_j-a_{j-1}} = a_j - a_i</script>
-</p>
-<p>也就是说，通过构造一个数组，把原问题转化为了一个很容易解决的问题。</p>
-<p>新构造的数据没有必要保存下来，只需要将处理连续最大子数组之和程序中 <code>sum += a[i];</code> 修改为 <code>sum += (a[i] - a[i-1])</code> 即可。</p>
 
 
 
@@ -23094,6 +23080,20 @@
     
   </aside>
 
+<p>给定一个整数数组 <code>a[n]</code>，求 <script type="math/tex">\max(a_j - a_i), 0\leq i<j<n</script>。要求时间复杂度为 <script type="math/tex">O(n)</script>，空间复杂度为 <script type="math/tex">O(1)</script>。</p>
+<p>这道题若没有最后的空间复杂度时间复杂度的要求，很简单，两层循环就能解决了。</p>
+<p>这个题看似要使用动态规划，但仔细一想，不好弄，不能使用额外的存储空间。</p>
+<p>比如假定前 <script type="math/tex">i</script> 个的解是 <script type="math/tex">a_m-a_n</script>，考虑第 <script type="math/tex">i+1</script> 个，若 <script type="math/tex">a_m</script> 到 <script type="math/tex">a_i</script> 之间有个很小的数 <script type="math/tex">a_k</script>，可以使得 <script type="math/tex">a_{i+1}-a_k</script> 比 <script type="math/tex">a_m-a_n</script> 大，同时也比 <script type="math/tex">a_{i+1}-a_n</script> 大。怎么弄？很难办。</p>
+<p>退回原始问题，看着有点像求连续最大子数组之和。</p>
+<p>想办法把 <script type="math/tex">\max(a_j - a_i)</script> 转化为 <script type="math/tex">\max(a_i+\cdots+a_j)</script>。这里我对使用下标使用有点随意。</p>
+<p>我们构造如下数组：
+<script type="math/tex; mode=display">a_1,a_2-a_1,a_3-a_2,\cdots,a_n-a_{n-1}</script>
+</p>
+<p>那么连续最大子数组之和就是：
+<script type="math/tex; mode=display">(a_{i+1}-a_i)+(a_{i+2}-a_{i+1})+\cdots+{a_j-a_{j-1}} = a_j - a_i</script>
+</p>
+<p>也就是说，通过构造一个数组，把原问题转化为了一个很容易解决的问题。</p>
+<p>新构造的数据没有必要保存下来，只需要将处理连续最大子数组之和程序中 <code>sum += a[i];</code> 修改为 <code>sum += (a[i] - a[i-1])</code> 即可。</p>
 
   
 

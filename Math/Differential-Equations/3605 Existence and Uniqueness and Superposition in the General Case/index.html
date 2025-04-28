@@ -23040,21 +23040,6 @@
 
   <h1>3605 Existence and Uniqueness and Superposition in the General Case</h1>
 
-<p>We can extend the results above to the inhomogeneous case.
-<script type="math/tex; mode=display">\boldsymbol{x'} = A(t)\boldsymbol{x} \text{ (homogeneous)}\tag{H}</script>
-<script type="math/tex; mode=display">\boldsymbol{x'} = A(t)\boldsymbol{x}+\boldsymbol{F}(t) \text{ (inhomogeneous)}\tag{I}</script>
-where <script type="math/tex">F(t)</script> is the <em>input</em> to the system.</p>
-<p><strong>Linearity/superposition:</strong>
-1. If <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are solutions to <script type="math/tex">(H)</script> then so is <script type="math/tex">\boldsymbol{x} = c_1\boldsymbol{x}_1 + c_2\boldsymbol{x}_2</script>
-2. If <script type="math/tex">\boldsymbol{x}_h</script> is a solution to <script type="math/tex">(H)</script> and <script type="math/tex">\boldsymbol{x}_p</script> is a solution to <script type="math/tex">(I)</script> then <script type="math/tex">\boldsymbol{x} = \boldsymbol{x}_h + \boldsymbol{x}_p</script> is also a solution to <script type="math/tex">(I)</script>.
-3.  If <script type="math/tex">\boldsymbol{x}_1' = A\boldsymbol{x}_1 + \boldsymbol{F}_1</script>, and <script type="math/tex">\boldsymbol{x}_2' = A\boldsymbol{x}_2 + \boldsymbol{F}_2</script> then <script type="math/tex">\boldsymbol{x} = \boldsymbol{x}_1 + \boldsymbol{x}_2</script> satisfies <script type="math/tex">\boldsymbol{x}' = A\boldsymbol{x} + \boldsymbol{F}_1 + \boldsymbol{F}_2</script>. That is, superposition of inputs leads to superposition of outputs.</p>
-<p><strong>proof:</strong>
-1. <script type="math/tex">\boldsymbol{x}' = c_1\boldsymbol{x}_1' + c_2\boldsymbol{x}_2' = c_1A\boldsymbol{x}_1 + c_2A\boldsymbol{x}_2 = A(c_1\boldsymbol{x}_1 + c_2\boldsymbol{x}_2) = A\boldsymbol{x}</script>.
-2. <script type="math/tex">\boldsymbol{x}' = \boldsymbol{x}_h' + \boldsymbol{x}_p' = A\boldsymbol{x}_h + A\boldsymbol{x}_p + \boldsymbol{F} = A(\boldsymbol{x}_h + \boldsymbol{x}_p) + \boldsymbol{F} = A\boldsymbol{x} + \boldsymbol{F}</script>.
-3. <script type="math/tex">\boldsymbol{x}' = \boldsymbol{x}_1' + \boldsymbol{x}_2' = A\boldsymbol{x}_1 + \boldsymbol{F}_1 + A\boldsymbol{x}_2 + \boldsymbol{F}_2 = A(\boldsymbol{x}_1 + \boldsymbol{x}_2) + \boldsymbol{F}_1 + \boldsymbol{F}_2 =A\boldsymbol{x} + \boldsymbol{F}_1 + \boldsymbol{F}_2</script>.</p>
-<p><strong>Existence and uniqueness:</strong> We start with an initial time <script type="math/tex">t_0</script> and the initial value problem:
-<script type="math/tex; mode=display">\boldsymbol{x}' = A(t)\boldsymbol{x} + \boldsymbol{F}(t), \boldsymbol{x}(t_0) = \boldsymbol{x}_0. \tag{IVP}</script>
-<strong>Theorem:</strong> If <script type="math/tex">A(t)</script> and <script type="math/tex">\boldsymbol{F}(t)</script> are continuous then there exists a unique solution to <script type="math/tex">(IVP)</script>.</p>
 
 
 
@@ -23095,6 +23080,21 @@ where <script type="math/tex">F(t)</script> is the <em>input</em> to the system.
     
   </aside>
 
+<p>We can extend the results above to the inhomogeneous case.
+<script type="math/tex; mode=display">\boldsymbol{x'} = A(t)\boldsymbol{x} \text{ (homogeneous)}\tag{H}</script>
+<script type="math/tex; mode=display">\boldsymbol{x'} = A(t)\boldsymbol{x}+\boldsymbol{F}(t) \text{ (inhomogeneous)}\tag{I}</script>
+where <script type="math/tex">F(t)</script> is the <em>input</em> to the system.</p>
+<p><strong>Linearity/superposition:</strong>
+1. If <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are solutions to <script type="math/tex">(H)</script> then so is <script type="math/tex">\boldsymbol{x} = c_1\boldsymbol{x}_1 + c_2\boldsymbol{x}_2</script>
+2. If <script type="math/tex">\boldsymbol{x}_h</script> is a solution to <script type="math/tex">(H)</script> and <script type="math/tex">\boldsymbol{x}_p</script> is a solution to <script type="math/tex">(I)</script> then <script type="math/tex">\boldsymbol{x} = \boldsymbol{x}_h + \boldsymbol{x}_p</script> is also a solution to <script type="math/tex">(I)</script>.
+3.  If <script type="math/tex">\boldsymbol{x}_1' = A\boldsymbol{x}_1 + \boldsymbol{F}_1</script>, and <script type="math/tex">\boldsymbol{x}_2' = A\boldsymbol{x}_2 + \boldsymbol{F}_2</script> then <script type="math/tex">\boldsymbol{x} = \boldsymbol{x}_1 + \boldsymbol{x}_2</script> satisfies <script type="math/tex">\boldsymbol{x}' = A\boldsymbol{x} + \boldsymbol{F}_1 + \boldsymbol{F}_2</script>. That is, superposition of inputs leads to superposition of outputs.</p>
+<p><strong>proof:</strong>
+1. <script type="math/tex">\boldsymbol{x}' = c_1\boldsymbol{x}_1' + c_2\boldsymbol{x}_2' = c_1A\boldsymbol{x}_1 + c_2A\boldsymbol{x}_2 = A(c_1\boldsymbol{x}_1 + c_2\boldsymbol{x}_2) = A\boldsymbol{x}</script>.
+2. <script type="math/tex">\boldsymbol{x}' = \boldsymbol{x}_h' + \boldsymbol{x}_p' = A\boldsymbol{x}_h + A\boldsymbol{x}_p + \boldsymbol{F} = A(\boldsymbol{x}_h + \boldsymbol{x}_p) + \boldsymbol{F} = A\boldsymbol{x} + \boldsymbol{F}</script>.
+3. <script type="math/tex">\boldsymbol{x}' = \boldsymbol{x}_1' + \boldsymbol{x}_2' = A\boldsymbol{x}_1 + \boldsymbol{F}_1 + A\boldsymbol{x}_2 + \boldsymbol{F}_2 = A(\boldsymbol{x}_1 + \boldsymbol{x}_2) + \boldsymbol{F}_1 + \boldsymbol{F}_2 =A\boldsymbol{x} + \boldsymbol{F}_1 + \boldsymbol{F}_2</script>.</p>
+<p><strong>Existence and uniqueness:</strong> We start with an initial time <script type="math/tex">t_0</script> and the initial value problem:
+<script type="math/tex; mode=display">\boldsymbol{x}' = A(t)\boldsymbol{x} + \boldsymbol{F}(t), \boldsymbol{x}(t_0) = \boldsymbol{x}_0. \tag{IVP}</script>
+<strong>Theorem:</strong> If <script type="math/tex">A(t)</script> and <script type="math/tex">\boldsymbol{F}(t)</script> are continuous then there exists a unique solution to <script type="math/tex">(IVP)</script>.</p>
 
   
 

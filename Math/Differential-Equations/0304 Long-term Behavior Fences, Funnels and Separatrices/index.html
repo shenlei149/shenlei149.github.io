@@ -23137,38 +23137,6 @@
 
   <h1>0304 Long term Behavior Fences, Funnels and Separatrices</h1>
 
-<p>In the video on the Isoclines applet we studied some of the features of the long-term behavior of the integral curves; among others, the terms fence, funnel and separatrix were introduced.<br />
-Fences and funnels are used to find out for certain where trajectories go at scales you can't see: small scales (where the picture is too small to decide on crossings) and the largest scales (off the screen) that are relevant to long-term behavior. Let us start by defining what a fence is.</p>
-<h3 id="fences">Fences</h3>
-<p>A lower fence for the equation <script type="math/tex">y' = f(x, y)</script> is a curve that 'blocks' an integral curve from crossing from above. To find such a fence look for a curve so that all the direction field elements along the curve point up from it. The figure below shows two curves with the direction field sketched along them. The lower curve is a lower fence. Since any integral curve crossing the fence must cross tangent to the slope field it cannot cross it from above.<br />
-Likewise an <strong>upper fence</strong> is a curve that blocks integral curves from crossing from below.<br />
-<img alt="" src="../pic030401.png" /><br />
-Technically a lower fence is a curve <script type="math/tex">y = L(x)</script> such that <script type="math/tex">L'(x) < f(x, L(x))</script>. (This may look difficult, but it just says the slope of the curve is always less than the slope of the direction field at each point.)<br />
-<strong>Remark 1.</strong> Fences needn't be defined for all <script type="math/tex">x</script>; for instance, they could be defined only on an interval. The best sort of fences for understanding long-term behavior are defined for all <script type="math/tex">x \geq c</script>, for a fairly small constant <script type="math/tex">c</script>.<br />
-<strong>Remark 2.</strong> Since integral curves can't cross an integral curve itself is both an upper and a lower fence.<br />
-<strong>Remark 3.</strong> Of course, there are many ways of constructing pieces of fences. Two of the most useful are using pieces of isoclines and using straight line segments.<br />
-<strong>Example.</strong> In the isoclines applet video we found fences for the equation
-<script type="math/tex; mode=display">y' = y^2 - x</script>
-Here is a screenshot showing the isoclines <script type="math/tex">m = 0</script> and <script type="math/tex">m = -1</script> and some integral curves. (The isoclines are the yellow, sideways pointing parabolas.)<br />
-<img alt="" src="../pic030402.png" /><br />
-Notice that the bottom half of the isocline <script type="math/tex">m = 0</script> is a lower fence and for <script type="math/tex">x</script> large enough the bottom half of the isocline <script type="math/tex">m = -1</script> is an upper fence.<br />
-Notice the bottom half of the isocline <script type="math/tex">m = -1</script> becomes an upper fence only for <script type="math/tex">x</script> is large enough. If you look carefully you'll see one of the integral curves crossing it from above near <script type="math/tex">x = 1</script>.</p>
-<h3 id="funnels">Funnels</h3>
-<p>An important use of fences is to construct funnels. A <strong>funnel</strong> for the equation <script type="math/tex">y' = f(x, y)</script> consists of a pair of fences; one lower fence <script type="math/tex">L(x)</script> and one upper fence <script type="math/tex">U(x)</script>, with the properties:
-1. For <script type="math/tex">x</script> large the lower fence is below the upper fence, i.e. <script type="math/tex">L(x) < U(x)</script>.
-2. The two fences come together asymptotically, i.e. <script type="math/tex">U(x) - L(x)</script> is small for large <script type="math/tex">x</script>.</p>
-<p>In figure 2 above the bottom parts of the two isoclines <script type="math/tex">m = 0</script> and <script type="math/tex">m = -1</script> act as a funnel once <script type="math/tex">x</script> is large enough. (It is clear from the picture that <script type="math/tex">x > 2</script> will work.) Thus the integral curves that end up between them are trapped there. The bottom half of the isocline <script type="math/tex">m = 0</script> is <script type="math/tex">y = -\sqrt{x}</script> and the bottom half of <script type="math/tex">m = -1</script> is <script type="math/tex">y = -\sqrt{x - 1}</script>. Thus, for the solutions between them we have the highly accurate estimates
-<script type="math/tex; mode=display">-\sqrt{x}<y(x)<-\sqrt{x-1}</script>
-which is valid for large <script type="math/tex">x</script>.<br />
-<strong>Exercise.</strong> Use algebra to show that <script type="math/tex">U(x) = -\sqrt{x-1}</script> and <script type="math/tex">L(x) = -\sqrt{x}</script> satsify the 'funnel condition' <script type="math/tex">U(x)-L(x) \rarr 0</script> as <script type="math/tex">x\rarr \infty</script>.<br />
-<strong>Solution.</strong>
-<script type="math/tex; mode=display">\lim_{x \to \infty} -\sqrt{x-1}-(-\sqrt{x})=\lim_{x \to \infty} \frac{1}{\sqrt{x}+\sqrt{x-1}}=0</script>
-<strong>Caution.</strong> Not all pairs of 'close' upper/lower fences form a funnel. For example, if figure 2 the upper and lower branches of the isocline <script type="math/tex">m = 0</script> are upper and lower fences. So solutions that lie between them, stay between them. It is not a funnel, because the two curves don't come asymptotically together as <script type="math/tex">x</script> gets large.<br />
-Here is another example. Consider the differential equation <script type="math/tex">y' = x - 2y</script>. (This is one of the ones available on the isoclines applet.) One upper fence is the nullcline, with equation <script type="math/tex">y = x/2</script>; one lower fence is the <script type="math/tex">m = 2</script> isocline, with equation <script type="math/tex">y = x/2-1</script>. These two fences do not form a funnel: they are parallel, at constant distance one apart.</p>
-<h3 id="separatrices">Separatrices</h3>
-<p><strong>Definition.</strong> A <strong>separatrix</strong> is an integral curve such that integral curves above it behave entirely differently from integral curves below it as <script type="math/tex">x</script> increases to infinity.<br />
-<strong>Example.</strong> In the isoclines applet video, we saw that there was one special solution, which as time increases just gets closer and closer to the upper branch of the nullcline - that is, to the function <script type="math/tex">y = \sqrt{x}</script>. All solutions below it are eventually asymototic to <script type="math/tex">y = -\sqrt{x}</script>, while all solutions above it take off for <script type="math/tex">+\infty</script> at some point. This integral curve is called a <strong>sepatratrix</strong>. On the screenshot in figure 2 the sepatratrix is marked with red dots.<br />
-The name <em>separatrix</em> comes from the fact that it separates solutions with radically different behavior.</p>
 
 
 
@@ -23209,6 +23177,38 @@ The name <em>separatrix</em> comes from the fact that it separates solutions wit
     
   </aside>
 
+<p>In the video on the Isoclines applet we studied some of the features of the long-term behavior of the integral curves; among others, the terms fence, funnel and separatrix were introduced.<br />
+Fences and funnels are used to find out for certain where trajectories go at scales you can't see: small scales (where the picture is too small to decide on crossings) and the largest scales (off the screen) that are relevant to long-term behavior. Let us start by defining what a fence is.</p>
+<h3 id="fences">Fences</h3>
+<p>A lower fence for the equation <script type="math/tex">y' = f(x, y)</script> is a curve that 'blocks' an integral curve from crossing from above. To find such a fence look for a curve so that all the direction field elements along the curve point up from it. The figure below shows two curves with the direction field sketched along them. The lower curve is a lower fence. Since any integral curve crossing the fence must cross tangent to the slope field it cannot cross it from above.<br />
+Likewise an <strong>upper fence</strong> is a curve that blocks integral curves from crossing from below.<br />
+<img alt="" src="../pic030401.png" /><br />
+Technically a lower fence is a curve <script type="math/tex">y = L(x)</script> such that <script type="math/tex">L'(x) < f(x, L(x))</script>. (This may look difficult, but it just says the slope of the curve is always less than the slope of the direction field at each point.)<br />
+<strong>Remark 1.</strong> Fences needn't be defined for all <script type="math/tex">x</script>; for instance, they could be defined only on an interval. The best sort of fences for understanding long-term behavior are defined for all <script type="math/tex">x \geq c</script>, for a fairly small constant <script type="math/tex">c</script>.<br />
+<strong>Remark 2.</strong> Since integral curves can't cross an integral curve itself is both an upper and a lower fence.<br />
+<strong>Remark 3.</strong> Of course, there are many ways of constructing pieces of fences. Two of the most useful are using pieces of isoclines and using straight line segments.<br />
+<strong>Example.</strong> In the isoclines applet video we found fences for the equation
+<script type="math/tex; mode=display">y' = y^2 - x</script>
+Here is a screenshot showing the isoclines <script type="math/tex">m = 0</script> and <script type="math/tex">m = -1</script> and some integral curves. (The isoclines are the yellow, sideways pointing parabolas.)<br />
+<img alt="" src="../pic030402.png" /><br />
+Notice that the bottom half of the isocline <script type="math/tex">m = 0</script> is a lower fence and for <script type="math/tex">x</script> large enough the bottom half of the isocline <script type="math/tex">m = -1</script> is an upper fence.<br />
+Notice the bottom half of the isocline <script type="math/tex">m = -1</script> becomes an upper fence only for <script type="math/tex">x</script> is large enough. If you look carefully you'll see one of the integral curves crossing it from above near <script type="math/tex">x = 1</script>.</p>
+<h3 id="funnels">Funnels</h3>
+<p>An important use of fences is to construct funnels. A <strong>funnel</strong> for the equation <script type="math/tex">y' = f(x, y)</script> consists of a pair of fences; one lower fence <script type="math/tex">L(x)</script> and one upper fence <script type="math/tex">U(x)</script>, with the properties:
+1. For <script type="math/tex">x</script> large the lower fence is below the upper fence, i.e. <script type="math/tex">L(x) < U(x)</script>.
+2. The two fences come together asymptotically, i.e. <script type="math/tex">U(x) - L(x)</script> is small for large <script type="math/tex">x</script>.</p>
+<p>In figure 2 above the bottom parts of the two isoclines <script type="math/tex">m = 0</script> and <script type="math/tex">m = -1</script> act as a funnel once <script type="math/tex">x</script> is large enough. (It is clear from the picture that <script type="math/tex">x > 2</script> will work.) Thus the integral curves that end up between them are trapped there. The bottom half of the isocline <script type="math/tex">m = 0</script> is <script type="math/tex">y = -\sqrt{x}</script> and the bottom half of <script type="math/tex">m = -1</script> is <script type="math/tex">y = -\sqrt{x - 1}</script>. Thus, for the solutions between them we have the highly accurate estimates
+<script type="math/tex; mode=display">-\sqrt{x}<y(x)<-\sqrt{x-1}</script>
+which is valid for large <script type="math/tex">x</script>.<br />
+<strong>Exercise.</strong> Use algebra to show that <script type="math/tex">U(x) = -\sqrt{x-1}</script> and <script type="math/tex">L(x) = -\sqrt{x}</script> satsify the 'funnel condition' <script type="math/tex">U(x)-L(x) \rarr 0</script> as <script type="math/tex">x\rarr \infty</script>.<br />
+<strong>Solution.</strong>
+<script type="math/tex; mode=display">\lim_{x \to \infty} -\sqrt{x-1}-(-\sqrt{x})=\lim_{x \to \infty} \frac{1}{\sqrt{x}+\sqrt{x-1}}=0</script>
+<strong>Caution.</strong> Not all pairs of 'close' upper/lower fences form a funnel. For example, if figure 2 the upper and lower branches of the isocline <script type="math/tex">m = 0</script> are upper and lower fences. So solutions that lie between them, stay between them. It is not a funnel, because the two curves don't come asymptotically together as <script type="math/tex">x</script> gets large.<br />
+Here is another example. Consider the differential equation <script type="math/tex">y' = x - 2y</script>. (This is one of the ones available on the isoclines applet.) One upper fence is the nullcline, with equation <script type="math/tex">y = x/2</script>; one lower fence is the <script type="math/tex">m = 2</script> isocline, with equation <script type="math/tex">y = x/2-1</script>. These two fences do not form a funnel: they are parallel, at constant distance one apart.</p>
+<h3 id="separatrices">Separatrices</h3>
+<p><strong>Definition.</strong> A <strong>separatrix</strong> is an integral curve such that integral curves above it behave entirely differently from integral curves below it as <script type="math/tex">x</script> increases to infinity.<br />
+<strong>Example.</strong> In the isoclines applet video, we saw that there was one special solution, which as time increases just gets closer and closer to the upper branch of the nullcline - that is, to the function <script type="math/tex">y = \sqrt{x}</script>. All solutions below it are eventually asymototic to <script type="math/tex">y = -\sqrt{x}</script>, while all solutions above it take off for <script type="math/tex">+\infty</script> at some point. This integral curve is called a <strong>sepatratrix</strong>. On the screenshot in figure 2 the sepatratrix is marked with red dots.<br />
+The name <em>separatrix</em> comes from the fact that it separates solutions with radically different behavior.</p>
 
   
 

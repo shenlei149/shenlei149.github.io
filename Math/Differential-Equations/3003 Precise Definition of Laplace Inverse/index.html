@@ -23119,35 +23119,6 @@
 
   <h1>3003 Precise Definition of Laplace Inverse</h1>
 
-<h3 id="domain-of-mathcall-1f">Domain of <script type="math/tex">\mathcal{L}^{-1}(F)</script>
-</h3>
-<p>We have been a bit vague on one key technical point which we aim to clear up in this note. We start with an example.<br />
-<strong>Example.</strong> Let <script type="math/tex">u(t)</script> be the unit step function. Since <script type="math/tex">u(t) = 1</script> for <script type="math/tex">t > 0</script> we don't need the <script type="math/tex">0^-</script> in the Laplace limits of integration.
-<script type="math/tex; mode=display">\mathcal{L}(u)=\int_{0^-}^\infty u(t)e^{-st}dt=\int_0^\infty e^{-st}dt=1/s</script>
-This is exactly the same as <script type="math/tex">\mathcal{L}(1)</script>. So, when we look for <script type="math/tex">f(t) = \mathcal{L}^{-1}(1/s)</script> is it <script type="math/tex">f(t) = 1</script> or <script type="math/tex">f(t) = u(t)</script>?<br />
-The answer is, it doesn't matter. Since we are only concerned with the interval <script type="math/tex">(0^-, \infty)</script>, you can choose either one. To be precise, for a function <script type="math/tex">F(s)</script> we allow any function <script type="math/tex">f(t)</script> with the following properties to be called its Laplace inverse <script type="math/tex">\mathcal{L}^{-1}(F)</script>:
-1. <script type="math/tex">f(t)</script> is a (possibly) generalized function.
-2. <script type="math/tex">f(t)</script> is defined on <script type="math/tex">(0, \infty)</script>, except possibly at a discrete set of points where there are jump discontinuities or <script type="math/tex">f(t)</script> is singular, e.g. has delta functions.
-3. <script type="math/tex">f(t)</script> may also have a singular part at <script type="math/tex">t = 0</script>.
-4. <script type="math/tex">\mathcal{L}(f)=F</script>.
-5. In particular, the Laplace inverse is not defined at <script type="math/tex">t = 0</script> and has nothing to say about <script type="math/tex">f(0^-), f'(0^-), f''(0^-), \ldots</script>. Indeed, it has nothing to say about <script type="math/tex">f(t)</script> for all <script type="math/tex">t < 0</script>. When finding the inverse Laplace transform these values are either irrelevant or must be determined by other means.</p>
-<p>The functions in Figure 1 below all all have Laplace transform <script type="math/tex">1/s</script>. Notice, they are all different for <script type="math/tex">t < 0</script> and the last two are not defined at 0. Since they agree on <script type="math/tex">t > 0</script> (and have no delta function at <script type="math/tex">t = 0</script>) they have the same Laplace transform.<br />
-<img alt="" src="../pic300301.png" /></p>
-<h3 id="removable-discontinuities">Removable Discontinuities</h3>
-<p>We're still we're not done with our discussion of the possible differences between two functions with the same Laplace transform. Consider the two functions whose graphs are shown in Figure 2.<br />
-<img alt="" src="../pic300302.png" /><br />
-They differ only at the point <script type="math/tex">t = a</script>. It is easy to see that they have the same Laplace transform: <script type="math/tex">\mathcal{L}(f) = \mathcal{L}(f_1) = 1/s</script>. (This is because the integral is an area and the areas under two curves that differ like these are the same.)<br />
-According to our definition either <script type="math/tex">f(t)</script> and <script type="math/tex">f_1(t)</script> can be chosen as <script type="math/tex">\mathcal{L}^{-1}(1/s)</script>. But, here the continuous function <script type="math/tex">f_1(t)</script> is usually the better choice. For example, if we are finding a physical quantity that varies over time then the continuous function is usually the better model. The discontinuity in <script type="math/tex">f(t)</script> looks physically spurious.<br />
-Discontinuities like the one in <script type="math/tex">f(t)</script> are called <strong>removable discontinuities</strong>. That is, by changing the value of <script type="math/tex">f(a)</script> the function can be made continuous. (Technical definition below).</p>
-<h4 id="course-convention">Course Convention</h4>
-<p>In this course we will follow the physically and mathematically reasonable convention that our signals do not have removable discontinuities. They can, however, have jump discontinuities and contain delta functions, which are idealizations of real physical signals.</p>
-<h4 id="technical-definition-of-removable-discontinuity">Technical Definition of Removable Discontinuity</h4>
-<p>Suppose a function is discontinuous at <script type="math/tex">t = a</script>. If it can be made continuous by changing just the value of at a then we call <script type="math/tex">t = a</script> a <strong>removable discontinuity</strong>. Graphically: if the curve is a continuous curve with a gap where one point was moved then the point is a removable discontinuity. In symbols: If <script type="math/tex">f(a^-) = f(a^+) = b</script> then we can make a new function, continuous at <script type="math/tex">a</script> by redefining the value at <script type="math/tex">t = a</script>:
-<script type="math/tex; mode=display">f_1(t)=\begin{cases}
-f(t) &\text{ for } t\neq a\\
-b &\text{ for } t=a
-\end{cases}</script>
-Again, we say the discontinuity at <script type="math/tex">t = a</script> is <strong>removable</strong>.</p>
 
 
 
@@ -23188,6 +23159,35 @@ Again, we say the discontinuity at <script type="math/tex">t = a</script> is <st
     
   </aside>
 
+<h3 id="domain-of-mathcall-1f">Domain of <script type="math/tex">\mathcal{L}^{-1}(F)</script>
+</h3>
+<p>We have been a bit vague on one key technical point which we aim to clear up in this note. We start with an example.<br />
+<strong>Example.</strong> Let <script type="math/tex">u(t)</script> be the unit step function. Since <script type="math/tex">u(t) = 1</script> for <script type="math/tex">t > 0</script> we don't need the <script type="math/tex">0^-</script> in the Laplace limits of integration.
+<script type="math/tex; mode=display">\mathcal{L}(u)=\int_{0^-}^\infty u(t)e^{-st}dt=\int_0^\infty e^{-st}dt=1/s</script>
+This is exactly the same as <script type="math/tex">\mathcal{L}(1)</script>. So, when we look for <script type="math/tex">f(t) = \mathcal{L}^{-1}(1/s)</script> is it <script type="math/tex">f(t) = 1</script> or <script type="math/tex">f(t) = u(t)</script>?<br />
+The answer is, it doesn't matter. Since we are only concerned with the interval <script type="math/tex">(0^-, \infty)</script>, you can choose either one. To be precise, for a function <script type="math/tex">F(s)</script> we allow any function <script type="math/tex">f(t)</script> with the following properties to be called its Laplace inverse <script type="math/tex">\mathcal{L}^{-1}(F)</script>:
+1. <script type="math/tex">f(t)</script> is a (possibly) generalized function.
+2. <script type="math/tex">f(t)</script> is defined on <script type="math/tex">(0, \infty)</script>, except possibly at a discrete set of points where there are jump discontinuities or <script type="math/tex">f(t)</script> is singular, e.g. has delta functions.
+3. <script type="math/tex">f(t)</script> may also have a singular part at <script type="math/tex">t = 0</script>.
+4. <script type="math/tex">\mathcal{L}(f)=F</script>.
+5. In particular, the Laplace inverse is not defined at <script type="math/tex">t = 0</script> and has nothing to say about <script type="math/tex">f(0^-), f'(0^-), f''(0^-), \ldots</script>. Indeed, it has nothing to say about <script type="math/tex">f(t)</script> for all <script type="math/tex">t < 0</script>. When finding the inverse Laplace transform these values are either irrelevant or must be determined by other means.</p>
+<p>The functions in Figure 1 below all all have Laplace transform <script type="math/tex">1/s</script>. Notice, they are all different for <script type="math/tex">t < 0</script> and the last two are not defined at 0. Since they agree on <script type="math/tex">t > 0</script> (and have no delta function at <script type="math/tex">t = 0</script>) they have the same Laplace transform.<br />
+<img alt="" src="../pic300301.png" /></p>
+<h3 id="removable-discontinuities">Removable Discontinuities</h3>
+<p>We're still we're not done with our discussion of the possible differences between two functions with the same Laplace transform. Consider the two functions whose graphs are shown in Figure 2.<br />
+<img alt="" src="../pic300302.png" /><br />
+They differ only at the point <script type="math/tex">t = a</script>. It is easy to see that they have the same Laplace transform: <script type="math/tex">\mathcal{L}(f) = \mathcal{L}(f_1) = 1/s</script>. (This is because the integral is an area and the areas under two curves that differ like these are the same.)<br />
+According to our definition either <script type="math/tex">f(t)</script> and <script type="math/tex">f_1(t)</script> can be chosen as <script type="math/tex">\mathcal{L}^{-1}(1/s)</script>. But, here the continuous function <script type="math/tex">f_1(t)</script> is usually the better choice. For example, if we are finding a physical quantity that varies over time then the continuous function is usually the better model. The discontinuity in <script type="math/tex">f(t)</script> looks physically spurious.<br />
+Discontinuities like the one in <script type="math/tex">f(t)</script> are called <strong>removable discontinuities</strong>. That is, by changing the value of <script type="math/tex">f(a)</script> the function can be made continuous. (Technical definition below).</p>
+<h4 id="course-convention">Course Convention</h4>
+<p>In this course we will follow the physically and mathematically reasonable convention that our signals do not have removable discontinuities. They can, however, have jump discontinuities and contain delta functions, which are idealizations of real physical signals.</p>
+<h4 id="technical-definition-of-removable-discontinuity">Technical Definition of Removable Discontinuity</h4>
+<p>Suppose a function is discontinuous at <script type="math/tex">t = a</script>. If it can be made continuous by changing just the value of at a then we call <script type="math/tex">t = a</script> a <strong>removable discontinuity</strong>. Graphically: if the curve is a continuous curve with a gap where one point was moved then the point is a removable discontinuity. In symbols: If <script type="math/tex">f(a^-) = f(a^+) = b</script> then we can make a new function, continuous at <script type="math/tex">a</script> by redefining the value at <script type="math/tex">t = a</script>:
+<script type="math/tex; mode=display">f_1(t)=\begin{cases}
+f(t) &\text{ for } t\neq a\\
+b &\text{ for } t=a
+\end{cases}</script>
+Again, we say the discontinuity at <script type="math/tex">t = a</script> is <strong>removable</strong>.</p>
 
   
 

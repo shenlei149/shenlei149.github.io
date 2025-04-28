@@ -23040,39 +23040,6 @@
 
   <h1>1902 The Exponential Response Formula Resonant Case</h1>
 
-<p>The starting point for understanding the mathematics of pure resonance is the generalized Exponential Response formula. First recall the simple case of the Exponential Response formula:<br />
-Asolution to
-<script type="math/tex; mode=display">
-p(D)x=Be^{at}\tag{1}
-</script>
-is given by
-<script type="math/tex; mode=display">
-x_p=\frac{Be^{at}}{p(a)}\ p(a)\neq0\tag{2}
-</script>
-In the sessionon Exponential Response we also saw the generalization of this formula when <script type="math/tex">p(a)=0</script>. Here we will need to use the special case when <script type="math/tex">p(a)\neq0</script>:<br />
-A solution to equation <script type="math/tex">(1)</script> is given by
-<script type="math/tex; mode=display">
-x_p=\frac{Bte^{at}}{p'(a)}\text{ if } p(a)=0 \text{ and } p'(a)\neq0\tag{2}
-</script>
-We will call this the <strong>Resonant Response Formula</strong>.</p>
-<p><strong>Example</strong>. Find a particular solution to the DE <script type="math/tex">x''+4x=2\cos 2t</script>.
-As usual, we try complex replacement and the ERF:<br />
-if <script type="math/tex">z_p</script> is a solution to the complex DE <script type="math/tex">z''+4z=2e^{2it}</script>, then <script type="math/tex">x_p</script> will be a solution to <script type="math/tex">x''+4x=2\cos 2t</script>.<br />
-The characteristic polynomial is <script type="math/tex">p(s)=s^2+4</script> and <script type="math/tex">a=2i</script>, so that we have <script type="math/tex">p(a)=0</script>.<br />
-But since <script type="math/tex">p'(s)=2s</script>, and we have <script type="math/tex">p'(a)=p'(2i)=4i\neq0</script>.<br />
-The resonant case of the ERF thus gives
-<script type="math/tex; mode=display">
-z_p=\frac{2te^{2it}}{4i}
-</script>
-Then taking the real part of <script type="math/tex">z_p</script> gives us our particular solution
-<script type="math/tex; mode=display">
-\begin{aligned}
-x_p&=Re(z_p)\\
-&=Re(\frac{2t}{4i}(\cos 2t + i\sin 2t))\\
-&=\frac{t}{2}\sin 2t
-\end{aligned}
-</script>
-</p>
 
 
 
@@ -23113,6 +23080,39 @@ x_p&=Re(z_p)\\
     
   </aside>
 
+<p>The starting point for understanding the mathematics of pure resonance is the generalized Exponential Response formula. First recall the simple case of the Exponential Response formula:<br />
+Asolution to
+<script type="math/tex; mode=display">
+p(D)x=Be^{at}\tag{1}
+</script>
+is given by
+<script type="math/tex; mode=display">
+x_p=\frac{Be^{at}}{p(a)}\ p(a)\neq0\tag{2}
+</script>
+In the sessionon Exponential Response we also saw the generalization of this formula when <script type="math/tex">p(a)=0</script>. Here we will need to use the special case when <script type="math/tex">p(a)\neq0</script>:<br />
+A solution to equation <script type="math/tex">(1)</script> is given by
+<script type="math/tex; mode=display">
+x_p=\frac{Bte^{at}}{p'(a)}\text{ if } p(a)=0 \text{ and } p'(a)\neq0\tag{2}
+</script>
+We will call this the <strong>Resonant Response Formula</strong>.</p>
+<p><strong>Example</strong>. Find a particular solution to the DE <script type="math/tex">x''+4x=2\cos 2t</script>.
+As usual, we try complex replacement and the ERF:<br />
+if <script type="math/tex">z_p</script> is a solution to the complex DE <script type="math/tex">z''+4z=2e^{2it}</script>, then <script type="math/tex">x_p</script> will be a solution to <script type="math/tex">x''+4x=2\cos 2t</script>.<br />
+The characteristic polynomial is <script type="math/tex">p(s)=s^2+4</script> and <script type="math/tex">a=2i</script>, so that we have <script type="math/tex">p(a)=0</script>.<br />
+But since <script type="math/tex">p'(s)=2s</script>, and we have <script type="math/tex">p'(a)=p'(2i)=4i\neq0</script>.<br />
+The resonant case of the ERF thus gives
+<script type="math/tex; mode=display">
+z_p=\frac{2te^{2it}}{4i}
+</script>
+Then taking the real part of <script type="math/tex">z_p</script> gives us our particular solution
+<script type="math/tex; mode=display">
+\begin{aligned}
+x_p&=Re(z_p)\\
+&=Re(\frac{2t}{4i}(\cos 2t + i\sin 2t))\\
+&=\frac{t}{2}\sin 2t
+\end{aligned}
+</script>
+</p>
 
   
 

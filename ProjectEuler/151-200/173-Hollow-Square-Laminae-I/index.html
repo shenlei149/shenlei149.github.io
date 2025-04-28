@@ -23040,38 +23040,6 @@
 
   <h1>173 Hollow Square Laminae I</h1>
 
-<p><a href="https://projecteuler.net/problem=173" title="Problem 173 - Project Euler">Problem 173</a></p>
-<p>如下图所示，瓷砖可以贴成中间一个正方形洞的正方形图案。下面是 32 个瓷砖可能的两种组合。</p>
-<p><img alt="" src="../173.png" /></p>
-<p>使用 100 个瓷砖，不必完全用完，有 41 种不同的正方形图案。</p>
-<p>问最多用一百万个瓷砖，有多少种不同的图案？</p>
-<p>这个题比较简单。假定中间的洞的长度是 <script type="math/tex">d</script>，那么外面第一层的长度是 <script type="math/tex">d+2</script>，但是看作是 <script type="math/tex">d+1</script> 比较容易计算瓷砖数，再外层长度是 <script type="math/tex">d+1+2</script>，依次类推。</p>
-<p>给定 <script type="math/tex">d</script>，最内层长度是 <script type="math/tex">\min=d+1</script>，最外层长度是 <script type="math/tex">\max=d+1+2*n</script>，<script type="math/tex">n</script> 可以从 0 开始直到总瓷砖个数
-<script type="math/tex; mode=display">\text{total}=\frac{(\min+\max)*n}{2}</script>
-超过一百万。如果 <script type="math/tex">\text{total}</script> 小于一百万，那么这就是唯一的一种正方形图案。</p>
-<p>对 <script type="math/tex">d</script> 遍历，求和，即可得到答案。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">hole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">hole</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">hole</span><span class="o">++</span><span class="p">)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">min_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hole</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">max_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min_length</span><span class="p">;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">max_length</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min_length</span><span class="p">;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a_n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max_length</span><span class="p">;</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a_n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">a_1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a_n</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">total</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="p">{</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">            </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="k">else</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="p">{</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">}</span>
-</span></code></pre></div>
-这个题目还有一个优化点，无需内层的 <code>for</code> 循环，可以通过代数运算得到 <code>max_length</code>，那么对于给定的 <script type="math/tex">d</script>，<code>count</code> 数就是 <code>(max-min)/2</code>。不过运行发现上述代码足够快，不到 10ms 就出结果了，未再修改。</p>
 
 
 
@@ -23112,6 +23080,38 @@
     
   </aside>
 
+<p><a href="https://projecteuler.net/problem=173" title="Problem 173 - Project Euler">Problem 173</a></p>
+<p>如下图所示，瓷砖可以贴成中间一个正方形洞的正方形图案。下面是 32 个瓷砖可能的两种组合。</p>
+<p><img alt="" src="../173.png" /></p>
+<p>使用 100 个瓷砖，不必完全用完，有 41 种不同的正方形图案。</p>
+<p>问最多用一百万个瓷砖，有多少种不同的图案？</p>
+<p>这个题比较简单。假定中间的洞的长度是 <script type="math/tex">d</script>，那么外面第一层的长度是 <script type="math/tex">d+2</script>，但是看作是 <script type="math/tex">d+1</script> 比较容易计算瓷砖数，再外层长度是 <script type="math/tex">d+1+2</script>，依次类推。</p>
+<p>给定 <script type="math/tex">d</script>，最内层长度是 <script type="math/tex">\min=d+1</script>，最外层长度是 <script type="math/tex">\max=d+1+2*n</script>，<script type="math/tex">n</script> 可以从 0 开始直到总瓷砖个数
+<script type="math/tex; mode=display">\text{total}=\frac{(\min+\max)*n}{2}</script>
+超过一百万。如果 <script type="math/tex">\text{total}</script> 小于一百万，那么这就是唯一的一种正方形图案。</p>
+<p>对 <script type="math/tex">d</script> 遍历，求和，即可得到答案。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">hole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">hole</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">hole</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">min_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hole</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">max_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min_length</span><span class="p">;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">max_length</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min_length</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a_n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max_length</span><span class="p">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a_n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">a_1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a_n</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">total</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">            </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="k">else</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">}</span>
+</span></code></pre></div>
+这个题目还有一个优化点，无需内层的 <code>for</code> 循环，可以通过代数运算得到 <code>max_length</code>，那么对于给定的 <script type="math/tex">d</script>，<code>count</code> 数就是 <code>(max-min)/2</code>。不过运行发现上述代码足够快，不到 10ms 就出结果了，未再修改。</p>
 
   
 

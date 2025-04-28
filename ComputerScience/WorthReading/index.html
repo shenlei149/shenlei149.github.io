@@ -23061,25 +23061,6 @@
   
 
 
-<h1 id="_1">值得一读</h1>
-<p>这里收集一些值得一读的文章，或者是值得花时间看的视频。</p>
-<h2 id="stdsimd-how-to-express-inherent-parallelism-efficiently-via-data-parallel-types"><a href="https://www.youtube.com/watch?v=LAJ_hywLtMA">std::simd: How to Express Inherent Parallelism Efficiently Via Data-parallel Types</a></h2>
-<p>这是一个 <a href="https://cppcon.org/">CppCon</a> 上的一个讲座。主要介绍了 <code>std::simd</code> 的思想。
-* <code>std::simd</code> is for you - because you care about performance.
-  * 如果工作中需要和性能打交道，那么 <code>std::simd</code>，特别是背后的思想，就值得关注。
-* <code>std::smid</code> expresses data-parallelism - compiled to SIMD and ILP.
-  * 数据并行，硬件层面使用了 SIMD 指令和指令级并行的能力。
-* Focus on data-parallelism not SIMD instructions/registers!
-  * 关注的焦点应该是数据并行这一思想，而不是 SIMD 指令或寄存器。如果思想不变，只是单纯使用 SIMD 指令，可能性能不会提高，甚至回退。
-* <code>std::simd</code> enables separation of (1) serial execution; (2) synchronously parallel execution (SIMD and ILP); (3) asynchronously parallel execution (threads).
-* <code>std::simd</code> guides you to design scalable and portable parallelization.
-* <code>std::simd</code> enables high-level &amp; specialized parallelism abstractions with full control where loop-vectorization fails.
-  * 在循环向量化不起作用的情况下，<code>std::simd</code> 是个好选择。
-* Consider type-vectorization not only loop-vectorization.
-* <code>std::simd</code> provides and API &amp; ABI for vectorization across translation units (including library boundaries).</p>
-<h2 id="lets-branch-unlikely"><a href="https://lucisqr.substack.com/p/lets-branch-unlikely">Let's Branch? Unlikely...</a></h2>
-<p>最核心的结论：对于现代 CPU 而言，都有动态分支预测的能力，你写 likely 或者不写 likely，没有意义，也不重要，因为对性能没有任何影响。</p>
-<p>此外，这个文章中还介绍了一些 CPU、编译器、汇编指令等知识。言而总之，值得一读。</p>
 
 
 
@@ -23120,6 +23101,25 @@
     
   </aside>
 
+<h1 id="_1">值得一读</h1>
+<p>这里收集一些值得一读的文章，或者是值得花时间看的视频。</p>
+<h2 id="stdsimd-how-to-express-inherent-parallelism-efficiently-via-data-parallel-types"><a href="https://www.youtube.com/watch?v=LAJ_hywLtMA">std::simd: How to Express Inherent Parallelism Efficiently Via Data-parallel Types</a></h2>
+<p>这是一个 <a href="https://cppcon.org/">CppCon</a> 上的一个讲座。主要介绍了 <code>std::simd</code> 的思想。
+* <code>std::simd</code> is for you - because you care about performance.
+  * 如果工作中需要和性能打交道，那么 <code>std::simd</code>，特别是背后的思想，就值得关注。
+* <code>std::smid</code> expresses data-parallelism - compiled to SIMD and ILP.
+  * 数据并行，硬件层面使用了 SIMD 指令和指令级并行的能力。
+* Focus on data-parallelism not SIMD instructions/registers!
+  * 关注的焦点应该是数据并行这一思想，而不是 SIMD 指令或寄存器。如果思想不变，只是单纯使用 SIMD 指令，可能性能不会提高，甚至回退。
+* <code>std::simd</code> enables separation of (1) serial execution; (2) synchronously parallel execution (SIMD and ILP); (3) asynchronously parallel execution (threads).
+* <code>std::simd</code> guides you to design scalable and portable parallelization.
+* <code>std::simd</code> enables high-level &amp; specialized parallelism abstractions with full control where loop-vectorization fails.
+  * 在循环向量化不起作用的情况下，<code>std::simd</code> 是个好选择。
+* Consider type-vectorization not only loop-vectorization.
+* <code>std::simd</code> provides and API &amp; ABI for vectorization across translation units (including library boundaries).</p>
+<h2 id="lets-branch-unlikely"><a href="https://lucisqr.substack.com/p/lets-branch-unlikely">Let's Branch? Unlikely...</a></h2>
+<p>最核心的结论：对于现代 CPU 而言，都有动态分支预测的能力，你写 likely 或者不写 likely，没有意义，也不重要，因为对性能没有任何影响。</p>
+<p>此外，这个文章中还介绍了一些 CPU、编译器、汇编指令等知识。言而总之，值得一读。</p>
 
   
 

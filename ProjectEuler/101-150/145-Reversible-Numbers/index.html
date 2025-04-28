@@ -23040,35 +23040,6 @@
 
   <h1>145 Reversible Numbers</h1>
 
-<p><a href="https://projecteuler.net/problem=145" title="Problem 145 - Project Euler">Problem 145</a></p>
-<p>有这样一些数 <script type="math/tex">n</script>，和所以数字逆着写的数 <script type="math/tex">\text{reverse}(n)</script> 之和的所有数字都是奇数。比如 <script type="math/tex">36+63=99, 409+904=1313</script> 等等，这些数我们称之为可逆数。有一个限制条件就是开头不能是 0。</p>
-<p>问题是，小于十亿（1,000,000,000）的数中有多个可逆数。</p>
-<p>这道题可以通过分类讨论来解决。</p>
-<p>首先 <script type="math/tex">n</script> 的长度是奇数和偶数明显是两类，因为这意味着有没有正好居于中间的数。对于奇数长度来说，有，且反过来还是该数字。</p>
-<p>我们先来考虑长度是偶数的时候。</p>
-<p>长度为 2 的时候，不妨把该数写作 <script type="math/tex">AB</script>，其逆就是 <script type="math/tex">BA</script>。以 <script type="math/tex">A+B</script> 是否大于等于 10 来讨论。</p>
-<p>大于等于 10 的情况，不妨令 <script type="math/tex">A+B=1C</script>，那么 <script type="math/tex">AB+BA=1(C+1)C</script>， <script type="math/tex">C</script> 和 <script type="math/tex">C+1</script> 奇偶性必然不同，不可能数字都是奇数。</p>
-<p>小于 10 的情况，那么 <script type="math/tex">A+B</script> 是奇数。<script type="math/tex">A</script> 是偶数，可选 <script type="math/tex">2,4,6,8</script>，<script type="math/tex">B</script> 是奇数，可选 <script type="math/tex">1,3,5,7,9</script>，之和小于 <script type="math/tex">10</script> 的情况一共 10 种可能性。反之，<script type="math/tex">A</script> 是奇数，<script type="math/tex">B</script> 是偶数，也是 <script type="math/tex">10</script> 种。</p>
-<p>所以长度为 2 的可逆数一共 20 个。</p>
-<p>长度为 4 的时候，该数可写作 <script type="math/tex">ABCD</script>，其逆就是 <script type="math/tex">DCBA</script>。以 <script type="math/tex">A+D</script> 是否大于等于 10 来讨论。</p>
-<p>大于等于 <script type="math/tex">10</script> 的情况，不妨令 <script type="math/tex">A+B=1E</script>。若 <script type="math/tex">B+C</script> 大于等于 10，和最后一位是 <script type="math/tex">E</script>，右起第四位是 <script type="math/tex">1+E</script>，不可能都是奇数；若 <script type="math/tex">B+C</script> 小于 10，不能是 9，否则和的右起第二位是 0，不满足题意，如果是其他奇数，右起第二位和 <script type="math/tex">1+B+C</script>，而右起第三位是 <script type="math/tex">B+C</script>，也不可能同时是奇数。</p>
-<p>小于 10 的情况，<script type="math/tex">A</script> 和 <script type="math/tex">D</script> 的取值可能性有 20 种，中间的 <script type="math/tex">BC</script> 退化为长度为 2 的情况，取值的可能性有 30 种（偶数可以为0，因为不打头了），利用乘法原则，共有 600 个可逆数。</p>
-<p>所以长度为 4 的可逆数一共 600 个。</p>
-<p>长度为 6 的时候，该数可以写作 <script type="math/tex">ABCDEF</script>，其逆就是 <script type="math/tex">FEDCBA</script>。以 <script type="math/tex">A+F</script> 是否可以大于等于 10 来讨论。</p>
-<p>大于等于 10 的情况，原理和 4 位时一样，<script type="math/tex">B+E</script> 不能大于等于 10。能小于 10 吗？为了保证 <script type="math/tex">B+E</script> 得到的值和 <script type="math/tex">E+B+1</script> 得到的值一样，那么 <script type="math/tex">C+D</script> 就要大于 10。但是 <script type="math/tex">E+B</script> 不进位，而 <script type="math/tex">D+C</script> 进位，导致右起 3, 4 位一定不能同时是奇数。</p>
-<p>小于 10 的情况，中间 4 个数回到了上一种情况，所以可能性是 <script type="math/tex">20 \times 30\times 30=18,000</script>。</p>
-<p>所以长度为 6 的可逆数一共是 18,000 个。</p>
-<p>长度为 8 的时候，该数可以写作 <script type="math/tex">ABCDEFGH</script>，其逆就是 <script type="math/tex">HGFEDCBA</script>。同样，以 <script type="math/tex">A+H</script> 是否可以大于等于 10 来讨论。</p>
-<p>在大于等于 10 的情况下，原理同上，<script type="math/tex">B+G</script> 不能大于等于 10，那么 <script type="math/tex">B+G</script> 就只能小于 10 了。同上，<script type="math/tex">C+F</script> 就要大于等于 10。为了使得中间两位的奇偶性一致，那么 <script type="math/tex">E+D</script> 要大于 10，结果就是右起第三位数字是 <script type="math/tex">C+F</script> 模 10（因为 <script type="math/tex">B+G</script> 小于 10），而右起第六位数字是 <script type="math/tex">C+F+1</script> 模10，这俩不可能同时是奇数。</p>
-<p>小于 10 的情况，中间六个数字回到了上一种情况，所以可逆数是 <script type="math/tex">20\times 30\times 30\times 30=540,000</script>。</p>
-<p>所以长度为 8 的可逆数一共是 540,000 个。</p>
-<p>现在来讨论 <script type="math/tex">n</script> 的长度为奇数。</p>
-<p>如果长度是 1，反过来是其本身，那么和是偶数，不符合题意。</p>
-<p>长度是 3，可写作 <script type="math/tex">ABC</script>，可逆数是 <script type="math/tex">CBA</script>。中间数字的和是偶数，那么 <script type="math/tex">A+C</script> 必须大于 10，为了右起第一位和第三位奇偶性相同，那么 <script type="math/tex">2B</script> 不能进位，所以 <script type="math/tex">B</script> 要小于等于4，那么 <script type="math/tex">B</script> 有五种可取值；我们现在讨论 <script type="math/tex">A</script> 和 <script type="math/tex">C</script>，<script type="math/tex">A</script> 是奇数 <script type="math/tex">1,3,5,7,9</script>，<script type="math/tex">C</script> 是偶数 <script type="math/tex">2,4,6,8</script>，其和大于 10 的可能性有 10 种可能性，<script type="math/tex">A</script> 是偶数 <script type="math/tex">C</script> 是奇数也有 10 种，那么可逆数是 <script type="math/tex">5\times(10+10)=100</script>。</p>
-<p>长度是 5 时，可写作 <script type="math/tex">ABCDE</script>，可逆数是 <script type="math/tex">EDCBA</script>。中间是 <script type="math/tex">2C</script>，所以 <script type="math/tex">B+D</script> 是大于等于 10 的，右起第一位是 <script type="math/tex">E+A</script>，但是右起第五位是 <script type="math/tex">A+E+1</script>，不可能同时是奇数，所以 <script type="math/tex">n</script> 的长度不可能是 5。</p>
-<p>长度为 <script type="math/tex">7</script> 时，可写作 <script type="math/tex">ABCDEFG</script>，可逆数时 <script type="math/tex">GFEDCBA</script>。中间是 <script type="math/tex">2D</script>，所以 <script type="math/tex">C+E</script> 是大于等于 10 的。根据前面的分析，<script type="math/tex">B+F</script> 必须小于 10；进而 <script type="math/tex">2D</script> 要小于 10。右起第六位会接受来此 <script type="math/tex">C+E</script> 的进位，那么右起第二位也必须接受一个进位，所以 <script type="math/tex">A+G</script> 必须大于 10。<script type="math/tex">2D</script> 小于 10 得出 <script type="math/tex">D</script> 有 5 种可能性，<script type="math/tex">A+G</script> 大于 10 且和为奇数共有 20 种可能性，<script type="math/tex">C+E</script> 大于 10 且和为奇数也有 20 种，<script type="math/tex">B+F</script> 小于 10 且为偶数的可能性有 25 种。所以可逆数是 <script type="math/tex">5\times 20\times 20\times25=50,000</script>。</p>
-<p>长度为 9 的时候，可写作 <script type="math/tex">ABCDEFGHI</script>，其可逆数是 <script type="math/tex">IHGFEDCBA</script>。由前面的分析可知 <script type="math/tex">D+F</script> 要大于等于 10，那么为了让右起第三位 <script type="math/tex">G+C</script> 和右起第七位 <script type="math/tex">C+G</script> 同时为奇数，那么 <script type="math/tex">H+B</script> 也必须大于 10，那么 <script type="math/tex">A+I</script> 得到 <script type="math/tex">B+H</script> 的进位，无法和右起第一位 <script type="math/tex">I+A</script> 同奇偶，矛盾，所以长度不能是 9。</p>
-<p>综上，小于十亿的可逆数是 608720 个。</p>
 
 
 
@@ -23109,6 +23080,35 @@
     
   </aside>
 
+<p><a href="https://projecteuler.net/problem=145" title="Problem 145 - Project Euler">Problem 145</a></p>
+<p>有这样一些数 <script type="math/tex">n</script>，和所以数字逆着写的数 <script type="math/tex">\text{reverse}(n)</script> 之和的所有数字都是奇数。比如 <script type="math/tex">36+63=99, 409+904=1313</script> 等等，这些数我们称之为可逆数。有一个限制条件就是开头不能是 0。</p>
+<p>问题是，小于十亿（1,000,000,000）的数中有多个可逆数。</p>
+<p>这道题可以通过分类讨论来解决。</p>
+<p>首先 <script type="math/tex">n</script> 的长度是奇数和偶数明显是两类，因为这意味着有没有正好居于中间的数。对于奇数长度来说，有，且反过来还是该数字。</p>
+<p>我们先来考虑长度是偶数的时候。</p>
+<p>长度为 2 的时候，不妨把该数写作 <script type="math/tex">AB</script>，其逆就是 <script type="math/tex">BA</script>。以 <script type="math/tex">A+B</script> 是否大于等于 10 来讨论。</p>
+<p>大于等于 10 的情况，不妨令 <script type="math/tex">A+B=1C</script>，那么 <script type="math/tex">AB+BA=1(C+1)C</script>， <script type="math/tex">C</script> 和 <script type="math/tex">C+1</script> 奇偶性必然不同，不可能数字都是奇数。</p>
+<p>小于 10 的情况，那么 <script type="math/tex">A+B</script> 是奇数。<script type="math/tex">A</script> 是偶数，可选 <script type="math/tex">2,4,6,8</script>，<script type="math/tex">B</script> 是奇数，可选 <script type="math/tex">1,3,5,7,9</script>，之和小于 <script type="math/tex">10</script> 的情况一共 10 种可能性。反之，<script type="math/tex">A</script> 是奇数，<script type="math/tex">B</script> 是偶数，也是 <script type="math/tex">10</script> 种。</p>
+<p>所以长度为 2 的可逆数一共 20 个。</p>
+<p>长度为 4 的时候，该数可写作 <script type="math/tex">ABCD</script>，其逆就是 <script type="math/tex">DCBA</script>。以 <script type="math/tex">A+D</script> 是否大于等于 10 来讨论。</p>
+<p>大于等于 <script type="math/tex">10</script> 的情况，不妨令 <script type="math/tex">A+B=1E</script>。若 <script type="math/tex">B+C</script> 大于等于 10，和最后一位是 <script type="math/tex">E</script>，右起第四位是 <script type="math/tex">1+E</script>，不可能都是奇数；若 <script type="math/tex">B+C</script> 小于 10，不能是 9，否则和的右起第二位是 0，不满足题意，如果是其他奇数，右起第二位和 <script type="math/tex">1+B+C</script>，而右起第三位是 <script type="math/tex">B+C</script>，也不可能同时是奇数。</p>
+<p>小于 10 的情况，<script type="math/tex">A</script> 和 <script type="math/tex">D</script> 的取值可能性有 20 种，中间的 <script type="math/tex">BC</script> 退化为长度为 2 的情况，取值的可能性有 30 种（偶数可以为0，因为不打头了），利用乘法原则，共有 600 个可逆数。</p>
+<p>所以长度为 4 的可逆数一共 600 个。</p>
+<p>长度为 6 的时候，该数可以写作 <script type="math/tex">ABCDEF</script>，其逆就是 <script type="math/tex">FEDCBA</script>。以 <script type="math/tex">A+F</script> 是否可以大于等于 10 来讨论。</p>
+<p>大于等于 10 的情况，原理和 4 位时一样，<script type="math/tex">B+E</script> 不能大于等于 10。能小于 10 吗？为了保证 <script type="math/tex">B+E</script> 得到的值和 <script type="math/tex">E+B+1</script> 得到的值一样，那么 <script type="math/tex">C+D</script> 就要大于 10。但是 <script type="math/tex">E+B</script> 不进位，而 <script type="math/tex">D+C</script> 进位，导致右起 3, 4 位一定不能同时是奇数。</p>
+<p>小于 10 的情况，中间 4 个数回到了上一种情况，所以可能性是 <script type="math/tex">20 \times 30\times 30=18,000</script>。</p>
+<p>所以长度为 6 的可逆数一共是 18,000 个。</p>
+<p>长度为 8 的时候，该数可以写作 <script type="math/tex">ABCDEFGH</script>，其逆就是 <script type="math/tex">HGFEDCBA</script>。同样，以 <script type="math/tex">A+H</script> 是否可以大于等于 10 来讨论。</p>
+<p>在大于等于 10 的情况下，原理同上，<script type="math/tex">B+G</script> 不能大于等于 10，那么 <script type="math/tex">B+G</script> 就只能小于 10 了。同上，<script type="math/tex">C+F</script> 就要大于等于 10。为了使得中间两位的奇偶性一致，那么 <script type="math/tex">E+D</script> 要大于 10，结果就是右起第三位数字是 <script type="math/tex">C+F</script> 模 10（因为 <script type="math/tex">B+G</script> 小于 10），而右起第六位数字是 <script type="math/tex">C+F+1</script> 模10，这俩不可能同时是奇数。</p>
+<p>小于 10 的情况，中间六个数字回到了上一种情况，所以可逆数是 <script type="math/tex">20\times 30\times 30\times 30=540,000</script>。</p>
+<p>所以长度为 8 的可逆数一共是 540,000 个。</p>
+<p>现在来讨论 <script type="math/tex">n</script> 的长度为奇数。</p>
+<p>如果长度是 1，反过来是其本身，那么和是偶数，不符合题意。</p>
+<p>长度是 3，可写作 <script type="math/tex">ABC</script>，可逆数是 <script type="math/tex">CBA</script>。中间数字的和是偶数，那么 <script type="math/tex">A+C</script> 必须大于 10，为了右起第一位和第三位奇偶性相同，那么 <script type="math/tex">2B</script> 不能进位，所以 <script type="math/tex">B</script> 要小于等于4，那么 <script type="math/tex">B</script> 有五种可取值；我们现在讨论 <script type="math/tex">A</script> 和 <script type="math/tex">C</script>，<script type="math/tex">A</script> 是奇数 <script type="math/tex">1,3,5,7,9</script>，<script type="math/tex">C</script> 是偶数 <script type="math/tex">2,4,6,8</script>，其和大于 10 的可能性有 10 种可能性，<script type="math/tex">A</script> 是偶数 <script type="math/tex">C</script> 是奇数也有 10 种，那么可逆数是 <script type="math/tex">5\times(10+10)=100</script>。</p>
+<p>长度是 5 时，可写作 <script type="math/tex">ABCDE</script>，可逆数是 <script type="math/tex">EDCBA</script>。中间是 <script type="math/tex">2C</script>，所以 <script type="math/tex">B+D</script> 是大于等于 10 的，右起第一位是 <script type="math/tex">E+A</script>，但是右起第五位是 <script type="math/tex">A+E+1</script>，不可能同时是奇数，所以 <script type="math/tex">n</script> 的长度不可能是 5。</p>
+<p>长度为 <script type="math/tex">7</script> 时，可写作 <script type="math/tex">ABCDEFG</script>，可逆数时 <script type="math/tex">GFEDCBA</script>。中间是 <script type="math/tex">2D</script>，所以 <script type="math/tex">C+E</script> 是大于等于 10 的。根据前面的分析，<script type="math/tex">B+F</script> 必须小于 10；进而 <script type="math/tex">2D</script> 要小于 10。右起第六位会接受来此 <script type="math/tex">C+E</script> 的进位，那么右起第二位也必须接受一个进位，所以 <script type="math/tex">A+G</script> 必须大于 10。<script type="math/tex">2D</script> 小于 10 得出 <script type="math/tex">D</script> 有 5 种可能性，<script type="math/tex">A+G</script> 大于 10 且和为奇数共有 20 种可能性，<script type="math/tex">C+E</script> 大于 10 且和为奇数也有 20 种，<script type="math/tex">B+F</script> 小于 10 且为偶数的可能性有 25 种。所以可逆数是 <script type="math/tex">5\times 20\times 20\times25=50,000</script>。</p>
+<p>长度为 9 的时候，可写作 <script type="math/tex">ABCDEFGHI</script>，其可逆数是 <script type="math/tex">IHGFEDCBA</script>。由前面的分析可知 <script type="math/tex">D+F</script> 要大于等于 10，那么为了让右起第三位 <script type="math/tex">G+C</script> 和右起第七位 <script type="math/tex">C+G</script> 同时为奇数，那么 <script type="math/tex">H+B</script> 也必须大于 10，那么 <script type="math/tex">A+I</script> 得到 <script type="math/tex">B+H</script> 的进位，无法和右起第一位 <script type="math/tex">I+A</script> 同奇偶，矛盾，所以长度不能是 9。</p>
+<p>综上，小于十亿的可逆数是 608720 个。</p>
 
   
 

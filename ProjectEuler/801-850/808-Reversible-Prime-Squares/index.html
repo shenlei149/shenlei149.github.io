@@ -23040,40 +23040,6 @@
 
   <h1>808 Reversible Prime Squares</h1>
 
-<p>原题链接：<a href="https://projecteuler.net/problem=808">https://projecteuler.net/problem=808</a></p>
-<p>169 和 961 都是一个质数的平方，同时数字恰好相反。</p>
-<p>我们将一个数满足下面三个属性，则称为可逆的质数平方（<code>reversible prime square</code>）。
-1. 不是回文
-2. 是一个质数的平方
-3. 数字翻过来也是一个质数的平方</p>
-<p>169 和 961 就满足这三条，所以是可逆的质数平方。</p>
-<p>求前 50 个可逆的质数平方。</p>
-<p>这个题目比较直接，先求出前若干个质数，然后平方，接着遍历这些平方数，对于每一个数，先翻转，如果翻转得到的数还是一个平方数的话，那么这两个数都是可逆质数平方。</p>
-<p>不过这里有一个问题，如果 <script type="math/tex">p</script> 和其翻转 <script type="math/tex">p'</script> 都是质数的平方，不过存在一个 <script type="math/tex">p_2</script>，介于两者之间的话，明显 <script type="math/tex">p_2</script> 应该放到 <script type="math/tex">p'</script> 前面以正确统计前五十个可逆质数平方的和。</p>
-<p>不过我十倍十倍的增加质数的范围，当最大值是 <code>100_000_000</code> 时，恰好有五十个可逆质数平方，所以上述的问题就不必在代码里面体现了。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">primes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">GenPrimes2</span><span class="p">(</span><span class="mi">100</span><span class="n">_000_000</span><span class="p">);</span>
-</span></code></pre></div></p>
-<p>下面是完整代码。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">primes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">GenPrimes2</span><span class="p">(</span><span class="mi">100</span><span class="n">_000_000</span><span class="p">);</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">squares</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">primes</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">l</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">rps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="p">();</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">squares</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">{</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">Reverse</span><span class="p">(</span><span class="n">squares</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Array</span><span class="p">.</span><span class="n">BinarySearch</span><span class="p">(</span><span class="n">squares</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="n">rps</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">squares</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="n">rps</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">return</span><span class="w"> </span><span class="n">rps</span><span class="p">.</span><span class="n">Sum</span><span class="p">().</span><span class="n">ToString</span><span class="p">();</span>
-</span></code></pre></div>
-因为数都是有顺序的，所以可以使用二分查找，如果得到的 <code>index</code> 是负值，说明没有找到，如果等于 <code>i</code>，那么当前值恰好是回文，如果小于 <code>i</code>，那么更早的时候我们已经处理过了，这里就不用再处理了。</p>
-<p>另外，由于从前往后找，所以只需要遍历一半即可。</p>
 
 
 
@@ -23114,6 +23080,40 @@
     
   </aside>
 
+<p>原题链接：<a href="https://projecteuler.net/problem=808">https://projecteuler.net/problem=808</a></p>
+<p>169 和 961 都是一个质数的平方，同时数字恰好相反。</p>
+<p>我们将一个数满足下面三个属性，则称为可逆的质数平方（<code>reversible prime square</code>）。
+1. 不是回文
+2. 是一个质数的平方
+3. 数字翻过来也是一个质数的平方</p>
+<p>169 和 961 就满足这三条，所以是可逆的质数平方。</p>
+<p>求前 50 个可逆的质数平方。</p>
+<p>这个题目比较直接，先求出前若干个质数，然后平方，接着遍历这些平方数，对于每一个数，先翻转，如果翻转得到的数还是一个平方数的话，那么这两个数都是可逆质数平方。</p>
+<p>不过这里有一个问题，如果 <script type="math/tex">p</script> 和其翻转 <script type="math/tex">p'</script> 都是质数的平方，不过存在一个 <script type="math/tex">p_2</script>，介于两者之间的话，明显 <script type="math/tex">p_2</script> 应该放到 <script type="math/tex">p'</script> 前面以正确统计前五十个可逆质数平方的和。</p>
+<p>不过我十倍十倍的增加质数的范围，当最大值是 <code>100_000_000</code> 时，恰好有五十个可逆质数平方，所以上述的问题就不必在代码里面体现了。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">primes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">GenPrimes2</span><span class="p">(</span><span class="mi">100</span><span class="n">_000_000</span><span class="p">);</span>
+</span></code></pre></div></p>
+<p>下面是完整代码。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">primes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">GenPrimes2</span><span class="p">(</span><span class="mi">100</span><span class="n">_000_000</span><span class="p">);</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">squares</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">primes</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">l</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">rps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="p">();</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">squares</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">{</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="n">Reverse</span><span class="p">(</span><span class="n">squares</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Array</span><span class="p">.</span><span class="n">BinarySearch</span><span class="p">(</span><span class="n">squares</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="n">rps</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">squares</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="n">rps</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">return</span><span class="w"> </span><span class="n">rps</span><span class="p">.</span><span class="n">Sum</span><span class="p">().</span><span class="n">ToString</span><span class="p">();</span>
+</span></code></pre></div>
+因为数都是有顺序的，所以可以使用二分查找，如果得到的 <code>index</code> 是负值，说明没有找到，如果等于 <code>i</code>，那么当前值恰好是回文，如果小于 <code>i</code>，那么更早的时候我们已经处理过了，这里就不用再处理了。</p>
+<p>另外，由于从前往后找，所以只需要遍历一半即可。</p>
 
   
 

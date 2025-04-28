@@ -23042,32 +23042,6 @@
 
   <h1>110 附录 Appendix</h1>
 
-<p><strong>Raabe's (Gauss's) Test</strong></p>
-<blockquote>
-<p>如果 <script type="math/tex">\sum_{n=1}^\infty u_n</script> 是一个正数级数，且存在常数 <script type="math/tex">C,K,N</script> 使得
-<script type="math/tex; mode=display">\frac{u_n}{u_{n+1}}=1+\frac{C}{n}+\frac{f(n)}{n^2}</script>
-其中当 <script type="math/tex">n>N</script> 时，有 <script type="math/tex">|f(n)|<K</script>，如果 <script type="math/tex">C>1</script>，那么级数收敛，如果 <script type="math/tex">C\leq 1</script>，级数发散。</p>
-</blockquote>
-<p>这个定理是比值测试的拓展。</p>
-<p>比如级数 <script type="math/tex">\sum_{n=1}^\infty\frac{1}{n^2}</script>，应用高斯测试
-<script type="math/tex; mode=display">\frac{u_n}{u_{n+1}}=\frac{(n+1)^2}{n^2}=1+\frac{2}{n}+\frac{1}{n^2}</script>
-我们取常数 <script type="math/tex">C=2,N=1,K>1</script> 满足条件。因为 <script type="math/tex">C>1</script>，所以 <script type="math/tex">\sum_{n=1}^\infty\frac{1}{n^2}</script> 收敛。</p>
-<p>又比如级数 <script type="math/tex">\sum_{n=1}^\infty\frac{1}{n}</script>，
-<script type="math/tex; mode=display">\frac{u_n}{u_{n+1}}=\frac{n+1}{n}=1+\frac{1}{n}+\frac{0}{n^2}</script>
-此时 <script type="math/tex">C=1\leq 1</script>，所以级数发散。</p>
-<p><strong>Nicole Oresme's Theorem</strong></p>
-<blockquote>
-<p>
-<script type="math/tex; mode=display">1+\frac{1}{2}\cdots 2+\frac{1}{4}\cdots 3+\cdots+\frac{n}{2^{n-1}}+\cdots=4</script>
-</p>
-</blockquote>
-<p>证明：对等式
-<script type="math/tex; mode=display">\frac{1}{1-x}=1+\sum_{n=1}^\infty x^n</script>
-两边求导
-<script type="math/tex; mode=display">\frac{1}{(1-x)^2}=\sum_{n=1}^\infty nx^{n-1}</script>
-令 <script type="math/tex">x=1/2</script>
-<script type="math/tex; mode=display">\sum_{n=1}^\infty nx^{n-1}=1+\frac{1}{2}\cdots 2+\frac{1}{4}\cdots 3+\cdots+\frac{n}{2^{n-1}}+\cdots=\frac{1}{(1-1/2)^2}=4</script>
-</p>
 
 
 
@@ -23108,6 +23082,32 @@
     
   </aside>
 
+<p><strong>Raabe's (Gauss's) Test</strong></p>
+<blockquote>
+<p>如果 <script type="math/tex">\sum_{n=1}^\infty u_n</script> 是一个正数级数，且存在常数 <script type="math/tex">C,K,N</script> 使得
+<script type="math/tex; mode=display">\frac{u_n}{u_{n+1}}=1+\frac{C}{n}+\frac{f(n)}{n^2}</script>
+其中当 <script type="math/tex">n>N</script> 时，有 <script type="math/tex">|f(n)|<K</script>，如果 <script type="math/tex">C>1</script>，那么级数收敛，如果 <script type="math/tex">C\leq 1</script>，级数发散。</p>
+</blockquote>
+<p>这个定理是比值测试的拓展。</p>
+<p>比如级数 <script type="math/tex">\sum_{n=1}^\infty\frac{1}{n^2}</script>，应用高斯测试
+<script type="math/tex; mode=display">\frac{u_n}{u_{n+1}}=\frac{(n+1)^2}{n^2}=1+\frac{2}{n}+\frac{1}{n^2}</script>
+我们取常数 <script type="math/tex">C=2,N=1,K>1</script> 满足条件。因为 <script type="math/tex">C>1</script>，所以 <script type="math/tex">\sum_{n=1}^\infty\frac{1}{n^2}</script> 收敛。</p>
+<p>又比如级数 <script type="math/tex">\sum_{n=1}^\infty\frac{1}{n}</script>，
+<script type="math/tex; mode=display">\frac{u_n}{u_{n+1}}=\frac{n+1}{n}=1+\frac{1}{n}+\frac{0}{n^2}</script>
+此时 <script type="math/tex">C=1\leq 1</script>，所以级数发散。</p>
+<p><strong>Nicole Oresme's Theorem</strong></p>
+<blockquote>
+<p>
+<script type="math/tex; mode=display">1+\frac{1}{2}\cdots 2+\frac{1}{4}\cdots 3+\cdots+\frac{n}{2^{n-1}}+\cdots=4</script>
+</p>
+</blockquote>
+<p>证明：对等式
+<script type="math/tex; mode=display">\frac{1}{1-x}=1+\sum_{n=1}^\infty x^n</script>
+两边求导
+<script type="math/tex; mode=display">\frac{1}{(1-x)^2}=\sum_{n=1}^\infty nx^{n-1}</script>
+令 <script type="math/tex">x=1/2</script>
+<script type="math/tex; mode=display">\sum_{n=1}^\infty nx^{n-1}=1+\frac{1}{2}\cdots 2+\frac{1}{4}\cdots 3+\cdots+\frac{n}{2^{n-1}}+\cdots=\frac{1}{(1-1/2)^2}=4</script>
+</p>
 
   
 

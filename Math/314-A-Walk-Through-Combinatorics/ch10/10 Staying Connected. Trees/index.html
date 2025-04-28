@@ -23205,6 +23205,46 @@
 
   <h1>10 Staying Connected. Trees</h1>
 
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 21, 2024 04:15:13">May 21, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2024 02:01:04">May 8, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
 <h2 id="minimally-connected-graphs">Minimally Connected Graphs</h2>
 <p><strong>Theorem 10.1.</strong> <script type="math/tex">G</script>是一个<script type="math/tex">n</script>个顶点的简单连通图，那么下面两者是等价的。<br />
 (1) <script type="math/tex">G</script>是最小连通的，也就是说，去掉任意一条边之后的图不再是连通图。<br />
@@ -23389,46 +23429,6 @@ n&\cdots&0&-1&\cdots&-1\\
 <strong>Solution</strong> 如果其中一个顶点的度是0，其他<script type="math/tex">n-1</script>个点是完全子图，显然该图是不连通的，有<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}</script>条边。<br />
 下面用递归证明若<script type="math/tex">G</script>有<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}+1</script>条边那么<script type="math/tex">G</script>一定是连通的，则<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}</script>是非联通图的边的最大值。<br />
 <script type="math/tex">n=2</script>时，显然是连通的。假设<script type="math/tex">n</script>时也是连通的，考察<script type="math/tex">n+1</script>个点，<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}+1</script>条边。首先，没有点是孤立点，因为剩余<script type="math/tex">n</script>个点最多只能有<script type="math/tex">\begin{pmatrix}n\\2\end{pmatrix}</script>条边。如果有个点的度是<script type="math/tex">n</script>，显然成立了，因为其他点都和这个点相连。那么移除任意一个点<script type="math/tex">V</script>，最多只能移除<script type="math/tex">n-1</script>条边，那么剩余的边数至少有<script type="math/tex">\begin{pmatrix}n-1\\2\end{pmatrix}+1</script>，这<script type="math/tex">n</script>个点是连通的，而点<script type="math/tex">V</script>和这些点是连通的。</p>
-
-
-
-
-
-
-
-  
-    
-  
-  
-    
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 21, 2024 04:15:13">May 21, 2024</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2024 02:01:04">May 8, 2024</span>
-  </span>
-
-    
-    
-    
-  </aside>
-
 
   
 

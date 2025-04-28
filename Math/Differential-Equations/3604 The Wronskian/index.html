@@ -23101,39 +23101,6 @@
 
   <h1>3604 The Wronskian</h1>
 
-<p>We know that a standard way of testing whether a set of <script type="math/tex">n</script>
-<script type="math/tex">n</script>-vectors are linearly independent is to see if the <script type="math/tex">n \times n</script> determinant having them as its rows or columns is non-zero. This is also an important method when the nvectors are solutions to a system; the determinant is given a special name. (Again, we will assume <script type="math/tex">n = 2</script>, but the definitions and results generalize to any <script type="math/tex">n</script>.)<br />
-<strong>Definition 3</strong> Let <script type="math/tex">\boldsymbol{x}_1(t)</script> and <script type="math/tex">\boldsymbol{x}_2(t)</script> be two 2-vector functions. We define their <strong>Wronskian</strong> to be the determinant
-<script type="math/tex; mode=display">W(\boldsymbol{x}_1,\boldsymbol{x}_2)(t)=\begin{vmatrix}
-x_1(t)&x_2(t)\\
-y_1(t)&y_2(t)
-\end{vmatrix}\tag{1}</script>
-whose columns are the two vector functions.<br />
-The independence of the two vector functions should be connected with their Wronskian not being zero. For points, the relationship is clear. Using the result mentioned above, we can say
-<script type="math/tex; mode=display">W(\boldsymbol{x}_1,\boldsymbol{x}_2)(t_0)=\begin{vmatrix}
-x_1(t_0)&x_2(t_0)\\
-y_1(t_0)&y_2(t_0)
-\end{vmatrix} \lrArr \boldsymbol{x}_1(t_0) \text { and } \boldsymbol{x}_2(t_0) \text{ are dependent.}\tag{2}</script>
-However for vector functions, the relationship is clear-cut only when <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are solutions to a well-behaved ODE system <script type="math/tex">(3)</script>. The theorem is:<br />
-We are still considering the system
-<script type="math/tex; mode=display">\begin{aligned}
-x'=a(t)x+b(t)y\\
-y'=c(t)x+d(t)y
-\end{aligned};\begin{pmatrix}
-x\\y
-\end{pmatrix}'=\begin{pmatrix}
-a(t)&b(t)\\c(t)&d(t)
-\end{pmatrix}\begin{pmatrix}
-x\\y
-\end{pmatrix}\tag{3}</script>
-</p>
-<h3 id="theorem-3-wronskian-vanishing-theorem">Theorem 3 Wronskian vanishing theorem</h3>
-<p>On an interval <script type="math/tex">I</script> where the entries of <script type="math/tex">A(t)</script> are continuous, let <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> be two solutions to <script type="math/tex">(3)</script> and <script type="math/tex">W(t)</script> their Wronskian <script type="math/tex">(1)</script>. Then either<br />
-a) <script type="math/tex">W(t) \equiv 0</script> on <script type="math/tex">I</script>, and <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly dependent on <script type="math/tex">I</script>, or<br />
-b) <script type="math/tex">W(t)</script> is never 0 on <script type="math/tex">I</script>, and <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly independent on <script type="math/tex">I</script>.<br />
-<strong>Proof.</strong> Using <script type="math/tex">(2)</script>, there are just two possibilities.<br />
-a) <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly dependent on <script type="math/tex">I</script>; say <script type="math/tex">\boldsymbol{x}_2 = c_1\boldsymbol{x}_1</script>. In this case they are dependent at each point of <script type="math/tex">I</script>, and <script type="math/tex">W(t) \equiv 0</script> on <script type="math/tex">I</script>, by <script type="math/tex">(2)</script>.<br />
-b) <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly independent on <script type="math/tex">I</script>, in which case by Theorem 2A they are linearly independent at each point of <script type="math/tex">I</script>, and so <script type="math/tex">W(t)</script> is never zero on <script type="math/tex">I</script>, by (2).</p>
 
 
 
@@ -23174,6 +23141,39 @@ b) <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex"
     
   </aside>
 
+<p>We know that a standard way of testing whether a set of <script type="math/tex">n</script>
+<script type="math/tex">n</script>-vectors are linearly independent is to see if the <script type="math/tex">n \times n</script> determinant having them as its rows or columns is non-zero. This is also an important method when the nvectors are solutions to a system; the determinant is given a special name. (Again, we will assume <script type="math/tex">n = 2</script>, but the definitions and results generalize to any <script type="math/tex">n</script>.)<br />
+<strong>Definition 3</strong> Let <script type="math/tex">\boldsymbol{x}_1(t)</script> and <script type="math/tex">\boldsymbol{x}_2(t)</script> be two 2-vector functions. We define their <strong>Wronskian</strong> to be the determinant
+<script type="math/tex; mode=display">W(\boldsymbol{x}_1,\boldsymbol{x}_2)(t)=\begin{vmatrix}
+x_1(t)&x_2(t)\\
+y_1(t)&y_2(t)
+\end{vmatrix}\tag{1}</script>
+whose columns are the two vector functions.<br />
+The independence of the two vector functions should be connected with their Wronskian not being zero. For points, the relationship is clear. Using the result mentioned above, we can say
+<script type="math/tex; mode=display">W(\boldsymbol{x}_1,\boldsymbol{x}_2)(t_0)=\begin{vmatrix}
+x_1(t_0)&x_2(t_0)\\
+y_1(t_0)&y_2(t_0)
+\end{vmatrix} \lrArr \boldsymbol{x}_1(t_0) \text { and } \boldsymbol{x}_2(t_0) \text{ are dependent.}\tag{2}</script>
+However for vector functions, the relationship is clear-cut only when <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are solutions to a well-behaved ODE system <script type="math/tex">(3)</script>. The theorem is:<br />
+We are still considering the system
+<script type="math/tex; mode=display">\begin{aligned}
+x'=a(t)x+b(t)y\\
+y'=c(t)x+d(t)y
+\end{aligned};\begin{pmatrix}
+x\\y
+\end{pmatrix}'=\begin{pmatrix}
+a(t)&b(t)\\c(t)&d(t)
+\end{pmatrix}\begin{pmatrix}
+x\\y
+\end{pmatrix}\tag{3}</script>
+</p>
+<h3 id="theorem-3-wronskian-vanishing-theorem">Theorem 3 Wronskian vanishing theorem</h3>
+<p>On an interval <script type="math/tex">I</script> where the entries of <script type="math/tex">A(t)</script> are continuous, let <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> be two solutions to <script type="math/tex">(3)</script> and <script type="math/tex">W(t)</script> their Wronskian <script type="math/tex">(1)</script>. Then either<br />
+a) <script type="math/tex">W(t) \equiv 0</script> on <script type="math/tex">I</script>, and <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly dependent on <script type="math/tex">I</script>, or<br />
+b) <script type="math/tex">W(t)</script> is never 0 on <script type="math/tex">I</script>, and <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly independent on <script type="math/tex">I</script>.<br />
+<strong>Proof.</strong> Using <script type="math/tex">(2)</script>, there are just two possibilities.<br />
+a) <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly dependent on <script type="math/tex">I</script>; say <script type="math/tex">\boldsymbol{x}_2 = c_1\boldsymbol{x}_1</script>. In this case they are dependent at each point of <script type="math/tex">I</script>, and <script type="math/tex">W(t) \equiv 0</script> on <script type="math/tex">I</script>, by <script type="math/tex">(2)</script>.<br />
+b) <script type="math/tex">\boldsymbol{x}_1</script> and <script type="math/tex">\boldsymbol{x}_2</script> are linearly independent on <script type="math/tex">I</script>, in which case by Theorem 2A they are linearly independent at each point of <script type="math/tex">I</script>, and so <script type="math/tex">W(t)</script> is never zero on <script type="math/tex">I</script>, by (2).</p>
 
   
 

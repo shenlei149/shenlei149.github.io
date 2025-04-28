@@ -23042,17 +23042,6 @@
 
   <h1>10 Going Faster: Matrix Multiply in Python</h1>
 
-<p>每一章的 "Going Faster" 小节以矩阵乘法为例，说明书中的各种想法是如何提升性能的。</p>
-<p><div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-</span></code></pre></div>
-第二章，使用更贴近硬件的 C 语言重写，性能能够提升近 200 倍。这里作者有说明，这里为了对比 C 和距离硬件更远一点的 python 自身的性能。现实情况，python 编码使用高效的库，如果使用 numpy 重写，性能有极大的提升。</p>
-<p>第三章，数据并行，性能提高 8 倍。</p>
-<p>第四章，指令并行，差不多能提高 2 倍。</p>
-<p>第五章，利用存储层次，提高 1.5 倍。</p>
-<p>第六章，多线程并行，提升 12 - 17 倍。</p>
 
 
 
@@ -23093,6 +23082,17 @@
     
   </aside>
 
+<p>每一章的 "Going Faster" 小节以矩阵乘法为例，说明书中的各种想法是如何提升性能的。</p>
+<p><div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+</span></code></pre></div>
+第二章，使用更贴近硬件的 C 语言重写，性能能够提升近 200 倍。这里作者有说明，这里为了对比 C 和距离硬件更远一点的 python 自身的性能。现实情况，python 编码使用高效的库，如果使用 numpy 重写，性能有极大的提升。</p>
+<p>第三章，数据并行，性能提高 8 倍。</p>
+<p>第四章，指令并行，差不多能提高 2 倍。</p>
+<p>第五章，利用存储层次，提高 1.5 倍。</p>
+<p>第六章，多线程并行，提升 12 - 17 倍。</p>
 
   
 

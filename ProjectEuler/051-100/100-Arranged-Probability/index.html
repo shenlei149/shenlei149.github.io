@@ -23040,45 +23040,6 @@
 
   <h1>100 Arranged Probability</h1>
 
-<p><a href="https://projecteuler.net/problem=100" title="Problem 100 - Project Euler">Problem 100</a>  </p>
-<p>如果一个盒子里有 21 个有色的碟子，15 个蓝色的和 6 个红色的。从中随机取两个，可知取到两个蓝碟子的几率是 <script type="math/tex">P(BB) = (15/21)\times(14/20) = 1/2</script>。</p>
-<p>下一个满足此条件（即随机取两个碟子的情况下取到两个蓝色碟子的几率是 50%）的情况是  85个蓝碟子和 35 个红碟子。</p>
-<p>对于包含超过 <script type="math/tex">10 ^ {12} = 1,000,000,000,000</script> 个碟子的情况中，存在满足上述条件的并包含最少碟子的情况，该情况下共需要多少个蓝碟子？</p>
-<p>假设碟子总数是 <script type="math/tex">T</script>，蓝色盘子总数是 <script type="math/tex">B</script>，那么它们需要满足 <script type="math/tex">(B/T)((B-1)/(T-1)) = 1/2</script>。</p>
-<p>可以转化为求方程<br />
-<script type="math/tex; mode=display">(T - 1/2) ^ 2 + 2 \times (B - 1/2) ^ 2 = -1/4</script>
-的整数解。</p>
-<p>两边同时乘以 4
-<script type="math/tex; mode=display">(T/2 - 1/4) ^ 2 + 2 \times (B/2 - 1/4) ^ 2 = -1</script>
-令
-<script type="math/tex; mode=display">T = \frac{x+1}{2},B = \frac{y+1}{2}</script>
-其中，<script type="math/tex">x, y</script> 是奇数。</p>
-<p>方程转化为
-<script type="math/tex; mode=display">x ^2 - 2 \times y ^ 2 = -1</script>
-这是一个 Pell 方程，最小的正整数解是
-<script type="math/tex; mode=display">x = 1,y = 1</script>
-根据 Pell 方程的通解
-<script type="math/tex; mode=display">\begin{cases}
-x_n=\frac 1 2\left[ {(x_1+\sqrt d y_1)}^{2n-1} + {(x_1-\sqrt d y_1)}^{2n-1}\right] \\
-y_n=\frac 1 {2\sqrt d }\left[ {(x_1+\sqrt d y_1)}^{2n-1} - {(x_1-\sqrt d y_1)}^{2n-1}\right]
-\end{cases}</script>
-可以算出整数解，不难看出，<script type="math/tex">x(n), y(n)</script> 都是奇数。</p>
-<p>用程序计算得到第一个超过 <script type="math/tex">2 \times 10 ^ {12}</script> 的 <script type="math/tex">x</script>，这样对应满足题意 <script type="math/tex">T</script>，通过对应的 <script type="math/tex">y</script> 计算得到我们要求的答案 <script type="math/tex">B</script>。</p>
-<p>公式里的 <script type="math/tex">d</script> 是 2。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">sqrt2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">{</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)((</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)((</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2000000000000</span><span class="p">)</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p>程序中，在计算 <code>x</code> 和 <code>y</code> 的时候都 <code>+1</code> 了，因为前面的 <code>double</code> 类型运算可能会损失精度，强转成 <code>long</code> 的时候少了 1，所以最后又加了个 1。</p>
 
 
 
@@ -23119,6 +23080,45 @@ y_n=\frac 1 {2\sqrt d }\left[ {(x_1+\sqrt d y_1)}^{2n-1} - {(x_1-\sqrt d y_1)}^{
     
   </aside>
 
+<p><a href="https://projecteuler.net/problem=100" title="Problem 100 - Project Euler">Problem 100</a>  </p>
+<p>如果一个盒子里有 21 个有色的碟子，15 个蓝色的和 6 个红色的。从中随机取两个，可知取到两个蓝碟子的几率是 <script type="math/tex">P(BB) = (15/21)\times(14/20) = 1/2</script>。</p>
+<p>下一个满足此条件（即随机取两个碟子的情况下取到两个蓝色碟子的几率是 50%）的情况是  85个蓝碟子和 35 个红碟子。</p>
+<p>对于包含超过 <script type="math/tex">10 ^ {12} = 1,000,000,000,000</script> 个碟子的情况中，存在满足上述条件的并包含最少碟子的情况，该情况下共需要多少个蓝碟子？</p>
+<p>假设碟子总数是 <script type="math/tex">T</script>，蓝色盘子总数是 <script type="math/tex">B</script>，那么它们需要满足 <script type="math/tex">(B/T)((B-1)/(T-1)) = 1/2</script>。</p>
+<p>可以转化为求方程<br />
+<script type="math/tex; mode=display">(T - 1/2) ^ 2 + 2 \times (B - 1/2) ^ 2 = -1/4</script>
+的整数解。</p>
+<p>两边同时乘以 4
+<script type="math/tex; mode=display">(T/2 - 1/4) ^ 2 + 2 \times (B/2 - 1/4) ^ 2 = -1</script>
+令
+<script type="math/tex; mode=display">T = \frac{x+1}{2},B = \frac{y+1}{2}</script>
+其中，<script type="math/tex">x, y</script> 是奇数。</p>
+<p>方程转化为
+<script type="math/tex; mode=display">x ^2 - 2 \times y ^ 2 = -1</script>
+这是一个 Pell 方程，最小的正整数解是
+<script type="math/tex; mode=display">x = 1,y = 1</script>
+根据 Pell 方程的通解
+<script type="math/tex; mode=display">\begin{cases}
+x_n=\frac 1 2\left[ {(x_1+\sqrt d y_1)}^{2n-1} + {(x_1-\sqrt d y_1)}^{2n-1}\right] \\
+y_n=\frac 1 {2\sqrt d }\left[ {(x_1+\sqrt d y_1)}^{2n-1} - {(x_1-\sqrt d y_1)}^{2n-1}\right]
+\end{cases}</script>
+可以算出整数解，不难看出，<script type="math/tex">x(n), y(n)</script> 都是奇数。</p>
+<p>用程序计算得到第一个超过 <script type="math/tex">2 \times 10 ^ {12}</script> 的 <script type="math/tex">x</script>，这样对应满足题意 <script type="math/tex">T</script>，通过对应的 <script type="math/tex">y</script> 计算得到我们要求的答案 <script type="math/tex">B</script>。</p>
+<p>公式里的 <script type="math/tex">d</script> 是 2。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">sqrt2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)((</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)((</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sqrt2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2000000000000</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<p>程序中，在计算 <code>x</code> 和 <code>y</code> 的时候都 <code>+1</code> 了，因为前面的 <code>double</code> 类型运算可能会损失精度，强转成 <code>long</code> 的时候少了 1，所以最后又加了个 1。</p>
 
   
 

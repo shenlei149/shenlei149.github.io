@@ -23040,25 +23040,6 @@
 
   <h1>0204 Solutions that Blow Up The Domain of a Solution</h1>
 
-<p><strong>Example 1.</strong> Solve the IVP <script type="math/tex">y'=y^2, y(0)=1</script>.<br />
-<strong>Solution.</strong> We can solve this using separation of variables.
-Separate: <script type="math/tex">\frac{dy}{y^2}=dx</script>
-<br />
-Integrate: <script type="math/tex">-\frac{1}{y}=x+C</script>
-<br />
-Solve for <script type="math/tex">y</script>: <script type="math/tex">y=-1/(x+C)</script>
-<br />
-Find <script type="math/tex">C</script> using the IC: <script type="math/tex">y(0) = 1 = -1/C</script>, therefore <script type="math/tex">C = -1</script>.<br />
-Solution: <script type="math/tex">y=-1/(x-1)=1/(1-x)</script>
-<br />
-The graph has a vertical asympote at <script type="math/tex">x = 1</script>.<br />
-<img alt="" src="../pic020401.png" /><br />
-Starting at <script type="math/tex">x = 0</script> the graph goes to infinity as <script type="math/tex">x \rarr 1</script>. Informally, we say <script type="math/tex">y</script>
-<em>blows up at</em> <script type="math/tex">x = 1</script>. The graph has two pieces. One is defined on <script type="math/tex">(-\infty, 1)</script> and the other is defined on <script type="math/tex">(1, \infty)</script>. For technical reasons we prefer to say that we actually have <em>two</em> solutions to the DE. We indicate this by carefully specifying the domain of each.
-$$y(x) = 1/(1 - x) \text{ <script type="math/tex">x</script> in the interval } (-\infty, 1)\tag{1}<script type="math/tex; mode=display">
-</script>y(x) = 1/(1 - x) \text{ <script type="math/tex">x</script> in the interval } (1, \infty)\tag{2}$$
-Thus, the solution to the IVP in this example is solution <script type="math/tex">(1)</script>.<br />
-The rule being followed here is that <em>solutions</em> to ODE's <em>have domain consisting of a single interval</em>. The example shows one reason for this: starting at <script type="math/tex">(0, 1)</script> on solution <script type="math/tex">(1)</script> there is no way to follow the solution continuously to solution <script type="math/tex">(2)</script>.</p>
 
 
 
@@ -23099,6 +23080,25 @@ The rule being followed here is that <em>solutions</em> to ODE's <em>have domain
     
   </aside>
 
+<p><strong>Example 1.</strong> Solve the IVP <script type="math/tex">y'=y^2, y(0)=1</script>.<br />
+<strong>Solution.</strong> We can solve this using separation of variables.
+Separate: <script type="math/tex">\frac{dy}{y^2}=dx</script>
+<br />
+Integrate: <script type="math/tex">-\frac{1}{y}=x+C</script>
+<br />
+Solve for <script type="math/tex">y</script>: <script type="math/tex">y=-1/(x+C)</script>
+<br />
+Find <script type="math/tex">C</script> using the IC: <script type="math/tex">y(0) = 1 = -1/C</script>, therefore <script type="math/tex">C = -1</script>.<br />
+Solution: <script type="math/tex">y=-1/(x-1)=1/(1-x)</script>
+<br />
+The graph has a vertical asympote at <script type="math/tex">x = 1</script>.<br />
+<img alt="" src="../pic020401.png" /><br />
+Starting at <script type="math/tex">x = 0</script> the graph goes to infinity as <script type="math/tex">x \rarr 1</script>. Informally, we say <script type="math/tex">y</script>
+<em>blows up at</em> <script type="math/tex">x = 1</script>. The graph has two pieces. One is defined on <script type="math/tex">(-\infty, 1)</script> and the other is defined on <script type="math/tex">(1, \infty)</script>. For technical reasons we prefer to say that we actually have <em>two</em> solutions to the DE. We indicate this by carefully specifying the domain of each.
+$$y(x) = 1/(1 - x) \text{ <script type="math/tex">x</script> in the interval } (-\infty, 1)\tag{1}<script type="math/tex; mode=display">
+</script>y(x) = 1/(1 - x) \text{ <script type="math/tex">x</script> in the interval } (1, \infty)\tag{2}$$
+Thus, the solution to the IVP in this example is solution <script type="math/tex">(1)</script>.<br />
+The rule being followed here is that <em>solutions</em> to ODE's <em>have domain consisting of a single interval</em>. The example shows one reason for this: starting at <script type="math/tex">(0, 1)</script> on solution <script type="math/tex">(1)</script> there is no way to follow the solution continuously to solution <script type="math/tex">(2)</script>.</p>
 
   
 

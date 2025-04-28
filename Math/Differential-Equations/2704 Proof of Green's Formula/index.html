@@ -23040,46 +23040,6 @@
 
   <h1>2704 Proof of Green's Formula</h1>
 
-<p>Green's Formula: For the equation
-<script type="math/tex; mode=display">P(D)y=f(t),y(t)=0,y'(t)=0 \text{ for } t<0\tag{1}</script>
-the solution for <script type="math/tex">t > 0</script> is given by
-<script type="math/tex; mode=display">y(t)=(f*w)(t)=\int_{0^-}^{t+} f(\tau)w(t-\tau)d\tau\tag{2}</script>
-where <script type="math/tex">w(t)</script> is the weight function (unit impulse response) for the system.</p>
-<p><strong>Proof:</strong> The proof of Green's formula is surpisingly direct. We will use the linear time invariance of the system combined with superposition and the definition of the integral as a limit of Riemann sums.<br />
-To avoid worrying about <script type="math/tex">0^-</script> and <script type="math/tex">t^+</script> we will assume that <script type="math/tex">f(t)</script> is continuous. With appropriate care, the proof will work for an <script type="math/tex">f(t)</script> that has jump discontinuities or contains delta functions.<br />
-As we saw in the session on Linear Operators in the last unit, linear
-time invariance means that
-<script type="math/tex; mode=display">y(t) \text{ solves } P(D)y=f(t) \rArr y(t-a) \text{ solves } P(D)y=f(t-a)\tag{3}</script>
-Or, in the language of input-response, if <script type="math/tex">y(t)</script> is the response to input <script type="math/tex">f(t)</script> then <script type="math/tex">y(t - a)</script> is the response to input <script type="math/tex">f(t - a)</script>.<br />
-First we will partition time into intervals of width <script type="math/tex">\Delta t</script>. So, <script type="math/tex">t_0 = 0, t_1 = \Delta t, t_2 = 2\Delta t</script>, etc.<br />
-<img alt="" src="../pic270401.png" /><br />
-Next we decompose the input signal <script type="math/tex">f(t)</script> into packets over each interval. The <script type="math/tex">k</script>th signal packet, <script type="math/tex">f_k(t)</script> coincides with <script type="math/tex">f(t)</script> between <script type="math/tex">t_k</script> and <script type="math/tex">t_{k+1}</script> and is 0 elsewhere
-<script type="math/tex; mode=display">f(t_k)=\begin{cases}
-f(t)& \text{for }t_k\leq t \leq t_{k+1}\\
-0& \text{elsewhere}
-\end{cases}</script>
-<img alt="" src="../pic270402.png" /><br />
-It is clear that for <script type="math/tex">t > 0</script> we have <script type="math/tex">f(t)</script> is the sum of the packets
-<script type="math/tex; mode=display">f(t)=f_0(t)+f_1(t)+f_2(t)+\ldots+f_k(t)+\ldots</script>
-A single packet <script type="math/tex">f_k(t)</script> is concentrated entirely in a small neighborhood
-of <script type="math/tex">t_k</script> so it is approximately an impulse with the same size as the area under <script type="math/tex">f_k(t)</script>. The area under <script type="math/tex">f_k(t) \approx f(t_k)\Delta t</script>. Hence,
-<script type="math/tex; mode=display">f_k(t)\approx (f_k(t)\Delta t)\delta(t-t_k)</script>
-The weight function <script type="math/tex">w(t)</script> is response to <script type="math/tex">\delta(t)</script>. So, by linear time invariance the response to <script type="math/tex">f_k(t)</script> is
-<script type="math/tex; mode=display">y_k(t)\approx (f_k(t)\Delta t)w(t-t_k)</script>
-We want to find the response at a fixed time. Since <script type="math/tex">t</script> is already in use, we will let <script type="math/tex">T</script> be our fixed time and find <script type="math/tex">y(T)</script>.
-Since <script type="math/tex">f</script> is the sum of <script type="math/tex">f_k</script>, superposition gives <script type="math/tex">y</script> is the sum of <script type="math/tex">y_k</script>. That is, at time <script type="math/tex">T</script>
-<script type="math/tex; mode=display">\begin{aligned}
-y_(T)&\approx y_0(T)+y_1(T)+\ldots\\
-&=(f(t_0)w(T-t_0)+f(t_1)w(T-t_1)+\ldots)\Delta t\tag{4}
-\end{aligned}</script>
-We can ignore all the terms where <script type="math/tex">t_k > T</script>. (Because then <script type="math/tex">w(T - t_k) = 0</script>, since <script type="math/tex">T - t_k < 0</script>.) If <script type="math/tex">n</script> is the last index where <script type="math/tex">t_k < T</script> we have
-<script type="math/tex; mode=display">y_(T)\approx (f(t_0)w(T-t_0)+f(t_1)w(T-t_1)+\ldots+f(t_n)w(T-t_n))\Delta t</script>
-This is a Riemann sum and as <script type="math/tex">\Delta t \rarr 0</script> it goes to an integral
-<script type="math/tex; mode=display">y(T)=\int_0^T f(t)w(T-t)dt</script>
-Except for the change in notation this is Green's formula <script type="math/tex">(2)</script>.</p>
-<p><strong>Note on Causality:</strong> Causality is the principle that the future does not affect the past. Green's theorem shows that the system <script type="math/tex">(1)</script> is causal. That is, <script type="math/tex">y(t)</script> only depends on the input up to time <script type="math/tex">t</script>. Real physical systems are causal.<br />
-There are non-causal systems. For example, an audio compressor that
-gathers information after time <script type="math/tex">t</script> before deciding how to compress the signal at time <script type="math/tex">t</script> is non-causal. Another example is the system with input <script type="math/tex">f(t)</script> and output <script type="math/tex">y(t)</script> where <script type="math/tex">y</script> is the solution to <script type="math/tex">y' = f(t + 1)</script>.</p>
 
 
 
@@ -23120,6 +23080,46 @@ gathers information after time <script type="math/tex">t</script> before decidin
     
   </aside>
 
+<p>Green's Formula: For the equation
+<script type="math/tex; mode=display">P(D)y=f(t),y(t)=0,y'(t)=0 \text{ for } t<0\tag{1}</script>
+the solution for <script type="math/tex">t > 0</script> is given by
+<script type="math/tex; mode=display">y(t)=(f*w)(t)=\int_{0^-}^{t+} f(\tau)w(t-\tau)d\tau\tag{2}</script>
+where <script type="math/tex">w(t)</script> is the weight function (unit impulse response) for the system.</p>
+<p><strong>Proof:</strong> The proof of Green's formula is surpisingly direct. We will use the linear time invariance of the system combined with superposition and the definition of the integral as a limit of Riemann sums.<br />
+To avoid worrying about <script type="math/tex">0^-</script> and <script type="math/tex">t^+</script> we will assume that <script type="math/tex">f(t)</script> is continuous. With appropriate care, the proof will work for an <script type="math/tex">f(t)</script> that has jump discontinuities or contains delta functions.<br />
+As we saw in the session on Linear Operators in the last unit, linear
+time invariance means that
+<script type="math/tex; mode=display">y(t) \text{ solves } P(D)y=f(t) \rArr y(t-a) \text{ solves } P(D)y=f(t-a)\tag{3}</script>
+Or, in the language of input-response, if <script type="math/tex">y(t)</script> is the response to input <script type="math/tex">f(t)</script> then <script type="math/tex">y(t - a)</script> is the response to input <script type="math/tex">f(t - a)</script>.<br />
+First we will partition time into intervals of width <script type="math/tex">\Delta t</script>. So, <script type="math/tex">t_0 = 0, t_1 = \Delta t, t_2 = 2\Delta t</script>, etc.<br />
+<img alt="" src="../pic270401.png" /><br />
+Next we decompose the input signal <script type="math/tex">f(t)</script> into packets over each interval. The <script type="math/tex">k</script>th signal packet, <script type="math/tex">f_k(t)</script> coincides with <script type="math/tex">f(t)</script> between <script type="math/tex">t_k</script> and <script type="math/tex">t_{k+1}</script> and is 0 elsewhere
+<script type="math/tex; mode=display">f(t_k)=\begin{cases}
+f(t)& \text{for }t_k\leq t \leq t_{k+1}\\
+0& \text{elsewhere}
+\end{cases}</script>
+<img alt="" src="../pic270402.png" /><br />
+It is clear that for <script type="math/tex">t > 0</script> we have <script type="math/tex">f(t)</script> is the sum of the packets
+<script type="math/tex; mode=display">f(t)=f_0(t)+f_1(t)+f_2(t)+\ldots+f_k(t)+\ldots</script>
+A single packet <script type="math/tex">f_k(t)</script> is concentrated entirely in a small neighborhood
+of <script type="math/tex">t_k</script> so it is approximately an impulse with the same size as the area under <script type="math/tex">f_k(t)</script>. The area under <script type="math/tex">f_k(t) \approx f(t_k)\Delta t</script>. Hence,
+<script type="math/tex; mode=display">f_k(t)\approx (f_k(t)\Delta t)\delta(t-t_k)</script>
+The weight function <script type="math/tex">w(t)</script> is response to <script type="math/tex">\delta(t)</script>. So, by linear time invariance the response to <script type="math/tex">f_k(t)</script> is
+<script type="math/tex; mode=display">y_k(t)\approx (f_k(t)\Delta t)w(t-t_k)</script>
+We want to find the response at a fixed time. Since <script type="math/tex">t</script> is already in use, we will let <script type="math/tex">T</script> be our fixed time and find <script type="math/tex">y(T)</script>.
+Since <script type="math/tex">f</script> is the sum of <script type="math/tex">f_k</script>, superposition gives <script type="math/tex">y</script> is the sum of <script type="math/tex">y_k</script>. That is, at time <script type="math/tex">T</script>
+<script type="math/tex; mode=display">\begin{aligned}
+y_(T)&\approx y_0(T)+y_1(T)+\ldots\\
+&=(f(t_0)w(T-t_0)+f(t_1)w(T-t_1)+\ldots)\Delta t\tag{4}
+\end{aligned}</script>
+We can ignore all the terms where <script type="math/tex">t_k > T</script>. (Because then <script type="math/tex">w(T - t_k) = 0</script>, since <script type="math/tex">T - t_k < 0</script>.) If <script type="math/tex">n</script> is the last index where <script type="math/tex">t_k < T</script> we have
+<script type="math/tex; mode=display">y_(T)\approx (f(t_0)w(T-t_0)+f(t_1)w(T-t_1)+\ldots+f(t_n)w(T-t_n))\Delta t</script>
+This is a Riemann sum and as <script type="math/tex">\Delta t \rarr 0</script> it goes to an integral
+<script type="math/tex; mode=display">y(T)=\int_0^T f(t)w(T-t)dt</script>
+Except for the change in notation this is Green's formula <script type="math/tex">(2)</script>.</p>
+<p><strong>Note on Causality:</strong> Causality is the principle that the future does not affect the past. Green's theorem shows that the system <script type="math/tex">(1)</script> is causal. That is, <script type="math/tex">y(t)</script> only depends on the input up to time <script type="math/tex">t</script>. Real physical systems are causal.<br />
+There are non-causal systems. For example, an audio compressor that
+gathers information after time <script type="math/tex">t</script> before deciding how to compress the signal at time <script type="math/tex">t</script> is non-causal. Another example is the system with input <script type="math/tex">f(t)</script> and output <script type="math/tex">y(t)</script> where <script type="math/tex">y</script> is the solution to <script type="math/tex">y' = f(t + 1)</script>.</p>
 
   
 

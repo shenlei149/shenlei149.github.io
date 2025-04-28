@@ -23040,33 +23040,6 @@
 
   <h1>2004 Mechanical Vibration System Driving Through the Spring</h1>
 
-<p>The figure below shows a spring-mass-dashpot system that is driven through the spring.<br />
-<img alt="" src="../pic200401.png" /></p>
-<p>Suppose that <script type="math/tex">y</script> denotes the displacement of the plunger at the top of the spring and <script type="math/tex">x(t)</script> denotes the position of the mass, arranged so that <script type="math/tex">x = y</script> when the spring is unstretched and uncompressed. There are two forces acting on the mass: the spring exerts a force given by <script type="math/tex">k(y - x)</script> (where <script type="math/tex">k</script> is the spring constant) and the dashpot exerts a force given <script type="math/tex">by - bx'</script> (against the motion of the mass, with damping coefficient <script type="math/tex">b</script>). Newton's law gives
-<script type="math/tex; mode=display">mx''=k(y-x)-bx'</script>
-or, putting the system on the left and the driving term on the right,
-<script type="math/tex; mode=display">mx''+bx'+kx=ky\tag{1}</script>
-In this example it is natural to regard <script type="math/tex">y</script>, rather than the right-hand side <script type="math/tex">q = ky</script>, as the input signal and the mass position <script type="math/tex">x</script> as the system response. Suppose that <script type="math/tex">y</script> is sinusoidal, that is,
-<script type="math/tex; mode=display">y=B_1\cos \omega t</script>
-Then we expect a sinusoidal solution of the form 
-<script type="math/tex; mode=display">x_p=A\cos (\omega t-\phi)</script>
-</p>
-<p>By definition the <em>gain</em> is the ratio of the amplitude of the system response to that of the input signal. Since <script type="math/tex">B_1</script> is the amplitude of the input we have <script type="math/tex">g = A/B_1</script>.</p>
-<p>In the previous note in this session, we worked out the formulas for <script type="math/tex">g</script> and <script type="math/tex">\phi</script>, and so we can now use them with the following small change. The <script type="math/tex">k</script> on the right-hand-side of equation <script type="math/tex">(1)</script> needs to be included in the gain (since we don't include it as part of the input). We get
-<script type="math/tex; mode=display">
-g(\omega)=\frac{A}{B_1}=\frac{k}{\left\lvert p(i\omega)\right\rvert}=\frac{k}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}
-</script>
-<script type="math/tex; mode=display">
-\phi(\omega)=\tan^{-1}(\frac{b\omega}{k-m\omega^2})
-</script>
-</p>
-<p>Note that the gain is a function of <script type="math/tex">\omega</script>, i.e. <script type="math/tex">g = g(\omega)</script>. Similarly, the <em>phase lag</em> <script type="math/tex">\phi=\phi(\omega)</script> is a function of <script type="math/tex">\omega</script>. The entire story of the steady state system response <script type="math/tex">x_p=A\cos (\omega t-\phi)</script> to sinusoidal input signals is encoded in these two functions of <script type="math/tex">\omega</script>, the gain and the phase lag.<br />
-We see that choosing the input to be <script type="math/tex">y</script> instead of <script type="math/tex">ky</script> scales the gain by <script type="math/tex">k</script> and does not affect the phase lag.<br />
-The factor of <script type="math/tex">k</script> in the gain does not affect the frequency where the gain is greatest, i.e. the practical resonant frequency. From the previous note in this session we know this is 
-<script type="math/tex; mode=display">
-\omega_r=\sqrt{\frac{k}{m}-\frac{b^2}{2m^2}}
-</script>
-</p>
 
 
 
@@ -23107,6 +23080,33 @@ The factor of <script type="math/tex">k</script> in the gain does not affect the
     
   </aside>
 
+<p>The figure below shows a spring-mass-dashpot system that is driven through the spring.<br />
+<img alt="" src="../pic200401.png" /></p>
+<p>Suppose that <script type="math/tex">y</script> denotes the displacement of the plunger at the top of the spring and <script type="math/tex">x(t)</script> denotes the position of the mass, arranged so that <script type="math/tex">x = y</script> when the spring is unstretched and uncompressed. There are two forces acting on the mass: the spring exerts a force given by <script type="math/tex">k(y - x)</script> (where <script type="math/tex">k</script> is the spring constant) and the dashpot exerts a force given <script type="math/tex">by - bx'</script> (against the motion of the mass, with damping coefficient <script type="math/tex">b</script>). Newton's law gives
+<script type="math/tex; mode=display">mx''=k(y-x)-bx'</script>
+or, putting the system on the left and the driving term on the right,
+<script type="math/tex; mode=display">mx''+bx'+kx=ky\tag{1}</script>
+In this example it is natural to regard <script type="math/tex">y</script>, rather than the right-hand side <script type="math/tex">q = ky</script>, as the input signal and the mass position <script type="math/tex">x</script> as the system response. Suppose that <script type="math/tex">y</script> is sinusoidal, that is,
+<script type="math/tex; mode=display">y=B_1\cos \omega t</script>
+Then we expect a sinusoidal solution of the form 
+<script type="math/tex; mode=display">x_p=A\cos (\omega t-\phi)</script>
+</p>
+<p>By definition the <em>gain</em> is the ratio of the amplitude of the system response to that of the input signal. Since <script type="math/tex">B_1</script> is the amplitude of the input we have <script type="math/tex">g = A/B_1</script>.</p>
+<p>In the previous note in this session, we worked out the formulas for <script type="math/tex">g</script> and <script type="math/tex">\phi</script>, and so we can now use them with the following small change. The <script type="math/tex">k</script> on the right-hand-side of equation <script type="math/tex">(1)</script> needs to be included in the gain (since we don't include it as part of the input). We get
+<script type="math/tex; mode=display">
+g(\omega)=\frac{A}{B_1}=\frac{k}{\left\lvert p(i\omega)\right\rvert}=\frac{k}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}
+</script>
+<script type="math/tex; mode=display">
+\phi(\omega)=\tan^{-1}(\frac{b\omega}{k-m\omega^2})
+</script>
+</p>
+<p>Note that the gain is a function of <script type="math/tex">\omega</script>, i.e. <script type="math/tex">g = g(\omega)</script>. Similarly, the <em>phase lag</em> <script type="math/tex">\phi=\phi(\omega)</script> is a function of <script type="math/tex">\omega</script>. The entire story of the steady state system response <script type="math/tex">x_p=A\cos (\omega t-\phi)</script> to sinusoidal input signals is encoded in these two functions of <script type="math/tex">\omega</script>, the gain and the phase lag.<br />
+We see that choosing the input to be <script type="math/tex">y</script> instead of <script type="math/tex">ky</script> scales the gain by <script type="math/tex">k</script> and does not affect the phase lag.<br />
+The factor of <script type="math/tex">k</script> in the gain does not affect the frequency where the gain is greatest, i.e. the practical resonant frequency. From the previous note in this session we know this is 
+<script type="math/tex; mode=display">
+\omega_r=\sqrt{\frac{k}{m}-\frac{b^2}{2m^2}}
+</script>
+</p>
 
   
 

@@ -23040,46 +23040,6 @@
 
   <h1>找到单链表中环的入口</h1>
 
-<p>这是一个很经典的面试题目。</p>
-<p>首先，我们要检测一个链表是否包含环。</p>
-<p>典型的思路，快慢指针。快指针每次移动两个结点，慢指针移动一个结点。就像两辆车在环形跑道上比赛，速度差一倍，那么快的肯定会追上慢的（套圈）。</p>
-<p>如果快的指针到头了，两者还是没有相遇，那么说明这个链表不包含环。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">fast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">fast</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">{</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slow</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">fast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">slow</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">fast</span><span class="p">)</span><span class="w">   </span><span class="c1">// 相遇了</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1">// 快的指针到头了，说明没有环，也就无所谓环的起始结点，所以返回 null</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">{</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p>我们需要知道，他们在哪里相遇了呢？</p>
-<p>假设非环部分的长度是 <script type="math/tex">k</script>，那么，慢指针走了 <script type="math/tex">k</script> 步，位于环的起始位置，快指针走了 <script type="math/tex">2k</script> 步，除去非环部分的 <script type="math/tex">k</script> 步，快指针在环里面走了 <script type="math/tex">k</script> 步，考虑 <script type="math/tex">k</script> 可能比环的长度大，我们可以认为，快指针从环起始位置往前走了 <script type="math/tex">M = k \% \text{LoopSize}</script> 步，也就是说，快指针比慢指针快了 <script type="math/tex">M</script> 步，从另一个角度看，快指针比慢指针慢了 <script type="math/tex">\text{LoopSize} - M</script> 步。</p>
-<p>之后，慢指针走 <script type="math/tex">\text{LoopSize} - M</script> 步，快指针走 <script type="math/tex">2 \times (\text{LoopSize} - M)</script> 步，两者相遇。相遇点距离环的起始位置距离是 <script type="math/tex">\text{LoopSize} - M</script> （从环的起始结点向前走）。</p>
-<p>找到了相遇位置，如何利用这个信息找到环的起始结点呢？</p>
-<p>从相遇点再走多远能到环的起始点呢？<script type="math/tex">M</script>。</p>
-<p>
-<script type="math/tex">M</script> 和 <script type="math/tex">k</script> 有什么关系呢？模。<script type="math/tex">k= M + N \times \text{LoopSize}</script>。那么，从另外一个角度看，从链表开始到环的开始之间是 <script type="math/tex">k</script> 步；从相遇点继续向前，也是 <script type="math/tex">k</script>步就到了环的起始结点，无非是在环里面绕零圈，还是多绕几圈的区别。</p>
-<p>知道了这个我们就可以解决这个问题了。当找到相遇点之后，把慢指针拿到链表开头，快指针不动，但是每次只移动一步，当两个指针再次相遇的时候，就到了环起始结点。
-<div class="language-csharp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">slow</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">fast</span><span class="p">)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">{</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slow</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">fast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">return</span><span class="w"> </span><span class="n">fast</span><span class="p">;</span>
-</span></code></pre></div></p>
 
 
 
@@ -23120,6 +23080,46 @@
     
   </aside>
 
+<p>这是一个很经典的面试题目。</p>
+<p>首先，我们要检测一个链表是否包含环。</p>
+<p>典型的思路，快慢指针。快指针每次移动两个结点，慢指针移动一个结点。就像两辆车在环形跑道上比赛，速度差一倍，那么快的肯定会追上慢的（套圈）。</p>
+<p>如果快的指针到头了，两者还是没有相遇，那么说明这个链表不包含环。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">fast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">fast</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slow</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">fast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">slow</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">fast</span><span class="p">)</span><span class="w">   </span><span class="c1">// 相遇了</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1">// 快的指针到头了，说明没有环，也就无所谓环的起始结点，所以返回 null</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fast</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">{</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<p>我们需要知道，他们在哪里相遇了呢？</p>
+<p>假设非环部分的长度是 <script type="math/tex">k</script>，那么，慢指针走了 <script type="math/tex">k</script> 步，位于环的起始位置，快指针走了 <script type="math/tex">2k</script> 步，除去非环部分的 <script type="math/tex">k</script> 步，快指针在环里面走了 <script type="math/tex">k</script> 步，考虑 <script type="math/tex">k</script> 可能比环的长度大，我们可以认为，快指针从环起始位置往前走了 <script type="math/tex">M = k \% \text{LoopSize}</script> 步，也就是说，快指针比慢指针快了 <script type="math/tex">M</script> 步，从另一个角度看，快指针比慢指针慢了 <script type="math/tex">\text{LoopSize} - M</script> 步。</p>
+<p>之后，慢指针走 <script type="math/tex">\text{LoopSize} - M</script> 步，快指针走 <script type="math/tex">2 \times (\text{LoopSize} - M)</script> 步，两者相遇。相遇点距离环的起始位置距离是 <script type="math/tex">\text{LoopSize} - M</script> （从环的起始结点向前走）。</p>
+<p>找到了相遇位置，如何利用这个信息找到环的起始结点呢？</p>
+<p>从相遇点再走多远能到环的起始点呢？<script type="math/tex">M</script>。</p>
+<p>
+<script type="math/tex">M</script> 和 <script type="math/tex">k</script> 有什么关系呢？模。<script type="math/tex">k= M + N \times \text{LoopSize}</script>。那么，从另外一个角度看，从链表开始到环的开始之间是 <script type="math/tex">k</script> 步；从相遇点继续向前，也是 <script type="math/tex">k</script>步就到了环的起始结点，无非是在环里面绕零圈，还是多绕几圈的区别。</p>
+<p>知道了这个我们就可以解决这个问题了。当找到相遇点之后，把慢指针拿到链表开头，快指针不动，但是每次只移动一步，当两个指针再次相遇的时候，就到了环起始结点。
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">slow</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">fast</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">slow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slow</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">fast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fast</span><span class="p">.</span><span class="n">Next</span><span class="p">;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">return</span><span class="w"> </span><span class="n">fast</span><span class="p">;</span>
+</span></code></pre></div></p>
 
   
 

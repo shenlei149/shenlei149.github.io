@@ -23137,44 +23137,6 @@
 
   <h1>0205 Modeling by First Order Linear ODE's</h1>
 
-<h3 id="introduction">Introduction</h3>
-<p>If we have a DE which models a situation involving a physical quantity <script type="math/tex">y(t)</script> then solving the DE means finding the unknown function <script type="math/tex">y</script>. Knowing the possible solutions <script type="math/tex">y</script> allows to understand the physical system. Of course someone needs to build the DE doing the modeling. In this note we will see how to do this for some real systems.</p>
-<h3 id="the-savings-account-model">The savings account model</h3>
-<p>Modeling a savings account gives a good way to understand the significance of many of the features of a general first order linear ordinary differential equation.<br />
-Write <script type="math/tex">x(t)</script> for the number of dollars in the account at time <script type="math/tex">t</script>. It accrues interest at an interest rate <script type="math/tex">r</script>. The interest rate has units of percent/year. The more money in the account the more interest you earn. At the end of an interest period of <script type="math/tex">\Delta t</script> years (e.g. <script type="math/tex">\Delta t = 1/12</script>, or <script type="math/tex">\Delta t = 1/365</script>) the bank adds <script type="math/tex">r \cdot x(t) \cdot \Delta t</script> dollars to your account. This means the change <script type="math/tex">\Delta x</script> in your account is
-<script type="math/tex; mode=display">\Delta x=rx(t)\Delta t</script>
-<script type="math/tex">r</script> has units of <script type="math/tex">\text{(years)}^{-1}</script>. Mathematicians and some bankers like to take things to the limit. Rewrite our equation as
-<script type="math/tex; mode=display">\frac{\Delta x}{\Delta t}=rx(t)</script>
-and suppose that the interest period is made to get smaller and smaller. In the limit as <script type="math/tex">\Delta t \rarr 0</script>, we get the differential equation
-<script type="math/tex; mode=display">x'=rx(t)</script>
-One of the beautiful facts about this type of modeling is that it covers more complicated situations. In our computation, there was no assumption that the interest rate was constant in time; it could well be a function of time, <script type="math/tex">r(t)</script>. In fact it could have been a function of both time and the existing balance, <script type="math/tex">r(x, t)</script>. Banks often do make such a dependence - you get a better interest rate if you have a bigger bank account. If <script type="math/tex">x</script> is involved, however, the equation is what is called <em>nonlinear</em> and we will not consider that case in this session.<br />
-Now suppose we make contributions to this savings account. We'll record this by giving the <em>rate</em> of savings, <script type="math/tex">q</script>. This rate has units dollars per year, so if you contribute every month then the monthly payments will be <script type="math/tex">q \Delta t</script> with <script type="math/tex">\Delta t = 1/12</script>. This payment also adds to your account, so, when we divide by <script type="math/tex">\Delta t</script> and take the limit, we get
-<script type="math/tex; mode=display">x'=rx+q</script>
-Once again, your rate of payment into the account may not be constant in time; we might have a function <script type="math/tex">q(t)</script>. Also, we can allow <script type="math/tex">q(t)</script> to be negative, which corresponds to withdrawing money from the account.<br />
-What we have, then, is the general first order linear ODE:
-<script type="math/tex; mode=display">x'-r(t)x=q(t)\tag{1}</script>
-</p>
-<h3 id="linear-insulation">Linear insulation</h3>
-<p>Here is another example of a linear ODE. The linear model here is not as precise as in the bank account example.<br />
-A cooler insulates my lunchtime root beer against the warmth of the day, but ultimately heat penetrates. Let's see how you might come up with a mathematical model for this process. You can jump right to equation <script type="math/tex">(2)</script> if you want, but we would like to spend a some time talking about how one might get there, so that you can carry out the analogous process to model other situations.<br />
-The first thing to do is to identify relevant parameters and give them names. Let's write <script type="math/tex">t</script> for the time variable, <script type="math/tex">x(t)</script> for the temperature inside the cooler, and <script type="math/tex">y(t)</script> for the temperature outside.<br />
-Let's assume that the insulating properties of the cooler don't change over time. (We're not going to watch this process for so long that the aging of the cooler itself becomes important!) However, the insulating properties probably do depend on the inside and outside temperatures. Insulation affects the rate of change of the temperature: the rate of change at time <script type="math/tex">t</script> of temperature inside depends upon the temperatures inside and outside at time <script type="math/tex">t</script>. This gives us a first order differential equation of the form
-<script type="math/tex; mode=display">x'=F(x, y)</script>
-Now it's time for the next simplifying assumption, namely that this rate of change depends only on the <em>difference</em> <script type="math/tex">y - x</script> between the temperatures, and not on the temperatures themselves. This means that
-<script type="math/tex; mode=display">x'=f(y-x)</script>
-for some function <script type="math/tex">f</script> of <em>one</em> variable. If the temperature inside the cooler equals the temperature outside, we expect no change. This means that <script type="math/tex">f(0) = 0</script>.<br />
-Now, any reasonable function has a <em>tangent line approximation</em>, and since <script type="math/tex">f(0) = 0</script> we have
-<script type="math/tex; mode=display">f(z)\approx kz</script>
-That is, when <script type="math/tex">|z|</script> is fairly small, <script type="math/tex">f(z)</script> is fairly close to <script type="math/tex">kz</script>. (From calculus you know that <script type="math/tex">k = f'(0)</script>, but we won't use that here.) When we replace <script type="math/tex">f(y - x)</script> by <script type="math/tex">k(y - x)</script> in the differential equation, we are linearizing the equation. We get the ODE
-<script type="math/tex; mode=display">x'=k(y-x)</script>
-The final assumption we are making, in justifying this last simplification, is that we will only use the equation when <script type="math/tex">z = y - x</script> is reasonably small - small enough so that the tangent line approximation is reasonably good. For large temperature differences the linearized model will not generally give realistic results.<br />
-We can write this equation as
-<script type="math/tex; mode=display">x'+kx=ky\tag{2}</script>
-This is <em>Newton's law of cooling</em>.<br />
-The constant <script type="math/tex">k</script> is called the coupling constant. It mediates between the two temperatures. It will be large if the insulation is poor, and small if it's good. If the insulation is perfect, then <script type="math/tex">k = 0</script>. The factor of <script type="math/tex">k</script> on the right might seem odd, but it you can see that it is forced on us by checking units: the left hand side is measured in degrees per hour, so <script type="math/tex">k</script> must be measured in units of <script type="math/tex">\text{(hours)}^{-1}</script>.<br />
-We can see some general features of insulating behavior from this equation. For example, the times at which the inside and outside temperatures coincide are the times at which the inside temperature is at a critical point:
-<script type="math/tex; mode=display">x'(t_1)=0 \text{ exactly when } x(t_1)=y(t_1)\tag{3}</script>
-</p>
 
 
 
@@ -23215,6 +23177,44 @@ We can see some general features of insulating behavior from this equation. For 
     
   </aside>
 
+<h3 id="introduction">Introduction</h3>
+<p>If we have a DE which models a situation involving a physical quantity <script type="math/tex">y(t)</script> then solving the DE means finding the unknown function <script type="math/tex">y</script>. Knowing the possible solutions <script type="math/tex">y</script> allows to understand the physical system. Of course someone needs to build the DE doing the modeling. In this note we will see how to do this for some real systems.</p>
+<h3 id="the-savings-account-model">The savings account model</h3>
+<p>Modeling a savings account gives a good way to understand the significance of many of the features of a general first order linear ordinary differential equation.<br />
+Write <script type="math/tex">x(t)</script> for the number of dollars in the account at time <script type="math/tex">t</script>. It accrues interest at an interest rate <script type="math/tex">r</script>. The interest rate has units of percent/year. The more money in the account the more interest you earn. At the end of an interest period of <script type="math/tex">\Delta t</script> years (e.g. <script type="math/tex">\Delta t = 1/12</script>, or <script type="math/tex">\Delta t = 1/365</script>) the bank adds <script type="math/tex">r \cdot x(t) \cdot \Delta t</script> dollars to your account. This means the change <script type="math/tex">\Delta x</script> in your account is
+<script type="math/tex; mode=display">\Delta x=rx(t)\Delta t</script>
+<script type="math/tex">r</script> has units of <script type="math/tex">\text{(years)}^{-1}</script>. Mathematicians and some bankers like to take things to the limit. Rewrite our equation as
+<script type="math/tex; mode=display">\frac{\Delta x}{\Delta t}=rx(t)</script>
+and suppose that the interest period is made to get smaller and smaller. In the limit as <script type="math/tex">\Delta t \rarr 0</script>, we get the differential equation
+<script type="math/tex; mode=display">x'=rx(t)</script>
+One of the beautiful facts about this type of modeling is that it covers more complicated situations. In our computation, there was no assumption that the interest rate was constant in time; it could well be a function of time, <script type="math/tex">r(t)</script>. In fact it could have been a function of both time and the existing balance, <script type="math/tex">r(x, t)</script>. Banks often do make such a dependence - you get a better interest rate if you have a bigger bank account. If <script type="math/tex">x</script> is involved, however, the equation is what is called <em>nonlinear</em> and we will not consider that case in this session.<br />
+Now suppose we make contributions to this savings account. We'll record this by giving the <em>rate</em> of savings, <script type="math/tex">q</script>. This rate has units dollars per year, so if you contribute every month then the monthly payments will be <script type="math/tex">q \Delta t</script> with <script type="math/tex">\Delta t = 1/12</script>. This payment also adds to your account, so, when we divide by <script type="math/tex">\Delta t</script> and take the limit, we get
+<script type="math/tex; mode=display">x'=rx+q</script>
+Once again, your rate of payment into the account may not be constant in time; we might have a function <script type="math/tex">q(t)</script>. Also, we can allow <script type="math/tex">q(t)</script> to be negative, which corresponds to withdrawing money from the account.<br />
+What we have, then, is the general first order linear ODE:
+<script type="math/tex; mode=display">x'-r(t)x=q(t)\tag{1}</script>
+</p>
+<h3 id="linear-insulation">Linear insulation</h3>
+<p>Here is another example of a linear ODE. The linear model here is not as precise as in the bank account example.<br />
+A cooler insulates my lunchtime root beer against the warmth of the day, but ultimately heat penetrates. Let's see how you might come up with a mathematical model for this process. You can jump right to equation <script type="math/tex">(2)</script> if you want, but we would like to spend a some time talking about how one might get there, so that you can carry out the analogous process to model other situations.<br />
+The first thing to do is to identify relevant parameters and give them names. Let's write <script type="math/tex">t</script> for the time variable, <script type="math/tex">x(t)</script> for the temperature inside the cooler, and <script type="math/tex">y(t)</script> for the temperature outside.<br />
+Let's assume that the insulating properties of the cooler don't change over time. (We're not going to watch this process for so long that the aging of the cooler itself becomes important!) However, the insulating properties probably do depend on the inside and outside temperatures. Insulation affects the rate of change of the temperature: the rate of change at time <script type="math/tex">t</script> of temperature inside depends upon the temperatures inside and outside at time <script type="math/tex">t</script>. This gives us a first order differential equation of the form
+<script type="math/tex; mode=display">x'=F(x, y)</script>
+Now it's time for the next simplifying assumption, namely that this rate of change depends only on the <em>difference</em> <script type="math/tex">y - x</script> between the temperatures, and not on the temperatures themselves. This means that
+<script type="math/tex; mode=display">x'=f(y-x)</script>
+for some function <script type="math/tex">f</script> of <em>one</em> variable. If the temperature inside the cooler equals the temperature outside, we expect no change. This means that <script type="math/tex">f(0) = 0</script>.<br />
+Now, any reasonable function has a <em>tangent line approximation</em>, and since <script type="math/tex">f(0) = 0</script> we have
+<script type="math/tex; mode=display">f(z)\approx kz</script>
+That is, when <script type="math/tex">|z|</script> is fairly small, <script type="math/tex">f(z)</script> is fairly close to <script type="math/tex">kz</script>. (From calculus you know that <script type="math/tex">k = f'(0)</script>, but we won't use that here.) When we replace <script type="math/tex">f(y - x)</script> by <script type="math/tex">k(y - x)</script> in the differential equation, we are linearizing the equation. We get the ODE
+<script type="math/tex; mode=display">x'=k(y-x)</script>
+The final assumption we are making, in justifying this last simplification, is that we will only use the equation when <script type="math/tex">z = y - x</script> is reasonably small - small enough so that the tangent line approximation is reasonably good. For large temperature differences the linearized model will not generally give realistic results.<br />
+We can write this equation as
+<script type="math/tex; mode=display">x'+kx=ky\tag{2}</script>
+This is <em>Newton's law of cooling</em>.<br />
+The constant <script type="math/tex">k</script> is called the coupling constant. It mediates between the two temperatures. It will be large if the insulation is poor, and small if it's good. If the insulation is perfect, then <script type="math/tex">k = 0</script>. The factor of <script type="math/tex">k</script> on the right might seem odd, but it you can see that it is forced on us by checking units: the left hand side is measured in degrees per hour, so <script type="math/tex">k</script> must be measured in units of <script type="math/tex">\text{(hours)}^{-1}</script>.<br />
+We can see some general features of insulating behavior from this equation. For example, the times at which the inside and outside temperatures coincide are the times at which the inside temperature is at a critical point:
+<script type="math/tex; mode=display">x'(t_1)=0 \text{ exactly when } x(t_1)=y(t_1)\tag{3}</script>
+</p>
 
   
 

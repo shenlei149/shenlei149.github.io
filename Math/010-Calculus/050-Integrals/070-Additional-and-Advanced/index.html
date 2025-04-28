@@ -23121,35 +23121,6 @@
 
   <h1>070 高级主题 Additional and Advanced</h1>
 
-<h3 id="approximating-finite-sums-with-integrals">Approximating Finite Sums with Integrals</h3>
-<p>在许多应用中，积分可以应用于近似有限和，这个有限和近似积分刚好相反。</p>
-<p>举一个例子，我们相求前 <script type="math/tex">n</script> 个整数的平方和 <script type="math/tex">\sqrt{1}+\sqrt{2}+\cdots+\sqrt{n}</script>。积分
-<script type="math/tex; mode=display">\int_0^1\sqrt{x}dx=\frac{2}{3}x^{3/2}\bigg|_0^1=\frac{2}{3}</script>
-是下面和式的极限
-<script type="math/tex; mode=display">\begin{aligned}
-S_n&=\sqrt{\frac{1}{n}}\cdot\frac{1}{n}+\sqrt{\frac{2}{n}}\cdot\frac{1}{n}+\cdots+\sqrt{\frac{n}{n}}\cdot\frac{1}{n}\\
-&=\frac{\sqrt{1}+\sqrt{2}+\cdots+\sqrt{n}}{n^{3/2}}
-\end{aligned}</script>
-几何意义如下：<br />
-<img alt="" src="../070.010.png" /><br />
-当 <script type="math/tex">n</script> 很大的时候，<script type="math/tex">S_n</script> 的极限是 <script type="math/tex">2/3</script>，那么
-<script type="math/tex; mode=display">\sqrt{1}+\sqrt{2}+\cdots+\sqrt{n}=S_n\cdot n^{3/2}\approx\frac{2}{3}n^{3/2}</script>
-</p>
-<h3 id="leibnizs-rule">Leibniz's Rule</h3>
-<p>有时，我们对使用积分定义的函数求导，但是上下界都是函数，那么需要使用下面给出的莱布尼茨法则。</p>
-<p><strong>Leibniz's Rule</strong><br />
-如果 <script type="math/tex">f</script> 在 <script type="math/tex">[a,b]</script> 上连续，且 <script type="math/tex">u(x),v(x)</script> 可导并且对应函数值在 <script type="math/tex">[a,b]</script> 内，那么
-<script type="math/tex; mode=display">\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)dt=f(v(x))\frac{dv}{dx}-f(u(x))\frac{du}{dx}</script>
-</p>
-<p>证明：令 <script type="math/tex">F</script> 是 <script type="math/tex">[a,b]</script> 上 <script type="math/tex">f</script> 的反导数，那么
-<script type="math/tex; mode=display">\int_{u(x)}^{v(x)}f(t)dt=F(v(x))-F(u(x))</script>
-求导
-<script type="math/tex; mode=display">\begin{aligned}
-\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)dt&=\frac{d}{dx}\bigg[F(v(x))-F(u(x))\bigg]\\
-&=F'(v(x))\frac{dv}{dx}-F'(u(x))\frac{du}{dx}\\
-&=f(v(x))\frac{dv}{dx}-f(u(x))\frac{du}{dx}
-\end{aligned}</script>
-</p>
 
 
 
@@ -23190,6 +23161,35 @@ S_n&=\sqrt{\frac{1}{n}}\cdot\frac{1}{n}+\sqrt{\frac{2}{n}}\cdot\frac{1}{n}+\cdot
     
   </aside>
 
+<h3 id="approximating-finite-sums-with-integrals">Approximating Finite Sums with Integrals</h3>
+<p>在许多应用中，积分可以应用于近似有限和，这个有限和近似积分刚好相反。</p>
+<p>举一个例子，我们相求前 <script type="math/tex">n</script> 个整数的平方和 <script type="math/tex">\sqrt{1}+\sqrt{2}+\cdots+\sqrt{n}</script>。积分
+<script type="math/tex; mode=display">\int_0^1\sqrt{x}dx=\frac{2}{3}x^{3/2}\bigg|_0^1=\frac{2}{3}</script>
+是下面和式的极限
+<script type="math/tex; mode=display">\begin{aligned}
+S_n&=\sqrt{\frac{1}{n}}\cdot\frac{1}{n}+\sqrt{\frac{2}{n}}\cdot\frac{1}{n}+\cdots+\sqrt{\frac{n}{n}}\cdot\frac{1}{n}\\
+&=\frac{\sqrt{1}+\sqrt{2}+\cdots+\sqrt{n}}{n^{3/2}}
+\end{aligned}</script>
+几何意义如下：<br />
+<img alt="" src="../070.010.png" /><br />
+当 <script type="math/tex">n</script> 很大的时候，<script type="math/tex">S_n</script> 的极限是 <script type="math/tex">2/3</script>，那么
+<script type="math/tex; mode=display">\sqrt{1}+\sqrt{2}+\cdots+\sqrt{n}=S_n\cdot n^{3/2}\approx\frac{2}{3}n^{3/2}</script>
+</p>
+<h3 id="leibnizs-rule">Leibniz's Rule</h3>
+<p>有时，我们对使用积分定义的函数求导，但是上下界都是函数，那么需要使用下面给出的莱布尼茨法则。</p>
+<p><strong>Leibniz's Rule</strong><br />
+如果 <script type="math/tex">f</script> 在 <script type="math/tex">[a,b]</script> 上连续，且 <script type="math/tex">u(x),v(x)</script> 可导并且对应函数值在 <script type="math/tex">[a,b]</script> 内，那么
+<script type="math/tex; mode=display">\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)dt=f(v(x))\frac{dv}{dx}-f(u(x))\frac{du}{dx}</script>
+</p>
+<p>证明：令 <script type="math/tex">F</script> 是 <script type="math/tex">[a,b]</script> 上 <script type="math/tex">f</script> 的反导数，那么
+<script type="math/tex; mode=display">\int_{u(x)}^{v(x)}f(t)dt=F(v(x))-F(u(x))</script>
+求导
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)dt&=\frac{d}{dx}\bigg[F(v(x))-F(u(x))\bigg]\\
+&=F'(v(x))\frac{dv}{dx}-F'(u(x))\frac{du}{dx}\\
+&=f(v(x))\frac{dv}{dx}-f(u(x))\frac{du}{dx}
+\end{aligned}</script>
+</p>
 
   
 

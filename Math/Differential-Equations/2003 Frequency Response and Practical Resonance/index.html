@@ -23119,38 +23119,6 @@
 
   <h1>2003 Frequency Response and Practical Resonance</h1>
 
-<p>In the previous note in this session we found the periodic solution to the equation
-<script type="math/tex; mode=display">mx''+bx'+kx=B\cos \omega t\tag{1}</script>
-The solution was <script type="math/tex">x_p=gB\cos (\omega t - \phi)</script> , where <script type="math/tex">g</script> is the gain
-<script type="math/tex; mode=display">
-g=g(\omega)=\frac{1}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}\tag{2}
-</script>
-and <script type="math/tex">\phi</script> is the phase lag
-<script type="math/tex; mode=display">
-\phi=\phi(\omega)=Arg(p(i\omega))=\tan^{-1}(\frac{b\omega}{k-m\omega^2})\tag{3}
-</script>
-</p>
-<p>The gain or amplitude response is a function of <script type="math/tex">\omega</script>. It tells us the size of the system's response to the given input frequency. If the amplitude has a peak at <script type="math/tex">\omega_r</script> we call this the <strong>practical resonance frequency</strong>. If the damping <script type="math/tex">b</script> gets too large then, for the system in equation <script type="math/tex">(1)</script>, there is no peak and, hence, no practical resonance. The following ﬁgure shows two graphs of <script type="math/tex">g(\omega)</script>, one for small <script type="math/tex">b</script> and one for large <script type="math/tex">b</script>.<br />
-<img alt="" src="../pic200301.png" /></p>
-<h3 id="finding-the-practical-resonant-frequency">Finding the Practical Resonant Frequency</h3>
-<p>We now turn our attention to ﬁnding a formula for the practical resonant frequency -if it exists-of the system in <script type="math/tex">(1)</script>. Practical resonance occurs at the frequency <script type="math/tex">\omega_r</script> where <script type="math/tex">g(\omega)</script> has a maximum. For the system <script type="math/tex">(1)</script> with gain <script type="math/tex">(2)</script> it is clear that the maximum gain occurs when the expression under the radical has a minimum. Accordingly we look for the minimum of
-<script type="math/tex; mode=display">f(\omega)=(k-m\omega^2)^2+b^2\omega^2</script>
-Setting <script type="math/tex">f'(\omega)=0</script> and solving gives 
-<script type="math/tex; mode=display">
-f'(\omega)=-4m\omega(k-m\omega^2)+2b^2\omega=0
-</script>
-<script type="math/tex; mode=display">
-\omega=0 \text{ or }m^2\omega^2=mk-b^2/2
-</script>
-We see that if <script type="math/tex">mk-b^2/2>0</script> then there is a practical resonant frequency
-<script type="math/tex; mode=display">
-\omega_r=\sqrt{\frac{k}{m}-\frac{b^2}{2m^2}}
-</script>
-</p>
-<h3 id="phase-lag">Phase Lag</h3>
-<p>In the picture below the dotted line is the input and the solid line is the response.
-The damping causes a lag between when the input reaches its maximum and when the output does. In radians, the angle <script type="math/tex">\phi</script> is called the phase lag and in units of time <script type="math/tex">\phi/\omega</script> is the time lag.<br />
-<img alt="" src="../pic200302.png" /></p>
 
 
 
@@ -23191,6 +23159,38 @@ The damping causes a lag between when the input reaches its maximum and when the
     
   </aside>
 
+<p>In the previous note in this session we found the periodic solution to the equation
+<script type="math/tex; mode=display">mx''+bx'+kx=B\cos \omega t\tag{1}</script>
+The solution was <script type="math/tex">x_p=gB\cos (\omega t - \phi)</script> , where <script type="math/tex">g</script> is the gain
+<script type="math/tex; mode=display">
+g=g(\omega)=\frac{1}{\sqrt{(k-m\omega^2)^2+(b\omega)^2}}\tag{2}
+</script>
+and <script type="math/tex">\phi</script> is the phase lag
+<script type="math/tex; mode=display">
+\phi=\phi(\omega)=Arg(p(i\omega))=\tan^{-1}(\frac{b\omega}{k-m\omega^2})\tag{3}
+</script>
+</p>
+<p>The gain or amplitude response is a function of <script type="math/tex">\omega</script>. It tells us the size of the system's response to the given input frequency. If the amplitude has a peak at <script type="math/tex">\omega_r</script> we call this the <strong>practical resonance frequency</strong>. If the damping <script type="math/tex">b</script> gets too large then, for the system in equation <script type="math/tex">(1)</script>, there is no peak and, hence, no practical resonance. The following ﬁgure shows two graphs of <script type="math/tex">g(\omega)</script>, one for small <script type="math/tex">b</script> and one for large <script type="math/tex">b</script>.<br />
+<img alt="" src="../pic200301.png" /></p>
+<h3 id="finding-the-practical-resonant-frequency">Finding the Practical Resonant Frequency</h3>
+<p>We now turn our attention to ﬁnding a formula for the practical resonant frequency -if it exists-of the system in <script type="math/tex">(1)</script>. Practical resonance occurs at the frequency <script type="math/tex">\omega_r</script> where <script type="math/tex">g(\omega)</script> has a maximum. For the system <script type="math/tex">(1)</script> with gain <script type="math/tex">(2)</script> it is clear that the maximum gain occurs when the expression under the radical has a minimum. Accordingly we look for the minimum of
+<script type="math/tex; mode=display">f(\omega)=(k-m\omega^2)^2+b^2\omega^2</script>
+Setting <script type="math/tex">f'(\omega)=0</script> and solving gives 
+<script type="math/tex; mode=display">
+f'(\omega)=-4m\omega(k-m\omega^2)+2b^2\omega=0
+</script>
+<script type="math/tex; mode=display">
+\omega=0 \text{ or }m^2\omega^2=mk-b^2/2
+</script>
+We see that if <script type="math/tex">mk-b^2/2>0</script> then there is a practical resonant frequency
+<script type="math/tex; mode=display">
+\omega_r=\sqrt{\frac{k}{m}-\frac{b^2}{2m^2}}
+</script>
+</p>
+<h3 id="phase-lag">Phase Lag</h3>
+<p>In the picture below the dotted line is the input and the solid line is the response.
+The damping causes a lag between when the input reaches its maximum and when the output does. In radians, the angle <script type="math/tex">\phi</script> is called the phase lag and in units of time <script type="math/tex">\phi/\omega</script> is the time lag.<br />
+<img alt="" src="../pic200302.png" /></p>
 
   
 

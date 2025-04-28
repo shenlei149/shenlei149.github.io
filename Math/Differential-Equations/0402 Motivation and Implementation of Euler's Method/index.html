@@ -23137,39 +23137,6 @@
 
   <h1>0402 Motivation and Implementation of Euler's Method</h1>
 
-<h3 id="what-would-one-use-numerical-methods-for">What Would One Use Numerical Methods For?</h3>
-<p>The graphical methods described in the previous session give one a quick feel for how the solutions to a differential equation behave; they can also be very accurate at predicting long-term behaviour, e.g. in the presence of funnels. However, when the 'medium range' solutions must be known accurately, and the equation cannot be solved exactly, numerical methods are usually the best option.
-Also, even when an equation can be solved with an exact formula, it still might not be straightforward to compute values of a solution. For example, the equation <script type="math/tex">y' = y</script> with initial condition <script type="math/tex">y(0) = 1</script> can be solved exactly: <script type="math/tex">y(x) = e^x</script>. The number <script type="math/tex">e</script> is the value <script type="math/tex">y(1)</script>. But how do you find out that in fact <script type="math/tex">e = 2.718282828459045...</script>? Here, too, you would use some kind of numerical methods. For ODE's the simplest numerical method is called <strong>Euler's method</strong>.</p>
-<h3 id="review-the-tangent-line-approximation">Review: The Tangent Line Approximation</h3>
-<p>Consider a function <script type="math/tex">y(x)</script>, and a point <script type="math/tex">(a, y(a))</script> on its graph. Call <script type="math/tex">T_a(x)</script> the function describing the tangent line to the graph at this point, The slope of the tangent line is <script type="math/tex">y'(a)</script> and it satisfies the equation
-<script type="math/tex; mode=display">T_a(a+h)=y(a)+y'(a)\cdot h</script>
-Suppose we are given a differential equation <script type="math/tex">y' = f(x, y)</script>, with initial condition <script type="math/tex">y(a) = c</script>. One simple way to approximate <script type="math/tex">y</script> near <script type="math/tex">a</script> is to use the tangent line at <script type="math/tex">a</script>:
-<script type="math/tex; mode=display">y(a+h)\approx y(a)+y'(a)\cdot h</script>
-For example, consider the differential equation <script type="math/tex">y' = y</script>, with initial condition <script type="math/tex">y(0) = 1</script>. The tangent line approximation gives:
-<script type="math/tex; mode=display">y(1)\approx y(0)+y'(0)\cdot 1=1+1=2</script>
-Of course, we know <script type="math/tex">y(x) = e^x</script>, so <script type="math/tex">y(1) = e \approx 2.718</script>. So, our estimate of 2 is rather crude. Suppose instead we were trying to approximate <script type="math/tex">\sqrt{e}(= 1.649...)</script>. We get
-<script type="math/tex; mode=display">\sqrt{e}=y(1/2)\approx y(0)+y'(0)\cdot 0.5=1+0.5=1.5</script>
-a better estimate. Graphically, we can see the tangent line separates from the curve. The bigger the step <script type="math/tex">h</script> in the <script type="math/tex">x</script> direction the farther away the tangent line is from the curve.<br />
-The point is that the tangent line approximation works best for small <script type="math/tex">h</script>. The idea behind Euler's method is to use a sequence of successive tangent line approximations, each of them with a fairly 'small' <script type="math/tex">h</script>.</p>
-<h3 id="eulers-method">Euler's method</h3>
-<p>We want to estimate the solution (integral curve) to <script type="math/tex">y' = f(x, y)</script> passing through <script type="math/tex">(x_0, y_0)</script>. It is shown as a curve in the picture. We first choose a step size, denoted <script type="math/tex">h</script>. Starting at <script type="math/tex">(x_0, y_0)</script> we approximate the integral curve over the interval <script type="math/tex">[x_0, x_0 + h]</script> by the tangent line, which has slope <script type="math/tex">f(x_0, y_0)</script>. (This is the slope of the integral curve, since <script type="math/tex">y' = f(x, y)</script>.) This takes us as far as the point <script type="math/tex">(x_1, y_1)</script>, which is calculated by the equations (see the picture)
-<script type="math/tex; mode=display">x_1=x_0+h,y_1=y_0+hf(x_0,y_0)</script>
-<img alt="" src="../pic040201.png" /><br />
-Now we are at <script type="math/tex">(x_1, y_1)</script>. We repeat the process, using as the new approximation to the integral curve the line segment having slope <script type="math/tex">f(x_1, y_1)</script>. This takes us as far as the next point <script type="math/tex">(x_2, y_2)</script>, where
-<script type="math/tex; mode=display">x_2=x_1+h,y_2=y_1+hf(x_1,y_1)</script>
-We continue in the same way. The general formulas telling us how to get from the <script type="math/tex">(n - 1)</script>-st point to the <script type="math/tex">n</script>-th point are
-<script type="math/tex; mode=display">x_n=x_{n-1}+h,y_n=y_{n-1}+hf(x_{n-1},y_{n-1})\tag{1}</script>
-In this way, we get an approximation to the integral curve consisting of line segments joining the points <script type="math/tex">(x_0, y_0), (x_1, y_1), \ldots</script> as shown in the figure below.<br />
-<img alt="" src="../pic040202.png" /><br />
-We will call the line segments "Euler struts", and their union the Euler polygon. It is an approximation to the integral curve <script type="math/tex">y = y(x)</script>.<br />
-In doing a few steps of Euler's method by hand, as you are asked to do in some of the exercises to get a feel for the method, it's best to arrange the work systematically in a table.<br />
-<strong>Example.</strong> For the IVP: <script type="math/tex">y' = x^2 - y^2, y(1) = 0</script>, use Euler's method with step size 0.1 to find <script type="math/tex">y(1.2)</script>.<br />
-<strong>Solution.</strong> We use <script type="math/tex">f(x, y) = x^2 - y^2, h = 0.1</script>, and <script type="math/tex">(1)</script> above to find xn and <script type="math/tex">y_n</script>.<br />
-|n|<script type="math/tex">x_n</script>|<script type="math/tex">y_n</script>|<script type="math/tex">f(x_n,y_n)</script>|<script type="math/tex">hf(x_n,y_n)</script>|
-|---|---|---|---|---|
-|0|1|0|1|0.1|
-|1|1.1|0.1|1.20|0.12|
-|2|1.2|0.22|||</p>
 
 
 
@@ -23210,6 +23177,39 @@ In doing a few steps of Euler's method by hand, as you are asked to do in some o
     
   </aside>
 
+<h3 id="what-would-one-use-numerical-methods-for">What Would One Use Numerical Methods For?</h3>
+<p>The graphical methods described in the previous session give one a quick feel for how the solutions to a differential equation behave; they can also be very accurate at predicting long-term behaviour, e.g. in the presence of funnels. However, when the 'medium range' solutions must be known accurately, and the equation cannot be solved exactly, numerical methods are usually the best option.
+Also, even when an equation can be solved with an exact formula, it still might not be straightforward to compute values of a solution. For example, the equation <script type="math/tex">y' = y</script> with initial condition <script type="math/tex">y(0) = 1</script> can be solved exactly: <script type="math/tex">y(x) = e^x</script>. The number <script type="math/tex">e</script> is the value <script type="math/tex">y(1)</script>. But how do you find out that in fact <script type="math/tex">e = 2.718282828459045...</script>? Here, too, you would use some kind of numerical methods. For ODE's the simplest numerical method is called <strong>Euler's method</strong>.</p>
+<h3 id="review-the-tangent-line-approximation">Review: The Tangent Line Approximation</h3>
+<p>Consider a function <script type="math/tex">y(x)</script>, and a point <script type="math/tex">(a, y(a))</script> on its graph. Call <script type="math/tex">T_a(x)</script> the function describing the tangent line to the graph at this point, The slope of the tangent line is <script type="math/tex">y'(a)</script> and it satisfies the equation
+<script type="math/tex; mode=display">T_a(a+h)=y(a)+y'(a)\cdot h</script>
+Suppose we are given a differential equation <script type="math/tex">y' = f(x, y)</script>, with initial condition <script type="math/tex">y(a) = c</script>. One simple way to approximate <script type="math/tex">y</script> near <script type="math/tex">a</script> is to use the tangent line at <script type="math/tex">a</script>:
+<script type="math/tex; mode=display">y(a+h)\approx y(a)+y'(a)\cdot h</script>
+For example, consider the differential equation <script type="math/tex">y' = y</script>, with initial condition <script type="math/tex">y(0) = 1</script>. The tangent line approximation gives:
+<script type="math/tex; mode=display">y(1)\approx y(0)+y'(0)\cdot 1=1+1=2</script>
+Of course, we know <script type="math/tex">y(x) = e^x</script>, so <script type="math/tex">y(1) = e \approx 2.718</script>. So, our estimate of 2 is rather crude. Suppose instead we were trying to approximate <script type="math/tex">\sqrt{e}(= 1.649...)</script>. We get
+<script type="math/tex; mode=display">\sqrt{e}=y(1/2)\approx y(0)+y'(0)\cdot 0.5=1+0.5=1.5</script>
+a better estimate. Graphically, we can see the tangent line separates from the curve. The bigger the step <script type="math/tex">h</script> in the <script type="math/tex">x</script> direction the farther away the tangent line is from the curve.<br />
+The point is that the tangent line approximation works best for small <script type="math/tex">h</script>. The idea behind Euler's method is to use a sequence of successive tangent line approximations, each of them with a fairly 'small' <script type="math/tex">h</script>.</p>
+<h3 id="eulers-method">Euler's method</h3>
+<p>We want to estimate the solution (integral curve) to <script type="math/tex">y' = f(x, y)</script> passing through <script type="math/tex">(x_0, y_0)</script>. It is shown as a curve in the picture. We first choose a step size, denoted <script type="math/tex">h</script>. Starting at <script type="math/tex">(x_0, y_0)</script> we approximate the integral curve over the interval <script type="math/tex">[x_0, x_0 + h]</script> by the tangent line, which has slope <script type="math/tex">f(x_0, y_0)</script>. (This is the slope of the integral curve, since <script type="math/tex">y' = f(x, y)</script>.) This takes us as far as the point <script type="math/tex">(x_1, y_1)</script>, which is calculated by the equations (see the picture)
+<script type="math/tex; mode=display">x_1=x_0+h,y_1=y_0+hf(x_0,y_0)</script>
+<img alt="" src="../pic040201.png" /><br />
+Now we are at <script type="math/tex">(x_1, y_1)</script>. We repeat the process, using as the new approximation to the integral curve the line segment having slope <script type="math/tex">f(x_1, y_1)</script>. This takes us as far as the next point <script type="math/tex">(x_2, y_2)</script>, where
+<script type="math/tex; mode=display">x_2=x_1+h,y_2=y_1+hf(x_1,y_1)</script>
+We continue in the same way. The general formulas telling us how to get from the <script type="math/tex">(n - 1)</script>-st point to the <script type="math/tex">n</script>-th point are
+<script type="math/tex; mode=display">x_n=x_{n-1}+h,y_n=y_{n-1}+hf(x_{n-1},y_{n-1})\tag{1}</script>
+In this way, we get an approximation to the integral curve consisting of line segments joining the points <script type="math/tex">(x_0, y_0), (x_1, y_1), \ldots</script> as shown in the figure below.<br />
+<img alt="" src="../pic040202.png" /><br />
+We will call the line segments "Euler struts", and their union the Euler polygon. It is an approximation to the integral curve <script type="math/tex">y = y(x)</script>.<br />
+In doing a few steps of Euler's method by hand, as you are asked to do in some of the exercises to get a feel for the method, it's best to arrange the work systematically in a table.<br />
+<strong>Example.</strong> For the IVP: <script type="math/tex">y' = x^2 - y^2, y(1) = 0</script>, use Euler's method with step size 0.1 to find <script type="math/tex">y(1.2)</script>.<br />
+<strong>Solution.</strong> We use <script type="math/tex">f(x, y) = x^2 - y^2, h = 0.1</script>, and <script type="math/tex">(1)</script> above to find xn and <script type="math/tex">y_n</script>.<br />
+|n|<script type="math/tex">x_n</script>|<script type="math/tex">y_n</script>|<script type="math/tex">f(x_n,y_n)</script>|<script type="math/tex">hf(x_n,y_n)</script>|
+|---|---|---|---|---|
+|0|1|0|1|0.1|
+|1|1.1|0.1|1.20|0.12|
+|2|1.2|0.22|||</p>
 
   
 

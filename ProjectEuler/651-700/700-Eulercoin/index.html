@@ -23040,25 +23040,6 @@
 
   <h1>700 Eulercoin</h1>
 
-<p><a href="https://projecteuler.net/problem=700" title="Problem 700 - Project Euler">Problem 700</a></p>
-<p>先瞎扯一句，欧拉项目网站的第700题（整百）在纪念欧拉，看得出来，出题人很有情怀。500 题也类似。</p>
-<p>欧拉（<code>Leonhard Euler</code>）出生于 1707 年 4 月 15 日。</p>
-<p>考虑序列 <script type="math/tex">1504170715041707n \operatorname{mod} 4503599627370517</script>。</p>
-<p>在这个序列的元素，如果小于前一个 Eulercoin，那么它就是Eulercoin。</p>
-<p>显然第一个 Eulercoin 是 1504170715041707，也是序列的第一个数；该序列的第二个数 3008341430083414 比上一个 Eulercoin 大，它不是 Eulercoin，第三项 8912517754604 比第一项小，所以是新的Eulercoin。</p>
-<p>求所有 Eulercoin 之和。</p>
-<p>要计算所有的 Eulercoin 之和，那么该序列最后一个值是 0 就算结束，其实得到 1 的时候也可以结束了，因为下一个一定是 0，对和没有影响。</p>
-<p>如果知道连续两个 Eulercoin，如何计算下一个呢？假设这三个 Eulercoin 分别是 <script type="math/tex">s,f,n</script>，用 <script type="math/tex">Mod</script> 表示 4503599627370517，<script type="math/tex">E</script> 来表示 1504170715041707，那么他们满足下面三个等式
-<script type="math/tex; mode=display">s_1E=s_2Mod+s</script>
-<script type="math/tex; mode=display">f_1E=f_2Mod+f</script>
-<script type="math/tex; mode=display">n_1E=n_2Mod+n</script>
-第三个等式可以由第一个等式和第二个等式线性组合得到。</p>
-<p>
-<script type="math/tex">f<s</script>，同时 <script type="math/tex">s_1,f_1</script> 必须是正整数，那么 <script type="math/tex">s_1<f_1</script>，为了保证 <script type="math/tex">0<n<f</script>，那么可能的线性组合是
-<script type="math/tex; mode=display">mf-s=n</script>
-所以
-<script type="math/tex; mode=display">n=f-s\operatorname{mod} f</script>
-</p>
 
 
 
@@ -23099,6 +23080,25 @@
     
   </aside>
 
+<p><a href="https://projecteuler.net/problem=700" title="Problem 700 - Project Euler">Problem 700</a></p>
+<p>先瞎扯一句，欧拉项目网站的第700题（整百）在纪念欧拉，看得出来，出题人很有情怀。500 题也类似。</p>
+<p>欧拉（<code>Leonhard Euler</code>）出生于 1707 年 4 月 15 日。</p>
+<p>考虑序列 <script type="math/tex">1504170715041707n \operatorname{mod} 4503599627370517</script>。</p>
+<p>在这个序列的元素，如果小于前一个 Eulercoin，那么它就是Eulercoin。</p>
+<p>显然第一个 Eulercoin 是 1504170715041707，也是序列的第一个数；该序列的第二个数 3008341430083414 比上一个 Eulercoin 大，它不是 Eulercoin，第三项 8912517754604 比第一项小，所以是新的Eulercoin。</p>
+<p>求所有 Eulercoin 之和。</p>
+<p>要计算所有的 Eulercoin 之和，那么该序列最后一个值是 0 就算结束，其实得到 1 的时候也可以结束了，因为下一个一定是 0，对和没有影响。</p>
+<p>如果知道连续两个 Eulercoin，如何计算下一个呢？假设这三个 Eulercoin 分别是 <script type="math/tex">s,f,n</script>，用 <script type="math/tex">Mod</script> 表示 4503599627370517，<script type="math/tex">E</script> 来表示 1504170715041707，那么他们满足下面三个等式
+<script type="math/tex; mode=display">s_1E=s_2Mod+s</script>
+<script type="math/tex; mode=display">f_1E=f_2Mod+f</script>
+<script type="math/tex; mode=display">n_1E=n_2Mod+n</script>
+第三个等式可以由第一个等式和第二个等式线性组合得到。</p>
+<p>
+<script type="math/tex">f<s</script>，同时 <script type="math/tex">s_1,f_1</script> 必须是正整数，那么 <script type="math/tex">s_1<f_1</script>，为了保证 <script type="math/tex">0<n<f</script>，那么可能的线性组合是
+<script type="math/tex; mode=display">mf-s=n</script>
+所以
+<script type="math/tex; mode=display">n=f-s\operatorname{mod} f</script>
+</p>
 
   
 

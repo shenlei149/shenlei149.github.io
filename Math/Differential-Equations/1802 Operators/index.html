@@ -23040,15 +23040,6 @@
 
   <h1>1802 Operators</h1>
 
-<p><code>Operators</code> are  to functions as functions are  to numbers. An operator takes a function, does something to it, and returns this modified function.</p>
-<p>There are lots of examples of operators around:
-- The <code>shift-by-aoperator</code> (where ais a number) takes as input a function <script type="math/tex">f(t)</script> and gives as output the function <script type="math/tex">f(t-a)</script>. This operator shifts graphs to the right by <code>a</code> units.
-- The <code>multiply-by-h(t) operator</code> (where <script type="math/tex">h(t)</script> is a function) multiplies by <script type="math/tex">h(t)</script>: it takes as input the function <script type="math/tex">f(t)</script> and gives as output the function <script type="math/tex">h(t)f(t)</script>.</p>
-<p>You can go on to invent many other operators. In this course <code>the most important</code> operator is:
-- The <code>differentiation operator</code>, which carries a function <script type="math/tex">f(t)</script> to its derivative <script type="math/tex">f'(t)</script>. The differentiation operator is usually denoted by the letter <code>D</code>; so <script type="math/tex">Df(t)</script>is the function <script type="math/tex">f'(t)</script>. D carries <script type="math/tex">f</script> to <script type="math/tex">f'</script>. For example, <script type="math/tex">Dt^3 =3t^2</script>. This is usually read as "D applied to <script type="math/tex">t^3</script>.”</p>
-<p>The <code>identity operator</code> takes an input function <script type="math/tex">f(t)</script> and returns the same function, <script type="math/tex">f(t)</script>; it does nothing, but it still gets a symbol, <code>I</code>: <script type="math/tex">If=f</script>.</p>
-<p>Operators can be added and multiplied by numbers or more generally by functions. Thus <script type="math/tex">tD+4I</script> is the operator sending <script type="math/tex">f(t)</script> to <script type="math/tex">tf'(t) + 4f(t)</script>.</p>
-<p>The single most important concept associated with operators is that they can be <code>composed</code> with each other. Composition of two operators in a given order means that the two operators are applied to a function one after the other. For example, <script type="math/tex">D^2</script>, the second-derivative operator, means dif­ferentiation twice, sending <script type="math/tex">f(t)</script> to <script type="math/tex">f''(t)</script>. It is in fact the composition of D with itself: <script type="math/tex">D^2=D•D</script>, so that <script type="math/tex">D^2f=D(Df)=D(f')=f''</script>.</p>
 
 
 
@@ -23089,6 +23080,15 @@
     
   </aside>
 
+<p><code>Operators</code> are  to functions as functions are  to numbers. An operator takes a function, does something to it, and returns this modified function.</p>
+<p>There are lots of examples of operators around:
+- The <code>shift-by-aoperator</code> (where ais a number) takes as input a function <script type="math/tex">f(t)</script> and gives as output the function <script type="math/tex">f(t-a)</script>. This operator shifts graphs to the right by <code>a</code> units.
+- The <code>multiply-by-h(t) operator</code> (where <script type="math/tex">h(t)</script> is a function) multiplies by <script type="math/tex">h(t)</script>: it takes as input the function <script type="math/tex">f(t)</script> and gives as output the function <script type="math/tex">h(t)f(t)</script>.</p>
+<p>You can go on to invent many other operators. In this course <code>the most important</code> operator is:
+- The <code>differentiation operator</code>, which carries a function <script type="math/tex">f(t)</script> to its derivative <script type="math/tex">f'(t)</script>. The differentiation operator is usually denoted by the letter <code>D</code>; so <script type="math/tex">Df(t)</script>is the function <script type="math/tex">f'(t)</script>. D carries <script type="math/tex">f</script> to <script type="math/tex">f'</script>. For example, <script type="math/tex">Dt^3 =3t^2</script>. This is usually read as "D applied to <script type="math/tex">t^3</script>.”</p>
+<p>The <code>identity operator</code> takes an input function <script type="math/tex">f(t)</script> and returns the same function, <script type="math/tex">f(t)</script>; it does nothing, but it still gets a symbol, <code>I</code>: <script type="math/tex">If=f</script>.</p>
+<p>Operators can be added and multiplied by numbers or more generally by functions. Thus <script type="math/tex">tD+4I</script> is the operator sending <script type="math/tex">f(t)</script> to <script type="math/tex">tf'(t) + 4f(t)</script>.</p>
+<p>The single most important concept associated with operators is that they can be <code>composed</code> with each other. Composition of two operators in a given order means that the two operators are applied to a function one after the other. For example, <script type="math/tex">D^2</script>, the second-derivative operator, means dif­ferentiation twice, sending <script type="math/tex">f(t)</script> to <script type="math/tex">f''(t)</script>. It is in fact the composition of D with itself: <script type="math/tex">D^2=D•D</script>, so that <script type="math/tex">D^2f=D(Df)=D(f')=f''</script>.</p>
 
   
 

@@ -23040,15 +23040,6 @@
 
   <h1>2806 The Laplace Transform of the Delta Function</h1>
 
-<p>Since the Laplace transform is given by an integral, it should be easy to compute it for the delta function. The answer is
-1. <script type="math/tex">\mathcal{L}(\delta(t))=1</script>
-2. <script type="math/tex">\mathcal{L}(\delta(t-a))=e^{-as} \text{ for } a>0</script>
-</p>
-<p>As expected, proving these formulas is straightforward as long as we use the precise form of the Laplace integral. For <script type="math/tex">(1)</script> we have:
-<script type="math/tex; mode=display">\mathcal{L}(\delta(t))=\int_{0^-}^\infty \delta(t)e^{-st}dt=1</script>
-As we saw in a previous session, integrating <script type="math/tex">e^{-st}</script> against <script type="math/tex">\delta(t)</script> amounts to evaluating <script type="math/tex">e^{-st}</script> at <script type="math/tex">t = 0</script>, and <script type="math/tex">e^0 = 1</script>. Similarly for the shifted version <script type="math/tex">(2)</script>, integrating <script type="math/tex">e^{-st}</script> against <script type="math/tex">\delta(t - a)</script> amounts to evaluating <script type="math/tex">e^{-st}</script> at <script type="math/tex">t = a</script>:
-<script type="math/tex; mode=display">\mathcal{L}(\delta(t-a))=\int_{0^-}^\infty \delta(t-a)e^{-st}dt=e^{-sa}</script>
-Notice that the two formulas are consistent: if we set <script type="math/tex">a = 0</script> in formula <script type="math/tex">(2)</script> then we recover formula <script type="math/tex">(1)</script>.</p>
 
 
 
@@ -23089,6 +23080,15 @@ Notice that the two formulas are consistent: if we set <script type="math/tex">a
     
   </aside>
 
+<p>Since the Laplace transform is given by an integral, it should be easy to compute it for the delta function. The answer is
+1. <script type="math/tex">\mathcal{L}(\delta(t))=1</script>
+2. <script type="math/tex">\mathcal{L}(\delta(t-a))=e^{-as} \text{ for } a>0</script>
+</p>
+<p>As expected, proving these formulas is straightforward as long as we use the precise form of the Laplace integral. For <script type="math/tex">(1)</script> we have:
+<script type="math/tex; mode=display">\mathcal{L}(\delta(t))=\int_{0^-}^\infty \delta(t)e^{-st}dt=1</script>
+As we saw in a previous session, integrating <script type="math/tex">e^{-st}</script> against <script type="math/tex">\delta(t)</script> amounts to evaluating <script type="math/tex">e^{-st}</script> at <script type="math/tex">t = 0</script>, and <script type="math/tex">e^0 = 1</script>. Similarly for the shifted version <script type="math/tex">(2)</script>, integrating <script type="math/tex">e^{-st}</script> against <script type="math/tex">\delta(t - a)</script> amounts to evaluating <script type="math/tex">e^{-st}</script> at <script type="math/tex">t = a</script>:
+<script type="math/tex; mode=display">\mathcal{L}(\delta(t-a))=\int_{0^-}^\infty \delta(t-a)e^{-st}dt=e^{-sa}</script>
+Notice that the two formulas are consistent: if we set <script type="math/tex">a = 0</script> in formula <script type="math/tex">(2)</script> then we recover formula <script type="math/tex">(1)</script>.</p>
 
   
 

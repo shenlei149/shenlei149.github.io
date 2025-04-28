@@ -23044,24 +23044,6 @@
 
   <h1>02 FLOOR/CEILING APPLICATIONS</h1>
 
-<p>现在看下顶函数和底函数的应用。先从简单的问题开始：<script type="math/tex">\lceil\lg 35\rceil</script> 是多少？由于 <script type="math/tex">2^5<35< 2^6</script>，那么 <script type="math/tex">5<\lg 35<6</script>，所以 <script type="math/tex">\lceil\lg 35\rceil=6</script>。</p>
-<p>35 写成二进制有 6 位：<script type="math/tex">(100011)_2=35</script>。<script type="math/tex">\lceil\lg n\rceil</script> 是 <script type="math/tex">n</script> 写成二进制的长度吗？并非如此。比如 <script type="math/tex">32=(100000)_2</script> 需要 6 位，所以 <script type="math/tex">\lceil\lg n\rceil</script> 是个错误答案，数是 2 的幂次的时候就会失效。其实 <script type="math/tex">2^{m-1}\leq n<2^m</script> 需要 <script type="math/tex">m</script> 位，有 <script type="math/tex">(3.5)(a)</script> 可知 <script type="math/tex">m-1=\lfloor\lg n\rfloor</script>，所以这个问题的答案是 <script type="math/tex">\lfloor\lg n\rfloor+1</script>，即需要这多位的二进制才能表示 <script type="math/tex">n</script>。类似的，<script type="math/tex">\lceil\lg(n+1)\rceil</script> 也是正确答案。如果我们认为零位二进制就能表示零这个数字，这个公式对 <script type="math/tex">n=0</script> 也成立。</p>
-<p>接下来研究多个底函数和顶函数嵌套的问题。比如 <script type="math/tex">\lceil\lfloor x\rfloor\rceil</script> 是多少呢？很简单，就是 <script type="math/tex">\lfloor x\rfloor</script>，因为它是一个整数，外层嵌套多少层底函数或者顶函数都是一样的。</p>
-<p>下面是一个更难的问题。证明或推翻
-<script type="math/tex; mode=display">\lfloor\sqrt{\lfloor x\rfloor}\rfloor=\lfloor\sqrt{x}\rfloor,x\geq 0\tag{3.9}</script>
-当 <script type="math/tex">x</script> 是整数时，显然成立。当 <script type="math/tex">x=\pi,e,(1+\sqrt{5})/2</script> 时，也是成立的，因为 <script type="math/tex">1=1</script>。下面尝试证明这个命题。</p>
-<p>当面对证明或推翻某个命题这类问题时，先尝试推翻比较好。一是只需要找一个反例就能推翻命题，二是寻找反例的过程可以激发我们的创造精神，同时有可能引向证明。</p>
-<p>如果借助微积分来证明这个命题，想到的可能是将 <script type="math/tex">x</script> 分解成整数部分和小数部分 <script type="math/tex">x=\lfloor x\rfloor+\{x\}=n+\theta</script>，然后将其平方根展开 <script type="math/tex">(n+\theta)^{1/2}=n^{1/2}+n^{-1/2}\theta/2-n^{-3/2}\theta^2/8\cdots</script>，很繁琐。</p>
-<p>下面尝试使用上一节中的一些性质。用某种方法去掉 <script type="math/tex">\lfloor\sqrt{\lfloor x\rfloor}\rfloor</script> 外层的底函数，再去掉平方根运算或内层的底函数，然后再把平方根和顶函数加回去，就得到 <script type="math/tex">\lfloor\sqrt{x}\rfloor</script>。我们令 <script type="math/tex">m=\lfloor\sqrt{\lfloor x\rfloor}\rfloor</script>，那么根据 <script type="math/tex">(3.5)(a)</script> 就有 <script type="math/tex">m\leq\sqrt{\lfloor x\rfloor}<m+1</script>，这些数都是整数，所以平方得到 <script type="math/tex">m^2\leq\lfloor x\rfloor<(m+1)^2</script>，根据 <script type="math/tex">(3.7)(d)</script>，左边可以直接去掉底函数，根据 <script type="math/tex">(3.7)(a)</script>，右边也可以去掉底函数，所以有 <script type="math/tex">m^2\leq x<(m+1)^2</script>，现在求平方得到 <script type="math/tex">m\leq\sqrt{x}<m+1</script>，利用 <script type="math/tex">(3.5)(a)</script>，得到 <script type="math/tex">m=\lfloor\sqrt{x}\rfloor</script>。类似的，我们可以证明
-<script type="math/tex; mode=display">\lceil\sqrt{\lceil x\rceil}\rceil=\lceil\sqrt{x}\rceil,x\geq 0</script>
-上面的推导并没有严重依赖平方根的性质，我们试着推广这种想法：设 <script type="math/tex">f(x)</script> 是满足如下特性且在一个实数区间连续的函数
-<script type="math/tex; mode=display">f(x)=整数 \Rightarrow x 是整数</script>
-那么只要 <script type="math/tex">f(x), f(\lfloor x\rfloor), f(\lceil x\rceil)</script> 有定义，那么
-<script type="math/tex; mode=display">\lfloor f(x)\rfloor=\lfloor f(\lfloor x\rfloor)\rfloor,\lceil f(x)\rceil=\lceil f(\lceil x\rceil)\rceil\tag{3.10}</script>
-由于之前我们对底函数做了证明，并且对底函数的证明和顶函数没有区别，我们这里对顶函数证明这个命题。如果 <script type="math/tex">x=\lceil x\rceil</script>，显然成立，否则 <script type="math/tex">x</script> 不是整数，那么 <script type="math/tex">x<\lceil x\rceil</script>，因为 <script type="math/tex">f</script> 递增，那么 <script type="math/tex">f(x)<f(\lceil x\rceil)</script>。又因为 <script type="math/tex">\lceil\rceil</script> 非递减，所以 <script type="math/tex">\lceil f(x)\rceil\leq\lceil f(\lceil x\rceil)\rceil</script>。如果 <script type="math/tex">\lceil f(x)\rceil<\lceil f(\lceil x\rceil)\rceil</script>，由于 <script type="math/tex">f</script> 连续，那么存在一个数 <script type="math/tex">y</script>，使得 <script type="math/tex">x\leq y<\lceil x\rceil,f(y)=\lceil f(x)\rceil</script>。（我这里花了一个图，更容易理解一点。）由于 <script type="math/tex">f</script> 的性质，这里 <script type="math/tex">y</script> 是一个整数，但是在 <script type="math/tex">\lfloor x\rfloor,\lceil x\rceil</script> 之间不可能存在一个整数。这就说明假设不满足，那么就有 <script type="math/tex">\lceil f(x)\rceil=\lceil f(\lceil x\rceil)\rceil</script>。</p>
-<p>如果 <script type="math/tex">m,n</script> 是整数，那么
-<script type="math/tex; mode=display">\lfloor\frac{x+m}{n}\rfloor=\lfloor\frac{\lfloor x\rfloor+m}{n}\rfloor,\lceil\frac{x+m}{n}\rceil=\lceil\frac{\lceil x\rceil+m}{n}\rceil\tag{3.11}</script>
-比如令 <script type="math/tex">m=0</script>，</p>
 
 
 
@@ -23102,6 +23084,24 @@
     
   </aside>
 
+<p>现在看下顶函数和底函数的应用。先从简单的问题开始：<script type="math/tex">\lceil\lg 35\rceil</script> 是多少？由于 <script type="math/tex">2^5<35< 2^6</script>，那么 <script type="math/tex">5<\lg 35<6</script>，所以 <script type="math/tex">\lceil\lg 35\rceil=6</script>。</p>
+<p>35 写成二进制有 6 位：<script type="math/tex">(100011)_2=35</script>。<script type="math/tex">\lceil\lg n\rceil</script> 是 <script type="math/tex">n</script> 写成二进制的长度吗？并非如此。比如 <script type="math/tex">32=(100000)_2</script> 需要 6 位，所以 <script type="math/tex">\lceil\lg n\rceil</script> 是个错误答案，数是 2 的幂次的时候就会失效。其实 <script type="math/tex">2^{m-1}\leq n<2^m</script> 需要 <script type="math/tex">m</script> 位，有 <script type="math/tex">(3.5)(a)</script> 可知 <script type="math/tex">m-1=\lfloor\lg n\rfloor</script>，所以这个问题的答案是 <script type="math/tex">\lfloor\lg n\rfloor+1</script>，即需要这多位的二进制才能表示 <script type="math/tex">n</script>。类似的，<script type="math/tex">\lceil\lg(n+1)\rceil</script> 也是正确答案。如果我们认为零位二进制就能表示零这个数字，这个公式对 <script type="math/tex">n=0</script> 也成立。</p>
+<p>接下来研究多个底函数和顶函数嵌套的问题。比如 <script type="math/tex">\lceil\lfloor x\rfloor\rceil</script> 是多少呢？很简单，就是 <script type="math/tex">\lfloor x\rfloor</script>，因为它是一个整数，外层嵌套多少层底函数或者顶函数都是一样的。</p>
+<p>下面是一个更难的问题。证明或推翻
+<script type="math/tex; mode=display">\lfloor\sqrt{\lfloor x\rfloor}\rfloor=\lfloor\sqrt{x}\rfloor,x\geq 0\tag{3.9}</script>
+当 <script type="math/tex">x</script> 是整数时，显然成立。当 <script type="math/tex">x=\pi,e,(1+\sqrt{5})/2</script> 时，也是成立的，因为 <script type="math/tex">1=1</script>。下面尝试证明这个命题。</p>
+<p>当面对证明或推翻某个命题这类问题时，先尝试推翻比较好。一是只需要找一个反例就能推翻命题，二是寻找反例的过程可以激发我们的创造精神，同时有可能引向证明。</p>
+<p>如果借助微积分来证明这个命题，想到的可能是将 <script type="math/tex">x</script> 分解成整数部分和小数部分 <script type="math/tex">x=\lfloor x\rfloor+\{x\}=n+\theta</script>，然后将其平方根展开 <script type="math/tex">(n+\theta)^{1/2}=n^{1/2}+n^{-1/2}\theta/2-n^{-3/2}\theta^2/8\cdots</script>，很繁琐。</p>
+<p>下面尝试使用上一节中的一些性质。用某种方法去掉 <script type="math/tex">\lfloor\sqrt{\lfloor x\rfloor}\rfloor</script> 外层的底函数，再去掉平方根运算或内层的底函数，然后再把平方根和顶函数加回去，就得到 <script type="math/tex">\lfloor\sqrt{x}\rfloor</script>。我们令 <script type="math/tex">m=\lfloor\sqrt{\lfloor x\rfloor}\rfloor</script>，那么根据 <script type="math/tex">(3.5)(a)</script> 就有 <script type="math/tex">m\leq\sqrt{\lfloor x\rfloor}<m+1</script>，这些数都是整数，所以平方得到 <script type="math/tex">m^2\leq\lfloor x\rfloor<(m+1)^2</script>，根据 <script type="math/tex">(3.7)(d)</script>，左边可以直接去掉底函数，根据 <script type="math/tex">(3.7)(a)</script>，右边也可以去掉底函数，所以有 <script type="math/tex">m^2\leq x<(m+1)^2</script>，现在求平方得到 <script type="math/tex">m\leq\sqrt{x}<m+1</script>，利用 <script type="math/tex">(3.5)(a)</script>，得到 <script type="math/tex">m=\lfloor\sqrt{x}\rfloor</script>。类似的，我们可以证明
+<script type="math/tex; mode=display">\lceil\sqrt{\lceil x\rceil}\rceil=\lceil\sqrt{x}\rceil,x\geq 0</script>
+上面的推导并没有严重依赖平方根的性质，我们试着推广这种想法：设 <script type="math/tex">f(x)</script> 是满足如下特性且在一个实数区间连续的函数
+<script type="math/tex; mode=display">f(x)=整数 \Rightarrow x 是整数</script>
+那么只要 <script type="math/tex">f(x), f(\lfloor x\rfloor), f(\lceil x\rceil)</script> 有定义，那么
+<script type="math/tex; mode=display">\lfloor f(x)\rfloor=\lfloor f(\lfloor x\rfloor)\rfloor,\lceil f(x)\rceil=\lceil f(\lceil x\rceil)\rceil\tag{3.10}</script>
+由于之前我们对底函数做了证明，并且对底函数的证明和顶函数没有区别，我们这里对顶函数证明这个命题。如果 <script type="math/tex">x=\lceil x\rceil</script>，显然成立，否则 <script type="math/tex">x</script> 不是整数，那么 <script type="math/tex">x<\lceil x\rceil</script>，因为 <script type="math/tex">f</script> 递增，那么 <script type="math/tex">f(x)<f(\lceil x\rceil)</script>。又因为 <script type="math/tex">\lceil\rceil</script> 非递减，所以 <script type="math/tex">\lceil f(x)\rceil\leq\lceil f(\lceil x\rceil)\rceil</script>。如果 <script type="math/tex">\lceil f(x)\rceil<\lceil f(\lceil x\rceil)\rceil</script>，由于 <script type="math/tex">f</script> 连续，那么存在一个数 <script type="math/tex">y</script>，使得 <script type="math/tex">x\leq y<\lceil x\rceil,f(y)=\lceil f(x)\rceil</script>。（我这里花了一个图，更容易理解一点。）由于 <script type="math/tex">f</script> 的性质，这里 <script type="math/tex">y</script> 是一个整数，但是在 <script type="math/tex">\lfloor x\rfloor,\lceil x\rceil</script> 之间不可能存在一个整数。这就说明假设不满足，那么就有 <script type="math/tex">\lceil f(x)\rceil=\lceil f(\lceil x\rceil)\rceil</script>。</p>
+<p>如果 <script type="math/tex">m,n</script> 是整数，那么
+<script type="math/tex; mode=display">\lfloor\frac{x+m}{n}\rfloor=\lfloor\frac{\lfloor x\rfloor+m}{n}\rfloor,\lceil\frac{x+m}{n}\rceil=\lceil\frac{\lceil x\rceil+m}{n}\rceil\tag{3.11}</script>
+比如令 <script type="math/tex">m=0</script>，</p>
 
   
 

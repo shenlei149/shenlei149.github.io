@@ -23040,23 +23040,6 @@
 
   <h1>2305 Convergence of Fourier Series</h1>
 
-<p>The period <script type="math/tex">2L</script> function <script type="math/tex">f(t)</script> is called <strong>piecewise smooth</strong> if there are a only finite number of points <script type="math/tex">0 \leq t_1 < t_2 < \ldots < t_n ≤ 2L</script> where <script type="math/tex">f(t)</script> is not
-differentiable, and if at each of these points the left and right-hand limits <script type="math/tex">\lim\limits_{t \to t_i^+} f'(t)</script> and <script type="math/tex">\lim\limits_{t \to t_i^-} f'(t)</script> exist (although they might not be equal).</p>
-<p>Recall that when we first introduced Fourier series we wrote
-<script type="math/tex; mode=display">
-\begin{aligned}
-f(t)&\sim\frac{a_0}{2}+a_1\cos t+a_2\cos 2t+a_3\cos 3t + \ldots+b_1\sin t+b_2\sin 2t+b_3\sin 3t+\ldots\\
-&=\frac{a_0}{2}+\sum_{n=1}^{\infty}a_n\cos nt+b_n\sin nt\tag{1}
-\end{aligned}
-</script>
-where we used '∼' instead of an equal sign. The following theorem shows that our subsequent use of an equal sign, while not technically correct, is close enough to be warranted.</p>
-<p><strong>Theorem:</strong> If <script type="math/tex">f(t)</script> is piecewise smooth and periodic then the Fourier series for <script type="math/tex">f</script>
-1. converges to <script type="math/tex">f(t)</script> at values of <script type="math/tex">t</script> where <script type="math/tex">f</script> is continuous
-2. converges to the average of <script type="math/tex">f(t^-)</script> and <script type="math/tex">f(t+)</script> where it has a jump discontinuity.</p>
-<p><strong>Example.</strong> Square wave. No matter what the endpoint behavior of <script type="math/tex">f(t)</script> the Fourier series converges to:<br />
-<img alt="" src="../pic230501.png" /></p>
-<p><strong>Example.</strong> Continuous sawtooth: Fourier series converges to <script type="math/tex">f(t)</script>.<br />
-<img alt="" src="../pic230502.png" /></p>
 
 
 
@@ -23097,6 +23080,23 @@ where we used '∼' instead of an equal sign. The following theorem shows that o
     
   </aside>
 
+<p>The period <script type="math/tex">2L</script> function <script type="math/tex">f(t)</script> is called <strong>piecewise smooth</strong> if there are a only finite number of points <script type="math/tex">0 \leq t_1 < t_2 < \ldots < t_n ≤ 2L</script> where <script type="math/tex">f(t)</script> is not
+differentiable, and if at each of these points the left and right-hand limits <script type="math/tex">\lim\limits_{t \to t_i^+} f'(t)</script> and <script type="math/tex">\lim\limits_{t \to t_i^-} f'(t)</script> exist (although they might not be equal).</p>
+<p>Recall that when we first introduced Fourier series we wrote
+<script type="math/tex; mode=display">
+\begin{aligned}
+f(t)&\sim\frac{a_0}{2}+a_1\cos t+a_2\cos 2t+a_3\cos 3t + \ldots+b_1\sin t+b_2\sin 2t+b_3\sin 3t+\ldots\\
+&=\frac{a_0}{2}+\sum_{n=1}^{\infty}a_n\cos nt+b_n\sin nt\tag{1}
+\end{aligned}
+</script>
+where we used '∼' instead of an equal sign. The following theorem shows that our subsequent use of an equal sign, while not technically correct, is close enough to be warranted.</p>
+<p><strong>Theorem:</strong> If <script type="math/tex">f(t)</script> is piecewise smooth and periodic then the Fourier series for <script type="math/tex">f</script>
+1. converges to <script type="math/tex">f(t)</script> at values of <script type="math/tex">t</script> where <script type="math/tex">f</script> is continuous
+2. converges to the average of <script type="math/tex">f(t^-)</script> and <script type="math/tex">f(t+)</script> where it has a jump discontinuity.</p>
+<p><strong>Example.</strong> Square wave. No matter what the endpoint behavior of <script type="math/tex">f(t)</script> the Fourier series converges to:<br />
+<img alt="" src="../pic230501.png" /></p>
+<p><strong>Example.</strong> Continuous sawtooth: Fourier series converges to <script type="math/tex">f(t)</script>.<br />
+<img alt="" src="../pic230502.png" /></p>
 
   
 

@@ -23229,6 +23229,46 @@
 
   <h1>030 偏微分 Partial Derivatives</h1>
 
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2024 14:39:12">October 25, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2024 23:22:56">September 2, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
 <p>对于多变量微积分而言，如果一次只针对一个变量，那么和单变量微积分类似。将除了一个变量外的其他变量作为常量，对该变量微分，那么得到偏微分。这一节会定义什么是偏微分并解释几何意义，并阐述如何计算偏微分。多变量的可微性比单变量可微性的必要条件要多。</p>
 <h3 id="_1">二元函数的偏微分</h3>
 <p>点 <script type="math/tex">(x_0,y_0)</script> 是函数 <script type="math/tex">f(x,y)</script> 定义域上的点，垂直平面 <script type="math/tex">y=y_0</script> 截曲面 <script type="math/tex">z=f(x,y)</script> 得到 <script type="math/tex">z=f(x,y_0)</script>，如下图所示。曲线是 <script type="math/tex">z=f(x,y_0)</script> 在平面 <script type="math/tex">y=y_0</script> 上的图像。平面的水平坐标系是 <script type="math/tex">x</script>，垂直坐标轴是 <script type="math/tex">z</script>。<script type="math/tex">y</script> 是常量 <script type="math/tex">y_0</script>，不是变量。</p>
@@ -23554,46 +23594,6 @@ f_{yxyz}&=-4
 <p>如果函数 <script type="math/tex">f(x,y)</script> 在 <script type="math/tex">(x_0,y_0)</script> 处可微，那么 <script type="math/tex">f</script> 在 <script type="math/tex">(x_0,y_0)</script> 处连续。</p>
 </blockquote>
 <p>从定理 3 的推论和定理 4，如果 <script type="math/tex">f_x,f_y</script> 在包含 <script type="math/tex">(x_0,y_0)</script> 的开区间上是连续的，那么函数 <script type="math/tex">f(x,y)</script> 在点 <script type="math/tex">(x_0,y_0)</script> 处是连续的。正如例 8 所示，在某点处的偏微分存在，并不能说明这个二元函数在该点连续。偏微分在某点处的存在性不足以确保可微性，而偏微分的连续性确保可微性。</p>
-
-
-
-
-
-
-
-  
-    
-  
-  
-    
-  
-
-
-  <aside class="md-source-file">
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2024 14:39:12">October 25, 2024</span>
-  </span>
-
-    
-    
-      
-  <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
-    </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2024 23:22:56">September 2, 2024</span>
-  </span>
-
-    
-    
-    
-  </aside>
-
 
   
 

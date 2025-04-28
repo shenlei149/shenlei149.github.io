@@ -23103,30 +23103,6 @@
 
   <h1>05 Representing Instructions in the Computer</h1>
 
-<p>指令在计算机中的表示和数字一样，程序也存储在内存中，和数据一样，可以读写，这也是存储程序（<code>stored-program</code>）这个术语的由来。</p>
-<p>RISC-V 的指令长度也是 32 位，其布局称为指令格式（<code>instruction format</code>）。与汇编有所区别，这些指令称为机器语言（<code>machine language</code>），一系列指令称为机器码（<code>machine code</code>）。</p>
-<h3 id="risc-v-fields">RISC-V Fields</h3>
-<p><img alt="" src="../0501.png" /></p>
-<ul>
-<li><strong>opcode</strong> 指令的基本操作，这个缩写是传统名。</li>
-<li><em>rd</em> 操作的目标寄存器，从中获取操作的结果。</li>
-<li><em>funct3</em> opcode 的附加信息。</li>
-<li><em>rs1</em> 源操作数的第一个寄存器。</li>
-<li><em>rs2</em> 源操作数的第二个寄存器。</li>
-<li><em>funct7</em> opcide 的附加信息。</li>
-</ul>
-<p>这里有一个问题。对于 <code>load</code> 指令而言，源操作数的第二个值是常数，如何只有 5 位，最多只能是 31，这对于数组或者结构体的偏移量而言太小了。</p>
-<p>这和统一的指令格式冲突，故而引出了第三个设计原则：</p>
-<p><em>Design Principle 3</em>: Good design demands good compromises.</p>
-<p><em>设计原则 3</em>：好的设计需要好的折中。</p>
-<p>RISC-V 这里选择所有的指令长度一样，但是对于不同的指令有不同的格式。比如上面的格式称为 R 类型（<code>R-type (for register)</code>），下面的格式称为 I 类型（<code>I-type</code>），通常用于需要一个常量的指令，比如 <code>addi</code>。</p>
-<p><img alt="" src="../0502.png" /></p>
-<p>12 位的立即数，表示的范围是 <script type="math/tex">[-2^{11},2^11)</script>，对于 <code>load</code> 指令而言最大支持 2048 个字节，即 256 个字。如果寄存器个数多于 32 个，那么 rd 和 rs1 就需要更多 bit，那么立即数的范围就会小很多。</p>
-<p>对于 <code>store</code>，我们也需要一个新的格式，因为其有两个源操作寄存器和一个常量。S 类型（<code>S-type</code>）指令个数如下。</p>
-<p><img alt="" src="../0503.png" /></p>
-<p>这里立即数被分层了两个部分。这么做的目的是使得 rs1 和 rs2 两个位置和其他指令保持一致。第四章会阐述这个划分简化了硬件设计。使指令格式尽可能相似能够简化硬件设计。这里 opcode 和 funct3 的位置始终不变，长度也不变。</p>
-<p>每个指令的 opcode 是唯一的，所以硬件能够知道指令的类型，进而处理各个部分。</p>
-<p>保持所有指令拥有相同的大小和希望尽可能多的寄存器矛盾。更多的寄存器意味着使用更多的指令位。基于这些限制和越小越快的原则，大分部指令都有 16 或 32 个通用寄存器。</p>
 
 
 
@@ -23167,6 +23143,30 @@
     
   </aside>
 
+<p>指令在计算机中的表示和数字一样，程序也存储在内存中，和数据一样，可以读写，这也是存储程序（<code>stored-program</code>）这个术语的由来。</p>
+<p>RISC-V 的指令长度也是 32 位，其布局称为指令格式（<code>instruction format</code>）。与汇编有所区别，这些指令称为机器语言（<code>machine language</code>），一系列指令称为机器码（<code>machine code</code>）。</p>
+<h3 id="risc-v-fields">RISC-V Fields</h3>
+<p><img alt="" src="../0501.png" /></p>
+<ul>
+<li><strong>opcode</strong> 指令的基本操作，这个缩写是传统名。</li>
+<li><em>rd</em> 操作的目标寄存器，从中获取操作的结果。</li>
+<li><em>funct3</em> opcode 的附加信息。</li>
+<li><em>rs1</em> 源操作数的第一个寄存器。</li>
+<li><em>rs2</em> 源操作数的第二个寄存器。</li>
+<li><em>funct7</em> opcide 的附加信息。</li>
+</ul>
+<p>这里有一个问题。对于 <code>load</code> 指令而言，源操作数的第二个值是常数，如何只有 5 位，最多只能是 31，这对于数组或者结构体的偏移量而言太小了。</p>
+<p>这和统一的指令格式冲突，故而引出了第三个设计原则：</p>
+<p><em>Design Principle 3</em>: Good design demands good compromises.</p>
+<p><em>设计原则 3</em>：好的设计需要好的折中。</p>
+<p>RISC-V 这里选择所有的指令长度一样，但是对于不同的指令有不同的格式。比如上面的格式称为 R 类型（<code>R-type (for register)</code>），下面的格式称为 I 类型（<code>I-type</code>），通常用于需要一个常量的指令，比如 <code>addi</code>。</p>
+<p><img alt="" src="../0502.png" /></p>
+<p>12 位的立即数，表示的范围是 <script type="math/tex">[-2^{11},2^11)</script>，对于 <code>load</code> 指令而言最大支持 2048 个字节，即 256 个字。如果寄存器个数多于 32 个，那么 rd 和 rs1 就需要更多 bit，那么立即数的范围就会小很多。</p>
+<p>对于 <code>store</code>，我们也需要一个新的格式，因为其有两个源操作寄存器和一个常量。S 类型（<code>S-type</code>）指令个数如下。</p>
+<p><img alt="" src="../0503.png" /></p>
+<p>这里立即数被分层了两个部分。这么做的目的是使得 rs1 和 rs2 两个位置和其他指令保持一致。第四章会阐述这个划分简化了硬件设计。使指令格式尽可能相似能够简化硬件设计。这里 opcode 和 funct3 的位置始终不变，长度也不变。</p>
+<p>每个指令的 opcode 是唯一的，所以硬件能够知道指令的类型，进而处理各个部分。</p>
+<p>保持所有指令拥有相同的大小和希望尽可能多的寄存器矛盾。更多的寄存器意味着使用更多的指令位。基于这些限制和越小越快的原则，大分部指令都有 16 或 32 个通用寄存器。</p>
 
   
 
