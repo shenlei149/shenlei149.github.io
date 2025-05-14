@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.13">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -23089,7 +23089,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 12, 2025 14:52:21">May 12, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2025 13:16:31">May 14, 2025</span>
   </span>
 
     
@@ -23141,7 +23141,124 @@
 <script type="math/tex; mode=display">\frac{dS}{dt}=rS+k</script>
 或者标准形式
 <script type="math/tex; mode=display">\frac{dS}{dt}-rS=k\tag{14}</script>
-</p>
+其中 <script type="math/tex">k</script> 是正数表示存钱，负数表示取钱。</p>
+<p>
+<script type="math/tex">(14)</script> 是线性方程，积分因子是 <script type="math/tex">e^{-rt}</script>，一般解是
+<script type="math/tex; mode=display">S(t)=ce^{rt}-\frac{k}{r}</script>
+其中 <script type="math/tex">c</script> 是常量。为了满足初值条件 <script type="math/tex">(12)</script>，<script type="math/tex">c=S_0+\frac{k}{r}</script>。所以初值问题 <script type="math/tex">(14),(12)</script> 的解是
+<script type="math/tex; mode=display">S(t)=S_0e^{rt}+\frac{k}{r}(e^{rt}-1)\tag{15}</script>
+上式第一项是初始资金 <script type="math/tex">S_0</script> 的回报，第二项是存款或取款的回报。</p>
+<p>这里并没有限制 <script type="math/tex">S_0,r,k</script>，使之通用，那么结果可以应用于各种场景。不过这里假定复利计算是连续的，实际上并不是的。这里还假定 <script type="math/tex">r</script> 是固定的，实际可能随时间变化而变化，那么结果就更复杂。</p>
+<p>现在我们将上述分析与按年付息的情况做对比。假定年化率是 <script type="math/tex">r</script>，那么 <script type="math/tex">t</script> 年之后总额是
+<script type="math/tex; mode=display">S=S_0(1+r)^t</script>
+如果半年付息，那么 <script type="math/tex">t</script> 年后总额是
+<script type="math/tex; mode=display">S=S_0(1+\frac{r}{2})^{2t}</script>
+如果每年付息 <script type="math/tex">m</script> 次，那么
+<script type="math/tex; mode=display">S=S_0(1+\frac{r}{m})^{mt}\tag{17}</script>
+当 <script type="math/tex">m</script> 趋于无穷时，结合 <script type="math/tex">(13),(17)</script> 可以得到微积分中一个经典公式
+<script type="math/tex; mode=display">\lim_{m\to\infty}S_0(1+\frac{r}{m})^{mt}=S_0e^{rt}</script>
+下表是 <script type="math/tex">r=0.08</script> 时，不同付息周期的总额，季度付息与连续付息差距很小。</p>
+<table>
+<thead>
+<tr>
+<th>years</th>
+<th>
+<script type="math/tex">m=4, (17)</script>
+</th>
+<th>
+<script type="math/tex">m=365, (17)</script>
+</th>
+<th>
+<script type="math/tex">(13)</script>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1.0824</td>
+<td>1.0833</td>
+<td>1.0833</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1.1717</td>
+<td>1.1735</td>
+<td>1.1735</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1.4859</td>
+<td>1.4918</td>
+<td>1.4918</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2.2080</td>
+<td>2.2253</td>
+<td>2.2255</td>
+</tr>
+<tr>
+<td>20</td>
+<td>4.8754</td>
+<td>4.9522</td>
+<td>4.9530</td>
+</tr>
+<tr>
+<td>30</td>
+<td>10.7652</td>
+<td>11.0203</td>
+<td>11.0232</td>
+</tr>
+<tr>
+<td>40</td>
+<td>23.7699</td>
+<td>24.5239</td>
+<td>24.5325</td>
+</tr>
+</tbody>
+</table>
+<p>例 3 假定一个池塘有一千万加仑水。每年有五百万加仑包含化学物质的水流入，充分搅拌均匀后流出相同水量。流入的带有化学物质的每加仑水含有化学物质有 <script type="math/tex">\gamma(t)=2+\sin 2t</script> 克。对这个问题建模表示出任意时刻化学物质的量。画出解，并描述流入含有化学物质的水对浓度的影响。</p>
+<p>解：用 <script type="math/tex">Q(t)</script> 表示化学物质的量，单位是克。任意时刻流入的量是
+<script type="math/tex; mode=display">(5\times 10^6)(2+\sin 2t)\tag{18}</script>
+任意时刻流出的量是
+<script type="math/tex; mode=display">(5\times 10^6)\frac{Q(t)}{10^7}=\frac{Q(t)}{2}\tag{19}</script>
+那么
+<script type="math/tex; mode=display">\frac{dQ}{dt}=(5\times 10^6)(2+\sin 2t)-\frac{Q(t)}{2}\tag{20}</script>
+为了简化表示，令 <script type="math/tex">q(t)=Q(t)/10^6</script>，也就是用百万克作为单位。那么方程简化为
+<script type="math/tex; mode=display">\frac{dq}{dt}+\frac{q}{2}=10+5\sin 2t\tag{21}</script>
+初始时池塘没有化学物质，即
+<script type="math/tex; mode=display">q(0)=0\tag{22}</script>
+<script type="math/tex">(21)</script> 是线性的，尽管右侧有非线性函数，但是 <script type="math/tex">q</script> 的系数是常量。积分因子是 <script type="math/tex">e^{t/2}</script>，两边同乘然后积分，得到通解
+<script type="math/tex; mode=display">q(t)=20-\frac{40}{17}\cos 2t+\frac{10}{17}\sin 2t+ce^{-t/2}\tag{23}</script>
+为了满足初始条件 <script type="math/tex">(22)</script> 要求 <script type="math/tex">c=-300/17</script>，那么 <script type="math/tex">(17),(18)</script> 这个初值问题的解是
+<script type="math/tex; mode=display">q(t)=20-\frac{40}{17}\cos 2t+\frac{10}{17}\sin 2t-\frac{300}{17}e^{-t/2}\tag{24}</script>
+解如下所示。当 <script type="math/tex">t</script> 很小时指数项很重要，但是当 <script type="math/tex">t</script> 很大时，指数项快速衰减。之后，由于 <script type="math/tex">\sin 2t,\cos 2t</script> 的存在，解在以 <script type="math/tex">q=20</script> 震荡。如果 <script type="math/tex">(21)</script> 没有 <script type="math/tex">\sin 2t</script> 项，那么 <script type="math/tex">q=20</script> 是平衡解。</p>
+<p><img alt="" src="../030.030.png" /></p>
+<p>例 4 重 <script type="math/tex">m</script> 的物体垂直向太空发射，初始速度为 <script type="math/tex">v_0</script>。假定忽略空气阻力，但是要考虑重力加速度随着距离地心的变化而变化，求发射后运动的速度。并且求出初始速度下距离地面的最大高度 <script type="math/tex">A_{\max}</script>，以及初始速度多大时物体永远不会回到地球，这个初始速度称为逃逸速度（<code>escape velocity</code>）。</p>
+<p><img alt="" src="../030.040.png" /></p>
+<p>解：如上图所示，运动沿着 <script type="math/tex">x</script> 轴。重力公式是 <script type="math/tex">w(x)=-k/(x+R)^2</script>，结合在海平面 <script type="math/tex">w(0)=-mg</script>，得到 <script type="math/tex">k=mgR^2</script>，那么
+<script type="math/tex; mode=display">w(x)=-\frac{mgR^2}{(R+x)^2}\tag{25}</script>
+物体仅受重力，那么
+<script type="math/tex; mode=display">m\frac{dv}{dt}=-\frac{mgR^2}{(R+x)^2}\tag{26}</script>
+初始条件是
+<script type="math/tex; mode=display">v(0)=v_0\tag{27}</script>
+<script type="math/tex">(26)</script> 的变量有 <script type="math/tex">t,x,v</script>，我们将 <script type="math/tex">x</script> 而不是 <script type="math/tex">t</script> 看做自变量来消除 <script type="math/tex">t</script>。根据链式法则有
+<script type="math/tex; mode=display">\frac{dv}{dt}=\frac{dv}{dx}\frac{dx}{dt}=v\frac{dv}{dx}</script>
+带入 <script type="math/tex">(26)</script> 得到
+<script type="math/tex; mode=display">v\frac{dv}{dx}=-\frac{gR^2}{(R+x)^2}\tag{28}</script>
+上式不是线性微分方程，但是是可分离变量的微分方程。分离变量后两边积分得到
+<script type="math/tex; mode=display">\frac{v^2}{2}=\frac{gR^2}{R+x}+c\tag{29}</script>
+当 <script type="math/tex">t=0</script> 时 <script type="math/tex">x=0</script>，初始条件变成了 <script type="math/tex">x=0</script> 时 <script type="math/tex">v=v_0</script>，为了满足初始条件 <script type="math/tex">(27)</script> 有 <script type="math/tex">c=(v_0^2/2)-gR</script>，那么
+<script type="math/tex; mode=display">v=\pm\sqrt{v_0^2-2gR+\frac{2gR^2}{R+x}}\tag{30}</script>
+上面建立了速度与高度的关系。负号表示运动的方向，正号表示物体上升，负号表示物体下降。</p>
+<p>为了确定最大高度 <script type="math/tex">A_{\max}</script>，将 <script type="math/tex">v=0,x=A_{\max}</script> 带入 <script type="math/tex">(30)</script> 得到
+<script type="math/tex; mode=display">A_{\max}=\frac{v_0^2R}{2gR-v_0^2}\tag{31}</script>
+从上式可以表示需要达到最大告诉需要的初速度，即
+<script type="math/tex; mode=display">v_0=\sqrt{2gR\frac{A_{\max}}{R+A_{\max}}}\tag{32}</script>
+令 <script type="math/tex">A_{\max}\to\infty</script> 得到逃逸速度
+<script type="math/tex; mode=display">v_e=\sqrt{2gR}</script>
+逃逸速度约为 11.1 千米每秒。</p>
 
   
 
