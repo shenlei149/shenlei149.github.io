@@ -23227,7 +23227,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 16, 2025 12:10:21">May 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 19, 2025 09:45:47">May 19, 2025</span>
   </span>
 
     
@@ -23313,9 +23313,11 @@
 </span></code></pre></div>
 lambda 可以接受参数，那么闭包中 <code>operator()</code> 也就有参数列表。lambda 表达式使用尾部返回类型（<code>trailing return type</code>） <code>-&gt; T</code>，也可以写作 <code>auto</code> 自行推断，不过 <code>auto</code> 会去掉引用和 <code>const</code> 修饰，此时需要用 <code>decltype(auto)</code>。</p>
 <p>lambda 最重要的一个能力是能够捕获参数，写在开始的 <code>[]</code> 内。被捕获的参数列表就是编译器生成的闭包类的成员变量。由于 <code>operator()</code> 是 <code>const</code> 的，因此如果要修改捕获的变量，即类的成员变量，需要将 lambda 后面标记上 <code>mutable</code>。默认情况下按值捕获，拷贝一次。还支持按引用捕获，比如 <code>[&amp;data]</code>。<code>[=]</code> <code>[&amp;]</code> 分别是所有变量按值和按引用捕获，在之后，可以各个变量自己修改捕获方式，比如 <code>[=,&amp;data]</code>，<code>data</code> 按引用捕获，其他 lambda 表达式中用到的外部变量按值捕获。<code>[this]</code> 按值捕获指针，本质拷贝了指针罢了，<code>[*this]</code> 拷贝了对象到表达式内。成员变量不能捕获，当捕获了 <code>this</code> 后，可以访问所有 <code>public</code> <code>protected</code> <code>private</code> 的成员函数和变量。不推荐默认捕获，因为后续会更新，可能无意捕获了新变量，但是捕获的方式不符合预期。注意，全局变量总是按引用捕获，且不能修改。</p>
-<p>完整的 lambda 表达式语法是
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>
-</span></code></pre></div></p>
+<p>lambda 最常用的场景是需要传入函数的地方。比如 <code>std::invoke()</code> 就可以传入 lambda 表达式。另外 C++23 支持  <code>std::invoke_r()</code> 可以指定返回类型。与参数类似，在返回函数的地方，可以返回 lambda 表达式。</p>
+<p>lambda 表达式可以是泛型的，参数指定为 <code>auto</code> <code>auto &amp;</code> <code>auto *</code>，此时生成的闭包类的 <code>operator()</code> 是一个模板函数。</p>
+<p>lambda 捕获时支持表达式。第一个作用是可以创建一个不存在的变量；第二个作用是通过 <code>std::move()</code> 捕获只能移动的对象。</p>
+<p>lambda 表达式支持模板，在 <code>[]</code> 后使用 <code>&lt;typename&gt;</code> 来声明模板类型，其余使用与普通函数无异。</p>
+<p>C++23 开始 lambda 表达式支持递归。</p>
 
   
 
