@@ -44,4 +44,71 @@
 
 `unique()` 删除连续重复的元素，只保留一个，一般用于排序的容器，用于非排序的容器也不是不可以。`unique_copy()` 将结果拷贝到目标范围。
 
+`shuffle()` 的参数是一对迭代器和一个随机数生成器，对范围内的数据洗牌改变分布。
+
+`sample()` 接受一对迭代器，一个目标迭代器，采样数 `n` 和随机数生成器，会随机从序列中随机选择 `n` 个元素。
+
+`reverse()` 翻转序列，`reverse_copy()` 不是就地翻转而是拷贝到目标迭代器。
+
+`shift_left()` 向左移动序列，返回新的范围的 `end()`。`shift_right()` 向右移动序列，返回新的范围的 `begin()`。
+
 ### 操作算法
+`std::for_each()` `std::for_each_n()` 遍历一对迭代器之间的元素或者是迭代器开始的 `n` 个元素，分别调用传入的回调函数，返回这个函子。
+
+### 分区（`partition`）算法
+`partition_copy()` 将源序列根据谓词结果分成两个部分，分别写到两个目标序列，返回值是一个迭代器对，分别是两个目标序列写入数据后的 `end()`。`partition()` 就地修改序列，将谓词返回 `true` 的元素排到谓词返回 `false` 的元素前面。
+
+### 排序算法
+`sort()` 算法对一对迭代器进行排序，可以自定义比较。`sort_stable()` 会保持相同元素的相对顺序不变。`is_sorted()` 返回一个序列是否排序了，`is_sorted_until()` 返回一个迭代器，在此之前的数据已经排好序了。
+
+`nth_element()` 可以找到排序后处于第 `n` 个位置的元素，时间复杂度是线性的。第一个迭代器是序列的 `begin()`，第二个迭代器是排序后处于哪个位置，第三个迭代器是序列的 `end()`。
+
+### 二分搜索算法
+`binary_search()` `lower_bound` `upper_bound()` `equal_range()` 内部都是二分搜索算法，要求序列有序，用于不同的场景。第一个返回元素是否存在。第二个返回指向第一个不小于指定元素的迭代器。第三个返回最后一个不大于指定元素的迭代器。第四个返回一对迭代器，是给定元素的范围。
+
+### 集合算法
+`includes()` 判断一个有序范围是否包含另一个有序范围。
+
+`set_union()` `set_intersection()` `set_difference()` `set_symmetric_difference()` 都是标准操作。分别求并集、交集、差集和对称差集。
+
+` merge()` 实现了对两个有序序列的归并。
+
+### 最大最小算法
+`max()` `min()` 返回两个或多个元素中最大元素和最小元素。
+
+`min_element()` `max_element()` 返回最小元素、最大元素对一个的迭代器。
+
+`std::clamp()` 是一个挺有用的消防法，如果给定值在指定范围内，返回给定值，如果比最小值还小，返回最小值，如果比最大值还大，那么返回最大值。
+
+### 并行算法
+大部分的算法可以指定执行策略（`execution policy`），是算法的第一个桉树，可以选择是否并发和是否向量化。在 `std::execution` 命名空间下提供以下四种策略。
+
+| EXECUTION POLICY TYPE | GLOBAL INSTANCE | DESCRIPTION |
+|--|--|--|
+| `sequenced_policy` | `seq` | The algorithm is not allowed to parallelize or vectorize its execution. |
+| `parallel_policy` | `par` | The algorithm is allowed to parallelize but not vectorize its execution. |
+| `parallel_unsequenced_policy` | `par_unseq` | The algorithm is allowed to parallelize and vectorize its execution. It's also allowed to migrate its execution across threads. |
+| `unsequenced_policy` | `unseq` | The algorithm is allowed to vectorize but not parallelize its execution. |
+
+这些并行需要自己处理竞争和死锁的问题。
+
+对于 `parallel_unsequenced_policy` 和 `unsequenced_policy`，要生成向量化代码，对回调函数有要求。比如不能分配内存，获取互斥锁，有锁的 `std::atomic` 等等。
+
+### 数据处理算法
+前面分析的 `accumulate()` 就是一种数据处理的算法。
+
+`iota()` 从指定数值开始，填充迭代器对内的元素，每填充一个调用 `operator++` 自增一次。
+
+`reduce()` 和 `accumulate()` 类似，不过支持执行策略，同时默认运算符使用 `std::plus`。
+
+`inner_product()` 计算两个序列的内积，默认算子是 `operator+` `operator*`。`transform_reduce()` 是类似的，支持执行策略，默认算子是 `std::plus` `std::multiplies`。
+
+### 扫描算法
+扫描算法也称为前缀和、部分和，有五种算法 `exclusive_scan()` `inclusive_scan()/partial_sum()` `transform_exclusive_scan()` `transform_inclusive_scan()`。
+
+这里的 inclusive 与 exclusive 的区别是后者输出的第一个元素仅仅是初始值，而前者是初始值和第一个元素的计算结果。
+
+### 受限算法
+`std::ranges` 提供了大部分上述算法的版本，基于概念实现的，报错信息更友好，参数是 `std::range` 而不是一对迭代器。
+
+C++23 开始提供了一些在 `std::ranges` 下独有的算法：`contains()` `contains_subrange()` `starts_with()` `ends_with()` `find_last()` `find_last_if()` `find_last_if_not()` `fold_left()` `fold_left_first()` `fold_right()` `fold_right_last()` `fold_left_with_iter()` `fold_left_first_with_iter()`。
