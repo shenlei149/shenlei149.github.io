@@ -2877,6 +2877,8 @@
       
         
       
+        
+      
     
     
     
@@ -3445,6 +3447,29 @@
   
   <span class="md-ellipsis">
     18 Customizing and Extending the Standard Library
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-Advanced-Templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    19 Advanced Templates
     
   </span>
   
@@ -23375,7 +23400,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 7, 2025 03:50:28 UTC">April 7, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 4, 2025 09:39:00 UTC">June 4, 2025</span>
   </span>
 
     
@@ -23470,7 +23495,7 @@
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
 </span></code></pre></div>
 什么时候使用 <code>std::move()</code> 返回呢？一个例子是返回成员变量但是不再需要使用时，可以使用替代拷贝以提升性能。</p>
-<p>本书还讨论了一个问题，就是有了左值引用和右值引用，有些函数，比如 <code>SetData</code> 这种成员函数，可能需要实现两个重载以实现性能最大化，但是两个重载不好维护。一个更好的写法是直接按值传递，此时只比性能最好的实现多一次额外移动。因此总是要拷贝且移动比拷贝开销小很多的时候，可以考虑按值传递，不过对于多态场景不使用。<a href="https://guozi149.me/ComputerScience/EffectiveModernCpp/ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied/">这里</a>有详细讨论。</p>
+<p>本书还讨论了一个问题，就是有了左值引用和右值引用，有些函数，比如 <code>SetData</code> 这种成员函数，可能需要实现两个重载以实现性能最大化，但是两个重载不好维护。一个更好的写法是直接按值传递，此时只比性能最好的实现多一次额外移动。因此总是要拷贝且移动比拷贝开销小很多的时候，可以考虑按值传递，不过对于多态场景不使用。<a href="../../EffectiveModernCpp/ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied/">这里</a>有详细讨论。</p>
 <p>移动构造和移动赋值和拷贝类似，也可以给一个默认实现 <code>=default</code> 或者删除 <code>=delete</code>。移动构造和移动赋值也可以由编译器自动合成，不过一旦自己声明了析构函数、拷贝构造或拷贝赋值，编译器就不再自动生成了。</p>
 <p>从上述分析可以看出，析构函数、拷贝和移动构造、拷贝和移动赋值这五个函数比较特殊，应该要么都提供自己的实现，要么都用默认实现，或者都删除。现代 C++ 最好的设计是都使用默认实现，比如上面的例子可以用 <code>std::vector</code> 自行管理内存。如果类有自己的资源需要管理，那么就需要为这五个函数提供自定义的版本。</p>
 <h2 id="_3">深入成员函数</h2>
