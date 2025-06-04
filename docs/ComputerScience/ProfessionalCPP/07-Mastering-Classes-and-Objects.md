@@ -96,7 +96,7 @@ else
 ```
 什么时候使用 `std::move()` 返回呢？一个例子是返回成员变量但是不再需要使用时，可以使用替代拷贝以提升性能。
 
-本书还讨论了一个问题，就是有了左值引用和右值引用，有些函数，比如 `SetData` 这种成员函数，可能需要实现两个重载以实现性能最大化，但是两个重载不好维护。一个更好的写法是直接按值传递，此时只比性能最好的实现多一次额外移动。因此总是要拷贝且移动比拷贝开销小很多的时候，可以考虑按值传递，不过对于多态场景不使用。[这里](https://guozi149.me/ComputerScience/EffectiveModernCpp/ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied/)有详细讨论。
+本书还讨论了一个问题，就是有了左值引用和右值引用，有些函数，比如 `SetData` 这种成员函数，可能需要实现两个重载以实现性能最大化，但是两个重载不好维护。一个更好的写法是直接按值传递，此时只比性能最好的实现多一次额外移动。因此总是要拷贝且移动比拷贝开销小很多的时候，可以考虑按值传递，不过对于多态场景不使用。[这里](../EffectiveModernCpp/ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md)有详细讨论。
 
 移动构造和移动赋值和拷贝类似，也可以给一个默认实现 `=default` 或者删除 `=delete`。移动构造和移动赋值也可以由编译器自动合成，不过一旦自己声明了析构函数、拷贝构造或拷贝赋值，编译器就不再自动生成了。
 

@@ -57,7 +57,7 @@ $$\sum_{k=1}^nk^2=\frac{n(n+1)(2n+1)}{6}$$
 $$\sum_{k=1}^nk^3=(\frac{n(n+1)}{2})^2$$
 使用数学归纳法证明这两个公式。
 
-高德纳的《具体数学》对求和有详细讨论，有很多有趣的方法：https://guozi149.me/TeachMyselfComputerScience/#/TAOCP/ConcreteMathematics/02-Sums/
+高德纳的《具体数学》对求和有详细讨论，有很多有趣的方法：参考[这里](../../../ComputerScience/TAOCP/ConcreteMathematics/02-Sums/)。
 
 ### 有限和的极限
 5.1 节告诉我们有限和估算会随着子区间变多变窄而更精确。下面这个例子求子区间无限窄无限多的时候估算的极限。
