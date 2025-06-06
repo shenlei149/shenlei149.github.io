@@ -12668,6 +12668,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      临界阈值
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      带阈值的逻辑斯谛增长
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -23262,6 +23280,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      临界阈值
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      带阈值的逻辑斯谛增长
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -23318,7 +23354,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 28, 2025 13:24:54 UTC">May 28, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 6, 2025 12:02:36 UTC">June 6, 2025</span>
   </span>
 
     
@@ -23374,6 +23410,64 @@
 <script type="math/tex">f'(y),f(y)</script> 符号相同，那么 <script type="math/tex">y''>0</script>，上凹（开口向上）。反之，<script type="math/tex">f'(y),f(y)</script> 符号不同，那么 <script type="math/tex">y''<0</script>，下凹。拐点可能出现在 <script type="math/tex">f'(y)=0</script> 处。</p>
 <p>在 <script type="math/tex">(7)</script> 中，当 <script type="math/tex">0<y<K/2</script> 时，<script type="math/tex">f</script> 是正的，且增长，因此 <script type="math/tex">f,f'</script> 都是正的，上凹。当 <script type="math/tex">y>K</script> 时也是上凹的，因为 <script type="math/tex">f,f'</script> 都是负的。在 <script type="math/tex">K/2<y<K</script> 上，下凹，因为 <script type="math/tex">f</script> 是正的，但是在减少，<script type="math/tex">f'</script> 是负的。拐点是 <script type="math/tex">y=K/2</script> 处。上图（b）画出了这些性质。</p>
 <p>当初始值位于 <script type="math/tex">K</script> 的下方时，<script type="math/tex">K</script> 是上界，趋于这个值但是不会超过。<script type="math/tex">K</script> 称为饱和度（<code>saturation level</code>）或自然承载量（<code>environmental carrying capacity</code>）。</p>
+<p>从上面的例子可以看出，非线性微分方程和线性方程差距很大，至少 <script type="math/tex">t\to\infty</script> 时是这样的。不管 <script type="math/tex">(7)</script> 中非线性项多小，当 <script type="math/tex">t</script> 充分大的时候，解都趋于某个有限值，而 <script type="math/tex">(1)</script> 的解会无限增长。</p>
+<p>上图（b）的定性分析对许多问题而言已经足够了，这些信息从 <script type="math/tex">f(y),y</script> 的关系可以得到而无需求解方程。不过如果想知道更细节的信息，就不得不求解 <script type="math/tex">(7)</script> 了。如果 <script type="math/tex">y\neq 0,y\neq K</script>，那么 <script type="math/tex">(7)</script> 可以写作
+<script type="math/tex; mode=display">\frac{dy}{(1-y/K)y}=rdt</script>
+部分分式法可以将左边改写成两个分数之和
+<script type="math/tex; mode=display">\bigg(\frac{1}{y}+\frac{1/K}{1-y/K}\bigg)dy=rdt</script>
+两边积分得到
+<script type="math/tex; mode=display">\ln|y|-\ln\bigg|1-\frac{y}{K}\bigg|=rt+c\tag{9}</script>
+其中 <script type="math/tex">c</script> 是任意常量且由 <script type="math/tex">y(0)=y_0</script> 决定。之前的分析结论有如果 <script type="math/tex">0<y_0<K</script>，那么 <script type="math/tex">y</script> 始终在这个区间。因此我们可以将绝对值号去掉，两边取自然指数得到
+<script type="math/tex; mode=display">\frac{y}{1-(y/K)}=Ce^{rt}\tag{10}</script>
+其中 <script type="math/tex">C=e^{c}</script>。为了满足初始条件 <script type="math/tex">y(0)=y_0</script>，那么 <script type="math/tex">C=y_0/(1-(y_0/K))</script>，因此
+<script type="math/tex; mode=display">y=\frac{y_0K}{y_0+(K-y_0)e^{-rt}}\tag{11}</script>
+如果 <script type="math/tex">y_0>K</script>，从 <script type="math/tex">(9)</script> 开始推导会有些许不同，但是 <script type="math/tex">(11)</script> 仍旧是解。如果 <script type="math/tex">y_0=0,y_0=K</script> 带入 <script type="math/tex">(11)</script> 可以得到两个平衡解 <script type="math/tex">y=0,y=K</script>。</p>
+<p>定性分析的性质都可以由解析式得到。如果 <script type="math/tex">y_0>0</script>，那么当 <script type="math/tex">t\to\infty</script> 时，根据 <script type="math/tex">(11)</script> 有
+<script type="math/tex; mode=display">\lim_{t\to\infty}y(t)=\frac{y_0K}{y_0}=K</script>
+趋于平衡解 <script type="math/tex">y=K</script>。因此我们称 <script type="math/tex">y=K</script> 是 <script type="math/tex">(7)</script> 的渐进稳定解（<code>asymptotically stable solution</code>）。如果 <script type="math/tex">r</script> 增加，那么趋于 <script type="math/tex">K</script> 的速度会变快。</p>
+<p>对于平衡解 <script type="math/tex">y=0</script> 而言，即使初始值非常接近零，也会随着 <script type="math/tex">t</script> 的增加趋于 <script type="math/tex">K</script> 而离开 <script type="math/tex">y=0</script>。因此 <script type="math/tex">y=0</script> 是非稳定平衡解（<code>unstable equilibrium solution</code>），这意味着如果保证解在 0 附近，那么必须保证初始值就是零。</p>
+<p>例 1 令 <script type="math/tex">y</script> 是随 <script type="math/tex">t</script> 变化的函数，表示生物的总质量，符合逻辑斯谛增长。常量 <script type="math/tex">r=0.71,K=80.5\times 10^6</script>。如果 <script type="math/tex">y_0=0.25K</script>，求两年后的 <script type="math/tex">y</script> 值。求满足 <script type="math/tex">y(\tau)=0.75K</script> 的 <script type="math/tex">\tau</script>。</p>
+<p>解：将 <script type="math/tex">(11)</script> 表示成 <script type="math/tex">y/K</script> 的形式
+<script type="math/tex; mode=display">\frac{y}{K}=\frac{y_0/K}{(y_0/K+(1-y_0/K)e^{-rt})}\tag{12}</script>
+将题目中的值带入得到
+<script type="math/tex; mode=display">\frac{y(2)}{K}=\frac{0.25}{0.25+0.75e^{-1.42}}\approx 0.5797</script>
+因此 <script type="math/tex">y(2)\approx 46.7\times 10^6</script>。</p>
+<p>将 <script type="math/tex">(12)</script> 写为求 <script type="math/tex">t</script> 的方程
+<script type="math/tex; mode=display">e^{-rt}=\frac{(y_0/K)(1-y/K)}{(y/K)(1-y_0/K)}</script>
+因此
+<script type="math/tex; mode=display">t=-\frac{1}{r}\ln\bigg(\frac{(y_0/K)(1-y/K)}{(y/K)(1-y_0/K)}\bigg)\tag{13}</script>
+带入数值得到
+<script type="math/tex; mode=display">\tau=-\frac{1}{0.71}\ln\frac{(0.25)(0.25)}{(0.75)(0.75)}=\frac{1}{0.71}\ln 9\approx 3.095</script>
+下图是不同初始条件下 <script type="math/tex">y/K</script> 随 <script type="math/tex">t</script> 变化的解。初始条件 <script type="math/tex">y_0=0.25K</script> 如绿色曲线所示。</p>
+<p><img alt="" src="../050.040.png" /></p>
+<h3 id="_2">临界阈值</h3>
+<p>下面分析方程
+<script type="math/tex; mode=display">\frac{dy}{dt}=-r\bigg(1-\frac{y}{T}\bigg)y\tag{14}</script>
+其中 <script type="math/tex">r,T</script> 是常量。和 <script type="math/tex">(7)</script> 相比，除了 <script type="math/tex">T</script> 替换了 <script type="math/tex">K</script> 之外，右边 <script type="math/tex">r</script> 前多了一个负号。不过，<script type="math/tex">(14)</script> 的解的性质与 <script type="math/tex">(7)</script> 差距相当大。</p>
+<p>对于 <script type="math/tex">(14)</script>，<script type="math/tex">f(y),y</script> 的关系如下图所示。与 <script type="math/tex">y</script> 轴的交点是 <script type="math/tex">y=0,y=T</script>，对应着两个平衡解。如果 <script type="math/tex">0<y<T</script>，<script type="math/tex">dy/dt<0</script>，<script type="math/tex">y</script> 是正数且随着 <script type="math/tex">t</script> 的增加而减少，那么 <script type="math/tex">y=0</script> 是渐进稳定平衡解。如果 <script type="math/tex">y>T</script>，<script type="math/tex">dy/dt>0</script>，因此 <script type="math/tex">y</script> 是正数且随着 <script type="math/tex">t</script> 的增加而增加，那么 <script type="math/tex">y=T</script> 是非稳定平衡解。</p>
+<p><img alt="" src="../050.050.png" /></p>
+<p>下面分析解的凸凹性。如 <script type="math/tex">(8)</script>，这依赖于 <script type="math/tex">y''=f'(y)f(y)</script> 的符号。在 <script type="math/tex">0<y<T/2</script> 这个区间上，<script type="math/tex">f(y)</script> 是负数，<script type="math/tex">f'(y)</script> 是负数，因此上凹，在 <script type="math/tex">T/2<y<T</script> 这个区间上，<script type="math/tex">f(y)</script> 是负数，<script type="math/tex">f'(y)</script> 是整数，因此下凹。对于 <script type="math/tex">y>T</script>，两者都是正数，因此也上凹。</p>
+<p>下图的（a）展示了临界点以及解是递增还是递减的。</p>
+<p><img alt="" src="../050.060.png" /></p>
+<p>上图（b）是 <script type="math/tex">(14)</script> 的解的草图。首先给出红色的 <script type="math/tex">y=0,y=T</script> 两个平衡解。递增和递减、包括凸凹性都在上图有所反映。不管 <script type="math/tex">r,T</script> 是多少，<script type="math/tex">y</script> 要么无限增长，要么趋于零，这仅仅依赖于初始值是大于 <script type="math/tex">T</script> 还是小于 <script type="math/tex">T</script>。因此 <script type="math/tex">T</script> 是阈值水平（<code>threshold level</code>）。</p>
+<p>下面分析解析解。将 <script type="math/tex">T</script> 替换 <script type="math/tex">K</script>，<script type="math/tex">-r</script> 替换 <script type="math/tex">r</script>，那么 <script type="math/tex">(7)</script> 的解 <script type="math/tex">(11)</script> 就是 <script type="math/tex">(14)</script> 的解
+<script type="math/tex; mode=display">y=\frac{y_0T}{y_0+(T-y_0)e^{rt}}\tag{15}</script>
+如果 <script type="math/tex">0<y_0<T</script>，当 <script type="math/tex">t\to\infty</script> 时，<script type="math/tex">y\to 0</script>。如果 <script type="math/tex">y_0>T</script>，<script type="math/tex">t</script> 为某些值的时候，<script type="math/tex">(15)</script> 右边的分母为零，我们用 <script type="math/tex">t^*</script> 表示，那么
+<script type="math/tex; mode=display">y_0-(y_0-T)e^{rt^*}=0</script>
+易得
+<script type="math/tex; mode=display">t^*=\frac{1}{r}\ln\frac{y_0}{y_0-T}\tag{16}</script>
+也就是说，如果 <script type="math/tex">y_0>T</script>，<script type="math/tex">y</script> 的图像渐进与直线 <script type="math/tex">t=t^*</script>，这一点是上面定性分析没有得到的结论，显式的解会给出额外的定性信息，以及定量信息。</p>
+<h3 id="_3">带阈值的逻辑斯谛增长</h3>
+<p>将逻辑斯谛方程与阈值相结合，得到新的模型
+<script type="math/tex; mode=display">\frac{dy}{dt}=-r\bigg(1-\frac{y}{T}\bigg)\bigg(1-\frac{y}{K}\bigg)y\tag{17}</script>
+其中 <script type="math/tex">r>0,0<T<K</script>。</p>
+<p>下面是 <script type="math/tex">f(y),y</script> 的关系如下图所示。三个临界点 <script type="math/tex">y=0,y=T,y=K</script>，是三个平衡解。<script type="math/tex">T<y<K</script> 时，<script type="math/tex">dy/dt>0</script>，<script type="math/tex">y</script> 递增，<script type="math/tex">y<T</script> 和 <script type="math/tex">y>K</script> 时，<script type="math/tex">y</script> 递减。因此 <script type="math/tex">y=0,y=K</script> 是渐进稳定平衡解，<script type="math/tex">y=T</script> 是非稳定平衡解。</p>
+<p><img alt="" src="../050.070.png" /></p>
+<p>凸凹性的分析类似，略过。拐点是上图中局部最大点和局部最小点 <script type="math/tex">y_1,y_2</script>，将 <script type="math/tex">(17)</script> 的右边求导后令其等于零可以得到
+<script type="math/tex; mode=display">y_{1,2}=(K+T\pm\sqrt{K^2-KT+T^2})/3\tag{18}</script>
+</p>
+<p>下图是 <script type="math/tex">(17)</script> 的解的草图。</p>
+<p><img alt="" src="../050.080.png" /></p>
 
   
 
