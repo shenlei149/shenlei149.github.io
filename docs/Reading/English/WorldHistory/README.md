@@ -39,3 +39,34 @@ Within each Part, material has been updated, revised, and added. Examples of som
 
 * Aryan: belonging or relating to a group of white people with pale hair and blue eyes, believed by Nazis to be better than other groups.（尤指浅色头发、蓝眼睛、被纳粹认为是最优等人种的）雅利安人的，北欧日耳曼人的。
 * Indus valley: 印度河谷。
+
+In updating the book to cover the events of contemporary history, we have added new materials to reflect new developments. These include: Breakthroughs in genetically modified crops; new ideas about the morality of using animals, especially chimpanzees, in research; coverage of the world economic collapse of 2008 and the nature of the recovery that began about 2012/13; discussion of the so-called Arab Spring; information on the Naxalite revolts in the tribal areas of India; material on globalization; updates in ecological technology and reliance on petrofuels; material on WikiLeaks, Julian Assange, Bradley Manning, and Edward Snowden; the public humanitarian activism of rock stars such as Bono; and the significance of the early influence of Pope Francis I on Roman Catholic Church.
+
+* chimpanzee: a small, very intelligent African ape with black or brown fur. 黑猩猩。
+* activism: the use of direct and noticeable action to achieve a result, usually a political or social one.（通常指为达到政治或社会目的而采取各种手段的）激进主义，行动主义。
+
+### Chapter-by-Chapter Revisions
+Chapter One, on human origins, substantially modifies and adds to the discussion of the DNA genetic record.
+
+Chapter Two expands coverage of agricultural villages. Material has been added on family life, village life, treatment of graves, and the role of women. The discussion of Hammurabi's Code has been enhanced.
+
+Chapter Three adds material on recent archaeological discoveries at Huanbei and in the Anyang region of China. Coverage has been added on Eurasian immigrants to the New World and on the peoples in and urbanization of the Andes Mountains. A new excerpt from the *Popol Vuh* has been included.
+
+Chapter Six includes new information on Theodora, wife of Emperor Justinian.
+
+Chapter Ten includes updated scholarship on the history of the Jewish people material on early Christian attitudes to sexuality, beginning with Jesus' early follower Paul, and leading to the later ban on priests marrying.
+
+Chapter Eleven's section on the Crusades has been expanded and updated to reflect recent scholarship.
+
+* Crusades: one of the religious wars (= crusades) fought by Christians, mostly against Muslims in Palestine, in the 11th, 12th, 13th, and 17th centuries. 十字军东征。
+
+Chapter Twelve has been reorganized chronologically and geographically, and now moves from the general introduction to the specifics of trade in the Indian Ocean and Asia, then to Africa, and finally to the Americas. The section on the Mongol Empire has been revised and expanded, and indicates the reasons that many historians now call the Mongol Empire, and its trade routes, the marker of the beginning of the modern world.
+
+Chapter Fourteen adds material on the inflation caused by the tans-Pacific silver trade. A new section discusses the Thirty Years War. Coverage has been added of the St. Bartholomew's Day Massacre and Cardinal Richelieu. Material has been added on the rule and achievements of Catherine the Great. The section on the Ottoman Empire has been expanded, and material has been added on the *millet* system.
+
+* millet: a plant that is similar to grass, or the small seeds from this plant that can be eaten. 黍，稷；小米，粟。
+
+... other changes ...
+
+## Special Features
+* Learning Objectives now appear at the beginning of each chapter, and are repeated in question from under the relevant section headings and in tabs down the side of each page as reminders, before being answered at the end of each chapter, to encourage students to consider their own reading of the chapter.
