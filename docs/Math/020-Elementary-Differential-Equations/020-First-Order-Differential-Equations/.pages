@@ -6,3 +6,4 @@ nav:
     - 040 线性和非线性微分方程的差异 Differences Between Linear and Nonlinear Differential Equations: 040-Differences-Between-Linear-and-Nonlinear-Differential-Equations.md
     - 050 自治微分方程和种群动态 Autonomous Differential Equations and Population Dynamics: 050-Autonomous-Differential-Equations-and-Population-Dynamics.md
     - 060 恰当微分方程和积分因子 Exact Differential Equations and Integrating Factors: 060-Exact-Differential-Equations-and-Integrating-Factors.md
+    - "070 数值近似: 欧拉法 Numerical Approximations: Euler's Method": 
