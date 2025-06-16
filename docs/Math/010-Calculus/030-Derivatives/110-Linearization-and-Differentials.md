@@ -25,7 +25,7 @@ $$L(x)=f(a)+f'(a)(x-a)=1+\frac{x}{2}$$
 
 下面的表展示了$\sqrt{1+x}\approx 1+(x/2)$的在0附近的精确度，如果离0很远的话，那么就不准确了。比如$x=2$，线性化的近似是2，实际值是$\sqrt{3}$，准确度差很远。
 
-| Approximation | True value | True value − approximation |
+| Approximation | True value | True value - approximation |
 |--|--|--|
 | $\sqrt{1.005}\approx 1+\frac{0.005}{2}=1.0025$ | $1.002497$ | $0.000003 < 10^{-5}$ |
 | $\sqrt{1.05}\approx 1+\frac{0.05}{2}=1.025$ | $1.024695$ | $0.000305 < 10^{-3}$ |

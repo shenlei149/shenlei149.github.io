@@ -13,15 +13,15 @@ $$(7-1)! + (7-2)! + (7-3)! + (7-4)! + (7-5)! = 6! + 5! + 4! + 3! + 2! = 720+120+
 根据 [Wilson's theorem](https://en.wikipedia.org/wiki/Wilson%27s_theorem "Wilson's theorem") 可以得到下面等式：
 $$
 \begin{aligned}
-(p−1)!&\equiv −1\operatorname{mod} (p)\\
-(p−2)!&\equiv (p−1)!(p−1)^{−1}\equiv 1\operatorname{mod} (p)\\
-(p−3)!&\equiv (p−2)!(p−2)^{−1}\equiv (p−2)^{−1}\operatorname{mod} (p)\\
-(p−4)!&\equiv (p−3)!(p−3)^{−1}\equiv (p−2)^{−1} \times (p−3)^{−1}\operatorname{mod} (p)\\
-(p−5)!&\equiv (p−4)!(p−4)^{−1}\equiv (p−2)^{−1} \times (p−3)^{−1} \times (p−4)^{−1}\operatorname{mod} (p)
+(p-1)!&\equiv -1\operatorname{mod} (p)\\
+(p-2)!&\equiv (p-1)!(p-1)^{-1}\equiv 1\operatorname{mod} (p)\\
+(p-3)!&\equiv (p-2)!(p-2)^{-1}\equiv (p-2)^{-1}\operatorname{mod} (p)\\
+(p-4)!&\equiv (p-3)!(p-3)^{-1}\equiv (p-2)^{-1} \times (p-3)^{-1}\operatorname{mod} (p)\\
+(p-5)!&\equiv (p-4)!(p-4)^{-1}\equiv (p-2)^{-1} \times (p-3)^{-1} \times (p-4)^{-1}\operatorname{mod} (p)
 \end{aligned}
 $$
 
-$(p−2)^{−1} (p−3)^{−1} (p−4)^{−1}$ 这玩意如何整成整数呢？
+$(p-2)^{-1} (p-3)^{-1} (p-4)^{-1}$ 这玩意如何整成整数呢？
 
 下面给出逆元的定义：
 

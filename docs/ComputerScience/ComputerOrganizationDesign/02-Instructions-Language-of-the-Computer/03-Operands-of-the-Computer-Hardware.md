@@ -16,12 +16,12 @@ RISC-V 中有 32 个寄存器。算术指令的操作数必须是这些寄存器
 
 下面给出一个例子。
 ```c
-f = (g + h) − (i + j);
+f = (g + h) - (i + j);
 
 // 假定这些变量对应的寄存器分别是 x19, x20, x21, x22, x23，那么对应的指令如下
 add x5, x20, x21    // register x5 contains g + h
 add x6, x22, x23    // register x6 contains i + j
-sub x19, x5, x6     // f gets x5 – x6, which is (g + h) − (i + j)
+sub x19, x5, x6     // f gets x5 – x6, which is (g + h) - (i + j)
 ```
 
 ### Memory Operands

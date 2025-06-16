@@ -11,7 +11,7 @@ bne rs1, rs2, L1
 下面看一个完整的例子。
 ```c
 // 假定 f, g, h, i, j 这些变量分别在 x19 到 x23 这些寄存器
-if (i == j) f = g + h; else f = g − h;
+if (i == j) f = g + h; else f = g - h;
 
 // 首先需要检测 i 和 j 是否相等（beq）。不过一般情况，测试不相等然后跳转到其他位置，下一行紧跟着 if 内的语句更高效
 bne x22, x23, Else      // go to Else if i != j
@@ -23,7 +23,7 @@ add x19, x20, x21       // f = g + h (skipped if i != j)
 beq x0, x0, Exit        // if 0 == 0, go to Exit
 
 // 现在处理 else 部分。我们需要在执行前面加上 Else 标签，同时，最后面需要加上 Exit 表示整个 if-else 代码块的结束。
-Else: sub x19, x20, x21     // f = g − h (skipped if i == j)
+Else: sub x19, x20, x21     // f = g - h (skipped if i == j)
 Exit:
 ```
 汇编器使得汇编语言不必总是无聊的计算分支的地址。12 小节会解释这一点。

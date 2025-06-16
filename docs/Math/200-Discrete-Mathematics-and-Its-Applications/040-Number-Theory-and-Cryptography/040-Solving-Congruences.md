@@ -124,7 +124,7 @@ $$941094y\equiv 0(\operatorname{mod}95)$$
 
 整个计算过程中，只有最后恢复整数的时候，涉及了大整数运算。
 
-实践上我们会使用形如 $2^k-1$ 的整数集合，因为 1）计算机计算模更容易；2）更容易寻找互质集合。TODO he second reason is a consequence of the fact that gcd(2a − 1, 2b − 1) = 2gcd(a, b) − 1, as Exercise 37 in Section 4.3 shows.
+实践上我们会使用形如 $2^k-1$ 的整数集合，因为 1）计算机计算模更容易；2）更容易寻找互质集合。TODO he second reason is a consequence of the fact that gcd(2a - 1, 2b - 1) = 2gcd(a, b) - 1, as Exercise 37 in Section 4.3 shows.
 
 比如计算机可以计算 $2^{35}$ 内下的数，根据 TODO Exercise 38 in Section 4.3 shows，$2^{35}-1,2^{34}-1,2^{33}-1,2^{31}-1,2^{29}-1,2^{23}-1$ 是两两互斥的数，那么我们可以容易地计算 $2^{182}$ 这么大的数。
 

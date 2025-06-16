@@ -69,10 +69,10 @@ $$c_2=1415^{13}\operatorname{mod}2537=2182$$
 
 ### RSA Decryption
 使用 $e$ 模 $(p-1)(q-1)$ 的逆 $d$ 很容易用密文恢复信息。因为 $de\equiv 1(\operatorname{mod}(p-1)(q-1))$，所以存在一个整数 $k$ 使得 $de=1+k(p-1)(q-1)$，那么
-$$c^d \equiv (m^e)^d = (m^d)^e = m^{1+k(p−1)(q−1)} (\operatorname{mod} n)$$
+$$c^d \equiv (m^e)^d = (m^d)^e = m^{1+k(p-1)(q-1)} (\operatorname{mod} n)$$
 根据费马小定理和（TODO Exercise 28）有 $m^{p-1}\equiv 1(\operatorname{mod}p),m^{q-1}\equiv 1(\operatorname{mod})q$，所以
-$$c^d \equiv m \cdot (m^{p−1})^{k(q−1)} \equiv m \cdot 1 = m (\operatorname{mod} p)$$
-$$c^d \equiv m \cdot (m^{1−1})^{k(p−1)} \equiv m \cdot 1 = m (\operatorname{mod} q)$$
+$$c^d \equiv m \cdot (m^{p-1})^{k(q-1)} \equiv m \cdot 1 = m (\operatorname{mod} p)$$
+$$c^d \equiv m \cdot (m^{1-1})^{k(p-1)} \equiv m \cdot 1 = m (\operatorname{mod} q)$$
 又因为 $\gcd(p,q)=1$，根据中国剩余定理得到
 $$c^d\equiv m(\operatorname{mod}pq)$$
 

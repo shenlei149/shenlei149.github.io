@@ -242,12 +242,12 @@ std::ranges::sort(persons, {}, &Person::GetFirstName);
 | `enumerate_view` <br> `views::enumerate` | Creates a view where each element represents the position and value of all elements of an underlying sequence. |
 | `zip_view` <br> `views::zip` | Creates a view consisting of tuples of reference to corresponding elements of all given views. |
 | `zip_transform_view` <br> `views::zip_transform` | Creates a view whose `i`th element is the result of applying a given callable to the `i`th elements of all given views. |
-| `adjacent_view` <br> `views::adjacent` | For a given `n`, creates a view whose `i`th element is a tuple of references to the `i`th through `(i + n − 1)`th elements of a given view. |
-| `adjacent_transform_view` <br> `views::adjacent_transform` | For a given `n`, creates a view whose `i`th element is the result of applying a given callable to the `i`th through `(i + n − 1)`th elements of a given view. |
+| `adjacent_view` <br> `views::adjacent` | For a given `n`, creates a view whose `i`th element is a tuple of references to the `i`th through `(i + n - 1)`th elements of a given view. |
+| `adjacent_transform_view` <br> `views::adjacent_transform` | For a given `n`, creates a view whose `i`th element is the result of applying a given callable to the `i`th through `(i + n - 1)`th elements of a given view. |
 | `views::pairwise` <br> `views::pairwise_transform` | Helper types representing `views::adjacent<2>` and `views::adjacent_transform<2>` respectively. |
 | `join_with_view` <br> `views::join_with` | Given a delimiter, flattens the elements of a given view, inserting every element of the delimiter in between elements of the view. The delimiter can be a single element or a view of elements. |
 | `stride_view` <br> `views::stride` | For a given `n`, creates a view of an underlying sequence, advancing over `n` elements at a time, instead of one by one. |
-| `slide_view` <br> `views::slide` | For a given `n`, creates a view whose `i`th element is a view over the `i`th through `(i + n − 1)`th elements of the original view. Similar to `views::adjacent`, but the window size, `n`, is a runtime parameter for slide, while it's a template argument for adjacent. |
+| `slide_view` <br> `views::slide` | For a given `n`, creates a view whose `i`th element is a view over the `i`th through `(i + n - 1)`th elements of the original view. Similar to `views::adjacent`, but the window size, `n`, is a runtime parameter for slide, while it's a template argument for adjacent. |
 | `chunk_view` <br> `views::chunk` | For a given `n`, creates a range of views that are `n`-sized nonoverlapping successive chunks of the elements of the original view, in order. |
 | `chunk_by_view` <br> `views::chunk_by` | Splits a given view into subranges between each pair of adjacent elements for which a given predicate returns `false`. |
 | `cartesian_product_view` <br> `views::cartesian_product` | Given a number of ranges, `n`, creates a view of tuples calculated by the `n`-ary cartesian product of the provided ranges. |

@@ -1,6 +1,6 @@
 [Problem 504](https://projecteuler.net/problem=504 "Problem 504 - Project Euler")
 
-四边形 ABCD，各点位于四个坐标轴上，坐标分别是 $A(a, 0), B(0, b), C(−c, 0), D(0, −d)$，其中 $1 \leq a, b, c, d \leq m$ 并且 $a, b, c, d, m$ 都是整数。
+四边形 ABCD，各点位于四个坐标轴上，坐标分别是 $A(a, 0), B(0, b), C(-c, 0), D(0, -d)$，其中 $1 \leq a, b, c, d \leq m$ 并且 $a, b, c, d, m$ 都是整数。
 
 比如 $m = 4$, 四边形 ABCD 共有 256 种情况。256 个四边形当中，有 42 四边形精确地包含平方个数目的网格点（坐标为整数）。
 
