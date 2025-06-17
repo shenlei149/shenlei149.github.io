@@ -70,3 +70,19 @@ Chapter Fourteen adds material on the inflation caused by the tans-Pacific silve
 
 ## Special Features
 * Learning Objectives now appear at the beginning of each chapter, and are repeated in question from under the relevant section headings and in tabs down the side of each page as reminders, before being answered at the end of each chapter, to encourage students to consider their own reading of the chapter.
+* The Introduction to the book describes the key themes of the text and the methods historians use to practice their craft.
+* The introductions to each of the eight Parts now include more specific key references to the chapters that follow.
+* MyHistoryLab links, to primary sources, videos, images, and maps, appear throughout the chapters.
+* Key Terms are listed at the each chapter for easy reference, and collected in the Glossary at the end of the book.
+* Turning Point essays, some completely new for this edition, illustrate visually the connections between one Part and the next. In some cases, the Turning Points tell their own story as well, notably in the bridge into hte twenty-first century that uses the modern Olympic Games to illustrate and introduce many of the issues that are to follow. Turning Point Questions ask students to consider the material that has been presented.
+* The How Do We Know? features help the student to understand how historians use evidence, both textual and visual, to interpret the past.
+* This edition also continues the emphasis on the use of primary sources, for this is the kind of material from which the historical record is argued and fashioned. Most chapters have tow or more Source boxes, which have been colored purple in this edition to stand out.
+* The Suggested Readings for each chapter have been thoroughly revised, updated, and expanded to reflect current scholarship. Films, videos, and online assets have been added. Each item in the bibliography is annotated to direct students with their reading.
+* Each chapter text ends with a discussion of legacies to the future, namely, What Difference Does It Make?
+* Each chapter concludes with a Chapter Review, where the reader is given answers to the Learning Objectives, essentially a summary of the most important material covered in each main heading.
+
+### New Layout and Design
+Readers will notice cleaner design of box features. The format has reverted to the original taller page size so that the text and pictures have a little more room to breathe.
+
+### Maps and  Illustrations
+To aid the student, extensive, clear, and informative charts and maps represent information graphically and geographically. A wide range of illustrations, most in color, supplements the written word. For the fifth edition we have added more than 50 new illustrations.
