@@ -2874,6 +2874,8 @@
       
         
       
+        
+      
     
     
     
@@ -3390,6 +3392,29 @@
   
   <span class="md-ellipsis">
     20 Multithreaded Programming with C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/21-Writing-Efficient-C%2B%2B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    21 Writing Efficient C++
     
   </span>
   
@@ -12486,6 +12511,8 @@
       
         
       
+        
+      
     
     
     
@@ -12657,6 +12684,29 @@
   
   <span class="md-ellipsis">
     060 恰当微分方程和积分因子 Exact Differential Equations and Integrating Factors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../020-Elementary-Differential-Equations/020-First-Order-Differential-Equations/070-Numerical-Approximations-Euler-Method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    070 数值近似: 欧拉法 Numerical Approximations: Euler's Method
     
   </span>
   
@@ -23458,7 +23508,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2024 02:01:04 UTC">May 8, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 16, 2025 12:38:36 UTC">June 16, 2025</span>
   </span>
 
     
@@ -23584,7 +23634,7 @@
 <p>有没有一个等差数列，都是质数呢？1930 年 Paul Erdos 提出一个假设，给定任意大于 2 的整数 <script type="math/tex">n</script>，都有一个长度为 <script type="math/tex">n</script> 的等差数列，其每个数都是质数。 Ben Green 和 Terence Tao（陶哲轩）在 2006 年给出了证明。</p>
 <h3 id="conjectures-and-open-problems-about-primes">Conjectures and Open Problems About Primes</h3>
 <p>数论中包含很多的猜想。</p>
-<p>是否存在一个多项式 <script type="math/tex">f(n)</script> 的系数都是整数，每个 <script type="math/tex">f(n)</script> 都是质数呢？每个研究这个猜想的人都会遇到 <script type="math/tex">f(n) = n^2 − n + 41</script> 这个多项式，但是当 <script type="math/tex">n=41</script> 时，其结果是合数。TODO 另一部分证明。See Exercise 23 in the Supplementary Exercises</p>
+<p>是否存在一个多项式 <script type="math/tex">f(n)</script> 的系数都是整数，每个 <script type="math/tex">f(n)</script> 都是质数呢？每个研究这个猜想的人都会遇到 <script type="math/tex">f(n) = n^2 - n + 41</script> 这个多项式，但是当 <script type="math/tex">n=41</script> 时，其结果是合数。TODO 另一部分证明。See Exercise 23 in the Supplementary Exercises</p>
 <p>哥德巴赫猜想（<code>Goldbach's Conjecture</code>）是数论中最著名的猜想。哥德巴赫说每一个大于 5 的奇数，都能写成三个质数之和。欧拉说这个等价于每一个大于 2 的偶数，都能写成两个质数之和。</p>
 <p>TODO 证明 Exercise 21 in the Supplementary Exercises</p>
 <p>截止 2018 年，计算机检查了 <script type="math/tex">4\cdot 10^{18}</script> 以内的数都是正确的。陈景润在 1966 证明了一个质数和另一个数之和，后者要么是质数，要么是两个质数之积。</p>
@@ -23644,7 +23694,7 @@
 <p>TODO Exercise 36 in Section 5.2 and [Ro10] for proof</p>
 <p>这里介绍两个求解的方法。第一个需要正向应用一遍欧几里得算法，然后反向处理一遍，具体参考下面的例子。第二个方法只需要正向一遍，被称为扩展欧几里得算法（<code>extended Euclidean algorithm</code>）。</p>
 <p>扩展欧几里得算法初始时令 <script type="math/tex">s_0=1,s_1=0,t_0=0,t_1=1</script>，迭代公式是
-<script type="math/tex; mode=display">s_j = s_{j−2} − q_{j−1}s_{j−1}, t_j = t_{j−2} − q_{j−1}t_{j−1}</script>
+<script type="math/tex; mode=display">s_j = s_{j-2} - q_{j-1}s_{j-1}, t_j = t_{j-2} - q_{j-1}t_{j-1}</script>
 其中 <script type="math/tex">j=2,3,4,\cdots,n</script>，<script type="math/tex">q_j</script> 是欧几里得算法中每一步的商。</p>
 <p>TODO see Exercise 44 in Section 5.2, or see [Ro10]</p>
 <p>例 使用第一种方法将 <script type="math/tex">\gcd(252,198)=18</script> 表示成 252 和 198 的线性组合。</p>
@@ -23676,11 +23726,11 @@
 </p>
 <p>例 使用扩展欧几里得算法将 <script type="math/tex">\gcd(252,198)=18</script> 表示成 252 和 198 的线性组合。</p>
 <p>解：从上个例子可知，计算 <script type="math/tex">\gcd(252,198)=18</script> 时每次的商是 <script type="math/tex">q_1 = 1, q_2 = 3, q_3 = 1, q_4 = 2</script>，这里不再计算。令 <script type="math/tex">s_0 = 1, s_1 = 0, t_0 = 0, t_1 = 1</script>，应用
-<script type="math/tex; mode=display">s_j = s_{j−2} − q_{j−1}s_{j−1}, t_j = t_{j−2} − q_{j−1}t_{j−1}</script>
+<script type="math/tex; mode=display">s_j = s_{j-2} - q_{j-1}s_{j-1}, t_j = t_{j-2} - q_{j-1}t_{j-1}</script>
 进行迭代。
-<script type="math/tex; mode=display">s_2 = s_0 − s_1q_1 = 1 − 0 \cdot 1 = 1, t_2 = t_0 − t_1q_1 = 0 − 1 \cdot 1 = −1</script>
-<script type="math/tex; mode=display">s_3 = s_1 − s_2q_2 = 0 − 1 \cdot 3 = −3, t_3 = t_1 − t_2q_2 = 1 − (−1)3 = 4</script>
-<script type="math/tex; mode=display">s_4 = s_2 − s_3q_3 = 1 − (−3) \cdot 1 = 4, t_4 = t_2 − t_3q_3 = −1 − 4 \cdot 1 = −5</script>
+<script type="math/tex; mode=display">s_2 = s_0 - s_1q_1 = 1 - 0 \cdot 1 = 1, t_2 = t_0 - t_1q_1 = 0 - 1 \cdot 1 = -1</script>
+<script type="math/tex; mode=display">s_3 = s_1 - s_2q_2 = 0 - 1 \cdot 3 = -3, t_3 = t_1 - t_2q_2 = 1 - (-1)3 = 4</script>
+<script type="math/tex; mode=display">s_4 = s_2 - s_3q_3 = 1 - (-3) \cdot 1 = 4, t_4 = t_2 - t_3q_3 = -1 - 4 \cdot 1 = -5</script>
 所以
 <script type="math/tex; mode=display">\gcd(252,198)=18=4\cdot 252-198\cdot 5</script>
 扩展欧几里得算法的计算过程可以总结为下表：</p>
@@ -23736,7 +23786,7 @@
 <td>1</td>
 <td>18</td>
 <td>1</td>
-<td>−1</td>
+<td>-1</td>
 </tr>
 <tr>
 <td>3</td>
@@ -23744,7 +23794,7 @@
 <td>18</td>
 <td>2</td>
 <td>0</td>
-<td>−3</td>
+<td>-3</td>
 <td>4</td>
 </tr>
 <tr>
@@ -23754,7 +23804,7 @@
 <td></td>
 <td></td>
 <td>4</td>
-<td>−5</td>
+<td>-5</td>
 </tr>
 </tbody>
 </table>

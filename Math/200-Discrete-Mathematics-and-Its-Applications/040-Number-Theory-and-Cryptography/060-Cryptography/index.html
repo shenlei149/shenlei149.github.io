@@ -2874,6 +2874,8 @@
       
         
       
+        
+      
     
     
     
@@ -3390,6 +3392,29 @@
   
   <span class="md-ellipsis">
     20 Multithreaded Programming with C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/ProfessionalCPP/21-Writing-Efficient-C%2B%2B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    21 Writing Efficient C++
     
   </span>
   
@@ -12486,6 +12511,8 @@
       
         
       
+        
+      
     
     
     
@@ -12657,6 +12684,29 @@
   
   <span class="md-ellipsis">
     060 恰当微分方程和积分因子 Exact Differential Equations and Integrating Factors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../020-Elementary-Differential-Equations/020-First-Order-Differential-Equations/070-Numerical-Approximations-Euler-Method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    070 数值近似: 欧拉法 Numerical Approximations: Euler's Method
     
   </span>
   
@@ -23476,7 +23526,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2024 02:01:04 UTC">May 8, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 16, 2025 12:38:36 UTC">June 16, 2025</span>
   </span>
 
     
@@ -23547,10 +23597,10 @@ T 9%, A 8%, O 8%, I 7%, N 7%, S 7%, H 6%, R 6%。为了破解密文，可以先�
 </p>
 <h3 id="rsa-decryption">RSA Decryption</h3>
 <p>使用 <script type="math/tex">e</script> 模 <script type="math/tex">(p-1)(q-1)</script> 的逆 <script type="math/tex">d</script> 很容易用密文恢复信息。因为 <script type="math/tex">de\equiv 1(\operatorname{mod}(p-1)(q-1))</script>，所以存在一个整数 <script type="math/tex">k</script> 使得 <script type="math/tex">de=1+k(p-1)(q-1)</script>，那么
-<script type="math/tex; mode=display">c^d \equiv (m^e)^d = (m^d)^e = m^{1+k(p−1)(q−1)} (\operatorname{mod} n)</script>
+<script type="math/tex; mode=display">c^d \equiv (m^e)^d = (m^d)^e = m^{1+k(p-1)(q-1)} (\operatorname{mod} n)</script>
 根据费马小定理和（TODO Exercise 28）有 <script type="math/tex">m^{p-1}\equiv 1(\operatorname{mod}p),m^{q-1}\equiv 1(\operatorname{mod})q</script>，所以
-<script type="math/tex; mode=display">c^d \equiv m \cdot (m^{p−1})^{k(q−1)} \equiv m \cdot 1 = m (\operatorname{mod} p)</script>
-<script type="math/tex; mode=display">c^d \equiv m \cdot (m^{1−1})^{k(p−1)} \equiv m \cdot 1 = m (\operatorname{mod} q)</script>
+<script type="math/tex; mode=display">c^d \equiv m \cdot (m^{p-1})^{k(q-1)} \equiv m \cdot 1 = m (\operatorname{mod} p)</script>
+<script type="math/tex; mode=display">c^d \equiv m \cdot (m^{1-1})^{k(p-1)} \equiv m \cdot 1 = m (\operatorname{mod} q)</script>
 又因为 <script type="math/tex">\gcd(p,q)=1</script>，根据中国剩余定理得到
 <script type="math/tex; mode=display">c^d\equiv m(\operatorname{mod}pq)</script>
 </p>
