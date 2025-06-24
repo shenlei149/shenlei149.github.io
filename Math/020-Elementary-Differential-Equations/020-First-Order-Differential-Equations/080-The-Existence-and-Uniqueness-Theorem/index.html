@@ -18332,6 +18332,8 @@
       
         
       
+        
+      
     
     
     
@@ -21366,6 +21368,82 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_18" id="__nav_4_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    901 950
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_18">
+            <span class="md-nav__icon md-icon"></span>
+            901 950
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectEuler/901-950/932-2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    932 2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -23455,7 +23533,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 20, 2025 11:57:39 UTC">June 20, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 24, 2025 09:50:42 UTC">June 24, 2025</span>
   </span>
 
     
@@ -23554,6 +23632,54 @@
 对上式从 0 到 <script type="math/tex">t</script> 进行积分并结合 <script type="math/tex">(19)</script> 可以得到
 <script type="math/tex; mode=display">e^{-At}U(t)\leq 0,0\leq t\leq A/2</script>
 那么在 <script type="math/tex">0\leq t\leq A/2</script> 上，<script type="math/tex">U(t)\leq 0</script>。结合 <script type="math/tex">(20)</script>，那么对于 <script type="math/tex">t\geq 0</script>，<script type="math/tex">U(t)</script> 必须等于零。那么 <script type="math/tex">U'(t)=0</script>，因此 <script type="math/tex">\phi(t)=\Psi(t),t\geq 0</script>。这与假设相反。因此初值问题在 <script type="math/tex">t\geq 0</script> 上只有一个解。</p>
+<p>现在回到解决积分方程 <script type="math/tex">(3)</script> 这个一般问题上来。</p>
+<p>第一个问题：序列 <script type="math/tex">\{\phi_n\}</script> 的所有元素都存在吗？</p>
+<p>在上面的例子中，<script type="math/tex">f,\partial f/\partial y</script> 在 <script type="math/tex">ty</script> 平面上都连续，那么每次计算的元素都存在。但是一般情况下 <script type="math/tex">f,\partial f/\partial y</script> 只在矩形 <script type="math/tex">R:|t|\leq a,|y|\leq b</script> 上连续。如下图所示。</p>
+<p><img alt="" src="../080.030.png" /></p>
+<p>这样可能会出现一种情况，到了某一步，比如 <script type="math/tex">n=k</script> 时，<script type="math/tex">y=\phi_k(t)</script> 可能包含位于 <script type="math/tex">R</script> 之外的点。更准确地说，当计算 <script type="math/tex">\phi_{k+1}(t)</script> 时，计算 <script type="math/tex">f(t,y)</script> 的某点处不连续甚至定义不存在。这就导致无法或许计算 <script type="math/tex">\phi_{k+1}(t)</script>。</p>
+<p>为了防止出现这种情况，需要进一步限制 <script type="math/tex">t</script> 的区间。为了找到这个区间，需要用到连续函数在封闭区域内是有界的这一性质。<script type="math/tex">f</script> 的界是 <script type="math/tex">R</script>，因此存在一个正数 <script type="math/tex">M</script>，使得
+<script type="math/tex; mode=display">|f(t,y)|\leq M,(t,y)\in R\tag{23}</script>
+之前已经提到
+<script type="math/tex; mode=display">\phi_n(0)=0</script>
+因为 <script type="math/tex">f(t,\phi_k(t))</script> 等于 <script type="math/tex">\phi'_{k+1}(t)</script>，那么方程 <script type="math/tex">y=\phi_{k+1}(t)</script> 的图像的斜率的最大值是 <script type="math/tex">M</script>。由于图像必须包含 <script type="math/tex">(0,0)</script> 点，那么点必须位于领结形之内。如下图所示。</p>
+<p><img alt="" src="../080.040.png" /></p>
+<p>
+<script type="math/tex">(t,\phi_{k+1}(t))</script> 位于 <script type="math/tex">R</script> 就要求点在 <script type="math/tex">R</script> 上的领结形之内，其中 <script type="math/tex">|t|\leq b/M</script>。因此要考虑一个更小的矩形 <script type="math/tex">R:|t|\leq h,|y|\leq b</script>，其中 <script type="math/tex">h</script> 是 <script type="math/tex">a</script> 和 <script type="math/tex">b/M</script> 中较小的值。有了这个限制，<script type="math/tex">\{\phi_n(t)\}</script> 序列所有元素就都存在了。</p>
+<p>第二个问题：<script type="math/tex">\{\phi_n(t)\}</script> 收敛吗？</p>
+<p>
+<script type="math/tex">\{\phi_n(t)\}</script> 是下面级数的前 <script type="math/tex">n</script> 项和
+<script type="math/tex; mode=display">\phi_1(t)+\sum_{k=1}^\infty(\phi_{k+1}(t)-\phi_k(t))\tag{24}</script>
+<script type="math/tex">\{\phi_n(t)\}</script> 收敛是建立在级数 <script type="math/tex">(24)</script> 收敛的基础之上。这就要求必须计算 <script type="math/tex">|\phi_{k+1}(t)-\phi_k(t)|</script> 的大小。这里忽略证明。假定序列收敛，极限函数是
+<script type="math/tex; mode=display">\phi(t)=\lim_{n\to\infty}\phi_n(t)\tag{25}</script>
+</p>
+<p>第三个问题：极限函数 <script type="math/tex">\phi</script> 的属性？</p>
+<p>首先，我们想知道 <script type="math/tex">\phi</script> 是不是连续的。即使序列的每一项都是连续的，连续性也不是序列 <script type="math/tex">\{\phi_n(t)\}</script> 的收敛的必然结果。有时一系列的连续函数会收敛到非连续的函数。比如
+<script type="math/tex; mode=display">\phi_n(x)=x^n,0\leq x\leq 1</script>
+的极限函数
+<script type="math/tex; mode=display">\lim_{n\to\infty}\phi_n(x)=\begin{cases}
+0,&&&0\leq x\leq 1\\
+1,&&&x=1
+\end{cases}</script>
+是不连续的。</p>
+<p>
+<script type="math/tex">phi</script> 是连续的不仅说明 <script type="math/tex">\{\phi_n\}</script> 收敛，还说明其以某种方式收敛，这中方式称为一致收敛（<code>uniform convergence</code>）。这里不讨论一致收敛，不过问题二中的约束满足 一致收敛，因此极限函数 <script type="math/tex">\phi</script> 在区间 <script type="math/tex">|t|\leq h</script> 上是连续的。</p>
+<p>回到方程 <script type="math/tex">(7)</script>
+<script type="math/tex; mode=display">\phi_{n+1}(t)=\int_0^tf(s,\phi_n(s))ds</script>
+两边同时令 <script type="math/tex">n</script> 趋于 <script type="math/tex">\infty</script> 得到
+<script type="math/tex; mode=display">\phi(t)=\lim_{n\to\infty}\int_0^tf(s,\phi_n(s))ds\tag{26}</script>
+上式右边交换积分和极限运算符得到
+<script type="math/tex; mode=display">\phi(t)=\int_0^t\lim_{n\to\infty}f(s,\phi_n(s))ds\tag{27}</script>
+一般情况下，这种交换是错误的。不过由于级数 <script type="math/tex">\{\phi_n(t)\}</script> 是一致收敛，使得可以这么做。接下来将极限放到函数 <script type="math/tex">f</script> 内
+<script type="math/tex; mode=display">\phi(t)=\int_0^t f(s,\lim_{n\to\infty}\phi_n(s))ds\tag{28}</script>
+因此
+<script type="math/tex; mode=display">\phi(t)=\int_0^tf(s,\phi(s))ds\tag{29}</script>
+这就是说
+<script type="math/tex; mode=display">\lim_{n\to\infty}f(s,\phi_n(s))=f(s,\lim_{n\to\infty}\phi_n(s))</script>
+等价于 <script type="math/tex">f</script> 在其第二个变量上是连续的，这就是前提假设。因此 <script type="math/tex">(29)</script> 是成立的，那么 <script type="math/tex">phi</script> 满足积分方程 <script type="math/tex">(3)</script>，那么 <script type="math/tex">y=\phi(t)</script> 是初值问题 <script type="math/tex">(2)</script> 的解。</p>
+<p>第四个问题：除了 <script type="math/tex">y=\phi(t)</script> 之外，存在其他解吗？</p>
+<p>和例题类似，使用反证法。假定存在另一个解 <script type="math/tex">\Psi(t)</script>，那么类似的方法可以证明
+<script type="math/tex; mode=display">|phi(t)-\Psi(t)|\leq A\int_0^t|phi(s)-\Psi(s)|ds\tag{30}</script>
+其中 <script type="math/tex">0\leq t\leq h</script>，<script type="math/tex">A</script> 是一个合适的正数。接下来和例子就一模一样了，推出矛盾，那么初值问题只有一个解。</p>
 
   
 
