@@ -11,7 +11,7 @@
 改进后程序的执行时间由阿姆达尔定律（`Amdahl's Law`）的简单方程给出：
 $$\text{New Execution time}=\frac{\text{Affected Execution time}}{\text{Amount of improvement}}+\text{Unaffected Execution time}$$
 
-带入这个题目的数据
+代入这个题目的数据
 $$20=\frac{80}{n}+20$$
 不管 $n$ 多大都不能满足条件。
 

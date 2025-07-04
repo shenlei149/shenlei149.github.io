@@ -185,8 +185,8 @@ $$C(x)-1=xC(x)\cdot C(x)$$
 $$xC(x)^2-C(x)+1=0\tag{8.13}$$
 根据求根公式知道上式有两个根，分别是
 $$\frac{1+\sqrt{1-4x}}{2x},\frac{1-\sqrt{1-4x}}{2x}$$
-已知第一项是1，带入$x=0$，得到
-> 关于带入$x=0$，可以参考[我提的问答](https://math.stackexchange.com/questions/3856176/why-can-we-substitute-x-0-into-frac1-sqrt1-4x2x)
+已知第一项是1，代入$x=0$，得到
+> 关于代入$x=0$，可以参考[我提的问答](https://math.stackexchange.com/questions/3856176/why-can-we-substitute-x-0-into-frac1-sqrt1-4x2x)
 
 $$C(x)=\frac{1-\sqrt{1-4x}}{2x}$$
 **Example 4.16.** 求得$\sqrt{1-4x}=1-2x-2\sum_{n\geq 2}\frac{\begin{pmatrix}2n-2\\n-1\end{pmatrix}}{n}x^n$，所以
@@ -310,7 +310,7 @@ $$\sum_{n\geq 0}B(n+1)\frac{x^n}{n!}=\sum_{n\geq 0}\sum_{i=0}^nB(i)\begin{pmatri
 $$B'(x)=B(x)e^x$$
 $$\frac{B'(x)}{B(x)}=e^x$$
 $$\ln{B(x)}=e^x+C$$
-带入$x=0$，左侧是$\ln{1}=0$，因此$C=1$。那么
+代入$x=0$，左侧是$\ln{1}=0$，因此$C=1$。那么
 $$\ln{B(x)}=e^x-1$$
 进而
 $$B(x)=e^{e^x-1}$$

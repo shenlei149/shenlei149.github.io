@@ -66,7 +66,7 @@ T &&forward(typename                          // namespace
 ```
 这并不是标准实现，但是差异不影响理解 `std::forward` 是如何工作的。
 
-假定这里传入 `f` 的是 `Widget` 的左值，`T` 被推导为 `Widget&`，那么对 `std::forward` 的调用被实例化为 `std::forward<Widget&>`。将 `Widget&` 带入 `std::forward` 的实现
+假定这里传入 `f` 的是 `Widget` 的左值，`T` 被推导为 `Widget&`，那么对 `std::forward` 的调用被实例化为 `std::forward<Widget&>`。将 `Widget&` 代入 `std::forward` 的实现
 ```cpp
 Widget & &&forward(typename remove_reference<Widget &>::type &param)
 {
@@ -170,7 +170,7 @@ public:
 ```cpp
 Widget<int&> w;
 ```
-`T` 是 `int&`，带入 `typedef` 语句得到
+`T` 是 `int&`，代入 `typedef` 语句得到
 ```cpp
 typedef int& &&RvalueRefToT;
 ```

@@ -17,7 +17,7 @@ $$\text{Execution time after improvement}=\frac{\text{Execution time affected by
 $$\text{Speed-up}=\frac{\text{Execution time before}}{(\text{Execution time before}-\text{Execution time unaffected})+\frac{\text{Execution time affected}}{\text{Amount of improvement}}}$$
 令原始执行时间是单位 1，那么被影响的执行时间就是被影响的比例，那么公式可以改写为
 $$\text{Speed-up}=\frac{1}{(1-\text{Fraction time affected}+\frac{\text{Fraction time affected}}{\text{Amount of improvement}})}$$
-加速 90 倍，提升数量是 100，带入得到
+加速 90 倍，提升数量是 100，代入得到
 $$90=\frac{1}{(1-\text{Fraction time affected})+\frac{Fraction time affected}{100}}$$
 那么
 $$\text{Fraction time affected}=0.999$$
