@@ -23926,7 +23926,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 11, 2025 11:44:41 UTC">July 11, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 14, 2025 07:46:01 UTC">July 14, 2025</span>
   </span>
 
     
@@ -23973,7 +23973,15 @@
 </ol>
 <p>这些线程的 SIMD 指令宽度是 32，因此 SIMD 指令线程可以处理 32 个元素。由于线程由 SIMD 指令组成，那么 SIMD 处理器必须包含并行功能单元来执行操作。我们可以称之为 SIMD 通道，与 6.3 小节的向量通道类似。</p>
 <h3 id="nvidia-gpu-memory-structures">NVIDIA GPU Memory Structures</h3>
+<p>下图展示的是英伟达 GPU 的内存结构。每个多线程 SIMD 处理器访问的本地芯片上的内存称为本地内存（<code>Local Memory</code>）。多线程 SIMD 处理器内部的 SIMD 通道共享这个内存，但是不在多线程 SIMD 处理器之间共享。整个 GPU 上和所有线程块共享的内存称为 GPU 内存。</p>
+<p><img alt="" src="../0602.png" /></p>
+<p>GPU 并不依赖能够放下整个工作数据的缓存（工作数据集大小通常数百 MB，无法全部放入最后一级缓存），而是使用较小流式缓存，利用多个 SIMD 指令线程来隐藏内存的延迟。由于利用硬件多线程来隐藏 DRAM 延迟，处理器中用于缓存的芯片区域可以用于计算资源和大量寄存器，以保存很多 SIMD 指令线程的状态。</p>
 <h3 id="putting-gpus-into-perspective">Putting GPUs into Perspective</h3>
+<p>从高层次看来，具备 SIMD 指令扩展的 CPU 和 GPU 有很多相似之处。如下表所示。两者都是 MIMD，都有多个 SIMD 通道，不过 GPU 包含的数量更多。两者都使用硬件多线程来提高使用效率，不过 GPU 支持的线程数更多。两者都使用缓存，不过 GPU 使用较小的流式缓存而 CPU 尝试使用能放下整个工作数据集的多级缓存。GPU 中物理内存要小很多。虽然 GPU 支持页面级别的内存保护，但是不支持按需分页。</p>
+<p><img alt="" src="../0603.png" /></p>
+<p>SIMD 处理器和向量处理器也有相似之处。GPU 包含多个 SIMD 处理器相当于 MIMD 核，这就像很多向量计算机包含多个向量处理器一样。比如 Volta V100 包含 80 个核，支持硬件多线程，每个核有 16 个通道。两者最大的区别是多线程，这是 GPU 的基础而大部分向量机不支持。</p>
+<p>在计算机架构中，GPU 和 CPU 并不同源，也没有任何缺失环节（<code>Missing Link</code>）来解释两者。由于这种原因，GPU 并不使用常见与计算机体系社区的术语，这可能导致人们对什么是 GPU 及其如何工作的感到困惑，下面是相关术语表来阐述这种差异。</p>
+<p><img alt="" src="../0604.png" /></p>
 
   
 
