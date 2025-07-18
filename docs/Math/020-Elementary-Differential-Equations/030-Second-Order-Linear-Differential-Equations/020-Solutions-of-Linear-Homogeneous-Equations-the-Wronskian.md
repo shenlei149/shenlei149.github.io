@@ -227,7 +227,7 @@ $$y=k_1\cosh t+k_2\sinh t\tag{20}$$
 > $$L[y]=y''+p(t)y'+q(t)y=0$$
 > 其中 $p,q$ 是连续实函数。如果 $y=u(t)+iv(t)$ 是微分方程 $(2)$ 的复数解，那么实部 $u$ 和虚部 $v$ 也是这个微分方程的解。
 
-将解 $u(t)+iv(t)$ 带入 $L[y]$，那么
+将解 $u(t)+iv(t)$ 代入 $L[y]$，那么
 $$\begin{aligned}
 L[y](t)&=u''(t)+iv''(t)+p(t)(u'(t)+iv'(t))+q(t)(u(t)+iv(t))\\
 &=(u''(t)+p(t)u'(t)+q(t)u(t))+i(v''(t)+p(t)v'(t)+q(t)v(t))\\
