@@ -13310,6 +13310,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      复根
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24094,6 +24103,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      复根
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24150,7 +24168,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 18, 2025 09:22:06 UTC">July 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 19, 2025 04:15:54 UTC">July 19, 2025</span>
   </span>
 
     
@@ -24234,6 +24252,36 @@ e^{(\lambda+i\mu)t}&=e^{\lambda t}(\cos(\mu t)+i\sin(\mu t))\\
 图像如下图所示</p>
 <p><img alt="" src="../030.010.png" /></p>
 <p>从这个图可以看出，解是振荡的，周期为 <script type="math/tex">2\pi/3</script>，振幅是衰减的。正弦和余弦控制解的振荡，负指数项影响了振幅最终会趋于零。</p>
+<h3 id="_2">复根</h3>
+<p>当特征方程 <script type="math/tex">(2)</script> 的根是复数 <script type="math/tex">\lambda\pm i\mu</script> 时，方程 <script type="math/tex">(5)</script> 给出的函数 <script type="math/tex">y_1(t),y_2(t)</script> 是方程 <script type="math/tex">(1)</script> 的解。不过解 <script type="math/tex">y_1,y_2</script> 是复数函数，由于微分方程本身是实系数的，因此我们期望得到实函数解。根据定理 3.2.6，选择 <script type="math/tex">y_1,y_2</script> 的实部和虚部，也都是解。因此解是
+<script type="math/tex; mode=display">u(t)=e^{\lambda t}\cos \mu t,v(t)=e^{\lambda t}\sin \mu t\tag{23}</script>
+容易计算得到 <script type="math/tex">u,v</script> 的朗斯基是
+<script type="math/tex; mode=display">W[u,v](t)=\mu e^{2\lambda t}\tag{24}</script>
+只要 <script type="math/tex">\mu\neq 0</script>，那么朗斯基 <script type="math/tex">W</script> 就不会为零，因此 <script type="math/tex">u,v</script> 是基础解系。如果 <script type="math/tex">\mu =0</script> 那么有两个相同的实根，这种情况会在下一节讨论。那么得到结论，如果特征方程的根是复数 <script type="math/tex">\lambda\pm i\mu</script>，那么方程 <script type="math/tex">(1)</script> 的通解是
+<script type="math/tex; mode=display">y=c_1e^{\lambda t}\cos \mu t+c_2e^{\lambda t}\sin \mu t\tag{25}</script>
+其中 <script type="math/tex">c_1,c_2</script> 是任意常数。一旦知道了 <script type="math/tex">\lambda,\mu</script>，就能写出来解 <script type="math/tex">(25)</script> 了。</p>
+<p>例 2 求初值问题
+<script type="math/tex; mode=display">16y''-8y'+145y=0,y(0)=-2,y'(0)=1\tag{26}</script>
+的解。</p>
+<p>解：特征方程 <script type="math/tex">16r^2-8r+145=0</script> 的根是 <script type="math/tex">r=\frac{1}{4}\pm 3i</script>，那么通解是
+<script type="math/tex; mode=display">y(t)=c_1e^{t/4}\cos 3t+c_2e^{t/4}\sin 3t\tag{27}</script>
+首先应用第一个初始条件，令 <script type="math/tex">(27)</script> 中 <script type="math/tex">t=0</script> 得到
+<script type="math/tex; mode=display">y(0)=c_1=-2</script>
+然后应用第二个初始条件，对 <script type="math/tex">(27)</script> 求导并代入 <script type="math/tex">t=0</script> 那么
+<script type="math/tex; mode=display">y'(0)=\frac{1}{4}c_1+3c_2=1</script>
+因此 <script type="math/tex">c_2=\frac{1}{2}</script>，那么解是
+<script type="math/tex; mode=display">y(t)=-2e^{t/4}\cos 3t+\frac{1}{2}e^{t/4}\sin 3t\tag{28}</script>
+图像如下图所示。</p>
+<p><img alt="" src="../030.020.png" /></p>
+<p>解是在振荡中增长的。<script type="math/tex">(28)</script> 中三角函数决定了解中振荡的部分，周期是 <script type="math/tex">2\pi/3</script>，指数部分使得振荡的幅度随着时间增长而增长。</p>
+<p>例 3 求
+<script type="math/tex; mode=display">y''+9y=0\tag{29}</script>
+的通解。</p>
+<p>解：特征方程 <script type="math/tex">r^2+9=0</script> 的根是 <script type="math/tex">r=\pm 3i</script>，因此 <script type="math/tex">\lambda=0,\mu=3</script>。通解是
+<script type="math/tex; mode=display">y=c_2\cos 3t+c_2\sin 3t\tag{30}</script>
+</p>
+<p>这里根的实部是零，因此没有指数项。下图展示了通解 <script type="math/tex">(28)</script> 的两个初始条件不同的解。振荡的周期都是 <script type="math/tex">2\pi/3</script>，不过振幅和相位偏移由初始条件确定。由于解 <script type="math/tex">(30)</script> 没有指数项，振荡的幅度不变。</p>
+<p><img alt="" src="../030.030.png" /></p>
 
   
 
