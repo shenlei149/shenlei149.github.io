@@ -18,3 +18,42 @@ For thousands of years, various creation stories have presented people with expl
 
 * exalted: An exalted position in an organization is a very important one. 重要的（地位）。
 * caste: A hierarchical ordering of people into groups, fixed from birth, based on their inherited ritual status and determining whom they may marry and with whom they may eat. 社会等级。
+
+One of the earliest known stories is the Enuma Elish epic of the people of Akkad in Mesopotamia. This account probably dates back to almost 2000 B.C.E. It tells of wars among the gods. Tiamat mates with Apsu and gives birth to younger gods. Later the parents seek to kill off his new generation of their children-gods. To save the god-children, the god Ea slays Apsu while Ea's son Marduk rallies the younger gods, and kills and dismember Tiamat and her new husband, Kingu. From the blood of Kingu, Marduk creates humans (and all of earth's creatures), on condition that they are to be his servants. Written at a time when the competitive city-states Mesopotamia were constantly at war, this myth elevated the importance of Babylon, the city that Marduk chooses as his capital; affirmed the authority of its powerful priests and rulers; and assigned purpose and direction to human life.
+
+* Enuma Elish: 埃努玛·埃利什，古巴比伦的创世史诗。
+* Akkad: a city on the Euphrates in N Babylonia, the centre of a major empire and civilization (2360–2180 bc). 古巴比伦阿卡德区。
+* Euphrates: a long river in western Asia that was one of the two great rivers of the ancient region of Mesopotamia. 幼发拉底河。
+* Tiamat: an Akkadian goddess, the consort of Apsu and mother of the gods. 提亚玛特（又叫混沌母神，源于巴比伦神话，世界开创时即存在怪物）。
+* Apsu: an Akkadian god: the consort of Tiamat and the father of the gods. 阿卜苏（美索不达米亚神话中的原始甜水之渊及其人格化形式）。
+* Marduk: the chief god of the Babylonian pantheon. 马杜克（古巴比伦人的主神）。
+* pantheon: a small group of people or things that are considered to be the most important ones of their type.（某一领域的）名流，名人，要人。万神殿；名流群。
+* Ea: Enki, Marduk is the son of Ea (Enki). Ea and Marduk are both major figures in Mesopotamian mythology, but they represent distinct roles.
+* slay: to kill in a violent way.（以暴力）杀死；残杀。
+* dismember: to cut, tear, or pull the arms and legs off the body of a dead person or animal. 肢解，分割……的肢体。
+
+India, vast and diverse, has many different stories about the origin of humans. Two of the most widespread and powerful illustrate two principal dimensions of the thought and practice of Hindu religious traditions. The ancient epic Rigveda, which dates from about 1000 B.C.E., emphasizes the mystical, unknowable qualities of life and its origins:
+
+Why verily knows and who can here declare it, whence it was born and whence comes this creation?
+
+The Gods are later than this world's production. Who knows then whence it first came into being?
+
+He, the first origin of this creation, whether he formed it all or did not from it, whose eye controls this world in highest heaven, he verily knows it or perhaps he knows not.
+
+* Hindu: someone who believes in Hinduism. 印度教教徒。
+* Rigveda: a compilation of 1028 Hindu poems dating from 2000 bc or earlier. 梨俱吠陀，吠陀经中最早出现的一卷。
+* whence: (from) where. 从那里。
+
+In contrast to this reverent puzzled view of creation, another of the most famous hymns of the Rigveda, the Purusha-sakta, describes the creation of the world by the god's sacrifice and dismemberment of a giant man, Purusha:
+
+His mouth became the Brahmin; his arms were made into the Warrior; his thighs the People; and from his feet the Servants were born.
+
+The moon was born from his mind; from his eye the sun was born. Indra and Agni came from his mouth, and from vital breath the Wind was born.
+
+* hymn: a song of praise that Christians sing to God. 赞美诗，圣歌。
+* reverent: showing great respect and admiration. 肃然起敬。
+* Purusha-sakta: 原人歌，梨俱吠陀中的一首诗。
+* the Brahmin, the Warrior, the People, the Servant: The terms "Brahmin, Warrior, People, Servant" refer to the four traditional varnas (social classes) in the Hindu caste system, namely Brahmins (priests and scholars), Kshatriyas (kings, governors, and warriors), Vaishyas (cattle herders, agriculturists, artisans, and merchants), and Shudras (laborers and service providers). These varnas represent a hierarchical structure with Brahmins at the top and Shudras at the bottom. 婆罗门（祭司和学者）、刹帝利（国王、统治者和武士）、吠舍（牧民、农民、工匠和商人）和首陀罗（劳工和服务提供者）。
+* Indra, Agni, Wind: 印度神。因陀罗（古印度神话中印度教的主神，主管雷雨）；阿格尼（印度神话中的火神）；掌管风的神。
+
+In this account, humans are part of nature, subject to the law of the universe, but they are not born equal among themselves. Several groups are created with different qualities and in different castes. This myth of creation supports the hierarchical organization of India's historic caste system.
