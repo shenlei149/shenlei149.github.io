@@ -6291,15 +6291,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#counting-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      Counting Keys
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#b-tree-node-splits" class="md-nav__link">
     <span class="md-ellipsis">
       B-Tree Node Splits
@@ -24480,15 +24471,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#counting-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      Counting Keys
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#b-tree-node-splits" class="md-nav__link">
     <span class="md-ellipsis">
       B-Tree Node Splits
@@ -24567,7 +24549,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 30, 2025 12:33:03 UTC">July 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 1, 2025 10:07:15 UTC">August 1, 2025</span>
   </span>
 
     
@@ -24634,13 +24616,49 @@
 <p><img alt="" src="../0207.png" /></p>
 <p>我们也可以用矩形来表示二叉搜索树的节点。如下图所示，和之前的图 2-1 表达的是同一颗树。</p>
 <p><img alt="" src="../0208.png" /></p>
+<p>B 树是有序的，因此搜索效率与二叉搜索树类似，对数时间复杂度。如果每次都需要一次磁盘寻址，速度会下降很多，不过由于 B 树节点存储几十甚至上百项，跳级仅需一次寻址。后续会讨论细节。使用 B 树，可以高效的支持点查（<code>point</code>）和范围（<code>range</code>）查找。点查在大部分查询语言中都是 <code>=</code>，定位一个记录。范围查询通常用 <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> 表示谓词，按序返回多个记录。</p>
 <h3 id="b-tree-hierarchy">B-Tree Hierarchy</h3>
+<p>B 树包含多个节点，每个节点最多包含 <script type="math/tex">N</script> 个 key 和 <script type="math/tex">N+1</script> 指针。节点逻辑上分成三个部分。</p>
+<ul>
+<li>根节点（<code>root node</code>）：树中没有父节点的节点。</li>
+<li>叶子结点（<code>leaf node</code>）：最底层没有子节点的节点。</li>
+<li>内部节点（<code>internal node</code>）：连接根节点和叶子结点的节点。通常内部节点多余一层。</li>
+</ul>
+<p><img alt="" src="../0209.png" /></p>
+<p>由于 B 树通常用页组织，因此有时会混用节点和页两个术语。</p>
+<p>节点容量和实际持有的 key 的数量的比例称为占用率（<code>occupancy</code>）。</p>
+<p>B 树的特征之一是高扇出。高扇出平摊为了保持平衡的结构变化的开销，减少了查找的次数。平衡操作（<code>split</code> <code>merge</code>）仅会在节点快满或者快空的时候发生。</p>
+<p>这里使用 B 树表示有上述特性的一族数据结构。更精确的名字应该是 B+ 树。B 树允许在任意层次（根、内部节点、叶子结点）存储数据。B+ 树仅允许在叶子节点存储数据。内部节点仅包含 key 来搜索数据。由于 B+ 树只能在叶子节点存数据，所有的操作（插入、更新、删除、查找）都发生在叶子节点，会传导到与之相关的更高层节点。</p>
 <h3 id="separator-keys">Separator Keys</h3>
+<p>存在 B 树中的 key 称为索引记录（<code>index entry</code>），用于分割子树（<code>subtree</code>）。key 有序存储，可以二分查找。</p>
+<p>第一个指针指向的子树的 key 都比第一个 key 小，最后一个指针指向的子树的 key 都大于等于最后一个 key。其他指针介于两个 key 之间：<script type="math/tex">K_{i-1}\leq K_s<K_i</script>。如下图所示。</p>
+<p><img alt="" src="../0210.png" /></p>
+<p>一些 B 树将兄弟节点用指针连起来，这通常发生在叶子节点，简化范围扫描。这些指针无需返回父节点在找到其兄弟节点。有时这个指针是双向的，那么支持反向迭代。</p>
+<p>B 树自底向上构建整个树。随着叶子节点的增加，内部节点和树的高度会增加。</p>
+<p>B 树节点内部预留了插入和更新的空间，因此存储利用率最低是 50%，通常比这个高。更好的占用率也不会影响性能。</p>
 <h3 id="b-tree-lookup-complexity">B-Tree Lookup Complexity</h3>
+<p>从两个方面来分析查询复杂度。假定每个节点有 <script type="math/tex">N</script> 个 key，总共有 <script type="math/tex">M</script> 个节点，那么需要访问 <script type="math/tex">\log_N M</script> 个页，这也是从根节点到叶子结点的距离，树的高度。每一次比较，将搜索空间减半，因此比较复杂度是 <script type="math/tex">\log_2 M</script>。</p>
 <h3 id="b-tree-lookup-algorithm">B-Tree Lookup Algorithm</h3>
-<h3 id="counting-keys">Counting Keys</h3>
+<p>之前讨论了 B 树的结构，下面分析查找、插入和删除。为了查找 B 树中的项，需要从根节点遍历到叶子节点。搜索的目标是找到搜索 key 或者它的前一个节点。精确查找用于点查、更新和删除，找到前一个节点对于范围扫描和插入很有用。</p>
+<p>从根节点执行二分查找，比较搜索 key 与存储的 key，直到找到第一个大于搜索 key 的分割 key。这样定位到了一个指向子树的指针。一旦找到了子树，重复上述的过程直到找到某个叶子节点，要么找到了搜索 key，或者 key 的前一个值，这意味这搜索 key 不存在。</p>
+<p>对于点查，结果就说明找到或者没找到要搜索的 key。对于范围扫描，从找到的 key 开始往后遍历，中间可能沿着指向兄弟节点到下一个节点接着遍历，直到不符合 key 不符合谓词。</p>
 <h3 id="b-tree-node-splits">B-Tree Node Splits</h3>
+<p>为了插入数据到 B 树，需要定位到叶子节点和要插入的位置。首先使用上述算法找到叶子节点，然后定位要插入的位置，写数据。如果目标节点没有足够的空间了，也就是说节点已经满了要溢出，那么不得不分裂成两个节点。</p>
+<p>分裂的过程是先构造一个新节点，转移一半的数据到新节点，然后添加新节点的第一个 key 和相应的指针到父节点。这种情况下称为 key 提升。执行分割的下标称为分割点（<code>split point</code>）或中点（<code>midpoint</code>）。</p>
+<p>当 key 提升之后，如果父节点也是满的，那么没有空间存放被提升的 key，它也需要被分裂。这个过程可能递归到根节点。如果不得不分裂根节点，一个新的根节点创建出现了，它的 key 是分割点，旧的根节点下降到整个树的第二层，树的高度加一。在叶子节点和内部节点，树只会水平增长。</p>
+<p>下图是一个满的叶子节点插入新数据的过程。</p>
+<p><img alt="" src="../0211.png" /></p>
+<p>下图是一个满的内部节点插入了一个新的指针的过程。</p>
+<p><img alt="" src="../0212.png" /></p>
+<p>非叶子节点的分裂说明其子节点分裂，导致多了一个指针。</p>
+<p>一旦分裂结束，根据插入的 key，如果小于提升的 key，插入原节点，否则插入新创建的节点。</p>
 <h3 id="b-tree-node-merges">B-Tree Node Merges</h3>
+<p>删除操作也是先找到叶子节点，然后删除指定的 key 和关联的 value。</p>
+<p>如果邻居节点的 key 比较少，并且兄弟节点有共同的父节点，那么可以合并。这种情况称为下溢。和插入 key 一样，这种情况有可能导致父节点合并，直至根节点，这样树的高度就减一。</p>
+<p>下图是叶子节点删除 16 之后与后续的兄弟节点合并的例子。我们将兄弟节点的 key 移到当前节点，这样保持 key 顺序不变。</p>
+<p><img alt="" src="../0213.png" /></p>
+<p>下图是由于删除了 10，两个内部节点合并。此时需要将父节点的分割点的 key 移到当前节点。</p>
+<p><img alt="" src="../0214.png" /></p>
 
   
 
