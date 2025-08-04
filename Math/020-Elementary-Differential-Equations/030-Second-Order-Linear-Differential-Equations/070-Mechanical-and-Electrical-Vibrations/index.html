@@ -13444,6 +13444,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      电路
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24237,6 +24246,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      电路
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24293,7 +24311,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 31, 2025 13:03:50 UTC">July 31, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 4, 2025 12:28:57 UTC">August 4, 2025</span>
   </span>
 
     
@@ -24407,7 +24425,60 @@
 <script type="math/tex; mode=display">\gamma^2-4km>0,u=Ae^{r_1t}+Be^{r_2t}\tag{23}</script>
 <script type="math/tex; mode=display">\gamma^2-4km=0,u=(A+Bt)e^{-\gamma t/(2m)}\tag{24}</script>
 <script type="math/tex; mode=display">\gamma^2-4km<0,u=e^{-\gamma t/(2m)}(A\cos\mu t+B\sin\mu t),\mu=\frac{1}{2m}(4km-\gamma^2)^{1/2}>0\tag{25}</script>
+由于 <script type="math/tex">m,\gamma,k</script> 都是正的，那么 <script type="math/tex">\gamma^2-4km</script> 总是小于 <script type="math/tex">\gamma^2</script>。因此，如果 <script type="math/tex">\gamma^2-4km\geq 0</script>，那么 <script type="math/tex">(22)</script> 中的 <script type="math/tex">r_1,r_2</script> 都是负数，如果 <script type="math/tex">\gamma^2-4mk<0</script>，<script type="math/tex">r_1,r_2</script> 是复数，实数部分是负数。因此，对于这三种情况，当 <script type="math/tex">t\to\infty</script> 时 <script type="math/tex">u</script> 都趋于零。不管 <script type="math/tex">A,B</script> 是何值，即不管初始条件是什么，该结论都成立。这与直观预期一致，阻尼会逐步消耗系统的能量，运动会随着时间消失。</p>
+<p>这里最有意思的是第三种情况。如果阻尼比较小，令 <script type="math/tex">(25)</script> 中的 <script type="math/tex"> </script>A=R\cos\delta,B=R\sin\delta<script type="math/tex">，那么
+<script type="math/tex; mode=display">u=Re^{-\gamma t/(2m)}\cos(\mu t-\delta)\tag{26}</script>
+位移 </script>u<script type="math/tex"> 介于曲线 </script>u=\pm Re^{-\gamma t/(2m)}<script type="math/tex"> 之间，因此它类似余弦曲线，不过振幅随着 </script>t<script type="math/tex"> 增长而减小。下图是一个典型例子。这种运动称为阻尼振动或阻尼振荡。振幅 </script>R<script type="math/tex"> 依赖于 </script>m,\gamma,k$ 和初始条件。</p>
+<p><img alt="" src="../070.050.png" /></p>
+<p>尽管运动不是周期的，但是 <script type="math/tex">\mu</script> 决定了物体振荡的频率，因此 <script type="math/tex">\mu</script> 称为准频率（<code>quasi-frequency</code>）。将 <script type="math/tex">\mu</script> 与无阻尼运动 <script type="math/tex">\omega_0</script> 相比，得到
+<script type="math/tex; mode=display">\frac{\mu}{\omega_0}=\frac{(4kn-\gamma^2)^{1/2}/2m}{\sqrt{k/m}}=\bigg(1-\frac{\gamma^2}{4km}\bigg)^{1/2}\approx 1-\frac{\gamma^2}{8km}\tag{27}</script>
+当 <script type="math/tex">\gamma^2/4mk</script> 很小时最后的近似成立。此时阻尼很小，稍微减小了振荡的频率。与公式 <script type="math/tex">(18)</script> 类似，<script type="math/tex">T_d=2\pi/\mu</script> 称为准周期（<code>quasi-period</code>）。<script type="math/tex">T_d</script> 与 <script type="math/tex">T</script> 的比值是
+<script type="math/tex; mode=display">\frac{T_d}{T}=\frac{\omega}{\mu}=\bigg(1-\frac{\gamma^2}{4km}\bigg)^{-1/2}\approx 1+\frac{\gamma^2}{8km}\tag{28}</script>
+最后的近似在 <script type="math/tex">\gamma^2/4km</script> 很小时成立。很小的阻尼使得周期变长。</p>
+<p>从 <script type="math/tex">(27),(28)</script> 可以看出无量纲比值 <script type="math/tex">\gamma^2/4km</script> 的意义。阻尼的大小并不是 <script type="math/tex">\gamma</script> 的大小，而是和 <script type="math/tex">\gamma^2</script> 与 <script type="math/tex">4km</script> 的比值。当 <script type="math/tex">\gamma^2/(4km)</script> 很小的时候，阻尼对准周期和准频率的影响也很小。另一方面，如果要研究物体的运动，不管阻尼多小，也不能直接忽视。</p>
+<p>随着 <script type="math/tex">\gamma^2/4km</script> 的增加，准频率 <script type="math/tex">\mu</script> 减小准周期 <script type="math/tex">T_d</script> 增加。当 <script type="math/tex">\gamma\to2\sqrt{km}</script> 时 <script type="math/tex">\mu\to 0,T_d\to\infty</script>。当 <script type="math/tex">\gamma</script> 变化经过 <script type="math/tex">2\sqrt{km}</script>，解的性质会发生变化。<script type="math/tex">\gamma=2\sqrt{km}</script> 是临界阻尼（<code>critically damped</code>）。对于 <script type="math/tex">\gamma>2\sqrt{km}</script> 称为过阻尼的（<code>overdamped</code>）。这两种情况的解是 <script type="math/tex">(24)</script> 和 <script type="math/tex">(23)</script>，此时物体最多过平衡点一次，如下图所示。物体不会在平衡位置附近振荡。</p>
+<p><img alt="" src="../070.060.png" /></p>
+<p>例 3 弹簧系统的运动方程如下
+<script type="math/tex; mode=display">u''+\frac{1}{8}u'+u=0\tag{29}</script>
+如果 <script type="math/tex">u(0)=2,u'(0)=0</script>，求物体运动轨迹方程。求准频率和准周期，以及什么时刻第一次穿过平衡点。并且求 <script type="math/tex">\tau</script>，其满足 <script type="math/tex">|u(t)|<0.1,t>\tau</script>。</p>
+<p>解：方程 <script type="math/tex">(29)</script> 的解是
+<script type="math/tex; mode=display">u(t)=e^{-t/16}\bigg(A\cos\frac{\sqrt{255}}{16}t+B\sin\frac{\sqrt{255}}{16}t\bigg)</script>
+为了满足初始条件有 <script type="math/tex">A=2,B=2/\sqrt{255}</script>，因此解是
+<script type="math/tex; mode=display">\begin{aligned}
+u&=e^{-t/16}\bigg(2\cos\frac{\sqrt{255}}{16}t+\frac{2}{\sqrt{255}}\sin\frac{\sqrt{255}}{16}t\bigg)\\
+&=\frac{32}{\sqrt{255}}e^{-t/16}\cos\bigg(\frac{\sqrt{255}}{16}t-\delta\bigg)
+\end{aligned}\tag{30}</script>
+其中 <script type="math/tex">\delta</script> 在第一象限 <script type="math/tex">\tan\delta=1/\sqrt{255}</script>。物体的运动如下图所示。为了对比，绿色曲线是没有阻尼的运动方程的图像。</p>
+<p><img alt="" src="../070.070.png" /></p>
+<p>准频率 <script type="math/tex">\mu=\sqrt{255}/16</script>，准周期 <script type="math/tex">T_d=2\pi/\mu</script>。与无阻尼振动的频率 1 和周期 <script type="math/tex">2\pi</script> 相差很小。从上图也可以看出，两者几乎同时上升或下降。这个例子中，阻尼很小，只有临界值的十六分之一。然后振荡的衰减相当快。</p>
+<p>下图是 <script type="math/tex">40\leq t\leq 60</script> 时的图像。要求的 <script type="math/tex">\tau</script> 大约是 47.5，精确值是 <script type="math/tex">\tau\approx 47.5149</script>。</p>
+<p><img alt="" src="../070.080.png" /></p>
+<p>为了找到第一次运动穿过平衡点的时间，令 <script type="math/tex">\sqrt{255}t/16-\delta=\pi/2</script>，这是余弦为零的值。因此
+<script type="math/tex; mode=display">t=\frac{16}{\sqrt{255}}\bigg(\frac{\pi}{2}+\delta\bigg)\approx 1.637</script>
 </p>
+<h3 id="_3">电路</h3>
+<p>第二个常系数二阶线性微分方程的例子是对电路建模。下图是一个最简单的电路。电阻 <script type="math/tex">R</script>、电容 <script type="math/tex">C</script>、电感 <script type="math/tex">L</script> 是常量，电流 <script type="math/tex">I</script>、电容的电荷量 <script type="math/tex">Q</script> 和电压 <script type="math/tex">V</script> 是时间 <script type="math/tex">t</script> 的函数。</p>
+<p><img alt="" src="../070.090.png" /></p>
+<p>
+<script type="math/tex">Q,I</script> 的关系是
+<script type="math/tex; mode=display">I=\frac{dQ}{dt}\tag{31}</script>
+</p>
+<p>根据基尔霍夫第二定律：闭合电路中施加的电压等于其余电气电压下降之和。简而言之，电压代数之和为零。</p>
+<p>在电路中，电阻电压是 <script type="math/tex">RI</script>，电容的电压是 <script type="math/tex">\frac{Q}{C}</script>，电感的电压是 <script type="math/tex">L\frac{dI}{dt}</script>，因此
+<script type="math/tex; mode=display">L\frac{dI}{dt}+RI+\frac{1}{C}Q=E(t)\tag{32}</script>
+将 <script type="math/tex">(31)</script> 的电流表达式代入得到
+<script type="math/tex; mode=display">LQ''+RQ'+\frac{1}{C}Q=E(t)\tag{33}</script>
+初始条件是
+<script type="math/tex; mode=display">Q(t_0)=Q_0,Q'(t_0)=I(t_0)=I_0\tag{34}</script>
+解得方程就知道任意时刻电容中的电量。</p>
+<p>方程 <script type="math/tex">(33)</script> 对 <script type="math/tex">t</script> 求导，然后使用 <script type="math/tex">(31)</script> 得到的 <script type="math/tex">dQ/dt</script> 代入，得到电流的微分方程
+<script type="math/tex; mode=display">LI''+RI'+\frac{1}{C}=E'(t)\tag{35}</script>
+初始条件是
+<script type="math/tex; mode=display">I(t_0)=I_0,I'(t_0)=I'_0\tag{36}</script>
+从方程 <script type="math/tex">(32)</script> 可以得到
+<script type="math/tex; mode=display">I'_0=\frac{E(t_0)-RI_0-\frac{Q_0}{C}}{L}\tag{37}</script>
+因此 <script type="math/tex">I'_0</script> 就依赖于初始电荷和电流，这些物理量可以测量得到。</p>
+<p>电路的例子和之前讨论的弹簧系统的例子是一样的。一旦学会了解常系数二阶线性微分方程，那么就可以解释物体振动、电路或其他能同样建模的物理问题。</p>
 
   
 
