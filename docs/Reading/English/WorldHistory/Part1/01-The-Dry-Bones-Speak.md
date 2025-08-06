@@ -57,3 +57,40 @@ The moon was born from his mind; from his eye the sun was born. Indra and Agni c
 * Indra, Agni, Wind: 印度神。因陀罗（古印度神话中印度教的主神，主管雷雨）；阿格尼（印度神话中的火神）；掌管风的神。
 
 In this account, humans are part of nature, subject to the law of the universe, but they are not born equal among themselves. Several groups are created with different qualities and in different castes. This myth of creation supports the hierarchical organization of India's historic caste system.
+
+![](0102.png)
+
+Perhaps the most widely known creation story is told in the Book of Genesis in the Hebrew Bible. Beginning from nothing, in five days God created heaven and earth; created the light and separated it from darkness; created water and separated it from dry land; and created flora, birds, and fishes, and the sun, moon, and stars. God began the six day by creating larger land animals and reptiles, and then humans "in his own image".
+
+* Book of Genesis: 创世纪。
+* Hebrew Bible: 希伯来圣经。
+* flora: all the plants of a particular place or from a particular time in history.（某一地点或时期的）植物群。
+* reptile: an animal that produces eggs and uses the heat of the sun to keep its blood warm. 爬行动物。
+
+The Book of Genesis assigns humans a unique and privileged place as the final crown and master of creation. Humans are specially created in God's own image, with dominion over all other living creatures. When the creation of humans is complete and their exalted position in nature is specified, God proclaims the whole process and product of creation as "good". Here humans hold an exalted position within, but also above, the rest of creation.
+
+* dominion: control over a country or people. 控制；统治；支配。
+* exalted: An exalted position in an organization is a very important one. 重要的（地位）。
+
+Until the late eighteen century, these kinds of story were the only accounts we had of the origins of humans. No other explanations seemed necessary. In any case, no one expected to find actual physical evidence for the processes by which humans came to exist.
+
+### The Evolutionary Explanation
+During the eighteen century, some philosophers and natural scientists in Europe, who were most familiar with the creation story told in the Bible, began to challenge its belief in the individual, special creation of each life form. They saw so many similarities among different species that they could not believe that each had been created separately, although they could not demonstrate the processes through which these similarities and differences had developed. They saw some creatures change forms during their life cycle, such as the metamorphosis of the caterpillar into the moth, or the tadpole into the frog, but they could not establish the processes by which one species metamorphosed into another. They also knew the processes of breeding by which farmers encouraged the development of particular strains in farm animals and plants, but they lacked the conception of a time frame of millions of years that would allow for the natural evolution of a new species from an existing one.
+
+* metamorphosis: a complete change. 彻底的变化。
+* tadpole: a small, black creature with a large head and long tail that lives in water and develops into a frog or toad. 蝌蚪。
+* toad: a small, brown animal, similar to a frog, that has big eyes and long back legs for swimming and jumping. 蟾蜍，癞蛤蟆。
+* breeding: the keeping of animals or plants in order to breed from them.（动物的）繁殖，饲养;（植物的）培植。
+
+Challenging the authority of the biblical account required a new method of inquiry, a new system for organizing knowledge. By the mid-eighteen century, a new intellectual environment had began to emerge. Scientific method called for the direct observation of nature, the recording and analysis of observation, and the discussion and debate of findings throughout an international community of scholars. It rejected the authority of religious texts that asserted truths without presenting substantiating evidence.
+
+Charles Darwin (1809-1882) and Alfred Russel Wallace (1823-1913), separately, formulated the modern theory of the biological evolution of species. They saw the mounting evidence of biological similarities among related to one another, not separate creations; and they allowed a time frame adequate for major transformations of species to take place. They then went on to demonstrate the method by which small differences within a species were transmitted from generation to generation, increasing the differentiation until new forms were produced.
+
+Both Darwin and Wallace reached their conclusions as a result of extensive travel overseas. Darwin carried out his observations on a scientific voyage around the world in 1981-1836 aboard the British warship Beagle, and especially during his stay in the Galapagos Islands off the equatorial west coast of South America. Wallace traveled for many years in the islands of Southeast Asia. In 1855 he published a paper suggesting a common ancestor for primates and man. In 1885 Wallace and Darwin published a joint paper on the basic concepts of evolution.
+
+* primate: a member of the most developed and intelligent group of mammals, including humans, monkeys, and apes. 灵长类动物。
+
+In the isolated Galapagos Islands, Darwin had found various kinds of finches, all of which were similar to each other except in their beaks. He rejected the idea that each kind of finch had been separately created. Rather, he argued, there must have been an ancestor common to them all throughout the islands. Because each island offered slightly different food sources, different beaks were better suited to different islands. The different ecological niches on each separate island to which the birds had immigrated had evoked slightly different evolutionary development. From a single, common ancestor, new species had evolved over time on the different islands.
+
+* finch: any of various types of small singing bird with a short, wide, pointed beak. 雀科鸣鸟。
+* niche: an area or position that is exactly suitable for a small group of the same type. 合宜的小环境。
