@@ -8,7 +8,7 @@ $$u(0)=2,u'(0)=3\tag{2}$$
 求初值问题的解，并且描述当 $t$ 很大时解的行为。
 
 解：方程 $(1)$ 对应的齐次方程的特征方程是 $r^2+r+\frac{5}{4}=0$，根是 $r=-\frac{1}{2}\pm i$。因此齐次方程的通解是
-$$u_c(t)=c_1e^{-t/2}\cos t+c_2e^{-t/2}\sin t\tg3$$
+$$u_c(t)=c_1e^{-t/2}\cos t+c_2e^{-t/2}\sin t\tag{3}$$
 方程 $(1)$ 的特解形似是 $U(t)=A\cos t+B\sin t$，那么 $U'(t)=-A\sin t+B\cos t,U''(t)=-A\cos t-B\sin t$，代入 $(1)$ 得到
 $$(\frac{1}{4}A+B)\cos t+(-A+\frac{1}{4}B)\sin t=3\cos t$$
 那么
