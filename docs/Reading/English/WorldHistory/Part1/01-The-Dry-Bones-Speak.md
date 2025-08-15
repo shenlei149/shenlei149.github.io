@@ -90,7 +90,32 @@ Both Darwin and Wallace reached their conclusions as a result of extensive trave
 
 * primate: a member of the most developed and intelligent group of mammals, including humans, monkeys, and apes. 灵长类动物。
 
+![](0103.png)
+
 In the isolated Galapagos Islands, Darwin had found various kinds of finches, all of which were similar to each other except in their beaks. He rejected the idea that each kind of finch had been separately created. Rather, he argued, there must have been an ancestor common to them all throughout the islands. Because each island offered slightly different food sources, different beaks were better suited to different islands. The different ecological niches on each separate island to which the birds had immigrated had evoked slightly different evolutionary development. From a single, common ancestor, new species had evolved over time on the different islands.
 
 * finch: any of various types of small singing bird with a short, wide, pointed beak. 雀科鸣鸟。
 * niche: an area or position that is exactly suitable for a small group of the same type. 合宜的小环境。
+
+Darwin compared natural selection to the selection process practiced by humans in breeding animals. Farmers know that specific traits among their animals can be exaggerated through breedings. Horse, for example, can be bred either for speed or for power by selecting those horses in which the desired trait appears. In nature the act of selection occurs spontaneously, if more slowly, as plants and animals with traits that are more appropriate to an environment survive and reproduce while others do not.
+
+In 1859 Darwin published his findings and conclusions in On the Origin of Species by Means of Natural Selection, a book that challenged humankind's conception of life on earth and of our place in the universe. Darwin explained that the pressure for each organism to compete, survive, and reproduce created a kind of natural selection. The population of each species increased until its ecological niche was filled to capacity, In the face of this population pressure, the species that were better adapted to the niche survived; the rest were crowed out and tended toward extinction. Small differences always appeared within a species: some members were taller, some shorter; some more brightly colored, others less radiant; some with more flexible hands and feet, others less manipulable. Those members with differences that aided survival in any given ecological setting tended to live on and to transmit their differences to their descendants. Others died out. Darwin call this process "natural selection" or "survival of the fittest".
+
+* radiant: obviously very happy, or very beautiful. 喜气洋洋的；容光焕发的；光彩照人的。
+
+Darwin's argument challenged two prevailing stories of creation, especially the biblical views. First, the process of natural selection had no goal beyond survival and reproduction. Unlike many existing creation myths, especially biblical stories, evolutionary theory postulated no teleology, no ethical or moral goals and purposes of life. Second, the theory of natural selection described the evolution of ever more "fit" organisms, better adapted to their environment, evolving from existing ones. The special, separate creation of each species was not necessary.
+
+* teleology: (in philosophy) the belief that everything has a special purpose or use. 目的论（认为一切事物均为特定目的而安排）。
+* ethical: relating to beliefs about what is morally right and wrong. 道德的；伦理的。
+
+For Darwin, the process of natural selection of more complex, better adapted forms also explained the evolution of humans from simpler, less-adapter organisms. Perhaps this was "the Creator's" method. Darwin concluded On the Origin of Species:
+
+Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed by the Creator into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and wonderful have been, and are being, evolved.
+
+* grandeur: the quality of being very large and special or beautiful. 宏伟，壮丽，堂皇。
+
+Note, however, that the words "by the Creator" did not appear in the first edition. Darwin added them later, perhaps in response to criticisms raised by more conventional Christian religious thinkers, who continued to find the biblical story a credible explanation for the origins of human beings.
+
+With a decade, Darwin's ideas had won over the scientific community. In 1871, in The Decent of Man, Darwin extended his argument to the evolution of humans, concluding explicitly that "man is descended from some lowly organized form." Humans are a part of the order of primates, most closely related to great apes and chimpanzees.
+
+The search now began for evidence of the "missing link" between humans and apes, for some creature, living or extinct, that stood at an intermediate point in the evolutionary process. In this search archaeology, and the adjunct field of paleoanthropology, flourished.
