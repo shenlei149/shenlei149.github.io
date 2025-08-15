@@ -24648,7 +24648,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 8, 2025 12:06:12 UTC">August 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 15, 2025 07:31:07 UTC">August 15, 2025</span>
   </span>
 
     
@@ -24810,9 +24810,29 @@
 <p>两者存放的主要差异在于偏移量和页 ID。由于页大小是固定的并且由页管理系统管理，那么只要有了页 ID 就能计算得到在文件中的偏移量。cell 中的偏移量是页内的信息，是距离页开始的偏移，基数很低，可以用较短的长度表示。</p>
 <p>key 和 value 都可以是变长的。可以通过固定长度的头和偏移量计算得到。对于 key，略过头部然后读 <code>key_size</code> 字节。对于 value，略过头部外加 <code>key_size</code> 个字节，然后读 <code>value_size</code> 字节。有其他方式实现，比如记录总长度和 <code>key_size</code>，通过减法得到 <code>value_size</code>。要有充分的信息切分 cell 得到各个部分就好。</p>
 <h2 id="combining-cells-into-slotted-pages">Combining Cells into Slotted Pages</h2>
+<p>我们将 cell 追加到页面的最右边，保持 cell 的偏移量/指针在页面的左边，如下图所示。</p>
+<p><img alt="" src="../0306.png" /></p>
+<p>key 乱序插入，通过排序 cell 偏移量保持逻辑上有序。这个设计使得向页面追加 cell 开销最小，因为无在插入、更新和删除操作时无需移动 cell。</p>
+<p>下面是一个具体的例子。两个名字插入到了页，插入顺序是 <code>Tom</code> <code>Leslie</code>，下图展示了它们是逻辑有序的，而插入顺序无关。cell 布局是插入顺序，但是偏移量已经重排序的，使得可以使用二分搜索。</p>
+<p><img alt="" src="../0307.png" /></p>
+<p>现在要插入新的名字 <code>Ron</code>。数据追加到页的空闲区的最后，偏移量要保持逻辑有序：<code>Leslie</code> <code>Ron</code> <code>Tom</code>。此时需要重排 cell 偏移量。如下图所示。</p>
+<p><img alt="" src="../0308.png" /></p>
 <h2 id="managing-variable-size-data">Managing Variable-Size Data</h2>
+<p>删除一个记录无需移动数据 cell 并且移动 cell 数据占据空间。cell 能够被标记为删除并且有一个内存中的可用列表（<code>availability list</code>）来标记空闲内存的数量和指向空闲内存的指针。当插入一个新的 cell，首先检查可用列表中是否能够找到一个段来存放要插入的 cell，如下图所示。</p>
+<p><img alt="" src="../0309.png" /></p>
+<p>SQLite 成未占用的段为 <code>freeblock</code>，并且在页头存储第一个 <code>freeblock</code> 指针。同时存储页内可用字节的总数，这样可以快速检查当前页是否能放下要存储的 cell。</p>
+<p>分配可用空间有两种策略：首次匹配和最佳匹配。</p>
+<p>如果找不到可用的连续空间但是有足够的碎片可用，那么可以重写有效 cell 进行碎片整理，然后使用连续空间写入 cell。如果整理碎片后还是没有足够的空间，需要使用溢出页，后续会讨论。</p>
+<p>为了提高局部性，一些实现会分别存储 key 和 value。将 key 放到一起提升了查询时的局部性。在搜索到 key 后，通过 index 可以找到对应的 value。对于变长 key，需要计算和存储 value 的 cell 指针。</p>
 <h2 id="versioning">Versioning</h2>
+<p>数据库会持续演进，开发者添加新的功能、修复 bug、提升性能。因此二进制文件格式可能会改变。存储引擎版本支持多个序列化格式。为了支持这一点，需要有能力知道文件对应的版本。</p>
+<p>有很多方式可以做到这一点。比如 Apache Cassandra 使用版本号来作为文件名的前缀，这样无需打开文件就可以知道版本号。比如 4.0 的文件使用 <code>na</code> 前缀，更旧的文件，比如 3.0 文件使用 <code>ma</code> 前缀。也可以存到一个分离的文件，比如 PostgreSQL 把版本放到 PG_VERSION 文件中。版本信息页可以直接存储到文件头部。这种情况下，头部中有一个部分编码了版本信息。一旦知道了文件的版本，那么可以创建一个指定版本的 reader 来解释其内容。一些文件格式使用 magic number 来表示版本。</p>
 <h2 id="checksumming">Checksumming</h2>
+<p>磁盘上的文件可能会由于软件 bug 或者硬件问题而遭到破坏。为了早点识别这个问题避免其传播损坏的数据到其他子系统或者节点，可以使用校验和和 CRC（<code>cyclic redundancy checks</code>）。</p>
+<p>很多地方不区分加密和非加密哈希函数。虽然他们的共同点是将一段数据摘要成一个数或若干个字节，但是它们的用途、目的还是不同的。</p>
+<p>校验和仅能提供最弱的保证，不能检查多个出错的 bit。通常使用异或计算来校验奇偶性或和。CRC 可以检查到更复杂的错误。这个能力很重要，因为通信和存储中很大一部分故障都是通过这种方式表现出来的。</p>
+<p>非加密哈希，CRC 这些不能验证数据是否被蓄意篡改。此时需要使用强的加密哈希算法来保证。CRC 的目的是确保没有无意或意外被修改的情况。这些算法的设计不是为了防御攻击和有意篡改。</p>
+<p>在往磁盘写数据之前，计算校验和，然后和数据一起写下去。当读回数据的时候，再次计算校验和并与写下去的值进行比较。如果校验和不匹配，那么知道读取的数据损坏了。由于对整个文件计算校验和不太实际，我们也不会每次都读取整个文件的内容，因此校验和通常在页这个基本。如果单页数据被破坏，无需丢弃整个文件的数据。</p>
 
   
 
