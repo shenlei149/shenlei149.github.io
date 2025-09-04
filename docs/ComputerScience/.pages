@@ -1,6 +1,7 @@
 nav:
     - README.md
     - TAOCP: TAOCP
+    - Algorithms: Algorithms
     - Computer Organization and Design (RISC-V): ComputerOrganizationDesign
     - Professional C++: ProfessionalCPP
     - Effective Modern C++: EffectiveModernCpp
