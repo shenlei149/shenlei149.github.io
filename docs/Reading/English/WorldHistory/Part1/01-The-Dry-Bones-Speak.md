@@ -119,3 +119,40 @@ Note, however, that the words "by the Creator" did not appear in the first editi
 With a decade, Darwin's ideas had won over the scientific community. In 1871, in The Decent of Man, Darwin extended his argument to the evolution of humans, concluding explicitly that "man is descended from some lowly organized form." Humans are a part of the order of primates, most closely related to great apes and chimpanzees.
 
 The search now began for evidence of the "missing link" between humans and apes, for some creature, living or extinct, that stood at an intermediate point in the evolutionary process. In this search archaeology, and the adjunct field of paleoanthropology, flourished.
+
+## Fossils and fossil-hunters
+The search for the "missing link" began in Europe, because that is where the major scientific lived and worked. Later, the search led to Java, Indonesia, and Beijing, China. Still more recently, Africa has yielded the earliest specimens of the human species, fulfilling Darwin's prediction of an African origin of human evolution, based on the abundance of nonhuman primates - apes and chimpanzees - living on that continent.
+
+As archaeologists discovered a variety of kinds of **hominid** - creatures that exhibited some characteristics of humans as well as of earlier primates - they concluded that there was no single missing link, but rather a variety of evolutionary paths that led to the emergence of humans.
+
+* hominid: a member of a group that consists of humans, chimpanzees, gorillas, and orang-utangs, or an early form of one of these. 人类及其祖先，人科。
+
+### The puzzling Neanderthals
+In August 1856, workers quarrying for limestone in a cave in the Neander Valley near Dusseldorf, Germany, found a thick skullcap with a sloping forehead and several skeletal bones of limbs. Some speculated that it was a deformed human. Others thought it was a soldier lost in a previous war. Similar skeletal remains had been found before, but without any clearer understanding of their meaning.
+
+* quarrying: a large artificial hole in the ground where stone, sand, etc. is dug for use as building material. 采石场。
+
+In 1863, Thomas Henry Huxley (1828 - 1895), a leading advocate of Darwin's theory of evolution, argued that the skull was part of a primitive human being who stood between nonhuman primates and **Homo sapiens**, our own species. He claimed that it was the "missing link". In 1864, scholars gave the fossil a name that signified this intermediate position: Homo neanderthalensis.
+
+* Homo sapiens: modern humans considered together as a species. 人类；智人。
+
+One of the first questions archaeologists asked themselves was: What did Homo neanderthalensis look like? Reconstructing the appearance of Neanderthals was difficult, because soft tissue - hair, flesh, and cartilage - does not survive as fossils. Scientists had to use their imaginations.
+
+* cartilage: (a piece of) a type of strong tissue found in humans in the joints (= places where two bones are connected) and other places such as the nose, throat, and ears. 软骨（组织）。
+
+The earliest efforts to reconstruct the appearance of Neanderthals showed them waling like apes, with a spine that had no curves, and hunchbacked, with their heads pushed forward on top of their spines. Showing muscular but clumsy-looking creatures, with heavy jaws and low, sloping foreheads, these pictures strongly suggested that Homo neanderthalensis was brutish and lacking in intelligence. For many years this interpretation, and others similar to it, carried great weight. Museum representations carried the message to the general public. Over the years, however, archaeologists have discovered more about Neanderthals' ability to make tools and survive in challenging environments. Impressed with these accomplishments, anthropologists now create reconstructions that show Neanderthals looking much less "primitive" and more like modern humans.
+
+* hunchbacked: having or appearing to have a large, round raised area on your back, often because of illness or old age. 驼背的。
+* brutish: rough, unpleasant, and often violent. 野蛮的。
+* carried great weight: 具有重要影响。
+
+![](0105.png)
+
+![](0106.png)
+
+Moving beyond the individual skeleton in isolation, teams of experts from such disciplines as biology, geology, and climatology cooperate to reconstruct the natural settings of human and hominid development. As Neanderthal skeletons have been found from northern Europe to Africa, from Gibraltar to Iran, these natural settings vary greatly. Remains from caves near Gibraltar suggest that Neanderthals in that area lived in a nuclear family. Elsewhere, evidence shows that many Neanderthals lived in large bands of up to 20 to 30 individuals.
+
+One recent discovery suggests that at least some Neanderthals were cannibals. The evidence comes from a cave in southern France. A total of 78 bones from at least two adults, two teenagers, and two children aged about seven show that the flesh from all parts of the bodies was carefully removed. Bones were smashed with rocks to get at the inside marrow, and skulls were broken open. The Neanderthals bones and the bones of deer were tossed together into a heap and show similar marks from the same stone tools. On the other hand, there are many other examples of Neanderthals burying their dead carefully, suggesting that their cultural behavior differed from group to group.
+
+* cannibal: a person who eats human flesh, or an animal that eats the flesh of animals of its own type. 食人肉者；同类相食的动物。
+* marrow: soft tissue containing a lot of fat in the centre of a bone. 髓，骨髓。
