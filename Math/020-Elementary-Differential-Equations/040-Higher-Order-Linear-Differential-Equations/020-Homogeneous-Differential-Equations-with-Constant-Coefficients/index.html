@@ -24643,7 +24643,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 5, 2025 12:01:14 UTC">September 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 9, 2025 00:30:45 UTC">September 9, 2025</span>
   </span>
 
     
@@ -24675,7 +24675,18 @@
 <p>如果特征方程的根都是实数，且没有宠物，那么有 <script type="math/tex">n</script> 个不同的解 <script type="math/tex">e^{r_1t},e^{r_2t},\cdots,e^{r_nt}</script>。如果这些函数线性无关，那么齐次 <script type="math/tex">n</script> 阶线性微分方程 <script type="math/tex">(1)</script> 的通解是
 <script type="math/tex; mode=display">y=c_1e^{r_1t}+c_2e^{r_2t}+\cdots+c_ne^{r_nt}\tag{5}</script>
 一种确定 <script type="math/tex">e^{r_1t},e^{r_2t},\cdots,e^{r_nt}</script> 是线性无关的方法是计算其朗斯基行列式的值，下面给出另外一种证明方法。</p>
-<p>TODO ex 29</p>
+<p>这些解线性无关，就是要证明线性关系
+<script type="math/tex; mode=display">c_1e^{r_1t}+c_2e^{r_2t}+\cdots+c_ne^{r_nt}=0,-\infty<t<\infty</script>
+中所有的系数均为零。</p>
+<p>两边同乘 <script type="math/tex">e^{-r_1t}</script> 然后对 <script type="math/tex">t</script> 求导得到
+<script type="math/tex; mode=display">c_2(r_2-r_1)e^{(r_2-r_1)t}+c_3(r_3-r_1)e^{(r_3-r_1)t}+\cdots+c_n(r_n-r_1)e^{(r_n-r_1)t}=0</script>
+两边再同乘 <script type="math/tex">e^{-(r_2-r_1)t}</script> 然后对 <script type="math/tex">t</script> 求导得到
+<script type="math/tex; mode=display">c_3(r_3-r_1)(r_3-r_2)e^{(r_3-r_2)t}+c_n(r_n-r_1)(r_n-r_2)e^{(r_n-r_2)t}=0</script>
+然后依次乘以 <script type="math/tex">e^{-(r_3-r_2)t},e^{-(r_4-r_4)t},\cdots,e^{-(r_n-r_{n-1})t}</script>，每次乘完之后都要求导，这样就得到
+<script type="math/tex; mode=display">c_n(r_n-r_1)(r_n-r_2)\cdots(r_n-r_{n-1})e^{(r_n-r_{n-1})}=0</script>
+由于根 <script type="math/tex">r_i</script> 都不同相同，那么 <script type="math/tex">c_n=0</script>。这样就得
+<script type="math/tex; mode=display">c_1e^{r_1t}+c_2e^{r_2t}+\cdots+c_{n-1}e^{r_{n-1}t}=0</script>
+重复上面的过程就能得到 <script type="math/tex">c_{n-1},\cdots,c_2,c_1</script> 都等于零。</p>
 <p>例 1 求
 <script type="math/tex; mode=display">y^{(4)}+y'''-7y''-y'+6y=0\tag{6}</script>
 的通解。并求解满足初始条件
@@ -24730,7 +24741,17 @@ c_1&-c_2&&+8c_3&&-27c_3&&=-1\\
 <h3 id="_3">重复根</h3>
 <p>如果根不是全部唯一的，而是部分跟或者全部跟都重复，那么 <script type="math/tex">(5)</script> 不再是方程 <script type="math/tex">(1)</script> 的解。之前分析过，如果二阶线性方程 <script type="math/tex">a_0y''+a_1y'+a_2y=0</script> 对应的特征方程有重复根 <script type="math/tex">r_1</script>，那么两个线性无关解是 <script type="math/tex">e^{r_1t},te^{r_1t}</script>。对于 <script type="math/tex">n</script> 阶方程，如果 <script type="math/tex">Z(r)=0</script> 的一个根 <script type="math/tex">r=r_1</script> 重复了 <script type="math/tex">s\leq n</script> 次，那么
 <script type="math/tex; mode=display">e^{r_1t},te^{r_1t},t^2e^{r_1t}\cdots,t^{s-1}e^{r_1t}\tag{18}</script>
-是方程 <script type="math/tex">(1)</script> 的解。TODO ex 30。</p>
+是方程 <script type="math/tex">(1)</script> 的解。</p>
+<p>由于 <script type="math/tex">r=r_1</script> 是 <script type="math/tex">Z(r)=0</script> 的根，那么 <script type="math/tex">Z(r)</script> 可以写成 <script type="math/tex">(r-r_1)^sq(r)</script>，其中 <script type="math/tex">q(r)</script> 是 <script type="math/tex">n-s</script> 阶多项式且 <script type="math/tex">q(r_1)\neq 0</script>。那么 <script type="math/tex">Z(r_1)=0</script>，<script type="math/tex">Z'(r_1)=s(r-r_1)^{s-1}q(r)+(r-r_1)^sq'(r)=0</script>，二阶导更复杂，但是每一项依次包含 <script type="math/tex">(r-r_1)^{s-2},(r-r_1)^{s-1},(r-r_1)^s</script>，因此 <script type="math/tex">Z''(r_1)=0</script>。以此类推，<script type="math/tex">s-1</script> 阶导依次包含 <script type="math/tex">(r-r_1),(r-r_1)^2,\cdots,(r-r_1)^s</script>，那么 <script type="math/tex">Z^{(s-1)}(r_1)=0</script>。但是 <script type="math/tex">s</script> 阶导数的第一项是 <script type="math/tex">s(s-1)\cdots 2\cdot 1q(r)\neq 0</script>，因此 <script type="math/tex">Z^n(r_1)</script> 不为零。</p>
+<p>我们从 <script type="math/tex">L[e^{rt}]=e^{rt}Z(r)=e^{rt}(r-r_1)^sq(r)</script> 开始。当 <script type="math/tex">r=r_1</script> 时式子的右边是零，因此 <script type="math/tex">e^{r_1t}</script> 是微分方程的解。</p>
+<p>上式对 <script type="math/tex">r</script> 求一阶导，因为 <script type="math/tex">L</script> 算子是 <script type="math/tex">t</script> 的函数，可以交换算子与微分算子的顺序，即
+<script type="math/tex; mode=display">\frac{\partial}{\partial r}L[e^{rt}]=L[\frac{\partial}{\partial r}e^{rt}]</script>
+对右边算子内部积分得到
+<script type="math/tex; mode=display">L[te^{rt}]=\frac{\partial}{\partial r}L[e^{rt}]=e^{rt}Z'(r)+te^{rt}Z(r)</script>
+当 <script type="math/tex">r=r_1</script> 时，前面分析过 <script type="math/tex">Z(r)=Z'(r_1)=0</script>，那么右边为零，因此 <script type="math/tex">re^{r_1t}</script> 是函数的解。
+重复上面的过程，直到
+<script type="math/tex; mode=display">\frac{\partial^{s-1}}{\partial r^{s-1}}L[e^{rt}]=L[t^{s-1}e^{rt}]</script>
+前面分析过，左边每一项有因子 <script type="math/tex">e^{rt}</script> 之外，还依次包含 <script type="math/tex">Z^{(s-1)}(r),\cdots,Z'(r),Z(r)</script>，当 <script type="math/tex">r=r_1</script> 时，这些值都是零，因此 <script type="math/tex">t^{s-1}e^{rt}</script> 是函数的解。</p>
 <p>如果微分方程 <script type="math/tex">(1)</script> 有重复的复数解，那么至少是四阶方程。如果复数根 <script type="math/tex">\lambda+ i\mu</script> 重复了 <script type="math/tex">s</script> 次，那么其共轭 <script type="math/tex">\lambda- i\mu</script> 也重复 <script type="math/tex">s</script> 次。对应这 <script type="math/tex">2s</script> 个复数解，可以找打 <script type="math/tex">2s</script> 个实数解，这些实数解线性无关且是从 <script type="math/tex">e^{(\lambda+ i\mu)t},te^{(\lambda+ i\mu)t},\cdots,t^{s-1}e^{(\lambda+ i\mu)t}</script> 的实部和虚部得到的。
 <script type="math/tex; mode=display">e^{\lambda t}\cos\mu t,e^{\lambda t}\sin\mu t,te^{\lambda t}\cos\mu t,te^{\lambda t}\sin\mu t,\cdots,t^{s-1}e^{\lambda t}\cos\mu t,t^{s-1}e^{\lambda t}\sin\mu t</script>
 因此方程 <script type="math/tex">(1)</script> 的通解总能表达成 <script type="math/tex">n</script> 个实数解的线性组合的形式。</p>
