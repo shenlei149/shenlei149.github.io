@@ -113,7 +113,7 @@ $$\frac{\partial^{s-1}}{\partial r^{s-1}}L[e^{rt}]=L[t^{s-1}e^{rt}]$$
 $$e^{\lambda t}\cos\mu t,e^{\lambda t}\sin\mu t,te^{\lambda t}\cos\mu t,te^{\lambda t}\sin\mu t,\cdots,t^{s-1}e^{\lambda t}\cos\mu t,t^{s-1}e^{\lambda t}\sin\mu t$$
 因此方程 $(1)$ 的通解总能表达成 $n$ 个实数解的线性组合的形式。
 
-例 1 求
+例 3 求
 $$y^{(4)}+2y''+y=0\tag{19}$$
 的通解。
 
