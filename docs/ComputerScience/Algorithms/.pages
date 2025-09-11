@@ -1,5 +1,7 @@
 nav:
     - README.md
+    - 渐进符号: AsymptoticNotation.md
     - 分治法: DivideConquer.md
     - 算术: Arithmetic.md
     - 排序: Sort.md
+    - 其他: Others.md
