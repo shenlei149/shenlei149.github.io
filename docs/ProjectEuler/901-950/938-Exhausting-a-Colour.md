@@ -19,7 +19,7 @@ P(R,B)&=\frac{B(B-1)}{(R+B)(R+B-1)}P(R,B)\\
 &+\frac{2RB}{(R+B)(R+B-1)}P(R,B-1)
 \end{aligned}$$
 
-表达递归关系最简单的方式，为了不重复计算这里使用 `double?` 来保存数据，如果有值就直接返回，否则计算对应的概率。
+表达递归关系最简单的方式就是实现递归函数。为了不重复计算这里使用 `double?` 来保存数据，如果有值就直接返回，否则计算对应的概率。
 ```csharp
 static readonly double?[,] p = new double?[RED + 1, BLACK + 1];
 
