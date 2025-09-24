@@ -22,7 +22,7 @@
     
     
       
-        <title>算术 - guozi</title>
+        <title>数值计算 - guozi</title>
       
     
     
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              算术
+              数值计算
             
           </span>
         </div>
@@ -1172,7 +1172,7 @@
   
   
   <span class="md-ellipsis">
-    算术
+    数值计算
     
   </span>
   
@@ -1185,7 +1185,7 @@
   
   
   <span class="md-ellipsis">
-    算术
+    数值计算
     
   </span>
   
@@ -1209,6 +1209,15 @@
   <a href="#karatsuba" class="md-nav__link">
     <span class="md-ellipsis">
       Karatsuba 乘法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strassen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Strassen 矩阵乘法
     </span>
   </a>
   
@@ -24815,6 +24824,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#strassen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Strassen 矩阵乘法
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24847,7 +24865,7 @@
   
 
 
-  <h1>算术</h1>
+  <h1>数值计算</h1>
 
 
 
@@ -24871,7 +24889,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 4, 2025 07:34:25 UTC">September 4, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 24, 2025 11:31:13 UTC">September 24, 2025</span>
   </span>
 
     
@@ -24905,6 +24923,69 @@ xy&=(10^{n/2}a+b)(10^{n/2}c+d)\\
 <p>如果 <code>n == 1</code>，那么直接计算 <code>x * y</code> 并返回。</p>
 <p>否则按照之前的描述分别拆成 <code>a, b</code> 和 <code>c, d</code> 两个部分。分别计算 <code>ac = a * c</code> <code>bd = b * d</code>，为了方便描述中间部分，引入一些变量，<code>p = a + b, q = c + d</code>，那么 <code>adbc = p * q - ac - bd</code>。那么最终结果是 <code>pow(10, n) * ac + pow(10, n / 2) * adbc + bd</code>。</p>
 <p>具体实现可以参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/1f66d6cc237214d89a025a5714497ee0370f630f/src/numeric/BigInteger.cc#L200">BigInteger.cc</a>。</p>
+<h2 id="strassen">Strassen 矩阵乘法</h2>
+<p>假定 <script type="math/tex">X,Y</script> 是两个 <script type="math/tex">n\times n</script> 的矩阵，乘积 <script type="math/tex">Z=XY</script>，第 <script type="math/tex">i</script> 行第 <script type="math/tex">j</script> 列的值是
+<script type="math/tex; mode=display">z_{ij}=\sum_{k=1}^n x_{ik}y_{kj}</script>
+最朴素的算法就是对 <script type="math/tex">i,j,k</script> 遍历，三层 <code>for</code> 循环，时间复杂度是 <script type="math/tex">O(n^3)</script>。</p>
+<p>下面考虑分治法，将 <script type="math/tex">X,Y</script> 拆成四个 <script type="math/tex">\frac{n}{2}\times\frac{n}{2}</script> 的小矩阵
+<script type="math/tex; mode=display">X=\begin{pmatrix}
+A&B\\C&D
+\end{pmatrix},Y=\begin{pmatrix}
+E&F\\G&H
+\end{pmatrix}</script>
+那么
+<script type="math/tex; mode=display">XY=\begin{pmatrix}
+AE+BG&AF+BH\\
+CE+DG&CF+DH
+\end{pmatrix}</script>
+需要递归的调用八次矩阵乘法，算法的复杂度仍旧是 <script type="math/tex">O(n^3)</script>。</p>
+<p>如果我们能够省去一次递归调用，那么性能的提升不仅仅是 12.5%。这就是 Strassen 矩阵乘法的巧妙之处。首先执行七次递归调用
+<script type="math/tex; mode=display">\begin{aligned}
+P_1&=A(F-H)\\
+P_2&=(A+B)H\\
+P_3&=(C+D)E\\
+P_4&=D(G-E)\\
+P_5&=(A+D)(E+H)\\
+P_6&=(B-D)(G+H)\\
+P_7&=(A-C)(E+D)
+\end{aligned}</script>
+那么
+<script type="math/tex; mode=display">\begin{aligned}
+XY&=\begin{pmatrix}
+AE+BG&AF+BH\\
+CE+DG&CF+DH
+\end{pmatrix}\\
+&=\begin{pmatrix}
+P_5+P_4-P_2+P_6&P_1+P_2\\
+P_3+P_4&P_1+P_5-P_3-P_7
+\end{pmatrix}
+\end{aligned}</script>
+下面验证各个递归调用
+<script type="math/tex; mode=display">\begin{aligned}
+P_5+P_4-P_2+P_6=&AE+AH+DE+DH\\
+&+DG-DE\\
+&-AH-BH\\
+&+BG+BH-DG-DH\\
+=&AE+AH+DH-AH-BH+BG+BH-DH\\
+=&AE+BG
+\end{aligned}</script>
+<script type="math/tex; mode=display">\begin{aligned}
+P_1+P_2&=AF-AH+AH+BH\\
+&=AF+BH
+\end{aligned}</script>
+<script type="math/tex; mode=display">\begin{aligned}
+P_3+P_4&=CE+DE+DG-DE\\
+&=CE+DG
+\end{aligned}</script>
+<script type="math/tex; mode=display">\begin{aligned}
+P_1+P_5-P_3-P_7=&AF-AH\\
+&+AE+AH+DE+DH\\
+&-CE-DE\\
+&-AE-AF+CE+CF\\
+=&AF+DH-CE-AF+CE+CF\\
+=&CF+DH
+\end{aligned}</script>
+</p>
 
   
 
