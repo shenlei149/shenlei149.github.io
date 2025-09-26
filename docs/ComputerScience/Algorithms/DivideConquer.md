@@ -7,3 +7,4 @@
 * [归并排序](./Sort.md#merge-sort)
 * [倒置个数问题](./Sort.md#倒置个数)
 * [Strassen 矩阵乘法](./Arithmetic.md#strassen-矩阵乘法)
+* [Closest Pair](./Geometry.md#closest-pair)

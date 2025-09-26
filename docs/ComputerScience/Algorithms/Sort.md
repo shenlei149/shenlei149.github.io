@@ -32,7 +32,7 @@
 
 实现代码参考[MergeSort](https://github.com/shenlei149/algorithms-data-structures/blob/633d6d96bec0e81baee4b72460340ac03046669d/src/sort/InternalSort.h#L112)。
 
-![](MergeJoin.jpg)
+![](./Figures/MergeJoin.jpg)
 
 整个过程上图所示。对于归并函数而言，假定两个数组的长度都是 $l$，那么开销是 $O(l)$。假定第 $i$ 层有 $2^i$ 个子数组，每个数组长度是 $n/2^i$，其中 $n$ 是原始数组的大小，那么每层合并的开销是 $O(n)$。整棵树的高度是 $n\log_2 n+1$，因此归并排序的时间复杂度是 $O(n\log_2 n)$。
 
