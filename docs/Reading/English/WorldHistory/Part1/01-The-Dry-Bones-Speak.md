@@ -156,3 +156,24 @@ One recent discovery suggests that at least some Neanderthals were cannibals. Th
 
 * cannibal: a person who eats human flesh, or an animal that eats the flesh of animals of its own type. 食人肉者；同类相食的动物。
 * marrow: soft tissue containing a lot of fat in the centre of a bone. 髓，骨髓。
+
+### Homo erectus: A Worldwide Wanderer
+The next of these prehistoric hominid species to be unearthed - the most widespread, and the closest to modern humans - was Homo erectus ("upright human"). Examples of this species were discovered in widely dispersed locations throughout the eastern hemisphere and first named according to the locations in which they were found. Later anthropologists recognized the similarities among them, named them collectively Homo erectus, and traced their migration patterns from their earliest home in Africa to new habitats across Asia.
+
+In 1891, Eugene Dubois (1858-1940), a surgeon in the Dutch army in Java, Indonesia, was exploring for fossils. Employing the labor of convicts in Dutch prisons, along the bank of the Solo River, he discovered a cranium with a brain capacity of 900cc (compared to the modern human average of 1,400cc), a molar, and a femur. Dubois claimed to have discovered Pithecanthropus erectus, or ape-man. This find , widely referred to as Java Man, as the first early hominid discovered outside Europe. Dubois's Java Man forced scholars to consider the theories of the evolution of humans more seriously and to understand the process in a global context.
+
+* cranium: the hard bone case that gives an animal's or a human's head its shape and protects the brain. 颅，头颅；头盖骨。
+* molar: one of the large teeth at the back of the mouth in humans and some other animals used for crushing and chewing food. 臼齿，磨牙。
+* femur: the long bone in the upper part of the leg. 股骨。
+
+In 1929, in the vast Zhoukoudian cave, 30 miles from Beijing, Chinese archaeologists discovered a 500,000-year-old skullcap. In the next few years, in this fossil-rich cave, the discovered 14 omre fossil skulls and the remains of some 40 individuals, whom they dated to 600,000 to 200,000 years ago. The cave seems to have been the home of a band of hunters, who lived in a forested, grassy, riverine area and who ate plants as well as animals, such as bison and deer. Remaining bones and ash indicate their ability to use fire for light and cooking. With a brain capacity ranging from 775 to 1,300cc and a height up to 5 feet 6 inches, anatomically Beijing Man was almost identical to Java Man. About a decade later, further excavation in Java turned up the nearly complete skull of one hominid and the skeletons of some 40 others who had lived 100,000 to 900,000 years ago. Anthropologists soon recognized similarities between Java Man and Beijing Man, and classified them collectively under the name Homo erectus. The 40 skeletons from Java represent one-third of all the Homo erectus skeletons uncovered to this day in the entire world. Those in the Zhoukoudian cave represent another third. The most complete skeleton we have of Homo erectus was discovered, however, in Africa, in 1984, on the shores of Lake Turkana, Kenya.
+
+* riverine: relating to or found on a river or rivers, or the banks of a river. 河流的；河上的；在河岸的。
+* anatomically: related to the human body and how its parts are arranged. 解剖学地，身体比例上地。
+* excavation: the act of removing earth that is covering very old objects buried in the ground in order to discover things about the past.（古物的）发掘。
+
+### The Search Shifts to Africa
+
+#### Homo habilis
+
+#### Australopithecus afarensis
