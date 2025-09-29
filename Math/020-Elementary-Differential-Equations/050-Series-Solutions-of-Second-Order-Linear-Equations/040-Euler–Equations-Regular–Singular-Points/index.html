@@ -1059,6 +1059,8 @@
       
         
       
+        
+      
     
     
     
@@ -1115,6 +1117,29 @@
   
   <span class="md-ellipsis">
     渐进符号
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/Algorithms/MasterMethod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    主方法
     
   </span>
   
@@ -24847,6 +24872,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则奇点
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24903,7 +24937,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 26, 2025 09:19:28 UTC">September 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 29, 2025 11:49:16 UTC">September 29, 2025</span>
   </span>
 
     
@@ -25056,7 +25090,54 @@ c_1\xi^\lambda\cos\mu\ln\xi+c_2\xi^\lambda\sin\mu\ln\xi&&r_{1,2}=\lambda\pm i\mu
 如果欧拉方程的形式是
 <script type="math/tex; mode=display">(x-x_0)^2y''+\alpha(x-x_0)y'+\beta y=0\tag{28}</script>
 那么解是类似的。如果解的形式 <script type="math/tex">y=(x-x_0)^r</script>，那么上述解 <script type="math/tex">(25),(26),(27)</script> 中 <script type="math/tex">x</script> 代入 <script type="math/tex">x-x_0</script> 即可。或者将 <script type="math/tex">t=x-x_0</script> 代入 <script type="math/tex">(28)</script>。</p>
-<h4 id="_5">正则奇点</h4>
+<h3 id="_5">正则奇点</h3>
+<p>现在回到方程 <script type="math/tex">(1)</script>
+<script type="math/tex; mode=display">P(x)y''+Q(x)y'+R(x)y=0</script>
+<script type="math/tex">x_0</script> 是奇点，这意味着 <script type="math/tex">P(x_0)=0</script> 并且 <script type="math/tex">Q,R</script> 至少有一个在 <script type="math/tex">x_0</script> 不为零。</p>
+<p>如果尝试使用前面两节的方法求解，会失败，因为方程 <script type="math/tex">(1)</script> 的解在 <script type="math/tex">x_0</script> 处往往是不可分析的，无法表示为 <script type="math/tex">x-x_0</script> 的泰勒级数。上面的例 1 2 3 就是例子，在 <script type="math/tex">x=0</script> 处没有泰勒展开。为了求解 <script type="math/tex">(1)</script> 在奇点附近的解，必须使用更一般类型的级数展开。</p>
+<p>由于奇点的个数很少，我们是不是可以忽略它们仅求解在常点附近的解。事实是这并不可行。奇点在很大程度上决定了解的主要特征，可能比想象中还大。奇点附近的解可能会变得很大或者快速变化，比如上面三个例子。因此，通过微分方程建模的物理问题往往在奇点附近的行为更为有趣。物理问题中的几何奇点，往往是拐角或者尖刺，这些导致了相应的微分方程的奇点。因此尽管我们第一想法是避开这些很少的奇点，但是正是在这些点上，我们需要更仔细的研究。</p>
+<p>另一个可能的方法是使用第八章描述的数值分析法。不过这些方法在奇点附近不适用。即使我们采用数值分析法，结合本章的分析方法，对研究奇点附近的解也是很有帮助的。</p>
+<p>如果没有在奇点附近 <script type="math/tex">Q/P,R/P</script> 行为的信息，那么无法描述方程 <script type="math/tex">(1)</script> 在 <script type="math/tex">x=x_0</script> 附近的解的行为。方程 <script type="math/tex">(1)</script> 可能有两个不同的解，<script type="math/tex">x\to x_0</script> 时可能都有界，或许一个有界一个无穷大或者两个都会无穷大。如果方程 <script type="math/tex">(1)</script> 有解在 <script type="math/tex">x\to x_0</script> 时会变得无穷大，会有 <script type="math/tex">y\to\infty</script> 还是其他行为？</p>
+<p>下面扩展之前求解方程 <script type="math/tex">(1)</script> 在常点附近的方法使其适用于奇点 <script type="math/tex">x_0</script> 附近。为了做合适的简化，这里对函数 <script type="math/tex">Q/P,R/P</script> 有一些要求，可以看作是“弱奇点”。现在可能还无法看出什么是弱奇点，不过随着讨论相应的方法，这些条件是
+<script type="math/tex; mode=display">\lim_{x\to x_0}(x-x_0)\frac{Q(x)}{P(x)}\tag{29}</script>
+和
+<script type="math/tex; mode=display">\lim_{x\to x_0}(x-x_0)^2\frac{R(x)}{P(x)}\tag{30}</script>
+有限。这意味着在奇点处 <script type="math/tex">Q/P</script> 不会比 <script type="math/tex">(x-x_0)^{-1}</script> 更差，<script type="math/tex">R/P</script> 不会比 <script type="math/tex">(x-x_0)^{-2}</script> 更差。这些点称为方程 <script type="math/tex">(1)</script> 的正则奇点（<code>regular singular point</code>）。对于有比多项式更一些的系数的方程，<script type="math/tex">x_0</script> 是正则奇点的条件是如何
+<script type="math/tex; mode=display">(x-x_0)\frac{Q(x)}{P(x)},(x-x_0)^2\frac{R(x)}{P(x)}\tag{31}</script>
+在 <script type="math/tex">x_0</script> 附近有收敛的泰勒级数，即 <script type="math/tex">(31)</script> 的函数在 <script type="math/tex">x=x_0</script> 处是可分析的。当 <script type="math/tex">P,Q,R</script> 是多项式时，<script type="math/tex">(29),(30)</script> 有限就蕴涵这一点。方程 <script type="math/tex">(1)</script> 中不是正则奇点的奇点称为非正则奇点（<code>irregular singular point</code>）。</p>
+<p>欧拉方程 <script type="math/tex">(28)</script> 满足 <script type="math/tex">(29),(30)</script> 是有限的这一条件。因此欧拉方程的奇点是正则奇点。我们会看到形如 <script type="math/tex">(1)</script> 的方程在正则奇点的行为与欧拉方程很类似，即在正则奇点附近的解可能会包含 <script type="math/tex">x</script> 的幂次（负数或非整数次幂）、对数函数、对数函数的正弦或余弦。</p>
+<p>下面两节会讨论如何求解方程 <script type="math/tex">(1)</script> 在正则奇点附近的解。在非正则奇点附近的解超出了本书的范围，在更更等的微分方程课本中会涉及。</p>
+<p>例 4 求勒让德方程
+<script type="math/tex; mode=display">(1-x^2)y''-2xy'+\alpha(\alpha+1)y=0\tag{32}</script>
+的奇点，哪些是正则奇点？</p>
+<p>解：<script type="math/tex">P(x)=1-x^2</script>，那么奇点是 <script type="math/tex">x=1,x=-1</script>。方程 <script type="math/tex">(32)</script> 两边同除 <script type="math/tex">1-x^2</script>，<script type="math/tex">y',y</script> 的系数分别是 <script type="math/tex">-2x/(1-x^2),\alpha(\alpha+1)/(1-x^2)</script>。考虑 <script type="math/tex">x=1</script> 的情况，计算极限
+<script type="math/tex; mode=display">\lim_{x\to 1}(x-1)\frac{-2x}{1-x^2}=\lim_{x\to 1}\frac{(x-1)(-2x)}{(1-x)(1+x)}=\lim_{x\to 1}\frac{2x}{1+x}=1</script>
+<script type="math/tex; mode=display">\lim_{x\to 1}(1-x^2)\frac{\alpha(\alpha+1)}{1-x^2}=\lim_{x\to 1}\frac{(x-1)(-\alpha)(\alpha+1)}{1+x}=0</script>
+极限都是有限的，那么 <script type="math/tex">x=1</script> 是正则奇点，不难验证 <script type="math/tex">x=-1</script> 也是正则奇点。</p>
+<p>例 5 求微分方程
+<script type="math/tex; mode=display">2x(x-2)^2y''+3xy'+(x-2)y=0</script>
+的奇点，哪些是正则奇点，哪些是非正则奇点？</p>
+<p>解：两边同除 <script type="math/tex">2x(x-2)^2</script>，得到
+<script type="math/tex; mode=display">y''+\frac{3}{2(x-2)^2}y'+\frac{1}{2x(x-2)}y=0</script>
+那么
+<script type="math/tex; mode=display">p(x)=\frac{Q(x)}{P(x)}=\frac{3}{2(x-2)^2},q(x)=\frac{R(x)}{P(x)}=\frac{1}{2x(x-2)}</script>
+奇点是 <script type="math/tex">x=0,x=2</script>。首先讨论 <script type="math/tex">x=0</script>
+<script type="math/tex; mode=display">\lim_{x\to 0}xp(x)=\lim_{x\to 0}\frac{3x}{2(x-2)^2}=0</script>
+<script type="math/tex; mode=display">\lim_{x\to 0}x^2q(x)=\lim_{x\to 0}\frac{2x}{x-2}=0</script>
+因此 <script type="math/tex">x=0</script> 是正则奇点。</p>
+<p>
+<script type="math/tex">x=2</script> 时
+<script type="math/tex; mode=display">\lim_{x\to 2}(x-2)p(x)=\lim_{x\to 2}\frac{3}{2(x-2)}</script>
+极限不存在，因此 <script type="math/tex">x=2</script> 是非正则奇点。</p>
+<p>例 6 求
+<script type="math/tex; mode=display">(x-\frac{\pi}{2})^2y''+(\cos x)y'+(\sin x)y=0</script>
+的奇点，哪些是正则奇点，哪些是非正则奇点？</p>
+<p>解：奇点是 <script type="math/tex">x=\frac{\pi}{2}</script>，那么
+<script type="math/tex; mode=display">(x-\frac{\pi}{2})p(x)=(x-\frac{\pi}{2})\frac{Q(x)}{P(x)}=\frac{\cos x}{x-\pi/2}</script>
+<script type="math/tex; mode=display">(x-\frac{\pi}{2})^2q(x)=(x-\frac{\pi}{2})^2\frac{R(x)}{P(x)}=\sin x</script>
+可以直接求极限，也可以使用 <script type="math/tex">\cos x</script> 在 <script type="math/tex">x=\frac{\pi}{2}</script> 的泰勒展开，那么
+<script type="math/tex; mode=display">\frac{\cos x}{x-\pi/2}=-1+\frac{(x-\pi/2)^2}{3!}-\frac{(x-\pi/2)^4}{5!}+\cdots</script>
+对所有 <script type="math/tex">x</script> 收敛。同时，<script type="math/tex">\sin x</script> 在 <script type="math/tex">x=\frac{\pi}{2}</script> 处是可分析的。因此 <script type="math/tex">x=\frac{pi}{2}</script> 是正则奇点。</p>
 
   
 
