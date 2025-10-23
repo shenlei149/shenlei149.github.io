@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://guozi149.me/Math/020-Elementary-Differential-Equations/050-Series-Solutions-of-Second-Order-Linear-Equations/060-Bessel-Equation/">
+        <link rel="canonical" href="https://guozi149.me/Math/020-Elementary-Differential-Equations/050-Series-Solutions-of-Second-Order-Linear-Equations/070-Bessel-Equation/">
       
       
         <link rel="prev" href="../060-Series-Solutions-Near-a-Regular-Singular-Point-Part-II/">
@@ -14183,6 +14183,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      半阶贝塞尔函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      一阶贝塞尔函数
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24992,6 +25010,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      半阶贝塞尔函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      一阶贝塞尔函数
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -25008,7 +25044,7 @@
 
 
   
-    <a href="https://github.com/shenlei149/shenlei149.github.io/edit/master/docs/Math/020-Elementary-Differential-Equations/050-Series-Solutions-of-Second-Order-Linear-Equations/060-Bessel-Equation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/shenlei149/shenlei149.github.io/edit/master/docs/Math/020-Elementary-Differential-Equations/050-Series-Solutions-of-Second-Order-Linear-Equations/070-Bessel-Equation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -25017,7 +25053,7 @@
     
       
     
-    <a href="https://github.com/shenlei149/shenlei149.github.io/raw/master/docs/Math/020-Elementary-Differential-Equations/050-Series-Solutions-of-Second-Order-Linear-Equations/060-Bessel-Equation.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/shenlei149/shenlei149.github.io/raw/master/docs/Math/020-Elementary-Differential-Equations/050-Series-Solutions-of-Second-Order-Linear-Equations/070-Bessel-Equation.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
@@ -25043,6 +25079,162 @@
 <script type="math/tex; mode=display">F(r)=r(r-1)+p_0r+q_0=r(r-1)+r-\nu^2=r^2-\nu^2=0</script>
 那么根是 <script type="math/tex">r=\pm\nu</script>。下面讨论在区间 <script type="math/tex">x>0</script> 上 <script type="math/tex">\nu=0,\nu=\frac{1}{2},\nu=1</script> 三种情况。贝塞尔函数在 11.4 和 11.5 小节还会出现。</p>
 <h3 id="_1">零阶贝塞尔方程</h3>
+<p>此时 <script type="math/tex">\nu=0</script>。那么微分方程 <script type="math/tex">(1)</script> 是
+<script type="math/tex; mode=display">L[y]=x^2y''+xy'+x^2y=0\tag{2}</script>
+指标方程的根是 <script type="math/tex">r_1=r_2=0</script>。将
+<script type="math/tex; mode=display">y=\phi(r,x)=a_0x^r+\sum_{n=1}^\infty a_nx^{r+n}\tag{3}</script>
+代入 <script type="math/tex">(2)</script> 得到
+<script type="math/tex; mode=display">\begin{aligned}
+L[\phi](r,x)&=\sum_{n=0}^\infty a_n((r+n)(r+n-1)+(r+n))x^{r+n}+\sum_{n=0}^\infty a_nx^{r+n+2}\\
+&=a_0(r(r-1)+r)x^r+a_1((r+1)r+(r+1))x^{r+1}+\\
+&\sum_{n=2}^\infty(a_n((r+n)(r+n-1)+(r+n))+a_{n-2})x^{r+n}\\
+&=0
+\end{aligned}\tag{4}</script>
+因此递归关系是
+<script type="math/tex; mode=display">a_n(r)=-\frac{a_{n-2}(r)}{(r+n)(r+n-1)+(r+n)}=-\frac{a_{n-2}(r)}{(r+n)^2},n\geq 2\tag{5}</script>
+为了确定 <script type="math/tex">y_1(x)</script>，令 <script type="math/tex">r=0</script>。由 <script type="math/tex">(4)</script> 可知如果要 <script type="math/tex">x^{r+1}</script> 的系数为零，那么 <script type="math/tex">a_1=0</script>，根据递归关系 <script type="math/tex">(5)</script>，那么 <script type="math/tex">a_3=a_5=\cdots=0</script>。简化递归关系得到
+<script type="math/tex; mode=display">a_n(0)=-\frac{a_{n-2}(0)}{n^2},n=2,4,6,8,\cdots</script>
+或者令 <script type="math/tex">n=2m</script>，那么
+<script type="math/tex; mode=display">a_{2m}(0)=-\frac{a_{2m-2}(0)}{(2m)^2},m=1,2,3,\cdots</script>
+因此
+<script type="math/tex; mode=display">\begin{aligned}
+a_2(0)&=-\frac{a_0}{2^2}\\
+a_4(0)&=-\frac{a_2}{4^2}&&=\frac{a_0}{2^42^2}\\
+a_6(0)&=-\frac{a_4}{6^2}&&=-\frac{a_0}{2^6(3\cdot 2)^2}
+\end{aligned}</script>
+通项公式是
+<script type="math/tex; mode=display">a_{2m}(0)=\frac{(-1)^ma_0}{2^{2m}(m!)^2},m=1,2,3,\cdots\tag{6}</script>
+因此
+<script type="math/tex; mode=display">y_1(x)=a_0\bigg(1+\sum_{m=1}^\infty\frac{(-1)^mx^{2m}}{2^{2m}(m!)^2}\bigg),x>0\tag{7}</script>
+括号里面的函数称为第一类零阶贝塞尔函数（<code>Bessel function of the first kind of order zero</code>），用 <script type="math/tex">J_0(x)</script> 表示。定理 5.6.1 表明级数对所有 <script type="math/tex">x</script> 都收敛并且 <script type="math/tex">J_0</script> 在 <script type="math/tex">x=0</script> 处可分析。下图是 <script type="math/tex">y=J_0(x)</script> 的图像和 <script type="math/tex">(7)</script> 中级数的部分和。</p>
+<p><img alt="" src="../070.010.png" /></p>
+<p>为了找到 <script type="math/tex">y_2(x)</script>，我们使用 5.6 小节的 <script type="math/tex">(17)</script>，需要计算 <script type="math/tex">a_n'(0)</script>。首先，<script type="math/tex">(4)</script> 中 <script type="math/tex">x^{r+1}</script> 的系数为零，即 <script type="math/tex">(r+1)^2a_1(r)=0</script>，因此对 <script type="math/tex">r=0</script> 附近的任何 <script type="math/tex">r</script> 都有 <script type="math/tex">a_1(r)=0</script>。这里想说明不仅 <script type="math/tex">a_1(0)=0</script>，<script type="math/tex">a_1'(0)=0</script>，那么根据递归关系 <script type="math/tex">(5)</script>，有
+<script type="math/tex; mode=display">a_3'(0)=a_5'(0)=\cdots=a_{2n+1}'(0)=\cdots=0</script>
+因此仅需计算 <script type="math/tex">a_{2m}'(0),m=1,2,3,\cdots</script>。从 <script type="math/tex">(5)</script> 我们有
+<script type="math/tex; mode=display">a_{2m}=-\frac{a_{2m-2}(r)}{(r+2m)^2},m=1,2,3,\cdots</script>
+那么
+<script type="math/tex; mode=display">a_2=-\frac{a_0}{(r+2)^2},a_4=\frac{a_0}{(r+2)^2(r+4)^2}</script>
+通项公式是
+<script type="math/tex; mode=display">a_{2m}(r)=\frac{(-1)^ma_0}{(r+2)^2(r+4)^2+\cdots(r+2m)^2},m=1,2,3,\cdots</script>
+计算 <script type="math/tex">a_{2m}'(r)</script> 要利用如下性质：如果
+<script type="math/tex; mode=display">f(x)=(x-\alpha_1)^{\beta_1}(x-\alpha_2)^{\beta_2}\cdots(x-\alpha_n)^{\beta_n}</script>
+并且 <script type="math/tex">x</script> 不等于 <script type="math/tex">\alpha_1,\alpha_2,\cdots,\alpha_n</script>，那么
+<script type="math/tex; mode=display">\frac{f'(x)}{f(x)}=\frac{\beta_1}{x-\alpha_1}+\frac{\beta_2}{x-\alpha_2}+\cdots+\frac{\beta_n}{x-\alpha_n}</script>
+对 <script type="math/tex">(8)</script> 应用这个性质得到
+<script type="math/tex; mode=display">\frac{a_{2m}'(r)}{a_{2m}(r)}=-2\bigg(\frac{1}{r+2}+\frac{1}{r+4}+\cdots+\frac{1}{r+2m}\bigg)</script>
+令 <script type="math/tex">r=0</script> 得到
+<script type="math/tex; mode=display">a_{2m}'(0)=-2\bigg(\frac{1}{2}+\frac{1}{4}+\cdots+\frac{1}{2m}\bigg)a_{2m}(0)</script>
+<script type="math/tex">(6)</script> 就是 <script type="math/tex">a_{2m}(0)</script>，再令
+<script type="math/tex; mode=display">H_m=1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{m}\tag{9}</script>
+那么可以得到
+<script type="math/tex; mode=display">a_{2m}'(0)=-H_m\frac{(-1)^ma_0}{2^{2m}(m!)^2},m=1,2,3,\cdots</script>
+令 <script type="math/tex">a_0=1</script>，并且将 <script type="math/tex">a_{2m}'(0)=b_{2m}(0),y_1(x)</script> 代入 5.6 小节的 <script type="math/tex">(23)</script> 得到零阶贝塞尔方程的第二个解
+<script type="math/tex; mode=display">y_2(x)=J_0(x)\ln x+\sum_{m=1}^\infty\frac{(-1)^{m+1}H_m}{2^{2m}(m!)^2}x^{2m},x>0\tag{10}</script>
+第二个解往往表示为 <script type="math/tex">J_0,y_2</script> 的线性组合，称为第二类零阶贝塞尔函数（<code>Bessel function of the second kind of order zero</code>），用 <script type="math/tex">Y_0</script> 表示
+<script type="math/tex; mode=display">Y_0(x)=\frac{2}{\pi}[y_2(x)+(\gamma-\ln 2)J_0(x)]\tag{11}</script>
+其中 <script type="math/tex">\gamma</script> 是欧拉-马斯克若尼常数，定义如下
+<script type="math/tex; mode=display">\gamma=\lim_{n\to\infty}(H_n-\ln n)\approx 0.5772\tag{12}</script>
+将 <script type="math/tex">y_2(x)</script> 代入 <script type="math/tex">(11)</script> 得到
+<script type="math/tex; mode=display">Y_0(x)=\frac{2}{\pi}\bigg[(\gamma+\ln\frac{x}{2})J_0(x)+\sum_{m=1}^\infty\frac{(-1)^{m+1}H_m}{2^{2m}(m!)^2}x^{2m}\bigg],x>0\tag{13}</script>
+那么零阶贝塞尔方程的通解是
+<script type="math/tex; mode=display">y=c_1J_0(x)+c_2Y_0(x),x>0</script>
+当 <script type="math/tex">x\to 0</script> 时，<script type="math/tex">J_0(x)\to 1</script>，那么 <script type="math/tex">Y_0(x)</script> 在 <script type="math/tex">x=0</script> 处有一个对数项。当 <script type="math/tex">x\to 0</script> 时，<script type="math/tex">Y_0(x)</script> 的行为类似 <script type="math/tex">(2/\pi)\ln x</script>。如果我们仅对原点有界的解感兴趣，那么需要抛弃 <script type="math/tex">Y_0</script>。<script type="math/tex">J_0,Y_0</script> 的图像如下图所示。</p>
+<p><img alt="" src="../070.020.png" /></p>
+<p>从上图可以看出来，当 <script type="math/tex">x</script> 很大的时候，<script type="math/tex">J_0(x),Y_0(x)</script> 都是振荡的。从原始方程看来这种行为是预期的，事实上这对于 <script type="math/tex">\nu</script> 阶贝塞尔方程都是成立的。如果 <script type="math/tex">(1)</script> 两边同时除以 <script type="math/tex">x^2</script>，得到
+<script type="math/tex; mode=display">y''+\frac{1}{x}y'+\bigg(1-\frac{\nu^2}{x^2}\bigg)y=0</script>
+如果 <script type="math/tex">x</script> 非常大，那么 <script type="math/tex">(1/x)y',(\nu^2/x^2)y''</script> 非常小，可以忽略。那么 <script type="math/tex">\nu</script> 阶贝塞尔方程近似为
+<script type="math/tex; mode=display">y''+y=0</script>
+这个方程的解是 <script type="math/tex">\sin x,\cos x</script>，那么 <script type="math/tex">x</script> 充分大时，贝塞尔函数的解近似是 <script type="math/tex">\sin x,\cos x</script> 的线性组合。某种程度上来说这是对的，不过随着 <script type="math/tex">x</script> 的增加，<script type="math/tex">J_0,Y_0</script> 都会减小，那么方程 <script type="math/tex">y''+y=0</script> 对 <script type="math/tex">x</script> 很大时而言并不是一个很好的近似。事实上，可以证明
+<script type="math/tex; mode=display">J_0(x)\approx\bigg(\frac{2}{\pi x}\bigg)^{1/2}\cos(x-\frac{\pi}{4}),x\to\infty\tag{14}</script>
+<script type="math/tex; mode=display">Y_0(x)\approx\bigg(\frac{2}{\pi x}\bigg)^{1/2}\sin(x-\frac{\pi}{4}),x\to\infty\tag{15}</script>
+当 <script type="math/tex">x</script> 很大时，这是一个相当好的近似。如下图所示，对于 <script type="math/tex">x\geq 1</script>，<script type="math/tex">J_0(x)</script> 与近似 <script type="math/tex">(14)</script> 相当接近。因此，<script type="math/tex">J_0(x)</script> 在零到无穷上的近似可以分成两段，在 <script type="math/tex">x\leq 1</script> 时使用 <script type="math/tex">(7)</script> 中的级数的两、三项近似，在 <script type="math/tex">x\geq 1</script> 时用 <script type="math/tex">(14)</script> 近似。</p>
+<h3 id="_2">半阶贝塞尔函数</h3>
+<p>这个例子解释了根的差值是整数但是没有对数项的情况。令 <script type="math/tex">(1)</script> 中的 <script type="math/tex">\nu=\frac{1}{2}</script>，那么
+<script type="math/tex; mode=display">L[y]=x^2y''+xy'+(x^2-\frac{1}{4})y=0\tag{16}</script>
+将级数 <script type="math/tex">(3)</script> 代入，得到
+<script type="math/tex; mode=display">\begin{aligned}
+L[\phi](r,x)=&\sum_{n=0}^\infty((r+n)(r+n-1)+(r+n)-\frac{1}{4})a_nx^{r+n}+\sum_{n=0}^\infty a_nx^{r+n+2}\\
+=&(r^2-\frac{1}{4})a_0x^r+((r+1)^2-\frac{1}{4})a_1x^{r+1}\\
+&+\sum_{n=2}^\infty(((r+n)^2-\frac{1}{4})a_n+a_{n-2})x^{r+n}\\
+=&0
+\end{aligned}\tag{17}</script>
+指标方程是 <script type="math/tex">r^2-\frac{1}{4}=0</script>，根是 <script type="math/tex">r_1=\frac{1}{2},r_2=-\frac{1}{2}</script>，两者差值是整数。递归关系是
+<script type="math/tex; mode=display">((r+n)^n-\frac{1}{4})a_n=a_{n-2},n\geq 2\tag{18}</script>
+对应较大的根 <script type="math/tex">r_1=\frac{1}{2}</script>，从 <script type="math/tex">(17)</script> 的 <script type="math/tex">x^{r+1}</script> 的系数为零可以得到 <script type="math/tex">a_1=0</script>。从 <script type="math/tex">(18)</script> 可知 <script type="math/tex">a_3=a_5=\cdots=a_{2n+1}=\cdots=0</script>。因此对于 <script type="math/tex">r=\frac{1}{2}</script>
+<script type="math/tex; mode=display">a_n=-\frac{a_{n-2}}{n(n+1)},n=2,4,6,\cdots</script>
+令 <script type="math/tex">n=2m</script>，那么
+<script type="math/tex; mode=display">a_{2m}=-\frac{a_{2m-2}}{2m(2m+1)},m=1,2,3,\cdots</script>
+通项公式是
+<script type="math/tex; mode=display">a_{2m}=\frac{(-1)^ma_0}{(2m+1)!},m=1,2,3,\cdots</script>
+取 <script type="math/tex">a_0=1</script> 得到
+<script type="math/tex; mode=display">y_1(x)=x^{1/2}\bigg(1+\sum_{m=1}^\infty\frac{(-1)^mx^{2m}}{(2m+1)!}\bigg)=x^{-1/2}\sum_{m=0}^\infty\frac{(-1)^mx^{2m+1}}{(2m+1)!},x>0\tag{19}</script>
+上式是 <script type="math/tex">\sin x</script> 的泰勒级数，因此半阶贝塞尔方程的一个解是 <script type="math/tex">x^{-1/2}\sin x</script>。第一类半阶贝塞尔函数 <script type="math/tex">J_{1/2}</script> 定义为 <script type="math/tex">(2/\pi)^{1/2}y_1</script>，因此
+<script type="math/tex; mode=display">J_{1/2}(x)=(\frac{2}{\pi x})^{1/2}\sin x,x>0\tag{20}</script>
+对于根 <script type="math/tex">r_2=-\frac{1}{2}</script>，由于 <script type="math/tex">N=r_1-r_2=1</script>，很难计算 <script type="math/tex">a_1</script>。不过从 <script type="math/tex">(17)</script> 可以看出，对于 <script type="math/tex">r=-\frac{1}{2}</script>，即使 <script type="math/tex">a_0,a_1</script> 是任意值，<script type="math/tex">x^r,x^{r+1}</script> 的系数都为零。结合 <script type="math/tex">(18)</script>，从 <script type="math/tex">a_0</script> 可以得到偶数项系数，从 <script type="math/tex">a_1</script> 开始可以得到奇数项系数。那么
+<script type="math/tex; mode=display">a_{2m}=-\frac{a_{2m-2}}{n(n-1)},m=1,2,3,\cdots</script>
+那么
+<script type="math/tex; mode=display">a_{2m}=\frac{(-1)^ma_0}{(2m)!},a_{2m+1}=\frac{(-1)^ma_1}{(2m+1)!},m=1,2,3,\cdots</script>
+因此
+<script type="math/tex; mode=display">\begin{aligned}
+y_2(x)&=x^{-1/2}\bigg(a_0\sum_{m=0}^\infty\frac{(-1)^mx^{2m}}{(2m)!}+a_1\sum_{m=0}^\infty\frac{(-1)^mx^{2m+1}}{(2m+1)!}\bigg)\\
+&=a_0\frac{\cos x}{x^{1/2}}+a_1\frac{\sin x}{x^{1/2}},x>0
+\end{aligned}\tag{21}</script>
+常量 <script type="math/tex">a_1</script> 仅仅是 <script type="math/tex">y_1(x)</script> 的若干倍。因此，通常通过令 <script type="math/tex">a_0=(2/\pi)^{1/2},a_1=0</script> 得到半阶贝塞尔函数的第二个解
+<script type="math/tex; mode=display">J_{-1/2}(x)=(\frac{2}{\pi x})^{1/2}\cos x,x>0\tag{22}</script>
+方程 <script type="math/tex">(16)</script> 的通解是
+<script type="math/tex; mode=display">y=c_1J_{1/2}(x)+c_2J_{-1/2}(x)</script>
+将 <script type="math/tex">(20),(22)</script> 与 <script type="math/tex">(14),(15)</script> 对比，对于 <script type="math/tex">x</script> 很大的时候，<script type="math/tex">J_{1/2},J_{-1/2}</script> 相比 <script type="math/tex">J_0,Y_0</script> 仅仅差了相位 <script type="math/tex">\pi/4</script>。<script type="math/tex">J_{1/2},J_{-1/2}</script> 的图像如下图所示。</p>
+<p><img alt="" src="../070.040.png" /></p>
+<h3 id="_3">一阶贝塞尔函数</h3>
+<p>这个例子讨论两个根差值是整数同时第二个解涉及对数项的情况。令方程 <script type="math/tex">(1)</script> 中 <script type="math/tex">\nu=1</script>
+<script type="math/tex; mode=display">L[y]=x^2y''+xy'+(x^2-1)y=0\tag{23}</script>
+代入级数 <script type="math/tex">(3)</script> 后合并同类项得到
+<script type="math/tex; mode=display">\begin{align}
+L[\phi](r,x)=&a_0(r^2-1)x^r+a_1((r+1)^2-1)x^{r+1}\\
+&+\sum_{n=2}^\infty(((r+n)^2-1)a_n+a_{n-2})x^{r+n}\\
+=&0
+\end{align}\tag{24}</script>
+指标方程是 <script type="math/tex">r^2-1=0</script>，两个根是 <script type="math/tex">r_1=1,r_2=-1</script>，递归关系是
+<script type="math/tex; mode=display">((r+n)^2-1)a_n(r)=-a_{n-2}(r),n\geq 2\tag{25}</script>
+对相对较大的根 <script type="math/tex">r=1</script> 而言，递归关系是
+<script type="math/tex; mode=display">a_n=-\frac{a_{n-2}}{(n+2)n},n=2,3,4,\cdots</script>
+从 <script type="math/tex">(24)</script> 的 <script type="math/tex">x^{r+1}</script> 的系数为零可以得到 <script type="math/tex">a_1=0</script>，结合递归关系，那么 <script type="math/tex">a_3=a_5=\cdots=0</script>。对于偶数 <script type="math/tex">n</script>，令 <script type="math/tex">n=2m</script>，其中 <script type="math/tex">m</script> 是正整数，那么
+<script type="math/tex; mode=display">a_{2m}=-\frac{a_{2m-2}}{(2m+2)(2m)}=-\frac{a_{2m-2}}{2^2(m+1)m},m=1,2,3,\cdots</script>
+那么通项公式是
+<script type="math/tex; mode=display">a_{2m}=\frac{(-1)^ma_0}{2^{2m}(m+1)!m!},m=1,2,3,\cdots\tag{26}</script>
+令 <script type="math/tex">a_0=1/2</script>，得到第一类一阶贝塞尔函数 <script type="math/tex">J_1</script>
+<script type="math/tex; mode=display">J_1(x)=\frac{x}{2}\sum_{m=0}^\infty\frac{(-1)^mx^{2m}}{2^{2m}(m+1)!m!}\tag{27}</script>
+这个级数对所有 <script type="math/tex">x</script> 都绝对收敛，因此函数 <script type="math/tex">J_1</script> 处处都是可分析的。</p>
+<p>为了求解第二个解，这里使用直接代入。根据定理 5.6.1，假定
+<script type="math/tex; mode=display">y_2(x)=aJ_1(x)\ln x+x^{-1}\bigg(1+\sum_{n=1}^\infty c_nx^n\bigg),x>0\tag{28}</script>
+计算 <script type="math/tex">y_2'(x),y_2''(x)</script>，然后代入 <script type="math/tex">(23)</script>，结合 <script type="math/tex">J_1(x)</script> 是方程 <script type="math/tex">(23)</script> 的一个解，得到
+<script type="math/tex; mode=display">2axJ_1'(x)+\sum_{n=0}^\infty((n-1)(n-2)c_n+(n-1)c_n-c_n)x^{n-1}+\sum_{n=0}^\infty c_nx^{n+1}=0\tag{29}</script>
+其中 <script type="math/tex">c_0=1</script>。代入 <script type="math/tex">(27)</script> 的 <script type="math/tex">J_1(x)</script>，调整求和下标，得到
+<script type="math/tex; mode=display">\begin{aligned}
+-c_1+(0\cdot c_2+c_0)x+&\sum_{n=2}^\infty((n^2-1)c_{n+1}+c_{n-1})x^n\\
+&=-a\bigg(x+\sum_{m=1}^\infty\frac{(-1)^m(2m+1)x^{2m+1}}{2^{2m}(m+1)!m!})
+\end{aligned}\tag{30}</script>
+从上式可以看出 <script type="math/tex">c_1=0,a=-c_0=-1</script>。由于右边只有 <script type="math/tex">x</script> 的奇数次幂，那么左边偶数次幂项的系数为零。因为 <script type="math/tex">c_1=0</script>，那么 <script type="math/tex">c_3=c_5=\cdots=0</script>。对于 <script type="math/tex">x</script> 的奇数次幂，令 <script type="math/tex">n=2m+1</script>，那么递归关系是
+<script type="math/tex; mode=display">((2m+1)^2-1)c_{2m+2}+c_{2m}=\frac{(-1)^m(2m+1)}{2^{2m}(m+1)!m!},m=1,2,3,\cdots\tag{31}</script>
+令上式 <script type="math/tex">m=1</script> 得到
+<script type="math/tex; mode=display">(3^2-1)c_4+c_2=\frac{(-1)3}{2^2\cdot 2!}</script>
+<script type="math/tex">c_2</script> 可以任意选择，那么就确定了 <script type="math/tex">c_4</script>。在上面方程中，<script type="math/tex">c_2</script> 乘以了 0，因此 <script type="math/tex">c_2</script> 可以任意选择，那个式子可以用于确定 <script type="math/tex">a</script>。<script type="math/tex">c_2</script> 在式子 <script type="math/tex">x^{-1}\bigg(1+\sum_{n=1}^\infty c_nx^n\bigg)</script> 中是 <script type="math/tex">x</script> 的系数，是第一个非零项，从这个角度分析其也可以任意选择。<script type="math/tex">c_2</script> 生成了 <script type="math/tex">J_1</script> 的若干倍，<script type="math/tex">y_2</script> 是 <script type="math/tex">J_1</script> 的若干倍加上某个值。根据惯例，这里选择 <script type="math/tex">c_2=1/2^2</script>，那么
+<script type="math/tex; mode=display">\begin{aligned}
+c_4&=\frac{-1}{2^4\cdot 2}(\frac{3}{2}+1)\\
+&=\frac{-1}{2^4\cdot 2}((1+\frac{1}{2})+1)\\
+&=\frac{(-1)}{2^4\cdot 2!}(H_2+H_1)
+\end{aligned}</script>
+可以证明递归关系 <script type="math/tex">(31)</script> 的解是
+<script type="math/tex; mode=display">c_{2m}=\frac{(-1)^{m+1}(H_m+H_{m+1})}{2^{2m}m!(m-1)!},m=1,2,3,\cdots</script>
+其中有 <script type="math/tex">H_0=1</script>。因此
+<script type="math/tex; mode=display">y_2(x)=-J_1(x)\ln x+\frac{1}{x}\bigg(1-sum_{m=1}^\infty\frac{(-1)^m(H_m+H_{m-1})}{2^{2m}m!(m-1)!}x^{2m}\bigg),x>0\tag{32}</script>
+计算 <script type="math/tex">y_2(x)</script> 的另一个方法是使用 5.6 小节的式子 <script type="math/tex">(19),(20)</script> 求解 <script type="math/tex">c_n(r_2)</script>，可能会稍微简单一点，无需求解递归关系 <script type="math/tex">(31)</script>。</p>
+<p>方程 <script type="math/tex">(23)</script> 的第二个解，也就是第二类一阶贝塞尔函数，用 <script type="math/tex">Y_1</script> 表示，通常写成 <script type="math/tex">J_1,y_2</script> 的线性组合。
+<script type="math/tex; mode=display">Y_1(x)=\frac{2}{\pi}(-y_2(x)+(\gamma-\ln 2)J_1(x))\tag{33}</script>
+其中 <script type="math/tex">\gamma</script> 由 <script type="math/tex">(12)</script> 定义。那么 <script type="math/tex">(23)</script> 在 <script type="math/tex">x>0</script> 上的通解是
+<script type="math/tex; mode=display">y=c_1J_1(x)+c_2Y_1(x)</script>
+<script type="math/tex">J_1</script> 在 <script type="math/tex">x=0</script> 处是可分析的。当 <script type="math/tex">x\to 0</script> 时，第二个解 <script type="math/tex">Y_1</script> 的行为与 <script type="math/tex">1/x</script> 类似，无穷大。下图是 <script type="math/tex">J_1,Y_1</script> 的图像。</p>
+<p><img alt="" src="../070.050.png" /></p>
 
   
 
