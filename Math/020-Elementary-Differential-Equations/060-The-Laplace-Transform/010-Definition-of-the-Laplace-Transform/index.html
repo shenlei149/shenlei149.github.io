@@ -14055,6 +14055,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉普拉斯变换
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24864,6 +24873,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉普拉斯变换
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -24929,6 +24947,123 @@
 如果 <script type="math/tex">c<0</script> 那么广义积分收敛到 <script type="math/tex">-1/c</script>，如果 <script type="math/tex">c>0</script> 发散。如果 <script type="math/tex">c=0</script>，那么积分项 <script type="math/tex">e^{ct}=1</script>，此时
 <script type="math/tex; mode=display">\lim_{A\to\infty}\int_0^A1dt=\lim_{A\to\infty}(A-0)=\infty</script>
 因此也是发散的。</p>
+<p>例 3 求使得广义积分 <script type="math/tex">\int_1^\infty t^{-p}dt</script> 收敛的实数 <script type="math/tex">p</script>。<script type="math/tex">p</script> 为何值时发散？</p>
+<p>解：假定实数 <script type="math/tex">p\neq 1</script>，那么
+<script type="math/tex; mode=display">\int_1^\infty t^{-p}dt=\lim_{A\to\infty}\int_1^At^{-p}dt=\lim_{A\to\infty}\frac{1}{1-p}(A^{1-p}-1)</script>
+当 <script type="math/tex">p>1</script> 时，随着 <script type="math/tex">A\to\infty</script> 那么 <script type="math/tex">A^{1-p}\to 0</script>，此时广义积分收敛到 <script type="math/tex">1/(1-p)</script>。当 <script type="math/tex">p<1</script> 时，<script type="math/tex">A^{1-p}\to\infty</script>，结合例 1，<script type="math/tex">p\leq 1</script> 时发散。这个结论与无穷级数 <script type="math/tex">\sum_{n=1}^\infty n^{-p}</script>。</p>
+<p>如果区间 <script type="math/tex">\alpha\leq t\leq\beta</script> 能够分成有限个分区 <script type="math/tex">\alpha\leq t_0<t_1<t_2<\cdots<t_n=\beta</script>，函数 <script type="math/tex">f</script> 满足</p>
+<ul>
+<li>
+<script type="math/tex">f</script> 在每个子区间 <script type="math/tex">t_{i-1}<t<t_i</script> 上连续</li>
+<li>当趋于子区间右边端点时 <script type="math/tex">f</script> 趋于某个有限极限</li>
+</ul>
+<p>那么函数 <script type="math/tex">f</script> 是分段连续（<code>piecewise continuous</code>）。也就是说 <script type="math/tex">f</script> 在区间上有有限个跳跃间断点。如果对所有 <script type="math/tex">\beta>\alpha</script> 的区间 <script type="math/tex">\alpha\leq t\leq\beta</script> 上 <script type="math/tex">f</script> 都是分段连续的，那么 <script type="math/tex">f</script> 在 <script type="math/tex">t\geq\alpha</script> 上是分段连续的。下图是一个分段连续的例子。</p>
+<p>TODO</p>
+<p>分段连续函数的积分是在各个子区间上积分然后求和。比如上图中函数 <script type="math/tex">f(t)</script> 的积分是
+<script type="math/tex; mode=display">\int_\alpha^\beta f(t)dt=\int_a^{t_1} f(t)dt+\int_{t_1}^{t_2} f(t)dt+\int_{t_2}^\beta f(t)dt\tag{2}</script>
+上图中，端点 <script type="math/tex">\alpha,\beta</script> 和分割点 <script type="math/tex">t_1,t_2</script> 处都有值。不过，<script type="math/tex">(2)</script> 中的积分并不依赖于 <script type="math/tex">f(t)</script> 在这些点是否有值，积分的结果也不会变化。</p>
+<p>因此 <script type="math/tex">f</script> 在区间 <script type="math/tex">\alpha\leq t\leq A</script> 上分段连续，那么 <script type="math/tex">\int_a^A f(t)dt</script> 存在。因此，如果 <script type="math/tex">f</script> 在 <script type="math/tex">t\geq a</script> 上分段连续，那么对 <script type="math/tex">A>a</script> 时 <script type="math/tex">\int_a^A f(t)dt</script> 都存在。不过分段连续并不能保证广义积分 <script type="math/tex">\int_a^\infty f(t)dt</script> 收敛。</p>
+<p>如果 <script type="math/tex">f</script> 的积分不能很容易的表示为基础函数，那么很难应用 <script type="math/tex">\int_a^\infty f(t)dt</script> 的收敛定义。那么判断广义积分收敛还是发散最方便的方式是使用如下定理。</p>
+<p><strong>定理 6.1.1</strong></p>
+<blockquote>
+<p>如果 <script type="math/tex">f</script> 在 <script type="math/tex">t\geq a</script> 上分段连续，并且当 <script type="math/tex">t\geq M</script> 时有 <script type="math/tex">|f(t)|\leq g(t)</script>，其中 <script type="math/tex">M</script> 是正的常亮，如果 <script type="math/tex">\int_M^\infty g(t)dt</script> 收敛，那么 <script type="math/tex">\int_a^\infty f(t)dt</script> 也收敛。</p>
+<p>相反，如果 <script type="math/tex">f(t)>g(t)>0,t\geq M</script>，那么如果 <script type="math/tex">\int_M^\infty g(t)dt</script>，那么 <script type="math/tex">\int_a^\infty f(t)dt</script> 也发散。</p>
+</blockquote>
+<p>这里忽略证明，其过程可以参考微积分教科书，比如<a href="../../../010-Calculus/080-Techniques-of-Integration/080-Improper-Integrals/">广义积分</a>。</p>
+<p>常用的比较函数是 <script type="math/tex">e^{ct},t^{-p}</script>，其收敛性见上面的例 1、2、3。</p>
+<h3 id="_2">拉普拉斯变换</h3>
+<p>求解线性微分方程很有用的工具之一是积分变换（<code>integral transform</code>）。积分变换形式如下
+<script type="math/tex; mode=display">F(s)=\int_\alpha^\beta K(s,t)f(t)dt\tag{1}</script>
+其中 <script type="math/tex">K(s,t)</script> 是给定函数，是变换的内核（<code>kernel</code>），积分的上下界 <script type="math/tex">\alpha,\beta</script> 也是给定值。积分上下界是无穷，即 <script type="math/tex">\alpha=-\infty,\beta=\infty</script> 也是有可能的。变换关系 <script type="math/tex">(3)</script> 将函数 <script type="math/tex">f</script> 变换成另一个函数 <script type="math/tex">F</script>， <script type="math/tex">F</script> 称为 <script type="math/tex">f</script> 的变换（<code>transform</code>）。</p>
+<p>在应用数学中有很多有用的积分变换，这里讨论拉普拉斯变换。令给定的 <script type="math/tex">f(t),t\geq 0</script> 满足后面定理中声明的条件，那么 <script type="math/tex">f</script> 的拉普拉斯变换是
+<script type="math/tex; mode=display">\mathcal{L}\{f(t)\}=F(s)=\int_0^\infty e^{-st}f(t)dt\tag{4}</script>
+要求广义积分收敛。拉普拉斯变换的内核函数是 <script type="math/tex">K(s,t)=e^{-st}</script>。由于常系数线性微分方程的解是基于指数函数的，所以拉普拉斯变换对这些方程非常有用。使用拉普拉斯变换解微分方程的步骤如下：</p>
+<ul>
+<li>使用方程 <script type="math/tex">(4)</script> 将关于定义域 <script type="math/tex">t</script> 上的函数 <script type="math/tex">f</script> 的初值问题转换为 <script type="math/tex">s</script> 定义域上 <script type="math/tex">F</script> 的问题，通常更容易求解</li>
+<li>求解 <script type="math/tex">F</script>
+</li>
+<li>从变换 <script type="math/tex">F</script> 中恢复要求的 <script type="math/tex">f</script>。</li>
+</ul>
+<p>通常，<script type="math/tex">s</script> 是复数，对应的 <script type="math/tex">F(s)</script> 是复变函数。不过这里只考虑 <script type="math/tex">s</script> 是实数的情况。</p>
+<p><strong>定理 6.1.2</strong></p>
+<blockquote>
+<p>假定</p>
+<ul>
+<li>
+<script type="math/tex">f</script> 是区间 <script type="math/tex">0\leq t\leq A</script> 上的分段连续函数，其中 <script type="math/tex">A</script> 是任意正数</li>
+<li>存在实数常量 <script type="math/tex">K,a,M</script> 使得
+<script type="math/tex; mode=display">|f(t)|\leq Ke^{at},t\geq M</script>
+那么拉普拉斯变换 <script type="math/tex">\mathcal{L}\{f(t)\}=F(s)</script> 在 <script type="math/tex">s>a</script> 时存在。</li>
+</ul>
+</blockquote>
+<p>这里需要证明 <script type="math/tex">s>a</script> 时 <script type="math/tex">(4)</script> 中的积分收敛。首先将广义积分分成两个部分
+<script type="math/tex; mode=display">\int_0^\infty e^{-st}f(t)dt=\int_0^M e^{-st}f(t)dt+\int_M^\infty e^{-st}f(t)dt\tag{5}</script>
+根据假定定理的第一个假定，上式右边的第一项是有限的（存在），因此 <script type="math/tex">F(s)</script> 的存在性只依赖于第二项积分的收敛性。根据第二个假设，<script type="math/tex">t\geq M</script> 时
+<script type="math/tex; mode=display">|e^{-st}f(t)|\leq Ke^{-st}e^{at}=Ke^{(a-s)t}</script>
+根据定理 6.1.1，<script type="math/tex">F(s)</script> 存在的前提是 <script type="math/tex">\int_M^\infty e^{(a-s)t}</script> 收敛，根据例 1，<script type="math/tex">a-s<0</script> 时收敛，因此定理 6.1.2 成立。</p>
+<p>这一章中（除了 6.5 小节之外）遇到的函数都满足上述假设。这样的函数是分段连续并且当 <script type="math/tex">t\to\infty</script> 时是指数阶（<code>exponential order</code>）的。有一些函数在 <script type="math/tex">t\to\infty</script> 时不是指数阶的，比如 <script type="math/tex">f(t)=e^{t^2}</script>，当 <script type="math/tex">t\to\infty</script> 时，不管常量 <script type="math/tex">K,a</script> 为何值，这个函数增长都比 <script type="math/tex">Ke^{at}</script> 快的多。</p>
+<p>下面讨论一些重要的基本函数的拉普拉斯变换。</p>
+<p>例 4 求 <script type="math/tex">\mathcal{L}\{1\}</script>。</p>
+<p>解：令 <script type="math/tex">f(t)=1,t\geq 0</script>，那么
+<script type="math/tex; mode=display">\mathcal{L}\{1\}=\int_0^\infty e^{-st}dt=-\lim_{A\to\infty}\frac{e^{-st}}{s}\bigg|_0^A=\frac{1}{s},s>0</script>
+</p>
+<p>例 5 求 <script type="math/tex">\mathcal{L}\{e^{at}\}</script>。</p>
+<p>解：令 <script type="math/tex">f(t)=e^{at},t\geq 0</script>，那么
+<script type="math/tex; mode=display">\begin{aligned}
+\mathcal{L}\{e^{at}\}&=\int_0^\infty e^{-st}e^{at}dt\\
+&=\int_0^\infty e^{-(s-a)t}dt\\
+&=\frac{1}{s-a},s>a
+\end{aligned}</script>
+</p>
+<p>例 6 求下图中函数的拉普拉斯变换。</p>
+<p>TODO</p>
+<p>解：令
+<script type="math/tex; mode=display">f(t)=\begin{cases}
+1,&&0<t<t\\
+k,&&t=1\\
+0,t>1
+\end{cases}</script>
+其中 <script type="math/tex">k</script> 是常量。在工程中 <script type="math/tex">f(t)</script> 表示单位脉冲函数。这里 <script type="math/tex">f</script> 是分段连续函数，因此
+<script type="math/tex; mode=display">\begin{aligned}
+\mathcal{L}\{f(t)\}&=\int_0^\infty e^{-st}f(t)dt\\
+&=\int_0^1 e^{-st}dt\\
+&=-\frac{e^{-st}}{s}\bigg|_0^1\\
+&=\frac{1-e^{-s}}{s},s>0
+\end{aligned}</script>
+注意 <script type="math/tex">\mathcal{L}\{f(t)\}</script> 不依赖于 <script type="math/tex">k</script>，即不依赖于不连续点的函数值。即使 <script type="math/tex">f(t)</script> 在该点没有定义，<script type="math/tex">f</script> 的拉普拉斯变换也是一样的。因此如果许多函数只在某个点出的值不同，那么它们的拉普拉斯变换是一样的。</p>
+<p>例 7 求 <script type="math/tex">\mathcal{L}\{\sin at\}</script> 和 <script type="math/tex">a</script> 为何值时变换有定义。</p>
+<p>解：令 <script type="math/tex">f(t)=\sin at,t\geq 0</script>，那么
+<script type="math/tex; mode=display">\mathcal{L}\{\sin at\}=F(s)=\int_0^\infty e^{-st}\sin atdt,s>0</script>
+那么
+<script type="math/tex; mode=display">F(s)=\lim_{A\to\infty}\int_0^\infty e^{-st}\sin at dt</script>
+分部积分法
+<script type="math/tex; mode=display">\begin{aligned}
+F(s)&=\lim_{A\to\infty}\bigg[-\frac{e^{-st}\cos at}{a}\bigg|_0^A-\frac{s}{a}\int_0^A e^{-st}\cos atdt\bigg]\\
+&=\frac{1}{a}-\frac{s}{a}\int_0^\infty e^{-st}\cos atdt
+\end{aligned}</script>
+对上式第二部分再次使用分部积分法
+<script type="math/tex; mode=display">\begin{aligned}
+F(s)&=\frac{1}{a}-\frac{s^2}{a^2}\int_0^\infty e^{-st}\sin atdt\\
+&=\frac{1}{a}-\frac{s^2}{a^2}F(s)
+\end{aligned}</script>
+因此
+<script type="math/tex; mode=display">F(s)=\frac{a}{s^2+a^2},s>0</script>
+</p>
+<p>类似的，<script type="math/tex">\mathcal{L}\{\cos at\}=\frac{s}{s^2+a^2},s>0</script>。假定 <script type="math/tex">f_1,f_2</script> 两个函数在 <script type="math/tex">s>a_1,s>a_2</script> 上存在拉普拉斯变换，那么对于 <script type="math/tex">s>\max(a_1,a_2)</script> 有
+<script type="math/tex; mode=display">\begin{aligned}
+\mathcal{L}\{c_1f_1(t)+c_2f_2(t)\}&=\int_0^\infty e^{-st}(c_1f_1(t)+c_2f_2(t))dt\\
+&=c_1\int_0^\infty e^{-st}f_1(t)dt+c_2\int_0^\infty e^{-st}f_2(t)dt\\
+&=c_1\mathcal{L}\{f_1(t)\}+c_2\mathcal{L}\{f_2(t)\}
+\end{aligned}\tag{6}</script>
+上式说明拉普拉斯变换是线性算子（<code>linear operator</code>）。下面是使用这个性质的例子。</p>
+<p>例 8 求函数
+<script type="math/tex; mode=display">f(t)=5e^{-2t}-3\sin 4t,t\geq 0</script>
+的拉普拉斯变换变换。</p>
+<p>解：根据公式 <script type="math/tex">(6)</script>
+<script type="math/tex; mode=display">\mathcal{L}\{f(t)\}=5\mathcal{L}\{e^{-2t}\}-3\mathcal{L}\{\sin 4t\}</script>
+根据之前的结论，得到
+<script type="math/tex; mode=display">\mathcal{L}\{f(t)\}=\frac{5}{s+2}-\frac{12}{s^2+16},s>0</script>
+</p>
 
   
 
