@@ -40,7 +40,7 @@ $$\int_1^\infty t^{-p}dt=\lim_{A\to\infty}\int_1^At^{-p}dt=\lim_{A\to\infty}\fra
 
 那么函数 $f$ 是分段连续（`piecewise continuous`）。也就是说 $f$ 在区间上有有限个跳跃间断点。如果对所有 $\beta>\alpha$ 的区间 $\alpha\leq t\leq\beta$ 上 $f$ 都是分段连续的，那么 $f$ 在 $t\geq\alpha$ 上是分段连续的。下图是一个分段连续的例子。
 
-TODO
+![](010.010.png)
 
 分段连续函数的积分是在各个子区间上积分然后求和。比如上图中函数 $f(t)$ 的积分是
 $$\int_\alpha^\beta f(t)dt=\int_a^{t_1} f(t)dt+\int_{t_1}^{t_2} f(t)dt+\int_{t_2}^\beta f(t)dt\tag{2}$$
@@ -108,7 +108,7 @@ $$\begin{aligned}
 
 例 6 求下图中函数的拉普拉斯变换。
 
-TODO
+![](010.020.png)
 
 解：令
 $$f(t)=\begin{cases}
