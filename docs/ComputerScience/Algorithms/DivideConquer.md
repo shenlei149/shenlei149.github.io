@@ -4,7 +4,8 @@
 
 分治法的例子有：
 
-* [归并排序](./Sort.md#merge-sort)
 * [倒置个数问题](./Sort.md#倒置个数)
+* [归并排序](./Sort.md#merge-sort)
+* [快速排序](./Sort.md#quick-sort)
 * [Strassen 矩阵乘法](./Arithmetic.md#strassen-矩阵乘法)
 * [Closest Pair](./Geometry.md#closest-pair)
