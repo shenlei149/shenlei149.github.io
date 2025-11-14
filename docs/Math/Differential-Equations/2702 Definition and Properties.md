@@ -3,7 +3,7 @@ The **convolution** of two functions $f$ and $g$ is a third function which we de
 $$(f*g)(t)=\int_{0^-}^{t^+}f(\tau)g(t-\tau)d\tau\tag{1}$$
 We will leave this unmotivated until the next note, and for now just learn how to work with it.  
 There are a few things to point out about the formula.
-* The variable of integration is $\tau$. We can't use $t$ because that is already used in the limits and in the integrand. We can choose any symbol we want for the variable of integration – it is just a *dummy* variable.
+* The variable of integration is $\tau$. We can't use $t$ because that is already used in the limits and in the integrand. We can choose any symbol we want for the variable of integration - it is just a *dummy* variable.
 * The limits of integration are $0^-$ and $t^+$. This is important, particularly when we work with delta functions. If $f$ and $g$ are continuous or have at worst jump discontinuities then we can use 0 and $t$ for the limits. You will often see convolution written like this:
 $$(f*g)(t)=\int_{0}^{t}f(\tau)g(t-\tau)d\tau$$
 * We are considering **one-sided convolution**. There is also a two-sided convolution where the limits of integration are $\pm \infty$.

@@ -21,7 +21,7 @@ $$
 A few details need to be highlighted.
 1. $u(t)$ is also called the **Heaviside function**.
 2. $u(t)$ is not defined when $t = 0$. Looking at the graph we see that $u(t)$ has a **jump discontinuity** at $t = 0$.
-3. The graph shows that $u(0^-) = 0$ and $u(0^+) = 1$. Here, $u(0^-)$ means the limit of $u(t)$ as $t$ approaches 0 from the left –called the left-hand limit. Likewise, $u(0^+)$ means the limit of $u(t)$ as $t$ approaches 0 from the right.
+3. The graph shows that $u(0^-) = 0$ and $u(0^+) = 1$. Here, $u(0^-)$ means the limit of $u(t)$ as $t$ approaches 0 from the left -called the left-hand limit. Likewise, $u(0^+)$ means the limit of $u(t)$ as $t$ approaches 0 from the right.
 4. In the graphs we used dashed lines at the jump discontinuity. These lines are not part of the graph and we could have left them out. It is also common to use solid lines. Strictly speaking this is incorrect, but it gives nicer looking figures (for more on this see the next section).
 
 ### Models

@@ -22,7 +22,7 @@ For thousands of years, various creation stories have presented people with expl
 One of the earliest known stories is the Enuma Elish epic of the people of Akkad in Mesopotamia. This account probably dates back to almost 2000 B.C.E. It tells of wars among the gods. Tiamat mates with Apsu and gives birth to younger gods. Later the parents seek to kill off his new generation of their children-gods. To save the god-children, the god Ea slays Apsu while Ea's son Marduk rallies the younger gods, and kills and dismember Tiamat and her new husband, Kingu. From the blood of Kingu, Marduk creates humans (and all of earth's creatures), on condition that they are to be his servants. Written at a time when the competitive city-states Mesopotamia were constantly at war, this myth elevated the importance of Babylon, the city that Marduk chooses as his capital; affirmed the authority of its powerful priests and rulers; and assigned purpose and direction to human life.
 
 * Enuma Elish: 埃努玛·埃利什，古巴比伦的创世史诗。
-* Akkad: a city on the Euphrates in N Babylonia, the centre of a major empire and civilization (2360–2180 bc). 古巴比伦阿卡德区。
+* Akkad: a city on the Euphrates in N Babylonia, the centre of a major empire and civilization (2360-2180 bc). 古巴比伦阿卡德区。
 * Euphrates: a long river in western Asia that was one of the two great rivers of the ancient region of Mesopotamia. 幼发拉底河。
 * Tiamat: an Akkadian goddess, the consort of Apsu and mother of the gods. 提亚玛特（又叫混沌母神，源于巴比伦神话，世界开创时即存在怪物）。
 * Apsu: an Akkadian god: the consort of Tiamat and the father of the gods. 阿卜苏（美索不达米亚神话中的原始甜水之渊及其人格化形式）。

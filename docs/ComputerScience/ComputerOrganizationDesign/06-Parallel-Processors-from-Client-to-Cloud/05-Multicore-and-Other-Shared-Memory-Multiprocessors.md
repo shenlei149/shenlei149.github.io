@@ -52,7 +52,7 @@ do
 
 大部分的 C 编译器已经支持 OpenMP 了。如下即可使用。
 ```
-cc –fopenmp foo.c
+cc -fopenmp foo.c
 ```
 
 OpenMP 使用 `pragma` 扩展 C，`pragma` 是预处理指令。下面的例子表示想使用 64 个处理器

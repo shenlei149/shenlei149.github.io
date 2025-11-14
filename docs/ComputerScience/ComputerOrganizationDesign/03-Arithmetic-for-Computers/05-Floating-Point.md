@@ -230,11 +230,11 @@ fdiv.s f0, f0, f1 // f0 = 5.0f / 9.0f
 很多编译器会在编译时处理常量的计算。下一步就是从 `fahr` 即 `f10` 寄存器中减去常量 32
 ```
 flw f1, const32(x3) // f1 = 32.0f
-fsub.s f10, f10, f1 // f10 = fahr – 32.0f
+fsub.s f10, f10, f1 // f10 = fahr - 32.0f
 ```
 最后，两者相乘返回结果。
 ```
-fmul.s f10, f0, f10   // f10 = (5.0f / 9.0f)*(fahr – 32.0f)
+fmul.s f10, f0, f10   // f10 = (5.0f / 9.0f)*(fahr - 32.0f)
 jalr x0, 0(x1)        // return
 ```
 
