@@ -3,3 +3,4 @@ nav:
     - 010 拉普拉斯变换的定义 Definition of the Laplace Transform: 010-Definition-of-the-Laplace-Transform.md
     - 020 初值问题的解 Solution of Initial Value Problems: 020-Solution-of-Initial-Value-Problems.md
     - 030 阶跃函数 Step Functions: 030-Step-Functions.md
+    - 040 带有不连续强迫函数的微分方程 Differential Equations with Discontinuous Forcing Functions: 040-Differential-Equations-with-Discontinuous-Forcing-Functions.md
