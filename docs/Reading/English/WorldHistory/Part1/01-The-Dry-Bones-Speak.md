@@ -118,6 +118,8 @@ Note, however, that the words "by the Creator" did not appear in the first editi
 
 With a decade, Darwin's ideas had won over the scientific community. In 1871, in The Decent of Man, Darwin extended his argument to the evolution of humans, concluding explicitly that "man is descended from some lowly organized form." Humans are a part of the order of primates, most closely related to great apes and chimpanzees.
 
+* chimpanzee: a small, very intelligent African ape with black or brown fur. 黑猩猩。
+
 The search now began for evidence of the "missing link" between humans and apes, for some creature, living or extinct, that stood at an intermediate point in the evolutionary process. In this search archaeology, and the adjunct field of paleoanthropology, flourished.
 
 ## Fossils and fossil-hunters
@@ -223,3 +225,17 @@ Further evidence of the bipedalism of these apelike creatures came from Laetoli,
 ![](0109.png)
 
 In 1994, some 17 fossils of a new genus, Ardipithecus ramidus, "ground ape", were discovered in Aramis, Etheiopia, in the bed of the Awash River, not far from the Lucy find. An international team of archaeologists analyzed them. Ten of the fossils were teeth, two were cranial fragments, and the remainder were bones from the left arm. Later, the team recovered about 80 percent of an Ardipithecus ramidus skeleton. It dated to 4.4 million years, pushing back the date of the earliest apelike hominid by half a million years.
+
+Then, in 2001, a team working in Chad, Africa, under the French paleoanthropologist Michel Brunet (b. 1940), discovered a six- to seven-million-year-old skull, nicknamed "Toumai", which means "hope of life" in the Goran language. Toumai is at least 2.5 million years older than any previously discovered hominid skull, and remarkably, it is nearly complete. On the cusp between ape and human, it displays human characteristics that include a relatively thick and continuous brow ridge, a relatively flat nose and face, and canine teeth that are shorter and more thickly enameled than those of chimpanzees. On the other hand, its cranial capacity is about the size of a chimp's, about one-fourth of a modern human's. It is not clear if Toumai was bipedal, but its spine entered its cranium in a pathway consistent with bipedalism. "Toumai" fits the dominant theories of evolution as to the time at which and the pattern by which the hominid line of evolution separated from the chimpanzee line, talking on its own distinct characteristics. It challenges most current beliefs, however, in suggesting that hominid evolved not only in the difficult, harsh, arid climate of the Rift Valley, where all the earlier hominids had been uncovered, but also in the more accommodating lush forests that covered western Chad six million years ago.
+
+* cusp: the dividing line between two very different things. 分界线。
+* canine: of or relating to dogs. 犬的，狗的。
+* enamel: the hard, white, shiny substance that forms the covering of a tooth.（牙齿的）珐琅质，釉质。
+* arid: very dry and without enough rain for plants. 干燥的，干旱的。
+* lush: A lush area has a lot of green, healthy plants, grass, and trees.（地区）郁郁葱葱的，植被茂盛的。
+
+![](0110.png)
+
+As paleoanthropologists assembled this record of the earliest human ancestors, they also found more recent skeletons that more closely resemble our own. The earliest known anatomically modern Homo sapiens fossil also appeared in Africa. It was discovered in 1967-68 in caves at the Klasies River mouth on the coast of South Africa. These fossil remains of the oldest known example of species Homo sapiens data to 75,000 to 115,000 years ago. They include lower and upper jaws, skull fragments, teeth, and bones of limbs. With them fossil-hunters found thousands of stone quartzite tools,
+
+* quartzite: a very hard metamorphic rock consisting of a mosaic of intergrown quartz crystals. 石英岩（石）。
