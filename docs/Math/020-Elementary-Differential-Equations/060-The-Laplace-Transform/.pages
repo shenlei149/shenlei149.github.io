@@ -5,3 +5,4 @@ nav:
     - 030 阶跃函数 Step Functions: 030-Step-Functions.md
     - 040 带有不连续强迫函数的微分方程 Differential Equations with Discontinuous Forcing Functions: 040-Differential-Equations-with-Discontinuous-Forcing-Functions.md
     - 050 冲激函数 ImpulseFunctions: 050-Impulse-Functions.md
+    - 060 卷积 The Convolution Integral: 060-The-Convolution-Integral.md
