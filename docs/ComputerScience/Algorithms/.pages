@@ -1,5 +1,6 @@
 nav:
     - README.md
+    - 预备知识: Preliminaries.md
     - 渐进符号: AsymptoticNotation.md
     - 主方法: MasterMethod.md
     - 分治法: DivideConquer.md
