@@ -1,3 +1,4 @@
 nav:
     - Book : README.md
     - 01 Introduction: Introduction.md
+    - 02 Introduction to the Relational Model: Introduction-to-the-Relational-Model.md
