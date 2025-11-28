@@ -14,7 +14,7 @@
         <link rel="prev" href="../050-Impulse-Functions/">
       
       
-        <link rel="next" href="../../../030-Complex-Variables-and-Applications/">
+        <link rel="next" href="../../070-Systems-of-First-Order-Linear-Equations/">
       
       
         
@@ -491,6 +491,8 @@
       
         
       
+        
+      
     
     
     
@@ -541,6 +543,34 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/Algorithms/Preliminaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    预备知识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -831,6 +861,8 @@
       
         
       
+        
+      
     
     
     
@@ -898,6 +930,34 @@
     
   
     01 Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/Database/Book/Introduction-to-the-Relational-Model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Introduction to the Relational Model
   
 
     
@@ -15030,6 +15090,8 @@
       
         
       
+        
+      
     
     
     
@@ -16627,6 +16689,109 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../070-Systems-of-First-Order-Linear-Equations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    070 Systems of First Order Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3_8" id="__nav_3_3_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    070 Systems of First Order Linear Equations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../070-Systems-of-First-Order-Linear-Equations/010-Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    010 Introduction 介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -29872,6 +30037,14 @@ F(s)G(s)&=\int_0^\infty e^{-s\tau}g(\tau)\bigg(\int_0^\infty e^{-s\xi}f(\xi)d\xi
 的解，与 <script type="math/tex">(20),(21)</script> 的区别是 <script type="math/tex">g(t)=0</script>。类似的，<script type="math/tex">\psi(t)</script> 是
 <script type="math/tex; mode=display">ay''+by'+cy=g(t),y(0)=0,y'(0)=0\tag{26}</script>
 的解，初始条件都是零。</p>
+<p>一旦给定了 <script type="math/tex">a,b,c</script>，可以求解 <script type="math/tex">\phi(t)=\mathcal{L}^{-1}\{\Phi(s)\}</script>，可能需要使用部分分式法。为了求解 <script type="math/tex">\psi(t)=\mathcal{L}^{-1}\{\Psi(s)\}</script>，可以将 <script type="math/tex">\Psi(s)</script> 写作
+<script type="math/tex; mode=display">\Psi(s)=H(s)G(s)\tag{27}</script>
+其中 <script type="math/tex">H(s)=1/(as^2+b^s+c)</script>。函数 <script type="math/tex">H</script> 被称为传递函数（<code>transfer function</code>），它仅依赖于所研究系统的特性；也就是说，<script type="math/tex">H(s)</script> 完全由系数 <script type="math/tex">a,b,c</script> 决定。另一方面 <script type="math/tex">G(s)</script> 则仅取决于施加于系统的强迫函数 <script type="math/tex">g(t)</script>。根据卷积定理
+<script type="math/tex; mode=display">\psi(t)=\mathcal{L}^{-1}\{H(s)G(s)\}=\int_0^th(t-\tau)g(\tau)d\tau\tag{28}</script>
+其中 <script type="math/tex">h(t)=\mathcal{L}^{-1}\{H(s)\}</script>，<script type="math/tex">g(t)</script> 是给定函数。</p>
+<p>为了更好的理解 <script type="math/tex">h(t)</script>，令 <script type="math/tex">G(s)=1</script>，即 <script type="math/tex">g(t)=\delta(t)</script>，那么 <script type="math/tex">\Psi(s)=H(s)</script>。那么 <script type="math/tex">y=h(t)</script> 是初值问题
+<script type="math/tex; mode=display">ay''+by'+cy=\delta(t),y(0)=0,y'(0)=0\tag{29}</script>
+的解。因此 <script type="math/tex">h(t)</script> 是系统对一个在 <script type="math/tex">t=0</script> 时刻施加的单位冲激所产生的响应，所以很自然地将 <script type="math/tex">h(t)</script> 称为系统的冲激响应（<code>impulse response</code>）。于是，方程 <script type="math/tex">(28)</script> 表明 <script type="math/tex">\psi(t)</script> 是冲激响应与强迫函数的卷积。</p>
 
   
 
