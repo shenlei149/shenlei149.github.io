@@ -236,6 +236,20 @@ Then, in 2001, a team working in Chad, Africa, under the French paleoanthropolog
 
 ![](0110.png)
 
-As paleoanthropologists assembled this record of the earliest human ancestors, they also found more recent skeletons that more closely resemble our own. The earliest known anatomically modern Homo sapiens fossil also appeared in Africa. It was discovered in 1967-68 in caves at the Klasies River mouth on the coast of South Africa. These fossil remains of the oldest known example of species Homo sapiens data to 75,000 to 115,000 years ago. They include lower and upper jaws, skull fragments, teeth, and bones of limbs. With them fossil-hunters found thousands of stone quartzite tools,
+As paleoanthropologists assembled this record of the earliest human ancestors, they also found more recent skeletons that more closely resemble our own. The earliest known anatomically modern Homo sapiens fossil also appeared in Africa. It was discovered in 1967-68 in caves at the Klasies River mouth on the coast of South Africa. These fossil remains of the oldest known example of species Homo sapiens data to 75,000 to 115,000 years ago. They include lower and upper jaws, skull fragments, teeth, and bones of limbs. With them fossil-hunters found thousands of stone quartzite tools, an abundance of bones from numerous land mammals, and the remains of hundreds of thousands of shellfish, suggesting a diet rich in meat and seafood. The Klasies River mouth discovery raised most provocatively the question of where the first Homo sapiens emerged, and how they spread.
 
 * quartzite: a very hard metamorphic rock consisting of a mosaic of intergrown quartz crystals. 石英岩（石）。
+
+### The Debate over African Origins
+
+| | |
+|--|--|
+| Almost all paleoanthropologists and archaeologists now believe that *Homo erectus* appeared first in Africa and spread from there to Asia and, perhaps, to Europe between one and two million years ago. | 如今，几乎所有的古人类学家和考古学家都相信，**直立人**（*Homo erectus*）最早出现在非洲，并于一百万到两百万年前从那里扩散到亚洲，或许还扩散到了欧洲。 |
+| But then the scholars split into two camps: the "multiregionalists" and the "out-of-Africa" camp. | 但在此之后，学者们分裂为两大阵营："**多地起源说**"和"**走出非洲说**"阵营。 |
+| The multiregionalists argue that *Homo erectus* evolved into *Homo sapiens* in each region of migration. | 多地起源说的支持者认为，直立人在其迁徙到的每一个地区都独立地演化成了**智人**。 |
+| The out-of-Africa group argues that *Homo erectus* evolved into *Homo sapiens* only once - in Africa. Then, about 100,000 years ago, the new humans emigrated to the rest of the world from Africa. | 走出非洲说的支持者则认为，直立人演化为智人的事件只发生过一次——在非洲。然后，在大约十万年前，这些新的人类从非洲迁徙到了世界其他地方。 |
+|  |  |
+| TODO | TODO |
+
+* interbreeding: the action of breeding or causing animals to breed with members of another breed or group. 杂交繁殖。
+
