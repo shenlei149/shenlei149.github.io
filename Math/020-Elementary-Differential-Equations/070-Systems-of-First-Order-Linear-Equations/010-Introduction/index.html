@@ -14,7 +14,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../../030-Complex-Variables-and-Applications/">
+        <link rel="next" href="../020-Matrices/">
       
       
         
@@ -16709,6 +16709,8 @@
       
         
       
+        
+      
     
     
     
@@ -16792,6 +16794,34 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../020-Matrices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    020 Matrices 矩阵
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -16895,6 +16925,8 @@
       
         
       
+        
+      
     
     
     
@@ -16962,6 +16994,34 @@
     
   
     010 和与积 Sums and Products
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../030-Complex-Variables-and-Applications/010-Complex-Numbers/020-Basic-Algebraic-Properties/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    020 基本代数性质 Basic Algebraic Properties
   
 
     
@@ -30005,6 +30065,33 @@ x_2'&=F_2(t,x_1,x_2,\cdots,x_n)\\
 x_n'&=F_n(t,x_1,x_2,\cdots,x_n)\\
 \end{aligned}\tag{11}</script>
 <script type="math/tex">(11)</script> 这种形式的方程组几乎包含了所有我们感兴趣的情况。微分方程领域里大部分更高级的理论都是专门用来研究这类系统的。</p>
+<p>方程组 <script type="math/tex">(11)</script> 在区间 <script type="math/tex">I:\alpha<t<\beta</script> 上有 <script type="math/tex">n</script> 个函数
+<script type="math/tex; mode=display">x_1=\phi_1(t),x_2=\phi_2(t),\cdots,x_n=\phi_n(t)\tag{12}</script>
+其中每一个函数在 <script type="math/tex">I</script> 上处处可导。除了微分方程组，优势会给定 <script type="math/tex">n</script> 个初始条件
+<script type="math/tex; mode=display">x_1(t_0)=x_1^0,x_2(t_0)=x_2^0,\cdots,x_n(t_0)=x_n^0\tag{13}</script>
+其中 <script type="math/tex">t_0</script> 是 <script type="math/tex">I</script> 上给定的 <script type="math/tex">t</script> 值，<script type="math/tex">x_1^0,x_2^0,\cdots,x_n^0</script> 是给定的值。微分方程 <script type="math/tex">(11)</script> 和初始条件 <script type="math/tex">(13)</script> 构成了一个初始问题。</p>
+<p>解 <script type="math/tex">(12)</script> 可以看作是 <script type="math/tex">n</script> 维空间上一组参数方程。对于给定值 <script type="math/tex">t</script>，<script type="math/tex">(12)</script> 给出了空间上一点 <script type="math/tex">x_1,x_2,\cdots,x_n</script>。随着 <script type="math/tex">t</script> 的变化，坐标通常也会变化。在 <script type="math/tex">\alpha<t<\beta</script> 上相应的点的集合形成了空间中的一条曲线，是微分方程 <script type="math/tex">(11)</script> 的轨迹。初始条件 <script type="math/tex">(13)</script> 确定了起点。当 <script type="math/tex">n=2</script> 时很容易可视化，曲线在 <script type="math/tex">x_1x_2</script> 平面上。</p>
+<p>给定一个问题，很容易检查 <script type="math/tex">F_1,F_2,\cdots,F_n</script> 是否满足下面的条件来确定初值问题 <script type="math/tex">(11),(13)</script> 是否有唯一解。</p>
+<p><strong>定理 7.1.1</strong></p>
+<blockquote>
+<p>令 <script type="math/tex">n</script> 个函数 <script type="math/tex">F_1,F_2,\cdots,F_n</script> 有 <script type="math/tex">n^2</script> 个一阶导 <script type="math/tex">\frac{\partial F_1}{\partial x_1},\cdots,\frac{\partial F_1}{\partial x_n},\cdots,\frac{\partial F_n}{\partial x_1},\frac{\partial F_n}{\partial x_n}</script>，它们在 <script type="math/tex">tx_1x_2\cdots x_n</script> 空间上的区域 <script type="math/tex">R</script> 上连续，其中 <script type="math/tex">\alpha<t<t\beta,\alpha_1<x_1<\beta_1,\cdots,\alpha_n<x_n<\beta_n</script>，令点 <script type="math/tex">(t_0,x_1^0,x_2^0,\cdots,x_n^0)</script> 在 <script type="math/tex">R</script> 内，那么在区间 <script type="math/tex">|t-t_0|<h</script> 上，初值问题 <script type="math/tex">(11),(13)</script> 存在唯一的解 <script type="math/tex">x_1=\phi_1(t),\cdots,x_n=\phi_n(t)</script>。</p>
+</blockquote>
+<p>这个定理的证明可以通过泛化 2.8 小节的证明得到，这里不再给出。定理中除了要求 <script type="math/tex">F_1,F_2,\cdots,F_n</script> 有对 <script type="math/tex">t</script> 的偏微分外，无其他要求。长度为 <script type="math/tex">2h</script> 的区间并未给出，在一些情况下可能非常短。最后，同样的结论可以建立在更弱但是更复杂的假设之上，因此这个定理的描述并不是更一般的形式，对于结论而言，给出的条件是充分的，但并非都必要。</p>
+<p>如果 <script type="math/tex">(11)</script> 中的每个函数 <script type="math/tex">F_1,F_2,\cdots,F_n</script> 变量 <script type="math/tex">x_1,x_2,\cdots,x_n</script> 的线性函数，那么微分方程组是线性的，否则是非线性的。因此更一般的线性微分方程组的形式如下
+<script type="math/tex; mode=display">\begin{aligned}
+x_1'&=p_11(t)x_1+\cdots+p_{1n}(t)+g_1(t)\\
+x_2'&=p_21(t)x_1+\cdots+p_{2n}(t)+g_2(t)\\
+&\vdots\\
+x_n'&=p_n1(t)x_1+\cdots+p_{nn}(t)+g_n(t)\\
+\end{aligned}\tag{14}</script>
+如果对 <script type="math/tex">I</script> 的所有 <script type="math/tex">t</script>，<script type="math/tex">g_1(t),\cdots,g_n(t)</script> 都为零，那么 <script type="math/tex">(14)</script> 是齐次的，否则是非齐次的。除非 <script type="math/tex">F_1(t)=F_2(t)=0</script>，否则方程组 <script type="math/tex">(1)</script> 是非齐次的。方程组 <script type="math/tex">(2)</script> 是齐次的。</p>
+<p>对于线性方程组 <script type="math/tex">(14)</script>，存在性和唯一性定理有更简单也更强的结论。</p>
+<p><strong>定理 7.1.2</strong></p>
+<blockquote>
+<p>如果 <script type="math/tex">p_{11},p_1{12},\cdots,p_{nn}, g_1,\cdots,g_n</script> 在开区间 <script type="math/tex">I:\alpha<t<\beta</script> 上连续，那么存在唯一解 <script type="math/tex">x_1=\phi_1(t),\cdots,x_n=\phi(n)</script> 满足方程组 <script type="math/tex">(14)</script> 和初始条件 <script type="math/tex">(13)</script>，其中 <script type="math/tex">t_0</script> 是 <script type="math/tex">I</script> 内任意点，<script type="math/tex">x_1^0,x_2^0,\cdots,x_n^0</script> 提前给定了。解在整个 <script type="math/tex">I</script> 上都存在。</p>
+</blockquote>
+<p>与非线性方程组的解不同，线性方程组在假设满足的区间上都存在解并且是唯一的。同时，线性方程组在 <script type="math/tex">t=t_0</script> 的初始值 <script type="math/tex">x_1^0,x_2^0,\cdots,x_n^0</script> 是任意的，而定理 7.1.1 中必须在区域 <script type="math/tex">R</script> 内。</p>
+<p>这一章余下的部分讨论线性一阶微分方程组，第八章第九章讨论非线性方程组。</p>
 
   
 
