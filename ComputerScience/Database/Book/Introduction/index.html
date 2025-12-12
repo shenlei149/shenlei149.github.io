@@ -877,6 +877,8 @@
       
         
       
+        
+      
     
     
     
@@ -1281,6 +1283,34 @@
     
   
     02 Introduction to the Relational Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 SQL
   
 
     
@@ -17025,6 +17055,8 @@
       
         
       
+        
+      
     
     
     
@@ -17120,6 +17152,34 @@
     
   
     020 Matrices 矩阵
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math/020-Elementary-Differential-Equations/070-Systems-of-First-Order-Linear-Equations/030-Systems-of-Linear-Algebraic-Equations-Linear-Independence-Eigenvalues-Eigenvectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    030 线性代数方程组；线性无关，特征值，特征向量 Systems of Linear Algebraic Equations; Linear Independence, Eigenvalues, Eigenvectors
   
 
     
@@ -30660,7 +30720,7 @@
 <p>数存储的数据要满足一定的约束。DDL 提供了这方面的能力来指定约束。每次更新数据库的时候都要进行约束检查。通常来说约束可以是任意适用于数据库的谓词。不过任意谓词可能开销比较大，因此数据库仅实现下面这些约束以最小化额外开销。</p>
 <ul>
 <li>定义域约束（<code>domain constraint</code>）：每一个属性（列）都需要关联一个可能值的定义域，比如整数类型、字符类型、日期类型等等。定义域约束是最基本的完整性约束。</li>
-<li>参照完整性（<code>referential integrity</code>）：这一点是希望确保出现在一个关系（表）的某个属性（列）的值一定要在另一个关系的某个属性中。比如，表 course 中 dept_name 列的值必须在 表 department 的 dept_name 里面。当违反参考完整性约束时，会拒绝数据的插入。</li>
+<li>引用完整性（<code>referential integrity</code>）：这一点是希望确保出现在一个关系（表）的某个属性（列）的值一定要在另一个关系的某个属性中。比如，表 course 中 dept_name 列的值必须在 表 department 的 dept_name 里面。当违反参考完整性约束时，会拒绝数据的插入。</li>
 <li>权限（<code>authorization</code>）：不同的用户访问不同的数据具有不同的权限。常见的类型有读权限（<code>read</code>）只能读不能修改；插入权限（<code>insert</code>）只能插入新数据，不能修改旧数据；更新权限（<code>update</code>）可以修改数据；删除权限（<code>delete</code>）允许删除数据。可以授权用户全部或部分权限。</li>
 </ul>
 <p>DDL 的输出放在数据字典（<code>data dictionary</code>），其中包含元数据（<code>metadata</code>）。数据字典是特殊的表，只能由数据库系统自己访问和更新。数据库在读或更新数据之前会访问并使用数据字典。</p>
