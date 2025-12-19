@@ -91,8 +91,6 @@ section(course_id, sec_id, semester, year, building, room_number, time_slot_id)
 teaches(ID, course_id, sec_id, semester, year)
 ```
 
-TODO 这里添加一个链接，指向建表语句
-
 ## Keys
 我们需要一种方式来指定一个元组在给定关系中有别于其他元组，也就是说，元组的属性值的部分可以由于唯一识别这个元组。不能有两条元组的所有属性的值都相同。
 
