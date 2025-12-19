@@ -3,3 +3,4 @@ nav:
     - 010 Introduction 介绍 : 010-Introduction.md
     - 020 Matrices 矩阵: 020-Matrices.md
     - 030 线性代数方程组；线性无关，特征值，特征向量 Systems of Linear Algebraic Equations; Linear Independence, Eigenvalues, Eigenvectors: 030-Systems-of-Linear-Algebraic-Equations-Linear-Independence-Eigenvalues-Eigenvectors.md
+    - 040 一阶线性方程组的基本理论 Basic Theory of Systems of First-Order Linear Equations: 040-Basic-Theory-of-Systems-of-First-Order-Linear-Equations.md
