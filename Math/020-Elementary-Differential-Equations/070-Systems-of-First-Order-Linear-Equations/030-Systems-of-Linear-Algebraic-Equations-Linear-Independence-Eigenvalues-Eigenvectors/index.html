@@ -14,14 +14,14 @@
         <link rel="prev" href="../020-Matrices/">
       
       
-        <link rel="next" href="../../../030-Complex-Variables-and-Applications/">
+        <link rel="next" href="../040-Basic-Theory-of-Systems-of-First-Order-Linear-Equations/">
       
       
         
       
       
       <link rel="icon" href="../../../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -16748,6 +16748,8 @@
       
         
       
+        
+      
     
     
     
@@ -16940,10 +16942,49 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征值和特征向量
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../040-Basic-Theory-of-Systems-of-First-Order-Linear-Equations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    040 一阶线性方程组的基本理论 Basic Theory of Systems of First-Order Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -30029,6 +30070,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特征值和特征向量
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -30177,14 +30229,51 @@ a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=b_n\\
 有无穷多个非零解。非齐次方程 <script type="math/tex">(2)</script> 的解就更复杂一些。如果 <script type="math/tex">\bold{b}</script> 满足条件
 <script type="math/tex; mode=display">(\bold{b},\bold{y})=\bold{0\tag{5}}</script>
 其中对于所有向量 <script type="math/tex">\bold{y}</script> 都满足 <script type="math/tex">\bold{A}^*\bold{y}=\bold{0}</script>，这里 <script type="math/tex">\bold{A}^*</script> 是伴随矩阵，那么 <script type="math/tex">(2)</script> 有无穷多个解。解的形式是
-<script type="math/tex; mode=display">\bold{x}=\bold{x}^{(0)}+\xi\tag{6}</script>
-其中 <script type="math/tex">\bold{x}^{(0)}</script> 是方程 <script type="math/tex">(2)</script> 的特解，<script type="math/tex">\xi</script> 是齐次方程 <script type="math/tex">(4)</script> 的通解。这里 <script type="math/tex">(6)</script> 和之前讨论的非齐次线性微分方程有点类似。</p>
-<p>TODO exercise 21-25</p>
+<script type="math/tex; mode=display">\bold{x}=\bold{x}^{(0)}+\bold{\xi}\tag{6}</script>
+其中 <script type="math/tex">\bold{x}^{(0)}</script> 是方程 <script type="math/tex">(2)</script> 的特解，<script type="math/tex">\bold{\xi}</script> 是齐次方程 <script type="math/tex">(4)</script> 的通解。这里 <script type="math/tex">(6)</script> 和之前讨论的非齐次线性微分方程有点类似。</p>
+<p>下面给出上述结论的证明。首先证明如果给定矩阵 <script type="math/tex">\bold{A}</script>，存在一个非零向量 <script type="math/tex">\bold{x}</script> 使得 <script type="math/tex">\bold{A}\bold{x}=\bold{0}</script>，那么存在一个非零向量 <script type="math/tex">\bold{y}</script> 使得 <script type="math/tex">\bold{A}^*\bold{y}=\bold{0}</script>。</p>
+<p>因为存在非零向量 <script type="math/tex">\bold{x}</script> 使得 <script type="math/tex">\bold{A}\bold{x}=\bold{0}</script>，那么 <script type="math/tex">\det\bold{A}=0</script>，因此 <script type="math/tex">\det\bold{A}^*=\det\overline{\bold{A}}^T=\det\overline{\bold{A}}=\overline{\det\bold{A}}=0</script>，因此存在一个非零向量 <script type="math/tex">\bold{y}</script> 使得 <script type="math/tex">\bold{A}^*\bold{y}=\bold{0}</script>。</p>
+<p>假定 <script type="math/tex">\bold{A}</script> 是实数矩阵。那么
+<script type="math/tex; mode=display">\bold{A}\bold{x}=\begin{pmatrix}
+\sum_{i=1}^na_{1i}x_i\\
+\vdots\\
+\sum_{i=1}^na_{ni}x_i\\
+\end{pmatrix}</script>
+因此
+<script type="math/tex; mode=display">(\bold{A}\bold{x},\bold{y})=y_1\sum_{i=1}^na_{1i}x_i+\cdots+y_n\sum_{i=1}^na_{ni}x_i=\sum_{i=1}^n\sum_{j=1}^na_{ij}x_iy_j</script>
+类似的，
+<script type="math/tex; mode=display">\bold{A}^T\bold{y}=\begin{pmatrix}
+\sum_{i=1}^na_{i1}y_i\\
+\vdots\\
+\sum_{i=1}^na_{in}y_i\\
+\end{pmatrix}</script>
+那么
+<script type="math/tex; mode=display">(\bold{x},\bold{A}^T\bold{y})=\sum_{i=1}^n\sum_{j=1}^na_{ij}y_ix_j=(\bold{A}\bold{x},\bold{y})</script>
+如果 <script type="math/tex">\bold{A}</script> 不一定是实数矩阵，可以换一种方式证明，也适用于上面的结论，但是没有这么直观，因为一些之前没有讨论的矩阵的性质（TODO add link for 050？）。先计算左边
+<script type="math/tex; mode=display">(\bold{A}\bold{x},\bold{y})=\bold{y}^*(\bold{A}\bold{x})=\bold{y}^*\bold{A}\bold{x}</script>
+然后计算右边
+<script type="math/tex; mode=display">(\bold{x},\bold{A}^*\bold{y})=(\bold{A}^*\bold{y})^*\bold{x}=\bold{y}^*(\bold{A}^*)^*\bold{x}=\bold{y}^*\bold{A}\bold{x}</script>
+因此
+<script type="math/tex; mode=display">(\bold{A}\bold{x},\bold{y})=(\bold{x},\bold{A}^*\bold{y})</script>
+如果 <script type="math/tex">\det\bold{A}=0</script>，那么存在 <script type="math/tex">\bold{y}</script> 使得 <script type="math/tex">\bold{A}^*\bold{y}=\bold{0}</script>，根据之前的推导，那么
+<script type="math/tex; mode=display">(\bold{x},\bold{A}^*\bold{y})=0=(\bold{A}\bold{x},\bold{y})</script>
+如果 <script type="math/tex">\bold{A}\bold{x}=\bold{b}</script> 有解，代入上式得到
+<script type="math/tex; mode=display">(\bold{b},\bold{y})=0</script>
+反过来，如果已知 <script type="math/tex">(\bold{b},\bold{y})=0</script>，根据
+<script type="math/tex; mode=display">(\bold{x},\bold{A}^*\bold{y})=0=(\bold{A}\bold{x},\bold{y})</script>
+可以得到 <script type="math/tex">\bold{A}\bold{x}=\bold{b}</script> 有解。</p>
+<p>如果 <script type="math/tex">\bold{x}^{(0)}</script> 是方程 <script type="math/tex">(2)</script> 的特解，<script type="math/tex">\bold{\xi}</script> 是齐次方程 <script type="math/tex">(4)</script> 的通解，那么
+<script type="math/tex; mode=display">\begin{aligned}
+\bold{A}(\bold{x}^{(0)}+\alpha\bold{\xi})&=\bold{A}\bold{x}^{(0)}+\alpha\bold{A}\bold{\xi}\\
+&=\bold{b}+\alpha\bold{0}\\
+&=\bold{b}
+\end{aligned}</script>
+因此 <script type="math/tex">\bold{x}=\bold{x}^{(0)}+\alpha\bold{\xi}</script> 是 <script type="math/tex">\bold{A}\bold{x}=\bold{b}</script> 的解，其中 <script type="math/tex">\alpha</script> 是任意常量。</p>
 <p>上一段的结论对于线性方程组解的分类很重要。不过在求解方程组时，通常最好的方法是利用行简化将方程组变换为更简单的形式，如果存在解的话，可以轻松得到解。为了高效做到这一点，这里使用增广矩阵
 <script type="math/tex; mode=display">(\bold{A}|\bold{b})=\begin{pmatrix}
 a_{11}&\cdots&a_{1n}&|&b_1\\
 \vdots&&\vdots&|&\vdots\\
-a_{n1}&\cdots&a_{nn}&|b_n
+a_{n1}&\cdots&a_{nn}&|&b_n
 \end{pmatrix}\tag{7}</script>
 执行初等行变换将矩阵 <script type="math/tex">\bold{A}</script> 变成上三角矩阵（<code>upper triangular matrix</code>），即主对角线以下的元素都是零，完成之后很容易确定方程组是否有解，然后得到解。这里对增广矩阵 <script type="math/tex">(7)</script> 的操作对应与求解方程组 <script type="math/tex">(1)</script> 的有效操作。</p>
 <p>例 1 求方程组
@@ -30242,8 +30331,314 @@ x_1&-&2x_2&+&3x_3&=7\\
 &2x_1&-&x_2&+&3x_3&=b_3\\
 \end{aligned}\tag{11}</script>
 的解。</p>
-<p>解：</p>
+<p>解：除了第三个方程的 <script type="math/tex">x_3</script> 的系数不同之外，其余系数与 <script type="math/tex">(8)</script> 一样。方程组 <script type="math/tex">(11)</script> 的增广矩阵是
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&-2&3&b_1\\
+-1&1&-2&b_2\\
+2&-1&3&b_3
+\end{pmatrix}\tag{12}</script>
+根据例 1 的步骤，上面的增广矩阵转换为
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&-2&3&b_1\\
+0&1&-1&-b_1-b_2\\
+0&0&0&b_1+3b_2+b_3
+\end{pmatrix}\tag{13}</script>
+第三行对应的方程是
+<script type="math/tex; mode=display">b_1+3b_2+b_3=0\tag{14}</script>
+除非 <script type="math/tex">b_1,b_2,b_3</script> 满足上述方程，否则方程组 <script type="math/tex">(11)</script> 没有解。可以证明上面的方程是条件 <script type="math/tex">(5)</script>。</p>
+<p>令 <script type="math/tex">b_1=2,b_2=1,b_3=-5</script>，这样可以满足 <script type="math/tex">(14)</script>，那么矩阵 <script type="math/tex">(13)</script> 的前两行是
+<script type="math/tex; mode=display">\begin{aligned}
+&x_1&-&2x_2&+&3x_3&=&2\\
+&&&x_2&-&x_3&=&-3
+\end{aligned}\tag{15}</script>
+为了求解 <script type="math/tex">(15)</script>，令 <script type="math/tex">x_3=\alpha</script>，这是一个任意选择的量，来表示其他两个未知数
+<script type="math/tex; mode=display">x_2=x_3-3=\alpha-3</script>
+<script type="math/tex; mode=display">x_1=2x_2-3x_3+2=-\alpha-4</script>
+写成向量形式是
+<script type="math/tex; mode=display">\bold{x}=\begin{pmatrix}
+-\alpha-4\\\alpha-3\\\alpha
+\end{pmatrix}=\alpha\begin{pmatrix}
+-1\\1\\1
+\end{pmatrix}+\begin{pmatrix}
+-4\\-3\\0
+\end{pmatrix}\tag{16}</script>
+很容易验证右边第二项是非齐次方程 <script type="math/tex">(11)</script> 的解，第一项是 <script type="math/tex">(11)</script> 对应的齐次方程的解。</p>
+<p>行简化，即高斯消元法，在求解齐次方程和方程个数与未知数个数不同的方程组时也很有用。</p>
 <h3 id="_2">线性相关和线性无关</h3>
+<p>如果存在一组至少一个非零的实数或复数 <script type="math/tex">c_1,\cdots,c_k</script> 使得
+<script type="math/tex; mode=display">c_1\bold{x}^{(1)}+\cdots+c_k\bold{x}^{(k)}=\bold{0}\tag{17}</script>
+那么这 <script type="math/tex">k</script> 个矢量 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(k)}</script> 是线性相关的。也就说它们之间存在某种线性关系。如果唯一使得 <script type="math/tex">(17)</script> 成立的系数 <script type="math/tex">c_1,\cdots,c_k</script> 是 <script type="math/tex">c_1=c_2=\cdots=c_k=0</script>，那么 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(k)}</script> 是线性无关的。</p>
+<p>下面讨论 <script type="math/tex">n</script> 个向量的集合，每一个向量有 <script type="math/tex">n</script> 维，构成了一个 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\bold{X}</script>，<script type="math/tex">\bold{X}</script> 的第 <script type="math/tex">j</script> 列是 <script type="math/tex">\bold{x}_j</script>，因此 <script type="math/tex">\bold{X}=(x_{ij})</script>，其中 <script type="math/tex">x_{ij}=x_i^{(j)}</script>，也就是向量 <script type="math/tex">\bold{x}^{(j)}</script> 的第 <script type="math/tex">i</script> 个分量。令 <script type="math/tex">\bold{c}=c_{j}</script>，那么 <script type="math/tex">(17)</script> 可以写作
+<script type="math/tex; mode=display">\bold{X}\bold{c}=\bold{0}\tag{18}</script>
+如果 <script type="math/tex">\det\bold{X}\neq 0</script>，<script type="math/tex">(18)</script> 的解只有 <script type="math/tex">\bold{c}=\bold{0}</script>，那么等价于 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 是线性无关的。如果 <script type="math/tex">\det\bold{X}=0</script>，有非零解。</p>
+<p>比如从例 1 可以知道向量
+<script type="math/tex; mode=display">\begin{pmatrix}
+1\\-1\\2
+\end{pmatrix},\begin{pmatrix}
+-2\\1\\-1
+\end{pmatrix},\begin{pmatrix}
+3\\-2\\-1
+\end{pmatrix}</script>
+是线性无关的。从例 2 可以知道向量
+<script type="math/tex; mode=display">\begin{pmatrix}
+1\\-1\\2
+\end{pmatrix},\begin{pmatrix}
+-2\\1\\-1
+\end{pmatrix},\begin{pmatrix}
+3\\-2\\3
+\end{pmatrix}</script>
+是线性相关的。</p>
+<p>例 3 确定向量
+<script type="math/tex; mode=display">\bold{x}^{(1)}=\begin{pmatrix}
+1\\2\\-1
+\end{pmatrix},\bold{x}^{(2)}=\begin{pmatrix}
+2\\1\\3
+\end{pmatrix},\bold{x}^{(3)}=\begin{pmatrix}
+-4\\1\\-11
+\end{pmatrix}\tag{19}</script>
+是线性相关还是线性无关的。如果线性相关，找到它们之间的线性关系。</p>
+<p>解：为了确定 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)},\bold{x}^{(3)}</script> 是线性无关还是线性相关，要求使得
+<script type="math/tex; mode=display">c_1\bold{x}^{(1)}+c_2\bold{x}^{(2)}+c_3\bold{x}^{(3)}=\bold{0}\tag{20}</script>
+的常量 <script type="math/tex">c_1,c_2,c_3</script>。</p>
+<p>方程 <script type="math/tex">(20)</script> 可以写作形式
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&2&-4\\
+2&1&1\\
+-1&3&-11
+\end{pmatrix}\begin{pmatrix}
+c_1\\c_2\\c_3
+\end{pmatrix}=\begin{pmatrix}
+0&0&0
+\end{pmatrix}\tag{21}</script>
+可以通过对下面的增广矩阵进行初等行变换求解
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&2&-4&0\\
+2&1&1&0\\
+-1&3&-11&0
+\end{pmatrix}\tag{22}</script>
+第一行乘以 -2 加到第二行，第一行加到第三行得到
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&2&-4&0\\
+0&-3&9&0\\
+0&5&-15&0
+\end{pmatrix}</script>
+第二行乘以 -1/3 得到
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&2&-4&0\\
+0&-1&3&0\\
+0&5&-15&0
+\end{pmatrix}</script>
+第二行乘以 5 加到第三行得到
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&2&-4&0\\
+0&-1&3&0\\
+0&0&0&0
+\end{pmatrix}</script>
+因此得到等价的方程组
+<script type="math/tex; mode=display">\begin{aligned}
+c_1+2c_2-4c_3&=0\\
+c_2-3c_3&=0
+\end{aligned}\tag{23}</script>
+因此 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)},\bold{x}^{(3)}</script> 是线性相关的。</p>
+<p>为了找到 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)},\bold{x}^{(3)}</script> 之间的线性关系，从 <script type="math/tex">(23)</script> 的第二个方程可以得到 <script type="math/tex">c_2=3c_3</script>，代入第一个方程得到 <script type="math/tex">c_1=4c_3-2c_2=-2c_3</script>。这里使用 <script type="math/tex">c_3</script> 来表示 <script type="math/tex">c_1,c_2</script>，而 <script type="math/tex">c_3</script> 可以任意选择。比如令 <script type="math/tex">c_3=-1</script>，那么 <script type="math/tex">c_1=2,c_2=-3</script>，那么 <script type="math/tex">(20)</script> 的线性关系是
+<script type="math/tex; mode=display">2\bold{x}^{(1)}-3\bold{x}^{(2)}-1\bold{x}^{(3)}=\bold{0}</script>
+</p>
+<p>另一种方法是不妨称 <script type="math/tex">(21)</script> 系数方程为 <script type="math/tex">\bold{X}</script> 然后计算 <script type="math/tex">\det\bold{X}</script>。
+<script type="math/tex; mode=display">\begin{aligned}
+\det\bold{X}&=\begin{vmatrix}
+1&2&-4\\2&1&1\\-1&3&-11
+\end{vmatrix}\\
+&=(1)\begin{vmatrix}
+1&1\\3&-11
+\end{vmatrix}-(2)\begin{vmatrix}
+2&1\\-1&-11
+\end{vmatrix}+(-4)\begin{vmatrix}
+2&1\\-1&3
+\end{vmatrix}\\
+&=-14-2(-21)-4(7)\\
+&=0
+\end{aligned}</script>
+因此 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)},\bold{x}^{(3)}</script> 是线性相关的。不过为了求线性关系，还是不得不求解方程 <script type="math/tex">(20)</script>。</p>
+<p>将矩阵 <script type="math/tex">\bold{A}</script> 的列或者行看做向量很有用。这些向量线性无关等价于 <script type="math/tex">\det\bold{A}\neq 0</script>。如果 <script type="math/tex">\bold{C}=\bold{A}\bold{B}</script>，那么 <script type="math/tex">\det\bold{C}=\det\bold{A}\det\bold{B}</script>，因此 <script type="math/tex">\bold{A},\bold{B}</script> 的列或者行线性无关，那么 <script type="math/tex">\bold{C}</script> 的列或者行也线性无关。</p>
+<p>现在将这些定义扩展到区间 <script type="math/tex">\alpha<t<\beta</script> 上的矢量函数 <script type="math/tex">\bold{x}^{(1)}(t),\cdots,\bold{x}^{(k)}(t)</script>。如果在存在不全是零的常量 <script type="math/tex">c_1,\cdots,c_k</script> 使得在上述区间内有
+<script type="math/tex; mode=display">c_1\bold{x}^{(1)}(t)+\cdots+c_k\bold{x}^{(k)}(t)=\bold{0}</script>
+那么 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(k)}</script> 是线性先关的，否则是线性无关的。如果 <script type="math/tex">\bold{x}^{(1)}(t),\cdots,\bold{x}^{(k)}(t)</script> 在区间上线性相关，那么在区间内的每一点都是线性相关的。不过，如果 <script type="math/tex">\bold{x}^{(1)}(t),\cdots,\bold{x}^{(k)}(t)</script> 在区间上线性无关，或许在每一点处都是线性无关的，或许不是。还有可能是在每一点处都是线性无关的，但是不同点的常量集合不同。</p>
+<h3 id="_3">特征值和特征向量</h3>
+<p>方程
+<script type="math/tex; mode=display">\bold{A}\bold{x}=\bold{y}\tag{24}</script>
+可以看作是将一个矢量 <script type="math/tex">\bold{x}</script> 转换称另一个矢量 <script type="math/tex">\bold{y}</script>。在许多应用中，一个矢量能转换成自身的若干倍是很重要的，包括求解常系数一阶线性微分方程组。</p>
+<p>令 <script type="math/tex">\bold{y}=\lambda\bold{x}</script>，那么
+<script type="math/tex; mode=display">\bold{A}\bold{x}=\lambda\bold{x}\tag{25}</script>
+<script type="math/tex; mode=display">(\bold{A}-\lambda\bold{I})\bold{x}=\bold{0}\tag{26}</script>
+方程有非零解等价于 <script type="math/tex">\lambda</script> 使得
+<script type="math/tex; mode=display">\det(\bold{A}-\lambda\bold{I})=0\tag{27}</script>
+方程 <script type="math/tex">(27)</script> 是 <script type="math/tex">\lambda</script> 的 <script type="math/tex">n</script> 阶多项式，称为矩阵 <script type="math/tex">\bold{A}</script> 的特征方程（<code>characteristic equation</code>）。满足 <script type="math/tex">(27)</script> 的 <script type="math/tex">\lambda</script> 可以是实数也可以是复数，称为 <script type="math/tex">\bold{A}</script> 的特征值（<code>eigenvalue</code>）。对应某个 <script type="math/tex">\lambda</script>，满足 <script type="math/tex">(25)</script> 或 <script type="math/tex">(26)</script> 的矢量 <script type="math/tex">\bold{x}</script> 称为特征值对应的特征向量（<code>eigenvector</code>）。</p>
+<p>例 4 求矩阵
+<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+3&-1\\4&-2
+\end{pmatrix}\tag{28}</script>
+的特征值和特征向量。</p>
+<p>解：特征值 <script type="math/tex">\lambda</script> 和特征向量 <script type="math/tex">\bold{x}</script> 满足方程 <script type="math/tex">(\bold{A}-\lambda\bold{I})\bold{x}=\bold{0}</script>，即
+<script type="math/tex; mode=display">\begin{pmatrix}
+3-\lambda&-1\\4&-2-\lambda
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2
+\end{pmatrix}=\begin{pmatrix}
+0\\0
+\end{pmatrix}\tag{29}</script>
+特征值是特征方程
+<script type="math/tex; mode=display">\det(\bold{A}-\lambda\bold{I})=\begin{vmatrix}
+3-\lambda&-1\\4&-2-\lambda
+\end{vmatrix}=\lambda^2-\lambda-2=(\lambda-2)(\lambda+1)=0\tag{30}</script>
+的根，那么 <script type="math/tex">\lambda_1=2,\lambda_2=-1</script>。</p>
+<p>为了求解特征向量，将每个特征值 <script type="math/tex">\lambda</script> 代回 <script type="math/tex">(29)</script>。对于 <script type="math/tex">\lambda=2</script> 有
+<script type="math/tex; mode=display">\begin{pmatrix}
+1&-1\\4&-4
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2
+\end{pmatrix}=\begin{pmatrix}
+0\\0
+\end{pmatrix}\tag{31}</script>
+那么 <script type="math/tex">x_1-x_2=0</script>。如果 <script type="math/tex">x_1=c</script>，那么 <script type="math/tex">x_2=c</script>，因此特征向量 <script type="math/tex">\bold{x}^{(1)}</script> 是
+<script type="math/tex; mode=display">\bold{x}^{(1)}=c\begin{pmatrix}
+1\\1
+\end{pmatrix},c\neq 0\tag{32}</script>
+对于特征值 <script type="math/tex">\lambda=2</script>，有无数个特征向量。一般从中选择一个作为其余的代表，这里令 <script type="math/tex">c=1</script>，那么
+<script type="math/tex; mode=display">\bold{x}^{(1)}=\begin{pmatrix}
+1\\1
+\end{pmatrix}\tag{33}</script>
+这个矢量的非零倍数也是特征向量。一般称 <script type="math/tex">\bold{x}^{(1)}</script> 是特征值 <script type="math/tex">\lambda_1=2</script> 的特征向量。</p>
+<p>令 <script type="math/tex">(29)</script> 中的 <script type="math/tex">\lambda=-1</script>，那么得到
+<script type="math/tex; mode=display">\begin{pmatrix}
+4&-1\\4&-1
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2
+\end{pmatrix}=\begin{pmatrix}
+0\\0
+\end{pmatrix}\tag{34}</script>
+这里仍旧只能获得一个条件，即 <script type="math/tex">4x_1-x_2=0</script>。因此对应特征值 <script type="math/tex">\lambda_2=-1</script> 的特征向量是
+<script type="math/tex; mode=display">\bold{x}^{(2)}=\begin{pmatrix}
+1\\4
+\end{pmatrix}\tag{35}</script>
+或者是其非零倍。</p>
+<p>上面的例子中，特征向量之间差一个非零的系数，如果以某种方式指定这个常数，称这个特征向量被归一化（<code>normalized</code>）。例 4 中我们的选择让每个分量是尽可能小的整数，选择其他值也是有效的，但是可能没有那么方便。有时选择让特征向量归一化 <script type="math/tex">||\bold{x}||=(\bold{x},\bold{x})^{1/2}=1</script> 很方便。</p>
+<p>
+<script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\bold{A}</script> 的特征方程 <script type="math/tex">(27)</script> 是一个关于 <script type="math/tex">\lambda</script> 的 <script type="math/tex">n</script> 阶多项式方程，那么有 <script type="math/tex">n</script> 个特征值 <script type="math/tex">\lambda_1,\cdots,\lambda_n</script>，其中一些可能有重复。如果一个特征值出现 <script type="math/tex">m</script> 次，称其代数重数（<code>algebraic multiplicity</code>）为 <script type="math/tex">m</script>。每个特征值至少有一个与之对应的特征向量，也可能有其他线性无关的特征向量。如果一个特征值有 <script type="math/tex">q</script> 个线性无关特征向量，称其几何重数（<code>geometric multiplicity</code>）是 <script type="math/tex">q</script>。可以证明有如下关系
+<script type="math/tex; mode=display">1\leq q\leq m\tag{36}</script>
+也就是说几何重数不会超过代数重数。如果 <script type="math/tex">\bold{A}</script> 的每个特征值都是简单的（<code>simple</code>），即代数重数为 1，那么几何重数也是 1。</p>
+<p>如果 <script type="math/tex">\lambda_1,\lambda_2</script> 是 <script type="math/tex">\bold{A}</script> 的两个特征值，并且 <script type="math/tex">\lambda_1\neq\lambda_2</script>，那么相应的特征向量 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(1)}</script> 是线性无关的。要证明线性无关从下面的线性方程开始
+<script type="math/tex; mode=display">c_1\bold{x}^{(1)}+c_2\bold{x}^{(2)}=\bold{0}</script>
+两边同时乘以矩阵 <script type="math/tex">\bold{A}</script>，得到
+<script type="math/tex; mode=display">c_1\bold{A}\bold{x}^{(1)}+c_2\bold{A}\bold{x}^{(2)}=\bold{0}</script>
+因为两个特征值满足方程
+<script type="math/tex; mode=display">(\bold{A}-\lambda\bold{I})\bold{x}=\bold{0}</script>
+那么
+<script type="math/tex; mode=display">\bold{A}\bold{x}^{(1)}=\lambda_1\bold{I}\bold{x}^{(1)}</script>
+<script type="math/tex; mode=display">\bold{A}\bold{x}^{(2)}=\lambda_2\bold{I}\bold{x}^{(2)}</script>
+代入最开始的等式得到
+<script type="math/tex; mode=display">c_1\lambda_1\bold{I}\bold{x}^{(1)}+c_2\lambda_2\bold{I}\bold{x}^{(2)}=\bold{0}</script>
+<script type="math/tex; mode=display">c_1\lambda_1\bold{x}^{(1)}+c_2\lambda_2\bold{x}^{(2)}=\bold{0}</script>
+由于 <script type="math/tex">\lambda_1\neq\lambda_2</script>，那么为了上式成立必须有 <script type="math/tex">c_1=c_2=0</script>，因此是线性无关的。</p>
+<p>这个结果可以扩展到任意个不同的特征值 <script type="math/tex">\lambda_1,\cdots,\lambda_k</script>，对应的特征向量 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(k)}</script> 是线性无关的。因此一个 <script type="math/tex">n\times n</script> 的矩阵的每一个特征值都是简单的，那么有 <script type="math/tex">n</script> 个特征值，每一个对应一个特征向量，这些特征向量是无关的。反之，如果 <script type="math/tex">\bold{A}</script> 有一个或多个重复的特征值，可能只有少于 <script type="math/tex">n</script> 个线性无关的向量，这是因为对于重复特征值而言可能有 <script type="math/tex">q<m</script>。后续章节会看到这一点会导致微分系方程组的复杂性。</p>
+<p>例 5 求矩阵
+<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+0&1&1\\1&0&1\\1&1&0
+\end{pmatrix}\tag{37}</script>
+的特征值和特征向量。</p>
+<p>解：特征值 <script type="math/tex">\lambda</script> 和特征向量 <script type="math/tex">\bold{x}</script> 满足方程 <script type="math/tex">(\bold{A}-\lambda\bold{I})\bold{x}=\bold{0}</script>，那么
+<script type="math/tex; mode=display">\begin{pmatrix}
+-\lambda&1&1\\1&-\lambda&1\\1&1&-\lambda
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2\\x_3
+\end{pmatrix}=\begin{pmatrix}
+0\\0\\0
+\end{pmatrix}\tag{38}</script>
+特征值是方程
+<script type="math/tex; mode=display">\det(\bold{A}-\lambda\bold{I})=\begin{vmatrix}
+-\lambda&1&1\\1&-\lambda&1\\1&1&-\lambda
+\end{vmatrix}=-\lambda^3+3\lambda+2=0\tag{39}</script>
+方程有三个根 <script type="math/tex">\lambda_1=2,\lambda_2=-1,\lambda_3=-1</script>，因此 2 是简单特征值，-1 是代数重数为 2 的特征值。</p>
+<p>将 <script type="math/tex">\lambda=2</script> 代入 <script type="math/tex">(38)</script> 得到
+<script type="math/tex; mode=display">\begin{pmatrix}
+-2&1&1\\1&-2&1\\1&1&-2
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2\\x_3
+\end{pmatrix}=\begin{pmatrix}
+0\\0\\0
+\end{pmatrix}\tag{40}</script>
+通过初等行变换（高斯消元法）得到等价方程组
+<script type="math/tex; mode=display">\begin{pmatrix}
+-2&1&1\\0&1&-1\\0&0&0
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2\\x_3
+\end{pmatrix}=\begin{pmatrix}
+0\\0\\0
+\end{pmatrix}\tag{41}</script>
+得到特征方程
+<script type="math/tex; mode=display">\bold{x}^{(1)}=\begin{pmatrix}
+1\\1\\1
+\end{pmatrix}\tag{42}</script>
+代入 <script type="math/tex">\lambda=-1</script>，方程 <script type="math/tex">(38)</script> 可以简化为
+<script type="math/tex; mode=display">x_1+x_2+x_3=0\tag{43}</script>
+因此三个变量的其中两个值可以任意指定，第三个由上式确定。这里令 <script type="math/tex">x_1=c_1,x_2=c_2</script>，那么 <script type="math/tex">x_3=-c_1-c_2</script>，那么
+<script type="math/tex; mode=display">\bold{x}=\begin{pmatrix}
+c_1\\c_2\\-c_1-c_2
+\end{pmatrix}=c_1\begin{pmatrix}
+1\\0\\-1
+\end{pmatrix}+c_2\begin{pmatrix}
+0\\1\\-1
+\end{pmatrix}\tag{44}</script>
+选择 <script type="math/tex">c_1=1,c_2=0</script> 得到特征向量
+<script type="math/tex; mode=display">\bold{x}^{(2)}=\begin{pmatrix}
+1\\0\\-1
+\end{pmatrix}</script>
+令 <script type="math/tex">c_1=0,c_2=1</script> 可以得到另一个线性无关的特征向量
+<script type="math/tex; mode=display">\bold{x}^{(3)}=\begin{pmatrix}
+0\\1\\-1
+\end{pmatrix}\tag{46}</script>
+这个代数重数为 2 的特征值对应两个线性无关的特征向量。</p>
+<p>有一类特殊的矩阵，称为自伴随（<code>self-adjoint</code>）或埃尔米特矩阵（<code>Hermitian</code>）：<script type="math/tex">\bold{A}=\bold{A}^*</script>，即 <script type="math/tex">a_{ij}=\overline{a_{ji}}</script>。埃尔米特矩阵包含一个子类，对称的实数矩阵，也就是说矩阵的元素是实数并且有 <script type="math/tex">\bold{A}^T=\bold{A}</script>。埃尔米特矩阵的特征值和特征向量满足下面这些有用的属性：</p>
+<ol>
+<li>所有的特征值是实数。</li>
+<li>不管特征值的代数重数是多少，总是存在 <script type="math/tex">n</script> 个线性无关的特征向量。</li>
+<li>如果特征向量 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(1)}</script> 是不同特征值对应的特征向量，那么 <script type="math/tex">(\bold{x}^{(1)},\bold{x}^{(2)})=0</script>。如果所有的特征值是简单的，那么对应的特征向量都是正交的。</li>
+<li>一个特征值的代数重数是 <script type="math/tex">m</script>，可以选择出 <script type="math/tex">m</script> 个特征向量彼此正交。因此，总是可以选择 <script type="math/tex">n</script> 个特征向量，彼此正交，且它们是线性无关的。</li>
+</ol>
+<p>下面证明属性 1。之前已经证明
+<script type="math/tex; mode=display">(\bold{A}\bold{x},\bold{y})=(\bold{x},\bold{A}^*\bold{y})</script>
+而埃尔米特矩阵是 <script type="math/tex">\bold{A}=\bold{A}^*</script> 的矩阵，代入上式得到
+<script type="math/tex; mode=display">(\bold{A}\bold{x},\bold{y})=(\bold{x},\bold{A}\bold{y})</script>
+这里 <script type="math/tex">\bold{y}</script> 是任意向量，取值为 <script type="math/tex">\bold{x}</script>，那么得到
+<script type="math/tex; mode=display">(\bold{A}\bold{x},\bold{x})=(\bold{x},\bold{A}\bold{x})</script>
+<script type="math/tex">\lambda</script> 是特征值，<script type="math/tex">\bold{x}</script> 是对应的特征向量，那么
+<script type="math/tex; mode=display">\bold{A}\bold{x}=\lambda\bold{x}</script>
+代入上式得到
+<script type="math/tex; mode=display">(\lambda\bold{x},\bold{x})=(\bold{x},\lambda\bold{x})</script>
+因此
+<script type="math/tex; mode=display">\lambda(\bold{x},\bold{x})=\bar{\lambda}(\bold{x},\bold{x})</script>
+那么
+<script type="math/tex; mode=display">\lambda=\bar{\lambda}</script>
+所以 <script type="math/tex">\lambda</script> 是实数。</p>
+<p>下面证明属性 3。假定 <script type="math/tex">\lambda_1,\lambda_2</script> 是 <script type="math/tex">\bold{A}</script> 的两个特征值，且 <script type="math/tex">\lambda_1\neq\lambda_2</script>，<script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)}</script> 是与之对应的两个特征向量。</p>
+<p>我们从
+<script type="math/tex; mode=display">(\bold{A}\bold{x},\bold{y})=(\bold{x},\bold{A}\bold{y})</script>
+开始，这里令 <script type="math/tex">\bold{x}=\bold{x}^{(1)},\bold{y}=\bold{x}^{(2)}</script>，那么
+<script type="math/tex; mode=display">\begin{aligned}
+(\bold{A}\bold{x}^{(1)},\bold{x}^{(2)})&=(\bold{x}^{(1)},\bold{A}\bold{x}^{(2)})\\
+(\lambda_1\bold{x}^{(1)},\bold{x}^{(2)})&=(\bold{x}^{(1)},\lambda_2\bold{x}^{(2)})\\
+\lambda_1(\bold{x}^{(1)},\bold{x}^{(2)})&=\lambda_2(\bold{x}^{(1)},\bold{x}^{(2)})\\
+(\lambda_1-\lambda_2)(\bold{x}^{(1)},\bold{x}^{(2)})&=0
+\end{aligned}</script>
+因此
+<script type="math/tex; mode=display">(\bold{x}^{(1)},\bold{x}^{(2)})=0</script>
+所以两个特征向量正交。</p>
+<p>例 5 是一个实数对称矩阵，满足属性 1、2、3，但是选择的两个矢量 <script type="math/tex">\bold{x}^{(2)},\bold{x}^{(3)}</script> 并不满足属性 4。不过总是可以做到这一点。比如分别令 <script type="math/tex">c_1=1,c_2=-2</script> 得到两个矢量
+<script type="math/tex; mode=display">\bold{x}^{(2)}=\begin{pmatrix}
+1\\0\\-1
+\end{pmatrix},\bold{x}^{(3)}=\begin{pmatrix}
+1\\-2\\1
+\end{pmatrix}</script>
+作为 <script type="math/tex">\lambda=-1</script> 对应的两个特征向量。这两个矢量彼此正交并且与 <script type="math/tex">\lambda=2</script> 对应的特征向量 <script type="math/tex">\bold{x}^{(1)}</script> 正交。</p>
 
   
 
@@ -30287,10 +30682,10 @@ x_1&-&2x_2&+&3x_3&=7\\
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.indexes", "content.action.view", "content.action.edit", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.indexes", "content.action.view", "content.action.edit", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
