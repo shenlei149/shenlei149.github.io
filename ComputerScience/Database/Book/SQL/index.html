@@ -51,6 +51,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -17142,6 +17144,8 @@
       
         
       
+        
+      
     
     
     
@@ -17293,6 +17297,34 @@
     
   
     040 一阶线性方程组的基本理论 Basic Theory of Systems of First-Order Linear Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math/020-Elementary-Differential-Equations/070-Systems-of-First-Order-Linear-Equations/050-Homogeneous-Linear-Systems-with-Constant-Coefficients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    050 常系数齐次线性方程组 Homogeneous Linear Systems with Constant Coefficients
   
 
     
@@ -25209,6 +25241,8 @@
       
         
       
+        
+      
     
     
     
@@ -25351,6 +25385,34 @@
     
   
     107 Minimal Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectEuler/101-150/109-Darts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    109 Darts
   
 
     
@@ -31313,7 +31375,117 @@ SQL 不允许 <code>distinct</code> 用于 <code>count(*)</code>，不过将 <co
 </span><span id="__span-43-13"><a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a><span class="w">    </span><span class="p">);</span>
 </span></code></pre></div></p>
 <h3 id="set-comparison">Set Comparison</h3>
+<p>回到查询所有薪水比生物学院最低薪水高的教师的名字这个查询，之前的查询如下
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">    </span><span class="n">T</span><span class="p">.</span><span class="n">name</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="k">from</span><span class="w"> </span><span class="n">instructor</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">instructor</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">S</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="k">where</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="w">    </span><span class="n">T</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">salary</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">dept_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biology&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+这里比最低薪水高，意思是比任意一个生物学院的教师薪水高，SQL 提供了 <code>&gt; some</code> 来表达这个语义，那么查询可以写作
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="k">select</span><span class="w"> </span><span class="n">name</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="k">from</span><span class="w"> </span><span class="n">instructor</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="k">where</span>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="w">    </span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a><span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="n">salary</span>
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">instructor</span>
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="w">        </span><span class="k">where</span>
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="w">            </span><span class="n">dept_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biology&#39;</span>
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div>
+除此之外，SQL 中还有 <code>&lt; some</code> <code>&lt;= some</code> <code>&gt;= some</code> <code>= some</code> <code>&lt;&gt; some</code>。<code>=some</code> 等价于 <code>in</code>，不过 <code>&lt;&gt; some</code> 不等价于 <code>not in</code>。</p>
+<p>修改上面的查询，使用 <code>&gt; all</code>，查询结果就变成了比每个生物系教师薪水都高。
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="k">select</span><span class="w"> </span><span class="n">name</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="k">from</span><span class="w"> </span><span class="n">instructor</span>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="k">where</span>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="w">    </span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="n">salary</span>
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">instructor</span>
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="w">        </span><span class="k">where</span>
+</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="w">            </span><span class="n">dept_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biology&#39;</span>
+</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div>
+与 <code>some</code> 类似，SQL 还有 <code>&lt; all</code> <code>&lt;= all</code> <code>&gt;= all</code> <code>= all</code> <code>&lt;&gt; all</code>。<code>&lt;&gt; all</code> 等于与 <code>not in</code>，但是 <code>= all</code> 不等价于 <code>in</code>。</p>
+<p>查询平均薪水最高的部门也可以使用子查询的方式。
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">select</span><span class="w"> </span><span class="n">dept_name</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="k">from</span><span class="w"> </span><span class="n">instructor</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="k">group</span><span class="w"> </span><span class="k">by</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="w">    </span><span class="n">dept_name</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="k">having</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="w">    </span><span class="k">avg</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">instructor</span>
+</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="w">        </span><span class="k">group</span><span class="w"> </span><span class="k">by</span>
+</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="w">            </span><span class="n">dept_name</span>
+</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div></p>
 <h3 id="test-for-empty-relations">Test for Empty Relations</h3>
+<p><code>exists</code> 可以测试一个结果集中是否有元组，如果子查询不为空，那么返回 <code>true</code>。我们可以重写查询“找到所有 2017 秋季和 2018 春季都开课的课程”。
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="k">select</span><span class="w"> </span><span class="n">course_id</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="k">from</span><span class="w"> </span><span class="n">section</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">S</span>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="k">where</span>
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="w">    </span><span class="n">semester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Fall&#39;</span>
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2017</span>
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">section</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span>
+</span><span id="__span-48-9"><a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="w">        </span><span class="k">where</span>
+</span><span id="__span-48-10"><a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="w">            </span><span class="n">semester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Spring&#39;</span>
+</span><span id="__span-48-11"><a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2018</span>
+</span><span id="__span-48-12"><a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">course_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">.</span><span class="n">course_id</span>
+</span><span id="__span-48-13"><a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div>
+外层查询中的相关名 <code>S</code> 在内层查询的 <code>where</code> 中也使用了。使用了外层查询中相关名的子查询，称为相关子查询（<code>correlated subquery</code>）。</p>
+<p>一个查询包含另一个查询，相关名有范围规则。和编程语言类似，内层可以访问外层的变量名（数据库中称为相关名、相关变量），如果内层和外层变量名相同，使用内层的变量名。</p>
+<p><code>not exists</code> 可以测试集合为空。比如下面的查询：查询上了所有生物学院课程的学生。
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="k">select</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">name</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="k">from</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">S</span>
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="k">where</span>
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">    </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="w">        </span><span class="p">(</span>
+</span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a><span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="n">course_id</span>
+</span><span id="__span-49-7"><a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a><span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">course</span>
+</span><span id="__span-49-8"><a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a><span class="w">            </span><span class="k">where</span>
+</span><span id="__span-49-9"><a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a><span class="w">                </span><span class="n">dept_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biology&#39;</span>
+</span><span id="__span-49-10"><a id="__codelineno-49-10" name="__codelineno-49-10" href="#__codelineno-49-10"></a><span class="w">        </span><span class="p">)</span>
+</span><span id="__span-49-11"><a id="__codelineno-49-11" name="__codelineno-49-11" href="#__codelineno-49-11"></a><span class="w">        </span><span class="k">except</span>
+</span><span id="__span-49-12"><a id="__codelineno-49-12" name="__codelineno-49-12" href="#__codelineno-49-12"></a><span class="w">        </span><span class="p">(</span>
+</span><span id="__span-49-13"><a id="__codelineno-49-13" name="__codelineno-49-13" href="#__codelineno-49-13"></a><span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="n">T</span><span class="p">.</span><span class="n">course_id</span>
+</span><span id="__span-49-14"><a id="__codelineno-49-14" name="__codelineno-49-14" href="#__codelineno-49-14"></a><span class="w">            </span><span class="k">from</span><span class="w"> </span><span class="n">takes</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span>
+</span><span id="__span-49-15"><a id="__codelineno-49-15" name="__codelineno-49-15" href="#__codelineno-49-15"></a><span class="w">            </span><span class="k">where</span>
+</span><span id="__span-49-16"><a id="__codelineno-49-16" name="__codelineno-49-16" href="#__codelineno-49-16"></a><span class="w">                </span><span class="n">S</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">.</span><span class="n">ID</span>
+</span><span id="__span-49-17"><a id="__codelineno-49-17" name="__codelineno-49-17" href="#__codelineno-49-17"></a><span class="w">        </span><span class="p">)</span>
+</span><span id="__span-49-18"><a id="__codelineno-49-18" name="__codelineno-49-18" href="#__codelineno-49-18"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div>
+子查询
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="k">select</span><span class="w"> </span><span class="n">course_id</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="k">from</span><span class="w"> </span><span class="n">course</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="k">where</span>
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">    </span><span class="n">dept_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biology&#39;</span>
+</span></code></pre></div>
+返回所有生物学院的课程。子查询
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="k">select</span><span class="w"> </span><span class="n">T</span><span class="p">.</span><span class="n">course_id</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="k">from</span><span class="w"> </span><span class="n">takes</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="k">where</span>
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="w">    </span><span class="n">S</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">.</span><span class="n">ID</span>
+</span></code></pre></div>
+返回 S.ID 这个学生选修的所有课程。如果差集为空，说明该同学选修了所有生物学院的课程。</p>
+<p>之前“查询教师 ID 为 10101 教的学生数”的例子也可以用 <code>exists</code> 表达。
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="k">distinct</span><span class="w"> </span><span class="n">ID</span><span class="p">)</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="k">from</span><span class="w"> </span><span class="n">takes</span>
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="k">where</span>
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a><span class="w">    </span><span class="k">exists</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a><span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="n">course_id</span><span class="p">,</span><span class="w"> </span><span class="n">sec_id</span><span class="p">,</span><span class="w"> </span><span class="n">semester</span><span class="p">,</span><span class="w"> </span><span class="k">year</span>
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a><span class="w">        </span><span class="k">from</span><span class="w"> </span><span class="n">teaches</span>
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a><span class="w">        </span><span class="k">where</span>
+</span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a><span class="w">            </span><span class="n">teaches</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;10101&#39;</span>
+</span><span id="__span-52-9"><a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a><span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="n">takes</span><span class="p">.</span><span class="n">course_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">teaches</span><span class="p">.</span><span class="n">course_id</span>
+</span><span id="__span-52-10"><a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a><span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="n">takes</span><span class="p">.</span><span class="n">sec_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">teaches</span><span class="p">.</span><span class="n">sec_id</span>
+</span><span id="__span-52-11"><a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a><span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="n">takes</span><span class="p">.</span><span class="n">semester</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">teaches</span><span class="p">.</span><span class="n">semester</span>
+</span><span id="__span-52-12"><a id="__codelineno-52-12" name="__codelineno-52-12" href="#__codelineno-52-12"></a><span class="w">            </span><span class="k">and</span><span class="w"> </span><span class="n">takes</span><span class="p">.</span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">teaches</span><span class="p">.</span><span class="k">year</span>
+</span><span id="__span-52-13"><a id="__codelineno-52-13" name="__codelineno-52-13" href="#__codelineno-52-13"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div></p>
 <h3 id="test-for-the-absence-of-duplicate-tuples">Test for the Absence of Duplicate Tuples</h3>
 <h3 id="subqueries-in-the-from-clause">Subqueries in the From Clause</h3>
 <h3 id="the-with-clause">The With Clause</h3>

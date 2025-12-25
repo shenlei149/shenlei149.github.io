@@ -14,7 +14,7 @@
         <link rel="prev" href="../030-Systems-of-Linear-Algebraic-Equations-Linear-Independence-Eigenvalues-Eigenvectors/">
       
       
-        <link rel="next" href="../../../030-Complex-Variables-and-Applications/">
+        <link rel="next" href="../050-Homogeneous-Linear-Systems-with-Constant-Coefficients/">
       
       
         
@@ -50,6 +50,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -16745,6 +16747,8 @@
       
         
       
+        
+      
     
     
     
@@ -16912,6 +16916,34 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../050-Homogeneous-Linear-Systems-with-Constant-Coefficients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    050 常系数齐次线性方程组 Homogeneous Linear Systems with Constant Coefficients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -24820,6 +24852,8 @@
       
         
       
+        
+      
     
     
     
@@ -24962,6 +24996,34 @@
     
   
     107 Minimal Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectEuler/101-150/109-Darts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    109 Darts
   
 
     
@@ -30161,10 +30223,65 @@ x_{n1}(t)&\cdots&x_{nn}(t)\\
 <p><strong>定理 7.4.2</strong></p>
 <blockquote>
 <p>如果矢量函数 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 在区间 <script type="math/tex">\alpha<t<\beta</script> 上的每一点处都是 <script type="math/tex">(3)</script> 线性无关的解，那么 <script type="math/tex">(3)</script> 的每一个解 <script type="math/tex">\bold{x}=\bold{x}(t)</script> 都能且只有一种方式表示为 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 的线性组合
-<script type="math/tex; mode=display">\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots,+c_n\bold{x}^{(n)}</script>
+<script type="math/tex; mode=display">\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots+c_n\bold{x}^{(n)}\tag{11}</script>
 </p>
 </blockquote>
 <p>定理 7.4.1 是说形如 <script type="math/tex">(11)</script> 的所有解都是 <script type="math/tex">(3)</script> 的解，7.4.2 是说 <script type="math/tex">(3)</script> 的所有解都能表示成 <script type="math/tex">(11)</script> 的解。如果 <script type="math/tex">c_1,\cdots,c_n</script> 是任意常量，<script type="math/tex">(11)</script> 包含了 <script type="math/tex">(3)</script> 的所有解，那么称之为通解。<script type="math/tex">(3)</script> 的任意一个在区间 <script type="math/tex">\alpha<t<\beta</script> 上任一点都线性无关的解集 <script type="math/tex">\{\bold{x}^{(1)},\cdots,\bold{x}^{(n)}\}</script> 称之为基础解系。</p>
+<p>为了证明 7.4.2，需要证明 <script type="math/tex">(3)</script> 的任意解都能写成 <script type="math/tex">\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots+c_n\bold{x}^{(n)}</script> 的形式。令 <script type="math/tex">t=t_0</script> 是区间 <script type="math/tex">\alpha<t<\beta</script> 上的一点，并且令 <script type="math/tex">\bold{y}=\bold{x}(t_0)</script>。现在需要确定是否存在一个形如 <script type="math/tex">\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots,+c_n\bold{x}^{(n)}</script> 的解还满足初始条件 <script type="math/tex">\bold{x}(t_0)=\bold{y}</script>。也就是要确定 <script type="math/tex">c_1,\cdots,c_n</script> 使得
+<script type="math/tex; mode=display">c_1\bold{x}^{(1)}(t_0)+\cdots+c_n\bold{x}^{(n)}(t_0)=\bold{y}\tag{12}</script>
+标量形式是
+<script type="math/tex; mode=display">\begin{aligned}
+c_1x_{11}(t_0)+\cdots+c_nx_{1n}(t_0)&=y_1\\
+&\vdots\\
+c_1x_{n1}(t_0)+\cdots+c_nx_{nn}(t_0)&=y_n\\
+\end{aligned}\tag{13}</script>
+方程组 <script type="math/tex">(13)</script> 有唯一解 <script type="math/tex">c_1,\cdots,c_n</script> 的充分必要条件是系数行列式不为零，也就是 <script type="math/tex">t=t_0</script> 时朗斯基 <script type="math/tex">W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]</script> 不为零。假定 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 在 <script type="math/tex">\alpha<t<\beta</script> 上是线性无关的，那么 <script type="math/tex">W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]</script> 在 <script type="math/tex">t=t_0</script> 时不为零，因此 <script type="math/tex">(3)</script> 有唯一解，形式如 <script type="math/tex">\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots+c_n\bold{x}^{(n)}</script> 且满足条件 <script type="math/tex">(12)</script>。根据定理 7.1.2，这个解就是 <script type="math/tex">\bold{x}</script>。</p>
+<p><strong>定理 7.4.3 阿贝尔定理（<code>Abel's Theorem</code>）</strong></p>
+<blockquote>
+<p>如果 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 是区间 <script type="math/tex">\alpha<t<\beta</script> 上 <script type="math/tex">(3)</script> 的解，那么在这个区间上朗斯基 <script type="math/tex">W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]</script> 要么始终为零，要么总不是零。</p>
+</blockquote>
+<p>定理 7.4.3 让我们无需检查 <script type="math/tex">W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]</script> 在所有点来判断 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 是否是基础解系，只要找任意一点即可。</p>
+<p>这里不详细展开，但可以证明 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 的朗斯基满足
+<script type="math/tex; mode=display">\frac{dW}{dt}=(p_{11}(t)+p_{22}(t)+\cdots+p_{nn}(t))W\tag{14}</script>
+其中
+<script type="math/tex; mode=display">W(t)=c\exp\bigg(\int[p_{11}(t)+p_{22}(t)+\cdots+p_{nn}(t)]dt\bigg)\tag{15}</script>
+其中 <script type="math/tex">c</script> 是任意常数。根据上式，朗斯基要么总是零要么不会为零。<script type="math/tex">(15)</script> 称为阿贝尔公式（<code>Abel's formula</code>），和定理 3.2.7 类似。</p>
+<p>另一个证明方法是方程 <script type="math/tex">(3)</script>
+<script type="math/tex">n</script> 个解 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 在 <script type="math/tex">t=t_0</script> 处线性相关，那么在区间 <script type="math/tex">\alpha<t<\beta</script> 上都是线性相关的。那么 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 在一点处线性无关，那么处处都线性无关。</p>
+<p>下一个定理是说 <script type="math/tex">(3)</script> 至少有一个基础解系。</p>
+<p><strong>定理 7.4.4</strong></p>
+<blockquote>
+<p>令
+<script type="math/tex; mode=display">\bold{e}^{(1)}=\begin{pmatrix}
+1\\0\\0\\\vdots\\0
+\end{pmatrix},\bold{e}^{(2)}=\begin{pmatrix}
+0\\1\\0\\\vdots\\0
+\end{pmatrix},\cdots,\bold{e}^{(n)}=\begin{pmatrix}
+0\\0\\\vdots\\0\\1
+\end{pmatrix}</script>
+并且 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 是 <script type="math/tex">(3)</script> 的解并且满足初始条件
+<script type="math/tex; mode=display">\bold{x}^{(1)}(t_0)=\bold{e}^{(1)},\cdots,\bold{x}^{(n)}(t_0)=\bold{e}^{(n)}\tag{16}</script>
+其中 <script type="math/tex">t_0</script> 是 <script type="math/tex">\alpha<t<\beta</script> 内任一点。那么 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 是 <script type="math/tex">(3)</script> 的基础解系。</p>
+</blockquote>
+<p>
+<script type="math/tex">(3)</script> 的解 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 的存在性和唯一性由定理 7.1.2 保证。容易看出 <script type="math/tex">t=t_0</script> 时这些解的朗斯基等于 1，因此 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 是基础解系。</p>
+<p>一旦基础解系确定了，可以通过线性组合来生成其他基础解析。出于理论目的，定理 7.4.4 给出的基础解系通常是最简单的。</p>
+<p>与二阶线性方程类似，对于系数都是实数的方程组，可能会得到复数解。这种情况下，可以使用下面的定理（类似于定理 3.2.6）来找到实数解。</p>
+<p><strong>定理 7.4.5</strong></p>
+<blockquote>
+<p>方程 <script type="math/tex">(3)</script>
+<script type="math/tex; mode=display">\bold{x}'=\bold{P}(t)\bold{x}</script>
+其中 <script type="math/tex">\bold{P}</script> 是每个元素都是实函数。如果 <script type="math/tex">(3)</script> 的解是复数 <script type="math/tex">\bold{x}=\bold{u}(t)+i\bold{v}(t)</script>，那么实部 <script type="math/tex">\bold{u}(t)</script> 和虚部 <script type="math/tex">\bold{v}(t)</script> 也是这个方程的解。</p>
+</blockquote>
+<p>将 <script type="math/tex">\bold{u}(t)+i\bold{v}(t)</script> 代入 <script type="math/tex">(3)</script> 那么
+<script type="math/tex; mode=display">\bold{x}'-\bold{P}(t)\bold{x}=\bold{u}'(t)-\bold{P}(t)\bold{u}(t)+i(\bold{v}'(t)-\bold{P}(t)\bold{v}(t))=\bold{0}\tag{17}</script>
+使用 <script type="math/tex">\bold{P}</script> 是实数这一条件，将 <script type="math/tex">(17)</script> 分成实部和虚部两个部分。由于复数是零等价于实部和虚部都为零，那么 <script type="math/tex">\bold{u}'(t)-\bold{P}(t)\bold{u}(t)=\bold{0},\bold{v}'(t)-\bold{P}(t)\bold{v}(t)=\bold{0}</script>，因此 <script type="math/tex">\bold{u}(t),\bold{v}(t)</script> 也是 <script type="math/tex">(3)</script> 的解。</p>
+<p>总结一下这个小节：</p>
+<ol>
+<li>方程组 <script type="math/tex">\bold{x}'=\bold{P}(t)\bold{x}</script> 的任意 <script type="math/tex">n</script> 个线性无关的解组成了基础解系。</li>
+<li>在本节给定的条件下，基础解系总是存在。</li>
+<li>方程组 <script type="math/tex">\bold{x}'=\bold{P}(t)\bold{x}</script> 的每个解可以表示成任意基础解系的线性组合。</li>
+</ol>
 
   
 

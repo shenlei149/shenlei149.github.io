@@ -1,0 +1,7 @@
+.md-grid {
+  max-width: 68rem !important;
+}
+
+.md-typeset table:not([class]) {
+    font-size: inherit;
+}
