@@ -30218,7 +30218,7 @@ e^{2t}&0\\0&e^{-3t}
 x_1\\x_2
 \end{pmatrix}</script>
 比如 <script type="math/tex">(1,0)</script> 处的方向矢量是 <script type="math/tex">(1,4)^T</script>，<script type="math/tex">(-1,-1)</script> 处的方向矢量是 <script type="math/tex">(-2,-5)^T</script>。这两个矢量使用绿色标出。所有的箭头同样的长度，并且足够短避免相近的箭头交叉。</p>
-<p>TODO ADD figure</p>
+<p><img alt="" src="../050.010.png" /></p>
 <p>解的轨迹是沿着方向场的箭头方向的。第二象限的解最终会移动到第一或者第三象限，这和第四象限的解类似。第一象限和第三象限的解仍旧在当前象限内。原点附近的解会远离原点，最终的斜率近似是 2。</p>
 <p>假定解是 <script type="math/tex">\bold{x}=\bold{\xi}e^{rt}</script>，代入 <script type="math/tex">(9)</script> 得到代数方程组
 <script type="math/tex; mode=display">\begin{pmatrix}
@@ -30270,17 +30270,17 @@ e^{3t}&e^{-t}\\
 <p>接下来讨论 <script type="math/tex">\bold{x}=c_2\bold{x}^{(2)}</script> 的情况
 <script type="math/tex; mode=display">x_1=c_2e^{-t},x_2=-2c_2e^{-t}</script>
 解是直线 <script type="math/tex">x_2=-2x_1</script>，方向由特征向量 <script type="math/tex">\bold{\xi}^{(2)}</script> 决定。当 <script type="math/tex">c_2>0</script> 时解位于第四象限，<script type="math/tex">c_2<0</script> 时解在第二象限。两种情况下，随着 <script type="math/tex">t</script> 的增加，都趋于原点。</p>
-<p>TODO add （a）</p>
+<p><img alt="" src="../050.021.png" /></p>
 <p>通解 <script type="math/tex">(17)</script> 是 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)}</script> 的线性组合。当 <script type="math/tex">t</script> 很大时，<script type="math/tex">c_1\bold{x}^{(1)}</script> 占主导，<script type="math/tex">c_2\bold{x}^{(2)}</script> 可以忽略不计。因此当 <script type="math/tex">c_1\neq 0</script> 时，随着 <script type="math/tex">t\to\infty</script>，解趋于渐近线 <script type="math/tex">x_2=2x_1</script>。类似的，当 <script type="math/tex">c_2\neq 0</script> 时，随着 <script type="math/tex">t\to -\infty</script>，解趋于渐近线 <script type="math/tex">x_2=-2x_1</script>。基础解析 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)}</script> 分别使用了黑色虚线和实线表示。上图的轨迹模式是典型的 <script type="math/tex">2\times 2</script> 具有符号相反的特征值是实数的方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script> 的解的行为。原点被称为鞍点（<code>saddle point</code>）。随着 <script type="math/tex">t</script> 的增加，原有的轨迹都远离鞍点，因此是不稳定的。</p>
 <p>上图中 <script type="math/tex">x_1,x_2</script> 都是 <script type="math/tex">t</script> 的函数，也可以分别画出它们关于 <script type="math/tex">t</script> 的行为。如下图（b）（c）所示。对于某些初始条件，使得 <script type="math/tex">c_1=0</script>，那么 <script type="math/tex">x_1=c_2e^{-t}</script>，因此 <script type="math/tex">t\to\infty</script> 时 <script type="math/tex">x_1\to 0</script>。下图（b）画出了该图像。对应于（a）中趋于原点的轨迹。不过对于大多数初始条件，<script type="math/tex">c1\neq 0</script>，此时 <script type="math/tex">x_1</script>​ 由 <script type="math/tex">x_1=c_1e^{3t}+c_2e^{-t}x1</script> 给出。正指数项的存在使得随 <script type="math/tex">t</script> 的增加 <script type="math/tex">x_1</script>​ 的绝对值呈指数增长。（b）中展示了几个这类图像，它们对应于（a）中远离原点的轨线。理解图（a）的方向场与（b）（c）部分的分量图之间的关系至关重要，因为这样可以在在 <script type="math/tex">x_1x_2</script>​ 平面上对解进行可视化，也可以将其视为自变量 <script type="math/tex">t</script> 的函数进行可视化。</p>
-<p>TODO add （b）（c）</p>
+<p><img alt="" src="../050.022.png" /></p>
 <p>例 3 有如下方程组
 <script type="math/tex; mode=display">\bold{x}'=\begin{pmatrix}
 -3&\sqrt{2}\\\sqrt{2}&-2
 \end{pmatrix}\bold{x}\tag{18}</script>
 画出方向场，给出解的定性行为。然后求通解，画出相位图和一些轨迹。</p>
 <p>解：下图是原点附近的方向场。</p>
-<p>TODO ADD figure</p>
+<p><img alt="" src="../050.030.png" /></p>
 <p>假定解是 <script type="math/tex">\bold{x}=\bold{\xi}e^{rt}</script>，代入 <script type="math/tex">(18)</script> 得到代数方程组
 <script type="math/tex; mode=display">\begin{pmatrix}
 -3-r&\sqrt{2}\\\sqrt{2}&-2-r
@@ -30325,10 +30325,10 @@ e^{3t}&e^{-t}\\
 \end{aligned}\tag{ 25}</script>
 </p>
 <p>方程组 <script type="math/tex">(18)</script> 相图如下所示。<script type="math/tex">\bold{x}^{(1)}</script> 的解是虚黑线表示，即直线 <script type="math/tex">x_2=\sqrt{2}x_1</script>，<script type="math/tex">\bold{x}^{(2)}</script> 的解是实黑线表示，即直线 <script type="math/tex">x_1=-\sqrt{2}x_2</script>。这些直线的斜率由向量 <script type="math/tex">\bold{\xi}^{(1)},\bold{\xi}^{(2)}</script> 确定。一般情况下是这基础解系的线性组合。当 <script type="math/tex">t\to\infty</script> 时，<script type="math/tex">e^{-4t}</script> 比 <script type="math/tex">e^{-t}</script> 小的多，相比 <script type="math/tex">\bold{x}^{(1)}</script> 而言 <script type="math/tex">\bold{x}^{(2)}</script> 可以忽略。因此，除非 <script type="math/tex">c_1=0</script>，否则解 <script type="math/tex">(25)</script> 趋于 <script type="math/tex">x_2=\sqrt{2}x_1</script>。</p>
-<p>TODO add （a）</p>
+<p><img alt="" src="../050.041.png" /></p>
 <p>上图的轨迹模式是典型的 <script type="math/tex">2\times 2</script> 具有符号相同的特征值是实数的方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script> 的解的行为。原点被称为节点（<code>node</code>）。 如果特征值是正的而不是负的，轨迹类似，不过方向朝外。如果特征值是负的，渐进是稳定的，特征是正的则是不稳定的。</p>
 <p>一些典型的 <script type="math/tex">x_1-t</script> 的曲线如下图（b）所示，相应的 <script type="math/tex">x_2-t</script> 的曲线如（c）所示。随着 <script type="math/tex">t</script> 的增加，两个图中的曲线都趋于 <script type="math/tex">t</script> 轴，在上面（a）图中这些对应的解都趋于原点。</p>
-<p>TODO add （b）（c）</p>
+<p><img alt="" src="../050.042.png" /></p>
 
   
 

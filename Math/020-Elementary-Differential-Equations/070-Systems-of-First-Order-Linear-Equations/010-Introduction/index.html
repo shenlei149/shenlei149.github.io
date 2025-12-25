@@ -30158,15 +30158,17 @@
 
 <p>如果一个问题涉及多个因变量且每一个因变量都依赖于同一个自变量时，那么很自然地产生了联立常微分方程组。一般用 <script type="math/tex">t</script> 表示自变量用 <script type="math/tex">x_1,x_2,\cdots</script> 表示 <script type="math/tex">t</script> 的函数。对 <script type="math/tex">t</script> 的微分表示为 <script type="math/tex">\frac{dx_1}{dt}</script> 或者 <script type="math/tex">x_1'</script>。</p>
 <p>首先讨论如下图所示的弹簧系统。两个物体在无摩擦力的平面上运动，外力分别是 <script type="math/tex">F_1(t),F_2(t)</script>，三个弹簧的弹性系数是 <script type="math/tex">k_1,k_2,k_3</script>。假定向右运动或者向右偏移为正。</p>
-<p>TODO add figure</p>
+<p><img alt="" src="../010.011.png" /></p>
 <p>下图是受理分析，根据牛顿第二定律可以得到
 <script type="math/tex; mode=display">\begin{aligned}
 m_1\frac{d^2x_1}{dt^2}&=k_2(x_2-x_1)-k_1x_1+F_1(t)&&=-(k_1+k_2)x_1+k_2x_2+F_1(t)\\
 m_2\frac{d^2x_2}{dt^2}&=-k_3x_2-k_2(x_2-x_1)+F_2(t)&&=k_2x_1-(k_2+k_3)x_2+F_2(t)
 \end{aligned}\tag{1}</script>
 </p>
-<p>TODO add figure from exercise</p>
-<p>下面讨论如下所示的 LRC 电路。令 <script type="math/tex">V</script> 是电容 <script type="math/tex">C</script> 两端的电压差，也就是电阻和电感两端的电压差，令 <script type="math/tex">I_1,I_2,I_3</script> 分别是通过电容、电阻和电感的电流，且 <script type="math/tex">I=I_3</script>，根据基尔霍夫定律
+<p><img alt="" src="../010.012.png" /></p>
+<p>下面讨论如下所示的 LRC 电路。</p>
+<p><img alt="" src="../010.020.png" /></p>
+<p>令 <script type="math/tex">V</script> 是电容 <script type="math/tex">C</script> 两端的电压差，也就是电阻和电感两端的电压差，令 <script type="math/tex">I_1,I_2,I_3</script> 分别是通过电容、电阻和电感的电流，且 <script type="math/tex">I=I_3</script>，根据基尔霍夫定律
 <script type="math/tex; mode=display">I_1+I_2+I_3=0</script>
 这些元器件满足
 <script type="math/tex; mode=display">CV'=I_1,V=I_2R,LI_3'=V</script>
