@@ -49,3 +49,6 @@ extra:
   analytics:
     provider: google
     property: G-5XEQQ0PMY0
+
+extra_css:
+  - stylesheets/extra.css
