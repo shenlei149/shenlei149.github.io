@@ -69,6 +69,65 @@ $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 在某点处线性无关当且仅当 $W[\
 
 **定理 7.4.2**
 > 如果矢量函数 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 在区间 $\alpha<t<\beta$ 上的每一点处都是 $(3)$ 线性无关的解，那么 $(3)$ 的每一个解 $\bold{x}=\bold{x}(t)$ 都能且只有一种方式表示为 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 的线性组合
-> $$\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots,+c_n\bold{x}^{(n)}$$
+> $$\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots+c_n\bold{x}^{(n)}\tag{11}$$
 
 定理 7.4.1 是说形如 $(11)$ 的所有解都是 $(3)$ 的解，7.4.2 是说 $(3)$ 的所有解都能表示成 $(11)$ 的解。如果 $c_1,\cdots,c_n$ 是任意常量，$(11)$ 包含了 $(3)$ 的所有解，那么称之为通解。$(3)$ 的任意一个在区间 $\alpha<t<\beta$ 上任一点都线性无关的解集 $\{\bold{x}^{(1)},\cdots,\bold{x}^{(n)}\}$ 称之为基础解系。
+
+为了证明 7.4.2，需要证明 $(3)$ 的任意解都能写成 $\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots+c_n\bold{x}^{(n)}$ 的形式。令 $t=t_0$ 是区间 $\alpha<t<\beta$ 上的一点，并且令 $\bold{y}=\bold{x}(t_0)$。现在需要确定是否存在一个形如 $\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots,+c_n\bold{x}^{(n)}$ 的解还满足初始条件 $\bold{x}(t_0)=\bold{y}$。也就是要确定 $c_1,\cdots,c_n$ 使得
+$$c_1\bold{x}^{(1)}(t_0)+\cdots+c_n\bold{x}^{(n)}(t_0)=\bold{y}\tag{12}$$
+标量形式是
+$$\begin{aligned}
+c_1x_{11}(t_0)+\cdots+c_nx_{1n}(t_0)&=y_1\\
+&\vdots\\
+c_1x_{n1}(t_0)+\cdots+c_nx_{nn}(t_0)&=y_n\\
+\end{aligned}\tag{13}$$
+方程组 $(13)$ 有唯一解 $c_1,\cdots,c_n$ 的充分必要条件是系数行列式不为零，也就是 $t=t_0$ 时朗斯基 $W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]$ 不为零。假定 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 在 $\alpha<t<\beta$ 上是线性无关的，那么 $W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]$ 在 $t=t_0$ 时不为零，因此 $(3)$ 有唯一解，形式如 $\bold{x}(t)=c_1\bold{x}^{(1)}+\cdots+c_n\bold{x}^{(n)}$ 且满足条件 $(12)$。根据定理 7.1.2，这个解就是 $\bold{x}$。
+
+**定理 7.4.3 阿贝尔定理（`Abel's Theorem`）**
+> 如果 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 是区间 $\alpha<t<\beta$ 上 $(3)$ 的解，那么在这个区间上朗斯基 $W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]$ 要么始终为零，要么总不是零。
+
+定理 7.4.3 让我们无需检查 $W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]$ 在所有点来判断 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 是否是基础解系，只要找任意一点即可。
+
+这里不详细展开，但可以证明 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 的朗斯基满足
+$$\frac{dW}{dt}=(p_{11}(t)+p_{22}(t)+\cdots+p_{nn}(t))W\tag{14}$$
+其中
+$$W(t)=c\exp\bigg(\int[p_{11}(t)+p_{22}(t)+\cdots+p_{nn}(t)]dt\bigg)\tag{15}$$
+其中 $c$ 是任意常数。根据上式，朗斯基要么总是零要么不会为零。$(15)$ 称为阿贝尔公式（`Abel's formula`），和定理 3.2.7 类似。
+
+另一个证明方法是方程 $(3)$ $n$ 个解 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 在 $t=t_0$ 处线性相关，那么在区间 $\alpha<t<\beta$ 上都是线性相关的。那么 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 在一点处线性无关，那么处处都线性无关。
+
+下一个定理是说 $(3)$ 至少有一个基础解系。
+
+**定理 7.4.4**
+> 令
+> $$\bold{e}^{(1)}=\begin{pmatrix}
+1\\0\\0\\\vdots\\0
+\end{pmatrix},\bold{e}^{(2)}=\begin{pmatrix}
+0\\1\\0\\\vdots\\0
+\end{pmatrix},\cdots,\bold{e}^{(n)}=\begin{pmatrix}
+0\\0\\\vdots\\0\\1
+\end{pmatrix}$$
+> 并且 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 是 $(3)$ 的解并且满足初始条件
+> $$\bold{x}^{(1)}(t_0)=\bold{e}^{(1)},\cdots,\bold{x}^{(n)}(t_0)=\bold{e}^{(n)}\tag{16}$$
+> 其中 $t_0$ 是 $\alpha<t<\beta$ 内任一点。那么 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 是 $(3)$ 的基础解系。
+
+$(3)$ 的解 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 的存在性和唯一性由定理 7.1.2 保证。容易看出 $t=t_0$ 时这些解的朗斯基等于 1，因此 $\bold{x}^{(1)},\cdots,\bold{x}^{(n)}$ 是基础解系。
+
+一旦基础解系确定了，可以通过线性组合来生成其他基础解析。出于理论目的，定理 7.4.4 给出的基础解系通常是最简单的。
+
+与二阶线性方程类似，对于系数都是实数的方程组，可能会得到复数解。这种情况下，可以使用下面的定理（类似于定理 3.2.6）来找到实数解。
+
+**定理 7.4.5**
+> 方程 $(3)$
+> $$\bold{x}'=\bold{P}(t)\bold{x}$$
+> 其中 $\bold{P}$ 是每个元素都是实函数。如果 $(3)$ 的解是复数 $\bold{x}=\bold{u}(t)+i\bold{v}(t)$，那么实部 $\bold{u}(t)$ 和虚部 $\bold{v}(t)$ 也是这个方程的解。
+
+将 $\bold{u}(t)+i\bold{v}(t)$ 代入 $(3)$ 那么
+$$\bold{x}'-\bold{P}(t)\bold{x}=\bold{u}'(t)-\bold{P}(t)\bold{u}(t)+i(\bold{v}'(t)-\bold{P}(t)\bold{v}(t))=\bold{0}\tag{17}$$
+使用 $\bold{P}$ 是实数这一条件，将 $(17)$ 分成实部和虚部两个部分。由于复数是零等价于实部和虚部都为零，那么 $\bold{u}'(t)-\bold{P}(t)\bold{u}(t)=\bold{0},\bold{v}'(t)-\bold{P}(t)\bold{v}(t)=\bold{0}$，因此 $\bold{u}(t),\bold{v}(t)$ 也是 $(3)$ 的解。
+
+总结一下这个小节：
+
+1. 方程组 $\bold{x}'=\bold{P}(t)\bold{x}$ 的任意 $n$ 个线性无关的解组成了基础解系。
+2. 在本节给定的条件下，基础解系总是存在。
+3. 方程组 $\bold{x}'=\bold{P}(t)\bold{x}$ 的每个解可以表示成任意基础解系的线性组合。
