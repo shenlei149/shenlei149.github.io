@@ -573,8 +573,132 @@ where (
 ```
 
 ### Set Comparison
+回到查询所有薪水比生物学院最低薪水高的教师的名字这个查询，之前的查询如下
+```sql
+select distinct
+    T.name
+from instructor as T, instructor as S
+where
+    T.salary > S.salary
+    and S.dept_name = 'Biology';
+```
+这里比最低薪水高，意思是比任意一个生物学院的教师薪水高，SQL 提供了 `> some` 来表达这个语义，那么查询可以写作
+```sql
+select name
+from instructor
+where
+    salary > some (
+        select salary
+        from instructor
+        where
+            dept_name = 'Biology'
+    );
+```
+除此之外，SQL 中还有 `< some` `<= some` `>= some` `= some` `<> some`。`=some ` 等价于 `in`，不过 `<> some` 不等价于 `not in`。
+
+修改上面的查询，使用 `> all`，查询结果就变成了比每个生物系教师薪水都高。
+```sql
+select name
+from instructor
+where
+    salary > all (
+        select salary
+        from instructor
+        where
+            dept_name = 'Biology'
+    );
+```
+与 `some` 类似，SQL 还有 `< all` `<= all` `>= all` `= all` `<> all`。`<> all` 等于与 `not in`，但是 `= all` 不等价于 `in`。
+
+查询平均薪水最高的部门也可以使用子查询的方式。
+```sql
+select dept_name
+from instructor
+group by
+    dept_name
+having
+    avg(salary) >= all (
+        select avg(salary)
+        from instructor
+        group by
+            dept_name
+    );
+```
 
 ### Test for Empty Relations
+`exists` 可以测试一个结果集中是否有元组，如果子查询不为空，那么返回 `true`。我们可以重写查询“找到所有 2017 秋季和 2018 春季都开课的课程”。
+```sql
+select course_id
+from section as S
+where
+    semester = 'Fall'
+    and year = 2017
+    and exists (
+        select *
+        from section as T
+        where
+            semester = 'Spring'
+            and year = 2018
+            and S.course_id = T.course_id
+    );
+```
+外层查询中的相关名 `S` 在内层查询的 `where` 中也使用了。使用了外层查询中相关名的子查询，称为相关子查询（`correlated subquery`）。
+
+一个查询包含另一个查询，相关名有范围规则。和编程语言类似，内层可以访问外层的变量名（数据库中称为相关名、相关变量），如果内层和外层变量名相同，使用内层的变量名。
+
+`not exists` 可以测试集合为空。比如下面的查询：查询上了所有生物学院课程的学生。
+```sql
+select S.ID, S.name
+from student as S
+where
+    not exists (
+        (
+            select course_id
+            from course
+            where
+                dept_name = 'Biology'
+        )
+        except
+        (
+            select T.course_id
+            from takes as T
+            where
+                S.ID = T.ID
+        )
+    );
+```
+子查询
+```sql
+select course_id
+from course
+where
+    dept_name = 'Biology'
+```
+返回所有生物学院的课程。子查询
+```sql
+select T.course_id
+from takes as T
+where
+    S.ID = T.ID
+```
+返回 S.ID 这个学生选修的所有课程。如果差集为空，说明该同学选修了所有生物学院的课程。
+
+之前“查询教师 ID 为 10101 教的学生数”的例子也可以用 `exists` 表达。
+```sql
+select count(distinct ID)
+from takes
+where
+    exists (
+        select course_id, sec_id, semester, year
+        from teaches
+        where
+            teaches.ID = '10101'
+            and takes.course_id = teaches.course_id
+            and takes.sec_id = teaches.sec_id
+            and takes.semester = teaches.semester
+            and takes.year = teaches.year
+    );
+```
 
 ### Test for the Absence of Duplicate Tuples
 
