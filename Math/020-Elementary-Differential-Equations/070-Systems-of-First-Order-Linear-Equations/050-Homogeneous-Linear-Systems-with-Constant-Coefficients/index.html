@@ -14,7 +14,7 @@
         <link rel="prev" href="../040-Basic-Theory-of-Systems-of-First-Order-Linear-Equations/">
       
       
-        <link rel="next" href="../../../030-Complex-Variables-and-Applications/">
+        <link rel="next" href="../060-Complex-Valued-Eigenvalues/">
       
       
         
@@ -16749,6 +16749,8 @@
       
         
       
+        
+      
     
     
     
@@ -16944,6 +16946,34 @@
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../060-Complex-Valued-Eigenvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    060 复特征值 Complex-Valued Eigenvalues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -30329,6 +30359,70 @@ e^{3t}&e^{-t}\\
 <p>上图的轨迹模式是典型的 <script type="math/tex">2\times 2</script> 具有符号相同的特征值是实数的方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script> 的解的行为。原点被称为节点（<code>node</code>）。 如果特征值是正的而不是负的，轨迹类似，不过方向朝外。如果特征值是负的，渐进是稳定的，特征是正的则是不稳定的。</p>
 <p>一些典型的 <script type="math/tex">x_1-t</script> 的曲线如下图（b）所示，相应的 <script type="math/tex">x_2-t</script> 的曲线如（c）所示。随着 <script type="math/tex">t</script> 的增加，两个图中的曲线都趋于 <script type="math/tex">t</script> 轴，在上面（a）图中这些对应的解都趋于原点。</p>
 <p><img alt="" src="../050.042.png" /></p>
+<p>例 2 和例 3 中 <script type="math/tex">2\times 2</script> 的方程组的特征值是实数且不同。特征值符号相反或者相同。还有一个可能性是特征值是 0，不过这意味着 <script type="math/tex">\det\bold{A}=0</script>，不过这和本节开始的假定不符。</p>
+<p>回到 <script type="math/tex">n\times n</script> 的方程组 <script type="math/tex">(1)</script>，处理方式和之前的例子相同。为了求解，首先求解 <script type="math/tex">\bold{A}</script> 的特征值和特征向量。特征值 <script type="math/tex">r_1,\cdots,r_n</script> 是 <script type="math/tex">n</script> 阶多项式方程组
+<script type="math/tex; mode=display">\det(\bold{A}-r\bold{I})=0\tag{26}</script>
+的根，它们不必完全不同。特征值和特征方程的性质决定了方程组 <script type="math/tex">(1)</script> 的性质。假定 <script type="math/tex">\bold{A}</script> 是实数矩阵，需要考虑 <script type="math/tex">\bold{A}</script> 的特征值是如下几种情况：</p>
+<ul>
+<li>所有特征值是实数且都不相等。</li>
+<li>一些特征值是共轭复数。</li>
+<li>一些特征值是相等的，复数或者实数都适用。</li>
+</ul>
+<p>如果 <script type="math/tex">n</script> 个特征值都是实数且不相等，那么特征值的代数重数和几何重数相等。每一个特征值 <script type="math/tex">r_i</script> 都关联一个特征向量 <script type="math/tex">\bold{\xi}_i</script>，<script type="math/tex">n</script> 个特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(1)}</script> 都线性无关的。微分方程组 <script type="math/tex">(1)</script> 的解是
+<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\bold{\xi}^{(1)}e^{r_1t},\cdots,\bold{x}^{(n)}(t)=\bold{\xi}^{(n)}e^{r_nt}\tag{27}</script>
+为了证明这些解可以构成基础解析，计算其朗斯基
+<script type="math/tex; mode=display">\begin{aligned}
+W[\bold{x}^{(1)},\cdots,\bold{x}^{n}](t)&=\begin{vmatrix}
+\xi_1^(1)e^{r_1t}&\cdots&\xi_1^{(n)}e^{r_nt}\\
+\vdots&&\vdots\\
+\xi_n^(1)e^{r_1t}&\cdots&\xi_n^{(n)}e^{r_nt}\\
+\end{vmatrix}\\
+&=e^{(r_1+\cdots+r_n)t}\begin{vmatrix}
+\xi_1^{(1)}&\cdots&\xi_1^{(n)}\\
+\vdots&&\vdots\\
+\xi_n^{(1)}&\cdots&\xi_n^{(n)}\\
+\end{vmatrix}
+\end{aligned}\tag{28}</script>
+首先，指数函数不为零。齐次，特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script> 是线性无关的，因此 <script type="math/tex">(28)</script> 最后的行列式不为零，那么朗斯基 <script type="math/tex">W[\bold{x}^{(1)},\cdots,\bold{x}^{(n)}]</script> 不为零。因此 <script type="math/tex">\bold{x}^{(1)},\cdots,\bold{x}^{(n)}</script> 是基础解系，那么方程组 <script type="math/tex">(1)</script> 的通解是
+<script type="math/tex; mode=display">\bold{x}=c_1\bold{\xi}^{(1)}e^{r_1t}+\cdots+c_n\bold{\xi}^{(n)}e^{r_nt}\tag{29}</script>
+如果 <script type="math/tex">\bold{A}</script> 是实数对称的，是埃尔米特矩阵，那么所有的特征值 <script type="math/tex">r_1,\cdots,r_n</script> 都必须是实数，即使一些特征值重复了，也总能找到 <script type="math/tex">n</script> 个特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script> 是线性无关的，因此方正组 <script type="math/tex">(1)</script> 的基础解系是 <script type="math/tex">(27)</script>，通解是 <script type="math/tex">(29)</script>。</p>
+<p>例 4 求
+<script type="math/tex; mode=display">\bold{x}'=\begin{pmatrix}
+0&1&1\\1&0&1\\1&1&0
+\end{pmatrix}\bold{x}\tag{30}</script>
+的通解。</p>
+<p>解：系数矩阵是实数且是对称的。7.3 的例 5 给出了特征值和特征向量。
+<script type="math/tex">r_1=2</script> 的特征向量是
+<script type="math/tex; mode=display">\bold{\xi}^{(1)}=\begin{pmatrix}
+1\\1\\1
+\end{pmatrix}\tag{31}</script>
+<script type="math/tex">r_2=r_3=-1</script> 对应的特征向量是
+<script type="math/tex; mode=display">\bold{\xi}^{(2)}=\begin{pmatrix}
+1\\0\\-1
+\end{pmatrix},\bold{\xi}^{(3)}=\begin{pmatrix}
+0\\1\\-1
+\end{pmatrix}\tag{32}</script>
+因此方程 <script type="math/tex">(30)</script> 的基础解系是
+<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\begin{pmatrix}
+1\\1\\11
+\end{pmatrix}e^{2t},\bold{x}^{(t)}(t)=\begin{pmatrix}
+1\\0\\-1
+\end{pmatrix}e^{-t},\bold{x}^{(3)}=\begin{pmatrix}
+0\\1\\-1
+\end{pmatrix}e^{-t}\tag{33}</script>
+因此通解是
+<script type="math/tex; mode=display">\bold{x}=c_1\begin{pmatrix}
+1\\1\\1
+\end{pmatrix}e^{2t}+c_2\begin{pmatrix}
+1\\0\\-1
+\end{pmatrix}e^{-t}+c_3\begin{pmatrix}
+0\\1\\-1
+\end{pmatrix}e^{-t}\tag{34}</script>
+这个例子中特征值 <script type="math/tex">r=-1</script> 的代数重数是 2，仍旧有可能找到两个线性无关的特征向量 <script type="math/tex">\bold{\xi}^{(2)},\bold{\xi}^{(3)}</script>，最终构造了通解 <script type="math/tex">(34)</script>。</p>
+<p>解 <script type="math/tex">(34)</script> 的行为依赖于初始条件。对于 <script type="math/tex">t</script> 很大的时候，由于 <script type="math/tex">(34)</script> 的第一项指数是整数，那么占主导地位。因此 <script type="math/tex">c_1\neq 0</script> 时，随着 <script type="math/tex">t\to\infty</script>，<script type="math/tex">\bold{x}</script> 会无穷大。对于使得 <script type="math/tex">c_1=0</script> 的初始条件，只有指数为负数的项，那么随着 <script type="math/tex">t\to\infty</script>，<script type="math/tex">\bold{x}\to\bold{0}</script>。使 <script type="math/tex">c_1=0</script> 的初始点，正是位于由 <script type="math/tex">\bold{\xi}^{(2)},\bold{\xi}^{(3)}</script> 确定的平面内的点。从这个平面开始的解，随着 <script type="math/tex">t\to\infty</script> 都趋于原点而其他解趋于无穷。</p>
+<p>如果一些特征值是共轭复数，它们都不相等，那么仍旧有 <script type="math/tex">n</script> 个线性无关的解。复数特征值对应的解也是复数的。和 3.3 小节类似，还是可以转化成实数解，下一节会讨论这个问题。</p>
+<p>如果特征值重复了，问题会复杂一些。此时，线性无关的特征向量少于特征值的代数重数，那么形如 <script type="math/tex">\bold{\xi}e^{rt}</script> 的解的个数少于 <script type="math/tex">n</script>。为了构造出基础解系，有必要去找到其他形式的解。与 <script type="math/tex">n</script> 阶常系数线性方程类似，特征方程的重复根对应的解的形式是 <script type="math/tex">e^{rt},te^{rt},t^2e^{rt},\cdots</script>。7.8 小节会讨论这种情况。</p>
+<p>如果 <script type="math/tex">\bold{A}</script> 是复数矩阵，那么复数特征值未必共轭出现，并且即使特征值是实数，对应的特征向量可能是复数向量。如果有 <script type="math/tex">n</script> 个线性无关的特征向量，那么方程 <script type="math/tex">(1)</script> 的解的形式仍旧如 <script type="math/tex">(27)</script>，不过通常解是复数的。</p>
 
   
 
