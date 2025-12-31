@@ -701,11 +701,329 @@ where
 ```
 
 ### Test for the Absence of Duplicate Tuples
+如果子查询没有包含重复的元组，那么 `unique` 返回 `true`。使用 `unique`，可以写出如下查询，返回 2017 年至多只开一次的课程 ID。但是 Postgresql 貌似还没有实现这个算子，报错信息是 `UNIQUE predicate is not yet implemented`。
+```sql
+select T.course_id
+from course as T
+where
+    unique (
+        select R.course_id
+        from section as R
+        where
+            T.course_id = R.course_id
+            and R.year = 2017
+    );
+```
+如果一个课程没有在 2017 年开课，那么结果集是空，`unique` 返回结果也是 `true`。
+
+不使用 `unique` 的等价写法是
+```sql
+select T.course_id
+from course as T
+where
+    1 >= (
+        select count(R.course_id)
+        from section as R
+        where
+            T.course_id = R.course_id
+            and R.year = 2017
+    );
+```
+也可以使用 `not unique` 来测试存在重复元组。比如下面的查询返回 2017 年至少开课两次的课程 ID。
+```sql
+select T.course_id
+from course as T
+where
+    not unique (
+        select R.course_id
+        from section as R
+        where
+            T.course_id = R.course_id
+            and R.year = 2017
+    );
+```
+`unique` 测试等价于存在关系是 $t_1=t_2$ 的两个元组 $t_1,t_2$。如果 $t_1,t_2$ 中有的属性是 `null`，$t_1=t_2$ 返回 `false`，那么即便存在多个元组的拷贝，但是属性中包含 `null`，`unique` 也返回 `true`。
 
 ### Subqueries in the From Clause
+子查询可以在 `from` 子句中。`select-from-where` 返回的是一个关系，那么任意需要关系的地方，都可以出现子查询。
+
+下面的查询改写了之前求平均薪水大于 42000 的部门的查询，这一次我们不使用 `having`。
+```sql
+select dept_name, avg_salary
+from (
+        select dept_name, avg(salary) as avg_salary
+        from instructor
+        group by
+            dept_name
+    )
+where
+    avg_salary > 42000;
+```
+我们可以使用 `as` 来重命名关系名和属性名，比如
+```
+select dept_name, avg_salary
+from (
+        select dept_name, avg(salary) as avg_salary
+        from instructor
+        group by
+            dept_name
+    )
+where
+    avg_salary > 42000;
+```
+下面的例子是求所有部门中，部门教师总薪水最高的部门。
+```sql
+select max(tot_salary)
+from (
+        select dept_name, sum(salary) as tot_salary
+        from instructor
+        group by
+            dept_name
+    ) as dept_total (dept_name, tot_salary);
+```
+`from` 子句中的嵌套子查询无法使用同一 `from` 子句中其他关系的相关变量。从 SQL 2003 开始，SQL 允许在子查询上添加 `lateral` 关键字，从而使得能够访问同一个 `from` 子句中前面的关系或子查询的属性。比如下面的例子，会输出教师、其薪水和所在部门的平均薪水。
+```sql
+select name, salary, avg_salary
+from instructor I1, lateral (
+        select avg(salary) as avg_salary
+        from instructor I2
+        where
+            I2.dept_name = I1.dept_name
+    );
+```
 
 ### The With Clause
+`with` 提供了一种定义临时关系的方式，这个定义仅对包含了这个 `with` 语句的查询可见。比如下面的查询返回预算最多的部门。
+```sql
+with
+    max_budget (value) as (
+        select max(budget)
+        from department
+    )
+select budget
+from department, max_budget
+where
+    department.budget = max_budget.value;
+```
+我们可以改写上面的查询，在 `where` 或 `from` 子句中包含子查询，这会使得查询难以理解。`with` 子句使得查询逻辑更清晰，还能让同一个临时变量在查询的不同地方使用。
+
+比如，下面的查询返回总薪水大于各个部门总薪水的平均值的部门名。
+```sql
+with
+    dept_total (dept_name, value) as (
+        select dept_name, sum(salary)
+        from instructor
+        group by
+            dept_name
+    ),
+    dept_total_avg (value) as (
+        select avg(value)
+        from dept_total
+    )
+select dept_name
+from dept_total, dept_total_avg
+where
+    dept_total.value > dept_total_avg.value;
+```
 
 ### Scalar Subqueries
+如果子查询返回一个元组，且只有一个属性，那么这个子查询允许出现在使用表达式的地方，这样的子查询称为标量子查询（`scalar subquery`）。比如，比如下面的查询列出了部门名字和教师数量，在 `select` 中包含标量子查询。
+```sql
+select dept_name, (
+        select count(*)
+        from instructor
+        where
+            department.dept_name = instructor.dept_name
+    ) as num_instructors
+from department;
+```
+这个子查询只会返回一个值，因为使用了聚合函数 `count(*)` 且没有分组 `group by`。
+
+标量查询可以出现在 `select` `where` `having` 这些地方。标量子查询也可以不使用聚合函数定义。编译期无法确定一个子查询是否只返回一个元组。如果运行时子查询返回多个元组，会发生运行时错误。
+
+从技术角度讲，标量子查询返回的仍旧是一个关系，尽管只包含一个元组。当标量子查询用于期望一个值的表达式中时，SQL 隐式地抽取这个元组唯一的属性的值。
 
 ### Scalar Without a From Clause
+一些查询需要的是计算而无需引用任何关系。类似的查询可能包含有 `from` 的子查询，但是顶层没有 `from` 子句。下面的例子计算平均每个教师教几门课。`count(*)` 返回整数，而整数除以整数有精度损失，因此可以乘以浮点数 1.0 也修正这个问题。
+```sql
+select (
+        select count(*)
+        from teaches
+    ) * 1.0 / (
+        select count(*)
+        from instructor
+    );
+```
+
+## Modification of the Database
+### Deletion
+`delete` 也是一个表达式，和查询一样。删除 SQL 如下所示
+```sql
+delete from r where P;
+```
+`delete` 首先找到关系 `r` 中满足谓词 `P(t)` 的元组 `t`，然后从 `r` 中删除这些元组 `t`。可以忽略 `where`，那么 `r` 的所有元组都会被删除。
+
+`delete` 只能用于一个关系，如果需要删除多个关系的数据，那么要为每一个关系写一个 `delete` 命令。`where` 谓词可以相当复杂，另一个极端，也可以没有 `where`。下面的语句删除 instructor 中所有的元组。
+```
+delete from instructor;
+```
+下面再看几个例子。
+
+删除财经系教师。
+```sql
+delete from instructor where dept_name = 'Finance';
+```
+删除薪水在 13000 和 15000 之间的教师。
+```sql
+delete from instructor where salary between 13000 and 15000;
+```
+删除在 Watson 的系部的教师。
+```sql
+delete from instructor
+where
+    dept_name in (
+        select dept_name
+        from department
+        where
+            building = 'Watson'
+    );
+```
+虽然我们一次只能从一个关系中删除元组，但是嵌套在 `delete` 的 `where` 子句中的子查询 `select-from-where` 可以引用任意数量的关系。下面的嵌套子查询又引用了要删除元组的关系。
+```sql
+delete from instructor
+where
+    salary < (
+        select avg(salary)
+        from instructor
+    );
+```
+`delete` 首先会测试检查 instructor 中薪水小于平均工资，然后所有满足谓词的元组会被删除。在删除之前执行所有元组的检查这一点很重要，因为如果一些元组在其他元组检查前被删除了，那么平均薪水会有变化，那么最终删除的元组依赖于处理的顺序。
+
+### Insertion
+可以指定一个元组或一个查询的结果插入到关系中。插入的属性值必须在属性的定义域内。同样，插入的元组属性数必须和模式定义一致。
+
+最简单的 `insert` 是插入一个元组。比如下面的例子是插入数据库这门课程。
+```sql
+insert into
+    course
+values (
+        'CS-437',
+        'Database Systems',
+        'Comp. Sci.',
+        4
+    );
+```
+用户可能不记得属性的顺序，SQL 允许在 `insert` 语句中指定属性。比如如下两个 `insert` 语句和前面例子等价。
+```sql
+insert into
+    course (
+        course_id,
+        title,
+        dept_name,
+        credits
+    )
+values (
+        'CS-437',
+        'Database Systems',
+        'Comp. Sci.',
+        4
+    );
+
+insert into
+    course (
+        title,
+        course_id,
+        credits,
+        dept_name
+    )
+values (
+        'Database Systems',
+        'CS-437',
+        4,
+        'Comp. Sci.'
+    );
+```
+更常见的情况是插入一个查询的结果集。下面的查询将学分 144 以上的音乐系的学生变成教师，薪水是 18000。
+```sql
+insert into
+    instructor
+select ID, name, dept_name, 18000
+from student
+where
+    dept_name = 'Music'
+    and tot_cred > 144;
+```
+`select` 会求值完成之后再执行插入操作。如果不是这个顺序，下面的插入操作在没有主键的情况下会插入无限多的元组。
+```sql
+insert into student select * from student;
+```
+上面的例子都是要插入所有的属性值，下面的例子直插入部分属性，一些属性插入 `null`。
+```sql
+insert into student values ( '3003', 'Green', 'Finance', null );
+```
+大部分的关系数据库都支持批量加载，一次性从文件中导入一批数据。
+
+### Updates
+`update` 用于更新元组的多个值而不必是全部值，和 `insert` 和 `delete` 类似，可以通过查询指定需要更新哪些元组。
+
+下面的查询给所有老师加薪 5%。
+```sql
+update instructor set salary = salary * 1.05;
+```
+下面的查询仅给薪水小于 70000 的教师加薪 5%。
+```sql
+update instructor set salary = salary * 1.05 where salary < 70000;
+```
+`update` 的 `where` 子句可以包含子查询，和 `insert` `delete` 一样，`select` 中引用的关系可能是要被更新的关系。和之前一致，SQL 首先测试哪些元组需要更新，然后再更新这些元组。比如下面的查询是给小于平均薪水的人加薪 5%。
+```sql
+update instructor
+set
+    salary = salary * 1.05
+where
+    salary < (
+        select avg(salary)
+        from instructor
+    );
+```
+下面的查询给薪水大于 100000 的加薪 3%，其他教师加薪 5%。注意，这两个 SQL 的执行顺序很重要，否则一些薪水恰好小于 100000 的教师可能会加薪 8+%。
+```sql
+update instructor set salary = salary * 1.03 where salary > 100000;
+
+update instructor set salary = salary * 1.05 where salary <= 100000;
+```
+SQL 提供 `case` 来解决上述问题以避免更新顺序带来的影响。
+```sql
+update instructor
+set
+    salary = case
+        when salary <= 100000 then salary * 1.05
+        else salary * 1.03
+    end;
+```
+`case` 的形式如下
+```
+case
+    when pred_1 then result_1
+    when pred_2 then result_2
+    ...
+    when pred_n then result_n
+    else result_0
+end
+```
+如果 $pred_1,pred_2,\cdots,pred_n$ 第一个为真的谓词是 $pred_i$，那么结果是 $result_i$，如果没有谓词为真，那么结果是 $result_0$。在期望一个值的地方都可以使用 `case`。
+
+标量子查询在更新语句中非常有用。假定一个学生在某门课的评价不是 `F` 或者 `null`，那么说明通过了这门课，应该得到相应的学分，下面的查询更新学生的总学分。
+```sql
+update student
+set
+    tot_cred = (
+        select sum(credits)
+        from takes, course
+        where
+            student.ID = takes.ID
+            and takes.course_id = course.course_id
+            and takes.grade <> 'F'
+            and takes.grade is not null
+    );
+```
+如果一个学生一门课都没有通过，那么总学分会被设置成 `null`，可以使用上面提到的 `case` 表达式做一个优化，对于这这种情况设置成 0 而不是 `null`。许多系统支持 `coalesce` 函数，可以替换 `case`，比如 `coalesce(sum(credits), 0)`。
