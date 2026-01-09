@@ -6,3 +6,4 @@ nav:
     - 040 一阶线性方程组的基本理论 Basic Theory of Systems of First-Order Linear Equations: 040-Basic-Theory-of-Systems-of-First-Order-Linear-Equations.md
     - 050 常系数齐次线性方程组 Homogeneous Linear Systems with Constant Coefficients: 050-Homogeneous-Linear-Systems-with-Constant-Coefficients.md
     - 060 复特征值 Complex-Valued Eigenvalues: 060-Complex-Valued-Eigenvalues.md
+    - 070 基解矩阵 Fundamental Matrices: 070-Fundamental-Matrices.md
