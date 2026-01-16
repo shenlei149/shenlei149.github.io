@@ -16756,6 +16756,8 @@
       
         
       
+        
+      
     
     
     
@@ -16991,6 +16993,34 @@
     
   
     070 基解矩阵 Fundamental Matrices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math/020-Elementary-Differential-Equations/070-Systems-of-First-Order-Linear-Equations/080-Repeated-Eigenvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    080 重复特征值 Repeated Eigenvalues
   
 
     
@@ -30131,6 +30161,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图的表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        广度优先搜索
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        深度优先搜索
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        寻找路径
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连通分量
+      
+    </span>
+  </a>
+  
 </li>
       
     </ul>
@@ -30248,7 +30339,9 @@
 <p><img alt="" src="../Figures/Graph.png" /></p>
 <p>对于一个图 <script type="math/tex">G=(V,E)</script> 做计算，输入规模用点的个数和边的个数表示。一般表示为 <script type="math/tex">n=|V|,m=|E|</script>。</p>
 <p>如果一个图是连通的、无平行边的无向图，有 <script type="math/tex">n</script> 个顶点，那么最少有 <script type="math/tex">n-1</script> 个边，比如线性图、星状图、树状图等等，最多有 <script type="math/tex">n(n-1)/2</script> 个边，也就是任意两个顶点之间都有一条边，这样的图称为完全图（<code>complete graph</code>）。</p>
+<p>如果 <script type="math/tex">G=(V,E)</script> 是一个无向图，顶点 <script type="math/tex">v\in V</script> 的度（<code>degree</code>）是指 <script type="math/tex">E</script> 中与 <script type="math/tex">v</script> 关联的边的数量，也就是以 <script type="math/tex">v</script> 为端点的边的数量。</p>
 <p>根据边的多少，可以分为稀疏图（<code>sparse</code>）和稠密图（<code>dense</code>）。不同的数据结构和算法可能会更适合某种类型的图。边最少的时候 <script type="math/tex">m=O(n)</script>，边最多的时候 <script type="math/tex">m=O(n^2)</script>。一般接近线性称为稀疏图，比如 <script type="math/tex">O(n\log n)</script>，接近平方称为稠密图，比如 <script type="math/tex">O(n^2/\log n)</script>。<script type="math/tex">n^{3/2}</script> 条边可以认定为部分稠密，具体要结合应用场景，可以被视为稀疏图，也可以被视为稠密图。</p>
+<h3 id="_2">图的表示</h3>
 <p>通常最常用的图的表示有两种：邻接链表（<code>adjacency list</code>）和邻接矩阵（<code>adjacency matrix</code>）两种。</p>
 <p>邻接链表的组成要素有</p>
 <ul>
@@ -30268,7 +30361,54 @@
 <p>通过修改 <script type="math/tex">A_{ij}</script> 可以表示不同的图。比如有平行边的情况下，<script type="math/tex">A_{ij}</script> 表示点 <script type="math/tex">i,j</script> 之间边的个数。权重图可以令 $$A_{ij}<script type="math/tex">=w_{ij}</script>。</p>
 <p>对于无向图而言，邻接矩阵是对称矩阵。</p>
 <p>使用哪种表示取决于场景。邻接矩阵适合表示稠密图，对于稀疏图就会浪费空间。另外，还需要考虑想要支持的操作。通常情况下，邻接链表表示更合适一些。</p>
-<p>如果 <script type="math/tex">G=(V,E)</script> 是一个无向图，顶点 <script type="math/tex">v\in V</script> 的度（<code>degree</code>）是指 <script type="math/tex">E</script> 中与 <script type="math/tex">v</script> 关联的边的数量，也就是以 <script type="math/tex">v</script> 为端点的边的数量。</p>
+<h2 id="_3">广度优先搜索</h2>
+<p>广度优先搜索（<code>Breadth-First Search</code>, <code>BFS</code>）算法相当直接、简洁。</p>
+<p>从图 <script type="math/tex">G</script> 的某点 <script type="math/tex">s</script> 开始遍历，假定它是第 0 层。首先遍历它的边，如果另一个端点没有被访问过，那么是第 1 层。然后遍历第 1 层的点，遍历它们的边，如果另一个端点没有被访问，那么是第 2 层。以此类推。伪代码如下所示。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>marked[s] = true; // other false
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>queue = {s};
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>while !queue.IsEmpty()
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    v = queue.pop()
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    for Edge(v, w) in v.AdjacencyEdge()
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        if !marked[w]
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            marked[w] = true
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            queue.push(w)
+</span></code></pre></div>
+如果点 <script type="math/tex">v</script> 被标记了，那么从 <script type="math/tex">s</script> 到 <script type="math/tex">v</script> 有一条通路，反之亦然。</p>
+<p>BFS 算法的时间复杂度是 <script type="math/tex">O(m+n)</script>，其中 <script type="math/tex">m=|E|,n=|V|</script>。除了初始化 <code>marked</code> 之外，其他部分的时间复杂度是 <script type="math/tex">O(m_s+n_s)</script>，角标 <script type="math/tex">s</script> 的含义是与 <script type="math/tex">s</script> 连通的边和点的数量。每个点进入 <code>queue</code> 一次，因此 <code>while</code> <code>pop</code> <code>push</code> <code>marked[w] = true</code> 这几句的复杂度是 <script type="math/tex">O(n_s)</script>，每条边最多会遍历两次，一次是 <code>v</code> 被标记的时候，一次是 <code>w</code> 被标记的时候，因此复杂度是 <script type="math/tex">O(m_s)</script>，因此总的时间复杂度是 <script type="math/tex">O(m_s+n_s)</script>。</p>
+<p>TODO code link</p>
+<h2 id="_4">深度优先搜索</h2>
+<p>深度优先搜索（<code>Depth-First Search</code>, <code>DFS</code>）和 BFS 有相似之处，都是遍历图的一种方式、一种策略，不过这种策略略微不同。</p>
+<p>从 <script type="math/tex">s</script> 点开始，遍历所有的边，遇到第一个没有访问过的顶点 <script type="math/tex">a</script>，访问点 <script type="math/tex">a</script>，然后遍历 <script type="math/tex">a</script> 的所有的边，遇到第一个访问过的顶点 <script type="math/tex">b</script>，访问点 <script type="math/tex">b</script>，然后遍历 <script type="math/tex">b</script> 的所有的边，以此类推。直到遇到一个顶点，其所有邻接边的另一个顶点都访问过了，然后返回上一层。</p>
+<p>直接将上述过程翻译成代码，和 BFS 的先入先出不同，这里是后入先出，需要使用数据结构 <code>stack</code> 来保存中间的顶点。和 BFS 另一个区别是标记访问的时机略微有差异。下面是伪代码。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>marked[0..V] = false;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>stack = {s}
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>while !stack.IsEmpty()
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    v = queue.pop()
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    if !marked[v]
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        marked[v] = true
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        for Edge(v, w) in v.AdjacencyEdge()
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            queue.push(w)
+</span></code></pre></div></p>
+<p>使用了栈，那么一个更优雅的实现是递归。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>marked[s] = true;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>for Edge(s, w) in s.AdjacencyEdge()
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    if !marked[w]
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        DFS (G, w)
+</span></code></pre></div></p>
+<p>和 BFS 类似，点 <script type="math/tex">v</script> 被标记了等价于从 <script type="math/tex">s</script> 到 <script type="math/tex">v</script> 有一条通路。</p>
+<p>时间复杂度也和 BFS 一样，<script type="math/tex">O(m+n)</script>。每个边最多访问两次，初始化复杂度和点的个数成正比。</p>
+<p>TODO code link</p>
+<h2 id="_5">寻找路径</h2>
+<p>利用 BFS 可以找到一条从 <script type="math/tex">s</script> 出发到 <script type="math/tex">v</script> 的路径（<code>path</code>），如果不是权重图，那么 BFS 找到的路径是最短路径。时间复杂度和 BFS 一致 <script type="math/tex">O(m_i+n_i)</script>，其中 <script type="math/tex">m_i,n_i</script> 是 <script type="math/tex">s</script> 能达到的边和顶点的个数。</p>
+<p>TODO code link</p>
+<p>这个问题也可以用 DFS 解决，不过此时只能找到一条通路，并不是最短路径。</p>
+<h2 id="_6">连通分量</h2>
+<p>一个无向图 <script type="math/tex">G=(V,E)</script>，连通分量（<code>connected component</code>）是最大的子集 <script type="math/tex">S\subseteq V</script>，其中 <script type="math/tex">S</script> 内的任意两个顶点是连通的。</p>
+<p>利用 BFS 可以找到图的各个连通分量。只需要最外面遍历所有的点，如果该点没有被访问过，那么从该点出发，应用 BFS 遍历所有能达到的点，这些点属于同一个连通分量。</p>
+<p>如果给每一个连通分量一个 <code>id</code>，那么 <code>id</code> 相同的点属于同一个连通分量，反之，同一个连通分量中的点，<code>id</code> 相同。</p>
+<p>顶点 <script type="math/tex">i</script> 开始的 BFS 的时间复杂度是 <script type="math/tex">O(m_i+n_i)</script>，其中 <script type="math/tex">m_i,n_i</script> 表示第这个连通分量中边和点的个数。每一个连通分量只会调用一次 BFS，也就是说，<script type="math/tex">G</script> 中的每一个顶点和每条边都只属于一个连通分量，将这些 BFS 的运行时间相加，恰好就是 <script type="math/tex">O(m+n)</script>。一些初始化工作复杂度是 <script type="math/tex">O(n)</script>。因此最终时间复杂度是 <script type="math/tex">O(m+n)</script>。</p>
+<p>TODO link</p>
+<p>这个问题也可以用 DFS 解决。</p>
 
   
 

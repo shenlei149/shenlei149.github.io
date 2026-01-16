@@ -14,7 +14,7 @@
         <link rel="prev" href="../060-Complex-Valued-Eigenvalues/">
       
       
-        <link rel="next" href="../../../030-Complex-Variables-and-Applications/">
+        <link rel="next" href="../080-Repeated-Eigenvalues/">
       
       
         
@@ -16758,6 +16758,8 @@
       
         
       
+        
+      
     
     
     
@@ -17066,6 +17068,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../080-Repeated-Eigenvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    080 重复特征值 Repeated Eigenvalues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -30452,6 +30482,101 @@ e^{3t}-e^{-t}&\frac{1}{2}e^{3t}+\frac{1}{2}e^{-t}
 <script type="math/tex; mode=display">\bold{\Phi}(t-s)=\bold{\Phi}(t)\bold{\Phi}^{-1}(s),\exp(\bold{A}(t-s))=\exp(\bold{A}(t))\exp(\bold{A}(-s))</script>
 </p>
 <h3 id="_1">可对角化矩阵</h3>
+<p>线性方程组困难的原因在于这些方程通常是耦合在一起的，其中或者所有的方程都涉及多个或全部的未知变量。因此，必须同时求解这些方程。如果每一个方程只涉及一个变量，那么可以独立的求解这些方程，就容易多了。这说明我们或许可以把一个方程组转换成一个等价的解耦的方程组，每一个方程仅涉及一个未知变量。这个变换将矩阵 <script type="math/tex">\bold{A}</script> 转换为对角矩阵（<code>diagonal</code>）。</p>
+<p>特征向量在这种变换中非常有用。假定矩阵 <script type="math/tex">\bold{A}</script> 有 <script type="math/tex">n\times </script> 个线性无关的特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script>，特征值是 <script type="math/tex">\lambda_1,\cdots,\lambda_n</script>，矩阵 <script type="math/tex">\bold{T}</script> 是
+<script type="math/tex; mode=display">\bold{T}=\begin{pmatrix}
+\xi^{(1)}_1&\cdots&\xi^{(n)}_1\\
+\vdots&&\vdots\\
+\xi^{(1)}_n&\cdots&\xi^{(n)}_n
+\end{pmatrix}\tag{29}</script>
+由于 <script type="math/tex">\bold{T}</script> 的列是线性无关的，<script type="math/tex">\det\bold{T}\neq 0</script>，因此 <script type="math/tex">\bold{T}</script> 是非奇异的，那么 <script type="math/tex">\bold{T}^{-1}</script> 存在。矩阵 <script type="math/tex">\bold{A}\bold{T}</script> 的列是 <script type="math/tex">\bold{A}\bold{\xi}^{(1)},\cdots,\bold{A}\bold{\xi}^{(n)}</script>。由于 <script type="math/tex">\bold{A}\bold{\xi}^{(k)}=\lambda_k\bold{\xi}^{(k)}</script>，那么
+<script type="math/tex; mode=display">\bold{A}\bold{T}=\begin{pmatrix}
+\lambda_1\xi^{(1)}_1&\cdots&\lambda_n\xi^{(n)}_1\\
+\vdots&&\vdots\\
+\lambda_1\xi^{(1)}_n&\cdots&\lambda_n\xi^{(n)}_n
+\end{pmatrix}=\bold{T}\bold{D}\tag{30}</script>
+其中
+<script type="math/tex; mode=display">\bold{D}=\begin{pmatrix}
+\lambda_1&0&\cdots&0\\
+0&\lambda_2&\cdots&0\\
+\vdots&\vdots&\ddots&\vdots\\
+0&0&\cdots&\lambda_n
+\end{pmatrix}\tag{31}</script>
+是对角矩阵，对角线上 <script type="math/tex">\bold{A}</script> 的特征值。从 <script type="math/tex">(30)</script> 得到
+<script type="math/tex; mode=display">\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}\tag{32}</script>
+如果已知矩阵 <script type="math/tex">\bold{A}</script> 的特征值和特征向量，就可以通过 <script type="math/tex">(32)</script> 所示的过程将 <script type="math/tex">\bold{A}</script> 变换为对角矩阵。这个过程被称为相似变换（<code>similarity transformation</code>），方程 <script type="math/tex">(32)</script> 可以概括为：<script type="math/tex">\bold{A}</script> 与对角矩阵 <script type="math/tex">\bold{D}</script> 相似，或者称 <script type="math/tex">\bold{A}</script> 为可对角化（<code>diagonalizable</code>）。相似变换保持 <script type="math/tex">\bold{A}</script> 的特征值不变，并将 <script type="math/tex">\bold{A}</script> 的特征向量变换为 <script type="math/tex">\bold{e}^{(1)},\cdots,\bold{e}^{(n)}</script>。</p>
+<p>如果 <script type="math/tex">\bold{A}</script> 是埃尔米特矩阵，<script type="math/tex">\bold{T}^{-1}</script> 的求解会非常简单。<script type="math/tex">\bold{A}</script> 的特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script> 是正交的，对每一个 <script type="math/tex">i</script> 进行归一化 <script type="math/tex">(\bold{\xi}^{(i)},\bold{\xi}^{(i)})=1</script>，那么 <script type="math/tex">\bold{T}^{-1}=\bold{T}*</script>，也就是说 <script type="math/tex">\bold{T}</script> 的逆是其伴随矩阵（共轭的转置）。</p>
+<p>如果 <script type="math/tex">\bold{A}</script> 只有少于 <script type="math/tex">n</script> 个线性无关的特征向量，那么不存在矩阵 <script type="math/tex">\bold{T}</script> 使得 <script type="math/tex">\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}</script>。这种情况下 <script type="math/tex">\bold{A}</script> 与对角矩阵不相似，也无法对角化。这种情况会在 7.8 小节讨论。</p>
+<p>例 3 给定矩阵
+<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+1&1\\4&1
+\end{pmatrix}\tag{33}</script>
+求相似变换矩阵 <script type="math/tex">\bold{T}</script> 并且证明 <script type="math/tex">\bold{A}</script> 可对角化。</p>
+<p>解：7.5 的例 2 给出了 <script type="math/tex">\bold{A}</script> 的特征值和特征向量
+<script type="math/tex; mode=display">r_1=3,\bold{\xi}^{(1)}=\begin{pmatrix}
+1\\2
+\end{pmatrix},r_2=-1,\bold{\xi}^{(2)}=\begin{pmatrix}
+1\\-2
+\end{pmatrix}\tag{34}</script>
+因此变换矩阵 <script type="math/tex">\bold{T}</script> 和它的逆矩阵 <script type="math/tex">\bold{T}^{-1}</script> 是
+<script type="math/tex; mode=display">\bold{T}=\begin{pmatrix}
+1&1\\2&-2
+\end{pmatrix},\bold{T}^{-1}=\begin{pmatrix}
+\frac{1}{2}&\frac{1}{4}\\\frac{1}{2}&-\frac{1}{4}
+\end{pmatrix}\tag{35}</script>
+那么
+<script type="math/tex; mode=display">\bold{T}^{-1}\bold{A}\bold{T}=\begin{pmatrix}
+3&0\\0&01
+\end{pmatrix}=\bold{D}\tag{36}</script>
+</p>
+<p>下面回到方程组
+<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}\tag{37}</script>
+其中 <script type="math/tex">\bold{A}</script> 是常量矩阵。7.5 和 7.6 小节讨论了假定解是 <script type="math/tex">\bold{x}=\bold{\xi}e^{rt}</script> 的形式来求解方程组。下面从 <script type="math/tex">\bold{A}</script> 对角化系数的角度来分析问题。</p>
+<p>根据前面的分析，<script type="math/tex">\bold{A}</script> 可对角化是 <script type="math/tex">\bold{A}</script> 有 <script type="math/tex">n</script> 个线性无关的特征向量。令 <script type="math/tex">\bold{A}</script> 的特征值是 <script type="math/tex">r_1,\cdots,r_n</script> 对应的特征向量是 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script>，这些特征向量组成了矩阵 <script type="math/tex">\bold{T}</script>。下面定义一个新的变量 <script type="math/tex">\bold{y}</script>
+<script type="math/tex; mode=display">\bold{x}=\bold{T}\bold{y}\tag{38}</script>
+代入 <script type="math/tex">(37)</script> 得到
+<script type="math/tex; mode=display">\bold{T}\bold{y}'=\bold{A}\bold{T}\bold{y}\tag{39}</script>
+两边同乘 <script type="math/tex">\bold{T}^{-1}</script>
+<script type="math/tex; mode=display">\bold{y}'=(\bold{T}^{-1}\bold{A}\bold{T})\bold{y}\tag{40}</script>
+由于 <script type="math/tex">\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}</script>，那么 <script type="math/tex">(40)</script> 可以写成
+<script type="math/tex; mode=display">\bold{y}'=\bold{D}\bold{y}\tag{41}</script>
+<script type="math/tex">\bold{D}</script> 是 <script type="math/tex">\bold{A}</script> 的对角化矩阵，对角线上的值是 <script type="math/tex">\bold{A}</script> 的特征值。方程组 <script type="math/tex">(41)</script> 的基解矩阵是对角矩阵
+<script type="math/tex; mode=display">\bold{Q}(t)=\exp(\bold{D}t)=\begin{pmatrix}
+e^{r_1t}&0&\cdots&0\\
+0&e^{r_2t}&\cdots&0\\
+\vdots&\vdots&\ddots&\vdots\\
+0&0&\cdots&e^{r_nt}
+\end{pmatrix}\tag{42}</script>
+方程组 <script type="math/tex">(37)</script> 的基解矩阵 <script type="math/tex">\bold{\Psi}</script> 是
+<script type="math/tex; mode=display">\bold{\Psi}=\bold{T}\bold{Q}\tag{43}</script>
+即
+<script type="math/tex; mode=display">\bold{\Psi}(t)=\begin{pmatrix}
+\xi_1^{(1)}e^{r_1t}&\cdots&\xi_1^{(n)}e^{r_nt}\\
+\vdots&&\vdots\\
+\xi_n^{(1)}e^{r_1t}&\cdots&\xi_n^{(n)}e^{r_nt}
+\end{pmatrix}\tag{44}</script>
+这里 <script type="math/tex">\bold{\Psi}</script> 的每一列和 7.5 小节的 <script type="math/tex">(27)</script> 一致。对角化的过程和 7.5 小节的解法相比，没有计算优势，因为计算特征值和特征向量都是必须的。</p>
+<p>例 4 给定微分方程
+<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}\tag{45}</script>
+其中 <script type="math/tex">\bold{A}</script> 是 <script type="math/tex">(33)</script> 给出的矩阵，使用变换 <script type="math/tex">\bold{x}=\bold{T}\bold{y}</script>，其中 <script type="math/tex">\bold{T}</script> 由 <script type="math/tex">(35)</script> 给出，那么方程组 <script type="math/tex">(45)</script> 可以简化为
+<script type="math/tex; mode=display">\bold{y}'=\begin{pmatrix}
+3&0\\0&-1
+\end{pmatrix}\bold{y}=\bold{D}\bold{y}\tag{46}</script>
+计算 <script type="math/tex">(46)</script> 的基解矩阵，并给出原始 <script type="math/tex">(45)</script> 的基解矩阵。</p>
+<p>解：根据 <script type="math/tex">(42)</script> 可以得到
+<script type="math/tex; mode=display">e^{\bold{D}t}=\begin{pmatrix}
+e^{3t}&0\\0&e^{-t}
+\end{pmatrix}\tag{47}</script>
+那么
+<script type="math/tex; mode=display">\bold{\Psi}(t)=\bold{T}\exp(\bold{D}t)=\begin{pmatrix}
+1&1\\2&-2
+\end{pmatrix}\begin{pmatrix}
+e^{3t}&0\\0&e^{-t}
+\end{pmatrix}=\begin{pmatrix}
+e^{3t}&e^{-t}\\
+2e^{3t}&-2e^{-t}
+\end{pmatrix}\tag{48}</script>
+这和例 1 的结果一致。</p>
 
   
 
