@@ -121,4 +121,106 @@ $$\bold{\Phi}(t)\bold{\Phi}(-t)=\bold{I},\exp(\bold{A}t)\exp(\bold{A}(-t))=\bold
 $$\bold{\Phi}(t-s)=\bold{\Phi}(t)\bold{\Phi}^{-1}(s),\exp(\bold{A}(t-s))=\exp(\bold{A}(t))\exp(\bold{A}(-s))$$
 
 ### 可对角化矩阵
+线性方程组困难的原因在于这些方程通常是耦合在一起的，其中或者所有的方程都涉及多个或全部的未知变量。因此，必须同时求解这些方程。如果每一个方程只涉及一个变量，那么可以独立的求解这些方程，就容易多了。这说明我们或许可以把一个方程组转换成一个等价的解耦的方程组，每一个方程仅涉及一个未知变量。这个变换将矩阵 $\bold{A}$ 转换为对角矩阵（`diagonal`）。
 
+特征向量在这种变换中非常有用。假定矩阵 $\bold{A}$ 有 $n\times $ 个线性无关的特征向量 $\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}$，特征值是 $\lambda_1,\cdots,\lambda_n$，矩阵 $\bold{T}$ 是
+$$\bold{T}=\begin{pmatrix}
+\xi^{(1)}_1&\cdots&\xi^{(n)}_1\\
+\vdots&&\vdots\\
+\xi^{(1)}_n&\cdots&\xi^{(n)}_n
+\end{pmatrix}\tag{29}$$
+由于 $\bold{T}$ 的列是线性无关的，$\det\bold{T}\neq 0$，因此 $\bold{T}$ 是非奇异的，那么 $\bold{T}^{-1}$ 存在。矩阵 $\bold{A}\bold{T}$ 的列是 $\bold{A}\bold{\xi}^{(1)},\cdots,\bold{A}\bold{\xi}^{(n)}$。由于 $\bold{A}\bold{\xi}^{(k)}=\lambda_k\bold{\xi}^{(k)}$，那么
+$$\bold{A}\bold{T}=\begin{pmatrix}
+\lambda_1\xi^{(1)}_1&\cdots&\lambda_n\xi^{(n)}_1\\
+\vdots&&\vdots\\
+\lambda_1\xi^{(1)}_n&\cdots&\lambda_n\xi^{(n)}_n
+\end{pmatrix}=\bold{T}\bold{D}\tag{30}$$
+其中
+$$\bold{D}=\begin{pmatrix}
+\lambda_1&0&\cdots&0\\
+0&\lambda_2&\cdots&0\\
+\vdots&\vdots&\ddots&\vdots\\
+0&0&\cdots&\lambda_n
+\end{pmatrix}\tag{31}$$
+是对角矩阵，对角线上 $\bold{A}$ 的特征值。从 $(30)$ 得到
+$$\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}\tag{32}$$
+如果已知矩阵 $\bold{A}$ 的特征值和特征向量，就可以通过 $(32)$ 所示的过程将 $\bold{A}$ 变换为对角矩阵。这个过程被称为相似变换（`similarity transformation`），方程 $(32)$ 可以概括为：$\bold{A}$ 与对角矩阵 $\bold{D}$ 相似，或者称 $\bold{A}$ 为可对角化（`diagonalizable`）。相似变换保持 $\bold{A}$ 的特征值不变，并将 $\bold{A}$ 的特征向量变换为 $\bold{e}^{(1)},\cdots,\bold{e}^{(n)}$。
+
+如果 $\bold{A}$ 是埃尔米特矩阵，$\bold{T}^{-1}$ 的求解会非常简单。$\bold{A}$ 的特征向量 $\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}$ 是正交的，对每一个 $i$ 进行归一化 $(\bold{\xi}^{(i)},\bold{\xi}^{(i)})=1$，那么 $\bold{T}^{-1}=\bold{T}*$，也就是说 $\bold{T}$ 的逆是其伴随矩阵（共轭的转置）。
+
+如果 $\bold{A}$ 只有少于 $n$ 个线性无关的特征向量，那么不存在矩阵 $\bold{T}$ 使得 $\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}$。这种情况下 $\bold{A}$ 与对角矩阵不相似，也无法对角化。这种情况会在 7.8 小节讨论。
+
+例 3 给定矩阵
+$$\bold{A}=\begin{pmatrix}
+1&1\\4&1
+\end{pmatrix}\tag{33}$$
+求相似变换矩阵 $\bold{T}$ 并且证明 $\bold{A}$ 可对角化。
+
+解：7.5 的例 2 给出了 $\bold{A}$ 的特征值和特征向量
+$$r_1=3,\bold{\xi}^{(1)}=\begin{pmatrix}
+1\\2
+\end{pmatrix},r_2=-1,\bold{\xi}^{(2)}=\begin{pmatrix}
+1\\-2
+\end{pmatrix}\tag{34}$$
+因此变换矩阵 $\bold{T}$ 和它的逆矩阵 $\bold{T}^{-1}$ 是
+$$\bold{T}=\begin{pmatrix}
+1&1\\2&-2
+\end{pmatrix},\bold{T}^{-1}=\begin{pmatrix}
+\frac{1}{2}&\frac{1}{4}\\\frac{1}{2}&-\frac{1}{4}
+\end{pmatrix}\tag{35}$$
+那么
+$$\bold{T}^{-1}\bold{A}\bold{T}=\begin{pmatrix}
+3&0\\0&01
+\end{pmatrix}=\bold{D}\tag{36}$$
+
+下面回到方程组
+$$\bold{x}'=\bold{A}\bold{x}\tag{37}$$
+其中 $\bold{A}$ 是常量矩阵。7.5 和 7.6 小节讨论了假定解是 $\bold{x}=\bold{\xi}e^{rt}$ 的形式来求解方程组。下面从 $\bold{A}$ 对角化系数的角度来分析问题。
+
+根据前面的分析，$\bold{A}$ 可对角化是 $\bold{A}$ 有 $n$ 个线性无关的特征向量。令 $\bold{A}$ 的特征值是 $r_1,\cdots,r_n$ 对应的特征向量是 $\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}$，这些特征向量组成了矩阵 $\bold{T}$。下面定义一个新的变量 $\bold{y}$
+$$\bold{x}=\bold{T}\bold{y}\tag{38}$$
+代入 $(37)$ 得到
+$$\bold{T}\bold{y}'=\bold{A}\bold{T}\bold{y}\tag{39}$$
+两边同乘 $\bold{T}^{-1}$
+$$\bold{y}'=(\bold{T}^{-1}\bold{A}\bold{T})\bold{y}\tag{40}$$
+由于 $\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}$，那么 $(40)$ 可以写成
+$$\bold{y}'=\bold{D}\bold{y}\tag{41}$$
+$\bold{D}$ 是 $\bold{A}$ 的对角化矩阵，对角线上的值是 $\bold{A}$ 的特征值。方程组 $(41)$ 的基解矩阵是对角矩阵
+$$\bold{Q}(t)=\exp(\bold{D}t)=\begin{pmatrix}
+e^{r_1t}&0&\cdots&0\\
+0&e^{r_2t}&\cdots&0\\
+\vdots&\vdots&\ddots&\vdots\\
+0&0&\cdots&e^{r_nt}
+\end{pmatrix}\tag{42}$$
+方程组 $(37)$ 的基解矩阵 $\bold{\Psi}$ 是
+$$\bold{\Psi}=\bold{T}\bold{Q}\tag{43}$$
+即
+$$\bold{\Psi}(t)=\begin{pmatrix}
+\xi_1^{(1)}e^{r_1t}&\cdots&\xi_1^{(n)}e^{r_nt}\\
+\vdots&&\vdots\\
+\xi_n^{(1)}e^{r_1t}&\cdots&\xi_n^{(n)}e^{r_nt}
+\end{pmatrix}\tag{44}$$
+这里 $\bold{\Psi}$ 的每一列和 7.5 小节的 $(27)$ 一致。对角化的过程和 7.5 小节的解法相比，没有计算优势，因为计算特征值和特征向量都是必须的。
+
+例 4 给定微分方程
+$$\bold{x}'=\bold{A}\bold{x}\tag{45}$$
+其中 $\bold{A}$ 是 $(33)$ 给出的矩阵，使用变换 $\bold{x}=\bold{T}\bold{y}$，其中 $\bold{T}$ 由 $(35)$ 给出，那么方程组 $(45)$ 可以简化为
+$$\bold{y}'=\begin{pmatrix}
+3&0\\0&-1
+\end{pmatrix}\bold{y}=\bold{D}\bold{y}\tag{46}$$
+计算 $(46)$ 的基解矩阵，并给出原始 $(45)$ 的基解矩阵。
+
+解：根据 $(42)$ 可以得到
+$$e^{\bold{D}t}=\begin{pmatrix}
+e^{3t}&0\\0&e^{-t}
+\end{pmatrix}\tag{47}$$
+那么
+$$\bold{\Psi}(t)=\bold{T}\exp(\bold{D}t)=\begin{pmatrix}
+1&1\\2&-2
+\end{pmatrix}\begin{pmatrix}
+e^{3t}&0\\0&e^{-t}
+\end{pmatrix}=\begin{pmatrix}
+e^{3t}&e^{-t}\\
+2e^{3t}&-2e^{-t}
+\end{pmatrix}\tag{48}$$
+这和例 1 的结果一致。
