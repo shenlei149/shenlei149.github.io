@@ -30224,6 +30224,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        拓扑排序
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -30409,6 +30420,17 @@
 <p>顶点 <script type="math/tex">i</script> 开始的 BFS 的时间复杂度是 <script type="math/tex">O(m_i+n_i)</script>，其中 <script type="math/tex">m_i,n_i</script> 表示第这个连通分量中边和点的个数。每一个连通分量只会调用一次 BFS，也就是说，<script type="math/tex">G</script> 中的每一个顶点和每条边都只属于一个连通分量，将这些 BFS 的运行时间相加，恰好就是 <script type="math/tex">O(m+n)</script>。一些初始化工作复杂度是 <script type="math/tex">O(n)</script>。因此最终时间复杂度是 <script type="math/tex">O(m+n)</script>。</p>
 <p>TODO link</p>
 <p>这个问题也可以用 DFS 解决。</p>
+<h2 id="_7">拓扑排序</h2>
+<p>一些任务，存在优先级约束（<code>precedence constraint</code>），在某个任务完成之前，无法开始另一个任务。比如大学中的课程有前置课程。拓扑排序就是来解决这类问题的。</p>
+<p>拓扑序（<code>topological ordering</code>）的定义是对于给定一个有向图 <script type="math/tex">G=(V,E)</script>，将每个顶点 <script type="math/tex">v</script> 给定一个值 <script type="math/tex">f(v)</script>，使得对于每一条边 <script type="math/tex">(v,w)</script> 都有 <script type="math/tex">f(v)<f(w)</script>。</p>
+<p>每一个图都有拓扑序吗？答案显然是否定的，如果一个有向图包含环，那么无法拓扑排序。如果一个有向图不包含图，那么称为有向无环图（<code>directed acyclic graph</code>, <code>DAG</code>）。</p>
+<p>每个有向无环图至少有一个源顶点（<code>source vertex</code>），该点没有入边。从任一点开始，沿着入边逆向，总会找到源顶点，否则的话，会找到一个环，而这与有向无环图定义矛盾。</p>
+<p>每一个有向无环图至少有一个拓扑序。令 <script type="math/tex">G</script> 是有一个 <script type="math/tex">n</script> 个顶点的图，拓扑排序就是要将 <script type="math/tex">1,2,\cdots,n</script> 分配各个点。假定 <script type="math/tex">v_1</script> 是 <script type="math/tex">G</script> 的源顶点，那么给它分配为 1，即 <script type="math/tex">f(v_1)=1</script>。如果有多个源顶点，任选一个就好。将 <script type="math/tex">G</script> 中 <script type="math/tex">v_1</script> 和所有 <script type="math/tex">v_1</script> 开始的边都删除得到 <script type="math/tex">G'</script>，由于 <script type="math/tex">G</script> 是有向无环图，那么 <script type="math/tex">G'</script> 也是。因此也存在一个源顶点，那么将剩余的数 <script type="math/tex">2,\cdots,n</script> 中的 2 分配给源顶点。递归直到所有点都分配了一个数。在 <script type="math/tex">G</script> 中而不在 <script type="math/tex">G'</script> 的边只有 <script type="math/tex">v_1</script> 的出边，而 <script type="math/tex">f(v_1)=1</script>，那么和其他点相比，满足拓扑排序的要求。</p>
+<p>利用 DFS 可以高效的实现拓扑排序。在 DFS 之外，遍历所有顶点，如果没有被访问过，那么调用 DFS 从改顶点开始遍历边、点。在准备退出 DFS 遍历时，给顶点分配一个值。这个值刚开始的时候 <script type="math/tex">label = |V|</script>，每分配一次，执行 <code>label--</code>。</p>
+<p>TODO code link</p>
+<p>拓扑排序每个顶点只会访问一次，每个边也只会访问一次，因此算法的时间复杂度是 <script type="math/tex">O(m+n)</script>。</p>
+<p>对于每一个顶点 <script type="math/tex">v\in V</script>，只访问了一次，在结束访问的时候分配一个值，然后对 <code>label</code> 自减，因此分配的每个值都不一样。</p>
+<p>对于边 <script type="math/tex">(v,w)</script>，要保证 <script type="math/tex">f(v)<f(w)</script>。这里有两种情况需要讨论。第一种情况是先访问 <script type="math/tex">v</script>，然后递归 DFS 访问 <script type="math/tex">w</script>。由于是先进后出，那么先结束对 <script type="math/tex">w</script> 的访问再结束对 <script type="math/tex">v</script> 的访问，因此先给 <script type="math/tex">w</script> 分配再给 <script type="math/tex">v</script> 分配。由于 <code>label</code> 是递减的，因此 <script type="math/tex">f(v)<f(w)</script>。第二种情况是先访问 <script type="math/tex">w</script>，对于有向无环图，那么没有通路从 <script type="math/tex">w</script> 到 <script type="math/tex">v</script>，否则会形成一个环。在这次 DFS 递归结束前不会访问 <script type="math/tex">v</script> 也就不会给 <script type="math/tex">v</script> 分配一个值，但是在结束前会给 <script type="math/tex">w</script> 分配值，因此 <script type="math/tex">f(w)>f(v)</script>。</p>
 
   
 

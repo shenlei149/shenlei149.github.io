@@ -30523,6 +30523,43 @@ e^{2t}&te^{2t}\\-e^{2t}&-te^{2t}-e^{2t}
 \end{aligned}\tag{27}</script>
 之前讨论过，满足 <script type="math/tex">\bold{\Phi}(0)=\bold{I}</script> 的基解矩阵也可以写作 <script type="math/tex">\exp(\bold{A}t)</script>。对于例 2 中的矩阵 <script type="math/tex">\bold{A}</script>，初始条件 <script type="math/tex">\bold{x}(0)=\bold{x}^0</script> 的微分方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script> 的解是 <script type="math/tex">\bold{x}(t)=\exp(\bold{A}t)\bold{x}^0</script>，即 <script type="math/tex">\bold{x}(t)=\bold{\Phi}(t)\bold{x}^0</script>。</p>
 <h3 id="jordan">Jordan 标准型</h3>
+<p>仅当 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\bold{A}</script> 有 <script type="math/tex">n</script> 个线性无关的特征向量时，矩阵能够对角化。如果少一些特征向量，那么 <script type="math/tex">\bold{A}</script> 可以转换成类似对角矩阵的形式，称为 Jordan 标准型（<code>form</code>），对角线上是 <script type="math/tex">\bold{A}</script> 的特征值，对角线之上有元素为 1，其余元素都是 0。</p>
+<p>回到 <script type="math/tex">(2)</script> 给出的矩阵 <script type="math/tex">\bold{A}</script>。为了将其转换为 Jordan 标准型，首先使用 <script type="math/tex">(6)</script> 给出的特征向量 <script type="math/tex">\bold{\xi}</script> 和 <script type="math/tex">(17)</script> 给出广义特征向量 <script type="math/tex">\bold{\eta}</script>（<script type="math/tex">k=0</script>）构建出矩阵 <script type="math/tex">\bold{T}</script> 和其逆矩阵
+<script type="math/tex; mode=display">\bold{T}=\begin{pmatrix}
+1&0\\-1&-1
+\end{pmatrix},\bold{T}^{-1}=\begin{pmatrix}
+1&0\\-1&-1
+\end{pmatrix}\tag{28}</script>
+那么
+<script type="math/tex; mode=display">\bold{T}^{-1}\bold{A}\bold{T}=\begin{pmatrix}
+2&1\\0&2
+\end{pmatrix}=\bold{J}\tag{29}</script>
+矩阵 <script type="math/tex">\bold{J}</script> 是 <script type="math/tex">\bold{A}</script> 的 Jordan 标准型。1 仅会出现在对角线之上。</p>
+<p>回到方程组 <script type="math/tex">(1)</script>
+<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}</script>
+令 <script type="math/tex">\bold{x}=\bold{T}\bold{y}</script>，那么
+<script type="math/tex; mode=display">\bold{y}'=\bold{J}\bold{y}\tag{30}</script>
+<script type="math/tex">(30)</script> 的标量形式是
+<script type="math/tex; mode=display">y_1'=2y_1+y_2,y_2'=2y_2\tag{31}</script>
+这个方程组很容易求解，得到
+<script type="math/tex; mode=display">y_1(t)=c_1e^{2t},y_1(t)=c_1te^{2t}+c_2e^{2t}\tag{32}</script>
+因此 <script type="math/tex">(30)</script> 有两个独立的解
+<script type="math/tex; mode=display">\bold{y}^{(1)}(t)=\begin{pmatrix}
+1\\0
+\end{pmatrix}e^{2t},\bold{y}^{(2)}(t)=\begin{pmatrix}
+t\\1
+\end{pmatrix}e^{2t}\tag{33}</script>
+相应的基解矩阵是
+<script type="math/tex; mode=display">\hat{\bold{\Psi}}(t)=\begin{pmatrix}
+e^{2t}&te^{2t}\\0&e^{2t}
+\end{pmatrix}\tag{33}</script>
+由于 <script type="math/tex">\hat{\bold{\Psi}}(0)=\bold{I}</script>，那么这个矩阵也就是 <script type="math/tex">\exp(\bold{J}t)</script>。同样的结果也可以通过计算 <script type="math/tex">\bold{J}</script> 的幂次然后代入指数级数得到。那么原始方程组的基解矩阵是
+<script type="math/tex; mode=display">\bold{\Psi}(t)=\bold{T}\exp(\bold{J}t)=\begin{pmatrix}
+e^{2t}&te^{2t}\\-e^{2t}&-e^{2t}-te^{2t}
+\end{pmatrix}\tag{35}</script>
+这与 <script type="math/tex">(25)</script> 的结果一致。</p>
+<p>这里并没有讨论 <script type="math/tex">n\times n</script> 的方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script>。对于大的 <script type="math/tex">n</script>，或许有更大的代数重数 <script type="math/tex">m</script> 和小一些的几何重数 <script type="math/tex">q</script>，因此有 <script type="math/tex">m-q</script> 个广义特征向量。TODO exercise 17 &amp; 18 for n = 3。对于 <script type="math/tex">n\geq 4</script> 的情况，或许会有重复的复特征值。这往往需要更多的线性代数的知识，超出了这里讨论的范围。</p>
+<p>对于 <script type="math/tex">n=3,4</script> 的情况，或许还可以手算。更大的 <script type="math/tex">n</script> 值，要借助合适的计算机辅助工具。这不意味着克服了所有的困难，不过确实可以让问题变得容易处理。最后，对于来自物理问题的建模，矩阵 <script type="math/tex">\bold{A}</script> 的系数可能来自物理测量值。测量中不可避免的不确定性导致 <script type="math/tex">\bold{A}</script> 的特征值的不确定性，比如无法很清晰的分析两个特征值是相等还是真的非常接近。</p>
 
   
 
