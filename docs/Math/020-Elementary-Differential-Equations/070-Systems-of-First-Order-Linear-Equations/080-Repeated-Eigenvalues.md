@@ -173,3 +173,44 @@ $$\begin{aligned}
 之前讨论过，满足 $\bold{\Phi}(0)=\bold{I}$ 的基解矩阵也可以写作 $\exp(\bold{A}t)$。对于例 2 中的矩阵 $\bold{A}$，初始条件 $\bold{x}(0)=\bold{x}^0$ 的微分方程组 $\bold{x}'=\bold{A}\bold{x}$ 的解是 $\bold{x}(t)=\exp(\bold{A}t)\bold{x}^0$，即 $\bold{x}(t)=\bold{\Phi}(t)\bold{x}^0$。
 
 ### Jordan 标准型
+仅当 $n\times n$ 的矩阵 $\bold{A}$ 有 $n$ 个线性无关的特征向量时，矩阵能够对角化。如果少一些特征向量，那么 $\bold{A}$ 可以转换成类似对角矩阵的形式，称为 Jordan 标准型（`form`），对角线上是 $\bold{A}$ 的特征值，对角线之上有元素为 1，其余元素都是 0。
+
+回到 $(2)$ 给出的矩阵 $\bold{A}$。为了将其转换为 Jordan 标准型，首先使用 $(6)$ 给出的特征向量 $\bold{\xi}$ 和 $(17)$ 给出广义特征向量 $\bold{\eta}$（$k=0$）构建出矩阵 $\bold{T}$ 和其逆矩阵
+$$\bold{T}=\begin{pmatrix}
+1&0\\-1&-1
+\end{pmatrix},\bold{T}^{-1}=\begin{pmatrix}
+1&0\\-1&-1
+\end{pmatrix}\tag{28}$$
+那么
+$$\bold{T}^{-1}\bold{A}\bold{T}=\begin{pmatrix}
+2&1\\0&2
+\end{pmatrix}=\bold{J}\tag{29}$$
+矩阵 $\bold{J}$ 是 $\bold{A}$ 的 Jordan 标准型。1 仅会出现在对角线之上。
+
+回到方程组 $(1)$
+$$\bold{x}'=\bold{A}\bold{x}$$
+令 $\bold{x}=\bold{T}\bold{y}$，那么
+$$\bold{y}'=\bold{J}\bold{y}\tag{30}$$
+$(30)$ 的标量形式是
+$$y_1'=2y_1+y_2,y_2'=2y_2\tag{31}$$
+这个方程组很容易求解，得到
+$$y_1(t)=c_1e^{2t},y_1(t)=c_1te^{2t}+c_2e^{2t}\tag{32}$$
+因此 $(30)$ 有两个独立的解
+$$\bold{y}^{(1)}(t)=\begin{pmatrix}
+1\\0
+\end{pmatrix}e^{2t},\bold{y}^{(2)}(t)=\begin{pmatrix}
+t\\1
+\end{pmatrix}e^{2t}\tag{33}$$
+相应的基解矩阵是
+$$\hat{\bold{\Psi}}(t)=\begin{pmatrix}
+e^{2t}&te^{2t}\\0&e^{2t}
+\end{pmatrix}\tag{33}$$
+由于 $\hat{\bold{\Psi}}(0)=\bold{I}$，那么这个矩阵也就是 $\exp(\bold{J}t)$。同样的结果也可以通过计算 $\bold{J}$ 的幂次然后代入指数级数得到。那么原始方程组的基解矩阵是
+$$\bold{\Psi}(t)=\bold{T}\exp(\bold{J}t)=\begin{pmatrix}
+e^{2t}&te^{2t}\\-e^{2t}&-e^{2t}-te^{2t}
+\end{pmatrix}\tag{35}$$
+这与 $(25)$ 的结果一致。
+
+这里并没有讨论 $n\times n$ 的方程组 $\bold{x}'=\bold{A}\bold{x}$。对于大的 $n$，或许有更大的代数重数 $m$ 和小一些的几何重数 $q$，因此有 $m-q$ 个广义特征向量。TODO exercise 17 & 18 for n = 3。对于 $n\geq 4$ 的情况，或许会有重复的复特征值。这往往需要更多的线性代数的知识，超出了这里讨论的范围。
+
+对于 $n=3,4$ 的情况，或许还可以手算。更大的 $n$ 值，要借助合适的计算机辅助工具。这不意味着克服了所有的困难，不过确实可以让问题变得容易处理。最后，对于来自物理问题的建模，矩阵 $\bold{A}$ 的系数可能来自物理测量值。测量中不可避免的不确定性导致 $\bold{A}$ 的特征值的不确定性，比如无法很清晰的分析两个特征值是相等还是真的非常接近。
