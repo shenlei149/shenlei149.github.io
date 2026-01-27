@@ -30347,21 +30347,21 @@
 
 
 <p>这一节继续讨论 <script type="math/tex">n</script> 个方程组成的常系数线性齐次方正组
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}\tg1</script>
-其中系数矩阵 <script type="math/tex">\bold{A}</script> 是实数矩阵。如果解的形式是 <script type="math/tex">\bold{x}=\bold{\xi}e^{rt}</script>，那么 <script type="math/tex">r,\bold{\xi}</script> 是系数方程 <script type="math/tex">\bold{A}</script> 的特征值和特征向量。<script type="math/tex">\bold{A}</script> 的特征值 <script type="math/tex">r_1,\cdots,r_n</script> 是特征方程
-<script type="math/tex; mode=display">\det(\bold{A}-r\bold{I})=\bold{0}\tag{2}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}\tg1</script>
+其中系数矩阵 <script type="math/tex">\boldsymbol{A}</script> 是实数矩阵。如果解的形式是 <script type="math/tex">\boldsymbol{x}=\boldsymbol{\xi}e^{rt}</script>，那么 <script type="math/tex">r,\boldsymbol{\xi}</script> 是系数方程 <script type="math/tex">\boldsymbol{A}</script> 的特征值和特征向量。<script type="math/tex">\boldsymbol{A}</script> 的特征值 <script type="math/tex">r_1,\cdots,r_n</script> 是特征方程
+<script type="math/tex; mode=display">\det(\boldsymbol{A}-r\boldsymbol{I})=\boldsymbol{0}\tag{2}</script>
 的根，相应的非零特征向量满足
-<script type="math/tex; mode=display">(\bold{A}-r\bold{I})\bold{\xi}=\bold{0}\tag{3}</script>
-如果 <script type="math/tex">\bold{A}</script> 的系数是实数，多项式方程 <script type="math/tex">(2)</script> 的系数是实数，任意复数根会共轭出现。如果 <script type="math/tex">r_1=\lambda+i\mu</script> 是 <script type="math/tex">\bold{A}</script> 的特征向量，其中 <script type="math/tex">\lambda,\mu</script> 是实数，那么 <script type="math/tex">r_2=\lambda-i\mu</script> 也是 <script type="math/tex">\bold{A}</script> 的特征向量。在正式讨论之前先看个例子。</p>
+<script type="math/tex; mode=display">(\boldsymbol{A}-r\boldsymbol{I})\boldsymbol{\xi}=\boldsymbol{0}\tag{3}</script>
+如果 <script type="math/tex">\boldsymbol{A}</script> 的系数是实数，多项式方程 <script type="math/tex">(2)</script> 的系数是实数，任意复数根会共轭出现。如果 <script type="math/tex">r_1=\lambda+i\mu</script> 是 <script type="math/tex">\boldsymbol{A}</script> 的特征向量，其中 <script type="math/tex">\lambda,\mu</script> 是实数，那么 <script type="math/tex">r_2=\lambda-i\mu</script> 也是 <script type="math/tex">\boldsymbol{A}</script> 的特征向量。在正式讨论之前先看个例子。</p>
 <p>例 1 求方程组
-<script type="math/tex; mode=display">\bold{x}'=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}'=\begin{pmatrix}
 -\frac{1}{2}&1\\-1&-\frac{1}{2}
-\end{pmatrix}\bold{x}\tag{4}</script>
+\end{pmatrix}\boldsymbol{x}\tag{4}</script>
 的实数基础解系。给出相图和一些解的曲线。</p>
 <p>解：下图是方程组 <script type="math/tex">(4)</script> 的方向场。解的轨迹顺时针向原点旋转。</p>
 <p><img alt="" src="../060.010.png" /></p>
 <p>假定解的形式是
-<script type="math/tex; mode=display">\bold{x}=\bold{\xi}e^{rt}\tag{5}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\xi}e^{rt}\tag{5}</script>
 那么得到线性方程组
 <script type="math/tex; mode=display">\begin{pmatrix}
 -\frac{1}{2}-r&1\\-1&-\frac{1}{2}-r
@@ -30375,19 +30375,19 @@
 -\frac{1}{2}-r&1\\-1&-\frac{1}{2}-r
 \end{vmatrix}=r^2+r+\frac{5}{4}=0\tag{7}</script>
 因此特征值是 <script type="math/tex">r_1=-\frac{1}{2}+i,r_2=0\frac{1}{2}-i</script>，代入 <script type="math/tex">(6)</script> 得到对应的特征向量是
-<script type="math/tex; mode=display">\bold{\xi}^{(1)}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\xi}^{(1)}=\begin{pmatrix}
 1\\i
-\end{pmatrix},\bold{\xi}^{(2)}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{\xi}^{(2)}=\begin{pmatrix}
 1\\-i
 \end{pmatrix}\tag{8}</script>
-从上面可以看出特征向量 <script type="math/tex">\bold{\xi}^{(1)},\bold{\xi}^{(2)}</script> 也互为复共轭。因此方程组 <script type="math/tex">(4)</script> 的基础解析是
-<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\begin{pmatrix}
+从上面可以看出特征向量 <script type="math/tex">\boldsymbol{\xi}^{(1)},\boldsymbol{\xi}^{(2)}</script> 也互为复共轭。因此方程组 <script type="math/tex">(4)</script> 的基础解析是
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(t)=\begin{pmatrix}
 1\\i
-\end{pmatrix}e^{(-1/2+i)t},\bold{x}^{(2)}(t)=\begin{pmatrix}
+\end{pmatrix}e^{(-1/2+i)t},\boldsymbol{x}^{(2)}(t)=\begin{pmatrix}
 1\\-i
 \end{pmatrix}e^{(-1/2-i)t}\tag{9}</script>
-为了获得实数解，可以取 <script type="math/tex">\bold{x}^{(1)}</script> 或 <script type="math/tex">\bold{x}^{(2)}</script> 的实部和虚部。那么
-<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\begin{pmatrix}
+为了获得实数解，可以取 <script type="math/tex">\boldsymbol{x}^{(1)}</script> 或 <script type="math/tex">\boldsymbol{x}^{(2)}</script> 的实部和虚部。那么
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(t)=\begin{pmatrix}
 1\\i
 \end{pmatrix}e^{-t/2}(\cos t+i\sin t)=\begin{pmatrix}
 e^{-t/2}\cos t\\-e^{-t/2}\sin t
@@ -30395,79 +30395,79 @@ e^{-t/2}\cos t\\-e^{-t/2}\sin t
 e^{-t/2}\sin t\\e^{-t/2}\cos t
 \end{pmatrix}\tag{10}</script>
 因此方程组 <script type="math/tex">(4)</script> 的实数解是
-<script type="math/tex; mode=display">\bold{u}(t)=e^{-t/2}\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{u}(t)=e^{-t/2}\begin{pmatrix}
 \cos t\\-\sin t
-\end{pmatrix},\bold{v}=e^{-t/2}\begin{pmatrix}
+\end{pmatrix},\boldsymbol{v}=e^{-t/2}\begin{pmatrix}
 \sin t\\\cos t
 \end{pmatrix}\tag{11}</script>
 它们的朗斯基是
-<script type="math/tex; mode=display">W[\bold{u},\bold{v}]=\begin{vmatrix}
+<script type="math/tex; mode=display">W[\boldsymbol{u},\boldsymbol{v}]=\begin{vmatrix}
 e^{-t/2}\cos t&e^{-t/2}\sin t\\
 -e^{-t/2}\sin t&e^{-t/2}\cos t
 \end{vmatrix}=e^{-t}</script>
-不会为零，因为 <script type="math/tex">\bold{u},\bold{v}</script> 是线性无关的，是方程组 <script type="math/tex">(4)</script> 的基础解系。</p>
-<p>解 <script type="math/tex">\bold{u},\bold{v}</script> 的图分别在下图中黑色实线和虚线表示。</p>
+不会为零，因为 <script type="math/tex">\boldsymbol{u},\boldsymbol{v}</script> 是线性无关的，是方程组 <script type="math/tex">(4)</script> 的基础解系。</p>
+<p>解 <script type="math/tex">\boldsymbol{u},\boldsymbol{v}</script> 的图分别在下图中黑色实线和虚线表示。</p>
 <p><img alt="" src="../060.021.png" /></p>
 <p>因为
-<script type="math/tex; mode=display">\bold{u}(0)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{u}(0)=\begin{pmatrix}
 1\\0
-\end{pmatrix},\bold{v}(0)=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{v}(0)=\begin{pmatrix}
 0\\1
 \end{pmatrix}</script>
-因此 <script type="math/tex">\bold{u},\bold{v}</script> 分别会通过 <script type="math/tex">(1,0),(0,1)</script>。方程组 <script type="math/tex">(4)</script> 的其他解是这两个解的线性组合，其中一些如上图所示。当 <script type="math/tex">t\to\infty</script> 时，每个解都沿着螺旋线趋于原点，并绕着原点旋转无数次，这是因为解 <script type="math/tex">(11)</script> 是一个衰减的指数和正弦、余弦函数的乘积。下图是 <script type="math/tex">x_1</script> 随 <script type="math/tex">t</script> 变化的图像如下（b）所示，每一条曲线代表一种随时间衰减的振荡。<script type="math/tex">x_2</script> 随 <script type="math/tex">t</script> 变化的图像如（c）所示。</p>
+因此 <script type="math/tex">\boldsymbol{u},\boldsymbol{v}</script> 分别会通过 <script type="math/tex">(1,0),(0,1)</script>。方程组 <script type="math/tex">(4)</script> 的其他解是这两个解的线性组合，其中一些如上图所示。当 <script type="math/tex">t\to\infty</script> 时，每个解都沿着螺旋线趋于原点，并绕着原点旋转无数次，这是因为解 <script type="math/tex">(11)</script> 是一个衰减的指数和正弦、余弦函数的乘积。下图是 <script type="math/tex">x_1</script> 随 <script type="math/tex">t</script> 变化的图像如下（b）所示，每一条曲线代表一种随时间衰减的振荡。<script type="math/tex">x_2</script> 随 <script type="math/tex">t</script> 变化的图像如（c）所示。</p>
 <p><img alt="" src="../060.022.png" /></p>
-<p>上面的（a）图是一个典型的特征值是共轭复数且实部为负数的 <script type="math/tex">2\times 2</script> 的方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script> 的解的图像。原点称为螺旋点（<code>spiral point</code>），随着 <script type="math/tex">t</script> 的增加，所有轨迹都趋于原点，因此是渐进稳定的。如果复数的实部是正数，图像也和（a）类似，不过轨迹方向是远离原点的，因此轨迹会变得无穷大，此时原点是不稳定的。</p>
-<p>如果实部为零，那么既不会趋于原点也不会远离原点，轨迹是周而复始的绕着原点的曲线。后续会有这样的例子。此时原点称为中心（<code>center</code>），也被称为是稳定的，但不是渐进稳定的。这三种情况下，运动方向可能是顺时针，也可能是逆时针，这依赖于系数矩阵 <script type="math/tex">\bold{A}</script>。</p>
-<p>上面的图是计算机辅助作图，但是人工可以给出草图。假设特征值是 <script type="math/tex">\lambda\pm i\mu</script>，如果 <script type="math/tex">\lambda<0</script>，向内旋转，<script type="math/tex">\lambda>0</script>，向外旋转，如果 <script type="math/tex">\lambda=0</script>，那么是闭合曲线。为了确定是顺时针还是逆时针，只需要确定一个点的方向即可。比如 <script type="math/tex">(4)</script> 中我们选择 <script type="math/tex">\bold{x}=(0,1)^T</script>，那么 <script type="math/tex">\bold{A}\bold{x}=(1,-\frac{1}{2})^T</script>。因此该点处切线方向 <script type="math/tex">\bold{x}'</script> 确定了，<script type="math/tex">x_1</script> 方向上是正的，因此轨迹从第二象限到第一象限，那么是顺时针运动。</p>
+<p>上面的（a）图是一个典型的特征值是共轭复数且实部为负数的 <script type="math/tex">2\times 2</script> 的方程组 <script type="math/tex">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}</script> 的解的图像。原点称为螺旋点（<code>spiral point</code>），随着 <script type="math/tex">t</script> 的增加，所有轨迹都趋于原点，因此是渐进稳定的。如果复数的实部是正数，图像也和（a）类似，不过轨迹方向是远离原点的，因此轨迹会变得无穷大，此时原点是不稳定的。</p>
+<p>如果实部为零，那么既不会趋于原点也不会远离原点，轨迹是周而复始的绕着原点的曲线。后续会有这样的例子。此时原点称为中心（<code>center</code>），也被称为是稳定的，但不是渐进稳定的。这三种情况下，运动方向可能是顺时针，也可能是逆时针，这依赖于系数矩阵 <script type="math/tex">\boldsymbol{A}</script>。</p>
+<p>上面的图是计算机辅助作图，但是人工可以给出草图。假设特征值是 <script type="math/tex">\lambda\pm i\mu</script>，如果 <script type="math/tex">\lambda<0</script>，向内旋转，<script type="math/tex">\lambda>0</script>，向外旋转，如果 <script type="math/tex">\lambda=0</script>，那么是闭合曲线。为了确定是顺时针还是逆时针，只需要确定一个点的方向即可。比如 <script type="math/tex">(4)</script> 中我们选择 <script type="math/tex">\boldsymbol{x}=(0,1)^T</script>，那么 <script type="math/tex">\boldsymbol{A}\boldsymbol{x}=(1,-\frac{1}{2})^T</script>。因此该点处切线方向 <script type="math/tex">\boldsymbol{x}'</script> 确定了，<script type="math/tex">x_1</script> 方向上是正的，因此轨迹从第二象限到第一象限，那么是顺时针运动。</p>
 <p>回到线性微分方程组 <script type="math/tex">(1)</script>
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}</script>
-假定有一组共轭复数特征值 <script type="math/tex">r_1=\lambda+i\mu,r_2=\lambda-i\mu</script>，相应的特征向量是 <script type="math/tex">\bold{\xi}^{(1)},\bold{\xi}^{(2)}</script> 也是共轭的。<script type="math/tex">r_1,\bold{\xi}^{(1)}</script> 满足
-<script type="math/tex; mode=display">(\bold{A}-r_1\bold{I})\bold{\xi}^{(1)}=\bold{0}\tag{12}</script>
-<script type="math/tex">\bold{A},\bold{I}</script> 是实数矩阵，取上面方程的共轭得到
-<script type="math/tex; mode=display">\overline{(\bold{A}-r_1\bold{I})\bold{\xi}^{(1)}}=(\bold{x}-\overline{r_1}\bold{I})\overline{\bold{\xi}^{(1)}}=\bold{0}\tag{13}</script>
-其中 <script type="math/tex">\overline{r_1},\overline{\bold{\xi}^{(1)}}</script> 是 <script type="math/tex">r_1,\bold{\xi}^{(1)}</script> 的共轭，那么 <script type="math/tex">r_2=\overline{r_1},\bold{\xi}^{(2)}=\overline{\bold{\xi}^{(1)}}</script>。那么解是
-<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\bold{\xi}^{(1)}e^{r_1t},\bold{x}^{(2)}=\overline{\bold{\xi}^{(1)}}e^{\overline{r_1}t}\tag{14}</script>
-它们彼此复共轭。和例 1 一样，可以取 <script type="math/tex">\bold{x}^{(1)}</script> 或 <script type="math/tex">\bold{x}^{(2)}</script> 的实部和虚部，得到方程 <script type="math/tex">(1)</script> 的实数解。</p>
-<p>令 <script type="math/tex">\bold{\xi}^{(1)}=\bold{a}+i\bold{b}</script>，其中 <script type="math/tex">\bold{a},\bold{b}</script> 是实数，那么
-<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=(\bold{a}+i\bold{b})e^{(\lambda+i\mu)t}=(\bold{a}+i\bold{b})e^{\lambda t}(\cos\mu t+i\sin\mu t)\tag{15}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}</script>
+假定有一组共轭复数特征值 <script type="math/tex">r_1=\lambda+i\mu,r_2=\lambda-i\mu</script>，相应的特征向量是 <script type="math/tex">\boldsymbol{\xi}^{(1)},\boldsymbol{\xi}^{(2)}</script> 也是共轭的。<script type="math/tex">r_1,\boldsymbol{\xi}^{(1)}</script> 满足
+<script type="math/tex; mode=display">(\boldsymbol{A}-r_1\boldsymbol{I})\boldsymbol{\xi}^{(1)}=\boldsymbol{0}\tag{12}</script>
+<script type="math/tex">\boldsymbol{A},\boldsymbol{I}</script> 是实数矩阵，取上面方程的共轭得到
+<script type="math/tex; mode=display">\overline{(\boldsymbol{A}-r_1\boldsymbol{I})\boldsymbol{\xi}^{(1)}}=(\boldsymbol{x}-\overline{r_1}\boldsymbol{I})\overline{\boldsymbol{\xi}^{(1)}}=\boldsymbol{0}\tag{13}</script>
+其中 <script type="math/tex">\overline{r_1},\overline{\boldsymbol{\xi}^{(1)}}</script> 是 <script type="math/tex">r_1,\boldsymbol{\xi}^{(1)}</script> 的共轭，那么 <script type="math/tex">r_2=\overline{r_1},\boldsymbol{\xi}^{(2)}=\overline{\boldsymbol{\xi}^{(1)}}</script>。那么解是
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(t)=\boldsymbol{\xi}^{(1)}e^{r_1t},\boldsymbol{x}^{(2)}=\overline{\boldsymbol{\xi}^{(1)}}e^{\overline{r_1}t}\tag{14}</script>
+它们彼此复共轭。和例 1 一样，可以取 <script type="math/tex">\boldsymbol{x}^{(1)}</script> 或 <script type="math/tex">\boldsymbol{x}^{(2)}</script> 的实部和虚部，得到方程 <script type="math/tex">(1)</script> 的实数解。</p>
+<p>令 <script type="math/tex">\boldsymbol{\xi}^{(1)}=\boldsymbol{a}+i\boldsymbol{b}</script>，其中 <script type="math/tex">\boldsymbol{a},\boldsymbol{b}</script> 是实数，那么
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(t)=(\boldsymbol{a}+i\boldsymbol{b})e^{(\lambda+i\mu)t}=(\boldsymbol{a}+i\boldsymbol{b})e^{\lambda t}(\cos\mu t+i\sin\mu t)\tag{15}</script>
 分离实部和虚部得到
-<script type="math/tex; mode=display">\bold{x}^{(1)}=e^{\lambda t}(\bold{a}\cos\mu t-\bold{b}\sin\mu t)+ie^{\lambda t}(\bold{a}\sin\mu t+\bold{b}\cos\mu t)\tag{16}</script>
-令 <script type="math/tex">\bold{x}^{(1)}(t)=\bold{u}(t)+\bold{v}(t)</script>，那么
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}=e^{\lambda t}(\boldsymbol{a}\cos\mu t-\boldsymbol{b}\sin\mu t)+ie^{\lambda t}(\boldsymbol{a}\sin\mu t+\boldsymbol{b}\cos\mu t)\tag{16}</script>
+令 <script type="math/tex">\boldsymbol{x}^{(1)}(t)=\boldsymbol{u}(t)+\boldsymbol{v}(t)</script>，那么
 <script type="math/tex; mode=display">\begin{aligned}
-\bold{u}(t)&=e^{\lambda t}(\bold{a}\cos\mu t-\bold{b}\sin\mu t)\\
-\bold{v}(t)&=e^{\lambda t}(\bold{a}\sin\mu t+\bold{b}\cos\mu t)
+\boldsymbol{u}(t)&=e^{\lambda t}(\boldsymbol{a}\cos\mu t-\boldsymbol{b}\sin\mu t)\\
+\boldsymbol{v}(t)&=e^{\lambda t}(\boldsymbol{a}\sin\mu t+\boldsymbol{b}\cos\mu t)
 \end{aligned}\tag{17}</script>
-是方程 <script type="math/tex">(1)</script> 的实数解。<script type="math/tex">\bold{u},\bold{v}</script> 是线性无关的。下面给出证明。</p>
-<p>首先证明 <script type="math/tex">\bold{a},\bold{b}</script> 是线性无关的，使用 <script type="math/tex">\bold{\xi}^{(1)},\overline{\bold{\xi}^{(1)}}</script> 来表示 <script type="math/tex">\bold{a},\bold{b}</script>
-<script type="math/tex; mode=display">\bold{a}=\frac{\bold{\xi}^{(1)}+\overline{\bold{\xi}^{(1)}}}{2},\bold{b}=\frac{\bold{\xi}^{(1)}-\overline{\bold{\xi}^{(1)}}}{2i}</script>
-代入 <script type="math/tex">c_1\bold{a}+c_2\bold{b}=\bold{0}</script> 得到
-<script type="math/tex; mode=display">c_1(\bold{\xi}^{(1)}+\overline{\bold{\xi}^{(1)}})-ic_2(\bold{\xi}^{(1)}-\overline{\bold{\xi}^{(1)}})=\bold{0}</script>
+是方程 <script type="math/tex">(1)</script> 的实数解。<script type="math/tex">\boldsymbol{u},\boldsymbol{v}</script> 是线性无关的。下面给出证明。</p>
+<p>首先证明 <script type="math/tex">\boldsymbol{a},\boldsymbol{b}</script> 是线性无关的，使用 <script type="math/tex">\boldsymbol{\xi}^{(1)},\overline{\boldsymbol{\xi}^{(1)}}</script> 来表示 <script type="math/tex">\boldsymbol{a},\boldsymbol{b}</script>
+<script type="math/tex; mode=display">\boldsymbol{a}=\frac{\boldsymbol{\xi}^{(1)}+\overline{\boldsymbol{\xi}^{(1)}}}{2},\boldsymbol{b}=\frac{\boldsymbol{\xi}^{(1)}-\overline{\boldsymbol{\xi}^{(1)}}}{2i}</script>
+代入 <script type="math/tex">c_1\boldsymbol{a}+c_2\boldsymbol{b}=\boldsymbol{0}</script> 得到
+<script type="math/tex; mode=display">c_1(\boldsymbol{\xi}^{(1)}+\overline{\boldsymbol{\xi}^{(1)}})-ic_2(\boldsymbol{\xi}^{(1)}-\overline{\boldsymbol{\xi}^{(1)}})=\boldsymbol{0}</script>
 那么
-<script type="math/tex; mode=display">(c_1-ic_2)\bold{\xi}^{(1)}+(c_1+ic_2)\overline{\bold{\xi}^{(1)}}=\bold{0}</script>
-由于 <script type="math/tex">\bold{\xi}^{(1)},\overline{\bold{\xi}^{(1)}}</script> 线性无关，那么
+<script type="math/tex; mode=display">(c_1-ic_2)\boldsymbol{\xi}^{(1)}+(c_1+ic_2)\overline{\boldsymbol{\xi}^{(1)}}=\boldsymbol{0}</script>
+由于 <script type="math/tex">\boldsymbol{\xi}^{(1)},\overline{\boldsymbol{\xi}^{(1)}}</script> 线性无关，那么
 <script type="math/tex; mode=display">c_1-ic_2=0,c_2+ic_2=0</script>
-因此 <script type="math/tex">c_1=0,c_2=0</script>，这就得到了 <script type="math/tex">\bold{a},\bold{b}</script> 是线性无关的。</p>
-<p>下面证明 <script type="math/tex">\bold{u},\bold{v}</script> 是线性无关的，那么需要证明
-<script type="math/tex; mode=display">c_1e^{\lambda t}(\bold{a}\cos\mu t-\bold{b}\sin\mu t)+c_2e^{\lambda t}(\bold{a}\sin\mu t+\bold{b}\cos\mu t)=\bold{0}</script>
-中 <script type="math/tex">c_1=c_2=0</script>。按照 <script type="math/tex">\bold{a},\bold{b}</script> 合并同类项得到
-<script type="math/tex; mode=display">(c_1\cos\mu t+c_2\sin\mu t)\bold{a}+(-c_1\sin\mu t+c_2\cos\mu t)\bold{b}=\bold{0}</script>
-因为 <script type="math/tex">\bold{a},\bold{b}</script> 线性无关，那么
+因此 <script type="math/tex">c_1=0,c_2=0</script>，这就得到了 <script type="math/tex">\boldsymbol{a},\boldsymbol{b}</script> 是线性无关的。</p>
+<p>下面证明 <script type="math/tex">\boldsymbol{u},\boldsymbol{v}</script> 是线性无关的，那么需要证明
+<script type="math/tex; mode=display">c_1e^{\lambda t}(\boldsymbol{a}\cos\mu t-\boldsymbol{b}\sin\mu t)+c_2e^{\lambda t}(\boldsymbol{a}\sin\mu t+\boldsymbol{b}\cos\mu t)=\boldsymbol{0}</script>
+中 <script type="math/tex">c_1=c_2=0</script>。按照 <script type="math/tex">\boldsymbol{a},\boldsymbol{b}</script> 合并同类项得到
+<script type="math/tex; mode=display">(c_1\cos\mu t+c_2\sin\mu t)\boldsymbol{a}+(-c_1\sin\mu t+c_2\cos\mu t)\boldsymbol{b}=\boldsymbol{0}</script>
+因为 <script type="math/tex">\boldsymbol{a},\boldsymbol{b}</script> 线性无关，那么
 <script type="math/tex; mode=display">c_1\cos\mu t+c_2\sin\mu t=0,-c_1\sin\mu t+c_2\cos\mu t=0</script>
-解这个方程组得到 <script type="math/tex">c_1=0,c_2=0</script>，因此 <script type="math/tex">\bold{u},\bold{v}</script> 线性无关。</p>
-<p>假定矩阵 <script type="math/tex">\bold{A}</script> 有共轭特征值 <script type="math/tex">r_1=\lambda+i\mu,r_2=\lambda-i\mu</script>，<script type="math/tex">r_3,r_4,\cdots,r_n</script> 是实数特征值且不相等，特征向量是 <script type="math/tex">\bold{\xi}^{(1)}=\bold{a}+i\bold{b},\bold{\xi}^{(2)}=\bold{a}-i\bold{b},\bold{\xi}^{(3)},\cdots,\bold{\xi}^{(n)}</script>。那么方程组 <script type="math/tex">(1)</script> 的通解是
-<script type="math/tex; mode=display">\bold{x}=c_1\bold{u}(t)+c_2\bold{v}(t)+c_3\bold{\xi}^{(3)}e^{r_3t}+\cdots\bold{\xi}^{(n)}e^{r_nt}\tag{18}</script>
-其中 <script type="math/tex">\bold{u}(t),\bold{v}(t)</script> 由 <script type="math/tex">(17)</script> 给出。这里要强调 <script type="math/tex">\bold{A}</script> 矩阵都是实数，因为这样复数特征值和特征向量才是共轭的。</p>
+解这个方程组得到 <script type="math/tex">c_1=0,c_2=0</script>，因此 <script type="math/tex">\boldsymbol{u},\boldsymbol{v}</script> 线性无关。</p>
+<p>假定矩阵 <script type="math/tex">\boldsymbol{A}</script> 有共轭特征值 <script type="math/tex">r_1=\lambda+i\mu,r_2=\lambda-i\mu</script>，<script type="math/tex">r_3,r_4,\cdots,r_n</script> 是实数特征值且不相等，特征向量是 <script type="math/tex">\boldsymbol{\xi}^{(1)}=\boldsymbol{a}+i\boldsymbol{b},\boldsymbol{\xi}^{(2)}=\boldsymbol{a}-i\boldsymbol{b},\boldsymbol{\xi}^{(3)},\cdots,\boldsymbol{\xi}^{(n)}</script>。那么方程组 <script type="math/tex">(1)</script> 的通解是
+<script type="math/tex; mode=display">\boldsymbol{x}=c_1\boldsymbol{u}(t)+c_2\boldsymbol{v}(t)+c_3\boldsymbol{\xi}^{(3)}e^{r_3t}+\cdots\boldsymbol{\xi}^{(n)}e^{r_nt}\tag{18}</script>
+其中 <script type="math/tex">\boldsymbol{u}(t),\boldsymbol{v}(t)</script> 由 <script type="math/tex">(17)</script> 给出。这里要强调 <script type="math/tex">\boldsymbol{A}</script> 矩阵都是实数，因为这样复数特征值和特征向量才是共轭的。</p>
 <p>对于 <script type="math/tex">2\times 2</script> 的实系数方程组，有如下三种情况：</p>
 <ul>
-<li>特征值是实数且符号相反，<script type="math/tex">\bold{x}=\bold{0}</script> 是鞍点</li>
-<li>特征值是实数且符号相同，且不相等，<script type="math/tex">\bold{x}=\bold{0}</script> 是节点</li>
-<li>特征值是复数且实部不为零，<script type="math/tex">\bold{x}=\bold{0}</script> 是螺旋点</li>
+<li>特征值是实数且符号相反，<script type="math/tex">\boldsymbol{x}=\boldsymbol{0}</script> 是鞍点</li>
+<li>特征值是实数且符号相同，且不相等，<script type="math/tex">\boldsymbol{x}=\boldsymbol{0}</script> 是节点</li>
+<li>特征值是复数且实部不为零，<script type="math/tex">\boldsymbol{x}=\boldsymbol{0}</script> 是螺旋点</li>
 </ul>
 <p>其他可能情况是上述两种情况之间的过渡状态，不过现实应用中不常遇到。比如零特征值对应鞍点和节点之间。纯虚特征值的情况介于渐进稳定螺旋点和不稳定螺旋点之间。实数且相等的情况介于节点和螺旋点之间。</p>
 <p>例 2 方程组
-<script type="math/tex; mode=display">\bold{x}'=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}'=\begin{pmatrix}
 \alpha&2\\-2&0
-\end{pmatrix}\bold{x}\tag{19}</script>
+\end{pmatrix}\boldsymbol{x}\tag{19}</script>
 包含参数 <script type="math/tex">\alpha</script>，描述系统的解是如何依赖于 <script type="math/tex">\alpha</script> 的，特别是找到 <script type="math/tex">\alpha</script> 的分叉点，也就是轨迹的行为发生显著变化的点。</p>
 <p>解：轨迹的行为完全由特征值确定。特征方程是
 <script type="math/tex; mode=display">r^2-\alpha r+4=0\tag{20}</script>
@@ -30491,28 +30491,28 @@ m_2\frac{d^2x_2}{dt^2}&=k_2x_1-(k_2+k_3)x_2
 <p>例 3 假定 <script type="math/tex">(23),(24)</script> 中 <script type="math/tex">m_1=2,m_2=9/4,k_1=1,k_2=3,k_3=15/4</script>，那么这些方程是
 <script type="math/tex; mode=display">y_1'=y_3,y_2'=y_4,y_3'=-2y_1+\frac{3}{2}y_2,y_4'=\frac{4}{3}y_1-3y_2\tag{25}</script>
 分析运行，画出典型轨迹图。</p>
-<p>解：令 <script type="math/tex">\bold{y}=(y_1,y_2,y_3,y_4)^T</script>，那么 <script type="math/tex">(25)</script> 写成矩阵形式是
-<script type="math/tex; mode=display">\bold{y}'=\begin{pmatrix}
+<p>解：令 <script type="math/tex">\boldsymbol{y}=(y_1,y_2,y_3,y_4)^T</script>，那么 <script type="math/tex">(25)</script> 写成矩阵形式是
+<script type="math/tex; mode=display">\boldsymbol{y}'=\begin{pmatrix}
 0&0&1&0\\
 0&0&0&1\\
 -2&\frac{3}{2}&0&0\\
 \frac{4}{3}&-3&0&0
-\end{pmatrix}\bold{y}=\bold{A}\bold{y}\tag{26}</script>
-<script type="math/tex">y_1,y_2</script> 两个物体相对平衡位置的位移，<script type="math/tex">y_3,y_4</script> 是它们的速度。假定解 <script type="math/tex">\bold{y}=\bold{\xi}e^{rt}</script>，其中 <script type="math/tex">r</script> 是矩阵 <script type="math/tex">\bold{A}</script> 的特征值，<script type="math/tex">\bold{\xi}</script> 是对应的特征向量。可以手算，也可以使用计算机辅助计算。得到 <script type="math/tex">\bold{A}</script> 的特征方程是
+\end{pmatrix}\boldsymbol{y}=\boldsymbol{A}\boldsymbol{y}\tag{26}</script>
+<script type="math/tex">y_1,y_2</script> 两个物体相对平衡位置的位移，<script type="math/tex">y_3,y_4</script> 是它们的速度。假定解 <script type="math/tex">\boldsymbol{y}=\boldsymbol{\xi}e^{rt}</script>，其中 <script type="math/tex">r</script> 是矩阵 <script type="math/tex">\boldsymbol{A}</script> 的特征值，<script type="math/tex">\boldsymbol{\xi}</script> 是对应的特征向量。可以手算，也可以使用计算机辅助计算。得到 <script type="math/tex">\boldsymbol{A}</script> 的特征方程是
 <script type="math/tex; mode=display">r^4+5r^2+4=(r^2+1)(r^2+4)\tag{27}</script>
 因此特征值是 <script type="math/tex">r_1=i,r_2=-i,r_3=2i,r_4=-2i</script>，对应的特征向量是
-<script type="math/tex; mode=display">\bold{\xi}^{(1)}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\xi}^{(1)}=\begin{pmatrix}
 3\\2\\3i\\2i
-\end{pmatrix},\bold{\xi}^{(2)}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{\xi}^{(2)}=\begin{pmatrix}
 3\\2\\-3i\\-2i
-\end{pmatrix},\bold{\xi}^{(3)}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{\xi}^{(3)}=\begin{pmatrix}
 3\\-4\\6i\\-8i
-\end{pmatrix},\bold{\xi}^{(4)}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{\xi}^{(4)}=\begin{pmatrix}
 3\\-4\\-6i\\8i
 \end{pmatrix}\tag{28}</script>
-<script type="math/tex">\bold{\xi}^{(1)}e^{it},\bold{\xi}^{(2)}e^{-it}</script> 是共轭解，可以找到其实部和虚部得到实数解。有
+<script type="math/tex">\boldsymbol{\xi}^{(1)}e^{it},\boldsymbol{\xi}^{(2)}e^{-it}</script> 是共轭解，可以找到其实部和虚部得到实数解。有
 <script type="math/tex; mode=display">\begin{aligned}
-\bold{\xi}^{(1)}e^{it}&=\begin{pmatrix}
+\boldsymbol{\xi}^{(1)}e^{it}&=\begin{pmatrix}
 3\\2\\3i\\2i
 \end{pmatrix}(\cos t+i\sin t)\\
 &=\begin{pmatrix}
@@ -30520,11 +30520,11 @@ m_2\frac{d^2x_2}{dt^2}&=k_2x_1-(k_2+k_3)x_2
 \end{pmatrix}+i\begin{pmatrix}
 3\sin t\\2\sin t\\3\cos t\\2\cos t
 \end{pmatrix}\\
-&=\bold{u}^{(1)}(t)+i\bold{v}^{(1)}(t)\tag{29}
+&=\boldsymbol{u}^{(1)}(t)+i\boldsymbol{v}^{(1)}(t)\tag{29}
 \end{aligned}</script>
 类似的
 <script type="math/tex; mode=display">\begin{aligned}
-\bold{\xi}^{(3)}e^{2it}&=\begin{pmatrix}
+\boldsymbol{\xi}^{(3)}e^{2it}&=\begin{pmatrix}
 3\\-4\\6i\\-8i
 \end{pmatrix}(\cos 2t+i\sin 2t)\\
 &=\begin{pmatrix}
@@ -30532,10 +30532,10 @@ m_2\frac{d^2x_2}{dt^2}&=k_2x_1-(k_2+k_3)x_2
 \end{pmatrix}+i\begin{pmatrix}
 3\sin 2t\\-4\sin 2t\\6\cos 2t\\-8\cos 2t
 \end{pmatrix}\\
-&=\bold{u}^{(2)}(t)+i\bold{v}^{(2)}(t)\tag{30}
+&=\boldsymbol{u}^{(2)}(t)+i\boldsymbol{v}^{(2)}(t)\tag{30}
 \end{aligned}</script>
-<script type="math/tex">\bold{u}^{(1)}(t),\bold{v}^{(1)}(t),\bold{u}^{(2)}(t),\bold{v}^{(2)}(t)</script> 线性无关，因此是基础解系。方程 <script type="math/tex">(26)</script> 的通解是
-<script type="math/tex; mode=display">\bold{y}=c_1\begin{pmatrix}
+<script type="math/tex">\boldsymbol{u}^{(1)}(t),\boldsymbol{v}^{(1)}(t),\boldsymbol{u}^{(2)}(t),\boldsymbol{v}^{(2)}(t)</script> 线性无关，因此是基础解系。方程 <script type="math/tex">(26)</script> 的通解是
+<script type="math/tex; mode=display">\boldsymbol{y}=c_1\begin{pmatrix}
 3\cos t\\2\cos t\\-3\sin t\\-2\sin t
 \end{pmatrix}+c_2\begin{pmatrix}
 3\sin t\\2\sin t\\3\cos t\\2\cos t
@@ -30546,10 +30546,10 @@ m_2\frac{d^2x_2}{dt^2}&=k_2x_1-(k_2+k_3)x_2
 \end{pmatrix}\tag{31}</script>
 其中 <script type="math/tex">c_1,c_2,c_3,c_4</script> 是任意常量。</p>
 <p>这个方程组的相空间是四维的，每一解由一组特定的 <script type="math/tex">c_1,c_2,c_3,c_4</script> 确定，对应着四维空间的一条轨迹。<script type="math/tex">(31)</script> 的解的周期是 <script type="math/tex">2\pi</script>，因此轨迹是闭合曲线。不管 <script type="math/tex">t=0</script> 是从哪个点开始，在 <script type="math/tex">t=2\pi,4\pi,\cdots</script> 时回到起点然后循环。这里无法给出四维空间的区间，而是给出在 <script type="math/tex">y_1y_3</script> 平面或者 <script type="math/tex">y_2y_4</script> 平面上的投影。</p>
-<p>首先分析 <script type="math/tex">(31)</script> 的前两项，其频率是 1，周期是 <script type="math/tex">2\pi</script>。注意 <script type="math/tex">y_2=\frac{2}{3}y_1</script>，<script type="math/tex">y_4=\frac{2}{3}y_3</script>，这意味着两个物体始终同向运动，位移也同向，第二个物体的位移和速度都是第一个物体的三分之二。聚焦于 <script type="math/tex">\bold{u}^{(1)}(t)</script>，如果画出 <script type="math/tex">y_1,y_2</script> 相对于 <script type="math/tex">t</script> 的曲线，得到的是振幅为 3 和 2 的余弦曲线，如下图（a）所示。曲线在 <script type="math/tex">y_1y_3</script> 平面的投影是半径为 3 的圆，如下图（b）所示，从 <script type="math/tex">(3,0)</script> 点开始顺时针运动，周期是 <script type="math/tex">2\pi</script>。（b）图也展示了曲线在 <script type="math/tex">y_2y_4</script> 平面的投影，是半径为 2 的圆，从 <script type="math/tex">(2,0)</script> 开始顺时针运动，周期也是 <script type="math/tex">2\pi</script>。原点是中心点。分析 <script type="math/tex">\bold{v}^{(1)}(t)</script> 或者是 <script type="math/tex">\bold{u}^{(1)}(t),\bold{v}^{(1)}(t)</script> 的线性组合可以得到类似的图像。</p>
+<p>首先分析 <script type="math/tex">(31)</script> 的前两项，其频率是 1，周期是 <script type="math/tex">2\pi</script>。注意 <script type="math/tex">y_2=\frac{2}{3}y_1</script>，<script type="math/tex">y_4=\frac{2}{3}y_3</script>，这意味着两个物体始终同向运动，位移也同向，第二个物体的位移和速度都是第一个物体的三分之二。聚焦于 <script type="math/tex">\boldsymbol{u}^{(1)}(t)</script>，如果画出 <script type="math/tex">y_1,y_2</script> 相对于 <script type="math/tex">t</script> 的曲线，得到的是振幅为 3 和 2 的余弦曲线，如下图（a）所示。曲线在 <script type="math/tex">y_1y_3</script> 平面的投影是半径为 3 的圆，如下图（b）所示，从 <script type="math/tex">(3,0)</script> 点开始顺时针运动，周期是 <script type="math/tex">2\pi</script>。（b）图也展示了曲线在 <script type="math/tex">y_2y_4</script> 平面的投影，是半径为 2 的圆，从 <script type="math/tex">(2,0)</script> 开始顺时针运动，周期也是 <script type="math/tex">2\pi</script>。原点是中心点。分析 <script type="math/tex">\boldsymbol{v}^{(1)}(t)</script> 或者是 <script type="math/tex">\boldsymbol{u}^{(1)}(t),\boldsymbol{v}^{(1)}(t)</script> 的线性组合可以得到类似的图像。</p>
 <p><img alt="" src="../060.030.png" /></p>
 <p>
-<script type="math/tex">(31)</script> 的后两项描述了频率为 1 周期为 <script type="math/tex">\pi</script> 的运动。类似的，<script type="math/tex">y_2=-\frac{4}{3}y_1,y_4=-\frac{4}{3}y_3</script>。这说明两个物体运动反向，第二个物体的位移和速度都是第一个物体的三分之四。和之前类似，分析 <script type="math/tex">\bold{u}^{(2)}(t)</script>，画出 <script type="math/tex">y_1,y_2</script> 相对于 <script type="math/tex">t</script> 的曲线，如下图（a）所示。相位差是 <script type="math/tex">\pi</script>，<script type="math/tex">y_2</script> 的振幅是 <script type="math/tex">y_1</script> 的三分之四。（b）图展示了两个物体在各自相平面的轨迹投影。两个图像都是椭圆，内圈从 <script type="math/tex">(3,0)</script> 开始，外圈从 <script type="math/tex">(-4,0)</script> 开始，顺时针运动，周期是 <script type="math/tex">\pi</script>。原点是中心。分析 <script type="math/tex">\bold{v}^{(2)}(t)</script> 或者是 <script type="math/tex">\bold{u}^{(2)}(t),\bold{v}^{(2)}(t)</script> 的线性组合可以得到类似的图像。</p>
+<script type="math/tex">(31)</script> 的后两项描述了频率为 1 周期为 <script type="math/tex">\pi</script> 的运动。类似的，<script type="math/tex">y_2=-\frac{4}{3}y_1,y_4=-\frac{4}{3}y_3</script>。这说明两个物体运动反向，第二个物体的位移和速度都是第一个物体的三分之四。和之前类似，分析 <script type="math/tex">\boldsymbol{u}^{(2)}(t)</script>，画出 <script type="math/tex">y_1,y_2</script> 相对于 <script type="math/tex">t</script> 的曲线，如下图（a）所示。相位差是 <script type="math/tex">\pi</script>，<script type="math/tex">y_2</script> 的振幅是 <script type="math/tex">y_1</script> 的三分之四。（b）图展示了两个物体在各自相平面的轨迹投影。两个图像都是椭圆，内圈从 <script type="math/tex">(3,0)</script> 开始，外圈从 <script type="math/tex">(-4,0)</script> 开始，顺时针运动，周期是 <script type="math/tex">\pi</script>。原点是中心。分析 <script type="math/tex">\boldsymbol{v}^{(2)}(t)</script> 或者是 <script type="math/tex">\boldsymbol{u}^{(2)}(t),\boldsymbol{v}^{(2)}(t)</script> 的线性组合可以得到类似的图像。</p>
 <p><img alt="" src="../060.040.png" /></p>
 <p>前面两段描述了两个物体组成的系统的基本模式（<code>fundamental mode</code>）。每一个都需要特殊的初始条件。比如为了得到频率为 1 的情况，<script type="math/tex">(31)</script> 中的 <script type="math/tex">c_3,c_4</script> 应该为零。这意味着初始条件是 <script type="math/tex">3y_2(0)=2y_1(0),3y_4(0)=2y_3(0)</script>。类似的，当 <script type="math/tex">(31)</script> 中 <script type="math/tex">c_1,c_2</script> 为零时得到的是频率为 2 的模式，此时初始条件是 <script type="math/tex">3y_2(0)=-4y_1(0),3y_4(0)=-4y_3(0)</script>。</p>
 <p>如果是更一般的初始条件，解是两种基本模式的组合。比如下图（a）是 <script type="math/tex">y_1</script> 相对 <script type="math/tex">t</script> 的变化。</p>

@@ -30369,14 +30369,14 @@
 
 
 <p>下面讨论常系数线性齐次微分方程组
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}\tag{1}</script>
-中 <script type="math/tex">\bold{A}</script> 有重复特征值的情况。7.3 小节讨论过代数重数 <script type="math/tex">m\geq 2</script> 的重复特征值或许有小于 <script type="math/tex">m</script> 的几何重数。也就是说，这个特征值仅对应着小于 <script type="math/tex">m</script> 个线性无关的特征向量。</p>
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}\tag{1}</script>
+中 <script type="math/tex">\boldsymbol{A}</script> 有重复特征值的情况。7.3 小节讨论过代数重数 <script type="math/tex">m\geq 2</script> 的重复特征值或许有小于 <script type="math/tex">m</script> 的几何重数。也就是说，这个特征值仅对应着小于 <script type="math/tex">m</script> 个线性无关的特征向量。</p>
 <p>例 1 求矩阵
-<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}=\begin{pmatrix}
 1&-1\\1&3
 \end{pmatrix}\tag{2}</script>
 的特征值和特征向量。</p>
-<p>解：特征值 <script type="math/tex">r</script> 和特征向量 <script type="math/tex">\bold{\xi}</script> 满足 <script type="math/tex">(\bold{A}-r\bold{I})\bold{\xi}=\bold{0}</script>，即
+<p>解：特征值 <script type="math/tex">r</script> 和特征向量 <script type="math/tex">\boldsymbol{\xi}</script> 满足 <script type="math/tex">(\boldsymbol{A}-r\boldsymbol{I})\boldsymbol{\xi}=\boldsymbol{0}</script>，即
 <script type="math/tex; mode=display">\begin{pmatrix}
 1-r&-1\\1&3-r
 \end{pmatrix}\begin{pmatrix}
@@ -30385,7 +30385,7 @@
 0\\0
 \end{pmatrix}\tag{3}</script>
 特征值是
-<script type="math/tex; mode=display">\det(\bold{A}-r\bold{I})=\begin{vmatrix}
+<script type="math/tex; mode=display">\det(\boldsymbol{A}-r\boldsymbol{I})=\begin{vmatrix}
 1-r&-1\\1&3-r
 \end{vmatrix}=r^2-4r+4=(r-2)^2=0\tag{4}</script>
 的根。两个特征值数 <script type="math/tex">r_1=r_2=2</script>，因此特征值 2 的代数重数是 2。</p>
@@ -30398,75 +30398,75 @@
 0\\0
 \end{pmatrix}\tag{5}</script>
 那么 <script type="math/tex">\xi_1+\xi_2=0</script>，因此 <script type="math/tex">r=2</script> 对应的特征向量是
-<script type="math/tex; mode=display">\bold{\xi}^{(1)}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\xi}^{(1)}=\begin{pmatrix}
 1\\1
 \end{pmatrix}\tag{6}</script>
 因此特征值 2 的几何重数是 1。</p>
 <p>回到方程组 <script type="math/tex">(1)</script>，假设 <script type="math/tex">r=\rho</script> 是特征方程
-<script type="math/tex; mode=display">\det(\bold{A}-r\bold{I})=0\tag{7}</script>
-的 <script type="math/tex">m</script> 重根，那么 <script type="math/tex">\rho</script> 是矩阵 <script type="math/tex">\bold{A}</script> 的代数重数为 <script type="math/tex">m</script> 的特征值。有两种可能性：对于特征值 <script type="math/tex">\rho</script>，对应着 <script type="math/tex">m</script> 个线性无关的特征向量，或者对应着少于 <script type="math/tex">m</script> 个线性无关的特征向量。</p>
-<p>第一种情况，代数重数 <script type="math/tex">m</script> 的特征值 <script type="math/tex">\rho</script> 有 <script type="math/tex">m</script> 个线性无关的特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(m)}</script>，那么方程 <script type="math/tex">(1)</script> 有 <script type="math/tex">m</script> 个线性无关的解 <script type="math/tex">\bold{x}^{(1)}(t)=\bold{\xi}^{(1)}e^{\rho t},\cdots,\bold{x}^{(m)}(t)=\bold{\xi}^{(m)}e^{\rho t}</script>，这和之前的讨论没有区别，形如 <script type="math/tex">\bold{\xi}e^{rt}</script> 的解依旧构成了基础解系。这种情况发生在 <script type="math/tex">\bold{A}</script> 是埃尔米特矩阵，或者是实数对称矩阵（埃尔米特矩阵的特例）。</p>
-<p>不过如果系数矩阵不是埃尔米特矩阵，那么代数重数 <script type="math/tex">m</script> 的特征值 <script type="math/tex">\rho</script> 只有小于 <script type="math/tex">m</script> 个线性无关的特征向量，此时，方程 <script type="math/tex">(1)</script> 有少于 <script type="math/tex">m</script> 个形如 <script type="math/tex">\bold{\xi}e^{rt}</script> 的解。因此为了构造 <script type="math/tex">(1)</script> 的通解，必须要找到其他形式的解。3.4 解求解二阶线性微分方程 <script type="math/tex">ay''+by'+cy=0</script> 时遇到过特征方程有两个重复根 <script type="math/tex">r</script>，第一个解的形式是 <script type="math/tex">y_1(t)=e^{rt}</script>，第二个解的形式是 <script type="math/tex">y_2(t)=te^{rt}</script>。下面的例子使用了类似的想法。</p>
+<script type="math/tex; mode=display">\det(\boldsymbol{A}-r\boldsymbol{I})=0\tag{7}</script>
+的 <script type="math/tex">m</script> 重根，那么 <script type="math/tex">\rho</script> 是矩阵 <script type="math/tex">\boldsymbol{A}</script> 的代数重数为 <script type="math/tex">m</script> 的特征值。有两种可能性：对于特征值 <script type="math/tex">\rho</script>，对应着 <script type="math/tex">m</script> 个线性无关的特征向量，或者对应着少于 <script type="math/tex">m</script> 个线性无关的特征向量。</p>
+<p>第一种情况，代数重数 <script type="math/tex">m</script> 的特征值 <script type="math/tex">\rho</script> 有 <script type="math/tex">m</script> 个线性无关的特征向量 <script type="math/tex">\boldsymbol{\xi}^{(1)},\cdots,\boldsymbol{\xi}^{(m)}</script>，那么方程 <script type="math/tex">(1)</script> 有 <script type="math/tex">m</script> 个线性无关的解 <script type="math/tex">\boldsymbol{x}^{(1)}(t)=\boldsymbol{\xi}^{(1)}e^{\rho t},\cdots,\boldsymbol{x}^{(m)}(t)=\boldsymbol{\xi}^{(m)}e^{\rho t}</script>，这和之前的讨论没有区别，形如 <script type="math/tex">\boldsymbol{\xi}e^{rt}</script> 的解依旧构成了基础解系。这种情况发生在 <script type="math/tex">\boldsymbol{A}</script> 是埃尔米特矩阵，或者是实数对称矩阵（埃尔米特矩阵的特例）。</p>
+<p>不过如果系数矩阵不是埃尔米特矩阵，那么代数重数 <script type="math/tex">m</script> 的特征值 <script type="math/tex">\rho</script> 只有小于 <script type="math/tex">m</script> 个线性无关的特征向量，此时，方程 <script type="math/tex">(1)</script> 有少于 <script type="math/tex">m</script> 个形如 <script type="math/tex">\boldsymbol{\xi}e^{rt}</script> 的解。因此为了构造 <script type="math/tex">(1)</script> 的通解，必须要找到其他形式的解。3.4 解求解二阶线性微分方程 <script type="math/tex">ay''+by'+cy=0</script> 时遇到过特征方程有两个重复根 <script type="math/tex">r</script>，第一个解的形式是 <script type="math/tex">y_1(t)=e^{rt}</script>，第二个解的形式是 <script type="math/tex">y_2(t)=te^{rt}</script>。下面的例子使用了类似的想法。</p>
 <p>例 2 求
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}=\begin{pmatrix}
 1&-1\\1&3
-\end{pmatrix}\bold{x}\tag{8}</script>
+\end{pmatrix}\boldsymbol{x}\tag{8}</script>
 的基础解系，并画出相图。</p>
 <p>解：方程组 <script type="math/tex">(8)</script> 的方向场如下图所示，所有的非零解都远离原点。</p>
 <p><img alt="" src="../080.010.png" /></p>
-<p>例 1 中我们得到了系数矩阵 <script type="math/tex">\bold{A}</script> 的特征值和特征向量。<script type="math/tex">r=2</script> 是代数重数为 2 的特征值，对应的特征向量是 <script type="math/tex">\bold{\xi}=(1,-1)^T</script>。因此 <script type="math/tex">(8)</script> 的第一个解是
-<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\begin{pmatrix}
+<p>例 1 中我们得到了系数矩阵 <script type="math/tex">\boldsymbol{A}</script> 的特征值和特征向量。<script type="math/tex">r=2</script> 是代数重数为 2 的特征值，对应的特征向量是 <script type="math/tex">\boldsymbol{\xi}=(1,-1)^T</script>。因此 <script type="math/tex">(8)</script> 的第一个解是
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(t)=\begin{pmatrix}
 1\\-1
 \end{pmatrix}e^{2t}\tag{9}</script>
-但是没有第二个形式为 <script type="math/tex">\bold{x}=\bold{\xi}e^{rt}</script> 的解。</p>
+但是没有第二个形式为 <script type="math/tex">\boldsymbol{x}=\boldsymbol{\xi}e^{rt}</script> 的解。</p>
 <p>基于之前 3.4 小节的思想，假定第二个解的形式是
-<script type="math/tex; mode=display">\bold{x}=\bold{\xi}te^{2t}\tag{10}</script>
-其中 <script type="math/tex">\bold{\xi}</script> 是待定向量。将上式代入 <script type="math/tex">(8)</script> 得到
-<script type="math/tex; mode=display">2\bold{\xi}te^{2t}+\bold{\xi}e^{2t}=\bold{A}\bold{\xi}te^{2t}\tag{11}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\xi}te^{2t}\tag{10}</script>
+其中 <script type="math/tex">\boldsymbol{\xi}</script> 是待定向量。将上式代入 <script type="math/tex">(8)</script> 得到
+<script type="math/tex; mode=display">2\boldsymbol{\xi}te^{2t}+\boldsymbol{\xi}e^{2t}=\boldsymbol{A}\boldsymbol{\xi}te^{2t}\tag{11}</script>
 上式对于所有 <script type="math/tex">t</script> 都要成立，那么 <script type="math/tex">te^{2t},e^{2t}</script> 的系数要相等。为了让 <script type="math/tex">e^{2t}</script> 的系数相等，得到
-<script type="math/tex; mode=display">\bold{\xi}=\bold{0}\tag{12}</script>
+<script type="math/tex; mode=display">\boldsymbol{\xi}=\boldsymbol{0}\tag{12}</script>
 因此 <script type="math/tex">(8)</script> 没有形式为 <script type="math/tex">(10)</script> 的非零解。</p>
-<p>方程 <script type="math/tex">(11)</script> 出现了 <script type="math/tex">te^{2t},e^{2t}</script>，那么除了 <script type="math/tex">te^{2t}</script> 之外，第二个解还需要包含形式为 <script type="math/tex">\bold{\eta}e^{2t}的项</script>，因此假设解的形式是
-<script type="math/tex; mode=display">\bold{x}=\bold{\xi}te^{2t}+\bold{\eta}e^{2t}\tag{13}</script>
-其中 <script type="math/tex">\bold{\xi},\bold{\eta}</script> 是待定向量。将上式代入 <script type="math/tex">(8)</script> 得到
-<script type="math/tex; mode=display">2\bold{\xi}te^{2t}+(\bold{\xi}+2\bold{\eta})e^{2t}=\bold{A}(\bold{\xi}te^{2t}+\bold{\eta}e^{2t})\tag{14}</script>
+<p>方程 <script type="math/tex">(11)</script> 出现了 <script type="math/tex">te^{2t},e^{2t}</script>，那么除了 <script type="math/tex">te^{2t}</script> 之外，第二个解还需要包含形式为 <script type="math/tex">\boldsymbol{\eta}e^{2t}的项</script>，因此假设解的形式是
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\xi}te^{2t}+\boldsymbol{\eta}e^{2t}\tag{13}</script>
+其中 <script type="math/tex">\boldsymbol{\xi},\boldsymbol{\eta}</script> 是待定向量。将上式代入 <script type="math/tex">(8)</script> 得到
+<script type="math/tex; mode=display">2\boldsymbol{\xi}te^{2t}+(\boldsymbol{\xi}+2\boldsymbol{\eta})e^{2t}=\boldsymbol{A}(\boldsymbol{\xi}te^{2t}+\boldsymbol{\eta}e^{2t})\tag{14}</script>
 为了让 <script type="math/tex">te^{2t},e^{2t}</script> 的系数相等，那么
-<script type="math/tex; mode=display">2\bold{\xi}=\bold{A}\bold{\xi}</script>
-<script type="math/tex; mode=display">\bold{\xi}+2\bold{\eta}=\bold{A}\bold{\eta}</script>
-为了确定 <script type="math/tex">\bold{\xi},\bold{\eta}</script>，上述方程写作
-<script type="math/tex; mode=display">(\bold{A}-2\bold{I})\bold{\xi}=\bold{0}\tag{15}</script>
-<script type="math/tex; mode=display">(\bold{A}-2\bold{I})\bold{\eta}=\bold{\xi}\tag{16}</script>
-方程 <script type="math/tex">(15)</script> 的解就是 <script type="math/tex">r=2,\bold{\xi}=(1,-1)^T</script>。由于 <script type="math/tex">\det(\bold{A}-2\bold{I})=0</script>，<script type="math/tex">(16)</script> 有非零解要求右边的 <script type="math/tex">\bold{\xi}</script> 满足某种条件。而 <script type="math/tex">\bold{\xi}</script> 及其整数倍恰好是能够使得方程组有解的向量。<script type="math/tex">(16)</script> 的增广矩阵是
+<script type="math/tex; mode=display">2\boldsymbol{\xi}=\boldsymbol{A}\boldsymbol{\xi}</script>
+<script type="math/tex; mode=display">\boldsymbol{\xi}+2\boldsymbol{\eta}=\boldsymbol{A}\boldsymbol{\eta}</script>
+为了确定 <script type="math/tex">\boldsymbol{\xi},\boldsymbol{\eta}</script>，上述方程写作
+<script type="math/tex; mode=display">(\boldsymbol{A}-2\boldsymbol{I})\boldsymbol{\xi}=\boldsymbol{0}\tag{15}</script>
+<script type="math/tex; mode=display">(\boldsymbol{A}-2\boldsymbol{I})\boldsymbol{\eta}=\boldsymbol{\xi}\tag{16}</script>
+方程 <script type="math/tex">(15)</script> 的解就是 <script type="math/tex">r=2,\boldsymbol{\xi}=(1,-1)^T</script>。由于 <script type="math/tex">\det(\boldsymbol{A}-2\boldsymbol{I})=0</script>，<script type="math/tex">(16)</script> 有非零解要求右边的 <script type="math/tex">\boldsymbol{\xi}</script> 满足某种条件。而 <script type="math/tex">\boldsymbol{\xi}</script> 及其整数倍恰好是能够使得方程组有解的向量。<script type="math/tex">(16)</script> 的增广矩阵是
 <script type="math/tex; mode=display">\begin{pmatrix}
 -1&-1&1\\1&1&-1
 \end{pmatrix}</script>
 第二行是第一行的 -1 倍，那么方程组有解
 <script type="math/tex; mode=display">-\eta_1-\eta_2=1</script>
 令 <script type="math/tex">\eta_1=k</script>，其中 <script type="math/tex">k</script> 是任意常量，那么 <script type="math/tex">\eta_2=-k-1</script>，因此
-<script type="math/tex; mode=display">\bold{\eta}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\eta}=\begin{pmatrix}
 k\\-k-1
 \end{pmatrix}=\begin{pmatrix}
 0\\-1
 \end{pmatrix}+k\begin{pmatrix}
 1\\-1
 \end{pmatrix}\tag{17}</script>
-将 <script type="math/tex">\bold{\xi},\bold{\eta}</script> 代入 <script type="math/tex">(13)</script> 得到
-<script type="math/tex; mode=display">\bold{x}=\bold{\xi}te^{2t}+\bold{\eta}e^{2t}=\begin{pmatrix}
+将 <script type="math/tex">\boldsymbol{\xi},\boldsymbol{\eta}</script> 代入 <script type="math/tex">(13)</script> 得到
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\xi}te^{2t}+\boldsymbol{\eta}e^{2t}=\begin{pmatrix}
 1\\-1
 \end{pmatrix}te^{2t}+\begin{pmatrix}
 0\\-1
 \end{pmatrix}e^{2t}+k\begin{pmatrix}
 1\\-1
 \end{pmatrix}e^{2t}\tag{18}</script>
-<script type="math/tex">(18)</script> 的最后一项是第一个解 <script type="math/tex">\bold{x}^{(1)}(t)</script> 的若干倍，因此可以忽略，那么第二个解是
-<script type="math/tex; mode=display">\bold{x}^{(2)}(t)=\begin{pmatrix}
+<script type="math/tex">(18)</script> 的最后一项是第一个解 <script type="math/tex">\boldsymbol{x}^{(1)}(t)</script> 的若干倍，因此可以忽略，那么第二个解是
+<script type="math/tex; mode=display">\boldsymbol{x}^{(2)}(t)=\begin{pmatrix}
 1\\-1
 \end{pmatrix}te^{2t}+\begin{pmatrix}
 0\\-1
 \end{pmatrix}e^{2t}\tag{19}</script>
-朗斯基行列式 <script type="math/tex">W[\bold{x}^{(1)},\bold{x}^{(2)}](t)=-e^{4t}\neq 0</script>，因此 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)}</script> 组成了方程组 <script type="math/tex">(8)</script> 的基础解系，因此通解是
+朗斯基行列式 <script type="math/tex">W[\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}](t)=-e^{4t}\neq 0</script>，因此 <script type="math/tex">\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}</script> 组成了方程组 <script type="math/tex">(8)</script> 的基础解系，因此通解是
 <script type="math/tex; mode=display">\begin{aligned}
-\bold{x}&=c_1\bold{x}^{(1)}+c_2\bold{x}^{(2)}\\
+\boldsymbol{x}&=c_1\boldsymbol{x}^{(1)}+c_2\boldsymbol{x}^{(2)}\\
 &=c_1\begin{pmatrix}
 1\\-1
 \end{pmatrix}e^{2t}+c_2\bigg(\begin{pmatrix}
@@ -30475,43 +30475,43 @@ k\\-k-1
 0\\-1
 \end{pmatrix}e^{2t}\bigg)
 \end{aligned}\tag{20}</script>
-解 <script type="math/tex">(20)</script> 的相图的主要特征来自于每一项都包含 <script type="math/tex">e^{2t}</script>。随着 <script type="math/tex">t\to -\infty</script>，<script type="math/tex">\bold{x}\to\bold{0}</script>，除非 <script type="math/tex">c_1,c_2</script> 都是零，否则随着 <script type="math/tex">t\to\infty</script> 时 <script type="math/tex">\bold{x}</script> 趋于无界。如果 <script type="math/tex">c_1,c_2</script> 都不是零，沿着任意轨迹都有
+解 <script type="math/tex">(20)</script> 的相图的主要特征来自于每一项都包含 <script type="math/tex">e^{2t}</script>。随着 <script type="math/tex">t\to -\infty</script>，<script type="math/tex">\boldsymbol{x}\to\boldsymbol{0}</script>，除非 <script type="math/tex">c_1,c_2</script> 都是零，否则随着 <script type="math/tex">t\to\infty</script> 时 <script type="math/tex">\boldsymbol{x}</script> 趋于无界。如果 <script type="math/tex">c_1,c_2</script> 都不是零，沿着任意轨迹都有
 <script type="math/tex; mode=display">\lim_{t\to -\infty}\frac{x_2(t)}{x_1(t)}=\lim_{t\to -\infty}\frac{-c_1e^{2t}+c_2(-te^{2t}-e^{2t})}{c_1e^{2t}+c_2te^{2t}}=\lim_{t\to -\infty}\frac{-c_1-c_2t-c_2}{c_1+c_2t}=-1</script>
 因此，随着 <script type="math/tex">t\to -\infty</script>，每一个轨迹都沿着 <script type="math/tex">x_2=-x_1</script> 趋于原点。如下图所示。随着 <script type="math/tex">t\to\infty</script>，轨迹的斜率也趋于 -1。</p>
 <p><img alt="" src="../080.021.png" /></p>
-<p>可以证明，当 <script type="math/tex">t\to\infty</script> 时，轨线并不趋近于任何单一的渐近线。上图给出了一些轨迹，包括 <script type="math/tex">\bold{x}^{(1)}</script> 是黑色实线，<script type="math/tex">\bold{x}^{(2)}</script> 是黑色虚线。<script type="math/tex">x_1,x_2</script> 相对于 <script type="math/tex">t</script> 的变化如下图所示。</p>
+<p>可以证明，当 <script type="math/tex">t\to\infty</script> 时，轨线并不趋近于任何单一的渐近线。上图给出了一些轨迹，包括 <script type="math/tex">\boldsymbol{x}^{(1)}</script> 是黑色实线，<script type="math/tex">\boldsymbol{x}^{(2)}</script> 是黑色虚线。<script type="math/tex">x_1,x_2</script> 相对于 <script type="math/tex">t</script> 的变化如下图所示。</p>
 <p><img alt="" src="../080.022.png" /></p>
-<p>上图（a）是典型的有相同特征值的但只对应一个独立特征向量的 <script type="math/tex">2\times 2</script> 方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script> 的轨迹的模式。原点称为非正常节点（<code>improper node</code>）。如果特征值是负数，那么轨迹类似不过方向向内。非正常节点是渐进稳定的或者是稳定的，这取决于特征值的符号。</p>
-<p>从上面的例子可以看出两个一阶方程组成的方程组和一个二阶方程有一个明显不同：对于特征方程有重复根 <script type="math/tex">r_1</script> 的二阶线性方程，<script type="math/tex">ce^{r_1t}</script> 不会出现在第二个解中，因为它是第一个解的若干倍。但是对于一阶线性方程组，<script type="math/tex">\bold{\eta}e^{r_1t}</script> 通常不是 <script type="math/tex">\bold{\xi}e^{r_1t}</script> 的若干倍，因此 <script type="math/tex">\bold{\eta}e^{r_2t}</script> 需要保留。</p>
-<p>回到方程组 <script type="math/tex">(1)</script>，如果 <script type="math/tex">r=\rho</script> 是 <script type="math/tex">\bold{A}</script> 的二重特征值，并且只有一个特征向量 <script type="math/tex">\bold{\xi}</script> 与之对应，那么第一个解是
-<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\bold{\xi}e^{\rho t}\tag{21}</script>
-其中 <script type="math/tex">\bold{\xi}</script> 满足
-<script type="math/tex; mode=display">(\bold{A}-\rho\bold{I})\bold{\xi}=\bold{0}\tag{22}</script>
+<p>上图（a）是典型的有相同特征值的但只对应一个独立特征向量的 <script type="math/tex">2\times 2</script> 方程组 <script type="math/tex">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}</script> 的轨迹的模式。原点称为非正常节点（<code>improper node</code>）。如果特征值是负数，那么轨迹类似不过方向向内。非正常节点是渐进稳定的或者是稳定的，这取决于特征值的符号。</p>
+<p>从上面的例子可以看出两个一阶方程组成的方程组和一个二阶方程有一个明显不同：对于特征方程有重复根 <script type="math/tex">r_1</script> 的二阶线性方程，<script type="math/tex">ce^{r_1t}</script> 不会出现在第二个解中，因为它是第一个解的若干倍。但是对于一阶线性方程组，<script type="math/tex">\boldsymbol{\eta}e^{r_1t}</script> 通常不是 <script type="math/tex">\boldsymbol{\xi}e^{r_1t}</script> 的若干倍，因此 <script type="math/tex">\boldsymbol{\eta}e^{r_2t}</script> 需要保留。</p>
+<p>回到方程组 <script type="math/tex">(1)</script>，如果 <script type="math/tex">r=\rho</script> 是 <script type="math/tex">\boldsymbol{A}</script> 的二重特征值，并且只有一个特征向量 <script type="math/tex">\boldsymbol{\xi}</script> 与之对应，那么第一个解是
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(t)=\boldsymbol{\xi}e^{\rho t}\tag{21}</script>
+其中 <script type="math/tex">\boldsymbol{\xi}</script> 满足
+<script type="math/tex; mode=display">(\boldsymbol{A}-\rho\boldsymbol{I})\boldsymbol{\xi}=\boldsymbol{0}\tag{22}</script>
 和例 2 类似，第二个解是
-<script type="math/tex; mode=display">\bold{x}^{(2)}=\bold{\xi}te^{\rho t}+\bold{\eta}e^{\rho t}\tag{23}</script>
-其中 <script type="math/tex">\bold{\xi}</script> 满足 <script type="math/tex">(22)</script>，<script type="math/tex">\bold{\eta}</script> 满足
-<script type="math/tex; mode=display">(\bold{A}-\rho\bold{I})\bold{\eta}=\bold{\xi}\tag{24}</script>
-尽管 <script type="math/tex">\det(\bold{A}-\rho\bold{I})=0</script>，但总是可以用 <script type="math/tex">(24)</script> 求解出 <script type="math/tex">\bold{\eta}</script>。这里不展示证明细节了，一个重要步骤是对 <script type="math/tex">(24)</script> 两边同乘 <script type="math/tex">\bold{A}-\rho\bold{I}</script>，那么
-<script type="math/tex; mode=display">(\bold{A}-\rho\bold{I})^2\bold{\eta}=\bold{0}</script>
-向量 <script type="math/tex">\bold{\eta}</script> 被称为矩阵 <script type="math/tex">\bold{A}</script> 对应特征值 <script type="math/tex">\rho</script> 的广义特征向量（<code>generalized eigenvector</code>）。</p>
+<script type="math/tex; mode=display">\boldsymbol{x}^{(2)}=\boldsymbol{\xi}te^{\rho t}+\boldsymbol{\eta}e^{\rho t}\tag{23}</script>
+其中 <script type="math/tex">\boldsymbol{\xi}</script> 满足 <script type="math/tex">(22)</script>，<script type="math/tex">\boldsymbol{\eta}</script> 满足
+<script type="math/tex; mode=display">(\boldsymbol{A}-\rho\boldsymbol{I})\boldsymbol{\eta}=\boldsymbol{\xi}\tag{24}</script>
+尽管 <script type="math/tex">\det(\boldsymbol{A}-\rho\boldsymbol{I})=0</script>，但总是可以用 <script type="math/tex">(24)</script> 求解出 <script type="math/tex">\boldsymbol{\eta}</script>。这里不展示证明细节了，一个重要步骤是对 <script type="math/tex">(24)</script> 两边同乘 <script type="math/tex">\boldsymbol{A}-\rho\boldsymbol{I}</script>，那么
+<script type="math/tex; mode=display">(\boldsymbol{A}-\rho\boldsymbol{I})^2\boldsymbol{\eta}=\boldsymbol{0}</script>
+向量 <script type="math/tex">\boldsymbol{\eta}</script> 被称为矩阵 <script type="math/tex">\boldsymbol{A}</script> 对应特征值 <script type="math/tex">\rho</script> 的广义特征向量（<code>generalized eigenvector</code>）。</p>
 <h3 id="_1">基解矩阵</h3>
-<p>7.7 小节讨论过，基解矩阵由线性无关的解组成。因此，在上个例子中，基解矩阵由 <script type="math/tex">(8)</script> 的解 <script type="math/tex">\bold{x}^{(1)},\bold{x}^{(2)}</script> 组成，那么
-<script type="math/tex; mode=display">\bold{\Psi}(t)=\begin{pmatrix}
+<p>7.7 小节讨论过，基解矩阵由线性无关的解组成。因此，在上个例子中，基解矩阵由 <script type="math/tex">(8)</script> 的解 <script type="math/tex">\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}</script> 组成，那么
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(t)=\begin{pmatrix}
 e^{2t}&te^{2t}\\-e^{2t}&-te^{2t}-e^{2t}
 \end{pmatrix}=e^{2t}\begin{pmatrix}
 1&t\\-1&-1-t
 \end{pmatrix}\tag{25}</script>
-特殊的基解矩阵 <script type="math/tex">\bold{\Phi}</script> 满足 <script type="math/tex">\bold{\Phi}(0)=\bold{I}</script>，通过 <script type="math/tex">\bold{\Phi}(t)=\bold{\Psi}(t)\bold{\Psi}^{-1}(0)</script> 可以计算得到。由 <script type="math/tex">(25)</script> 得到
-<script type="math/tex; mode=display">\bold{\Psi}(0)=\begin{pmatrix}
+特殊的基解矩阵 <script type="math/tex">\boldsymbol{\Phi}</script> 满足 <script type="math/tex">\boldsymbol{\Phi}(0)=\boldsymbol{I}</script>，通过 <script type="math/tex">\boldsymbol{\Phi}(t)=\boldsymbol{\Psi}(t)\boldsymbol{\Psi}^{-1}(0)</script> 可以计算得到。由 <script type="math/tex">(25)</script> 得到
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(0)=\begin{pmatrix}
 1&0\\-1&-1
 \end{pmatrix}</script>
 那么
-<script type="math/tex; mode=display">\bold{\Psi}^{-1}(0)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\Psi}^{-1}(0)=\begin{pmatrix}
 1&0\\-1&-1
 \end{pmatrix}\tag{26}</script>
 那么
 <script type="math/tex; mode=display">\begin{aligned}
-\bold{\Phi}(t)&=\bold{\Psi}(t)\bold{\Psi}^{-1}(0)\\
+\boldsymbol{\Phi}(t)&=\boldsymbol{\Psi}(t)\boldsymbol{\Psi}^{-1}(0)\\
 &=e^{2t}\begin{pmatrix}
 1&t\\-1&-1-t
 \end{pmatrix}\begin{pmatrix}
@@ -30521,45 +30521,45 @@ e^{2t}&te^{2t}\\-e^{2t}&-te^{2t}-e^{2t}
 1-t&-t\\t&1+t
 \end{pmatrix}
 \end{aligned}\tag{27}</script>
-之前讨论过，满足 <script type="math/tex">\bold{\Phi}(0)=\bold{I}</script> 的基解矩阵也可以写作 <script type="math/tex">\exp(\bold{A}t)</script>。对于例 2 中的矩阵 <script type="math/tex">\bold{A}</script>，初始条件 <script type="math/tex">\bold{x}(0)=\bold{x}^0</script> 的微分方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script> 的解是 <script type="math/tex">\bold{x}(t)=\exp(\bold{A}t)\bold{x}^0</script>，即 <script type="math/tex">\bold{x}(t)=\bold{\Phi}(t)\bold{x}^0</script>。</p>
+之前讨论过，满足 <script type="math/tex">\boldsymbol{\Phi}(0)=\boldsymbol{I}</script> 的基解矩阵也可以写作 <script type="math/tex">\exp(\boldsymbol{A}t)</script>。对于例 2 中的矩阵 <script type="math/tex">\boldsymbol{A}</script>，初始条件 <script type="math/tex">\boldsymbol{x}(0)=\boldsymbol{x}^0</script> 的微分方程组 <script type="math/tex">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}</script> 的解是 <script type="math/tex">\boldsymbol{x}(t)=\exp(\boldsymbol{A}t)\boldsymbol{x}^0</script>，即 <script type="math/tex">\boldsymbol{x}(t)=\boldsymbol{\Phi}(t)\boldsymbol{x}^0</script>。</p>
 <h3 id="jordan">Jordan 标准型</h3>
-<p>仅当 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\bold{A}</script> 有 <script type="math/tex">n</script> 个线性无关的特征向量时，矩阵能够对角化。如果少一些特征向量，那么 <script type="math/tex">\bold{A}</script> 可以转换成类似对角矩阵的形式，称为 Jordan 标准型（<code>form</code>），对角线上是 <script type="math/tex">\bold{A}</script> 的特征值，对角线之上有元素为 1，其余元素都是 0。</p>
-<p>回到 <script type="math/tex">(2)</script> 给出的矩阵 <script type="math/tex">\bold{A}</script>。为了将其转换为 Jordan 标准型，首先使用 <script type="math/tex">(6)</script> 给出的特征向量 <script type="math/tex">\bold{\xi}</script> 和 <script type="math/tex">(17)</script> 给出广义特征向量 <script type="math/tex">\bold{\eta}</script>（<script type="math/tex">k=0</script>）构建出矩阵 <script type="math/tex">\bold{T}</script> 和其逆矩阵
-<script type="math/tex; mode=display">\bold{T}=\begin{pmatrix}
+<p>仅当 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\boldsymbol{A}</script> 有 <script type="math/tex">n</script> 个线性无关的特征向量时，矩阵能够对角化。如果少一些特征向量，那么 <script type="math/tex">\boldsymbol{A}</script> 可以转换成类似对角矩阵的形式，称为 Jordan 标准型（<code>form</code>），对角线上是 <script type="math/tex">\boldsymbol{A}</script> 的特征值，对角线之上有元素为 1，其余元素都是 0。</p>
+<p>回到 <script type="math/tex">(2)</script> 给出的矩阵 <script type="math/tex">\boldsymbol{A}</script>。为了将其转换为 Jordan 标准型，首先使用 <script type="math/tex">(6)</script> 给出的特征向量 <script type="math/tex">\boldsymbol{\xi}</script> 和 <script type="math/tex">(17)</script> 给出广义特征向量 <script type="math/tex">\boldsymbol{\eta}</script>（<script type="math/tex">k=0</script>）构建出矩阵 <script type="math/tex">\boldsymbol{T}</script> 和其逆矩阵
+<script type="math/tex; mode=display">\boldsymbol{T}=\begin{pmatrix}
 1&0\\-1&-1
-\end{pmatrix},\bold{T}^{-1}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{T}^{-1}=\begin{pmatrix}
 1&0\\-1&-1
 \end{pmatrix}\tag{28}</script>
 那么
-<script type="math/tex; mode=display">\bold{T}^{-1}\bold{A}\bold{T}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{T}^{-1}\boldsymbol{A}\boldsymbol{T}=\begin{pmatrix}
 2&1\\0&2
-\end{pmatrix}=\bold{J}\tag{29}</script>
-矩阵 <script type="math/tex">\bold{J}</script> 是 <script type="math/tex">\bold{A}</script> 的 Jordan 标准型。1 仅会出现在对角线之上。</p>
+\end{pmatrix}=\boldsymbol{J}\tag{29}</script>
+矩阵 <script type="math/tex">\boldsymbol{J}</script> 是 <script type="math/tex">\boldsymbol{A}</script> 的 Jordan 标准型。1 仅会出现在对角线之上。</p>
 <p>回到方程组 <script type="math/tex">(1)</script>
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}</script>
-令 <script type="math/tex">\bold{x}=\bold{T}\bold{y}</script>，那么
-<script type="math/tex; mode=display">\bold{y}'=\bold{J}\bold{y}\tag{30}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}</script>
+令 <script type="math/tex">\boldsymbol{x}=\boldsymbol{T}\boldsymbol{y}</script>，那么
+<script type="math/tex; mode=display">\boldsymbol{y}'=\boldsymbol{J}\boldsymbol{y}\tag{30}</script>
 <script type="math/tex">(30)</script> 的标量形式是
 <script type="math/tex; mode=display">y_1'=2y_1+y_2,y_2'=2y_2\tag{31}</script>
 这个方程组很容易求解，得到
 <script type="math/tex; mode=display">y_1(t)=c_1e^{2t},y_1(t)=c_1te^{2t}+c_2e^{2t}\tag{32}</script>
 因此 <script type="math/tex">(30)</script> 有两个独立的解
-<script type="math/tex; mode=display">\bold{y}^{(1)}(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{y}^{(1)}(t)=\begin{pmatrix}
 1\\0
-\end{pmatrix}e^{2t},\bold{y}^{(2)}(t)=\begin{pmatrix}
+\end{pmatrix}e^{2t},\boldsymbol{y}^{(2)}(t)=\begin{pmatrix}
 t\\1
 \end{pmatrix}e^{2t}\tag{33}</script>
 相应的基解矩阵是
-<script type="math/tex; mode=display">\hat{\bold{\Psi}}(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\hat{\boldsymbol{\Psi}}(t)=\begin{pmatrix}
 e^{2t}&te^{2t}\\0&e^{2t}
 \end{pmatrix}\tag{33}</script>
-由于 <script type="math/tex">\hat{\bold{\Psi}}(0)=\bold{I}</script>，那么这个矩阵也就是 <script type="math/tex">\exp(\bold{J}t)</script>。同样的结果也可以通过计算 <script type="math/tex">\bold{J}</script> 的幂次然后代入指数级数得到。那么原始方程组的基解矩阵是
-<script type="math/tex; mode=display">\bold{\Psi}(t)=\bold{T}\exp(\bold{J}t)=\begin{pmatrix}
+由于 <script type="math/tex">\hat{\boldsymbol{\Psi}}(0)=\boldsymbol{I}</script>，那么这个矩阵也就是 <script type="math/tex">\exp(\boldsymbol{J}t)</script>。同样的结果也可以通过计算 <script type="math/tex">\boldsymbol{J}</script> 的幂次然后代入指数级数得到。那么原始方程组的基解矩阵是
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(t)=\boldsymbol{T}\exp(\boldsymbol{J}t)=\begin{pmatrix}
 e^{2t}&te^{2t}\\-e^{2t}&-e^{2t}-te^{2t}
 \end{pmatrix}\tag{35}</script>
 这与 <script type="math/tex">(25)</script> 的结果一致。</p>
-<p>这里并没有讨论 <script type="math/tex">n\times n</script> 的方程组 <script type="math/tex">\bold{x}'=\bold{A}\bold{x}</script>。对于大的 <script type="math/tex">n</script>，或许有更大的代数重数 <script type="math/tex">m</script> 和小一些的几何重数 <script type="math/tex">q</script>，因此有 <script type="math/tex">m-q</script> 个广义特征向量。TODO exercise 17 &amp; 18 for n = 3。对于 <script type="math/tex">n\geq 4</script> 的情况，或许会有重复的复特征值。这往往需要更多的线性代数的知识，超出了这里讨论的范围。</p>
-<p>对于 <script type="math/tex">n=3,4</script> 的情况，或许还可以手算。更大的 <script type="math/tex">n</script> 值，要借助合适的计算机辅助工具。这不意味着克服了所有的困难，不过确实可以让问题变得容易处理。最后，对于来自物理问题的建模，矩阵 <script type="math/tex">\bold{A}</script> 的系数可能来自物理测量值。测量中不可避免的不确定性导致 <script type="math/tex">\bold{A}</script> 的特征值的不确定性，比如无法很清晰的分析两个特征值是相等还是真的非常接近。</p>
+<p>这里并没有讨论 <script type="math/tex">n\times n</script> 的方程组 <script type="math/tex">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}</script>。对于大的 <script type="math/tex">n</script>，或许有更大的代数重数 <script type="math/tex">m</script> 和小一些的几何重数 <script type="math/tex">q</script>，因此有 <script type="math/tex">m-q</script> 个广义特征向量。对于 <script type="math/tex">n\geq 4</script> 的情况，或许会有重复的复特征值。这往往需要更多的线性代数的知识，超出了这里讨论的范围。</p>
+<p>对于 <script type="math/tex">n=3,4</script> 的情况，或许还可以手算。更大的 <script type="math/tex">n</script> 值，要借助合适的计算机辅助工具。这不意味着克服了所有的困难，不过确实可以让问题变得容易处理。最后，对于来自物理问题的建模，矩阵 <script type="math/tex">\boldsymbol{A}</script> 的系数可能来自物理测量值。测量中不可避免的不确定性导致 <script type="math/tex">\boldsymbol{A}</script> 的特征值的不确定性，比如无法很清晰的分析两个特征值是相等还是真的非常接近。</p>
 
   
 

@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#expboldat" class="md-skip">
+        <a href="#expboldsymbolat" class="md-skip">
           Skip to content
         </a>
       
@@ -17043,10 +17043,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#expboldat" class="md-nav__link">
+  <a href="#expboldsymbolat" class="md-nav__link">
     <span class="md-ellipsis">
       
-        矩阵 \exp(\bold{A}t)
+        矩阵 \exp(\boldsymbol{A}t)
       
     </span>
   </a>
@@ -30220,10 +30220,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#expboldat" class="md-nav__link">
+  <a href="#expboldsymbolat" class="md-nav__link">
     <span class="md-ellipsis">
       
-        矩阵 \exp(\bold{A}t)
+        矩阵 \exp(\boldsymbol{A}t)
       
     </span>
   </a>
@@ -30368,11 +30368,11 @@
 
 
 
-<p>通过引入基解矩阵的概念，可以进一步阐明线性微分方程组解的结构。假定 <script type="math/tex">\bold{x}^{(1)}(t),\cdots,\bold{x}^{(n)}(t)</script> 是方程
-<script type="math/tex; mode=display">\bold{x}'=\bold{P}(t)\bold{x}\tag{1}</script>
+<p>通过引入基解矩阵的概念，可以进一步阐明线性微分方程组解的结构。假定 <script type="math/tex">\boldsymbol{x}^{(1)}(t),\cdots,\boldsymbol{x}^{(n)}(t)</script> 是方程
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{P}(t)\boldsymbol{x}\tag{1}</script>
 在某个区间 <script type="math/tex">\alpha<t<\beta</script> 的基础解系。那么矩阵
-<script type="math/tex; mode=display">\bold{\Psi}(t)=\begin{pmatrix}
-\bold{x}^{(1)}(t)|\cdots|\bold{x}^{(n)(t)}
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(t)=\begin{pmatrix}
+\boldsymbol{x}^{(1)}(t)|\cdots|\boldsymbol{x}^{(n)(t)}
 \end{pmatrix}=\begin{pmatrix}
 x_1^{(1)}(t)&\cdots&x_1^{(n)}(t)\\
 \vdots&&\vdots\\
@@ -30380,74 +30380,74 @@ x_n^{(1)}(t)&\cdots&x_n^{(n)}(t)
 \end{pmatrix}\tag{2}</script>
 是方程 <script type="math/tex">(1)</script> 的基解矩阵（<code>fundamental matrix</code>）。由于列是线性无关的，那么基解矩阵是非奇异的。</p>
 <p>例 1 求方程组
-<script type="math/tex; mode=display">\bold{x}'=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}'=\begin{pmatrix}
 1&1\\1&4
-\end{pmatrix}\bold{x}\tag{3}</script>
+\end{pmatrix}\boldsymbol{x}\tag{3}</script>
 的基解矩阵。</p>
 <p>解：7.5 小节的例 2 已经求得了基础解系
-<script type="math/tex; mode=display">\bold{x}^{(1)}(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(t)=\begin{pmatrix}
 e^{3t}\\2e^{3t}
-\end{pmatrix},\bold{x}^{(2)}(t)=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{x}^{(2)}(t)=\begin{pmatrix}
 e^{-t}\\-2e^{-t}
 \end{pmatrix}</script>
 因此 <script type="math/tex">(3)</script> 的基解矩阵是
-<script type="math/tex; mode=display">\bold{\Psi}(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(t)=\begin{pmatrix}
 e^{3t}&e^{-t}\\
 2e^{3t}&-2e^{-t}
 \end{pmatrix}\tag{4}</script>
 </p>
 <p>使用基解矩阵可以将初值问题的解写成非常紧凑的形式。<script type="math/tex">(1)</script> 的通解是
-<script type="math/tex; mode=display">\bold{x}=c_1\bold{x}^{(1)}(t)+\cdots+c_n\bold{x}^{(n)}(t)\tag{5}</script>
-使用 <script type="math/tex">\bold{\Psi}</script> 可以写作
-<script type="math/tex; mode=display">\bold{x}=\bold{\Psi}(t)\bold{c}\tag{6}</script>
-其中 <script type="math/tex">\bold{c}</script> 是任意分量 <script type="math/tex">c_1,\cdots,c_n</script> 的向量。对于一个包含 <script type="math/tex">(1)</script> 和如下初始条件的初值问题，
-<script type="math/tex; mode=display">\bold{x}(t_0)=\bold{x}^0\tag{7}</script>
-其中 <script type="math/tex">t_0</script> 是区间 <script type="math/tex">\alpha<t<\beta</script> 的给定点，<script type="math/tex">\bold{x}^0</script> 是给定的初始向量，要求解一个 <script type="math/tex">\bold{c}</script> 满足初始条件 <script type="math/tex">(7)</script>。因此 <script type="math/tex">\bold{c}</script> 必须满足
-<script type="math/tex; mode=display">\bold{\Psi}(t_0)\bold{c}=\bold{x}^0\tag{8}</script>
-由于 <script type="math/tex">\bold{\Psi}(t_0)</script> 是非奇异的，那么
-<script type="math/tex; mode=display">\bold{c}=\bold{\Psi}^{-1}(t_0)\bold{x}^0\tag{9}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}=c_1\boldsymbol{x}^{(1)}(t)+\cdots+c_n\boldsymbol{x}^{(n)}(t)\tag{5}</script>
+使用 <script type="math/tex">\boldsymbol{\Psi}</script> 可以写作
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\Psi}(t)\boldsymbol{c}\tag{6}</script>
+其中 <script type="math/tex">\boldsymbol{c}</script> 是任意分量 <script type="math/tex">c_1,\cdots,c_n</script> 的向量。对于一个包含 <script type="math/tex">(1)</script> 和如下初始条件的初值问题，
+<script type="math/tex; mode=display">\boldsymbol{x}(t_0)=\boldsymbol{x}^0\tag{7}</script>
+其中 <script type="math/tex">t_0</script> 是区间 <script type="math/tex">\alpha<t<\beta</script> 的给定点，<script type="math/tex">\boldsymbol{x}^0</script> 是给定的初始向量，要求解一个 <script type="math/tex">\boldsymbol{c}</script> 满足初始条件 <script type="math/tex">(7)</script>。因此 <script type="math/tex">\boldsymbol{c}</script> 必须满足
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(t_0)\boldsymbol{c}=\boldsymbol{x}^0\tag{8}</script>
+由于 <script type="math/tex">\boldsymbol{\Psi}(t_0)</script> 是非奇异的，那么
+<script type="math/tex; mode=display">\boldsymbol{c}=\boldsymbol{\Psi}^{-1}(t_0)\boldsymbol{x}^0\tag{9}</script>
 因此
-<script type="math/tex; mode=display">\bold{x}=\bold{\Psi}(t)\bold{\Psi}^{-1}(t_0)\bold{x}^0\tag{10}</script>
-是初值问题 <script type="math/tex">(1),(7)</script> 的解。为了求解初值问题，我们一般用高斯消元法求解 <script type="math/tex">(8)</script> 中的 <script type="math/tex">\bold{c}</script> 然后代入 <script type="math/tex">(6)</script> 得到答案而不是计算 <script type="math/tex">(10)</script> 里面的 <script type="math/tex">\bold{\Psi}^{-1}(t_0)</script>。</p>
-<p>基解矩阵 <script type="math/tex">\bold{\Psi}</script> 的每一列都是 <script type="math/tex">(1)</script> 的解，那么 <script type="math/tex">\bold{\Psi}</script> 满足矩阵微分方程
-<script type="math/tex; mode=display">\bold{\Psi}'=\bold{P}(t)\bold{\Psi}\tag{11}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\Psi}(t)\boldsymbol{\Psi}^{-1}(t_0)\boldsymbol{x}^0\tag{10}</script>
+是初值问题 <script type="math/tex">(1),(7)</script> 的解。为了求解初值问题，我们一般用高斯消元法求解 <script type="math/tex">(8)</script> 中的 <script type="math/tex">\boldsymbol{c}</script> 然后代入 <script type="math/tex">(6)</script> 得到答案而不是计算 <script type="math/tex">(10)</script> 里面的 <script type="math/tex">\boldsymbol{\Psi}^{-1}(t_0)</script>。</p>
+<p>基解矩阵 <script type="math/tex">\boldsymbol{\Psi}</script> 的每一列都是 <script type="math/tex">(1)</script> 的解，那么 <script type="math/tex">\boldsymbol{\Psi}</script> 满足矩阵微分方程
+<script type="math/tex; mode=display">\boldsymbol{\Psi}'=\boldsymbol{P}(t)\boldsymbol{\Psi}\tag{11}</script>
 通过逐列比较 <script type="math/tex">(11)</script> 的两边，可以很容易验证正确性。</p>
-<p>有时使用特殊的基解矩阵会很方便，特殊的基解矩阵用 <script type="math/tex">\bold{\Phi}(t)</script> 来表示，它的每一列是由定理 7.4.4 定义的向量 <script type="math/tex">\bold{x}^{(1)}(t),\cdots,\bold{x}^{(n)}(t)</script>。除了微分方程 <script type="math/tex">(1)</script> 之外，这些向量还满足
-<script type="math/tex; mode=display">\bold{x}^{(j)}(t_0)=\bold{e}^{(j)}\tag{12}</script>
-其中 <script type="math/tex">\bold{e}^{(j)}</script> 定理 7.4.4 定义的单位矢量，第 <script type="math/tex">j</script> 个位置上 1 其余位置都是 0.因此
-<script type="math/tex; mode=display">\bold{\Phi}(t_0)=\begin{pmatrix}
+<p>有时使用特殊的基解矩阵会很方便，特殊的基解矩阵用 <script type="math/tex">\boldsymbol{\Phi}(t)</script> 来表示，它的每一列是由定理 7.4.4 定义的向量 <script type="math/tex">\boldsymbol{x}^{(1)}(t),\cdots,\boldsymbol{x}^{(n)}(t)</script>。除了微分方程 <script type="math/tex">(1)</script> 之外，这些向量还满足
+<script type="math/tex; mode=display">\boldsymbol{x}^{(j)}(t_0)=\boldsymbol{e}^{(j)}\tag{12}</script>
+其中 <script type="math/tex">\boldsymbol{e}^{(j)}</script> 定理 7.4.4 定义的单位矢量，第 <script type="math/tex">j</script> 个位置上 1 其余位置都是 0.因此
+<script type="math/tex; mode=display">\boldsymbol{\Phi}(t_0)=\begin{pmatrix}
 1&0&\cdots&0\\
 0&1&\cdots&0\\
 \vdots&\vdots&&\vdots\\
 0&0&\cdots&1
-\end{pmatrix}=\bold{I}\tag{13}</script>
-我们使用 <script type="math/tex">\bold{\Phi}</script> 表示满足初始条件 <script type="math/tex">(13)</script> 的基解矩阵，使用 <script type="math/tex">\bold{\Psi}</script> 来 表示任意基解矩阵。使用 <script type="math/tex">\bold{\Phi}</script> 来表示初值问题 <script type="math/tex">(1),(7)</script> 的话会非常紧凑，由于 <script type="math/tex">\bold{\Phi}^{-1}(t_0)=\bold{I}</script>，那么
-<script type="math/tex; mode=display">\bold{x}=\bold{\Phi}\bold{x}^0\tag{14}</script>
-尽管基解矩阵 <script type="math/tex">\bold{\Phi}(t)</script> 要比 <script type="math/tex">\bold{\Psi}(t)</script> 复杂，但是如果需要在很多不同初始条件下反复求解微分方程组的话就非常有用。这对应着一个物理物体有很多不同的初始状态。如果基解矩阵 <script type="math/tex">\bold{\Phi}(t)</script> 已经有了，那么用每一组初始条件乘以矩阵就可以得到解，如 <script type="math/tex">(14)</script>。矩阵 <script type="math/tex">\bold{\Phi}(t)</script> 表示从初始条件 <script type="math/tex">\bold{x}^0</script> 到任意时刻 <script type="math/tex">t</script> 的解 <script type="math/tex">\bold{x}(t)</script> 的转换。对比 <script type="math/tex">(10),(14)</script>，可以得到 <script type="math/tex">\bold{\Phi}(t)=\bold{\Psi}(t)\bold{\Psi}^{-1}(t_0)</script>。</p>
+\end{pmatrix}=\boldsymbol{I}\tag{13}</script>
+我们使用 <script type="math/tex">\boldsymbol{\Phi}</script> 表示满足初始条件 <script type="math/tex">(13)</script> 的基解矩阵，使用 <script type="math/tex">\boldsymbol{\Psi}</script> 来 表示任意基解矩阵。使用 <script type="math/tex">\boldsymbol{\Phi}</script> 来表示初值问题 <script type="math/tex">(1),(7)</script> 的话会非常紧凑，由于 <script type="math/tex">\boldsymbol{\Phi}^{-1}(t_0)=\boldsymbol{I}</script>，那么
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\Phi}\boldsymbol{x}^0\tag{14}</script>
+尽管基解矩阵 <script type="math/tex">\boldsymbol{\Phi}(t)</script> 要比 <script type="math/tex">\boldsymbol{\Psi}(t)</script> 复杂，但是如果需要在很多不同初始条件下反复求解微分方程组的话就非常有用。这对应着一个物理物体有很多不同的初始状态。如果基解矩阵 <script type="math/tex">\boldsymbol{\Phi}(t)</script> 已经有了，那么用每一组初始条件乘以矩阵就可以得到解，如 <script type="math/tex">(14)</script>。矩阵 <script type="math/tex">\boldsymbol{\Phi}(t)</script> 表示从初始条件 <script type="math/tex">\boldsymbol{x}^0</script> 到任意时刻 <script type="math/tex">t</script> 的解 <script type="math/tex">\boldsymbol{x}(t)</script> 的转换。对比 <script type="math/tex">(10),(14)</script>，可以得到 <script type="math/tex">\boldsymbol{\Phi}(t)=\boldsymbol{\Psi}(t)\boldsymbol{\Psi}^{-1}(t_0)</script>。</p>
 <p>例 2 例 1 中的方程组是
-<script type="math/tex; mode=display">\bold{x}'=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}'=\begin{pmatrix}
 1&1\\1&4
-\end{pmatrix}\bold{x}</script>
-求满足 <script type="math/tex">\bold{\Phi}(0)=\bold{I}</script> 的基解矩阵。</p>
+\end{pmatrix}\boldsymbol{x}</script>
+求满足 <script type="math/tex">\boldsymbol{\Phi}(0)=\boldsymbol{I}</script> 的基解矩阵。</p>
 <p>解：满足初始条件
-<script type="math/tex; mode=display">\bold{x}^{(1)}(0)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}^{(1)}(0)=\begin{pmatrix}
 1\\0
-\end{pmatrix},\bold{x}^{(2)}(0)=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{x}^{(2)}(0)=\begin{pmatrix}
 0\\1
 \end{pmatrix}</script>
-的 <script type="math/tex">(3)</script> 的解组成了 <script type="math/tex">\bold{\Phi}</script> 的列。由于通解是
-<script type="math/tex; mode=display">\bold{x}=c_1\begin{pmatrix}
+的 <script type="math/tex">(3)</script> 的解组成了 <script type="math/tex">\boldsymbol{\Phi}</script> 的列。由于通解是
+<script type="math/tex; mode=display">\boldsymbol{x}=c_1\begin{pmatrix}
 1\\2
 \end{pmatrix}e^{3t}+c_2\begin{pmatrix}
 1\\-2
 \end{pmatrix}e^{-t}</script>
 满足第一个初始条件的话，<script type="math/tex">c_1=c_2=\frac{1}{2}</script>，满足第二个初始条件的话，<script type="math/tex">c_1=\frac{1}{4},c_2=-\frac{1}{4}</script>，因此
-<script type="math/tex; mode=display">\bold{\Phi}(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\Phi}(t)=\begin{pmatrix}
 \frac{1}{2}e^{3t}+\frac{1}{2}e^{-t}&\frac{1}{4}e^{3t}-\frac{1}{4}e^{-t}\\
 e^{3t}-e^{-t}&\frac{1}{2}e^{3t}+\frac{1}{2}e^{-t}
 \end{pmatrix}\tag{16}</script>
-这里基解矩阵 <script type="math/tex">\bold{\Phi}(t)</script> 比 <script type="math/tex">(4)</script> 给出的基解矩阵 <script type="math/tex">\bold{\Psi}(t)</script> 要复杂，不过对于任意初始条件，很容易求出解。</p>
-<h3 id="expboldat">矩阵 <script type="math/tex">\exp(\bold{A}t)</script>
+这里基解矩阵 <script type="math/tex">\boldsymbol{\Phi}(t)</script> 比 <script type="math/tex">(4)</script> 给出的基解矩阵 <script type="math/tex">\boldsymbol{\Psi}(t)</script> 要复杂，不过对于任意初始条件，很容易求出解。</p>
+<h3 id="expboldsymbolat">矩阵 <script type="math/tex">\exp(\boldsymbol{A}t)</script>
 </h3>
 <p>标量初值问题
 <script type="math/tex; mode=display">x'=ax,x(0)=x_0\tag{17}</script>
@@ -30455,120 +30455,120 @@ e^{3t}-e^{-t}&\frac{1}{2}e^{3t}+\frac{1}{2}e^{-t}
 <script type="math/tex; mode=display">x=x_0\exp(at)\tag{18}</script>
 其中 <script type="math/tex">a</script> 是常量。</p>
 <p>下面是 <script type="math/tex">n\times n</script> 的方程组
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x},\bold{x}(0)=\bold{x}^0\tag{19}</script>
-其中 <script type="math/tex">\bold{A}</script> 是常量矩阵。根据之前的讨论，解是
-<script type="math/tex; mode=display">\bold{x}=\bold{\Phi}(t)\bold{x}^0\tag{20}</script>
-其中 <script type="math/tex">\bold{\Phi}(0)=\bold{I}</script>。对于初值问题 <script type="math/tex">(17),(19)</script> 和解 <script type="math/tex">(18),(20)</script>，矩阵 <script type="math/tex">\bold{\Phi}(t)</script> 或许有指数特征。</p>
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x},\boldsymbol{x}(0)=\boldsymbol{x}^0\tag{19}</script>
+其中 <script type="math/tex">\boldsymbol{A}</script> 是常量矩阵。根据之前的讨论，解是
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{\Phi}(t)\boldsymbol{x}^0\tag{20}</script>
+其中 <script type="math/tex">\boldsymbol{\Phi}(0)=\boldsymbol{I}</script>。对于初值问题 <script type="math/tex">(17),(19)</script> 和解 <script type="math/tex">(18),(20)</script>，矩阵 <script type="math/tex">\boldsymbol{\Phi}(t)</script> 或许有指数特征。</p>
 <p>标量指数函数 <script type="math/tex">\exp(at)</script> 可以写成幂级数形式
 <script type="math/tex; mode=display">\exp(at)=1+\sum_{n=1}^\infty\frac{a^nt^n}{n!}=1+at+\frac{a^2t^2}{2!}+\cdots+\frac{a^nt^n}{n!}+\cdots\tag{21}</script>
-对于所有 <script type="math/tex">t</script> 都收敛。现在将 <script type="math/tex">a</script> 换成 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\bold{A}</script>，1 换成 <script type="math/tex">n\times n</script> 的单位矩阵 <script type="math/tex">\bold{I}</script>，那么级数是
-<script type="math/tex; mode=display">\bold{I}+\sum_{n=1}^\infty\frac{\bold{A}^nt^n}{n!}=\bold{I}+\bold{A}t+\frac{\bold{A}^2t^2}{2!}+\cdots+\frac{\bold{A}^nt^n}{n!}+\cdots\tag{22}</script>
-<script type="math/tex">(22)</script> 的每一项都是一个 <script type="math/tex">n\times n</script> 的矩阵。可以证明对于所有的 <script type="math/tex">t</script>，当 <script type="math/tex">n\to\infty</script> 时，矩阵的每一项都收敛。因此级数 <script type="math/tex">(22)</script> 定义为了一个新的矩阵，用 <script type="math/tex">\exp(\bold{A}t)</script> 表示
-<script type="math/tex; mode=display">\exp(\bold{A}t)=\bold{I}+\sum_{n=1}^\infty\frac{\bold{A}^nt^n}{n!}\tag{23}</script>
+对于所有 <script type="math/tex">t</script> 都收敛。现在将 <script type="math/tex">a</script> 换成 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\boldsymbol{A}</script>，1 换成 <script type="math/tex">n\times n</script> 的单位矩阵 <script type="math/tex">\boldsymbol{I}</script>，那么级数是
+<script type="math/tex; mode=display">\boldsymbol{I}+\sum_{n=1}^\infty\frac{\boldsymbol{A}^nt^n}{n!}=\boldsymbol{I}+\boldsymbol{A}t+\frac{\boldsymbol{A}^2t^2}{2!}+\cdots+\frac{\boldsymbol{A}^nt^n}{n!}+\cdots\tag{22}</script>
+<script type="math/tex">(22)</script> 的每一项都是一个 <script type="math/tex">n\times n</script> 的矩阵。可以证明对于所有的 <script type="math/tex">t</script>，当 <script type="math/tex">n\to\infty</script> 时，矩阵的每一项都收敛。因此级数 <script type="math/tex">(22)</script> 定义为了一个新的矩阵，用 <script type="math/tex">\exp(\boldsymbol{A}t)</script> 表示
+<script type="math/tex; mode=display">\exp(\boldsymbol{A}t)=\boldsymbol{I}+\sum_{n=1}^\infty\frac{\boldsymbol{A}^nt^n}{n!}\tag{23}</script>
 对级数 <script type="math/tex">(23)</script> 微分
-<script type="math/tex; mode=display">\frac{d}{dt}\exp(\bold{A}t)=\sum_{n=1}^\infty\frac{\bold{A}^nt^{n-1}}{(n-1)!}=\bold{A}(\bold{I}+\sum_{n=1}^\infty\frac{\bold{A}^nt^n}{n!})=\bold{A}\exp(\bold{A}t)\tag{24}</script>
+<script type="math/tex; mode=display">\frac{d}{dt}\exp(\boldsymbol{A}t)=\sum_{n=1}^\infty\frac{\boldsymbol{A}^nt^{n-1}}{(n-1)!}=\boldsymbol{A}(\boldsymbol{I}+\sum_{n=1}^\infty\frac{\boldsymbol{A}^nt^n}{n!})=\boldsymbol{A}\exp(\boldsymbol{A}t)\tag{24}</script>
 那么
-<script type="math/tex; mode=display">\frac{d}{dt}\exp(\bold{A}t)=\bold{A}\exp(\bold{A}t)\tag{25}</script>
-将 <script type="math/tex">t=0</script> 代入 <script type="math/tex">(23)</script>，那么 <script type="math/tex">\exp(\bold{A}t)</script> 满足初值条件
-<script type="math/tex; mode=display">\exp(\bold{A}t)\bigg|_{t=0}=\bold{I}+\sum_{n=1}^\infty\frac{\bold{A}^n0^n}{n!}=\bold{I}\tag{26}</script>
-基解矩阵 <script type="math/tex">\bold{\Phi}</script> 也满足这是初值问题，即
-<script type="math/tex; mode=display">\bold{\Phi}'=\bold{A}\bold{\Phi},\bold{\Phi}(0)=\bold{I}\tag{27}</script>
-根据定理 7.1.2 的解的唯一性，<script type="math/tex">\exp(\bold{A}t)</script> 和 <script type="math/tex">\bold{\Phi}(t)</script> 是相等的，因此初值问题 <script type="math/tex">(29)</script> 的解也可以写成
-<script type="math/tex; mode=display">\bold{x}=\exp(\bold{A}t)\bold{x}^0\tag{28}</script>
+<script type="math/tex; mode=display">\frac{d}{dt}\exp(\boldsymbol{A}t)=\boldsymbol{A}\exp(\boldsymbol{A}t)\tag{25}</script>
+将 <script type="math/tex">t=0</script> 代入 <script type="math/tex">(23)</script>，那么 <script type="math/tex">\exp(\boldsymbol{A}t)</script> 满足初值条件
+<script type="math/tex; mode=display">\exp(\boldsymbol{A}t)\bigg|_{t=0}=\boldsymbol{I}+\sum_{n=1}^\infty\frac{\boldsymbol{A}^n0^n}{n!}=\boldsymbol{I}\tag{26}</script>
+基解矩阵 <script type="math/tex">\boldsymbol{\Phi}</script> 也满足这是初值问题，即
+<script type="math/tex; mode=display">\boldsymbol{\Phi}'=\boldsymbol{A}\boldsymbol{\Phi},\boldsymbol{\Phi}(0)=\boldsymbol{I}\tag{27}</script>
+根据定理 7.1.2 的解的唯一性，<script type="math/tex">\exp(\boldsymbol{A}t)</script> 和 <script type="math/tex">\boldsymbol{\Phi}(t)</script> 是相等的，因此初值问题 <script type="math/tex">(29)</script> 的解也可以写成
+<script type="math/tex; mode=display">\boldsymbol{x}=\exp(\boldsymbol{A}t)\boldsymbol{x}^0\tag{28}</script>
 这和 <script type="math/tex">(18)</script> 是初值问题 <script type="math/tex">(17)</script> 类似。</p>
 <p>为了更确凿地论证用 <script type="math/tex">\exp(At)</script> 表示级数 <script type="math/tex">(22)</script> 的和是合理的，我们应当证明该矩阵函数具有指数函数的性质。根据定义，不难证明一下性质
-<script type="math/tex; mode=display">\bold{\Phi}(t)\bold{\Phi}(s)=\bold{\Phi}(t+s),\exp(\bold{A}t)\exp(\bold{A}s)=\exp(\bold{A}(t+s))</script>
-<script type="math/tex; mode=display">\bold{\Phi}(t)\bold{\Phi}(-t)=\bold{I},\exp(\bold{A}t)\exp(\bold{A}(-t))=\bold{I}</script>
-<script type="math/tex; mode=display">\bold{\Phi}(t-s)=\bold{\Phi}(t)\bold{\Phi}^{-1}(s),\exp(\bold{A}(t-s))=\exp(\bold{A}(t))\exp(\bold{A}(-s))</script>
+<script type="math/tex; mode=display">\boldsymbol{\Phi}(t)\boldsymbol{\Phi}(s)=\boldsymbol{\Phi}(t+s),\exp(\boldsymbol{A}t)\exp(\boldsymbol{A}s)=\exp(\boldsymbol{A}(t+s))</script>
+<script type="math/tex; mode=display">\boldsymbol{\Phi}(t)\boldsymbol{\Phi}(-t)=\boldsymbol{I},\exp(\boldsymbol{A}t)\exp(\boldsymbol{A}(-t))=\boldsymbol{I}</script>
+<script type="math/tex; mode=display">\boldsymbol{\Phi}(t-s)=\boldsymbol{\Phi}(t)\boldsymbol{\Phi}^{-1}(s),\exp(\boldsymbol{A}(t-s))=\exp(\boldsymbol{A}(t))\exp(\boldsymbol{A}(-s))</script>
 </p>
 <h3 id="_1">可对角化矩阵</h3>
-<p>线性方程组困难的原因在于这些方程通常是耦合在一起的，其中或者所有的方程都涉及多个或全部的未知变量。因此，必须同时求解这些方程。如果每一个方程只涉及一个变量，那么可以独立的求解这些方程，就容易多了。这说明我们或许可以把一个方程组转换成一个等价的解耦的方程组，每一个方程仅涉及一个未知变量。这个变换将矩阵 <script type="math/tex">\bold{A}</script> 转换为对角矩阵（<code>diagonal</code>）。</p>
-<p>特征向量在这种变换中非常有用。假定矩阵 <script type="math/tex">\bold{A}</script> 有 <script type="math/tex">n\times </script> 个线性无关的特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script>，特征值是 <script type="math/tex">\lambda_1,\cdots,\lambda_n</script>，矩阵 <script type="math/tex">\bold{T}</script> 是
-<script type="math/tex; mode=display">\bold{T}=\begin{pmatrix}
+<p>线性方程组困难的原因在于这些方程通常是耦合在一起的，其中或者所有的方程都涉及多个或全部的未知变量。因此，必须同时求解这些方程。如果每一个方程只涉及一个变量，那么可以独立的求解这些方程，就容易多了。这说明我们或许可以把一个方程组转换成一个等价的解耦的方程组，每一个方程仅涉及一个未知变量。这个变换将矩阵 <script type="math/tex">\boldsymbol{A}</script> 转换为对角矩阵（<code>diagonal</code>）。</p>
+<p>特征向量在这种变换中非常有用。假定矩阵 <script type="math/tex">\boldsymbol{A}</script> 有 <script type="math/tex">n\times </script> 个线性无关的特征向量 <script type="math/tex">\boldsymbol{\xi}^{(1)},\cdots,\boldsymbol{\xi}^{(n)}</script>，特征值是 <script type="math/tex">\lambda_1,\cdots,\lambda_n</script>，矩阵 <script type="math/tex">\boldsymbol{T}</script> 是
+<script type="math/tex; mode=display">\boldsymbol{T}=\begin{pmatrix}
 \xi^{(1)}_1&\cdots&\xi^{(n)}_1\\
 \vdots&&\vdots\\
 \xi^{(1)}_n&\cdots&\xi^{(n)}_n
 \end{pmatrix}\tag{29}</script>
-由于 <script type="math/tex">\bold{T}</script> 的列是线性无关的，<script type="math/tex">\det\bold{T}\neq 0</script>，因此 <script type="math/tex">\bold{T}</script> 是非奇异的，那么 <script type="math/tex">\bold{T}^{-1}</script> 存在。矩阵 <script type="math/tex">\bold{A}\bold{T}</script> 的列是 <script type="math/tex">\bold{A}\bold{\xi}^{(1)},\cdots,\bold{A}\bold{\xi}^{(n)}</script>。由于 <script type="math/tex">\bold{A}\bold{\xi}^{(k)}=\lambda_k\bold{\xi}^{(k)}</script>，那么
-<script type="math/tex; mode=display">\bold{A}\bold{T}=\begin{pmatrix}
+由于 <script type="math/tex">\boldsymbol{T}</script> 的列是线性无关的，<script type="math/tex">\det\boldsymbol{T}\neq 0</script>，因此 <script type="math/tex">\boldsymbol{T}</script> 是非奇异的，那么 <script type="math/tex">\boldsymbol{T}^{-1}</script> 存在。矩阵 <script type="math/tex">\boldsymbol{A}\boldsymbol{T}</script> 的列是 <script type="math/tex">\boldsymbol{A}\boldsymbol{\xi}^{(1)},\cdots,\boldsymbol{A}\boldsymbol{\xi}^{(n)}</script>。由于 <script type="math/tex">\boldsymbol{A}\boldsymbol{\xi}^{(k)}=\lambda_k\boldsymbol{\xi}^{(k)}</script>，那么
+<script type="math/tex; mode=display">\boldsymbol{A}\boldsymbol{T}=\begin{pmatrix}
 \lambda_1\xi^{(1)}_1&\cdots&\lambda_n\xi^{(n)}_1\\
 \vdots&&\vdots\\
 \lambda_1\xi^{(1)}_n&\cdots&\lambda_n\xi^{(n)}_n
-\end{pmatrix}=\bold{T}\bold{D}\tag{30}</script>
+\end{pmatrix}=\boldsymbol{T}\boldsymbol{D}\tag{30}</script>
 其中
-<script type="math/tex; mode=display">\bold{D}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{D}=\begin{pmatrix}
 \lambda_1&0&\cdots&0\\
 0&\lambda_2&\cdots&0\\
 \vdots&\vdots&\ddots&\vdots\\
 0&0&\cdots&\lambda_n
 \end{pmatrix}\tag{31}</script>
-是对角矩阵，对角线上 <script type="math/tex">\bold{A}</script> 的特征值。从 <script type="math/tex">(30)</script> 得到
-<script type="math/tex; mode=display">\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}\tag{32}</script>
-如果已知矩阵 <script type="math/tex">\bold{A}</script> 的特征值和特征向量，就可以通过 <script type="math/tex">(32)</script> 所示的过程将 <script type="math/tex">\bold{A}</script> 变换为对角矩阵。这个过程被称为相似变换（<code>similarity transformation</code>），方程 <script type="math/tex">(32)</script> 可以概括为：<script type="math/tex">\bold{A}</script> 与对角矩阵 <script type="math/tex">\bold{D}</script> 相似，或者称 <script type="math/tex">\bold{A}</script> 为可对角化（<code>diagonalizable</code>）。相似变换保持 <script type="math/tex">\bold{A}</script> 的特征值不变，并将 <script type="math/tex">\bold{A}</script> 的特征向量变换为 <script type="math/tex">\bold{e}^{(1)},\cdots,\bold{e}^{(n)}</script>。</p>
-<p>如果 <script type="math/tex">\bold{A}</script> 是埃尔米特矩阵，<script type="math/tex">\bold{T}^{-1}</script> 的求解会非常简单。<script type="math/tex">\bold{A}</script> 的特征向量 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script> 是正交的，对每一个 <script type="math/tex">i</script> 进行归一化 <script type="math/tex">(\bold{\xi}^{(i)},\bold{\xi}^{(i)})=1</script>，那么 <script type="math/tex">\bold{T}^{-1}=\bold{T}*</script>，也就是说 <script type="math/tex">\bold{T}</script> 的逆是其伴随矩阵（共轭的转置）。</p>
-<p>如果 <script type="math/tex">\bold{A}</script> 只有少于 <script type="math/tex">n</script> 个线性无关的特征向量，那么不存在矩阵 <script type="math/tex">\bold{T}</script> 使得 <script type="math/tex">\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}</script>。这种情况下 <script type="math/tex">\bold{A}</script> 与对角矩阵不相似，也无法对角化。这种情况会在 7.8 小节讨论。</p>
+是对角矩阵，对角线上 <script type="math/tex">\boldsymbol{A}</script> 的特征值。从 <script type="math/tex">(30)</script> 得到
+<script type="math/tex; mode=display">\boldsymbol{T}^{-1}\boldsymbol{A}\boldsymbol{T}=\boldsymbol{D}\tag{32}</script>
+如果已知矩阵 <script type="math/tex">\boldsymbol{A}</script> 的特征值和特征向量，就可以通过 <script type="math/tex">(32)</script> 所示的过程将 <script type="math/tex">\boldsymbol{A}</script> 变换为对角矩阵。这个过程被称为相似变换（<code>similarity transformation</code>），方程 <script type="math/tex">(32)</script> 可以概括为：<script type="math/tex">\boldsymbol{A}</script> 与对角矩阵 <script type="math/tex">\boldsymbol{D}</script> 相似，或者称 <script type="math/tex">\boldsymbol{A}</script> 为可对角化（<code>diagonalizable</code>）。相似变换保持 <script type="math/tex">\boldsymbol{A}</script> 的特征值不变，并将 <script type="math/tex">\boldsymbol{A}</script> 的特征向量变换为 <script type="math/tex">\boldsymbol{e}^{(1)},\cdots,\boldsymbol{e}^{(n)}</script>。</p>
+<p>如果 <script type="math/tex">\boldsymbol{A}</script> 是埃尔米特矩阵，<script type="math/tex">\boldsymbol{T}^{-1}</script> 的求解会非常简单。<script type="math/tex">\boldsymbol{A}</script> 的特征向量 <script type="math/tex">\boldsymbol{\xi}^{(1)},\cdots,\boldsymbol{\xi}^{(n)}</script> 是正交的，对每一个 <script type="math/tex">i</script> 进行归一化 <script type="math/tex">(\boldsymbol{\xi}^{(i)},\boldsymbol{\xi}^{(i)})=1</script>，那么 <script type="math/tex">\boldsymbol{T}^{-1}=\boldsymbol{T}*</script>，也就是说 <script type="math/tex">\boldsymbol{T}</script> 的逆是其伴随矩阵（共轭的转置）。</p>
+<p>如果 <script type="math/tex">\boldsymbol{A}</script> 只有少于 <script type="math/tex">n</script> 个线性无关的特征向量，那么不存在矩阵 <script type="math/tex">\boldsymbol{T}</script> 使得 <script type="math/tex">\boldsymbol{T}^{-1}\boldsymbol{A}\boldsymbol{T}=\boldsymbol{D}</script>。这种情况下 <script type="math/tex">\boldsymbol{A}</script> 与对角矩阵不相似，也无法对角化。这种情况会在 7.8 小节讨论。</p>
 <p>例 3 给定矩阵
-<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}=\begin{pmatrix}
 1&1\\4&1
 \end{pmatrix}\tag{33}</script>
-求相似变换矩阵 <script type="math/tex">\bold{T}</script> 并且证明 <script type="math/tex">\bold{A}</script> 可对角化。</p>
-<p>解：7.5 的例 2 给出了 <script type="math/tex">\bold{A}</script> 的特征值和特征向量
-<script type="math/tex; mode=display">r_1=3,\bold{\xi}^{(1)}=\begin{pmatrix}
+求相似变换矩阵 <script type="math/tex">\boldsymbol{T}</script> 并且证明 <script type="math/tex">\boldsymbol{A}</script> 可对角化。</p>
+<p>解：7.5 的例 2 给出了 <script type="math/tex">\boldsymbol{A}</script> 的特征值和特征向量
+<script type="math/tex; mode=display">r_1=3,\boldsymbol{\xi}^{(1)}=\begin{pmatrix}
 1\\2
-\end{pmatrix},r_2=-1,\bold{\xi}^{(2)}=\begin{pmatrix}
+\end{pmatrix},r_2=-1,\boldsymbol{\xi}^{(2)}=\begin{pmatrix}
 1\\-2
 \end{pmatrix}\tag{34}</script>
-因此变换矩阵 <script type="math/tex">\bold{T}</script> 和它的逆矩阵 <script type="math/tex">\bold{T}^{-1}</script> 是
-<script type="math/tex; mode=display">\bold{T}=\begin{pmatrix}
+因此变换矩阵 <script type="math/tex">\boldsymbol{T}</script> 和它的逆矩阵 <script type="math/tex">\boldsymbol{T}^{-1}</script> 是
+<script type="math/tex; mode=display">\boldsymbol{T}=\begin{pmatrix}
 1&1\\2&-2
-\end{pmatrix},\bold{T}^{-1}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{T}^{-1}=\begin{pmatrix}
 \frac{1}{2}&\frac{1}{4}\\\frac{1}{2}&-\frac{1}{4}
 \end{pmatrix}\tag{35}</script>
 那么
-<script type="math/tex; mode=display">\bold{T}^{-1}\bold{A}\bold{T}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{T}^{-1}\boldsymbol{A}\boldsymbol{T}=\begin{pmatrix}
 3&0\\0&01
-\end{pmatrix}=\bold{D}\tag{36}</script>
+\end{pmatrix}=\boldsymbol{D}\tag{36}</script>
 </p>
 <p>下面回到方程组
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}\tag{37}</script>
-其中 <script type="math/tex">\bold{A}</script> 是常量矩阵。7.5 和 7.6 小节讨论了假定解是 <script type="math/tex">\bold{x}=\bold{\xi}e^{rt}</script> 的形式来求解方程组。下面从 <script type="math/tex">\bold{A}</script> 对角化系数的角度来分析问题。</p>
-<p>根据前面的分析，<script type="math/tex">\bold{A}</script> 可对角化是 <script type="math/tex">\bold{A}</script> 有 <script type="math/tex">n</script> 个线性无关的特征向量。令 <script type="math/tex">\bold{A}</script> 的特征值是 <script type="math/tex">r_1,\cdots,r_n</script> 对应的特征向量是 <script type="math/tex">\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(n)}</script>，这些特征向量组成了矩阵 <script type="math/tex">\bold{T}</script>。下面定义一个新的变量 <script type="math/tex">\bold{y}</script>
-<script type="math/tex; mode=display">\bold{x}=\bold{T}\bold{y}\tag{38}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}\tag{37}</script>
+其中 <script type="math/tex">\boldsymbol{A}</script> 是常量矩阵。7.5 和 7.6 小节讨论了假定解是 <script type="math/tex">\boldsymbol{x}=\boldsymbol{\xi}e^{rt}</script> 的形式来求解方程组。下面从 <script type="math/tex">\boldsymbol{A}</script> 对角化系数的角度来分析问题。</p>
+<p>根据前面的分析，<script type="math/tex">\boldsymbol{A}</script> 可对角化是 <script type="math/tex">\boldsymbol{A}</script> 有 <script type="math/tex">n</script> 个线性无关的特征向量。令 <script type="math/tex">\boldsymbol{A}</script> 的特征值是 <script type="math/tex">r_1,\cdots,r_n</script> 对应的特征向量是 <script type="math/tex">\boldsymbol{\xi}^{(1)},\cdots,\boldsymbol{\xi}^{(n)}</script>，这些特征向量组成了矩阵 <script type="math/tex">\boldsymbol{T}</script>。下面定义一个新的变量 <script type="math/tex">\boldsymbol{y}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}=\boldsymbol{T}\boldsymbol{y}\tag{38}</script>
 代入 <script type="math/tex">(37)</script> 得到
-<script type="math/tex; mode=display">\bold{T}\bold{y}'=\bold{A}\bold{T}\bold{y}\tag{39}</script>
-两边同乘 <script type="math/tex">\bold{T}^{-1}</script>
-<script type="math/tex; mode=display">\bold{y}'=(\bold{T}^{-1}\bold{A}\bold{T})\bold{y}\tag{40}</script>
-由于 <script type="math/tex">\bold{T}^{-1}\bold{A}\bold{T}=\bold{D}</script>，那么 <script type="math/tex">(40)</script> 可以写成
-<script type="math/tex; mode=display">\bold{y}'=\bold{D}\bold{y}\tag{41}</script>
-<script type="math/tex">\bold{D}</script> 是 <script type="math/tex">\bold{A}</script> 的对角化矩阵，对角线上的值是 <script type="math/tex">\bold{A}</script> 的特征值。方程组 <script type="math/tex">(41)</script> 的基解矩阵是对角矩阵
-<script type="math/tex; mode=display">\bold{Q}(t)=\exp(\bold{D}t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{T}\boldsymbol{y}'=\boldsymbol{A}\boldsymbol{T}\boldsymbol{y}\tag{39}</script>
+两边同乘 <script type="math/tex">\boldsymbol{T}^{-1}</script>
+<script type="math/tex; mode=display">\boldsymbol{y}'=(\boldsymbol{T}^{-1}\boldsymbol{A}\boldsymbol{T})\boldsymbol{y}\tag{40}</script>
+由于 <script type="math/tex">\boldsymbol{T}^{-1}\boldsymbol{A}\boldsymbol{T}=\boldsymbol{D}</script>，那么 <script type="math/tex">(40)</script> 可以写成
+<script type="math/tex; mode=display">\boldsymbol{y}'=\boldsymbol{D}\boldsymbol{y}\tag{41}</script>
+<script type="math/tex">\boldsymbol{D}</script> 是 <script type="math/tex">\boldsymbol{A}</script> 的对角化矩阵，对角线上的值是 <script type="math/tex">\boldsymbol{A}</script> 的特征值。方程组 <script type="math/tex">(41)</script> 的基解矩阵是对角矩阵
+<script type="math/tex; mode=display">\boldsymbol{Q}(t)=\exp(\boldsymbol{D}t)=\begin{pmatrix}
 e^{r_1t}&0&\cdots&0\\
 0&e^{r_2t}&\cdots&0\\
 \vdots&\vdots&\ddots&\vdots\\
 0&0&\cdots&e^{r_nt}
 \end{pmatrix}\tag{42}</script>
-方程组 <script type="math/tex">(37)</script> 的基解矩阵 <script type="math/tex">\bold{\Psi}</script> 是
-<script type="math/tex; mode=display">\bold{\Psi}=\bold{T}\bold{Q}\tag{43}</script>
+方程组 <script type="math/tex">(37)</script> 的基解矩阵 <script type="math/tex">\boldsymbol{\Psi}</script> 是
+<script type="math/tex; mode=display">\boldsymbol{\Psi}=\boldsymbol{T}\boldsymbol{Q}\tag{43}</script>
 即
-<script type="math/tex; mode=display">\bold{\Psi}(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(t)=\begin{pmatrix}
 \xi_1^{(1)}e^{r_1t}&\cdots&\xi_1^{(n)}e^{r_nt}\\
 \vdots&&\vdots\\
 \xi_n^{(1)}e^{r_1t}&\cdots&\xi_n^{(n)}e^{r_nt}
 \end{pmatrix}\tag{44}</script>
-这里 <script type="math/tex">\bold{\Psi}</script> 的每一列和 7.5 小节的 <script type="math/tex">(27)</script> 一致。对角化的过程和 7.5 小节的解法相比，没有计算优势，因为计算特征值和特征向量都是必须的。</p>
+这里 <script type="math/tex">\boldsymbol{\Psi}</script> 的每一列和 7.5 小节的 <script type="math/tex">(27)</script> 一致。对角化的过程和 7.5 小节的解法相比，没有计算优势，因为计算特征值和特征向量都是必须的。</p>
 <p>例 4 给定微分方程
-<script type="math/tex; mode=display">\bold{x}'=\bold{A}\bold{x}\tag{45}</script>
-其中 <script type="math/tex">\bold{A}</script> 是 <script type="math/tex">(33)</script> 给出的矩阵，使用变换 <script type="math/tex">\bold{x}=\bold{T}\bold{y}</script>，其中 <script type="math/tex">\bold{T}</script> 由 <script type="math/tex">(35)</script> 给出，那么方程组 <script type="math/tex">(45)</script> 可以简化为
-<script type="math/tex; mode=display">\bold{y}'=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}\tag{45}</script>
+其中 <script type="math/tex">\boldsymbol{A}</script> 是 <script type="math/tex">(33)</script> 给出的矩阵，使用变换 <script type="math/tex">\boldsymbol{x}=\boldsymbol{T}\boldsymbol{y}</script>，其中 <script type="math/tex">\boldsymbol{T}</script> 由 <script type="math/tex">(35)</script> 给出，那么方程组 <script type="math/tex">(45)</script> 可以简化为
+<script type="math/tex; mode=display">\boldsymbol{y}'=\begin{pmatrix}
 3&0\\0&-1
-\end{pmatrix}\bold{y}=\bold{D}\bold{y}\tag{46}</script>
+\end{pmatrix}\boldsymbol{y}=\boldsymbol{D}\boldsymbol{y}\tag{46}</script>
 计算 <script type="math/tex">(46)</script> 的基解矩阵，并给出原始 <script type="math/tex">(45)</script> 的基解矩阵。</p>
 <p>解：根据 <script type="math/tex">(42)</script> 可以得到
-<script type="math/tex; mode=display">e^{\bold{D}t}=\begin{pmatrix}
+<script type="math/tex; mode=display">e^{\boldsymbol{D}t}=\begin{pmatrix}
 e^{3t}&0\\0&e^{-t}
 \end{pmatrix}\tag{47}</script>
 那么
-<script type="math/tex; mode=display">\bold{\Psi}(t)=\bold{T}\exp(\bold{D}t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{\Psi}(t)=\boldsymbol{T}\exp(\boldsymbol{D}t)=\begin{pmatrix}
 1&1\\2&-2
 \end{pmatrix}\begin{pmatrix}
 e^{3t}&0\\0&e^{-t}

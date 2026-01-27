@@ -30369,72 +30369,72 @@
 
 
 <p>这一节和下一节讨论必要的矩阵知识。</p>
-<p>一般使用粗体大写字母 <script type="math/tex">\bold{A,B,C,\cdots}</script> 或粗体大写的希腊字母 <script type="math/tex">\bold{\Phi,\Psi,\cdots}</script> 表示矩阵。一个有 <script type="math/tex">m</script> 行 <script type="math/tex">n</script> 列的矩阵如下
-<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+<p>一般使用粗体大写字母 <script type="math/tex">\boldsymbol{A,B,C,\cdots}</script> 或粗体大写的希腊字母 <script type="math/tex">\boldsymbol{\Phi,\Psi,\cdots}</script> 表示矩阵。一个有 <script type="math/tex">m</script> 行 <script type="math/tex">n</script> 列的矩阵如下
+<script type="math/tex; mode=display">\boldsymbol{A}=\begin{pmatrix}
 a_{11}&a_{12}&\cdots&a_{1n}\\
 a_{11}&a_{12}&\cdots&a_{1n}\\
 \vdots&\vdots&\vdots&\vdots\\
 a_{m1}&a_{m2}&\cdots&a_{mn}\\
 \end{pmatrix}\tag{1}</script>
-<script type="math/tex">\bold{A}</script> 是 <script type="math/tex">m\times n</script> 的矩阵（<code>matrix</code>）。本章后续会假设矩阵的元素是实数，不过这里讨论的矩阵元素可以是复数。<script type="math/tex">i</script> 行 <script type="math/tex">j</script> 列的元素用 <script type="math/tex">a_{ij}</script> 表示。使用记号 <script type="math/tex">(a_{ij})</script> 也可以表示一个矩阵。</p>
+<script type="math/tex">\boldsymbol{A}</script> 是 <script type="math/tex">m\times n</script> 的矩阵（<code>matrix</code>）。本章后续会假设矩阵的元素是实数，不过这里讨论的矩阵元素可以是复数。<script type="math/tex">i</script> 行 <script type="math/tex">j</script> 列的元素用 <script type="math/tex">a_{ij}</script> 表示。使用记号 <script type="math/tex">(a_{ij})</script> 也可以表示一个矩阵。</p>
 <p>
-<script type="math/tex">\bold{A}</script> 的转置（<code>transpose</code>）用 <script type="math/tex">\bold{A}^T</script> 表示，交换了行和列。因此如果 <script type="math/tex">\bold{A}=(a_{ij})</script>，那么 <script type="math/tex">\bold{A}^T=(a_{ji})</script>。用记号 <script type="math/tex">\overline{a_{ij}}</script> 表示 <script type="math/tex">a_{ij}</script> 的共轭，那么 <script type="math/tex">\overline{\bold{A}}</script> 是 <script type="math/tex">\bold{A}</script> 的共轭（<code>conjugate</code>）矩阵。<script type="math/tex">\bold{A}</script> 的共轭矩阵的转置，称为 <script type="math/tex">\bold{A}</script> 的伴随（<code>adjoint</code>）矩阵，用 <script type="math/tex">\bold{A}^*</script> 表示。这里的伴随矩阵不是代数余子式的矩阵的转置，后者也称为伴随（<code>adjugate</code>）矩阵。
-<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+<script type="math/tex">\boldsymbol{A}</script> 的转置（<code>transpose</code>）用 <script type="math/tex">\boldsymbol{A}^T</script> 表示，交换了行和列。因此如果 <script type="math/tex">\boldsymbol{A}=(a_{ij})</script>，那么 <script type="math/tex">\boldsymbol{A}^T=(a_{ji})</script>。用记号 <script type="math/tex">\overline{a_{ij}}</script> 表示 <script type="math/tex">a_{ij}</script> 的共轭，那么 <script type="math/tex">\overline{\boldsymbol{A}}</script> 是 <script type="math/tex">\boldsymbol{A}</script> 的共轭（<code>conjugate</code>）矩阵。<script type="math/tex">\boldsymbol{A}</script> 的共轭矩阵的转置，称为 <script type="math/tex">\boldsymbol{A}</script> 的伴随（<code>adjoint</code>）矩阵，用 <script type="math/tex">\boldsymbol{A}^*</script> 表示。这里的伴随矩阵不是代数余子式的矩阵的转置，后者也称为伴随（<code>adjugate</code>）矩阵。
+<script type="math/tex; mode=display">\boldsymbol{A}=\begin{pmatrix}
 3&2-i\\
 4+3i&-5+2i
 \end{pmatrix}</script>
-<script type="math/tex; mode=display">\bold{A}^T=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}^T=\begin{pmatrix}
 3&4+3i\\
 2-i&-5+2i
 \end{pmatrix}</script>
-<script type="math/tex; mode=display">\overline{\bold{A}}=\begin{pmatrix}
+<script type="math/tex; mode=display">\overline{\boldsymbol{A}}=\begin{pmatrix}
 3&2+i\\
 4-3i&-5-2i
 \end{pmatrix}</script>
-<script type="math/tex; mode=display">\bold{A}^*=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}^*=\begin{pmatrix}
 3&4-3i\\
 2+i&-5-2i
 \end{pmatrix}</script>
-后续主要研究两类特殊的矩阵。一个是方阵（方块矩阵，<code>square matrix</code>），行数和列数相同，即 <script type="math/tex">m=n</script>，一个是向量或列向量（<code>column vector</code>），只有一列，即 <script type="math/tex">n\times 1</script> 的矩阵。向量一般用小写字母表示，比如 <script type="math/tex">\bold{x},\bold{y},\bold{\xi},\bold{\eta},\cdots</script>。<script type="math/tex">\bold{x}^T</script> 是行向量，只有一行。</p>
+后续主要研究两类特殊的矩阵。一个是方阵（方块矩阵，<code>square matrix</code>），行数和列数相同，即 <script type="math/tex">m=n</script>，一个是向量或列向量（<code>column vector</code>），只有一列，即 <script type="math/tex">n\times 1</script> 的矩阵。向量一般用小写字母表示，比如 <script type="math/tex">\boldsymbol{x},\boldsymbol{y},\boldsymbol{\xi},\boldsymbol{\eta},\cdots</script>。<script type="math/tex">\boldsymbol{x}^T</script> 是行向量，只有一行。</p>
 <h3 id="_1">矩阵的属性</h3>
-<p>如果两个 <script type="math/tex">m\times n</script> 的矩阵 <script type="math/tex">\bold{A},\bold{B}</script> 相等，那么对应元素相等，即 <script type="math/tex">a_{ij}=b_{ij}</script>。</p>
-<p>矩阵所有元素都是零称为零矩阵，用 <script type="math/tex">\bold{0}</script> 表示。</p>
-<p>两个 <script type="math/tex">m\times n</script> 的矩阵 <script type="math/tex">\bold{A},\bold{B}</script> 的加法定义如下
-<script type="math/tex; mode=display">\bold{A}+\bold{B}=(a_{ij})+(b_{ij})=(a_{ij}+b_{ij})\tag{2}</script>
+<p>如果两个 <script type="math/tex">m\times n</script> 的矩阵 <script type="math/tex">\boldsymbol{A},\boldsymbol{B}</script> 相等，那么对应元素相等，即 <script type="math/tex">a_{ij}=b_{ij}</script>。</p>
+<p>矩阵所有元素都是零称为零矩阵，用 <script type="math/tex">\boldsymbol{0}</script> 表示。</p>
+<p>两个 <script type="math/tex">m\times n</script> 的矩阵 <script type="math/tex">\boldsymbol{A},\boldsymbol{B}</script> 的加法定义如下
+<script type="math/tex; mode=display">\boldsymbol{A}+\boldsymbol{B}=(a_{ij})+(b_{ij})=(a_{ij}+b_{ij})\tag{2}</script>
 矩阵的加法满足交换律和结合律
-<script type="math/tex; mode=display">\bold{A}+\bold{B}=\bold{B}+\bold{A},\bold{A}+(\bold{B}+\bold{C})=(\bold{A}+\bold{B})+\bold{C}\tag{3}</script>
+<script type="math/tex; mode=display">\boldsymbol{A}+\boldsymbol{B}=\boldsymbol{B}+\boldsymbol{A},\boldsymbol{A}+(\boldsymbol{B}+\boldsymbol{C})=(\boldsymbol{A}+\boldsymbol{B})+\boldsymbol{C}\tag{3}</script>
 </p>
-<p>矩阵 <script type="math/tex">\bold{A}</script> 乘以实数或复数 <script type="math/tex">\alpha</script> 定义为
-<script type="math/tex; mode=display">\alpha\bold{A}=\alpha(a_{ij})=(\alpha a_{ij})\tag{4}</script>
+<p>矩阵 <script type="math/tex">\boldsymbol{A}</script> 乘以实数或复数 <script type="math/tex">\alpha</script> 定义为
+<script type="math/tex; mode=display">\alpha\boldsymbol{A}=\alpha(a_{ij})=(\alpha a_{ij})\tag{4}</script>
 也就是说每一个元素都乘以 <script type="math/tex">\alpha</script>。分配律如下
-<script type="math/tex; mode=display">\alpha(\bold{A}+\bold{B})=\alpha\bold{A}+\alpha\bold{B},(\alpha+\beta)\bold{A}=\alpha\bold{A}+\beta\bold{A}\tag{5}</script>
-这样可以定义负的 <script type="math/tex">\bold{A}</script>
-<script type="math/tex; mode=display">-\bold{A}=(-1)\bold{A}\tag{6}</script>
+<script type="math/tex; mode=display">\alpha(\boldsymbol{A}+\boldsymbol{B})=\alpha\boldsymbol{A}+\alpha\boldsymbol{B},(\alpha+\beta)\boldsymbol{A}=\alpha\boldsymbol{A}+\beta\boldsymbol{A}\tag{5}</script>
+这样可以定义负的 <script type="math/tex">\boldsymbol{A}</script>
+<script type="math/tex; mode=display">-\boldsymbol{A}=(-1)\boldsymbol{A}\tag{6}</script>
 有了负的定义，可以得到减法定义
-<script type="math/tex; mode=display">\bold{A}-\bold{B}=\bold{A}+(-\bold{B})\tag{7}</script>
+<script type="math/tex; mode=display">\boldsymbol{A}-\boldsymbol{B}=\boldsymbol{A}+(-\boldsymbol{B})\tag{7}</script>
 即
-<script type="math/tex; mode=display">\bold{A}-\bold{B}=(a_{ij})-(b_{ij})=(a_{ij}-b_{ij})\tag{8}</script>
+<script type="math/tex; mode=display">\boldsymbol{A}-\boldsymbol{B}=(a_{ij})-(b_{ij})=(a_{ij}-b_{ij})\tag{8}</script>
 </p>
-<p>矩阵的积 <script type="math/tex">\bold{A}\bold{B}</script> 要求第一个因子的列数与第二个因子的行数相同。如果 <script type="math/tex">\bold{A},\bold{B}</script> 分别是 <script type="math/tex">m\times n,n\times r</script> 的矩阵，那么 <script type="math/tex">\bold{C}=\bold{A}\bold{B}</script> 是 <script type="math/tex">m\times r</script> 的矩阵。<script type="math/tex">\bold{C}</script> 的第 <script type="math/tex">i</script> 行第 <script type="math/tex">j</script> 列是 <script type="math/tex">\bold{A}</script> 的第 <script type="math/tex">i</script> 行与 <script type="math/tex">\bold{B}</script> 的第 <script type="math/tex">j</script> 列的元素对应相乘然后求和，即
+<p>矩阵的积 <script type="math/tex">\boldsymbol{A}\boldsymbol{B}</script> 要求第一个因子的列数与第二个因子的行数相同。如果 <script type="math/tex">\boldsymbol{A},\boldsymbol{B}</script> 分别是 <script type="math/tex">m\times n,n\times r</script> 的矩阵，那么 <script type="math/tex">\boldsymbol{C}=\boldsymbol{A}\boldsymbol{B}</script> 是 <script type="math/tex">m\times r</script> 的矩阵。<script type="math/tex">\boldsymbol{C}</script> 的第 <script type="math/tex">i</script> 行第 <script type="math/tex">j</script> 列是 <script type="math/tex">\boldsymbol{A}</script> 的第 <script type="math/tex">i</script> 行与 <script type="math/tex">\boldsymbol{B}</script> 的第 <script type="math/tex">j</script> 列的元素对应相乘然后求和，即
 <script type="math/tex; mode=display">c_{ij}=\sum_{k=1}^n a_{ik}b_{kj}\tag{9}</script>
 根据定义，矩阵乘法满足结合律和分配律
-<script type="math/tex; mode=display">(\bold{A}\bold{B})\bold{C}=\bold{A}(\bold{B}\bold{C})\tag{10}</script>
-<script type="math/tex; mode=display">\bold{A}(\bold{B}+\bold{C})=\bold{A}\bold{B}+\bold{A}\bold{C}\tag{11}</script>
-一般情况下，乘法不满足交换律。积 <script type="math/tex">\bold{A}\bold{B}</script> 和 <script type="math/tex">\bold{B}\bold{A}</script> 存在的前提是这两个矩阵都是方阵。即便如此一般情况下
-<script type="math/tex; mode=display">\bold{A}\bold{B}\neq\bold{B}\bold{A}\tag{12}</script>
+<script type="math/tex; mode=display">(\boldsymbol{A}\boldsymbol{B})\boldsymbol{C}=\boldsymbol{A}(\boldsymbol{B}\boldsymbol{C})\tag{10}</script>
+<script type="math/tex; mode=display">\boldsymbol{A}(\boldsymbol{B}+\boldsymbol{C})=\boldsymbol{A}\boldsymbol{B}+\boldsymbol{A}\boldsymbol{C}\tag{11}</script>
+一般情况下，乘法不满足交换律。积 <script type="math/tex">\boldsymbol{A}\boldsymbol{B}</script> 和 <script type="math/tex">\boldsymbol{B}\boldsymbol{A}</script> 存在的前提是这两个矩阵都是方阵。即便如此一般情况下
+<script type="math/tex; mode=display">\boldsymbol{A}\boldsymbol{B}\neq\boldsymbol{B}\boldsymbol{A}\tag{12}</script>
 </p>
 <p>例 1 下面计算两个矩阵的积，并验证不满足交换律。
-<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}=\begin{pmatrix}
 1&-2&1\\
 0&2&-1\\
 2&1&1
-\end{pmatrix},\bold{B}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{B}=\begin{pmatrix}
 2&1&-1\\
 1&-1&0\\
  2&-1&1
 \end{pmatrix}</script>
 解：
-<script type="math/tex; mode=display">\bold{A}\bold{B}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}\boldsymbol{B}=\begin{pmatrix}
 2-2+2&1+2-1&-1+0+1\\
 0+2-2&0-2+1&0+0-1\\
 4+1+2&2-1-1&-2+0+1\\
@@ -30444,84 +30444,84 @@ a_{m1}&a_{m2}&\cdots&a_{mn}\\
 7&0&-1
 \end{pmatrix}</script>
 类似的
-<script type="math/tex; mode=display">\bold{B}\bold{A}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{B}\boldsymbol{A}=\begin{pmatrix}
 0&-3&0\\1&-4&2\\4&-5&4
 \end{pmatrix}</script>
 很明显
-<script type="math/tex; mode=display">\bold{A}\bold{B}\neq\bold{B}\bold{A}</script>
+<script type="math/tex; mode=display">\boldsymbol{A}\boldsymbol{B}\neq\boldsymbol{B}\boldsymbol{A}</script>
 </p>
-<p>两个向量 <script type="math/tex">\bold{x},\bold{y}</script> 的积有几种形式。物理和微积分中常用点积（<code>dot product</code>）
-<script type="math/tex; mode=display">\bold{x}^T\bold{y}=\sum_{i=1}^n x_iy_i\tag{13}</script>
+<p>两个向量 <script type="math/tex">\boldsymbol{x},\boldsymbol{y}</script> 的积有几种形式。物理和微积分中常用点积（<code>dot product</code>）
+<script type="math/tex; mode=display">\boldsymbol{x}^T\boldsymbol{y}=\sum_{i=1}^n x_iy_i\tag{13}</script>
 <script type="math/tex">(13)</script> 的结果可以是实数或复数。从上面的定义出发，可以得到
-<script type="math/tex; mode=display">\bold{x}^T\bold{y}=\bold{y}^T\bold{x},\bold{x}^T(\bold{y}+\bold{z})=\bold{x}^T\bold{y}+\bold{x}^T\bold{z},(\alpha\bold{x})^T\bold{y}=\alpha(\bold{x}^T\bold{y})=\bold{x}^T(\alpha\bold{y})\tag{14}</script>
-还有一种两个维度相同的矢量的积是标量积（<code>scalar product</code>）或内积（<code>inner product</code>），用 <script type="math/tex">(\bold{x},\bold{y})</script>。
-<script type="math/tex; mode=display">(\bold{x},\bold{y})=\sum_{i=1}^n x_i\overline{y_i}\tag{15}</script>
-标量积也可以是实数或者复数。对比 <script type="math/tex">(13),(15)</script>，如果 <script type="math/tex">\bold{y}</script> 所有元素都是实数，<script type="math/tex">(13),(15)</script> 是一样的，两者的关系是
-<script type="math/tex; mode=display">(\bold{x},\bold{y})=\bold{x}^T\bold{y}\tag{16}</script>
+<script type="math/tex; mode=display">\boldsymbol{x}^T\boldsymbol{y}=\boldsymbol{y}^T\boldsymbol{x},\boldsymbol{x}^T(\boldsymbol{y}+\boldsymbol{z})=\boldsymbol{x}^T\boldsymbol{y}+\boldsymbol{x}^T\boldsymbol{z},(\alpha\boldsymbol{x})^T\boldsymbol{y}=\alpha(\boldsymbol{x}^T\boldsymbol{y})=\boldsymbol{x}^T(\alpha\boldsymbol{y})\tag{14}</script>
+还有一种两个维度相同的矢量的积是标量积（<code>scalar product</code>）或内积（<code>inner product</code>），用 <script type="math/tex">(\boldsymbol{x},\boldsymbol{y})</script>。
+<script type="math/tex; mode=display">(\boldsymbol{x},\boldsymbol{y})=\sum_{i=1}^n x_i\overline{y_i}\tag{15}</script>
+标量积也可以是实数或者复数。对比 <script type="math/tex">(13),(15)</script>，如果 <script type="math/tex">\boldsymbol{y}</script> 所有元素都是实数，<script type="math/tex">(13),(15)</script> 是一样的，两者的关系是
+<script type="math/tex; mode=display">(\boldsymbol{x},\boldsymbol{y})=\boldsymbol{x}^T\boldsymbol{y}\tag{16}</script>
 从 <script type="math/tex">(15)</script> 这个定义出发，可以得到
 <script type="math/tex; mode=display">\begin{aligned}
-(\bold{x},\bold{y})&=\overline{(\bold{y},\bold{x})}\\
-(\bold{x},\bold{y}+\bold{z})&=(\bold{x},\bold{y})+(\bold{x},\bold{z})\\
-(\alpha\bold{x},\bold{y})&=\alpha(\bold{x},\bold{y})\\
-(\bold{x},\alpha\bold{y})&=\bar{\alpha}(\bold{x},\bold{y})
+(\boldsymbol{x},\boldsymbol{y})&=\overline{(\boldsymbol{y},\boldsymbol{x})}\\
+(\boldsymbol{x},\boldsymbol{y}+\boldsymbol{z})&=(\boldsymbol{x},\boldsymbol{y})+(\boldsymbol{x},\boldsymbol{z})\\
+(\alpha\boldsymbol{x},\boldsymbol{y})&=\alpha(\boldsymbol{x},\boldsymbol{y})\\
+(\boldsymbol{x},\alpha\boldsymbol{y})&=\bar{\alpha}(\boldsymbol{x},\boldsymbol{y})
 \end{aligned}\tag{17}</script>
-即使 <script type="math/tex">x</script> 有非零的虚部的元素，<script type="math/tex">\bold{x}</script> 的标量积结果也是一个非负数
-<script type="math/tex; mode=display">(\bold{x},\bold{x})=\sum_{i=1}^nx_i\overline{x_i}=\sum_{i=1}^n|x_i|^2\tag{18}</script>
-非负数 <script type="math/tex">(\bold{x},\bold{x})^{1/2}</script> 通常记作 <script type="math/tex">||\bold{x}||</script>，是 <script type="math/tex">\bold{x}</script> 的长度（<code>length</code>）或模（<code>magnitude</code>）。只有零向量 <script type="math/tex">\bold{x}=\bold{0}</script> 的长度是零，即 <script type="math/tex">(\bold{x},\bold{x})=0</script>，其他向量的长度都是整数。如果 <script type="math/tex">(\bold{x},\bold{y})=0</script>，那么两个矢量 <script type="math/tex">\bold{x},\bold{y}</script> 是正交的（<code>orthogonal</code>）。比如三维空间单位矢量 <script type="math/tex">\bold{i},\bold{j},\bold{k}</script> 就是正交的。如果 <script type="math/tex">\bold{x}</script> 的一些元素不是实数，那么点积
-<script type="math/tex; mode=display">\bold{x}^T\bold{x}=\sum_{i=1}^nx_i^2\tag{19}</script>
-或许不是实数。对于某些非零矢量，<script type="math/tex">\bold{x}^T\bold{x}</script> 也可能为零。
+即使 <script type="math/tex">x</script> 有非零的虚部的元素，<script type="math/tex">\boldsymbol{x}</script> 的标量积结果也是一个非负数
+<script type="math/tex; mode=display">(\boldsymbol{x},\boldsymbol{x})=\sum_{i=1}^nx_i\overline{x_i}=\sum_{i=1}^n|x_i|^2\tag{18}</script>
+非负数 <script type="math/tex">(\boldsymbol{x},\boldsymbol{x})^{1/2}</script> 通常记作 <script type="math/tex">||\boldsymbol{x}||</script>，是 <script type="math/tex">\boldsymbol{x}</script> 的长度（<code>length</code>）或模（<code>magnitude</code>）。只有零向量 <script type="math/tex">\boldsymbol{x}=\boldsymbol{0}</script> 的长度是零，即 <script type="math/tex">(\boldsymbol{x},\boldsymbol{x})=0</script>，其他向量的长度都是整数。如果 <script type="math/tex">(\boldsymbol{x},\boldsymbol{y})=0</script>，那么两个矢量 <script type="math/tex">\boldsymbol{x},\boldsymbol{y}</script> 是正交的（<code>orthogonal</code>）。比如三维空间单位矢量 <script type="math/tex">\boldsymbol{i},\boldsymbol{j},\boldsymbol{k}</script> 就是正交的。如果 <script type="math/tex">\boldsymbol{x}</script> 的一些元素不是实数，那么点积
+<script type="math/tex; mode=display">\boldsymbol{x}^T\boldsymbol{x}=\sum_{i=1}^nx_i^2\tag{19}</script>
+或许不是实数。对于某些非零矢量，<script type="math/tex">\boldsymbol{x}^T\boldsymbol{x}</script> 也可能为零。
 比如令
-<script type="math/tex; mode=display">\bold{x}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}=\begin{pmatrix}
 i\\-2\\1+i
-\end{pmatrix},\bold{y}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{y}=\begin{pmatrix}
 2-i\\i\\3
-\end{pmatrix},\bold{z}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{z}=\begin{pmatrix}
 1\\0\\i
 \end{pmatrix}</script>
 那么
 <script type="math/tex; mode=display">\begin{aligned}
-\bold{x}^T\bold{y}&=4+3i\\
-(\bold{x},\bold{y})&=2+7i\\
-\bold{x}^T\bold{x}&=3+2i\\
-(\bold{x},\bold{x})&=7\\
-\bold{z}^T\bold{z}&=0\\
-(\bold{z},\bold{z})&=2
+\boldsymbol{x}^T\boldsymbol{y}&=4+3i\\
+(\boldsymbol{x},\boldsymbol{y})&=2+7i\\
+\boldsymbol{x}^T\boldsymbol{x}&=3+2i\\
+(\boldsymbol{x},\boldsymbol{x})&=7\\
+\boldsymbol{z}^T\boldsymbol{z}&=0\\
+(\boldsymbol{z},\boldsymbol{z})&=2
 \end{aligned}</script>
-<script type="math/tex">n\times n</script> 的单位矩阵（<code>identity</code>）<script type="math/tex">\bold{I}</script> 的定义如下
-<script type="math/tex; mode=display">\bold{I}=\begin{pmatrix}
+<script type="math/tex">n\times n</script> 的单位矩阵（<code>identity</code>）<script type="math/tex">\boldsymbol{I}</script> 的定义如下
+<script type="math/tex; mode=display">\boldsymbol{I}=\begin{pmatrix}
 1&0&\cdots&0\\
 0&1&\cdots&0\\
 \vdots&\vdots&\ddots&\vdots\\
 0&0&\cdots&1
 \end{pmatrix}\tag{20}</script>
-那么对任意矩阵 <script type="math/tex">\bold{A}</script> 都有
-<script type="math/tex; mode=display">\bold{A}\bold{I}=\bold{I}\bold{A}=\bold{A}\tag{21}</script>
+那么对任意矩阵 <script type="math/tex">\boldsymbol{A}</script> 都有
+<script type="math/tex; mode=display">\boldsymbol{A}\boldsymbol{I}=\boldsymbol{I}\boldsymbol{A}=\boldsymbol{A}\tag{21}</script>
 因此矩阵乘法的交换律成立的前提是有一个矩阵是单位矩阵。</p>
-<p>对 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\bold{A}</script> 而言，如果有另一个矩阵 <script type="math/tex">\bold{B}</script> 使得 <script type="math/tex">\bold{A}\bold{B}=\bold{I}=\bold{B}\bold{A}</script>，那么 <script type="math/tex">\bold{A}</script> 是非奇异的（<code>nonsingular</code>）或可逆的（<code>invertible</code>）。如果存在这样的 <script type="math/tex">\bold{B}</script>，那么可以证明其是唯一的，称为 <script type="math/tex">\bold{A}</script> 的逆矩阵（<code>inverse</code>），记作 <script type="math/tex">\bold{B}=\bold{A}^{-1}</script>，那么
-<script type="math/tex; mode=display">\bold{A}\bold{A}^{-1}=\bold{A}^{-1}\bold{A}=\bold{I}\tag{22}</script>
+<p>对 <script type="math/tex">n\times n</script> 的矩阵 <script type="math/tex">\boldsymbol{A}</script> 而言，如果有另一个矩阵 <script type="math/tex">\boldsymbol{B}</script> 使得 <script type="math/tex">\boldsymbol{A}\boldsymbol{B}=\boldsymbol{I}=\boldsymbol{B}\boldsymbol{A}</script>，那么 <script type="math/tex">\boldsymbol{A}</script> 是非奇异的（<code>nonsingular</code>）或可逆的（<code>invertible</code>）。如果存在这样的 <script type="math/tex">\boldsymbol{B}</script>，那么可以证明其是唯一的，称为 <script type="math/tex">\boldsymbol{A}</script> 的逆矩阵（<code>inverse</code>），记作 <script type="math/tex">\boldsymbol{B}=\boldsymbol{A}^{-1}</script>，那么
+<script type="math/tex; mode=display">\boldsymbol{A}\boldsymbol{A}^{-1}=\boldsymbol{A}^{-1}\boldsymbol{A}=\boldsymbol{I}\tag{22}</script>
 如果矩阵不存在逆矩阵，那么称为奇异的（<code>singular</code>）或不可逆（<code>noninvertible</code>）。</p>
-<p>假定逆矩阵存在，有很多方式求 <script type="math/tex">\bold{A}</script> 的逆矩阵 <script type="math/tex">\bold{A}^{-1}</script>。先讨论使用行列式（<code>determinant</code>）的方法。对于每个元素 <script type="math/tex">a_{ij}</script>，从矩阵中删除第 <script type="math/tex">i</script> 行和第 <script type="math/tex">j</script> 列得到的矩阵的行列式是余子式（<code>minor</code>）<script type="math/tex">M_{ij}</script>，<script type="math/tex">a_{ij}</script> 的代数余子式（<code>cofactor</code>）定义为
+<p>假定逆矩阵存在，有很多方式求 <script type="math/tex">\boldsymbol{A}</script> 的逆矩阵 <script type="math/tex">\boldsymbol{A}^{-1}</script>。先讨论使用行列式（<code>determinant</code>）的方法。对于每个元素 <script type="math/tex">a_{ij}</script>，从矩阵中删除第 <script type="math/tex">i</script> 行和第 <script type="math/tex">j</script> 列得到的矩阵的行列式是余子式（<code>minor</code>）<script type="math/tex">M_{ij}</script>，<script type="math/tex">a_{ij}</script> 的代数余子式（<code>cofactor</code>）定义为
 <script type="math/tex; mode=display">C_{ij}=(-1)^{i+j}M_{ij}\tag{23}</script>
-<script type="math/tex">\bold{A}</script> 的行列式记作 <script type="math/tex">\det A</script>，是沿着某行或者某列得到的各个代数余子式之和。比如对第一行做展开得到
-<script type="math/tex; mode=display">\det\bold{A}=C_{11}+C_{12}+\cdots+C_{1n}</script>
-如果 <script type="math/tex">\det\bold{A}\neq 0</script>，那么 <script type="math/tex">\bold{A}</script> 可逆，即 <script type="math/tex">\bold{A}^{-1}</script> 存在。如果 <script type="math/tex">\bold{B}=\bold{A}^{-1}</script>，那么
-<script type="math/tex; mode=display">b_{ij}=\frac{C_{ji}}{\det\bold{A}}\tag{24}</script>
-上面的公式并不是计算 <script type="math/tex">\bold{A}^{-1}</script> 的高效的方式，但是指出了 <script type="math/tex">\bold{A}</script> 可逆的条件。这个条件是冲要条件：<script type="math/tex">\det\bold{A}\neq 0</script> 等价于 <script type="math/tex">\bold{A}</script> 是非奇异的，<script type="math/tex">\det\bold{A}=0</script> 等价于 <script type="math/tex">\bold{A}</script> 是奇异的。</p>
-<p>另一个求解 <script type="math/tex">\bold{A}^{-1}</script> 的方式是对矩阵做初等行变换。</p>
+<script type="math/tex">\boldsymbol{A}</script> 的行列式记作 <script type="math/tex">\det A</script>，是沿着某行或者某列得到的各个代数余子式之和。比如对第一行做展开得到
+<script type="math/tex; mode=display">\det\boldsymbol{A}=C_{11}+C_{12}+\cdots+C_{1n}</script>
+如果 <script type="math/tex">\det\boldsymbol{A}\neq 0</script>，那么 <script type="math/tex">\boldsymbol{A}</script> 可逆，即 <script type="math/tex">\boldsymbol{A}^{-1}</script> 存在。如果 <script type="math/tex">\boldsymbol{B}=\boldsymbol{A}^{-1}</script>，那么
+<script type="math/tex; mode=display">b_{ij}=\frac{C_{ji}}{\det\boldsymbol{A}}\tag{24}</script>
+上面的公式并不是计算 <script type="math/tex">\boldsymbol{A}^{-1}</script> 的高效的方式，但是指出了 <script type="math/tex">\boldsymbol{A}</script> 可逆的条件。这个条件是冲要条件：<script type="math/tex">\det\boldsymbol{A}\neq 0</script> 等价于 <script type="math/tex">\boldsymbol{A}</script> 是非奇异的，<script type="math/tex">\det\boldsymbol{A}=0</script> 等价于 <script type="math/tex">\boldsymbol{A}</script> 是奇异的。</p>
+<p>另一个求解 <script type="math/tex">\boldsymbol{A}^{-1}</script> 的方式是对矩阵做初等行变换。</p>
 <ul>
 <li>交换两行。</li>
 <li>乘以一个非零的标量。</li>
 <li>将一行的若干倍加到另外一行上。</li>
 </ul>
-<p>通过一系列初等行变换对矩阵变换称之为行简化（<code>row reduction</code>）或高斯消元法（<code>Gaussian elimination</code>）。通过一系列初等行变换可以将非奇异矩阵 <script type="math/tex">\bold{A}</script> 变换乘单位矩阵 <script type="math/tex">\bold{I}</script>。可以真名，对 <script type="math/tex">\bold{I}</script> 进行同样的操作，得到了 <script type="math/tex">\bold{A}^{-1}</script>。对增广矩阵（<code>augmented matrix</code>） <script type="math/tex">(\bold{A}|\bold{I})</script> 进行操作会很高效。</p>
+<p>通过一系列初等行变换对矩阵变换称之为行简化（<code>row reduction</code>）或高斯消元法（<code>Gaussian elimination</code>）。通过一系列初等行变换可以将非奇异矩阵 <script type="math/tex">\boldsymbol{A}</script> 变换乘单位矩阵 <script type="math/tex">\boldsymbol{I}</script>。可以真名，对 <script type="math/tex">\boldsymbol{I}</script> 进行同样的操作，得到了 <script type="math/tex">\boldsymbol{A}^{-1}</script>。对增广矩阵（<code>augmented matrix</code>） <script type="math/tex">(\boldsymbol{A}|\boldsymbol{I})</script> 进行操作会很高效。</p>
 <p>例 2 求矩阵的逆。
-<script type="math/tex; mode=display">\bold{A}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}=\begin{pmatrix}
 1&-1&-1\\
 3&-1&2\\
 2&2&3
 \end{pmatrix}</script>
 解：首先写出增广矩阵
-<script type="math/tex; mode=display">(\bold{A}|\bold{I})=\begin{pmatrix}
+<script type="math/tex; mode=display">(\boldsymbol{A}|\boldsymbol{I})=\begin{pmatrix}
 1&-1&-1&1&0&0\\
 3&-1&2&0&1&0\\
 2&2&3&0&0&1
@@ -30557,41 +30557,41 @@ i\\-2\\1+i
 0&0&1&-4/5&2/5&-1/5
 \end{pmatrix}</script>
 那么
-<script type="math/tex; mode=display">\bold{A}^{-1}=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}^{-1}=\begin{pmatrix}
 7/10&-1/10&3/10\\
 1/2&-1/2&1/2\\
 -4/5&2/5&-1/5
 \end{pmatrix}</script>
-<script type="math/tex">\bold{A}</script> 的逆与 <script type="math/tex">\bold{A}</script> 正交，很容易验证答案是否正确。</p>
-<p>上面的类似中 <script type="math/tex">\bold{A}</script> 比较简单。如果 <script type="math/tex">a_{11}</script> 不是 1，那么需要第一行乘以 <script type="math/tex">1/a_{11}</script> 将其变成 1。如果 <script type="math/tex">a_{11}=0</script>，需要将第一列中非零元素换到 <script type="math/tex">a_{11}</script>，即第一行与某一行交换。如果无法交换，说明第一行每个元素都是 0，那么行列式 <script type="math/tex">\det\bold{A}=0</script>，因此 <script type="math/tex">\bold{A}</script> 不可逆，是奇异的。后续每一列处理都类似，与更低的行交换使 <script type="math/tex">a_{ii}</script> 不为零，如果无法做到，那么说明 <script type="math/tex">\bold{A}</script> 是奇异的，没有逆矩阵。</p>
+<script type="math/tex">\boldsymbol{A}</script> 的逆与 <script type="math/tex">\boldsymbol{A}</script> 正交，很容易验证答案是否正确。</p>
+<p>上面的类似中 <script type="math/tex">\boldsymbol{A}</script> 比较简单。如果 <script type="math/tex">a_{11}</script> 不是 1，那么需要第一行乘以 <script type="math/tex">1/a_{11}</script> 将其变成 1。如果 <script type="math/tex">a_{11}=0</script>，需要将第一列中非零元素换到 <script type="math/tex">a_{11}</script>，即第一行与某一行交换。如果无法交换，说明第一行每个元素都是 0，那么行列式 <script type="math/tex">\det\boldsymbol{A}=0</script>，因此 <script type="math/tex">\boldsymbol{A}</script> 不可逆，是奇异的。后续每一列处理都类似，与更低的行交换使 <script type="math/tex">a_{ii}</script> 不为零，如果无法做到，那么说明 <script type="math/tex">\boldsymbol{A}</script> 是奇异的，没有逆矩阵。</p>
 <h3 id="_2">矩阵函数</h3>
 <p>有时，向量或者矩阵的元素是实数 <script type="math/tex">t</script> 的函数。写作
-<script type="math/tex; mode=display">\bold{x}(t)\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{x}(t)\begin{pmatrix}
 x_1(t)\\\vdots\\x_n(t)
-\end{pmatrix},\bold{A}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{A}=\begin{pmatrix}
 a_{11}(t),&\cdots&a_{1n}(t)\\
 \vdots&&\vdots\\
 a_{m1}(t),&\cdots&a_{mn}(t)\\
 \end{pmatrix}\tag{25}</script>
-如果矩阵 <script type="math/tex">\bold{A}</script> 的每一个元素在 <script type="math/tex">t=t_0</script> 时或者在区间 <script type="math/tex">\alpha<t<\beta</script> 上连续，那么矩阵 <script type="math/tex">\bold{A}</script> 在给定点或指定区间上连续。类似的，如果每一个元素都可微，那么称为 <script type="math/tex">\bold{A}</script> 是可微的，那么
-<script type="math/tex; mode=display">\frac{d\bold{A}}{dt}=\bigg(\frac{da_{ij}}{dt}\bigg)\tag{26}</script>
-即 <script type="math/tex">d\bold{A}/dt</script> 是 <script type="math/tex">\bold{A}</script> 的每个元素求导。类似的，矩阵函数的积分定义如下
-<script type="math/tex; mode=display">\int_a^b\bold{A}(t)dt=\bigg(\int_a^ba_{ij}dt\bigg)\tag{27}</script>
+如果矩阵 <script type="math/tex">\boldsymbol{A}</script> 的每一个元素在 <script type="math/tex">t=t_0</script> 时或者在区间 <script type="math/tex">\alpha<t<\beta</script> 上连续，那么矩阵 <script type="math/tex">\boldsymbol{A}</script> 在给定点或指定区间上连续。类似的，如果每一个元素都可微，那么称为 <script type="math/tex">\boldsymbol{A}</script> 是可微的，那么
+<script type="math/tex; mode=display">\frac{d\boldsymbol{A}}{dt}=\bigg(\frac{da_{ij}}{dt}\bigg)\tag{26}</script>
+即 <script type="math/tex">d\boldsymbol{A}/dt</script> 是 <script type="math/tex">\boldsymbol{A}</script> 的每个元素求导。类似的，矩阵函数的积分定义如下
+<script type="math/tex; mode=display">\int_a^b\boldsymbol{A}(t)dt=\bigg(\int_a^ba_{ij}dt\bigg)\tag{27}</script>
 比如
-<script type="math/tex; mode=display">\bold{A}(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}(t)=\begin{pmatrix}
 \sin t&t\\1&\cos t
 \end{pmatrix}</script>
 那么
-<script type="math/tex; mode=display">\bold{A}'(t)=\begin{pmatrix}
+<script type="math/tex; mode=display">\boldsymbol{A}'(t)=\begin{pmatrix}
 \cos t&1\\0&-\sin t
-\end{pmatrix},\int_0^\pi \bold{A}(t)dt=\begin{pmatrix}
+\end{pmatrix},\int_0^\pi \boldsymbol{A}(t)dt=\begin{pmatrix}
 2&\pi^2/2\\\pi&0
 \end{pmatrix}</script>
 很多初等微积分规则也适用于矩阵函数
-<script type="math/tex; mode=display">\frac{d}{dt}(\bold{C}\bold{A})=\bold{C}\frac{d\bold{A}}{dt}\tag{28}</script>
-其中 <script type="math/tex">\bold{C}</script> 是常量矩阵。
-<script type="math/tex; mode=display">\frac{d}{dt}(\bold{A}+\bold{B})=\frac{d\bold{A}}{dt}+\frac{d\bold{B}}{dt}\tag{29}</script>
-<script type="math/tex; mode=display">\frac{d}{dt}(\bold{A}\bold{B})=\bold{A}\frac{d\bold{B}}{dt}+\frac{d\bold{A}}{dt}\bold{B}</script>
+<script type="math/tex; mode=display">\frac{d}{dt}(\boldsymbol{C}\boldsymbol{A})=\boldsymbol{C}\frac{d\boldsymbol{A}}{dt}\tag{28}</script>
+其中 <script type="math/tex">\boldsymbol{C}</script> 是常量矩阵。
+<script type="math/tex; mode=display">\frac{d}{dt}(\boldsymbol{A}+\boldsymbol{B})=\frac{d\boldsymbol{A}}{dt}+\frac{d\boldsymbol{B}}{dt}\tag{29}</script>
+<script type="math/tex; mode=display">\frac{d}{dt}(\boldsymbol{A}\boldsymbol{B})=\boldsymbol{A}\frac{d\boldsymbol{B}}{dt}+\frac{d\boldsymbol{A}}{dt}\boldsymbol{B}</script>
 注意 <script type="math/tex">(28),(30)</script> 要保持矩阵乘法的顺序。定义 <script type="math/tex">(26),(27)</script> 也适用于向量。</p>
 <p>矩阵的一些操作是应用操作与每一个元素，比如乘以一个常数、微分、积分。不过，这对许多操作而言不成立，比如矩阵的平方并不是每个元素平方。</p>
 
