@@ -34,7 +34,7 @@ After the chaotic region there is a value of $r$ where we see period 5­ cycles.
 
 ### Feigenbaum constant
 If $r_1$ = first bifurcation point, $r_2$ = second etc. then
-$$\lim_{k \to \infty}\frac{r_k-r_{k-1}}{r_{k+1}-r_k}=4.6692\ldots = \bold{\text{ the Feigenbaum constant.}}$$
+$$\lim_{k \to \infty}\frac{r_k-r_{k-1}}{r_{k+1}-r_k}=4.6692\ldots = \boldsymbol{\text{ the Feigenbaum constant.}}$$
 The same value occurs in many 'period doubling' systems.
 
 ### The forced Duffing Equation

@@ -1,14 +1,14 @@
 下面讨论常系数线性齐次微分方程组
-$$\bold{x}'=\bold{A}\bold{x}\tag{1}$$
-中 $\bold{A}$ 有重复特征值的情况。7.3 小节讨论过代数重数 $m\geq 2$ 的重复特征值或许有小于 $m$ 的几何重数。也就是说，这个特征值仅对应着小于 $m$ 个线性无关的特征向量。
+$$\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}\tag{1}$$
+中 $\boldsymbol{A}$ 有重复特征值的情况。7.3 小节讨论过代数重数 $m\geq 2$ 的重复特征值或许有小于 $m$ 的几何重数。也就是说，这个特征值仅对应着小于 $m$ 个线性无关的特征向量。
 
 例 1 求矩阵
-$$\bold{A}=\begin{pmatrix}
+$$\boldsymbol{A}=\begin{pmatrix}
 1&-1\\1&3
 \end{pmatrix}\tag{2}$$
 的特征值和特征向量。
 
-解：特征值 $r$ 和特征向量 $\bold{\xi}$ 满足 $(\bold{A}-r\bold{I})\bold{\xi}=\bold{0}$，即
+解：特征值 $r$ 和特征向量 $\boldsymbol{\xi}$ 满足 $(\boldsymbol{A}-r\boldsymbol{I})\boldsymbol{\xi}=\boldsymbol{0}$，即
 $$\begin{pmatrix}
 1-r&-1\\1&3-r
 \end{pmatrix}\begin{pmatrix}
@@ -17,7 +17,7 @@ $$\begin{pmatrix}
 0\\0
 \end{pmatrix}\tag{3}$$
 特征值是
-$$\det(\bold{A}-r\bold{I})=\begin{vmatrix}
+$$\det(\boldsymbol{A}-r\boldsymbol{I})=\begin{vmatrix}
 1-r&-1\\1&3-r
 \end{vmatrix}=r^2-4r+4=(r-2)^2=0\tag{4}$$
 的根。两个特征值数 $r_1=r_2=2$，因此特征值 2 的代数重数是 2。
@@ -31,84 +31,84 @@ $$\begin{pmatrix}
 0\\0
 \end{pmatrix}\tag{5}$$
 那么 $\xi_1+\xi_2=0$，因此 $r=2$ 对应的特征向量是
-$$\bold{\xi}^{(1)}=\begin{pmatrix}
+$$\boldsymbol{\xi}^{(1)}=\begin{pmatrix}
 1\\1
 \end{pmatrix}\tag{6}$$
 因此特征值 2 的几何重数是 1。
 
 回到方程组 $(1)$，假设 $r=\rho$ 是特征方程
-$$\det(\bold{A}-r\bold{I})=0\tag{7}$$
-的 $m$ 重根，那么 $\rho$ 是矩阵 $\bold{A}$ 的代数重数为 $m$ 的特征值。有两种可能性：对于特征值 $\rho$，对应着 $m$ 个线性无关的特征向量，或者对应着少于 $m$ 个线性无关的特征向量。
+$$\det(\boldsymbol{A}-r\boldsymbol{I})=0\tag{7}$$
+的 $m$ 重根，那么 $\rho$ 是矩阵 $\boldsymbol{A}$ 的代数重数为 $m$ 的特征值。有两种可能性：对于特征值 $\rho$，对应着 $m$ 个线性无关的特征向量，或者对应着少于 $m$ 个线性无关的特征向量。
 
-第一种情况，代数重数 $m$ 的特征值 $\rho$ 有 $m$ 个线性无关的特征向量 $\bold{\xi}^{(1)},\cdots,\bold{\xi}^{(m)}$，那么方程 $(1)$ 有 $m$ 个线性无关的解 $\bold{x}^{(1)}(t)=\bold{\xi}^{(1)}e^{\rho t},\cdots,\bold{x}^{(m)}(t)=\bold{\xi}^{(m)}e^{\rho t}$，这和之前的讨论没有区别，形如 $\bold{\xi}e^{rt}$ 的解依旧构成了基础解系。这种情况发生在 $\bold{A}$ 是埃尔米特矩阵，或者是实数对称矩阵（埃尔米特矩阵的特例）。
+第一种情况，代数重数 $m$ 的特征值 $\rho$ 有 $m$ 个线性无关的特征向量 $\boldsymbol{\xi}^{(1)},\cdots,\boldsymbol{\xi}^{(m)}$，那么方程 $(1)$ 有 $m$ 个线性无关的解 $\boldsymbol{x}^{(1)}(t)=\boldsymbol{\xi}^{(1)}e^{\rho t},\cdots,\boldsymbol{x}^{(m)}(t)=\boldsymbol{\xi}^{(m)}e^{\rho t}$，这和之前的讨论没有区别，形如 $\boldsymbol{\xi}e^{rt}$ 的解依旧构成了基础解系。这种情况发生在 $\boldsymbol{A}$ 是埃尔米特矩阵，或者是实数对称矩阵（埃尔米特矩阵的特例）。
 
-不过如果系数矩阵不是埃尔米特矩阵，那么代数重数 $m$ 的特征值 $\rho$ 只有小于 $m$ 个线性无关的特征向量，此时，方程 $(1)$ 有少于 $m$ 个形如 $\bold{\xi}e^{rt}$ 的解。因此为了构造 $(1)$ 的通解，必须要找到其他形式的解。3.4 解求解二阶线性微分方程 $ay''+by'+cy=0$ 时遇到过特征方程有两个重复根 $r$，第一个解的形式是 $y_1(t)=e^{rt}$，第二个解的形式是 $y_2(t)=te^{rt}$。下面的例子使用了类似的想法。
+不过如果系数矩阵不是埃尔米特矩阵，那么代数重数 $m$ 的特征值 $\rho$ 只有小于 $m$ 个线性无关的特征向量，此时，方程 $(1)$ 有少于 $m$ 个形如 $\boldsymbol{\xi}e^{rt}$ 的解。因此为了构造 $(1)$ 的通解，必须要找到其他形式的解。3.4 解求解二阶线性微分方程 $ay''+by'+cy=0$ 时遇到过特征方程有两个重复根 $r$，第一个解的形式是 $y_1(t)=e^{rt}$，第二个解的形式是 $y_2(t)=te^{rt}$。下面的例子使用了类似的想法。
 
 例 2 求
-$$\bold{x}'=\bold{A}\bold{x}=\begin{pmatrix}
+$$\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}=\begin{pmatrix}
 1&-1\\1&3
-\end{pmatrix}\bold{x}\tag{8}$$
+\end{pmatrix}\boldsymbol{x}\tag{8}$$
 的基础解系，并画出相图。
 
 解：方程组 $(8)$ 的方向场如下图所示，所有的非零解都远离原点。
 
 ![](080.010.png)
 
-例 1 中我们得到了系数矩阵 $\bold{A}$ 的特征值和特征向量。$r=2$ 是代数重数为 2 的特征值，对应的特征向量是 $\bold{\xi}=(1,-1)^T$。因此 $(8)$ 的第一个解是
-$$\bold{x}^{(1)}(t)=\begin{pmatrix}
+例 1 中我们得到了系数矩阵 $\boldsymbol{A}$ 的特征值和特征向量。$r=2$ 是代数重数为 2 的特征值，对应的特征向量是 $\boldsymbol{\xi}=(1,-1)^T$。因此 $(8)$ 的第一个解是
+$$\boldsymbol{x}^{(1)}(t)=\begin{pmatrix}
 1\\-1
 \end{pmatrix}e^{2t}\tag{9}$$
-但是没有第二个形式为 $\bold{x}=\bold{\xi}e^{rt}$ 的解。
+但是没有第二个形式为 $\boldsymbol{x}=\boldsymbol{\xi}e^{rt}$ 的解。
 
 基于之前 3.4 小节的思想，假定第二个解的形式是
-$$\bold{x}=\bold{\xi}te^{2t}\tag{10}$$
-其中 $\bold{\xi}$ 是待定向量。将上式代入 $(8)$ 得到
-$$2\bold{\xi}te^{2t}+\bold{\xi}e^{2t}=\bold{A}\bold{\xi}te^{2t}\tag{11}$$
+$$\boldsymbol{x}=\boldsymbol{\xi}te^{2t}\tag{10}$$
+其中 $\boldsymbol{\xi}$ 是待定向量。将上式代入 $(8)$ 得到
+$$2\boldsymbol{\xi}te^{2t}+\boldsymbol{\xi}e^{2t}=\boldsymbol{A}\boldsymbol{\xi}te^{2t}\tag{11}$$
 上式对于所有 $t$ 都要成立，那么 $te^{2t},e^{2t}$ 的系数要相等。为了让 $e^{2t}$ 的系数相等，得到
-$$\bold{\xi}=\bold{0}\tag{12}$$
+$$\boldsymbol{\xi}=\boldsymbol{0}\tag{12}$$
 因此 $(8)$ 没有形式为 $(10)$ 的非零解。
 
-方程 $(11)$ 出现了 $te^{2t},e^{2t}$，那么除了 $te^{2t}$ 之外，第二个解还需要包含形式为 $\bold{\eta}e^{2t}的项$，因此假设解的形式是
-$$\bold{x}=\bold{\xi}te^{2t}+\bold{\eta}e^{2t}\tag{13}$$
-其中 $\bold{\xi},\bold{\eta}$ 是待定向量。将上式代入 $(8)$ 得到
-$$2\bold{\xi}te^{2t}+(\bold{\xi}+2\bold{\eta})e^{2t}=\bold{A}(\bold{\xi}te^{2t}+\bold{\eta}e^{2t})\tag{14}$$
+方程 $(11)$ 出现了 $te^{2t},e^{2t}$，那么除了 $te^{2t}$ 之外，第二个解还需要包含形式为 $\boldsymbol{\eta}e^{2t}的项$，因此假设解的形式是
+$$\boldsymbol{x}=\boldsymbol{\xi}te^{2t}+\boldsymbol{\eta}e^{2t}\tag{13}$$
+其中 $\boldsymbol{\xi},\boldsymbol{\eta}$ 是待定向量。将上式代入 $(8)$ 得到
+$$2\boldsymbol{\xi}te^{2t}+(\boldsymbol{\xi}+2\boldsymbol{\eta})e^{2t}=\boldsymbol{A}(\boldsymbol{\xi}te^{2t}+\boldsymbol{\eta}e^{2t})\tag{14}$$
 为了让 $te^{2t},e^{2t}$ 的系数相等，那么
-$$2\bold{\xi}=\bold{A}\bold{\xi}$$
-$$\bold{\xi}+2\bold{\eta}=\bold{A}\bold{\eta}$$
-为了确定 $\bold{\xi},\bold{\eta}$，上述方程写作
-$$(\bold{A}-2\bold{I})\bold{\xi}=\bold{0}\tag{15}$$
-$$(\bold{A}-2\bold{I})\bold{\eta}=\bold{\xi}\tag{16}$$
-方程 $(15)$ 的解就是 $r=2,\bold{\xi}=(1,-1)^T$。由于 $\det(\bold{A}-2\bold{I})=0$，$(16)$ 有非零解要求右边的 $\bold{\xi}$ 满足某种条件。而 $\bold{\xi}$ 及其整数倍恰好是能够使得方程组有解的向量。$(16)$ 的增广矩阵是
+$$2\boldsymbol{\xi}=\boldsymbol{A}\boldsymbol{\xi}$$
+$$\boldsymbol{\xi}+2\boldsymbol{\eta}=\boldsymbol{A}\boldsymbol{\eta}$$
+为了确定 $\boldsymbol{\xi},\boldsymbol{\eta}$，上述方程写作
+$$(\boldsymbol{A}-2\boldsymbol{I})\boldsymbol{\xi}=\boldsymbol{0}\tag{15}$$
+$$(\boldsymbol{A}-2\boldsymbol{I})\boldsymbol{\eta}=\boldsymbol{\xi}\tag{16}$$
+方程 $(15)$ 的解就是 $r=2,\boldsymbol{\xi}=(1,-1)^T$。由于 $\det(\boldsymbol{A}-2\boldsymbol{I})=0$，$(16)$ 有非零解要求右边的 $\boldsymbol{\xi}$ 满足某种条件。而 $\boldsymbol{\xi}$ 及其整数倍恰好是能够使得方程组有解的向量。$(16)$ 的增广矩阵是
 $$\begin{pmatrix}
 -1&-1&1\\1&1&-1
 \end{pmatrix}$$
 第二行是第一行的 -1 倍，那么方程组有解
 $$-\eta_1-\eta_2=1$$
 令 $\eta_1=k$，其中 $k$ 是任意常量，那么 $\eta_2=-k-1$，因此
-$$\bold{\eta}=\begin{pmatrix}
+$$\boldsymbol{\eta}=\begin{pmatrix}
 k\\-k-1
 \end{pmatrix}=\begin{pmatrix}
 0\\-1
 \end{pmatrix}+k\begin{pmatrix}
 1\\-1
 \end{pmatrix}\tag{17}$$
-将 $\bold{\xi},\bold{\eta}$ 代入 $(13)$ 得到
-$$\bold{x}=\bold{\xi}te^{2t}+\bold{\eta}e^{2t}=\begin{pmatrix}
+将 $\boldsymbol{\xi},\boldsymbol{\eta}$ 代入 $(13)$ 得到
+$$\boldsymbol{x}=\boldsymbol{\xi}te^{2t}+\boldsymbol{\eta}e^{2t}=\begin{pmatrix}
 1\\-1
 \end{pmatrix}te^{2t}+\begin{pmatrix}
 0\\-1
 \end{pmatrix}e^{2t}+k\begin{pmatrix}
 1\\-1
 \end{pmatrix}e^{2t}\tag{18}$$
-$(18)$ 的最后一项是第一个解 $\bold{x}^{(1)}(t)$ 的若干倍，因此可以忽略，那么第二个解是
-$$\bold{x}^{(2)}(t)=\begin{pmatrix}
+$(18)$ 的最后一项是第一个解 $\boldsymbol{x}^{(1)}(t)$ 的若干倍，因此可以忽略，那么第二个解是
+$$\boldsymbol{x}^{(2)}(t)=\begin{pmatrix}
 1\\-1
 \end{pmatrix}te^{2t}+\begin{pmatrix}
 0\\-1
 \end{pmatrix}e^{2t}\tag{19}$$
-朗斯基行列式 $W[\bold{x}^{(1)},\bold{x}^{(2)}](t)=-e^{4t}\neq 0$，因此 $\bold{x}^{(1)},\bold{x}^{(2)}$ 组成了方程组 $(8)$ 的基础解系，因此通解是
+朗斯基行列式 $W[\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}](t)=-e^{4t}\neq 0$，因此 $\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}$ 组成了方程组 $(8)$ 的基础解系，因此通解是
 $$\begin{aligned}
-\bold{x}&=c_1\bold{x}^{(1)}+c_2\bold{x}^{(2)}\\
+\boldsymbol{x}&=c_1\boldsymbol{x}^{(1)}+c_2\boldsymbol{x}^{(2)}\\
 &=c_1\begin{pmatrix}
 1\\-1
 \end{pmatrix}e^{2t}+c_2\bigg(\begin{pmatrix}
@@ -117,50 +117,50 @@ $$\begin{aligned}
 0\\-1
 \end{pmatrix}e^{2t}\bigg)
 \end{aligned}\tag{20}$$
-解 $(20)$ 的相图的主要特征来自于每一项都包含 $e^{2t}$。随着 $t\to -\infty$，$\bold{x}\to\bold{0}$，除非 $c_1,c_2$ 都是零，否则随着 $t\to\infty$ 时 $\bold{x}$ 趋于无界。如果 $c_1,c_2$ 都不是零，沿着任意轨迹都有
+解 $(20)$ 的相图的主要特征来自于每一项都包含 $e^{2t}$。随着 $t\to -\infty$，$\boldsymbol{x}\to\boldsymbol{0}$，除非 $c_1,c_2$ 都是零，否则随着 $t\to\infty$ 时 $\boldsymbol{x}$ 趋于无界。如果 $c_1,c_2$ 都不是零，沿着任意轨迹都有
 $$\lim_{t\to -\infty}\frac{x_2(t)}{x_1(t)}=\lim_{t\to -\infty}\frac{-c_1e^{2t}+c_2(-te^{2t}-e^{2t})}{c_1e^{2t}+c_2te^{2t}}=\lim_{t\to -\infty}\frac{-c_1-c_2t-c_2}{c_1+c_2t}=-1$$
 因此，随着 $t\to -\infty$，每一个轨迹都沿着 $x_2=-x_1$ 趋于原点。如下图所示。随着 $t\to\infty$，轨迹的斜率也趋于 -1。
 
 ![](080.021.png)
 
-可以证明，当 $t\to\infty$ 时，轨线并不趋近于任何单一的渐近线。上图给出了一些轨迹，包括 $\bold{x}^{(1)}$ 是黑色实线，$\bold{x}^{(2)}$ 是黑色虚线。$x_1,x_2$ 相对于 $t$ 的变化如下图所示。
+可以证明，当 $t\to\infty$ 时，轨线并不趋近于任何单一的渐近线。上图给出了一些轨迹，包括 $\boldsymbol{x}^{(1)}$ 是黑色实线，$\boldsymbol{x}^{(2)}$ 是黑色虚线。$x_1,x_2$ 相对于 $t$ 的变化如下图所示。
 
 ![](080.022.png)
 
-上图（a）是典型的有相同特征值的但只对应一个独立特征向量的 $2\times 2$ 方程组 $\bold{x}'=\bold{A}\bold{x}$ 的轨迹的模式。原点称为非正常节点（`improper node`）。如果特征值是负数，那么轨迹类似不过方向向内。非正常节点是渐进稳定的或者是稳定的，这取决于特征值的符号。
+上图（a）是典型的有相同特征值的但只对应一个独立特征向量的 $2\times 2$ 方程组 $\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}$ 的轨迹的模式。原点称为非正常节点（`improper node`）。如果特征值是负数，那么轨迹类似不过方向向内。非正常节点是渐进稳定的或者是稳定的，这取决于特征值的符号。
 
-从上面的例子可以看出两个一阶方程组成的方程组和一个二阶方程有一个明显不同：对于特征方程有重复根 $r_1$ 的二阶线性方程，$ce^{r_1t}$ 不会出现在第二个解中，因为它是第一个解的若干倍。但是对于一阶线性方程组，$\bold{\eta}e^{r_1t}$ 通常不是 $\bold{\xi}e^{r_1t}$ 的若干倍，因此 $\bold{\eta}e^{r_2t}$ 需要保留。
+从上面的例子可以看出两个一阶方程组成的方程组和一个二阶方程有一个明显不同：对于特征方程有重复根 $r_1$ 的二阶线性方程，$ce^{r_1t}$ 不会出现在第二个解中，因为它是第一个解的若干倍。但是对于一阶线性方程组，$\boldsymbol{\eta}e^{r_1t}$ 通常不是 $\boldsymbol{\xi}e^{r_1t}$ 的若干倍，因此 $\boldsymbol{\eta}e^{r_2t}$ 需要保留。
 
-回到方程组 $(1)$，如果 $r=\rho$ 是 $\bold{A}$ 的二重特征值，并且只有一个特征向量 $\bold{\xi}$ 与之对应，那么第一个解是
-$$\bold{x}^{(1)}(t)=\bold{\xi}e^{\rho t}\tag{21}$$
-其中 $\bold{\xi}$ 满足
-$$(\bold{A}-\rho\bold{I})\bold{\xi}=\bold{0}\tag{22}$$
+回到方程组 $(1)$，如果 $r=\rho$ 是 $\boldsymbol{A}$ 的二重特征值，并且只有一个特征向量 $\boldsymbol{\xi}$ 与之对应，那么第一个解是
+$$\boldsymbol{x}^{(1)}(t)=\boldsymbol{\xi}e^{\rho t}\tag{21}$$
+其中 $\boldsymbol{\xi}$ 满足
+$$(\boldsymbol{A}-\rho\boldsymbol{I})\boldsymbol{\xi}=\boldsymbol{0}\tag{22}$$
 和例 2 类似，第二个解是
-$$\bold{x}^{(2)}=\bold{\xi}te^{\rho t}+\bold{\eta}e^{\rho t}\tag{23}$$
-其中 $\bold{\xi}$ 满足 $(22)$，$\bold{\eta}$ 满足
-$$(\bold{A}-\rho\bold{I})\bold{\eta}=\bold{\xi}\tag{24}$$
-尽管 $\det(\bold{A}-\rho\bold{I})=0$，但总是可以用 $(24)$ 求解出 $\bold{\eta}$。这里不展示证明细节了，一个重要步骤是对 $(24)$ 两边同乘 $\bold{A}-\rho\bold{I}$，那么
-$$(\bold{A}-\rho\bold{I})^2\bold{\eta}=\bold{0}$$
-向量 $\bold{\eta}$ 被称为矩阵 $\bold{A}$ 对应特征值 $\rho$ 的广义特征向量（`generalized eigenvector`）。
+$$\boldsymbol{x}^{(2)}=\boldsymbol{\xi}te^{\rho t}+\boldsymbol{\eta}e^{\rho t}\tag{23}$$
+其中 $\boldsymbol{\xi}$ 满足 $(22)$，$\boldsymbol{\eta}$ 满足
+$$(\boldsymbol{A}-\rho\boldsymbol{I})\boldsymbol{\eta}=\boldsymbol{\xi}\tag{24}$$
+尽管 $\det(\boldsymbol{A}-\rho\boldsymbol{I})=0$，但总是可以用 $(24)$ 求解出 $\boldsymbol{\eta}$。这里不展示证明细节了，一个重要步骤是对 $(24)$ 两边同乘 $\boldsymbol{A}-\rho\boldsymbol{I}$，那么
+$$(\boldsymbol{A}-\rho\boldsymbol{I})^2\boldsymbol{\eta}=\boldsymbol{0}$$
+向量 $\boldsymbol{\eta}$ 被称为矩阵 $\boldsymbol{A}$ 对应特征值 $\rho$ 的广义特征向量（`generalized eigenvector`）。
 
 ### 基解矩阵
-7.7 小节讨论过，基解矩阵由线性无关的解组成。因此，在上个例子中，基解矩阵由 $(8)$ 的解 $\bold{x}^{(1)},\bold{x}^{(2)}$ 组成，那么
-$$\bold{\Psi}(t)=\begin{pmatrix}
+7.7 小节讨论过，基解矩阵由线性无关的解组成。因此，在上个例子中，基解矩阵由 $(8)$ 的解 $\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}$ 组成，那么
+$$\boldsymbol{\Psi}(t)=\begin{pmatrix}
 e^{2t}&te^{2t}\\-e^{2t}&-te^{2t}-e^{2t}
 \end{pmatrix}=e^{2t}\begin{pmatrix}
 1&t\\-1&-1-t
 \end{pmatrix}\tag{25}$$
-特殊的基解矩阵 $\bold{\Phi}$ 满足 $\bold{\Phi}(0)=\bold{I}$，通过 $\bold{\Phi}(t)=\bold{\Psi}(t)\bold{\Psi}^{-1}(0)$ 可以计算得到。由 $(25)$ 得到
-$$\bold{\Psi}(0)=\begin{pmatrix}
+特殊的基解矩阵 $\boldsymbol{\Phi}$ 满足 $\boldsymbol{\Phi}(0)=\boldsymbol{I}$，通过 $\boldsymbol{\Phi}(t)=\boldsymbol{\Psi}(t)\boldsymbol{\Psi}^{-1}(0)$ 可以计算得到。由 $(25)$ 得到
+$$\boldsymbol{\Psi}(0)=\begin{pmatrix}
 1&0\\-1&-1
 \end{pmatrix}$$
 那么
-$$\bold{\Psi}^{-1}(0)=\begin{pmatrix}
+$$\boldsymbol{\Psi}^{-1}(0)=\begin{pmatrix}
 1&0\\-1&-1
 \end{pmatrix}\tag{26}$$
 那么
 $$\begin{aligned}
-\bold{\Phi}(t)&=\bold{\Psi}(t)\bold{\Psi}^{-1}(0)\\
+\boldsymbol{\Phi}(t)&=\boldsymbol{\Psi}(t)\boldsymbol{\Psi}^{-1}(0)\\
 &=e^{2t}\begin{pmatrix}
 1&t\\-1&-1-t
 \end{pmatrix}\begin{pmatrix}
@@ -170,47 +170,47 @@ $$\begin{aligned}
 1-t&-t\\t&1+t
 \end{pmatrix}
 \end{aligned}\tag{27}$$
-之前讨论过，满足 $\bold{\Phi}(0)=\bold{I}$ 的基解矩阵也可以写作 $\exp(\bold{A}t)$。对于例 2 中的矩阵 $\bold{A}$，初始条件 $\bold{x}(0)=\bold{x}^0$ 的微分方程组 $\bold{x}'=\bold{A}\bold{x}$ 的解是 $\bold{x}(t)=\exp(\bold{A}t)\bold{x}^0$，即 $\bold{x}(t)=\bold{\Phi}(t)\bold{x}^0$。
+之前讨论过，满足 $\boldsymbol{\Phi}(0)=\boldsymbol{I}$ 的基解矩阵也可以写作 $\exp(\boldsymbol{A}t)$。对于例 2 中的矩阵 $\boldsymbol{A}$，初始条件 $\boldsymbol{x}(0)=\boldsymbol{x}^0$ 的微分方程组 $\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}$ 的解是 $\boldsymbol{x}(t)=\exp(\boldsymbol{A}t)\boldsymbol{x}^0$，即 $\boldsymbol{x}(t)=\boldsymbol{\Phi}(t)\boldsymbol{x}^0$。
 
 ### Jordan 标准型
-仅当 $n\times n$ 的矩阵 $\bold{A}$ 有 $n$ 个线性无关的特征向量时，矩阵能够对角化。如果少一些特征向量，那么 $\bold{A}$ 可以转换成类似对角矩阵的形式，称为 Jordan 标准型（`form`），对角线上是 $\bold{A}$ 的特征值，对角线之上有元素为 1，其余元素都是 0。
+仅当 $n\times n$ 的矩阵 $\boldsymbol{A}$ 有 $n$ 个线性无关的特征向量时，矩阵能够对角化。如果少一些特征向量，那么 $\boldsymbol{A}$ 可以转换成类似对角矩阵的形式，称为 Jordan 标准型（`form`），对角线上是 $\boldsymbol{A}$ 的特征值，对角线之上有元素为 1，其余元素都是 0。
 
-回到 $(2)$ 给出的矩阵 $\bold{A}$。为了将其转换为 Jordan 标准型，首先使用 $(6)$ 给出的特征向量 $\bold{\xi}$ 和 $(17)$ 给出广义特征向量 $\bold{\eta}$（$k=0$）构建出矩阵 $\bold{T}$ 和其逆矩阵
-$$\bold{T}=\begin{pmatrix}
+回到 $(2)$ 给出的矩阵 $\boldsymbol{A}$。为了将其转换为 Jordan 标准型，首先使用 $(6)$ 给出的特征向量 $\boldsymbol{\xi}$ 和 $(17)$ 给出广义特征向量 $\boldsymbol{\eta}$（$k=0$）构建出矩阵 $\boldsymbol{T}$ 和其逆矩阵
+$$\boldsymbol{T}=\begin{pmatrix}
 1&0\\-1&-1
-\end{pmatrix},\bold{T}^{-1}=\begin{pmatrix}
+\end{pmatrix},\boldsymbol{T}^{-1}=\begin{pmatrix}
 1&0\\-1&-1
 \end{pmatrix}\tag{28}$$
 那么
-$$\bold{T}^{-1}\bold{A}\bold{T}=\begin{pmatrix}
+$$\boldsymbol{T}^{-1}\boldsymbol{A}\boldsymbol{T}=\begin{pmatrix}
 2&1\\0&2
-\end{pmatrix}=\bold{J}\tag{29}$$
-矩阵 $\bold{J}$ 是 $\bold{A}$ 的 Jordan 标准型。1 仅会出现在对角线之上。
+\end{pmatrix}=\boldsymbol{J}\tag{29}$$
+矩阵 $\boldsymbol{J}$ 是 $\boldsymbol{A}$ 的 Jordan 标准型。1 仅会出现在对角线之上。
 
 回到方程组 $(1)$
-$$\bold{x}'=\bold{A}\bold{x}$$
-令 $\bold{x}=\bold{T}\bold{y}$，那么
-$$\bold{y}'=\bold{J}\bold{y}\tag{30}$$
+$$\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}$$
+令 $\boldsymbol{x}=\boldsymbol{T}\boldsymbol{y}$，那么
+$$\boldsymbol{y}'=\boldsymbol{J}\boldsymbol{y}\tag{30}$$
 $(30)$ 的标量形式是
 $$y_1'=2y_1+y_2,y_2'=2y_2\tag{31}$$
 这个方程组很容易求解，得到
 $$y_1(t)=c_1e^{2t},y_1(t)=c_1te^{2t}+c_2e^{2t}\tag{32}$$
 因此 $(30)$ 有两个独立的解
-$$\bold{y}^{(1)}(t)=\begin{pmatrix}
+$$\boldsymbol{y}^{(1)}(t)=\begin{pmatrix}
 1\\0
-\end{pmatrix}e^{2t},\bold{y}^{(2)}(t)=\begin{pmatrix}
+\end{pmatrix}e^{2t},\boldsymbol{y}^{(2)}(t)=\begin{pmatrix}
 t\\1
 \end{pmatrix}e^{2t}\tag{33}$$
 相应的基解矩阵是
-$$\hat{\bold{\Psi}}(t)=\begin{pmatrix}
+$$\hat{\boldsymbol{\Psi}}(t)=\begin{pmatrix}
 e^{2t}&te^{2t}\\0&e^{2t}
 \end{pmatrix}\tag{33}$$
-由于 $\hat{\bold{\Psi}}(0)=\bold{I}$，那么这个矩阵也就是 $\exp(\bold{J}t)$。同样的结果也可以通过计算 $\bold{J}$ 的幂次然后代入指数级数得到。那么原始方程组的基解矩阵是
-$$\bold{\Psi}(t)=\bold{T}\exp(\bold{J}t)=\begin{pmatrix}
+由于 $\hat{\boldsymbol{\Psi}}(0)=\boldsymbol{I}$，那么这个矩阵也就是 $\exp(\boldsymbol{J}t)$。同样的结果也可以通过计算 $\boldsymbol{J}$ 的幂次然后代入指数级数得到。那么原始方程组的基解矩阵是
+$$\boldsymbol{\Psi}(t)=\boldsymbol{T}\exp(\boldsymbol{J}t)=\begin{pmatrix}
 e^{2t}&te^{2t}\\-e^{2t}&-e^{2t}-te^{2t}
 \end{pmatrix}\tag{35}$$
 这与 $(25)$ 的结果一致。
 
-这里并没有讨论 $n\times n$ 的方程组 $\bold{x}'=\bold{A}\bold{x}$。对于大的 $n$，或许有更大的代数重数 $m$ 和小一些的几何重数 $q$，因此有 $m-q$ 个广义特征向量。TODO exercise 17 & 18 for n = 3。对于 $n\geq 4$ 的情况，或许会有重复的复特征值。这往往需要更多的线性代数的知识，超出了这里讨论的范围。
+这里并没有讨论 $n\times n$ 的方程组 $\boldsymbol{x}'=\boldsymbol{A}\boldsymbol{x}$。对于大的 $n$，或许有更大的代数重数 $m$ 和小一些的几何重数 $q$，因此有 $m-q$ 个广义特征向量。对于 $n\geq 4$ 的情况，或许会有重复的复特征值。这往往需要更多的线性代数的知识，超出了这里讨论的范围。
 
-对于 $n=3,4$ 的情况，或许还可以手算。更大的 $n$ 值，要借助合适的计算机辅助工具。这不意味着克服了所有的困难，不过确实可以让问题变得容易处理。最后，对于来自物理问题的建模，矩阵 $\bold{A}$ 的系数可能来自物理测量值。测量中不可避免的不确定性导致 $\bold{A}$ 的特征值的不确定性，比如无法很清晰的分析两个特征值是相等还是真的非常接近。
+对于 $n=3,4$ 的情况，或许还可以手算。更大的 $n$ 值，要借助合适的计算机辅助工具。这不意味着克服了所有的困难，不过确实可以让问题变得容易处理。最后，对于来自物理问题的建模，矩阵 $\boldsymbol{A}$ 的系数可能来自物理测量值。测量中不可避免的不确定性导致 $\boldsymbol{A}$ 的特征值的不确定性，比如无法很清晰的分析两个特征值是相等还是真的非常接近。
