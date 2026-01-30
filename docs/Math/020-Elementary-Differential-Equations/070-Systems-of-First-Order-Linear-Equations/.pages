@@ -8,3 +8,4 @@ nav:
     - 060 复特征值 Complex-Valued Eigenvalues: 060-Complex-Valued-Eigenvalues.md
     - 070 基解矩阵 Fundamental Matrices: 070-Fundamental-Matrices.md
     - 080 重复特征值 Repeated Eigenvalues: 080-Repeated-Eigenvalues.md
+    - 090 非齐次线性方程组 Nonhomogeneous Linear Systems: 090-Nonhomogeneous-Linear-Systems.md
