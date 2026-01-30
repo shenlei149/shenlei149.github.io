@@ -58,7 +58,7 @@ while !queue.IsEmpty()
 
 BFS 算法的时间复杂度是 $O(m+n)$，其中 $m=|E|,n=|V|$。除了初始化 `marked` 之外，其他部分的时间复杂度是 $O(m_s+n_s)$，角标 $s$ 的含义是与 $s$ 连通的边和点的数量。每个点进入 `queue` 一次，因此 `while` `pop` `push` `marked[w] = true` 这几句的复杂度是 $O(n_s)$，每条边最多会遍历两次，一次是 `v` 被标记的时候，一次是 `w` 被标记的时候，因此复杂度是 $O(m_s)$，因此总的时间复杂度是 $O(m_s+n_s)$。
 
-TODO code link
+实现参考 [BFS](https://github.com/shenlei149/algorithms-data-structures/blob/9b872c837a4bf7c65d2c0b3d3959c6581281324b/src/graph/Traversals.h#L11)
 
 ## 深度优先搜索
 深度优先搜索（`Depth-First Search`, `DFS`）和 BFS 有相似之处，都是遍历图的一种方式、一种策略，不过这种策略略微不同。
@@ -89,12 +89,12 @@ for Edge(s, w) in s.AdjacencyEdge()
 
 时间复杂度也和 BFS 一样，$O(m+n)$。每个边最多访问两次，初始化复杂度和点的个数成正比。
 
-TODO code link
+实现参考 [DFS](https://github.com/shenlei149/algorithms-data-structures/blob/9b872c837a4bf7c65d2c0b3d3959c6581281324b/src/graph/Traversals.h#L70)
 
 ## 寻找路径
 利用 BFS 可以找到一条从 $s$ 出发到 $v$ 的路径（`path`），如果不是权重图，那么 BFS 找到的路径是最短路径。时间复杂度和 BFS 一致 $O(m_i+n_i)$，其中 $m_i,n_i$ 是 $s$ 能达到的边和顶点的个数。
 
-TODO code link
+实现参考 [Path](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/graph/Path.h)
 
 这个问题也可以用 DFS 解决，不过此时只能找到一条通路，并不是最短路径。
 
@@ -107,7 +107,7 @@ TODO code link
 
 顶点 $i$ 开始的 BFS 的时间复杂度是 $O(m_i+n_i)$，其中 $m_i,n_i$ 表示第这个连通分量中边和点的个数。每一个连通分量只会调用一次 BFS，也就是说，$G$ 中的每一个顶点和每条边都只属于一个连通分量，将这些 BFS 的运行时间相加，恰好就是 $O(m+n)$。一些初始化工作复杂度是 $O(n)$。因此最终时间复杂度是 $O(m+n)$。
 
-TODO link
+实现参考 [ConnectedComponent](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/graph/ConnectedComponent.h)
 
 这个问题也可以用 DFS 解决。
 
@@ -124,10 +124,91 @@ TODO link
 
 利用 DFS 可以高效的实现拓扑排序。在 DFS 之外，遍历所有顶点，如果没有被访问过，那么调用 DFS 从改顶点开始遍历边、点。在准备退出 DFS 遍历时，给顶点分配一个值。这个值刚开始的时候 $label = |V|$，每分配一次，执行 `label--`。
 
-TODO code link
+实现参考 [Topology](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/graph/Topology.h)
 
 拓扑排序每个顶点只会访问一次，每个边也只会访问一次，因此算法的时间复杂度是 $O(m+n)$。
 
 对于每一个顶点 $v\in V$，只访问了一次，在结束访问的时候分配一个值，然后对 `label` 自减，因此分配的每个值都不一样。
 
 对于边 $(v,w)$，要保证 $f(v)<f(w)$。这里有两种情况需要讨论。第一种情况是先访问 $v$，然后递归 DFS 访问 $w$。由于是先进后出，那么先结束对 $w$ 的访问再结束对 $v$ 的访问，因此先给 $w$ 分配再给 $v$ 分配。由于 `label` 是递减的，因此 $f(v)<f(w)$。第二种情况是先访问 $w$，对于有向无环图，那么没有通路从 $w$ 到 $v$，否则会形成一个环。在这次 DFS 递归结束前不会访问 $v$ 也就不会给 $v$ 分配一个值，但是在结束前会给 $w$ 分配值，因此 $f(w)>f(v)$。
+
+## 强连通分量
+一个有向图 $G=(V,E)$，强连通分量（`strongly connected component`）是最大的子集 $S\subseteq V$，其中 $S$ 内的任意一个顶点都有一条通路能到任意其他顶点。虽然定义和无向图的连通分量类似，但是实际含义完全不同。比如下面的图，看似是连通的，但并不是强连通分量，因为除了 1 之外其他点不能到任意点。
+
+![](./Figures/GraphSCC1.png)
+
+下图有四个强连通分量，每个连通分量都有环。
+
+![](./Figures/GraphSCC2.png)
+
+如果将第二个图中的强连通分量都看做一个顶点，那么和第一个图一样是一个有向无环图。准确的描述如下。
+
+令 $G=(V,E)$ 是一个有向图，那么可以定义一个元图（`meta-graph`）$H(X,F)$，元顶点（`meta-vertex`）$x\in X$ 对应 $G$ 的一个强连通分量，$G$ 中如果有一条从 $x$ 对应的强连通分量中的某个顶点到 $y$ 对应的强连通分量的某个地点，那么就会有一条元边（`meta-vertex`）$(x,y)\in F$。$H$ 是有向无环图。假定 $H$ 有 $k\geq 2$ 个顶点组成了一个有向图，那么这个环会使得 $G$ 中的强连通分量 $S_1,\cdots,S_k$ 变成一个强连通分量，因为可以从 $S_i$ 中的一点沿着环到其他强连通分量。
+
+上述论证使得我们可以将有向图分成两层：图是由强连通分量组成的有向无环图；每一个强连通分量是一个更细力度的结构。
+
+上图如果从顶点 6 开始遍历，不管是 DFS 还是 BFS，我们都会找到一个强连通分量，如图中所示的 `SCC#4`。但是如果从 1 开始遍历，就无法得到强连通分量了。如果我们能从一个合适的地方开始，那么就能得到强连通分量。如果一个强连通分量是一个汇入（`sink`）节点，没有出边，从这个强连通分量的任一点开始遍历，都能得到强连通分量，然后去掉这个节点向后寻找连通分量。如果是看对应的元图，那么汇入节点（没有出边）就是拓扑排序的最后一个顶点，向后寻找就是按照拓扑排序的逆序进行。现在问题就是如何找到这个汇入节点，从任一点开始遍历找到第一个连通分类，以此类推。
+
+令 $G$ 是有向图，对于顶点 $v\in V$，$f(v)$ 是拓扑排序值。令 $S_1,S_2$ 是两个强连通分量，并且 $G$ 有一条边 $(v,w),v\in S_1,w\in S_2$，那么
+$$\min_{x\in S_1}f(x)<\min_{y\in S_2}f(y)$$
+证明过程和拓扑排序类似。考虑两种情况。第一种情况是 BFS 先访问 $S_1$ 中的点 $s$，那么有一条通路 $s->v->w->y$，这里 $y\in S_2$。拓扑排序分配值是降序，外加 DFS 先入后出，因此 $f(v)$ 小于 $S_2$ 的每一个点。第二种情况是先访问 $S_2$ 中的点 $s$，因为 $G$ 的元图是有向无环图，那么 $s$ 没有到 $S_1$ 的通路，因此 $s$ 结束访问的时候仍旧不会访问 $S_1$ 的任意一点。这种情况下，$S_1$ 的每一个点的拓扑排序分配的值小于 $S_2$ 的每一个点的值。
+
+拓扑排序的第一个点所在强连通分量是源节点（`source`），只有出边没有入边，和汇入节点相反。
+
+如果我们将整个图转置，边的方向取反，会发生什么呢？两个图的强连通分量一致，并且源节点变成了汇入节点，汇入节点变成了源节点。如果对图的转置进行拓扑排序，第一个顶点所在的强连通分量就是原图的汇入节点。
+
+通过上述的讨论，我们推导了 `Kosaraju` 算法最核心的思想。算法的伪代码如下。
+```
+G_rev = G.Reverse()
+marked_rev[1..n] = false
+t = Topology(G_rev)
+marked[1..n] = false
+numSCC = 0
+for v in t.order()
+    if !marked[v]
+        numSCC++;
+        DFS(G, v)
+
+DFS(Graph, s)
+    marked[s] = true
+    scc[s] = numSCC
+    for (s, v) in s.AdjacencyEdge()
+        if !marked[v]
+            DFS(Graph, v)
+```
+
+上述实现使用了两次 DFS，每个顶点和每条边都会访问两次，额外有一些常量开销或者和顶点数成比例的开销，因此算法的时间复杂度是 $O(m+n)$。
+
+根据上述讨论，每次调用 DFS 会发现一个新的强连通分量，这个强连通分量是图中未访问顶点组成的图的汇入节点。因此如果 $v,w$ 属于同一个强连通分量，那么 $scc[v]=scc[w]$。
+
+实现参考 [ConnectedComponent](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/graph/ConnectedComponent.h)
+
+## Dijkstra 算法
+Dijkstra 算法主要用于解决最短路径问题（`shortest path problem`）。给定一个有向图 $G=(V,E)$，从一个顶点 $s\in V$ 开始，每条边 $e\in E$ 的长度是非负的，算法的输出是对任一点 $v\in V$ 的 $dist(s, v)$。如果两个点 $s,v$ 之间没有通路，那么 $dist(s, v)$ 是无穷大。
+
+这里有两个假设，第一个是有向图，第二个是边的长度是非负的。
+
+Dijkstra 算法的伪码如下。
+```
+X = {s}
+len[s] = 0; len[v] = MAX
+while exists(v, w), v in X, w not in X
+    (v_min, w_min) = minimizing len[v] + len(v, w)
+    X.add(w_min)
+    len[w_min] = len[v_min] + len(v_min, w_min)
+```
+集合 `X` 初始时仅包含 `s` 这一个点。`s` 到 `s` 的距离为零，距离其他点距离初始化为最大值，这些保存在 `len` 这个数组中。每一次迭代向集合 `X` 中添加一个顶点。迭代要考察所有从 `X` 到 `V-X` 的边。这里定义 Dijkstra 得分 `len[v] + len(v, w)`，即 `s` 到 `v` 的距离加上 $(v, w)$ 的距离。假定边 `v_min, w_min` 使得分最小，那么将 `w_min` 加到 `X` 中，然后更新 `len[w_min]`。
+
+直观的看，整个算法将点分成已经计算出最小距离的点和等待计算的点。每一次找一个局部最优的点，更新其最小距离，然后加到已经处理的集合中。
+
+前面假定距离必须是非负数，是否可以通过把所有边都加上绝对值最大的负数的绝对值，这样所有的边都是非负数，然后再用 Dijkstra 算法解决呢？答案是否定的。本质原因在于这样不同长度的路径加上了不同的值，长的路径惩罚更大，导致规约后的问题与原始问题不等价。
+
+如果直接解决距离包含非负数的问题呢？下图是一个简单的情况。第一次迭代，明显 -2 小于 1，那么会标记到点 $t$ 的最小距离是 -2，但是很明显最短距离应该是 -4。
+
+![](./Figures/DijkstraNegative.png)
+
+这里使用 $dist(s,v)$ 来表示 $s$ 到 $v$ 的最短距离，那么需要证明对所有的 $v\in V$ 都有 $dist(s,v)=len[v]$，后者是 Dijkstra 算法给出的最短距离。
+
+使用数学归纳法证明。$P(k)$ 表示 Dijkstra 算法正确的计算了 $s$ 到第 $k$ 个加到了集合 $X$ 中的顶点的最短距离。当 $k=1$ 时，
+
+

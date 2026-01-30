@@ -5,6 +5,7 @@ nav:
     - 主方法: MasterMethod.md
     - 分治法: DivideConquer.md
     - 排序: Sort.md
+    - 图: Graph.md
     - 数值计算: Arithmetic.md
     - 几何: Geometry.md
     - 其他: Others.md
