@@ -14,7 +14,7 @@
         <link rel="prev" href="../080-Repeated-Eigenvalues/">
       
       
-        <link rel="next" href="../../../030-Complex-Variables-and-Applications/">
+        <link rel="next" href="../../080-Numerical-Methods/">
       
       
         
@@ -502,6 +502,8 @@
       
         
       
+        
+      
     
     
     
@@ -625,6 +627,34 @@
     
   
     主方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ComputerScience/Algorithms/Basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基本数据结构
   
 
     
@@ -15159,6 +15189,8 @@
       
         
       
+        
+      
     
     
     
@@ -17178,6 +17210,109 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../080-Numerical-Methods/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    080 Numerical Methods
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3_9" id="__nav_3_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    080 Numerical Methods
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../080-Numerical-Methods/010-The-Euler-or-Tangent-Line-Method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    010 The Euler or Tangent Line Method 欧拉法或切线法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -30737,7 +30872,7 @@ s+1&1\\1&s+2
 4\\5
 \end{pmatrix}\tag{48}</script>
 <script type="math/tex">(48)</script> 是满足初始条件 <script type="math/tex">\boldsymbol{x}(0)=\boldsymbol{0}</script> 的特解。这个结果和之前的特解有些许差异。为了获得 <script type="math/tex">(40)</script> 的通解，必须将齐次方程组的通解 <script type="math/tex">(10)</script> 加到 <script type="math/tex">(48)</script> 上。</p>
-<p>每一种</p>
+<p>每一种方法都有优势和劣势。待定系数法无需积分，但是它限制了代数方程的形式。对角化方法需要计算转移矩阵的逆矩阵，然后求解一组解耦的一阶线性微分方程，最后利用矩阵的乘法得到解。对于埃尔米特矩阵，这种方法优势比较大，因为逆矩阵就是转置矩阵。拉普拉斯变换法涉及通过矩阵求逆来求转移矩阵，然后是乘法运算，最后确定所得表达式中每一项的逆变换。这种方法在处理包含间断项或脉冲项的强迫函数的时很有效。参数变分法是最通用的方法，不过它涉及求解一组系数是函数的线性代数方程的求解，还需要积分和矩阵乘法，也是最复杂的方法。对于很小的常系数方程组，比如这一节的例子，这些方法都能求解，并没有什么理由选择某一个方法。</p>
 
   
 

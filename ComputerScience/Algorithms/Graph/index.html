@@ -509,6 +509,8 @@
       
         
       
+        
+      
     
     
     
@@ -632,6 +634,34 @@
     
   
     主方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基本数据结构
   
 
     
@@ -15307,6 +15337,8 @@
       
         
       
+        
+      
     
     
     
@@ -17229,6 +17261,109 @@
     
   
     090 非齐次线性方程组 Nonhomogeneous Linear Systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Math/020-Elementary-Differential-Equations/080-Numerical-Methods/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    080 Numerical Methods
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3_9" id="__nav_3_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    080 Numerical Methods
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math/020-Elementary-Differential-Equations/080-Numerical-Methods/010-The-Euler-or-Tangent-Line-Method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    010 The Euler or Tangent Line Method 欧拉法或切线法
   
 
     
@@ -30713,7 +30848,42 @@
 <p>如果直接解决距离包含非负数的问题呢？下图是一个简单的情况。第一次迭代，明显 -2 小于 1，那么会标记到点 <script type="math/tex">t</script> 的最小距离是 -2，但是很明显最短距离应该是 -4。</p>
 <p><img alt="" src="../Figures/DijkstraNegative.png" /></p>
 <p>这里使用 <script type="math/tex">dist(s,v)</script> 来表示 <script type="math/tex">s</script> 到 <script type="math/tex">v</script> 的最短距离，那么需要证明对所有的 <script type="math/tex">v\in V</script> 都有 <script type="math/tex">dist(s,v)=len[v]</script>，后者是 Dijkstra 算法给出的最短距离。</p>
-<p>使用数学归纳法证明。<script type="math/tex">P(k)</script> 表示 Dijkstra 算法正确的计算了 <script type="math/tex">s</script> 到第 <script type="math/tex">k</script> 个加到了集合 <script type="math/tex">X</script> 中的顶点的最短距离。当 <script type="math/tex">k=1</script> 时，</p>
+<p>使用数学归纳法证明。<script type="math/tex">P(k)</script> 表示 Dijkstra 算法正确的计算了 <script type="math/tex">s</script> 到第 <script type="math/tex">k</script> 个加到了集合 <script type="math/tex">X</script> 中的顶点的最短距离。当 <script type="math/tex">k=1</script> 时，<script type="math/tex">s</script> 到 <script type="math/tex">s</script> 的距离是 0，<code>len[s]</code> 初始化为零，显然成立。</p>
+<p>假设 <script type="math/tex">P(1),\cdots,P(k-1),k>1</script> 都成立。令 <script type="math/tex">w^*</script> 表示第 <script type="math/tex">k</script> 个加到 <script type="math/tex">X</script> 的顶点，令 <script type="math/tex">(v^*,w^*)</script> 是选中的边，根据算法 <script type="math/tex">v^*</script> 已经在 <script type="math/tex">X</script> 中了。算法得到的 <script type="math/tex">len[w^*]=len[v^*]+l_{v^*w^*}</script>，为了证明这个值等于 <script type="math/tex">dist(s,w^*)</script>，下面分两种情况讨论。</p>
+<p>首先证明 <script type="math/tex">dist(s,w^*)\leq len[w^*]</script>。根据假设，<script type="math/tex">v^*</script> 已经在 <script type="math/tex">X</script> 中了，并且 <script type="math/tex">len[v^*]=dist(s,v^*)</script>。假定有一条从 <script type="math/tex">s</script> 到 <script type="math/tex">v^*</script> 的路径 <script type="math/tex">P</script>，距离是 <script type="math/tex">len[v^*]</script>，算法计算的路径长度是 <script type="math/tex">len[w^*]=len[v^*]+l_{v^*w^*}</script>，如下图所示，我们称这条路径为 <script type="math/tex">P^*</script>。显然，真实的最短路径 <script type="math/tex">s-w^*</script> 不能比 <script type="math/tex">P^*</script> 更长，因此 <script type="math/tex">dist(s,w^*)</script> 最多和 <script type="math/tex">len[w^*]</script> 一样。</p>
+<p><img alt="" src="../Figures/DijkstraProof1.png" /></p>
+<p>接着证明 <script type="math/tex">dist(s,w^*)\geq len[w^*]</script>，也就是要证明上图中 <script type="math/tex">s-w^*</script> 的距离至少是 <script type="math/tex">len[w^*]</script>。假定 <script type="math/tex">s-w^*</script> 是 <script type="math/tex">P'</script>。我们对 <script type="math/tex">P'</script> 知之甚少，不过知道 <script type="math/tex">s</script> 属于 <script type="math/tex">X</script> 而 <script type="math/tex">w*</script> 不属于 <script type="math/tex">X</script>，那么一定有一条跨越边界的边，不妨令第一条这样的边是 <script type="math/tex">(y,z)</script>。如下图所示。那么 <script type="math/tex">P'</script> 可以分成三段，第一段是 <script type="math/tex">s</script> 到 <script type="math/tex">y</script>，根据归纳法假设，这段最短距离是 <script type="math/tex">dist(s,y)</script>；第二段是 <script type="math/tex">y</script> 到 <script type="math/tex">z</script>，距离是 <script type="math/tex">len_{yz}</script>；第三段是 <script type="math/tex">z</script> 到 <script type="math/tex">w^*</script>，这一段的距离是非负的。因此
+<script type="math/tex; mode=display">len_{P'}\geq dist(s,y)+len_{yz}+0</script>
+由于 <script type="math/tex">y\in X</script>，那么
+<script type="math/tex; mode=display">len_{P'}\geq len[y]+len_{yz}</script>
+而右边恰好是 Dijkstra 算法最小化的距离，也就是说选择的 <script type="math/tex">(v^*,w^*)</script> 是的 <script type="math/tex">len[v^*]+l_{v^*w^*}\leq len[y]+l_{yz}</script>，那么
+<script type="math/tex; mode=display">len_{P'}\geq len[v^*]+l_{v^*w^*}=len[w^*]</script>
+因此路径 <script type="math/tex">P'</script> 至少和 <script type="math/tex">len[w^*]</script> 一样大。</p>
+<p>结合两个部分，完成了证明。还有一种情况，就是 <script type="math/tex">v</script> 永远不会加到 <script type="math/tex">X</script> 里面，即 <script type="math/tex">s</script> 到 <script type="math/tex">v</script> 没有通路，那么保持 <script type="math/tex">len[v]=\infty</script>。</p>
+<p>上述算法并没有描述如何找到最小的边 <script type="math/tex">(v^*,w^*)</script>。一个直观的方式是使用一个 <code>bool</code> 表示点是否属于 <script type="math/tex">X</script>。然后每次迭代，都要遍历所有的边，首先判断其是否属于边界，即一个点在 <script type="math/tex">X</script> 中，另一个点不在 <script type="math/tex">X</script> 中。如果属于边界，计算 Dijkstra 得分 <code>len[v] + len(v, w)</code>，选择最小的边，然后把另一个顶点 <code>w</code> 加到 <script type="math/tex">X</script> 中。需要迭代 <script type="math/tex">|V|=n</script> 次，每次迭代需要遍历所有的边 <script type="math/tex">|E|=m</script>，因此时间复杂度是 <script type="math/tex">O(mn)</script>。</p>
+<p>这个复杂度有点高，当边和点数很多时就会力不从心。我们需要借助<a href="../Basic/#堆">堆</a>来提升得到最小值的速度。</p>
+<p>下面首先介绍使用堆最核心的思想，然后介绍一些可能的工程实现。</p>
+<p>堆里面放的是待处理的顶点和当前到该点最短距离，即
+<script type="math/tex; mode=display">key(w)=\min_{(w,w)\in E,v\in X}len(v)+l_{vw}</script>
+当将 <script type="math/tex">w^*</script> 从 <script type="math/tex">V-X</script> 移动到 <script type="math/tex">X</script> 的时候，需要更新与 <script type="math/tex">w^*</script> 邻接的点 <script type="math/tex">y</script> 对应的距离。</p>
+<p>下面是伪代码。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>key[s] = 0, key[v] = MAX
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>H = Heapify(key)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>while !H.empty()
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    w_min = H.Top()
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    H.Pop()
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    len[w_min] = key[w_min]
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    // update key
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    for Edge(v, w_min) in w_min.AdjacencyEdge()
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        key[v] = min(key[v], len[w_min]+len(v, w_min))
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        H.Update(v, key[v])
+</span></code></pre></div>
+和之前的伪代码相比，这里由 <code>H</code> 跟踪点而不是 <code>X</code>，目的都是区别一个点是否处理了。</p>
+<p><code>H</code> 的大小和顶点个数 <script type="math/tex">n=|V|</script> 一致，因此 <code>w_min = H.Top()</code> 和 <code>H.Update(v, key[v])</code> 的时间复杂度是 <script type="math/tex">O(\log n)</script>，前者外层的 <code>while</code> 循环次数是点的个数 <script type="math/tex">O(n)</script>，后者外面两层循环，但是万变不离其宗，做多遍历了边两次，那么循环次数是 <script type="math/tex">O(m)</script>，因此优化版本的时间复杂度是 <script type="math/tex">O((m+n)\log n)</script>，比上述最朴素的版本 <script type="math/tex">O(mn)</script> 快相当多，特别是点和边的数量很大的情况。</p>
+<p>堆里面放的是待处理的数据这一点是确定的，但是如何放是可以选择的，一种常见方法就是将所有顶点都放到堆里面，起点的距离是 0，其余点的距离是最大值，即上面的伪代码阐述的方式。另一种方式是堆里面只放已经被发现但是还没有被处理的顶点。初始的时候只放起点，然后再处理邻接点的时候（发现）再放进堆。</p>
+<p>如果使用普通的堆来实现，有两个问题。第一个问题是需要将顶点和距离封装成一个结构体或者 <code>std::pair</code>，自定义比较运算符。第二个问题是不能删除指定的节点，也不能更新指定的节点，那么算法中的更新操作就是再添加一个节点进去，重复入堆。如果弹出来的顶点已经处理过了，即已经在 <script type="math/tex">X</script> 里面，无需再次处理，这个过程也称为懒删除。重复入堆的本质是遍历边，那么堆的操作时间复杂度从 <script type="math/tex">\log n</script> 变成了 <script type="math/tex">\log m</script>，如果边比点多很多，时间复杂度增大。</p>
+<p>也可以使用带有 Index 的堆来实现，这种数据结构一般称为 <code>IndexPriorityQueue</code>。对于普通堆的第一个问题，顶点的 <code>id</code> 就是天然的 <code>Index</code>，那么堆里面放最小距离即可。第二个问题就不存在了，因为其支持更新操作。</p>
+<p>代码示例中，选择了 <code>IndexPriorityQueue</code> 和动态添加待处理的点。参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/6c7d25937f9df1a43e921da8a33834625f351d2f/src/graph/ShortestPath.h#L55">Dijkstra</a></p>
 
   
 

@@ -509,6 +509,8 @@
       
         
       
+        
+      
     
     
     
@@ -632,6 +634,34 @@
     
   
     主方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基本数据结构
   
 
     
@@ -852,6 +882,17 @@
     <span class="md-ellipsis">
       
         最少比较次数找到第二大数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        中位数
       
     </span>
   </a>
@@ -15213,6 +15254,8 @@
       
         
       
+        
+      
     
     
     
@@ -17135,6 +17178,109 @@
     
   
     090 非齐次线性方程组 Nonhomogeneous Linear Systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Math/020-Elementary-Differential-Equations/080-Numerical-Methods/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    080 Numerical Methods
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3_9" id="__nav_3_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    080 Numerical Methods
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math/020-Elementary-Differential-Equations/080-Numerical-Methods/010-The-Euler-or-Tangent-Line-Method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    010 The Euler or Tangent Line Method 欧拉法或切线法
   
 
     
@@ -30277,6 +30423,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        中位数
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -30392,6 +30549,12 @@
 <p>构建一个败者树，类似于世界杯决赛圈，两两一组，赢的晋级，然后再两两一组比较，最终有一个胜利者。这个胜利者就是最大的数，这里需要 <script type="math/tex">n-1</script> 次比较。</p>
 <p>在整个比赛过程中，第二大的数字一定是被最大的数字击败了，最大数共计击败了 <script type="math/tex">\log_2 n</script> 个数，从这里面找到最大的数，就是第二大的数字，这里需要 <script type="math/tex">\log_2 n-1</script> 次比较。</p>
 <p>共计需要比较 <script type="math/tex">n+\log_2 n-2</script> 次比较。</p>
+<h2 id="_2">中位数</h2>
+<p>给定一个数字流，要求其任意时刻的中位数。</p>
+<p>构建两个堆，<script type="math/tex">H_1,H_2</script>，前者是大堆，后者是小堆，两个堆始终满足两个属性：一是大堆最大的元素小于等于小堆最小元素，二是两个堆的元素数量最多差一。</p>
+<p>如果两个堆的元素个数相同，那么中位数是任意一个堆的堆顶，如果两个堆的元素个数差一，那么中位数是元素个数多的堆的堆顶。</p>
+<p>假定要插入的元素是 <script type="math/tex">x</script>，<script type="math/tex">H_1,H_2</script> 的堆顶分别是 <script type="math/tex">y,z</script>。插入元素的过程如下所述。</p>
+<p>如果 <script type="math/tex">x<y</script>，插入 <script type="math/tex">H_1</script>，如果 <script type="math/tex">x>z</script>，插入 <script type="math/tex">H_2</script>。如果插入前两个堆元素个数相等，那么可以直接插入，如果元素个数差一并且插入后元素个数差二，从多的堆中往少的堆中挪一个元素保持平衡。如果 <script type="math/tex">y<x<z</script>，那么可以插入哪个堆都是可以的。如果插入前两个堆元素个数相等，随便选择一个堆即可，如果元素个数差一，那么选择元素个数少的堆以保持平衡。</p>
 
   
 
