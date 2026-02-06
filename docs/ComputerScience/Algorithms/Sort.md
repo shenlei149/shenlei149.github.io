@@ -79,6 +79,20 @@ $$\sum_{j=2}^n\frac{1}{j}\leq\int_1^n\frac{1}{x}dx=\ln x\bigg|_1^n=\ln n$$
 $$E[C]\leq 2(n-1)\ln n$$
 因此快排的平均时间复杂度是 $O(n\log n)$。
 
+## Heap Sort
+堆排序是利用[堆](./Basic.md#堆)的性质对一个数组排序。伪码如下：
+```
+H = heapify(array)
+for 1..n
+    array[i] = H.Top()
+    H.Pop()
+```
+循环 $n$ 次，每一次的复杂度是 $\log n$，那么堆排序的时间复杂度是 $O(n\log n)$。
+
+不难看出，后续 `Pop()` 时元素变少，那么有可能类似建堆一样时间复杂度是 $O(n)$ 吗？答案是不可能。从两个方面看这个问题。堆排序是基于比较的，那么排序的下限就是 $O(n\log n)$。和建堆不同，这里一半的元素最多移动 $\log n$ 层，后续两个元素的时候移动一层，也就是说元素越少移动层数也越少，而建堆是一半的元素不用移动，四分之一最多移动一层，也就是元素多少和移动距离反比，两者完全不同。
+
+实现参考 [Heap Sort](https://github.com/shenlei149/algorithms-data-structures/blob/6c7d25937f9df1a43e921da8a33834625f351d2f/src/sort/InternalSort.h#L248)
+
 ## 基于比较的排序下限 $\Omega(n\log n)$
 对于长度为 $n,n\geq 1$ 的数组，如果是基于比较的排序算法，即直接比较元素对，那么存在一个常数 $c$，排序算法执行的操作次数最低是 $cn\log_2 n$。
 

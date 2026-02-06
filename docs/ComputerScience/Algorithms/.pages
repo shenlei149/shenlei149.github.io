@@ -3,6 +3,7 @@ nav:
     - 预备知识: Preliminaries.md
     - 渐进符号: AsymptoticNotation.md
     - 主方法: MasterMethod.md
+    - 基本数据结构: Basic.md
     - 分治法: DivideConquer.md
     - 排序: Sort.md
     - 图: Graph.md
