@@ -52,53 +52,40 @@ The World's History, 5th edition, Howard Spodek.
 | Crusades: one of the religious wars (= crusades) fought by Christians, mostly against Muslims in Palestine, in the 11th, 12th, 13th, and 17th centuries. 十字军东征。 | |
 | Chapter Twelve has been reorganized chronologically and geographically, and now moves from the general introduction to the specifics of trade in the Indian Ocean and Asia, then to Africa, and finally to the Americas. The section on the Mongol Empire has been revised and expanded, and indicates the reasons that many historians now call the Mongol Empire, and its trade routes, the marker of the beginning of the modern world. | 第十二章已按时间顺序和地理方位进行了重新编排，现在的叙述脉络从概论开始，进而深入到印度洋和亚洲的贸易细节，随后是非洲，最后是美洲。关于蒙古帝国的部分经过了修订与扩充，并阐述了为何许多历史学家如今将蒙古帝国及其贸易路线视为现代世界开端的标志。 |
 | Chapter Fourteen adds material on the inflation caused by the tans-Pacific silver trade. A new section discusses the Thirty Years War. Coverage has been added of the St. Bartholomew's Day Massacre and Cardinal Richelieu. Material has been added on the rule and achievements of Catherine the Great. The section on the Ottoman Empire has been expanded, and material has been added on the *millet* system. | 第十四章补充了关于跨太平洋白银贸易引发通货膨胀的内容。新增了一节专门讨论三十年战争。增加了关于圣巴托罗缪大屠杀和红衣主教黎塞留的篇幅。此外，还补充了关于叶卡捷琳娜大帝的统治及其成就的资料。关于奥斯曼帝国的部分得到了扩充，并新增了关于米勒特制度的内容。 |
-| Chapter Fifteen adds material on Russian expansion across the Bering Straits and into "Russian America". New scholarship has been included relating to the number of slaves transported to the Americas. New material covers the *Janissary* system in the Ottoman Empire. | 
-
-Chapter Sixteen expands on Candide and adds more coverage of the ideas of Adam Smith. Additional material is included on the "American school" of ethnography, as described by Samuel George Morton. The chapter now includes a discussion of the salons of Paris and an excerpt from Rousseau's *Emile*. Historiography of the French Revolution has been expanded with new scholarship.
-
-* ethnography: a scientific description of the culture of a society by someone who has lived in it, or a book containing this. 人种志，人种论；人种志著作。
-
-... other changes ...
+| Chapter Fifteen adds material on Russian expansion across the Bering Straits and into "Russian America". New scholarship has been included relating to the number of slaves transported to the Americas. New material covers the *Janissary* system in the Ottoman Empire. | 第十五章补充了关于俄国跨越白令海峡向“俄属美洲”扩张的资料。收录了关于被运往美洲的奴隶数量的最新学术成果。此外，还新增了关于奥斯曼帝国耶尼切里制度（Janissary system）的内容。 |
+| Chapter Sixteen expands on Candide and adds more coverage of the ideas of Adam Smith. Additional material is included on the "American school" of ethnography, as described by Samuel George Morton. The chapter now includes a discussion of the salons of Paris and an excerpt from Rousseau's *Emile*. Historiography of the French Revolution has been expanded with new scholarship. | 第十六章扩充了关于《老实人》（Candide）的内容，并增加了对亚当·斯密思想的探讨。收录了关于塞缪尔·乔治·莫顿所阐述的民族志学“美国学派”的补充资料。本章现在包含了对巴黎沙龙的探讨，以及卢梭《爱弥儿》的节选。此外，关于法国大革命史学史的部分也利用最新的学术成果进行了扩充。 |
+| ethnography: a scientific description of the culture of a society by someone who has lived in it, or a book containing this. 人种志，人种论；人种志著作。 | |
+| The Part Seven opener and the Turning Point are restructured into one, reframing the discussion of the Olympics as a case study of what was happening in the international relations at the time. | 第七部分的开篇与“转折点”合二为一，将关于奥运会的讨论重新定位为案例研究，用以反映当时的国际关系局势。 |
+| Chapter Eighteen now includes coverage of the German historian and philosopher Heinrich von Treitschke. The chapter covers the modernization program in Egypt, including *Aida*, the new opera commissioned from Verdi. | 第十八章现在收录了关于德国历史学家兼哲学家海因里希·冯·特赖奇克的内容。本章还探讨了埃及的现代化进程，其中包括委托威尔第创作的新歌剧《阿依达》。 |
+| Chapter Nineteen has been restructured to show that while Latin America and China did not get involved in World War I, the war and the Great Depression did affect them, and the effects came about because of their decisions not to industrialize effectively. | 第十九章经过重新编排，旨在表明尽管拉丁美洲和中国未直接卷入第一次世界大战，但战争和大萧条仍对它们造成了影响，而这种后果源于它们未能有效推进工业化的决策。 |
+| Chapter Twenty contains an expanded discussion of the Italian preference for fascism over communism. Coverage of the Nuremberg Trials has been expanded, and material has been added on the Tokyo Tribunal. | 第二十章扩充了关于意大利倾向于法西斯主义而非共产主义的讨论。关于纽伦堡审判的篇幅得到了扩展，并新增了关于东京审判的资料。 |
+| Chapter Twenty-one has been tightened and reorganized. More has been added to the discussion of the beginning of the ecology movement. | 第二十一章经过了精简与重新编排。增加了关于生态运动起源的讨论篇幅。 |
+| Chapter Twenty-three includes updated material on chimpanzee research, genetically modified plants, and infectious diseases that are transmitted from animals to humans. It includes coverage of China's plan, now being implemented, to move millions of people to cities built by the government for that purpose. Material on migration to cities has been added throughout, along with updated material on urban slums and the UN's Conferences on Human Settlements, Habitats I and II. Coverage of terrorism and world terrorist organizations and actions has been updated, with a section added on Boko Haram in Nigeria. The coverage of Barack Obama's presidency has been expanded, as has the discussion of China's economy and its rise as a superpower. Discussion of world poverty has been updated with new search. The chapter includes coverage of the economic crash of 2008 and the global recession. The Arab Spring is analyzed and information brought up to date. In religion, there are updates on internal tension between secular and religious Israelis; On the Catholic Church and Pope Francis I; and on the significance of evangelical Christianity and of religions of new immigrants in the United States. | 第二十三章更新了关于黑猩猩研究、转基因植物以及由动物传播给人类的传染病的资料。本章收录了关于中国正在实施的一项计划的内容，该计划旨在将数百万人口迁移至政府专为此建设的城市中。全章多处增补了关于人口向城市流动的资料，并更新了关于城市贫民窟以及联合国人类住区会议（第一届和第二届人居会议）的内容。关于恐怖主义以及世界恐怖组织和恐怖活动的报道已更新，并新增了一节专门讨论尼日利亚“博科圣地”组织的内容。扩充了关于巴拉克·奥巴马总统任期的篇幅，同时也扩展了关于中国经济及其作为超级大国崛起的讨论。利用最新的研究成果更新了关于世界贫困问题的讨论。本章涵盖了 2008 年经济崩盘及全球经济衰退的内容。文中对“阿拉伯之春”进行了分析，并更新了相关信息。在宗教方面，更新了关于以色列世俗派与宗教派之间内部紧张关系的内容；关于天主教会和教皇方济各一世的内容；以及关于福音派基督教和美国新移民宗教的重要性的内容。 |
+| evangelical: belonging to one of the Protestant Churches or Christian groups that believes that the teaching of the Bible and persuading other people to join them is extremely important. 基督教福音派的。 | |
+| Chapter Twenty-four has been much updated, with new data on population levels, the value of the global economy, the amount of goods shipped globally, and so on. New material covers globalization and the protests against it; social media; poverty and efforts to eradicate it worldwide; and growing income disparity. A new section covers the financial crisis tht began in 2008 and the recovery that began in 2013. The chapter includes expanded coverage of nationalist and separatist movements from Ireland to Spain, to Canada, to Belgium, to several African nations. The Arab Spring is discussed for its religious ramifications, somewhat distinct from its political ramifications covered in Chapter Twenty-three. Gender issues, and especially changing family relationships, have gained expanded coverage. Coverage of the Naxalite revolts in India has been added, and that of migration and of refugees has been thoroughly updated with new facts and statistics. Updates to the cultural coverage include the additions of Kiran Ahluwalia and Bono. A new section discusses Bradley Manning, WikiLeaks, and Edward Snowden. Material has been added to update the information on ecological technology and reliance on petrofuels. | 第二十四章进行了大幅更新，包含了关于人口数量、全球经济产值、全球货物运输量等方面的新数据。新增内容涵盖了全球化及其引发的抗议、社交媒体、贫困及全球消除贫困的努力，以及日益扩大的收入差距。一个新章节专门讨论了始于 2008 年的金融危机以及始于 2013 年的复苏。本章扩充了关于民族主义和分离主义运动的篇幅，范围涉及爱尔兰、西班牙、加拿大、比利时以及若干非洲国家。文中探讨了“阿拉伯之春”的宗教影响，这与第二十三章中所述的政治影响有所不同。性别议题，尤其是不断变化的家庭关系，得到了更多的篇幅。增加了关于印度纳萨尔派叛乱的内容，并利用新的事实和统计数据全面更新了关于移民和难民的部分。文化内容的更新包括增加了基兰·阿鲁瓦利亚和波诺的相关资料。新的一节讨论了布拉德利·曼宁、维基解密和爱德华·斯诺登。此外，还补充了资料以更新关于生态技术和对石油燃料依赖的信息。 |
+| ramification: the possible results of an action. 可能的后果；衍生结果；派生影响。 | |
 
 ## Special Features
-* Learning Objectives now appear at the beginning of each chapter, and are repeated in question from under the relevant section headings and in tabs down the side of each page as reminders, before being answered at the end of each chapter, to encourage students to consider their own reading of the chapter.
-* The Introduction to the book describes the key themes of the text and the methods historians use to practice their craft.
-* The introductions to each of the eight Parts now include more specific key references to the chapters that follow.
-* MyHistoryLab links, to primary sources, videos, images, and maps, appear throughout the chapters.
-* Key Terms are listed at the each chapter for easy reference, and collected in the Glossary at the end of the book.
-* Turning Point essays, some completely new for this edition, illustrate visually the connections between one Part and the next. In some cases, the Turning Points tell their own story as well, notably in the bridge into hte twenty-first century that uses the modern Olympic Games to illustrate and introduce many of the issues that are to follow. Turning Point Questions ask students to consider the material that has been presented.
-* The How Do We Know? features help the student to understand how historians use evidence, both textual and visual, to interpret the past.
-* This edition also continues the emphasis on the use of primary sources, for this is the kind of material from which the historical record is argued and fashioned. Most chapters have tow or more Source boxes, which have been colored purple in this edition to stand out.
-* The Suggested Readings for each chapter have been thoroughly revised, updated, and expanded to reflect current scholarship. Films, videos, and online assets have been added. Each item in the bibliography is annotated to direct students with their reading.
-* Each chapter text ends with a discussion of legacies to the future, namely, What Difference Does It Make?
-* Each chapter concludes with a Chapter Review, where the reader is given answers to the Learning Objectives, essentially a summary of the most important material covered in each main heading.
+| | |
+|--|--|
+| Learning Objectives now appear at the beginning of each chapter, and are repeated in question from under the relevant section headings and in tabs down the side of each page as reminders, before being answered at the end of each chapter, to encourage students to consider their own reading of the chapter. | 每一章的开头现设有“学习目标”，这些目标不仅会在相关节标题下方以问题形式重现，还会出现在每页侧边的标签栏中作为提示，并最终在章末给出解答，旨在鼓励学生在阅读过程中进行独立思考。 |
+| The Introduction to the book describes the key themes of the text and the methods historians use to practice their craft. | 本书的“绪论”部分阐述了全书的核心主题，以及历史学家从事历史研究时所运用的方法。 |
+| The introductions to each of the eight Parts now include more specific key references to the chapters that follow. | 全书八个部分的“导言”现在都包含了对后续章节更具体的关键指引。 |
+| MyHistoryLab links, to primary sources, videos, images, and maps, appear throughout the chapters. | MyHistoryLab 的链接贯穿各章，指向第一手史料、视频、图像和地图。 |
+| Key Terms are listed at the each chapter for easy reference, and collected in the Glossary at the end of the book. | 每章末尾均列有“关键术语”，便于查阅，并在书末的“词汇表”中进行了汇总。 |
+| Turning Point essays, some completely new for this edition, illustrate visually the connections between one Part and the next. In some cases, the Turning Points tell their own story as well, notably in the bridge into the twenty-first century that uses the modern Olympic Games to illustrate and introduce many of the issues that are to follow. Turning Point Questions ask students to consider the material that has been presented. | “转折点”专文（其中部分为本版全新增补）直观地展示了各部分之间的联系。在某些情况下，这些“转折点”本身也讲述了独立的故事，尤其是作为通往二十一世纪桥梁的那一篇，它利用现代奥林匹克运动会来阐释并引出随后的许多议题。“转折点思考题”旨在引导学生对已呈现的内容进行思考。 |
+| The How Do We Know? features help the student to understand how historians use evidence, both textual and visual, to interpret the past. | “我们何以知晓？”专栏帮助学生理解历史学家是如何利用文本和视觉证据来解读过去的。 |
+| This edition also continues the emphasis on the use of primary sources, for this is the kind of material from which the historical record is argued and fashioned. Most chapters have two or more Source boxes, which have been colored purple in this edition to stand out. | 本版继续强调对第一手史料的使用，因为历史记载正是依据此类材料论证与构建而成的。大多数章节包含两个或更多的“史料框”，在本版中，这些方框被处理为紫色，以示醒目。 |
+| The Suggested Readings for each chapter have been thoroughly revised, updated, and expanded to reflect current scholarship. Films, videos, and online assets have been added. Each item in the bibliography is annotated to direct students with their reading. | 每章的“推荐阅读”都经过了全面的修订、更新和扩充，以反映当前的学术动态。新增了电影、视频和在线资源。书目中的每一项都附有注释，为学生的阅读提供指引。 |
+| Each chapter text ends with a discussion of legacies to the future, namely, What Difference Does It Make? | 每章正文的结尾都有一段关于留给未来的遗产的讨论，即“这有何影响？”。 |
+| Each chapter concludes with a Chapter Review, where the reader is given answers to the Learning Objectives, essentially a summary of the most important material covered in each main heading. | 每章最后设有“本章回顾”，在此为读者提供“学习目标”的解答，实际上是对每个主标题下最重要内容的总结。 |
 
 ### New Layout and Design
-Readers will notice cleaner design of box features. The format has reverted to the original taller page size so that the text and pictures have a little more room to breathe.
+| | |
+|--|--|
+| Readers will notice cleaner design of box features. The format has reverted to the original taller page size so that the text and pictures have a little more room to breathe. | 读者会发现专栏版块的设计更加简洁。版式恢复了最初较为修长的开本，从而让文字和图片的排版显得更加舒展。 |
 
 ### Maps and  Illustrations
-To aid the student, extensive, clear, and informative charts and maps represent information graphically and geographically. A wide range of illustrations, most in color, supplements the written word. For the fifth edition we have added more than 50 new illustrations.
-
-## Themes and Turning Points
-
-## Chronological Turning Points and Part Themes
-
-### Global Scope
-
-## Social Science Methods, Comparative History, and the Study of Values
-
-### Comparative History and the Methods of the Social Sciences
-
-### Multiple Perspectives
-
-### Assessing Values
-
-## History and Identity
-
-## Control of Historical Records
-
-### Historical Revision
-
-## What Do We Know? How Do We Know It? What Difference Does It Make?
-
-## Tools
+| | |
+|--|--|
+| To aid the student, extensive, clear, and informative charts and maps represent information graphically and geographically. A wide range of illustrations, most in color, supplements the written word. For the fifth edition we have added more than 50 new illustrations. | 为了辅助学生学习，书中提供了大量清晰且信息丰富的图表与地图，以图形和地理的方式呈现信息。此外，还有涵盖广泛的插图（多为彩色）作为文字内容的补充。在第五版中，我们新增了 50 多幅插图。 |

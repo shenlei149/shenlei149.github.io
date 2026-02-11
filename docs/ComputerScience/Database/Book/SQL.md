@@ -1027,3 +1027,176 @@ set
     );
 ```
 如果一个学生一门课都没有通过，那么总学分会被设置成 `null`，可以使用上面提到的 `case` 表达式做一个优化，对于这这种情况设置成 0 而不是 `null`。许多系统支持 `coalesce` 函数，可以替换 `case`，比如 `coalesce(sum(credits), 0)`。
+
+## Join Expressions
+### The Natural Join
+下面的查询返回学生要上哪些课。
+```sql
+select name, course_id
+from student, takes
+where
+    student.ID = takes.ID;
+```
+这里要满足条件 `student.ID = takes.ID`，这个属性也是两个关系唯一名字相同的属性。这是一种常见的情形，因此 SQL 提供称为 `natural join` 的算子。`natural join` 的返回结果也是一个关系，在这个关系中的元组满足在两个输入关系中同名列中的值相同这一条件。因此下面的查询与上述查询等价。
+```sql
+select name, course_id from student natural join takes;
+```
+下面的例子再 join 上 course 这个关系，将 course_id 换成 title 提升可读性。
+```sql
+select name, title
+from student
+    natural join takes, course
+where
+    takes.course_id = course.course_id;
+```
+但是，下面的查询并不是等价查询。因为 student 和 takes join 之后新的关系有 course_id 和 dept_name 两个属性都在 course 中存在，因此 natural join 的语义要求两个属性都要相等，那么一个学生上外系的课程就会被排除在外。
+```sql
+select name, title
+from student
+    natural join takes
+    natural join course;
+```
+SQL 提供了一种语法能够指定那些属性参与比较元组是否应该被 join，即便两个关系有其他同名属性也不会参与等值比较。
+```sql
+select name, title
+from (
+        student
+        natural join takes
+    )
+    join course using (course_id);
+```
+
+### Join Conditions
+`on` 用于指定 join 时的条件，和之前的例子中写在 `where` 子句后面的类似，也是一个谓词。
+```sql
+select * from student join takes on student.ID = takes.ID;
+```
+上面的例子和之前 natural join 的例子输出非常类似，不过会输出两遍 id。上面的例子还等价于下面使用 `where` 的写法。
+```sql
+select * from student, takes where student.ID = takes.ID;
+```
+如果想要达到和 natural join 的效果，通过关系名限定输出一次 id 即可。
+```sql
+select
+    student.ID as ID,
+    name,
+    dept_name,
+    tot_cred,
+    course_id,
+    sec_id,
+    semester,
+    year,
+    grade
+from student
+    join takes on student.ID = takes.ID;
+```
+`on` 可以表达任意谓词，因此比 natural join 的表达能力更强。前面展示的例子都可以通过改写去掉 `on` 而使用 `where`。不过，`on` 有两个优势，首先对于下面要分析的 outer join 而言，`on` 和 `where` 有些许不同，齐次是 SQL 更多的是给人读的，`on` 写 join 条件，`where` 写其他条件，提升可读性。
+
+### Outer Joins
+如果某学生没有选任何一个课程，那么下面的查询结果不会出现该学生的信息。
+```sql
+select * from student natural join takes;
+```
+为了让该学生的出现在结果集，需要使用 outer join，和 inner join 类似，不过它会将没有 join 上的元组也保留在结果集中，其他属性补成 NULL。outer join 有下面三种类型
+
+1. left outer join - 保留左边关系没有 join 上的元组。
+2. right outer join - 保留右边关系没有 join 上的元组。
+3. full outer join - 保留两边的关系中没有 join 上的元组。
+
+和 outer join 相对，之前讨论的 join 称为 inner join。
+
+下面看使用 left outer join 来解决上面的问题。查询结果就会包含没有参与任何课程的学生信息，对应的选课信息填充为 NULL。
+```sql
+select * from student natural left outer join takes;
+```
+如果通过指定 course_id 为 NULL，可以查询没有选课的学生。
+```sql
+select *
+from student
+    natural left outer join takes
+where
+    course_id is null;
+```
+right outer join 和 left outer join 恰好相反。上面的例子也可以用 right outer join 实现。
+```sql
+select * from takes natural right outer join student;
+```
+full outer join 是 left 和 right 的结合。从结果上看，full join 是 left join 和 right join 的并集。
+
+下面是 full outer join 的例子。查询的目的是计算机系的学生在 2017 年春季的选课列出来，如果某个学生没有选课，也要输出，反过来，2017 年的课程也要都在结果集中，即使没有计算机系学生选该课。
+```sql
+select *
+from (
+        select *
+        from student
+        where
+            dept_name = 'Comp. Sci.'
+    ) natural full outer
+    join (
+        select *
+        from takes
+        where
+            semester = 'Spring'
+            and year = 2017
+    );
+```
+`on` 可以用于 outer join，之前的例子 `student natural left outer join takes` 差不多（投影多一列 id）等价写法是
+```sql
+select *
+from student
+    left outer join takes on student.id = takes.id;
+```
+对于 outer join，`on` 和 `where` 有略微不同，主要是因为 outer join 会把不匹配的元组保留并且对另一边的关系补 NULL。`on` 是 `join` 语义的一部分而 `where` 不是。上面的查询会保留没有选课学生的信息，但是下面的查询不会，因为没有匹配的元组中 takes 的 id 是 null，不等于 student 的 id。
+```sql
+select *
+from student
+    left outer join takes on true
+where
+    student.id = takes.id;
+```
+
+### Join Types and Conditions
+SQL 默认就是 inner join，因此写 join 和 inner join 是等价的。总结下，join 有四种类型 `inner join` `left outer join` `right outer join` `full outer join`，join 条件有三种写法，`natural`，`on predicate`, `using (c1, c2, ..., cn)`。
+
+## Views
+从安全的角度看，有些用户可能可以访问教职员工的基本信息，比如姓名、系信息等，但是不能看到薪水信息，那么需要一个如下 SQL 定义的关系
+```sql
+select ID, name, dept_name from instructor;
+```
+有时，用户需要自定义一个集合，相当于一个虚拟关系。比如想知道物理系 2017 年秋季的开课列表，那么需要一个类似下面 SQL 的关系
+```sql
+select course.course_id, sec_id, building, room_number
+from course, section
+where
+    course.course_id = section.course_id
+    and course.dept_name = 'Physics'
+    and section.semester = 'Fall'
+    and section.year = 2017;
+```
+可以考虑把结果集存下来，但是这样的话如果底层数据发生了变化，那么存储的结果集就无效了。SQL 为了这种场景，提供了通过查询语句定义虚拟关系的能力，它不会提前计算结果并存下来，而是使用的时候实时查询。之前讨论过 `with`，将一个查询给一个别名，然后使用，其范围不能超过当前查询，但是这里的虚拟关系可以跨多个查询。这就是视图（`view`）。
+
+### View Definition
+通过 `create view` 可以定义一个视图，后面跟着视图的名字和查询。命令形式如下
+```
+create view v as <query expression>;
+```
+那么前面的两个例子就可以创建两个视图。
+```sql
+create view faculty as select ID, name, dept_name from instructor;
+
+create view physics_fall_2017 as
+select course.course_id, sec_id, building, room_number
+from course, section
+where
+    course.course_id = section.course_id
+    and course.dept_name = 'Physics'
+    and section.semester = 'Fall'
+    and section.year = 2017;
+```
+
+### Using Views in SQL Queries
+
+### Materialized Views
+
+### Update of a View
+
