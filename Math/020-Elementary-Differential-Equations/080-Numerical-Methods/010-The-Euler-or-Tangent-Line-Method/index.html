@@ -30019,6 +30019,8 @@
       
         
       
+        
+      
     
     
     
@@ -30077,6 +30079,34 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../../../Reading/English/WorldHistory/Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    INTRODUCTION The World Through Historians' Eyes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
       
@@ -30097,7 +30127,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9_3_3" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -30119,14 +30149,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_9_3_2" id="__nav_5_9_3_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_9_3_3" id="__nav_5_9_3_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_9_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9_3_2">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_9_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9_3_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -30809,6 +30839,25 @@
 <p>后向欧拉法的名字由来是因为它使用后向差的商 <script type="math/tex">\frac{1}{n}(\phi(t_n)-\phi(t_{n-1}))</script> 来近似微分方程 <script type="math/tex">(3)</script> 中的导数，而不是不是公式 <script type="math/tex">(4)</script> 中的前向差的商。</p>
 <p>既然后向欧拉公式并不比前向欧拉公式更精确，还比前向欧拉公式更复杂，那么讨论的目的是什么呢？这是后向微分公式中最简单的例子，这类方法在讨论特定的微分方程时非常有效且更为精确。8.4 小节的末尾还会讨论这一点。</p>
 <h3 id="_2">数值近似的误差</h3>
+<p>下面分析微分方程
+<script type="math/tex; mode=display">y'=1-t+4y,y(0)=1\tag{26}</script>
+在区间 <script type="math/tex">0\leq t\leq 2</script> 上的行为做例子。令 <script type="math/tex">y=\phi(t)</script> 是初值问题 <script type="math/tex">(26)</script> 的解，那么
+<script type="math/tex; mode=display">\phi(t)=\frac{1}{16}(4t-3+19e^{4t})</script>
+因此
+<script type="math/tex; mode=display">\phi''(t)=19e^{4t}</script>
+那么 <script type="math/tex">(22)</script> 就是
+<script type="math/tex; mode=display">e_{n+1}=\frac{19e^{4\overline{t_n}}h^2}{2},t_n<\overline{t_n}<t_{n+1}\tag{27}</script>
+因子 19 和快速增长的 <script type="math/tex">e^{4t}</script> 的出现解释了上面的表格为什么不精确。</p>
+<p>比如对于 <script type="math/tex">h=0.05</script>，第一步的误差是
+<script type="math/tex; mode=display">e_1=\phi(t_1)-y_1=\frac{19e^{4\overline{t_0}}(0.0025)}{2},0<\overline{t_0}<0.05</script>
+很明显 <script type="math/tex">e_1</script> 是正的，由于 <script type="math/tex">e^{4\overline{t_0}}<e^{0.2}</script>，那么
+<script type="math/tex; mode=display">e_1\leq\frac{19e^{0.2}(0.0025)}{2}\approx 0.02901\tag{28}</script>
+同时，<script type="math/tex">e^{4\overline{t_0}}>1</script>，因此 <script type="math/tex">e_1>\frac{19}{2}(0.0025)=0.02375</script>，实际误差是 0.02542。根据 <script type="math/tex">(27)</script>，随着 <script type="math/tex">t</script> 的增加误差会快速增长。这和上面的表格结论一致。类似的，可以计算得到从 0.95 到 1.0 时的局部截断误差上下界
+<script type="math/tex; mode=display">1.0617\approx\frac{19e^{3.8}(0.0025)}{2}\leq e_{20}\leq\frac{19e^4(0.0025)}{2}\approx1.2967\tag{29}</script>
+从 1.95 到 2.0 的上下界是
+<script type="math/tex; mode=display">57.96\approx\frac{19e^{7.8}(0.0025)}{2}\leq e_{40}\leq\frac{19e^8(0.0025)}{2}\approx70.80\tag{30}</script>
+这个结果意味着在 <script type="math/tex">t=2</script> 附近的局部截断误差是 <script type="math/tex">t=0</script> 附近的 2500 倍。为了在整个区间上将误差减少到一个可以接受范围，我们必须基于 <script type="math/tex">t=2</script> 附近来选择步长 <script type="math/tex">h</script>，当然这个步长小于 <script type="math/tex">t=0</script> 附近对步长的要求。比如我们要达到局部截断误差小于 0.01 的目标，<script type="math/tex">t=0</script> 附近的步长要求是 0.032 附近即可，而 <script type="math/tex">t=2</script> 附近的补偿要求是 0.00059。在整个区间上选择一个更小的统一的步长会导致更多的计算，更多的消耗，更危险的是无可接受的舍入误差。</p>
+<p>另一个保持局部截断误差常量的方法是随着 <script type="math/tex">t</script> 的方法逐步减少步长。比如这个问题，从 <script type="math/tex">t=0</script> 到 <script type="math/tex">t=2</script> 步长逐渐减少 50 倍。这个变步长的方法称为自适应（<code>adaptive</code>）。现在解决微分方程的软件都有这个能力。</p>
 
   
 
