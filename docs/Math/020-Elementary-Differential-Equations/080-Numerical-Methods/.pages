@@ -1,3 +1,6 @@
 nav:
     - 080 Numerical Methods 数值方法: README.md
     - 010 The Euler or Tangent Line Method 欧拉法或切线法: 010-The-Euler-or-Tangent-Line-Method.md
+    - 020 Improvements on the Euler Method 欧拉方法的改进: 020-Improvements-on-the-Euler-Method.md
+    - 030 The Runge-Kutta Method 龙格-库塔法: 030-The-Runge-Kutta-Method.md
+    - 040 Multistep Methods 多步法: 040-Multistep-Methods.md

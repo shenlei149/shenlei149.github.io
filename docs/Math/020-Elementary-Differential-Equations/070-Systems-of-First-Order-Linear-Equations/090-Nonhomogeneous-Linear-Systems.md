@@ -45,7 +45,7 @@ $$\boldsymbol{T}=\frac{1}{\sqrt{2}}\begin{pmatrix}
 \end{pmatrix},\boldsymbol{T}^{-1}=\frac{1}{\sqrt{2}}\begin{pmatrix}
 1&-1\\1&1
 \end{pmatrix}\tag{11}$$
-令 $\boldsymbol{x}=\boldsymbol{T}\boldsymbol{y}$ 并带入 $(8)$ 得到
+令 $\boldsymbol{x}=\boldsymbol{T}\boldsymbol{y}$ 并代入 $(8)$ 得到
 $$\boldsymbol{y}'=\boldsymbol{D}\boldsymbol{y}+\boldsymbol{T}^{-1}\boldsymbol{g}(t)=\begin{pmatrix}
 -3&0\\0&-1
 \end{pmatrix}\boldsymbol{y}+\frac{1}{\sqrt{2}}\begin{pmatrix}
