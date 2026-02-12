@@ -13,7 +13,7 @@ S<'a'> s2; // OK: type of N in S is char
 
 S<2.5> s3; // ERROR: template parameter type still cannot be double
 ```
-还可以支持类模板类型推到。比如下面的例子，这里可以推导出 `N` 的类型和值。
+还可以支持类模板类型推导。比如下面的例子，这里可以推导出 `N` 的类型和值。
 ```cpp
 template <typename T, auto N>
 class A

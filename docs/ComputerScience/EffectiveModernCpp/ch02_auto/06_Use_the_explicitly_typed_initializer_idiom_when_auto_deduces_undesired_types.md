@@ -62,7 +62,7 @@ namespace std           // from C++ Standards
 
 一旦发现了代理类，且 `auto` 推导的结果是代理类类型而不是被代理的类型，如何修复呢？解决方法不是简单的不用 `auto`，因为这不是 `auto` 的错，而是强行进行不同的类型推导。作者称为显式类型化初始化惯用法（`the explicitly typed initializer idiom`）。
 
-这种方法仍旧使用 `auto` 声明变量，不过将类型转化为希望 `auto` 推到的类型。比如
+这种方法仍旧使用 `auto` 声明变量，不过将类型转化为希望 `auto` 推导的类型。比如
 ```cpp
 auto highPriority = static_cast<bool>(features(w)[5]);
 ```
