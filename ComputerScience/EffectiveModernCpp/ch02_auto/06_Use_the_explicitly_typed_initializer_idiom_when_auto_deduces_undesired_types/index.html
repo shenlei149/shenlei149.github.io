@@ -30703,7 +30703,7 @@
 </span></code></pre></div></p>
 <p>假设我们知道 <code>operator[] for std::vector&lt;T&gt;</code> 通常返回类型是 <code>T&amp;</code>，那么这个不遵循惯例的返回类型就是有效提示。关注接口往往会发现代理类的存在。实践中，程序员是在处理诡异的编译错误或者 debug 单元测试时发现代理类的存在。</p>
 <p>一旦发现了代理类，且 <code>auto</code> 推导的结果是代理类类型而不是被代理的类型，如何修复呢？解决方法不是简单的不用 <code>auto</code>，因为这不是 <code>auto</code> 的错，而是强行进行不同的类型推导。作者称为显式类型化初始化惯用法（<code>the explicitly typed initializer idiom</code>）。</p>
-<p>这种方法仍旧使用 <code>auto</code> 声明变量，不过将类型转化为希望 <code>auto</code> 推到的类型。比如
+<p>这种方法仍旧使用 <code>auto</code> 声明变量，不过将类型转化为希望 <code>auto</code> 推导的类型。比如
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">highPriority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">features</span><span class="p">(</span><span class="n">w</span><span class="p">)[</span><span class="mi">5</span><span class="p">]);</span>
 </span></code></pre></div></p>
 <p><code>features(w)[5]</code> 返回 <code>std::vector&lt;bool&gt;::reference</code> 类型的对象，不过 <code>static_cast</code> 把类型转化成了 <code>bool</code>，<code>auto</code> 推断变量 <code>highPriority</code> 的类型也是 <code>bool</code>。运行时，<code>std::vector&lt;bool&gt;::reference</code> 能够转化成 <code>bool</code> 类型，在转化的过程中，其指针有效，也就是指向 <code>std::vector&lt;bool&gt;</code> 内部字段，然后解引用，获取 <code>bool</code> 类型的值。这样就避免了前面说的未定义行为。最后用这个 <code>bool</code> 值来初始化变量 <code>highPriority</code>。</p>

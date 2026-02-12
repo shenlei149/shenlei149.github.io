@@ -30615,7 +30615,7 @@ k-i\\i
 \end{pmatrix}2^{\frac{n}{k}(k-2i)}</script>
 </p>
 <p>将 <script type="math/tex">k=4,n=20</script> 代入上面的公式，可以得到题目给出的结果。</p>
-<p>最后求解的 <script type="math/tex">k=10^8</script>，所以求和号里面的数值必须在 <script type="math/tex">O(1)</script> 时间内给出，最多是 <script type="math/tex">O(\log k)</script>，其他情况就会导致求解的时间非常大。分别独立的看求和号里面的三项。如果 <script type="math/tex">i</script> 和 <script type="math/tex">i+1</script> 的值有递推关系的话（不管从 <script type="math/tex">i</script> 到 <script type="math/tex">i+1</script> 还是反之，都是可以的，比如第三项从后往前推到比较容易，乘就可以了），就容易在几步（常量时间）时间计算。</p>
+<p>最后求解的 <script type="math/tex">k=10^8</script>，所以求和号里面的数值必须在 <script type="math/tex">O(1)</script> 时间内给出，最多是 <script type="math/tex">O(\log k)</script>，其他情况就会导致求解的时间非常大。分别独立的看求和号里面的三项。如果 <script type="math/tex">i</script> 和 <script type="math/tex">i+1</script> 的值有递推关系的话（不管从 <script type="math/tex">i</script> 到 <script type="math/tex">i+1</script> 还是反之，都是可以的，比如第三项从后往前推导比较容易，乘就可以了），就容易在几步（常量时间）时间计算。</p>
 <p>不过这里遇到一个问题，对于
 <script type="math/tex; mode=display">\begin{pmatrix}
 k\\i
