@@ -1193,10 +1193,94 @@ where
     and section.semester = 'Fall'
     and section.year = 2017;
 ```
+视图关系包含了查询结果中的元组，但是并不提前计算好存储起来。相反，数据库只存储这个视图的表达式。当使用这个视图的时候，数据库计算相应的查询来生成结果集。视图关系按需创建即可。
+
+在创建视图的时候，可以显式的指定属性名。
+```sql
+create view departments_total_salary (dept_name, total_salary) as
+select dept_name, sum(salary)
+from instructor
+group by
+    dept_name;
+```
 
 ### Using Views in SQL Queries
+视图是一个关系，在需要关系的地方都可以使用视图。比如下面的 SQL 使用上面定义的视图。
+```sql
+select course_id from physics_fall_2017 where building = 'Watson';
+```
+既然是一种关系，那么可以基于视图来创建视图。
+```sql
+create view physics_fall_2017_watson as
+select course_id, room_number
+from physics_fall_2017
+where
+    building = 'Watson';
+```
+这个视图等价于
+```sql
+create view physics_fall_2017_watson as
+select course_id, room_number
+from (
+        select course.course_id, building, room_number
+        from course, section
+        where
+            course.course_id = section.course_id
+            and course.dept_name = 'Physics'
+            and section.semester = 'Fall'
+            and section.year = 2017
+    )
+where
+    building = 'Watson';
+```
 
 ### Materialized Views
+数据库允许存储视图的结果，当使用的关系发生了变化，视图需要保持更新。这样的视图称为物化视图（`materialized view`）。
+
+比如物化了 `departments_total_salary` 的结果，当查询视图时无需计算。不过当 instructor 表插入或删除了元组，或者更新了某个教师的薪水，那么需要更新该视图。
+
+保持物化视图数据最新的过程称为物化视图维护（`materialized view maintenance`），或者简称为视图维护（`view maintenance`）。当定义该视图的关系发生更新时可以立即维护视图。不过有的数据库会延迟计算，有的数据库周期性的更新视图。这种情况下，物化视图的数据过期了，如果应用必须使用最新的数据，那么就无法使用这些数据了。
+
+如果需要高频访问一个视图，或者需要对大型关系表进行聚合计算且需要的响应速度很高，那么创建物化视图能够有很大的收益。聚合结果通常很小，存储下来成本不高，但是能够有效提升效应速度，因为无需访问大型的关系表。物化视图的收益应该比存储开销和更新开销要大。
 
 ### Update of a View
+通过视图查询非常方便，但是通过视图进行更细、插入和删除操作就会遇到很多问题，因为通过视图对数据库做修改本质上是修改实际的关系。
 
+比如向视图 faculty 插入数据，那么 salary 怎么处理？数据库拒绝插入或者保持这个字段为 NULL。
+```sql
+insert into faculty values ('30765', 'Green', 'Music');
+```
+下面看一个更复杂的例子，有如下涉及两个关系的视图
+```sql
+create view instructor_info as
+select ID, name, building
+from instructor, department
+where
+    instructor.dept_name = department.dept_name;
+```
+如果向视图插入一条数据会发生什么呢？
+```sql
+insert into instructor_info values ('69987', 'White', 'Taylor');
+```
+instructor 关系里面插入一行只有两个属性的元组，department 插入一行只有一个属性的元组，而这违反了 department 中 dept_name 不能为 NULL 的约束。
+
+由于有上述种种问题，通常 SQl 满足如下条件才被认为是可更新的（`updatable`），比如支持插入、更新、删除。
+
+* `from` 仅涉及一个关系
+* `select` 只包含关系的属性名，没有表达式、聚集和 `distinct`
+* `select` 属性可以为 NULL，即不能有 `not null` 约束，也不能是主键的一部分
+* 查询不包含 `group by` 和 `having` 子句
+
+根据上述要求，可以通过下面的视图更新 instructor 关系。
+```sql
+create view history_instructors as
+select *
+from instructor
+where
+    dept_name = 'History';
+```
+如果要插入元组 `('25566', 'Brown', 'Biology', 100000)` 会发生什么呢？这里特殊之处在于 Biology 不是 History。SQL 可能会允许插入。不过，视图可以通过可选检查 `with check option` 来增强视图，此时如果要插入的元组不满足 `where` 条件，那么数据库拒绝插入数据。更新操作也类似。
+
+除了通过视图修改数据库，更好的方案是使用后续要讨论的触发器（`trigger`）。声明触发器的时候使用 `instead  of` 就可以用针对特定情况设计的操作来替换上述视图的插入、更新和删除操作。
+
+## Transactions
