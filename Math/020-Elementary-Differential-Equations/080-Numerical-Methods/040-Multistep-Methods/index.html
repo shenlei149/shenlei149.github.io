@@ -17359,6 +17359,17 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
+        亚当斯法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         后向差分法
       
     </span>
@@ -30527,6 +30538,17 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
+        亚当斯法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         后向差分法
       
     </span>
@@ -30662,9 +30684,24 @@
 
 
 <p>在前一节我们讨论了求初值问题
-$$$$
-的近似解的过程。我们使用 <script type="math/tex">t=t_n</script> 时的数值计算下一个点 <script type="math/tex">t=t_{n+1}</script> 时解 <script type="math/tex">\phi(t)</script> 的近似值。也就是说，在计算 <script type="math/tex">\phi</script> 在某点处的近似值仅仅依赖之前的一个点的值。因此这称为单步法（<code>one-step method</code>）。不过</p>
-<p>公式 <script type="math/tex">(5)</script> 是二阶亚当斯-巴什弗思公式（<code>second-order Adams-Bashforth formula</code>）。通过 <script type="math/tex">y_n</script> 和 <script type="math/tex">y_{n-1}</script> 表示 <script type="math/tex">y_{n+1}</script> 的显式公式，其局部截断误差正比于 <script type="math/tex">h^3</script>。</p>
+<script type="math/tex; mode=display">y'=f(t,y),y(t_0)=y_0\tag{1}</script>
+的近似解的过程。我们使用 <script type="math/tex">t=t_n</script> 时的数值计算下一个点 <script type="math/tex">t=t_{n+1}</script> 时解 <script type="math/tex">\phi(t)</script> 的近似值。也就是说，在计算 <script type="math/tex">\phi</script> 在某点处的近似值仅仅依赖之前的一个点的值。因此这称为单步法（<code>one-step method</code>）。不过一旦有了 <script type="math/tex">t_0</script> 开始的一些点解的近似值，我们不禁要问能不能利用这些信息来求解下一个点的近似值？也就是说如果在点 <script type="math/tex">t_1,t_2,\cdots,t_n</script> 处近似值 <script type="math/tex">y_1,y_2,\cdots,y_n</script> 已经得到了，如何利用这些信息来计算计算 <script type="math/tex">t_{n+1}</script> 处的值 <script type="math/tex">y_{n+1}</script>？使用这些信息而不仅是最后一个点的信息的方法称为多步法（<code>multistep method</code>）。这一节会讨论两种多步法：亚当斯法和后向差分法。取决于依赖前面多少点的数据，我们能够达到任意精度。为了简单起见，这里的讨论假定步长 <script type="math/tex">h</script> 是常量。</p>
+<h3 id="_1">亚当斯法</h3>
+<p>之前讨论过初值问题 <script type="math/tex">(1)</script> 满足
+<script type="math/tex; mode=display">\phi(t_{n+1})-\phi(t_n)=\int_{t_n}^{t_{n+1}}\phi'(t)dt\tag{2}</script>
+亚当斯法的核心思想是时用 <script type="math/tex">k</script> 阶多项式 <script type="math/tex">P_k(t)</script> 来近似 <script type="math/tex">\phi'(t)</script>。<script type="math/tex">P_k(t)</script> 的系数由前 <script type="math/tex">k+1</script> 个点的数据决定。</p>
+<p>比如这里假定一阶多项式 <script type="math/tex">P_1(t)=At+B</script>，那么需要前面两个点 <script type="math/tex">(t_n,y_n),(t_{n-1},y_{n-1})</script> 的数据。为了使 <script type="math/tex">P_1</script> 在 <script type="math/tex">t=t_n</script> 和 <script type="math/tex">t=t_{n-1}</script> 处都能对 <script type="math/tex">\phi'</script> 进行插值，要求 <script type="math/tex">P_1(t_n)=\phi'(t_n)=f(t_n,y_n)</script> 以及 <script type="math/tex">P_1(t_{n-1})=\phi'(t_{n-1})=f(t_{n-1},y_{n-1})</script> 同时成立。对于整数 <script type="math/tex">j</script> 可以用 <script type="math/tex">f_j</script> 表示 <script type="math/tex">f(t_j,y_j)</script>，因此 <script type="math/tex">A,B</script> 必须满足
+<script type="math/tex; mode=display">\begin{aligned}
+At_n+B&=f_n\\
+At_{n-1}+B&=f_{n-1}
+\end{aligned}\tag{3}</script>
+解的
+<script type="math/tex; mode=display">A=\frac{f_n-f_{n-1}}{h},B=\frac{f_{n-1}t_n-f_nt_{n-1}}{h}\tag{4}</script>
+用 <script type="math/tex">P_1(t)</script> 替换 <script type="math/tex">\phi'(t)</script> 并求解积分 <script type="math/tex">(2)</script> 得到
+<script type="math/tex; mode=display">\phi(t_{n+1})-\phi(t_n)=\int_{t_n}^{t_{n+1}}(At+B)dt=\frac{A}{2}(t_{n+1}^2-t_n^2)+B(t_{n+1}-t_n)</script>
+使用 <script type="math/tex">y_n,y_{n+1}</script> 替换 <script type="math/tex">\phi(t_n),\phi(t_{n+1})</script>，然后进行一些代数运算得到
+<script type="math/tex; mode=display">y_{n+1}=y_n+\frac{3}{2}hf_n-\frac{1}{2}hf_{n-1}\tag{5}</script>
+公式 <script type="math/tex">(5)</script> 是二阶亚当斯-巴什弗思公式（<code>second-order Adams-Bashforth formula</code>）。通过 <script type="math/tex">y_n</script> 和 <script type="math/tex">y_{n-1}</script> 表示 <script type="math/tex">y_{n+1}</script> 的显式公式，其局部截断误差正比于 <script type="math/tex">h^3</script>。</p>
 <p>使用零阶 <script type="math/tex">P_0(t)=f_n</script> 就得到一阶亚当斯-巴什弗思公式（<code>first-order Adams-Bashforth formula</code>），这就是欧拉公式。因为此时 <script type="math/tex">(2)</script> 被积分的式子就是 <script type="math/tex">f_n</script>，右边就等于 <script type="math/tex">hf_n</script>。</p>
 <p>使用更高阶的多项式和更多的数据，按照之前的思路就能得到更精确的亚当斯公式。比如假定 <script type="math/tex">P_3(t)</script> 是三阶多项式，系数由四个点 <script type="math/tex">(t_n,y_n),(t_{n-1},y_{n-1}),(t_{n-2},y_{n-2}),(t_{n-3},y_{n-3})</script> 确定。代入 <script type="math/tex">(2)</script> 中替换 <script type="math/tex">\phi'(t)</script>，求积分，简化结果，得到四阶亚当斯-巴什弗思公式（<code>fourth-order Adams-Bashforth formula</code>）
 <script type="math/tex; mode=display">y_{n+1}=y_{n}+\frac{h}{24}(55f_n-59f_{n-1}+37f_{n-2}-9f_{n-3})\tag{6}</script>
@@ -30706,7 +30743,7 @@ $$$$
 <p>亚当斯-巴什弗思法最简单也最快，仅涉及显式公式，也最不精确。使用亚当斯-莫尔顿公式作为修正，公式仍旧是显式的，不过增加了一些计算量。这种方法将误差修正为预测值的七分之一。亚当斯-莫尔顿法最精确，比修正值误差的四十分之一。</p>
 <p>不过亚当斯-莫尔顿法是隐式的，这意味着每一步需要求解方程。这个问题是线性问题，方程容易求解，如果是非线性的，那么这个过程会更耗时。</p>
 <p>使用步长为 <script type="math/tex">h=0.1</script> 的龙格-库塔法求解的 <script type="math/tex">y_4=5.7927853</script>，误差是 -0.0014407。对于这个问题，它的精度和预测-修正法的精度差不多。</p>
-<h3 id="_1">后向差分法</h3>
+<h3 id="_2">后向差分法</h3>
 <p>另一个多步法是使用多项式 <script type="math/tex">P_k(t)</script> 近似初值问题 <script type="math/tex">(1)</script> 中的 <script type="math/tex">\phi(t)</script> 而不是它的导数 <script type="math/tex">\phi'(t)</script>。</p>
 
   
