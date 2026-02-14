@@ -17370,7 +17370,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        后向差分法
+        后向差分公式
       
     </span>
   </a>
@@ -30549,7 +30549,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        后向差分法
+        后向差分公式
       
     </span>
   </a>
@@ -30743,8 +30743,31 @@ At_{n-1}+B&=f_{n-1}
 <p>亚当斯-巴什弗思法最简单也最快，仅涉及显式公式，也最不精确。使用亚当斯-莫尔顿公式作为修正，公式仍旧是显式的，不过增加了一些计算量。这种方法将误差修正为预测值的七分之一。亚当斯-莫尔顿法最精确，比修正值误差的四十分之一。</p>
 <p>不过亚当斯-莫尔顿法是隐式的，这意味着每一步需要求解方程。这个问题是线性问题，方程容易求解，如果是非线性的，那么这个过程会更耗时。</p>
 <p>使用步长为 <script type="math/tex">h=0.1</script> 的龙格-库塔法求解的 <script type="math/tex">y_4=5.7927853</script>，误差是 -0.0014407。对于这个问题，它的精度和预测-修正法的精度差不多。</p>
-<h3 id="_2">后向差分法</h3>
-<p>另一个多步法是使用多项式 <script type="math/tex">P_k(t)</script> 近似初值问题 <script type="math/tex">(1)</script> 中的 <script type="math/tex">\phi(t)</script> 而不是它的导数 <script type="math/tex">\phi'(t)</script>。</p>
+<h3 id="_2">后向差分公式</h3>
+<p>另一个多步法是使用多项式 <script type="math/tex">P_k(t)</script> 近似初值问题 <script type="math/tex">(1)</script> 中的 <script type="math/tex">\phi(t)</script> 而不是它的导数 <script type="math/tex">\phi'(t)</script>。然后对 <script type="math/tex">P_k(t)</script> 求导，令 <script type="math/tex">P_k'(t_{n+1})=f(t_{n+1},y_{n+1})</script> 得到 <script type="math/tex">y_{n+1}</script> 的隐式公式。这称为后向差分公式（<code>backward differentiation formula</code>）。</p>
+<p>最简单的例子是一阶多项式 <script type="math/tex">P_1(t)=At+B</script>，那么要满足 <script type="math/tex">P_1(t_n)=y_n,P_1(t_{n+1})=y_{n+1}</script>，那么 <script type="math/tex">A,B</script> 要满足
+<script type="math/tex; mode=display">\begin{aligned}
+At_n+B&=y_n\\
+At_{n+1}+B&=y_{n+1}
+\end{aligned}\tag{12}</script>
+求解得到
+<script type="math/tex; mode=display">A=\frac{y_{n+1}-y_n}{h},B=\frac{y_{n+1}t_n-y_nt_{n+1}}{h}\tag{13}</script>
+由于 <script type="math/tex">P_1'(t)=A</script>，又因为 <script type="math/tex">P_1'(t_{n+1})=f(t_{n+1},y_{n+1})</script>，因此 <script type="math/tex">A=f(t_{n+1},y_{n+1})</script>。结合 <script type="math/tex">(13)</script> 就得到了一阶后向差分公式（<code>first-order backward differentiation formula</code>）
+<script type="math/tex; mode=display">y_{n+1}=y_n+hf(t_{n+1},y_{n+1})\tag{14}</script>
+这就是在 8.1 小节讨论的后向欧拉公式。</p>
+<p>使用更高阶的多项式和相应更多的点，可以得到任意阶后向差分公式。下面是二阶后向差分公式（<code>second-order backward differentiation formula</code>）
+<script type="math/tex; mode=display">y_{n+1}=\frac{1}{3}(4y_n-y_{n-1}+2hf(t_{n+1},y_{n+1}))\tag{15}</script>
+下面是四阶后向差分公式（<code>fourth-order backward differentiation formula</code>）
+<script type="math/tex; mode=display">y_{n+1}=\frac{1}{25}(48y_n-36y_{n-1}+16y_{n-2}-3y_{n-3}+12hf(t_{n+1},y_{n+1}))\tag{16}</script>
+这两个公式的局部截断误差分别正比于 <script type="math/tex">h^3,h^5</script>。</p>
+<p>例 2 使用步长 <script type="math/tex">h=0.1</script> 的四阶后向差分公式来估算例 1 中在 <script type="math/tex">t=0.4</script> 时解 <script type="math/tex">y=\phi(t)</script> 的近似值。</p>
+<p>解：<script type="math/tex">y_0,\cdots,y_3</script> 在例 1 中已经给出，<script type="math/tex">n=3,h=0.1</script>，都代入 <script type="math/tex">(16)</script> 得到
+<script type="math/tex; mode=display">y_4=4.6837842+0.192y_4</script>
+因此
+<script type="math/tex; mode=display">y_4=5.7967626</script>
+和精确值 <script type="math/tex">\phi(t)=5.7942260</script> 相比，误差是 0.0025366。这比四阶亚当斯-巴什弗思的结果要好，但是不如四阶预测-修正法，远不如亚当斯-莫尔顿法。</p>
+<p>比较单步法与多步法时，要综合考虑多个因素。四阶龙格-库塔法在每一步都需要求四次 <script type="math/tex">f</script> 函数的值；而四阶亚当斯-巴什弗思法（除了开始阶段）每步仅需一次求值，预测-修正法需要两次。因此，在给定步长 <script type="math/tex">h</script> 的情况下，后两种方法的运行速度很可能比龙格-库塔法快得多。不过，如果龙格-库塔法的精度更高，并因此可以采用更大的步长，更少的步数，那么这种速度上的差异就会缩小，甚至可能会消失。</p>
+<p>亚当斯-莫尔顿和后向差分公式还考虑到在每一步中求解隐式方程的难度。所有多步法都存在一个潜在的缺点，开始步骤中的误差可能会反馈到后续计算中，从而产生不利结果。另一方面，多步法底层的多项式近似特性使得在需要时可以很容易地估算点之间任何位置的解。多步法变得流行的原因是它能相对容易地估算每一步的误差并调整阶数或步长来对其进行控制。</p>
 
   
 

@@ -1643,6 +1643,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integrity Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31576,6 +31587,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integrity Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -32779,6 +32801,20 @@ instructor 关系里面插入一行只有两个属性的元组，department 插�
 如果要插入元组 <code>('25566', 'Brown', 'Biology', 100000)</code> 会发生什么呢？这里特殊之处在于 Biology 不是 History。SQL 可能会允许插入。不过，视图可以通过可选检查 <code>with check option</code> 来增强视图，此时如果要插入的元组不满足 <code>where</code> 条件，那么数据库拒绝插入数据。更新操作也类似。</p>
 <p>除了通过视图修改数据库，更好的方案是使用后续要讨论的触发器（<code>trigger</code>）。声明触发器的时候使用 <code>instead  of</code> 就可以用针对特定情况设计的操作来替换上述视图的插入、更新和删除操作。</p>
 <h2 id="transactions">Transactions</h2>
+<p>事务（<code>transaction</code>）由一系列的查询、更新语句组成。SQL 规定了当执行一个语句时，事务会隐式地开始。必须由下面两个之一结束：</p>
+<ol>
+<li>commit work：提交事务，事务执行的所有更新永久的保存到了数据库中。</li>
+<li>rollback work：回滚事务，撤销执行的所有更新，数据库恢复到执行事务第一条 SQL 之前的状态。</li>
+</ol>
+<p><code>work</code> 关键字是可选的。</p>
+<p>如果执行期间出错了，那么回滚就非常有用。一旦执行了 <code>commit</code>，就无法通过 <code>rollback</code> 撤销了。数据库系统会保证即使发生系统崩溃或者断电，只要没执行 <code>commit</code>，效果都会被回滚。</p>
+<p>如果一个程序既没有提交也没有回滚就终止了，此时需要提交或者回顾。SQL 并没有规定此时数据库应该怎么处理，因此取决于实现。</p>
+<p>要么全部提交要么全部撤销，数据库提供了原子性（<code>atomic</code>）。事务是不可分割的单元。</p>
+<p>很多数据库实现默认每条语句都是独立事务并自动提交。若要执行多条语句的事务，必须关闭自动提交。</p>
+<p>SQL 1999 标准允许多个语句在 <code>begin atomic</code> 和 <code>end</code> 之间作为一个事务。只要 SQL Server 支持这一点。Postgresql 和 MySQL 支持 <code>begin</code> 开始事务，然后使用 <code>commit</code> 或 <code>rollback</code> 来提交或回滚事务。</p>
+<h2 id="integrity-constraints">Integrity Constraints</h2>
+<p>完整性约束保护了已经被授权的用户所做的修改不会导致数据一致性问题，目的是防止对数据库的误操作。与安全约束（<code>security constraint</code>）不同，后者是为了防止没有被授权的用户访问数据库。</p>
+<p>通常来讲完整性约束可以是任意谓词。但是任意</p>
 
   
 
