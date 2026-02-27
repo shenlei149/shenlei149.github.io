@@ -13,3 +13,4 @@ nav:
     - 人: People
     - 值得一读: WorthReading
     - 面试题: InterviewQuestions
+    - Fermion 设计文档: FermionSpec.md
