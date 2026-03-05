@@ -228,3 +228,13 @@ io_uring_queue_init(QUEUE_DEPTH, &ring, 0);
 
 当然，与使用原始接口相比，这用起来要简单得多。
 
+## cp with liburing
+在上一节中，我们看到了如何使用 liburing 提供的 io_uring 高级接口来构建一个等效于 Unix cat 工具的程序。然而，在这些示例中，我们都没有同时对多个请求进行排队。io_uring 的毕生目标之一，就是能够通过让用户一次性对多个操作进行排队，从而减少所需的系统调用数量，这样内核就可以一举接收这些操作并处理它们，而无需程序为每个 I/O 请求都经历一次或多次系统调用。
+
+为此，在这一部分中，我们构建一个复制文件的拷贝程序。它通过在队列深度允许的范围内尽可能多地对请求进行排队，力求实现最高效率。让我们来看一些代码。为了把功劳归于其应有之人，这个程序在很大程度上是基于 fio 软件包中的一个程序。
+
+## Probing supported capabilities
+
+
+sudo apt install liburing-dev/unstable
+Selected version '2.14-1' (Debian:unstable [amd64]) for 'liburing-dev'

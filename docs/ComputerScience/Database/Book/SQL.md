@@ -1304,4 +1304,352 @@ SQL 1999 标准允许多个语句在 `begin atomic` 和 `end` 之间作为一个
 ## Integrity Constraints
 完整性约束保护了已经被授权的用户所做的修改不会导致数据一致性问题，目的是防止对数据库的误操作。与安全约束（`security constraint`）不同，后者是为了防止没有被授权的用户访问数据库。
 
-通常来讲完整性约束可以是任意谓词。但是任意
+通常来讲完整性约束可以是任意谓词。但是任意谓词的开销很大。因此大部分数据库只允许一部分开销比较小的约束。
+
+完整性约束通常是数据库模式设计的一部分，在使用 `create table` 定义关系的时候指定。不过完整性约束也可以通过 `alter table table-name add constraint` 来添加，其中 `constraint` 是一个谓词约束。当执行这个命令的时候，数据库会先对已存在的数据执行这个约束，如果不满足约束，那么添加约束失败。
+
+### Constraints on a Single Relation
+`create table` 语句允许在定义关系的时候指定一些约束。除了主键约束以外，下面几种约束也可以在 `create table` 语句中指定。
+
+- `not null`
+- `unique`
+- `check <predicate>`
+
+### Not Null Constraint
+null 是所有域的成员，因此对于所有属性都是合法值。不过对于特定的属性，null 可能不是一个合理的值。比如 student 的 name 属性。类似的部门预算也不应是 null。对于这种情况，可以使用 `not null` 约束来禁止 null 值。
+```sql
+name varchar(20) not null
+budget numeric(12, 2) not null
+```
+`not null` 约束禁止插入 null 值，这是一个定义域约束（`domain constraint`）的例子。任意会导致对有 `not null` 约束的属性插入 null 值的修改都得到一个错误。
+
+很多场景要避免 null 值。SQL 禁止关系模式中的主键是 null，因此前面的 department 关系中主键 dept_name 不能为 null。因此，我们不用显式的给主键加上 `not null` 约束。
+
+### Unique Constraint
+SQL 也支持如下完整性约束
+```
+unique(A_{j1}, A_{j_2}, \cdots, A_{j_k})
+```
+`unique` 约束要求关系中的每个元组在属性 $A_{j1}, A_{j_2}, \cdots, A_{j_k}$ 上的值的组合必须是唯一的，它们共同组成了超键（`superkey`）。除非显式的声明为 `not null`，否则 `unique` 约束允许 null 值。null 值不等于任何值，包括 null 本身。
+
+### The Check Clause
+当 `check(P)` 应用于关系的时候，要求关系中的每个元组都满足谓词 `P`。
+
+常见的 `check` 确保属性值满足某个条件，这事实上创建了一个功能强大的类型系统。比如在 `create table` 中 `check(budget > 0)` 确保 department 的预算是正数。
+
+下面是另一个例子
+```sql
+create table section (
+    course_id varchar(8),
+    sec_id varchar(8),
+    semester varchar(6),
+    year numeric(4, 0),
+    building varchar(15),
+    room_number varchar(7),
+    time_slot_id varchar(4),
+    primary key (
+        course_id,
+        sec_id,
+        semester,
+        year
+    ),
+    check (
+        semester in (
+            'Fall',
+            'Winter',
+            'Spring',
+            'Summer'
+        )
+    )
+);
+```
+这里使用 `check` 来确保 semester 的值只能是 'Fall' 'Winter' 'Spring' 'Summer' 之一。`check` 子句允许强大的方式对属性域进行限制，这是大多数编程语言的类型系统所不具备的。
+
+null 值出现在 `check` 子句是一个特殊的例子。`check` 子句结果不是 `false` 就是认为通过了校验，那么结果是 `unknown` 的时候就认为通过了校验。如果不期望是 null 值，那么额外的 `not null` 要显式的加上。
+
+`check` 可以像上面的例子一样单独声明，也可以像下面的例子一样写在属性后面。
+```sql
+create table section (
+    course_id varchar(8),
+    sec_id varchar(8),
+    semester varchar(6) check (
+        semester in (
+            'Fall',
+            'Winter',
+            'Spring',
+            'Summer'
+        )
+    ),
+    year numeric(4, 0),
+    building varchar(15),
+    room_number varchar(7),
+    time_slot_id varchar(4),
+    primary key (
+        course_id,
+        sec_id,
+        semester,
+        year
+    )
+);
+```
+写在哪里主要是编码风格的问题。如果是对单个属性的检查，一般跟在属性定义后面，如果更复杂的情况，那么单独写一个 `check` 子句会更清晰一些。
+
+根据 SQL 标准，`check` 约束可以包含子查询，不过大部分数据库系统不支持。
+
+### Referential Integrity
+通常情况下我们希望出现在一个关系（引用关系 `referencing relation`）中的值在另一个关系（被引用关系 `referenced relation`）中存在。这称为引用完整性约束（`referential integrity constraint`）。外键（`foreign key`）是引用完整性约束的一种形式，被引用的属性必须是被引用关系的主键。
+
+外键可是以是 `create table` 语句的一部分，通过 `foreign key` 关键字来指定。比如
+```sql
+foreign key (dept_name) references department
+```
+默认情况下外键引用的主键。SQL 也支持显式的指定被引用的属性的列表。比如
+```sql
+foreign key (dept_name) references department(dept_name)
+```
+被指定的属性必须是被引用关系的超键，使用 `primary key` 或 `unique` 约束。一种更广义的引用完整性约束不要求被引用的属性是候选键。SQL 标准规定了其他可以用来实现这种约束的语法，不过大部分数据库系统不支持。
+
+外键必须是引用属性的兼容集合，属性的个数必须一样，对应属性的类型必须兼容。
+
+可以使用如下语法在 `create table` 语句中指定某个属性的外键
+```sql
+dept_name varchar(20) references department
+```
+当违反引用完整性约束时，数据库会拒绝执行该操作。不过外键子句可以指定如果删除或更新操作违反了约束，应当执行什么动作来满足约束而不是拒绝操作。比如
+```sql
+foreign key (dept_name) references department on delete cascade on update cascade
+```
+由于 `on delete cascade` 子句关联了外键声明，如果 department 中删除了元组，那么违反了引用完整性，系统不会拒绝删除。而是将 course 中引用这个部门的元组也删除掉。类似的，`on update cascade` 关联了外键声明，如果 department 中更新了 dept_name，那么 course 中引用这个部门的元组也会更新。SQL 还支持 `set null` 和 `set default` 来替代 `cascade`，前者将引用属性设置成 null，后者将引用属性设置成默认值。
+
+如果外键依赖是一个涉及多个关系的链，删除或更新的操作会传导到链上的所有关系。如果级联删除或更新遇到无法继续，系统会回滚事务，这个事务的修改以及级联修改都会被撤销。
+
+null 值使得 SQL 中引用完整性约束的语义变得复杂。如果没有声明为 `not null`，外键允许 null 值。如果给定的元组的所有属性都不是 null，那么对该元组使用外键约束。如果有任意一个属性为 null，那么该元组默认满足外键约束。这种定义不总是正确的选择，SQL 还提供了其他方式来更改 null 值的行为，这里就不继续展开了。
+
+### Assigning Names to Constraints
+可以给约束一个名字，如果需要删除约束，那么命名就非常有用。
+
+命名一个约束的方式是使用关键字 `constraint`，后面跟着约束的名字。比如下面的例子使用 minsalary 作为约束的名字，确保 instructor 的 salary 大于 29000。
+```sql
+salary numeric(8, 2) constraint minsalary check (salary > 29000)
+```
+如果不再需要这个约束，可以删除
+```sql
+alter table instructor drop constraint minsalary;
+```
+如果没有命名，必须先用系统提供的功能找到系统指定的名字。不是所有系统都支持。
+
+### Integrity Constraint Violation During a Transaction
+事务分成很多步骤，在某一个步骤之后完整性约束可能被破坏了，但是后续步骤之后又满足了约束。举一个例子，有一个 person 关系，主键是 name，有一个属性 spouse，表示配偶的名字。假定约束要求 spouse 的值必须在 person 中存在。现在有两个人 John 和 Mary，他们是夫妻关系，那么现在需要插入两个元组。不管先插入哪一个元组，都会违反约束，因为另一个人的信息还没有插入到 person 中，而 spouse 的值不在 person 中。如果两个元组都插入完成，约束再次满足了。
+
+为了处理这种情况，SQL 允许在约束定义中添加初始延迟（`initially deferred`）子句，这样约束的检查就会被延迟到事务结束的时候，而不是在中间步骤就立即检查。约束可以被指定为可延迟的（`deferrable`）。默认情况下它会立即被检查，但是需要的时候可以被延迟直到事务结束的时候检查。通过 `set constraints constraint-list deferred` 可以设置需要被延迟检查的约束列表。此时约束需要一个名字。默认行为是立即检查约束，许多数据库并没有实现延迟的约束检查。
+
+这个问题也有其他的解决方案，比如将 spouse 属性设置为 null，两个元组都插入之后再更新。不过这需要更多的编程工作，并且如果属性不能被设置为 null 的话就无法使用这种方法了。
+
+### Complex Check Conditions and Assertions
+SQL 标准还规定了许多完整性约束，不过很多数据库系统并不支持。下面讨论其中的几个。
+
+SQL 标准规定 `check` 约束可以包含子查询。如果数据库实现支持了，那么可以通过如下的 SQL 语句来对 section 关系添加引用完整性约束。
+```sql
+check(time_slot_id in (select time_slot_id from time_slot))
+```
+`check` 很有用可以确保数据的完整性，但是开销比较大。这个例子中，不仅仅 section 关系修改时需要检查，修改了 time_slot 关系的时候也需要检查，因为后者被子查询引用了。
+
+断言（`assertion`）表示我们期望总是满足的条件。比如对于 student 中的每一个元组，tot_cred 必须等于完成的课程的学分总和。这个条件可以通过如下 SQL 来表达。
+```sql
+create assertion credits_earned_constraint check (
+    not exists (
+        select ID
+        from student
+        where
+            tot_cred <> (
+                select coalesce(sum(credits), 0)
+                from takes
+                    natural join course
+                where
+                    student.ID = takes.ID
+                    and takes.grade is not null
+                    and takes.grade <> 'F'
+            )
+    )
+);
+```
+当创建断言的时候，数据库会检查当前数据是否满足断言。如果断言被满足了，那么数据库会保证在任何时候都满足这个断言。如果断言非常复杂，那么测试的开销会非常大。因此，使用断言要非常小心。测试和维护断言的高开销使得系统开发者没有去支持这个功能，或者支持容易测试的断言形式。
+
+当前没有广泛使用的数据库支持 `check` 中的子查询和 `assertion`，后续会讨论替代方案——触发器（`trigger`）。
+
+## SQL Data Types and Schemas
+SQL 还提供日期和时间相关的类型。
+
+* date: 包含年、月、日来表示日期
+* time: 包含小时、分钟、秒来表示时间。`time(p)` 还可以指定小数部分的精度，默认是 0。也可以指定时区 `time with timezone`。
+* timestamp: 包含 date 和 time 来表示日期和时间。`timestamp(p)` 还可以指定小数部分的精度，默认是 6。也可以指定时区 `timestamp with timezone`。
+
+日期和时间的值可以如下指定
+```sql
+date '2018-04-25'
+time '09:30:00'
+timestamp '2018-04-25 10:29:01.45'
+```
+日期格式必须要是年月日，不过有些系统提供了更灵活的格式。time 和 timestamp 支持小数部分，比如上面的 timestamp 的例子。
+
+为了从 date 或 time 的值 d 中抽取某个字段，可以使用 `extract(field from d)`，其中 field 可以是 year、month、day、hour、minute、second。时区信息可以使用 `timezone_hour` 和 `timezone_minute` 来抽取。
+
+SQL 定义了一些函数或许当前日期和时间。`current_date` 返回当前日期，`current_time` 返回当前时间，`current_timestamp` 返回当前日期和时间。`localtime` 和 `localtimestamp` 返回本地日期和时间，没有时区。
+
+包括 MySQL 在内的一些系统使用 datetime 表示没有时区的时间。时间可能还有一些特殊情况，比如夏令时。各个系统表示时间范围也不同。
+
+SQL 支持对这些类型进行比较操作，也可以和各种数值类型进行比较和算数运算。SQL 还有一种类型称为 interval。比如 x 和 y 是两个 date 类型的值，那么 x - y 的结果就是一个 interval 类型的值，表示 x 和 y 之间的时间间隔。类似的，一个日期或时间加上或者减去一个 interval 结果还是一个日期或时间。
+
+### Type Conversion and Formatting Functions
+尽管数据库会执行一些隐式的类型转换，但是有时候需要显式的类型转换。这里使用表达式 `cast (value as type)` 来进行类型转换。当需要执行特定的操作或者强行指定顺序时，可能需要进行类型转换。比如 instructor 中 ID 的类型是 varchar(5)，本质上是字符串，那么 1111 会在 9 的前面。如果想按照数值的方式排序，那么需要先将 ID 转换成数值类型。
+```sql
+select cast(ID as numeric(5)) as inst_id
+from instructor
+order by inst_id;
+```
+为了让数据作为查询结果更好的展示出来，可能需要类型转换。比如指定数字个数、日期的显式格式。这些显示变化并不是类型转换而更像是格式的转换。数据库提供了这些能力。MySQL 提供了 `format` 函数，Oracle、PostgreSQL 提供了 `to_char` `to_number` `to_date` 函数来进行格式转换。
+
+另一个问题是显示 null 值。默认情况下，null 值什么都不显示，是空白。一个选择是 `coalesce` 函数，可以指定一个默认值来替换 null 值。它接受任意多的参数，这些参数必须是同一类型，返回第一个非 null 参数。比如 instructor 中 salary 的 null 替换成了 0。
+```sql
+select ID, coalesce(salary, 0) as salary from instructor;
+```
+
+`coalesce` 要求所有类型是同一个参数，如果我们想要用 `N/A` 替代 null 值，就无法使用这个函数了。Oracle 提供了 `decode` 可以完成这个任务。`decode` 的语法如下
+```
+decode (value, match-1, replacement-1,
+               match-2, replacement-2,
+               ...
+               match-N, replacement-N,
+               default-replacement);
+```
+这个函数比较 value 和 match 的值，如果找到一个匹配的项，替换成对应的值。如果没有匹配，使用最后默认替换项。这个函数对类型没有要求，因此实现上面的功能的 SQL 如下
+```sql
+select ID, decode (salary, null, 'N/A', salary) as salary
+from instructor;
+```
+
+### Default Values
+SQL 允许为属性指定一个默认值，如下面的 `create table` 语句所示。
+```sql
+create table student (
+    ID varchar(5),
+    name varchar(20) not null,
+    dept_name varchar(20),
+    tot_cred numeric(3, 0) default 0,
+    primary key (ID)
+);
+```
+tot_cred 的默认值是 0，如果插入语句没有提供 tot_cred 的值，tot_cred 的值是 0 而不是 null。
+
+### Large-Object Types
+数据库需要存储大的数据项，比如图片、视频。因此 SQL 为字符数据（`clob`）和二进制数据（`blob`）提供了大对象数据类型（`large-object data type`），这里 `lob` 表示大对象（`large object`）。比如像下面这样声明属性
+```sql
+book_review clob(10KB)
+image blob(10MB)
+movie blob(2GB)
+```
+对于大对象，完全加载到内存是不高效甚至不切实际的。应用程序通常会使用 SQL 获取定位器（`locator`），然后利用该定位器来操作数据，而不是一次性读取全部数据。
+
+### User-Defined Types
+SQL 支持两种形式的用户定义数据类型（`user-defined data type`）。第一种形式是唯一类型（`distinct type`）。第二种形式是结构化数据类型（`structured data type`），允许创建带有嵌套结构、数组等的复杂数据类型。
+
+若干个属性可以有相同的数据类型。比如学生名 name 和教师名 name 都是 varchar(20)。budget 和 dept_name 是不同的类型。不过 name 和 dept_name 可能是相同的数据类型。实际上教师名和部门名都是字符串。不过很明显，查询名字和部门名一样的教师是没有意义的。如果从数据库概念而不是物理层面来看，name 和 dept_name 有不同的定义域。
+
+更重要的是，将一个教师的名字赋值给一个部门名是编程错误，类似的比较欧元表示的价格和美元表示的价格也是编程错误。好的类型系统能够检测出这些错误的赋值和比较。为了支持这些检查，SQL 提出了唯一类型的概念。
+
+`create type` 语句可以用来定义一个新的类型。比如
+```sql
+create type Dollars as numeric(12,2) final;
+
+create type Pounds as numeric(12,2) final;
+```
+注意，这两条 SQL 无法在 PostgreSQL 中执行，需要使用后续讨论的 `create domain`。
+
+这里定义了 Dollars 和 Pounds 两个类型，它们的底层表示都是 numeric(12, 2)。新创建的类型可以用于定义关系的属性类型。比如
+```sql
+create table department (
+    dept_name varchar(20),
+    building varchar(15),
+    budget Dollars
+);
+```
+试图将 Dollars 类型的值赋值给 Pounds 类型的属性会得到一个编译时的错误，尽管两者是相同的数值类型。这样的错误更像是编程错误，因为可能忘记了不同货币的区别。对于不同货币声明不同的类型可以帮助检测出这些错误。
+
+由于强类型检查，表达式 `(department.budget + 20)` 也会报错，因为属性和整数常量 20 是不同类型。根据之前的讨论，需要先对其中一个类型进行类型转换
+```sql
+cast(department.budget as numeric(12, 2))
+```
+如果需要将结果存回类型为 Dollars 的属性，还需要一次类型转换。
+
+SQL 提供了 `drop type` 和 `alter type` 来删除和修改类型定义。
+
+上述用户自定义类型是 SQL:1999 标准的一部分，SQL-92 有一个类似但是有些许不同的概念，叫做域（`domain`），可以添加完整性约束。比如
+```sql
+create domain DDollars as numeric(12, 2) not null;
+```
+DDollars 可以用于属性的类型，不过和和类型相比有两个显著不同：
+
+1. 域可以有约束，能够有默认值，但是类型不行。类型除了用于属性之外，还能用于 SQL 过程化的扩展，在后者中无法检查约束。
+2. 域不是强类型的。只要底层类型兼容，就可以将一个域的值赋值给另一个域的属性。
+
+当使用域的时候，`check` 子句允许指定谓词，任何声明为属于这个域的属性都必须满足这个谓词。比如
+```sql
+create domain YearlySalary numeric(8, 2) constraint salary_value_test check (value >= 29000.00);
+```
+`constraint salary_value_test` 是可选的，给这个约束了一个名字。当有更新违反了这个约束的时候，系统会使用这个名字来报错。
+
+### Generating Unique Key Values
+在前面的例子中，主键有不同的类型。比如 dept_name 是真实世界存的信息，但是 instructor 的 ID 是企业单独设置以达到唯一标识的目的。对于后者，遇到了新值如何生成的实际问题。假定新雇佣了一个教师，应该如何分配这个 ID 呢？
+
+数据库提供了唯一值生成的能力。各个系统语法不同，下面是接近 Oracle 和 DB2 的例子。由于这个功能是能对数值类型有效果，因此这里把 ID 类型由 varchar(5) 改成了 numeric(5)。
+```sql
+ID numeric(5) generated always as identity
+```
+当使用了 `always` 选项之后，插入语句就不能再指定自动生成的属性的值了。如果使用 `by default` 选项，那么插入语句可以指定自动生成的属性的值，如果没有指定，那么数据库会自动生成一个值。
+
+PostgreSQL 中使用 `serial` 来实现自动生成唯一值的功能。MySQL 中使用 `auto_increment`，SQL Server 简单地使用 `identity`。
+
+此外，许多数据库支持 `create sequence` 来创建一个与任何关系无关的序列计数器，SQL 查询可以从中获取下一个值。每一次调用获取下一个值，序列计数器自增。
+
+### Create Table Extensions
+应用经常需要常见一个关系，其模式和另一个关系的模式一致。SQL 提供了 `create table ... like` 来满足这个需求。
+```sql
+create table temp_instructor like instructor;
+```
+当写一个复杂查询的时候，将查询结果存到一个关系里可能会很有用，这个关系通常是临时关系。一般需要两个语句，一个创建一个模式和查询结果一样的关系，另一个将查询结果插入到这个关系中。SQL 2003 标准提供了 `create table ... as` 来满足这个需求。
+```sql
+create table t1 as (
+    select *
+    from instructor
+    where
+        dept_name = 'Music'
+)
+with
+    data;
+```
+默认情况下，属性的名字和类型从查询结果中推断得到。在关系名之后可以指定属性的名字。
+
+根据 SQL 2003 的标准，如果没有指定 `with data`，仅仅创建关系而不插入数据。不过大部分数据库系统默认就是插入数据，即便没有写 `with data`。
+
+上面的 `create table ... as` 和 `create view` 有点像，都定义了查询可以使用的对象。主要差别是关系创建的时候数据就确定了，而视图的内容总是当前查询的结果。
+
+### Schemas, Catalogs, and Environments
+和文件系统类似，现代数据库提供三层架构来命名关系。顶层是目录（`catalog`），中间层是模式（`schema`），底层是关系。每个目录包含多个模式，每个模式包含多个关系。一些数据库的实现使用数据库（`database`）来代替目录的概念。
+
+为了执行数据库，用户必须先连接到数据库。每一个用户有默认的目录和模式，这两者结合起来对用户而言是唯一的。当连接成功之后，设置为当前用户默认的目录和模式。
+
+为了唯一标识关系，使用三层的名字，比如
+```
+catalog5.univ_schema.course
+```
+有时可以忽略目录的名字，因为目录就是当前连接的默认目录。此时用 `univ_schema.course` 来唯一标识关系。还有时可以忽略模式的名字，因为模式就是当前连接的默认模式，此时用 `course` 来唯一标识关系。如果用户访问一个不同模式下的关系，就需要使用模式名来限定关系的名字。
+
+有了多个目录和模式，不同的应用和不同的用户就无须担心命名冲突了。同一个应用的多个版本（比如测试版本和生产版本）也可以使用同一个数据库系统。
+
+默认目录和模式是 SQL 环境（`SQL environment`）的一部分。SQL 环境还包含用户标识符（有时也称为授权标识符（`authorization identifier`））。所有的 SQL 语句（包括 DDL 和 DML）都在 SQL 环境中执行。
+
+通过 `create schema` `drop schema` 可以创建和删除模式。大部分数据库，当创建用户的时候，会创建一个同名的模式作为默认模式。新创建的模式会变成这个用户的默认模式。
+
+创建和删除目录不是 SQL 标准的一部分，依赖于实现。
+
+## Index Definition in SQL
