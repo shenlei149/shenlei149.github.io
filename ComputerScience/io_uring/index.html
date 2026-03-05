@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
     
     
       
@@ -17183,6 +17183,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -17334,6 +17338,62 @@
     
   
     040 Multistep Methods 多步法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Math/020-Elementary-Differential-Equations/080-Numerical-Methods/050-Systems-of-First-Order-Equations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    050 Systems of First-Order Equations 一阶方程组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Math/020-Elementary-Differential-Equations/080-Numerical-Methods/060-More-on-Errors-Stability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    060 More on Errors; Stability 再论误差；稳定性
   
 
     
@@ -30517,6 +30577,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cp-with-liburing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cp with liburing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probing-supported-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Probing supported capabilities
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -30780,6 +30862,12 @@ write_barrier();
 在 submit_read_request() 函数中，我们获取一个 SQE，为 readv 操作准备好它，然后提交。</p>
 <p>我们等待一个完成事件，并像这样获取我们在提交侧设置的用户数据：</p>
 <p>当然，与使用原始接口相比，这用起来要简单得多。</p>
+<h2 id="cp-with-liburing">cp with liburing</h2>
+<p>在上一节中，我们看到了如何使用 liburing 提供的 io_uring 高级接口来构建一个等效于 Unix cat 工具的程序。然而，在这些示例中，我们都没有同时对多个请求进行排队。io_uring 的毕生目标之一，就是能够通过让用户一次性对多个操作进行排队，从而减少所需的系统调用数量，这样内核就可以一举接收这些操作并处理它们，而无需程序为每个 I/O 请求都经历一次或多次系统调用。</p>
+<p>为此，在这一部分中，我们构建一个复制文件的拷贝程序。它通过在队列深度允许的范围内尽可能多地对请求进行排队，力求实现最高效率。让我们来看一些代码。为了把功劳归于其应有之人，这个程序在很大程度上是基于 fio 软件包中的一个程序。</p>
+<h2 id="probing-supported-capabilities">Probing supported capabilities</h2>
+<p>sudo apt install liburing-dev/unstable
+Selected version '2.14-1' (Debian:unstable [amd64]) for 'liburing-dev'</p>
 
   
 
