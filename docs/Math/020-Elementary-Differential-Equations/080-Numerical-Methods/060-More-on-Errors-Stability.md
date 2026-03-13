@@ -141,4 +141,35 @@ $h=0.025$ 时欧拉法的结果没有意义，因为非常不稳定，$h=0.0166\
 
 下面的例子阐述了在处理不稳定微分方程的数值方法中可能出现的其他困难。
 
-例 3
+例 3 求二阶微分方程
+$$y''-10\pi^2y=0\tag{18}$$
+的两个线性独立解的数值近似。
+
+解：为了使用数值法求解这个问题，首先将 $(18)$ 转化为两个一阶微分方程的方程组。令 $x_1=y,$ $x_2=y'$，则有
+$$x_1'=x_2,x_2'=10\pi^2x_1$$
+如果 $\boldsymbol{x}=(x_1,x_2)^T$，那么
+$$\boldsymbol{x}'=\begin{pmatrix}0 & 1\\10\pi^2 & 0\end{pmatrix}\boldsymbol{x}\tag{19}$$
+方程 $(19)$ 的系数矩阵的特征值和特征向量是
+$$r_1=\sqrt{10}\pi,\boldsymbol{\xi}^{(1)}=\begin{pmatrix}
+1\\\sqrt{10}\pi
+\end{pmatrix};r_2=-\sqrt{10}\pi,\boldsymbol{\xi}^{(2)}=\begin{pmatrix}
+1\\-\sqrt{10}\pi
+\end{pmatrix}\tag{20}$$
+那么方程组 $(19)$ 的两个线性独立的解分别是
+$$\boldsymbol{x}^{(1)}(t)=\begin{pmatrix}
+1\\\sqrt{10}\pi
+\end{pmatrix}e^{\sqrt{10}\pi t},\quad \boldsymbol{x}^{(2)}(t)=\begin{pmatrix}
+1\\-\sqrt{10}\pi
+\end{pmatrix}e^{-\sqrt{10}\pi t}\tag{21}$$
+那么二阶微分方程 $(18)$ 相应的两个解是 $\boldsymbol{x}^{(1)}(t)$ 和 $\boldsymbol{x}^{(2)}(t)$ 的第一个分量，即 $y_1(t)=e^{\sqrt{10}\pi t},y_2(t)=e^{-\sqrt{10}\pi t}$。
+
+下面讨论另外一对线性无关的解，它们是由 $\boldsymbol{x}^{(1)}(t)$ 和 $\boldsymbol{x}^{(2)}(t)$ 的线性组合得到的。
+$$\boldsymbol{x}^{(3)}(t)=\frac{1}{2}\boldsymbol{x}^{(1)}(t)+\frac{1}{2}\boldsymbol{x}^{(2)}(t)=\begin{pmatrix}
+\cosh(\sqrt{10\pi t})\\\sqrt{10}\pi\sinh(\sqrt{10\pi t})
+\end{pmatrix}\tag{22}$$
+$$\boldsymbol{x}^{(4)}(t)=\frac{1}{2}\boldsymbol{x}^{(1)}(t)-\frac{1}{2}\boldsymbol{x}^{(2)}(t)=\begin{pmatrix}
+\sinh(\sqrt{10\pi t})\\\sqrt{10}\pi\cosh(\sqrt{10\pi t})
+\end{pmatrix}\tag{23}$$
+尽管 $\boldsymbol{x}^{(3)}(t),\boldsymbol{x}^{(4)}(t)$ 相当的复杂，不过当 $t$ 充分大的时候，有 $\cosh(\sqrt{10}\pi t)\approx\frac{1}{2}e^{\sqrt{10}\pi t}$，$\sinh(\sqrt{10}\pi t)\approx\frac{1}{2}e^{\sqrt{10}\pi t}$。因此如果 $t$ 充分大并且固定数字的个数，$\boldsymbol{x}^{(3)}(t)$ 和 $\boldsymbol{x}^{(4)}(t)$ 看起来是一样的。比如，使用八个有效数字，对于 $t=1$
+$$\sinh(\sqrt{10}\pi)=\cosh(\sqrt{10}\pi)=10,315.894$$
+在 $t=1$ 时，$\boldsymbol{x}^{(3)}(t)$ 和 $\boldsymbol{x}^{(4)}(t)$ 时是一样的，那么对 $t>1$ 而言也是如此。即使保留更多的有效数字，最终两个数值解也会一样。这种现象称为数值依赖性（`numerical dependence`）。数值方法得出哪一个解取决于初始条件。$\boldsymbol{x}^{(1)}$ 是由初始条件 $\boldsymbol{x}(0)=(1,\sqrt{10}\pi)^T$ 得到的，而 $\boldsymbol{x}^{(2)}$ 是由初始条件 $\boldsymbol{x}(0)=(1,-\sqrt{10}\pi)^T$ 得到的，类似的 $\boldsymbol{x}^{(3)},\boldsymbol{x}^{(4)}$ 由 $\boldsymbol{x}(0)=(1,0)^T$ 和 $\boldsymbol{x}(0)=(0,1)^T$ 得到。

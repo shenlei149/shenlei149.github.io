@@ -5,7 +5,6 @@ Based on
 
 minimal:
 ```
-Chapters 1-2
 Chapters 3-5
 Chapter 12.1-12.4, 13.2-13.3
 Chapter 13.2-13.5

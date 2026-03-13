@@ -4,6 +4,8 @@ nav:
     - Database: Database
     - TAOCP: TAOCP
     - Computer Organization and Design (RISC-V): ComputerOrganizationDesign
+    - 重温 Jeff Preshing 经典：内存模型与无锁编程 : Memory-and-Lock.md
+    - Introduction to System Programming: SystemProgramming
     - Professional C++: ProfessionalCPP
     - Effective Modern C++: EffectiveModernCpp
     - C++17 The Complete Guide: CPP17

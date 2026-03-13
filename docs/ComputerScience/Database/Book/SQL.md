@@ -1653,3 +1653,34 @@ catalog5.univ_schema.course
 创建和删除目录不是 SQL 标准的一部分，依赖于实现。
 
 ## Index Definition in SQL
+很多查询仅需要访问很小的一部分数据。这就是索引大展身手的地方。
+
+关系的属性上的索引（`index`）是一种数据结构，使得数据库能够高效地找到关系中指定的元组，无需扫描整个关系。比如我们在 instructor 的 dept_name 属性上创建一个索引，那么查询 instructor 中 dept_name = 'Music' 的元组就会非常快，并且不用读取整个关系的数据。
+
+由于索引是冗余的数据结构，因此对于正确性而言并不是必需的。索引是数据库物理模式（`physical schema`）的一部分，而不是数据库逻辑模式（`logical schema`）的一部分。
+
+不过，索引对于高效处理事务很重要，包括更新事务和查询。对于诸如主键约束和外键约束等完整性约束，索引也很重要。原则上，数据库能够自主决定创建哪些索引。不过，由于索引的存储开销，也会影响更新的效率，因此要做出关于维护哪些索引的选择并非易事。
+
+因此大部分的数据库提供 DDL 命令来创建和删除索引。下面的语法广泛应用于很多数据库，但是这并不是 SQL 标准的一部分。
+
+下面是 `create index` 的语法
+```sql
+create index <index-name> on <relation-name> (attribute-list);
+```
+比如下面的 SQL 在 instructor 的 dept_name 属性上创建了一个索引。
+```sql
+create index dept_index on instructor (dept_name);
+```
+如果 SQL 查询能够利用这个索引，那么查询执行器就会自动使用这个索引。比如前面的例子，`dept_name = 'Music'` 的查询就会使用这个索引来找到所需的元组，而不是读取整个关系。
+
+如果搜索键是候选键，那么可以加上属性 `unique` 来创建索引。
+```sql
+create unique index id_index on instructor (dept_name);
+```
+如果使用上述命令，但是 dept_name 不是候选键，那么创建索引会失败。如果创建索引成功，后续的插入元组如果违反了候选键的声明，那么会插入失败。
+
+我们为索引指定的名称是删除索引时所必需的。比如
+```sql
+drop index dept_index;
+```
+许多数据库提供一些方式来指定索引的类型，比如 B+ 树索引、哈希索引等。一些数据库允许其中一个索引是聚簇索引（`clustered index`），关系中的元组会按照聚簇索引的顺序存储在磁盘上。
