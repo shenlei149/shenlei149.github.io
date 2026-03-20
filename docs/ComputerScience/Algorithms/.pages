@@ -6,6 +6,7 @@ nav:
     - 基本数据结构: Basic.md
     - 分治法: DivideConquer.md
     - 排序: Sort.md
+    - 树: Tree.md
     - 图: Graph.md
     - 数值计算: Arithmetic.md
     - 几何: Geometry.md

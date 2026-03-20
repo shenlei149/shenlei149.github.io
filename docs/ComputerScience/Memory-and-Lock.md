@@ -933,7 +933,133 @@ void atomicFibonacciStep()
 ## 小插叙 memory_order_consume
 原文中有一篇博文介绍 `memory_order_consume` 的博文，它是 C++ 内存序中最特殊的一个，本意是在 ARM 这种弱内存模型的架构上，利用数据依赖来实现一种更轻量级的获取语义，允许编译器在某些情况下进行更多的优化。但由于实现上的复杂性（编译器层面的困难，很多编译器就等同于了 `memory_order_acquire`） 和实际使用中的混乱，C++26 完全就废弃了 `memory_order_consume`。这里就不展开了，感兴趣的读者可以参考原文：https://preshing.com/20140709/the-purpose-of-memory_order_consume-in-cpp11/
 
-## 
+## 获取与释放操作会引入死锁吗？
+> https://preshing.com/20170612/can-reordering-of-release-acquire-operations-introduce-deadlock/
+
+近期，有读者在我之前关于获取和释放语义的文章下提出了一个有趣的问题。这个问题我多年前也曾思考过，但直到现在才算真正理清。
+
+我们先简要回顾一下基本规则：
+
+- 读-获取操作：不能与程序顺序中位于其之后的任何读写操作发生重排。
+- 写-释放操作：不能与程序顺序中位于其之前的任何读写操作发生重排。
+
+需要注意的是，这些规则并不能阻止“写-释放”操作与紧随其后的“读-获取”操作发生重排。例如，在 C++ 中，假设 `A` 和 `B` 都是 `std::atomic<int>`，当我们写下如下代码：
+```cpp
+A.store(1, std::memory_order_release);
+int b = B.load(std::memory_order_acquire);
+```
+编译器完全可以自由地重排这些语句，就好像我们写成了这样：
+```cpp
+int b = B.load(std::memory_order_acquire);
+A.store(1, std::memory_order_release);
+```
+这是合理的。在包括 x86 在内的许多架构上，CPU 在硬件层面也可能执行这种重排。
+
+> 但是一旦改写成了后者，规则规则，就不能改写回前者了。因为获取操作 `B.load` 现在位于释放操作 `A.store` 之前，编译器和 CPU 就不能再重排它们了。
+
+读者的疑问正源于此：如果 `A` 和 `B` 是自旋锁会怎样？假设自旋锁初始值为 0。加锁操作是反复尝试带有获取语义的 CAS，直到值从 0 变为 1；解锁操作则是带有释放语义地将值设回 0。
+
+现在，假设线程 1 执行以下逻辑：
+```cpp
+// Lock A
+int expected = 0;
+while (!A.compare_exchange_weak(expected, 1, std::memory_order_acquire)) {
+    expected = 0;
+}
+
+// Unlock A
+A.store(0, std::memory_order_release);
+
+// Lock B
+while (!B.compare_exchange_weak(expected, 1, std::memory_order_acquire)) {
+    expected = 0;
+}
+
+// Unlock B
+B.store(0, std::memory_order_release);
+```
+同时，线程 2 执行以下逻辑：
+```cpp
+// Lock B
+int expected = 0;
+while (!B.compare_exchange_weak(expected, 1, std::memory_order_acquire)) {
+    expected = 0;
+}
+
+// Lock A
+while (!A.compare_exchange_weak(expected, 1, std::memory_order_acquire)) {
+    expected = 0;
+}
+
+// Unlock A
+A.store(0, std::memory_order_release);
+
+// Unlock B
+B.store(0, std::memory_order_release);
+```
+注意线程 1 中中间的两行代码（Unlock A，Lock B）。这是一个“写-释放”紧接着一个“读-获取”的操作。既然获取和释放语义不阻止这两种操作的重排，那么编译器可以自由地重排它们吗？如果发生了重排，线程 1 的逻辑实际上变成了这样：
+```cpp
+// Lock A
+int expected = 0;
+while (!A.compare_exchange_weak(expected, 1, std::memory_order_acquire)) {
+    expected = 0;
+}
+
+// Lock B  <-- reordered before Unlock A
+while (!B.compare_exchange_weak(expected, 1, std::memory_order_acquire)) {
+    expected = 0;
+}
+
+// Unlock A  <-- reordered after Lock B
+A.store(0, std::memory_order_release);
+
+// Unlock B
+B.store(0, std::memory_order_release);
+```
+这个版本与原始代码有本质的区别。在原始代码中，线程 1 每次只持有一把锁。而在重排后的版本中，线程 1 会同时获取两把锁。这在程序中引入了潜在的死锁风险：线程 1 可能成功锁定 A，但卡在等待锁 B 上；而线程 2 可能成功锁定 B，但卡在等待锁 A 上。
+
+然而，我并不认为编译器被允许进行这种重排。原因不在于获取和释放语义，而在于 C++ 标准中的另一条规则。在 C++ 标准工作草案 N4659 的 §4.7.2:18 节中指出：实现应确保由原子或同步操作分配的最后一个值（在修改顺序中）在有限的时间内对所有其他线程可见。现在回到线程 1 的原始代码：
+```cpp
+// Lock A
+A.store(0, std::memory_order_release);
+
+// Lock B
+while (!B.compare_exchange_weak(expected, 1, std::memory_order_acquire)) {
+    expected = 0;
+}
+```
+当执行到达 `while` 循环时，分配给 `A` 的最后一个值是 `0`。标准要求这个值必须在有限的时间内对所有其他线程可见。但是，如果这个 `while` 循环是一个无限循环呢？编译器在编译期是无法排除这种可能性的。既然无法排除 `while` 循环无限执行的可能，编译器就不应该将 `A.store(0)` 重排到循环之后。如果它把这行代码移到了一个潜在的无限循环之后，就直接违反了 C++ 标准中关于可见性的承诺。因此，编译器不应该重排这些语句，死锁也是不可能发生的。
+
+作为验证，将线程 1 的代码放入了 Compiler Explorer。从生成的汇编代码来看，在开启优化的情况下，三大主流 C++ 编译器（GCC、Clang、MSVC）都没有对这些语句进行重排。虽然这不能作为绝对的证明，但至少印证了这一观点。
+
+Herb Sutter 2012 年的《Atomic<> Weapons》演讲中，他举了一个完全相同的自旋锁例子，并警告说释放/获取操作的重排可能会引入死锁。当时我认为这是一个令人警醒的观点，但现在看来，至少在这个特定的例子中，我们无需过度担忧。
+
+《C++ 并发编程实战》的作者 Anthony Williams 在交流中也表示，他不认为上述例子会发生死锁。
+
+为了更清晰地说明这个问题，我们可以看一个更简单的例子：`thread2` 忙等待来自 `thread1` 的信号，然后 `thread1` 忙等待来自 `thread2` 的信号。
+```cpp
+std::atomic<int> A = 0;
+std::atomic<int> B = 0;
+
+void thread1() {
+    A.store(1, std::memory_order_release);
+
+    while (B.load(std::memory_order_acquire) == 0) {
+    }
+}
+
+void thread2() {
+    while (A.load(std::memory_order_acquire) == 0) {
+    }
+
+    B.store(1, std::memory_order_release);
+}
+```
+编译器是否允许将 `thread1` 中的 `A.store` 重排到 `while` 循环之后？如果允许，这两个线程将永远无法终止。
+
+虽然单纯从获取和释放语义来看，似乎没有什么能阻止这种特定的重排，但我依然认为答案是否定的。理由同样基于 N4659 §4.7.2:18：一旦抽象机器发出了原子存储操作，它最终必须对所有其他线程可见。如果发生了上述重排，一旦陷入循环，就等同于抽象机器根本没有发出过这个存储操作。这个问题之所以容易让人感到模糊，部分原因是标准条款的措辞相对较弱。§4.7.2:18 使用的是“应该（should）”确保存储变得可见，而不是“必须（must）”。这更像是一个建议而非强制要求。
+
+总结而言，虽然 `memory_order_acquire` 和 `memory_order_release` 在心智模型上确实比其他内存序更难驾驭，但我并不认为它们在本质上更容易引发死锁。
 
 ## 附录
 ### 内存重排代码
