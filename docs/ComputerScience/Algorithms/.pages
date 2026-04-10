@@ -7,6 +7,7 @@ nav:
     - 分治法: DivideConquer.md
     - 排序: Sort.md
     - 树: Tree.md
+    - 哈希: Hash.md
     - 图: Graph.md
     - 数值计算: Arithmetic.md
     - 几何: Geometry.md
