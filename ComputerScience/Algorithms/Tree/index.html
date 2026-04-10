@@ -14,7 +14,7 @@
         <link rel="prev" href="../Sort/">
       
       
-        <link rel="next" href="../Graph/">
+        <link rel="next" href="../Hash/">
       
       
         
@@ -519,6 +519,8 @@
       
         
       
+        
+      
     
     
     
@@ -827,6 +829,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    哈希
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -30951,6 +30981,9 @@
 <p>有序输出的一种实现是首先调用 <code>Min</code> 获取最小节点，然后不断调用 <code>Successor</code> 获取下一个节点，直到没有后继为止。不过这种实现的时间复杂度是 <script type="math/tex">O(n \log n)</script>，因为每次调用 <code>Successor</code> 的时间复杂度是 <script type="math/tex">O(\log n)</script>。更高效的实现是使用中序遍历（<code>in-order traversal</code>），在中序遍历过程中访问每个节点时输出它的键值，这样时间复杂度是 <script type="math/tex">O(n)</script>。</p>
 <p>插入操作和搜索有点类似，从根节点开始比较要插入的 <code>value</code> 与当前节点的键值，如果 <code>value</code> 小于当前节点的键值，则继续在左子树中插入；如果 <code>value</code> 大于当前节点的键值，则继续在右子树中插入；如果相等则不插入（或者根据需求更新节点）。当找到一个空节点时，将新节点插入到该位置。这里需要注意，要根据最后一次比较的结果来确定新节点是父节点的左子树还是右子树。</p>
 <p>对大部分的数据结构而言，删除操作通常比较复杂。主要挑战是在删除一个节点之后要保持二叉搜索树的性质。下面分三种情况讨论。第一种情况最简单，要删除的节点没有子节点，直接删除即可。第二种情况，要删除的节点有一个子节点，将要删除的节点的父节点直接连接到要删除的节点的子节点上，然后删除要删除的节点。假定要删除的节点是 <code>x</code>，父节点是 <code>y</code>，子节点是 <code>z</code>，如果 <code>x</code> 是 <code>y</code> 的左子树，那么将 <code>y</code> 的左子树指向 <code>z</code>；如果 <code>x</code> 是 <code>y</code> 的右子树，那么将 <code>y</code> 的右子树指向 <code>z</code>。第三种情况，要删除的节点有两个子节点，这样就比较麻烦，没有明显的方式来确定要删除的节点的父节点应该连接到哪个子节点上。解决这个问题的方法是找到要删除节点 <code>x</code> 的前继节点 <code>y</code>，然后交换两个节点。<code>x</code> 的前继节点 <code>y</code> 肯定没有右子树（如果有右子树，那么 <code>y</code> 就不是前继了），至少有一个左子树或者没有子树，交换完之后就变成了第二种情况或者第一种情况了，接下来按照前面的方法删除 <code>x</code>（之前 <code>y</code> 在的位置）就可以了。</p>
+<p>为了快速实现选择和秩操作，可以在每个节点中维护一个额外的属性 <code>size</code>，表示以该节点为根的子树中的节点数量。这样选择操作可以通过比较 <code>i</code> 与左子树的大小来决定是继续在左子树中选择还是在右子树中选择。假定左子树的 <code>size</code> 是 <code>j</code>，如果 <code>i</code> 等于 <code>j</code>，那么当前节点就是第 <code>i</code> 小的节点；如果 <code>i</code> 小于 <code>j</code>，那么继续在左子树中选择；如果 <code>i</code> 大于 <code>j</code>，那么继续在右子树中选择，并且将 <code>i</code> 更新为 <code>i - j - 1</code>。这里的 <code>i</code> 从 0 开始计数。秩操作的实现与选择操作类似，首先比较 <code>key</code> 与当前节点的键值，如果相等则返回左子树的大小；如果 <code>key</code> 小于当前节点的键值，则继续在左子树中计算秩；如果 <code>key</code> 大于当前节点的键值，则继续在右子树中计算秩，并且将结果加上左子树的大小加 1，因为当前节点也比 <code>key</code> 小。</p>
+<p>普通的二叉搜索树在最坏情况下可能退化成一个链表，导致操作的时间复杂度变为 <script type="math/tex">O(n)</script>。为了避免这种情况，可以使用自平衡二叉搜索树（<code>self-balancing binary search tree</code>），比如 AVL 树、红黑树等，这些树通过旋转等操作来保持树的平衡，从而保证操作的时间复杂度始终为 <script type="math/tex">O(\log n)</script>。不过对于随机插入和随机删除的情况，普通的二叉搜索树平均情况下也能保持较好的性能，时间复杂度为 <script type="math/tex">O(\log n)</script>，不过常系数略大（<script type="math/tex">2\ln n\approx 1.39\log_2 n</script>）。</p>
+<p>参考实现 - <a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/tree/BinarySearchTree.h">https://github.com/shenlei149/algorithms-data-structures/blob/main/src/tree/BinarySearchTree.h</a></p>
 
   
 

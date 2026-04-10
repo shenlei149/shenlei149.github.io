@@ -517,6 +517,8 @@
       
         
       
+        
+      
     
     
     
@@ -752,6 +754,34 @@
     
   
     树
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Algorithms/Hash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    哈希
   
 
     
@@ -31236,7 +31266,7 @@
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="p">};</span>
 </span></code></pre></div>
 声明
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="w"> </span><span class="n">t</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;x&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">};</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="w"> </span><span class="n">t</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;x&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">};</span>
 </span></code></pre></div>
 推导的类型是
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span><span class="o">&gt;</span>
@@ -31579,7 +31609,7 @@
 </span><span id="__span-41-15"><a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a><span class="p">};</span>
 </span><span id="__span-41-16"><a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a>
 </span><span id="__span-41-17"><a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a><span class="c1">// std::tuple&lt;int, const char*, std::nullptr_t&gt;</span>
-</span><span id="__span-41-18"><a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="w"> </span><span class="n">t</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">};</span>
+</span><span id="__span-41-18"><a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="w"> </span><span class="n">t</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">};</span>
 </span></code></pre></div></p>
 <h4 id="deduction-from-iterators">Deduction from Iterators</h4>
 <p>为了能够从一对表示范围的迭代器推导出元素的类型，容器都有如下 <code>std::vector&lt;&gt;</code> 的推导规则。
