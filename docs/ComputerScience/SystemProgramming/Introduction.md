@@ -2,7 +2,7 @@ TODO
 
 ## 基础概念
 ### 内核
-TODO Definition
+术语内核（`kernel`）指的是操作系统（`operating system`）的核心部分，常驻内存，负责控制所有的计算机资源，仅提供最基本的必要的功能。
 
 当系统启动的时候，固件和软件写作将内核加载到系统空间（`system space`）中，也称为内核空间（`kernel space`）。内核会常驻内存直到关机。
 
