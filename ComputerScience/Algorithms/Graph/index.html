@@ -963,10 +963,49 @@
   <a href="#dijkstra" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dijkstra 算法
+        最短路径：Dijkstra 算法
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最小生成树
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最小生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prim 算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kruskal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kruskal 算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1086,6 +1125,8 @@
       
         
       
+        
+      
     
     
     
@@ -1153,6 +1194,34 @@
     
   
     Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Principles/Representing-and-Manipulating-Information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Representing and Manipulating Information
   
 
     
@@ -2139,6 +2208,8 @@
       
         
       
+        
+      
     
     
     
@@ -2198,7 +2269,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/software_engineer/" class="md-nav__link">
+      <a href="../../People/Soft-Skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软技能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../People/Software-Engineer/" class="md-nav__link">
         
   
   
@@ -2226,7 +2325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/programmers_reading/" class="md-nav__link">
+      <a href="../../People/Programmers-Reading/" class="md-nav__link">
         
   
   
@@ -2254,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/never_too_late/" class="md-nav__link">
+      <a href="../../People/Never-Too-Late/" class="md-nav__link">
         
   
   
@@ -2282,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/reflections_after_15_years/" class="md-nav__link">
+      <a href="../../People/Reflections-After-15-Years/" class="md-nav__link">
         
   
   
@@ -31378,10 +31477,49 @@
   <a href="#dijkstra" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dijkstra 算法
+        最短路径：Dijkstra 算法
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最小生成树
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最小生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prim 算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kruskal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kruskal 算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -31616,7 +31754,7 @@
 <p>上述实现使用了两次 DFS，每个顶点和每条边都会访问两次，额外有一些常量开销或者和顶点数成比例的开销，因此算法的时间复杂度是 <script type="math/tex">O(m+n)</script>。</p>
 <p>根据上述讨论，每次调用 DFS 会发现一个新的强连通分量，这个强连通分量是图中未访问顶点组成的图的汇入节点。因此如果 <script type="math/tex">v,w</script> 属于同一个强连通分量，那么 <script type="math/tex">scc[v]=scc[w]</script>。</p>
 <p>实现参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/graph/ConnectedComponent.h">ConnectedComponent</a></p>
-<h2 id="dijkstra">Dijkstra 算法</h2>
+<h2 id="dijkstra">最短路径：Dijkstra 算法</h2>
 <p>Dijkstra 算法主要用于解决最短路径问题（<code>shortest path problem</code>）。给定一个有向图 <script type="math/tex">G=(V,E)</script>，从一个顶点 <script type="math/tex">s\in V</script> 开始，每条边 <script type="math/tex">e\in E</script> 的长度是非负的，算法的输出是对任一点 <script type="math/tex">v\in V</script> 的 <script type="math/tex">dist(s, v)</script>。如果两个点 <script type="math/tex">s,v</script> 之间没有通路，那么 <script type="math/tex">dist(s, v)</script> 是无穷大。</p>
 <p>这里有两个假设，第一个是有向图，第二个是边的长度是非负的。</p>
 <p>Dijkstra 算法的伪码如下。
@@ -31666,9 +31804,106 @@
 和之前的伪代码相比，这里由 <code>H</code> 跟踪点而不是 <code>X</code>，目的都是区别一个点是否处理了。</p>
 <p><code>H</code> 的大小和顶点个数 <script type="math/tex">n=|V|</script> 一致，因此 <code>w_min = H.Top()</code> 和 <code>H.Update(v, key[v])</code> 的时间复杂度是 <script type="math/tex">O(\log n)</script>，前者外层的 <code>while</code> 循环次数是点的个数 <script type="math/tex">O(n)</script>，后者外面两层循环，但是万变不离其宗，做多遍历了边两次，那么循环次数是 <script type="math/tex">O(m)</script>，因此优化版本的时间复杂度是 <script type="math/tex">O((m+n)\log n)</script>，比上述最朴素的版本 <script type="math/tex">O(mn)</script> 快相当多，特别是点和边的数量很大的情况。</p>
 <p>堆里面放的是待处理的数据这一点是确定的，但是如何放是可以选择的，一种常见方法就是将所有顶点都放到堆里面，起点的距离是 0，其余点的距离是最大值，即上面的伪代码阐述的方式。另一种方式是堆里面只放已经被发现但是还没有被处理的顶点。初始的时候只放起点，然后再处理邻接点的时候（发现）再放进堆。</p>
-<p>如果使用普通的堆来实现，有两个问题。第一个问题是需要将顶点和距离封装成一个结构体或者 <code>std::pair</code>，自定义比较运算符。第二个问题是不能删除指定的节点，也不能更新指定的节点，那么算法中的更新操作就是再添加一个节点进去，重复入堆。如果弹出来的顶点已经处理过了，即已经在 <script type="math/tex">X</script> 里面，无需再次处理，这个过程也称为懒删除。重复入堆的本质是遍历边，那么堆的操作时间复杂度从 <script type="math/tex">\log n</script> 变成了 <script type="math/tex">\log m</script>，如果边比点多很多，时间复杂度增大。</p>
+<p>如果使用普通的堆来实现，有两个问题。第一个问题是需要将顶点和距离封装成一个结构体或者 <code>std::pair</code>，自定义比较运算符。第二个问题是不能删除指定的节点，也不能更新指定的节点，那么算法中的更新操作就是再添加一个节点进去，重复入堆。如果弹出来的顶点已经处理过了，即已经在 <script type="math/tex">X</script> 里面，无需再次处理，这个过程也称为懒删除。重复入堆的本质是遍历边，那么堆的操作时间复杂度从 <script type="math/tex">\log n</script> 变成了 <script type="math/tex">\log m</script>，如果边比点多很多，时间复杂度不会变，因为边的个数 <script type="math/tex">|E|</script> 最多是 <script type="math/tex">|V|^2</script>，求对数之后，最多多了常量系数 2，也就是说性能最差会慢一倍。</p>
 <p>也可以使用带有 Index 的堆来实现，这种数据结构一般称为 <code>IndexPriorityQueue</code>。对于普通堆的第一个问题，顶点的 <code>id</code> 就是天然的 <code>Index</code>，那么堆里面放最小距离即可。第二个问题就不存在了，因为其支持更新操作。</p>
 <p>代码示例中，选择了 <code>IndexPriorityQueue</code> 和动态添加待处理的点。参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/6c7d25937f9df1a43e921da8a33834625f351d2f/src/graph/ShortestPath.h#L55">Dijkstra</a></p>
+<h2 id="_9">最小生成树</h2>
+<p>给定一个连通的无向图 <script type="math/tex">G=(V,E)</script>，每条边 <script type="math/tex">e\in E</script> 都有一个权重 <script type="math/tex">w_e</script>，最小生成树（<code>Minimum Spanning Tree</code>, <code>MST</code>）问题是找到 <script type="math/tex">G</script> 的一个生成树（<code>spanning tree</code>），使得该树的权重之和最小。生成树是一个子图，包含 <script type="math/tex">G</script> 的所有顶点，并且是一个树，也就是说 <script type="math/tex">T\subseteq E</script>。</p>
+<h3 id="prim">Prim 算法</h3>
+<p>Prim 算法是 1957 年由 Prim 提出的，算法的核心思想和 Dijkstra 算法类似，因此两年后（1959 年） Dijkstra 也独立给出了这个算法。不过稍后人们才意识到 Jarník 早在 1930 年就已经给出了这个算法，因此有时候也称为 Jarník-Prim 算法。</p>
+<p>Prim 算法的核心思想对应的伪代码如下：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>T = {}
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>X = {s} // s is an arbitrary vertex in V
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>while exists(v, w), v in X, w not in X
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    (v_min, w_min) = minimizing weight_{vw}
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    X.add(w_min)
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    T.add((v_min, w_min))
+</span></code></pre></div></p>
+<p>最直接的算法实现需要迭代 <script type="math/tex">|V|=n</script> 次，每次迭代需要遍历所有的边 <script type="math/tex">|E|=m</script>，因此时间复杂度是 <script type="math/tex">O(mn)</script>。下面分析如何通过堆来加速整个算法，时间复杂度会降至 <script type="math/tex">O((m+n)\log n)</script>。</p>
+<p>堆里面存放的是待处理的顶点 <script type="math/tex">w\in V-X</script>，以及从 <script type="math/tex">X</script> 到该点的最小边的权重，即
+<script type="math/tex; mode=display">key(w)=\min_{(v,w)\in E,v\in X}weight_{vw}</script>
+当将 <script type="math/tex">w^*</script> 从 <script type="math/tex">V-X</script> 移动到 <script type="math/tex">X</script> 的时候，需要更新与 <script type="math/tex">w^*</script> 邻接的点 <script type="math/tex">y</script> 对应的距离。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>X = {s}
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>T = {}
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>H = new Heap()
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>for v in V
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    if v != s
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        if (s, v) in E
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>            key[v] = weight_{sv}
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>            winner[v] = (s, v)
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        else
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>            key[v] = MAX
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>            winner[v] = nullptr
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        H.Push(v)
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>while !H.empty()
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    w_min = H.Top()
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    H.Pop()
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    X.add(w_min)
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    T.add(winner[w_min])
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    // update key
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>    for Edge(v, w_min) in w_min.AdjacencyEdge()
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>        if v in X
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>            continue
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>        if weight_{vw_min} &lt; key[v]
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>            key[v] = weight_{vw_min}
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>            winner[v] = (v, w_min)
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>            Delete v from H
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>            H.Push(v)
+</span></code></pre></div>
+先分析一下时间复杂度，外层循环迭代 <script type="math/tex">|V|=n</script> 次；由于内层循环需要对每条边处理一次，因此迭代 <script type="math/tex">|E|=m</script> 次，循环里面有堆的操作，时间复杂度是 <script type="math/tex">O(\log n)</script>，因此总的时间复杂度是 <script type="math/tex">O((m+n)\log n)</script>。</p>
+<p>和 Dijkstra 算法类似，把上面的话再说一次：堆里面放的是待处理的数据这一点是确定的，但是如何放是可以选择的，一种常见方法就是将所有顶点都放到堆里面，起点的距离是 0，其余点的距离是最大值，即上面的伪代码阐述的方式。另一种方式是堆里面只放已经被发现但是还没有被处理的顶点。初始的时候只放起点，然后再处理邻接点的时候（发现）再放进堆。</p>
+<p>这里也可以使用 IndexPriorityQueue 来实现，也可以使用普通的堆来实现，和 Dijkstra 算法一样。如果用普通堆实现，需要懒删除，导致性能下降，下降程度依赖于图的稀疏程度，边越多性能下降越严重，最多会慢一倍。</p>
+<p>由于前面 Dijkstra 实现使用了 IndexPriorityQueue 和动态添加待处理的点，这里选择用普通的堆和一次性添加所有的点来实现 Prim 算法。参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/d584472ab26de7e28de04e2cb7f3a095e02ddceb/src/graph/MinimumSpanningTree.h#L29">Prim</a>。</p>
+<p>最后，我们来证明算法的正确性。我们会首先给出最小瓶颈性质（<code>The Minimum Bottleneck Property</code>），然后证明 Prim 算法的输出满足最小瓶颈性质，最后证明满足最小瓶颈性质的树就是最小生成树。</p>
+<p>给定一个图 <script type="math/tex">G=(V,E)</script>，每条边有一个权重 <script type="math/tex">w_e</script>，一条路径 <script type="math/tex">P</script> 的瓶颈（<code>bottleneck</code>）是指路径上权重最大的边。如果边 <script type="math/tex">(v,w)\in E</script> 是 <script type="math/tex">v-w</script> 路径上最小的瓶颈，那么其满足最小瓶颈性质。</p>
+<p>下面证明 Prim 算法选择的边满足最小瓶颈性质。假设 Prim 算法选择的边是 <script type="math/tex">(v,w)</script>，其中 <script type="math/tex">v\in X</script>，<script type="math/tex">w\in V-X</script>。那么根据算法有
+<script type="math/tex; mode=display">c_{vw}\leq c_{xy}</script>
+其中 <script type="math/tex">x\in X,y\in V-X</script>。考虑任意一条 <script type="math/tex">v-w</script> 的路径 <script type="math/tex">P</script>，由于 <script type="math/tex">v\in X</script>，<script type="math/tex">w\in V-X</script>，那么 <script type="math/tex">P</script> 的瓶颈至少是 <script type="math/tex">c_{xy}</script>，又由于 <script type="math/tex">P</script> 是任意的 <script type="math/tex">v-w</script> 路径，那么 <script type="math/tex">P</script> 的最小瓶颈是 <script type="math/tex">c_{vw}</script>，因此 Prim 算法选择的边满足最小瓶颈性质。</p>
+<p>下面证明，在每条边的权重都不同的情况下，如果 <script type="math/tex">T</script> 是 <script type="math/tex">G</script> 的一个生成树，并且 <script type="math/tex">T</script> 满足最小瓶颈性质，那么 <script type="math/tex">T</script> 就是 <script type="math/tex">G</script> 的最小生成树。</p>
+<p>想象从一个空的图（只有顶点没有边）开始，我们向图中添加边，有的时候这条边连接了一个连通分量内部的两个顶点，即 <script type="math/tex">v,w</script> 属于 <script type="math/tex">G</script> 的同一个连通分量，那么存在一条 <script type="math/tex">v-w</script> 的路径 <script type="math/tex">P</script>，添加边 <script type="math/tex">(v,w)</script> 后会行程一个环，对连通分量的数量没有影响，我们称之为 C-类型的边（<code>C-type edge</code>）；有的时候这条边将两个连通分量连接起来，即 <script type="math/tex">v,w</script> 分别属于 <script type="math/tex">S_1,S_2</script> 两个连通分量，现在成了一个连通分量 <script type="math/tex">S_1\cup S_2</script>，我们称之为 F-类型的边（<code>F-type edge</code>），同时这条新增的边并不会形成环，因为假定有一个环 <script type="math/tex">C</script>，那么去掉新加的边 <script type="math/tex">(v,w) 得到的路径 </script>C-{(v,w)}<script type="math/tex"> 连接了点 </script>v,w$，说明这两个点在同一个连通分量，与前面的假设矛盾。</p>
+<p>
+<script type="math/tex">T</script> 是 <script type="math/tex">G</script> 的一个生成树，没有环，因此从只有顶点的图开始，每次添加的边都是 F-类型的边。一开始有 <script type="math/tex">n</script> 个顶点，即 <script type="math/tex">n</script> 个连通分量，每添加一条 F-类型的边，连通分量的数量就会减少一个，因此添加 <script type="math/tex">n-1</script> 条 F-类型的边后，所有的顶点就会连接成一个连通分量，也就是 <script type="math/tex">T</script>。因此 <script type="math/tex">T</script> 中有 <script type="math/tex">n-1</script> 条边。反之，如果加了 C-类型的边，那么就会形成环，连通分量的数量至少是 2，因此不可能是生成树。Prim 算法每次从 <script type="math/tex">X</script> 中选择一个点，从 <script type="math/tex">V-X</script> 中选择一个点，这两个点分别属于两个不同的连通分量，因此 Prim 算法每次选择的边都是 F-类型的边，所以 Prim 算法的输出是一个生成树。</p>
+<p>有了上述铺垫，我们用反证法来证明 <script type="math/tex">T</script> 是满足最小瓶颈性质的生成树，那么 <script type="math/tex">T</script> 就是最小生成树。假设 <script type="math/tex">T</script> 不是最小生成树，那么存在一个生成树 <script type="math/tex">T^*</script> 比 <script type="math/tex">T</script> 的权重更小。由于两个树都是生成树，那么有 <script type="math/tex">n-1</script> 条边，<script type="math/tex">T</script> 至少包含一条边 <script type="math/tex">e_1=(v,w)</script> 不在 <script type="math/tex">T^*</script> 中。把这条边加到 <script type="math/tex">T^*</script> 中会形成一个环。在 <script type="math/tex">T</script> 中，边 <script type="math/tex">e_1</script> 的权重是 <script type="math/tex">T</script> 中的最小瓶颈，那么环中其他边的权重都不小于 <script type="math/tex">e_1</script> 的权重，因此在 <script type="math/tex">T^*</script> 中至少有一条边 <script type="math/tex">e_2</script> 的权重不小于 <script type="math/tex">e_1</script> 的权重。把 <script type="math/tex">e_2</script> 从 <script type="math/tex">T^*</script> 中去掉，那么得到的树 <script type="math/tex">T'=(T^*-\{e_2\})\cup \{e_1\}</script> 的权重不大于 <script type="math/tex">T^*</script> 的权重，因此也比 <script type="math/tex">T</script> 的权重更小。<script type="math/tex">T^*</script> 有 <script type="math/tex">n-1</script> 条边且是连通的，<script type="math/tex">v-w</script> 上我们去掉了 <script type="math/tex">e_2</script>，因此 <script type="math/tex">T^*-\{e_2\}</script> 中 <script type="math/tex">v,w</script> 不连通，那么 <script type="math/tex">T'=(T^*-\{e_2\})\cup \{e_1\}</script> 中 <script type="math/tex">v,w</script> 连通，因此 <script type="math/tex">T'</script> 是是连通的，一增一减，有 <script type="math/tex">n-1</script> 条边，因此 <script type="math/tex">T'</script> 是一个生成树。所以我们找到了权重更小的生成树 <script type="math/tex">T'</script>，与假设矛盾，因此 <script type="math/tex">T</script> 就是最小生成树。</p>
+<h3 id="kruskal">Kruskal 算法</h3>
+<p>Kruskal 的核心思想是每次选择权重最小的边，如果这条边连接了两个不同的连通分量，那么就把这条边加入到生成树中，否则的话就跳过这条边。算法的伪代码如下。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>T={}
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sort(E)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>for e in E
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    if T union e does not create a cycle
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        T.add(e)
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>return T
+</span></code></pre></div>
+最朴素的实现的实现复杂度是 <script type="math/tex">O(nm)</script>，其中 <script type="math/tex">n</script> 是点的个数，<script type="math/tex">m</script> 是边的个数。因为上面的循环需要 <script type="math/tex">m</script> 次，每次中需要使用 BFS 或 DFS 来判断 <script type="math/tex">(v,w)</script> 是否已经连通了。下面介绍使用并查集（<code>Union-Find</code>）来加速这个过程，时间复杂度可以降到 <script type="math/tex">O((m+n)\log n)</script>，这里也假设图是连通的，那么时间复杂度可以简化为 <script type="math/tex">O(m\log n)</script>。</p>
+<p>首先介绍并查集，它支持三种操作。</p>
+<ul>
+<li>初始化（<code>initialize</code>）：给定一个整数 <script type="math/tex">n</script>，创建一个包含 <script type="math/tex">n</script> 个元素的并查集，每个元素都在一个单独的集合中。</li>
+<li>查找（<code>find</code>）：给定一个元素，返回该元素所在集合的标识符（<code>id</code>）。如果两个元素的标识符相同，那么它们在同一个集合中。</li>
+<li>合并（<code>union</code>）：给定两个元素，将它们所在的集合合并成一个集合。</li>
+</ul>
+<p>使用 <code>parent tree</code> 来实现并查集，<code>parent[i]</code> 表示元素 <script type="math/tex">i</script> 的父节点，如果 <script type="math/tex">i</script> 是一个集合的根节点，那么 <code>parent[i]</code> 就是 <script type="math/tex">i</script> 本身。初始化时，每个元素都是一个单独的集合，因此 <code>parent[i]=i</code>。<code>find</code> 操作就是沿着 <code>parent</code> 数组向上查找，直到找到一个元素 <script type="math/tex">i</script> 满足 <code>parent[i]=i</code>，这个元素就是所在集合的标识符。这里可以使用隔代压缩技术，在查找的时候使当前路径上的节点的深度减半；或者使用递归方式的完全压缩技术，在查找的时候将当前路径上的所有节点直接连接到根节点上，但是这样树很深的话会导致移出。因此我的实现采用了前者。<code>union</code> 操作就是将两个元素所在集合的根节点连接起来，即将其中一个根节点的 <code>parent</code> 指向另一个根节点。为了让树的深度尽可能小，额外使用一个数字 <code>size[i]</code> 来记录以 <script type="math/tex">i</script> 为根节点的集合的大小，在合并的时候将较小的集合连接到较大的集合上。这样整个树的深度就不会超过 <script type="math/tex">\log n</script>，因此 <code>find</code> 和 <code>union</code> 的时间复杂度都是 <script type="math/tex">O(\log n)</script>。</p>
+<p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/d584472ab26de7e28de04e2cb7f3a095e02ddceb/src/basic/UnionFind.cc">UnionFind</a></p>
+<p>有了并查集，我们可以高效的判断两条边的两个端点是否在同一个集合中，即是否已经连通了，那么可以优化 Kruskal 算法。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>T={}
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sort(E)
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>UF = new UnionFind(n)
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>for e in E
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    if UF.find(e.v) != UF.find(e.w)
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        T.add(e)
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        UF.union(e.v, e.w)
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>return T
+</span></code></pre></div>
+首先对边按照权重进行排序，时间复杂度是 <script type="math/tex">O(m\log m)</script>，由于 <script type="math/tex">m</script> 最多是 <script type="math/tex">n^2</script>，因此排序的时间复杂度也可以简化为 <script type="math/tex">O(m\log n)</script>。然后循环迭代 <script type="math/tex">m</script> 次，每次迭代两次 <code>find</code>，时间复杂度是 <script type="math/tex">mO(\log n)</script>。<script type="math/tex">n-1</script> 次 <code>union</code>，时间复杂度是 <script type="math/tex">nO(\log n)</script>，因此总的时间复杂度是 <script type="math/tex">O((m+n)\log n)</script>。</p>
+<p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/d584472ab26de7e28de04e2cb7f3a095e02ddceb/src/graph/MinimumSpanningTree.h#L115">Kruskal</a></p>
+<p>最后我们证明 Kruskal 算法的正确性。</p>
+<p>首先，在截止处理到边 <script type="math/tex">e=(v,w)</script> 的迭代，生成树 <script type="math/tex">T</script> 中 <script type="math/tex">v,w</script> 属于同一个连通分量。假定边 <script type="math/tex">e</script> 是 C-类型的边，那么 <script type="math/tex">v,w</script> 已经在同一个连通分量了；假定边 <script type="math/tex">e</script> 是 F-类型的边，那么 <script type="math/tex">v,w</script> 不在同一个连通分量，当前迭代就会把 <script type="math/tex">e</script> 加入到 <script type="math/tex">T</script> 中，那么 <script type="math/tex">v,w</script> 就在同一个连通分量。</p>
+<p>接着，我们证明 <script type="math/tex">G</script> 中 <script type="math/tex">v-w</script> 的路径 <script type="math/tex">P</script>，当算法迭代完所有的边的时候，<script type="math/tex">v,w</script> 在 <script type="math/tex">T</script> 中的同一个连通分量。假定 <script type="math/tex">P</script> 的边分别是 <script type="math/tex">(x_0,x_1),(x_1,x_2),\cdots,(x_{p-1},x_p)</script>，其中 <script type="math/tex">x_0=v,x_p=w</script>。在迭代到边 <script type="math/tex">(x_{i-1},x_i)</script> 的时候，根据前面的证明，<script type="math/tex">x_{i-1},x_i</script> 在 <script type="math/tex">T</script> 中的同一个连通分量，因此迭代完所有的边的时候，<script type="math/tex">v,w</script> 在 <script type="math/tex">T</script> 中的同一个连通分量。</p>
+<p>下面证明 Kruskal 算法的输出 <script type="math/tex">T</script> 是生成树。很明显，输出没有环。因此我们只需要证明输出是连通的。给定一对点 <script type="math/tex">v,w</script>，由于 <script type="math/tex">G</script> 是连通的，那么 <script type="math/tex">G</script> 中有一条 <script type="math/tex">v-w</script> 的路径 <script type="math/tex">P</script>，根据前面的证明，迭代完所有的边的时候，<script type="math/tex">v,w</script> 在 <script type="math/tex">T</script> 中的同一个连通分量，因此 <script type="math/tex">T</script> 是连通的。</p>
+<p>我们在证明 Prim 的时候已经证明了满足最小瓶颈性质的生成树就是最小生成树，因此我们还需要证明 Kruskal 算法的输出满足最小瓶颈性质。这里使用反证法，假定 <script type="math/tex">e=(v,w)</script> 不满足最小瓶颈性质，那么 <script type="math/tex">v-w</script> 的路径 <script type="math/tex">P</script> 上每条边的权重小于 <script type="math/tex">e</script> 的权重，算法会先遍历权重小的边，那么根据前面的证明，迭代完 <script type="math/tex">P</script> 的所有的边的时候，<script type="math/tex">v,w</script> 在 <script type="math/tex">T</script> 中的同一个连通分量，那么 <script type="math/tex">e</script> 就不会被加入到 <script type="math/tex">T</script> 中，与假设矛盾。</p>
 
   
 

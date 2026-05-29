@@ -1031,6 +1031,8 @@
       
         
       
+        
+      
     
     
     
@@ -1098,6 +1100,34 @@
     
   
     Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Principles/Representing-and-Manipulating-Information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Representing and Manipulating Information
   
 
     
@@ -2084,6 +2114,8 @@
       
         
       
+        
+      
     
     
     
@@ -2143,7 +2175,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/software_engineer/" class="md-nav__link">
+      <a href="../../People/Soft-Skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软技能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../People/Software-Engineer/" class="md-nav__link">
         
   
   
@@ -2171,7 +2231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/programmers_reading/" class="md-nav__link">
+      <a href="../../People/Programmers-Reading/" class="md-nav__link">
         
   
   
@@ -2199,7 +2259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/never_too_late/" class="md-nav__link">
+      <a href="../../People/Never-Too-Late/" class="md-nav__link">
         
   
   
@@ -2227,7 +2287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../People/reflections_after_15_years/" class="md-nav__link">
+      <a href="../../People/Reflections-After-15-Years/" class="md-nav__link">
         
   
   
@@ -31399,6 +31459,11 @@
 </ul>
 <h2 id="_2">贪心算法</h2>
 <p>贪心算法（<code>Greedy Algorithm</code>）是一种算法设计范式，适用于某些优化问题。它的基本思想是，在每一步选择中都采取在当前状态下最好或最优的选择，从而希望导致结果是全局最优的。在解决问题的时候，使用贪心范式很容易得到一个或多个贪心算法，也很容易分析其算法复杂度，但是证明其正确性是比较困难得，因为有时会得到局部最优解而无法得到全局最优解，也就是说算法是不正确的，即便是正确的，证明也不总是很容易。</p>
+<p>除了下面的调度、Huffman 编码之外，贪心算法的例子还有：</p>
+<ul>
+<li><a href="../Graph/#最小生成树">最小生成树</a></li>
+<li><a href="../Graph/#最短路径dijkstra-算法">最短路径：Dijkstra 算法</a></li>
+</ul>
 <h3 id="_3">调度</h3>
 <p>假定有若干个任务（<code>job</code>），每个任务 <script type="math/tex">j</script> 的长度是 <script type="math/tex">l_j</script>，其权重是 <script type="math/tex">w_j</script>，我们希望找到一个调度方案，使得加权完成时间 <script type="math/tex">\sum w_j C_j(\sigma)</script> 最小，其中 <script type="math/tex">C_j(\sigma)</script> 是任务 <script type="math/tex">j</script> 在调度方案 <script type="math/tex">\sigma</script> 中的完成时间，其定义是等待时间加上自身的长度，即 <script type="math/tex">C_j(\sigma) = \sum_{i: \sigma(i) < \sigma(j)} l_i + l_j</script>。如果有 <script type="math/tex">n</script> 个任务，那么有 <script type="math/tex">n!</script> 种调度方案，暴力搜索的时间复杂度是 <script type="math/tex">O(n!)</script>，仅对小规模的数可行，因此需要一个更高效的算法。</p>
 <p>下面使用贪心算法来解决这个问题。整个分析的过程比算法本身更值得学习，因为这是一种通用的、使用贪心算法的模式。</p>
@@ -31414,9 +31479,48 @@
 <p>这个算法的时间复杂度是 <script type="math/tex">O(n \log n)</script>，因为需要对 <script type="math/tex">n</script> 个任务的得分进行排序。</p>
 <h3 id="huffman">Huffman 编码</h3>
 <p>首先介绍概念前缀码（<code>prefix-free code</code>）：任意两个符号的编码都不互为前缀。定长编码，比如 ASCII 编码，通常是前缀码。再比如对于 <script type="math/tex">\Sigma=\{A, B, C, D\}</script>，如果我们使用定长编码，那么每个符号的编码长度都是 2，例如 <script type="math/tex">A=00, B=01, C=10, D=11</script>，是前缀码。如果我们使用变长编码，例如 <script type="math/tex">A=0, B=10, C=110, D=111</script>，也是前缀码，任意两个编码都不互为前缀。前缀码的好处是编码是没有歧义的，解码简单明了。如果各个符号出现的频次不同，那么变长前缀码比固定长度的编码要更高效。</p>
+<p>编码只能是 0 或者 1，那么从左向右可以看作是一棵二叉树的路径，左子树对应 0，右子树对应 1，那么每个符号对应二叉树的一个节点，路径就是编码本身，编码长度就是路径长度（当前叶子的深度）。因此前缀码对应二叉树的叶子节点，编码长度就是叶子节点的深度，而非前缀码有的字符可能对应二叉树的内部节点，是其他子节点的前缀。</p>
 <p>这里我们要解决的问题是：给定一个元素个数 <script type="math/tex">n\geq 2</script> 的集合 <script type="math/tex">\Sigma</script>，每个字符 <script type="math/tex">a</script> 的频率是 <script type="math/tex">p_a</script>，找到一个前缀码编码方式使得平均编码长度
 <script type="math/tex; mode=display">L = \sum_{a\in\Sigma} p_a l_a</script>
 最小，其中 <script type="math/tex">l_a</script> 是字符 <script type="math/tex">a</script> 的编码长度。</p>
+<p>
+<script type="math/tex">\Sigma</script> 的字符应用某种前缀码，那么就构成了一棵二叉树 <script type="math/tex">T</script>，平均编码长度就是二叉树的平均深度。我们希望找到一棵二叉树，使得平均深度最小。这里用 <script type="math/tex">L(T,p_a)</script> 表示带权重的平均深度。
+<script type="math/tex; mode=display">L(T,p_a) = \sum_{a \in \Sigma} p_a \cdot \text{depth}_T(a)</script>
+其中 <script type="math/tex">\text{depth}_T(a)</script> 是字符 <script type="math/tex">a</script> 在二叉树 <script type="math/tex">T</script> 中的深度。</p>
+<p>Huffman 编码就是利用贪心算法的思想，自底向上，通过连续合并节点来构造出一棵加权平均深度最小的二叉树来实现前缀码编码方式。初始时是 <script type="math/tex">n</script> 个节点，每个节点对应一个字符，权重是字符的频率。Huffman 编码维护一个森林，包含若干个树。每一次迭代，选择权重最小的两个树，将它们合并成一棵树，新的树的权重是两棵树权重之和。重复这个过程，直到森林中只剩下一棵树，这棵树就是我们要找的二叉树。</p>
+<p>下面看一个简单的例子，有 <code>A,B,C,D</code> 四个字符，出现的频率分别是 <script type="math/tex">0.60,0.25,0.10,0.05</script>。初始时有四棵树，权重分别是 <script type="math/tex">0.60,0.25,0.10,0.05</script>，选择权重最小的两个树，即 <code>C</code> 和 <code>D</code>，将它们合并成一棵树，新的树的权重是 <script type="math/tex">0.15</script>，森林中剩下三棵树，权重分别是 <script type="math/tex">0.60,0.25,0.15</script>，选择权重最小的两个树，即 <code>B</code> 和 <code>CD</code>，将它们合并成一棵树，新的树的权重是 <script type="math/tex">0.40</script>，森林中剩下两棵树，权重分别是 <script type="math/tex">0.60,0.40</script>，选择权重最小的两个树，即 <code>A</code> 和 <code>BCD</code>，将它们合并成一棵树，新的树的权重是 <script type="math/tex">1.00</script>，森林中剩下一棵树，这就是我们要找的二叉树。</p>
+<p><img alt="" src="../Figures/Huffman_1.png" /></p>
+<p>一个复杂的例子是有 <code>A,B,C,D,E,F</code> 六个字符，出现的次数分别是 <script type="math/tex">3,2,6,8,2,6</script>，使用次数计算权重即可。这里忽略过程，最后生成的二叉树如下所示。</p>
+<p><img alt="" src="../Figures/Huffman_2.png" /></p>
+<p>算法的伪代码如下：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>foreach a in Sigma:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    T_a = new Tree(a, p_a)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>F = {T_a | a in Sigma}
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>while |F| &gt; 1:
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    T1, T2 = the two trees in F with the smallest weight
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    T = new Tree(T1, T2)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    F = F - {T1, T2} + {T}
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>return F[0]
+</span></code></pre></div></p>
+<p>如果按照上面的过程来实现，时间复杂度是 <script type="math/tex">O(n^2)</script>，因为每次迭代都需要扫描森林中的树来找到权重最小的两棵树。我们可以使用优先队列（<code>priority queue</code>）来优化这个过程，使得每次迭代找到权重最小的两棵树的时间复杂度是 <script type="math/tex">O(\log n)</script>，因此整个算法的时间复杂度是 <script type="math/tex">O(n \log n)</script>。</p>
+<p>一种更快的方式是先对权重排序，然后利用两个队列，使得除了排序之外的操作时间复杂度是 <script type="math/tex">O(n)</script>，因此整个算法的时间复杂度也是 <script type="math/tex">O(n \log n)</script>。如果权重可以用基数排序来排序，那么整个算法的时间复杂度可以降到 <script type="math/tex">O(n)</script>。具体的做法是将排序的结果放在一个队列中（比如说 <code>Q1</code>），另一个队列（比如说 <code>Q2</code>）用来存储合并后的树。每次迭代，比较两个队列头部的树的权重，选择权重较小的两棵树进行合并，然后将新的树放入 <code>Q2</code> 中。重复这个过程，直到两个队列中只剩下一棵树，这就是我们要找的二叉树。权重最小的两棵树可以来自同一个队列，由于合并后的节点权重是单调递增的，因此 <code>Q2</code> 也是有序的。</p>
+<p><a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/tree/Huffman.h">Huffman Tree</a> 代码使用最后一种方法实现。</p>
+<p>下面利用之前的想法——递归和交换参数——来证明 Huffman 树是加权平均深度最小的二叉树。假定 <script type="math/tex">a,b</script> 是权重最小的两个字符，根据 Huffman 编码的构造方法，<script type="math/tex">a,b</script> 是在同一层的叶子节点，下面首先要证明以 <script type="math/tex">a,b</script> 为兄弟节点的二叉树是加权平均深度最小的二叉树。但是这还不足够，万一所有的最优的树中 <script type="math/tex">a,b</script> 不是兄弟节点呢？因此还需要证明存在一个最优的树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
+<p>这里的基础情形是 <script type="math/tex">P(2)</script>，即只有两个字符的情况，使用 0 表示其中一个字符，使用 1 表示另一个字符，那么平均编码长度就是 <script type="math/tex">p_a + p_b</script>，这是最小的，因此 <script type="math/tex">P(2)</script> 成立。</p>
+<p>假定所有小于 <script type="math/tex">k</script> 的情况都成立。使用 <script type="math/tex">T_{ab}</script> 表示以 <script type="math/tex">a,b</script> 为兄弟节点的二叉树。假定 <script type="math/tex">T</script> 是包含 <script type="math/tex">T_{ab}</script> 的树，字符集是 <script type="math/tex">\Sigma</script>，<script type="math/tex">T'</script> 和 <script type="math/tex">T</script> 几乎一样，除了将 <script type="math/tex">T_{ab}</script> 替换成一个新的节点 <script type="math/tex">ab</script>，这个节点的权重是 <script type="math/tex">p_a + p_b</script>，字符集是 <script type="math/tex">\Sigma'</script>。很显然，<script type="math/tex">T,T'</script> 可以相互转换。对于输入 <script type="math/tex">\Sigma</script> 和相应的概率 <script type="math/tex">\boldsymbol{p}</script>，Huffman 编码的输出是 <script type="math/tex">T</script>，其中 <script type="math/tex">T</script> 可以从输入是 <script type="math/tex">\Sigma'</script> 和相应的概率 <script type="math/tex">\boldsymbol{p'}</script> 的 Huffman 编码的输出 <script type="math/tex">T'</script> 得到，即通过将 <script type="math/tex">ab</script> 替换成 <script type="math/tex">T_{ab}</script> 来得到 <script type="math/tex">T</script>。</p>
+<p>
+<script type="math/tex">T</script> 的非 <script type="math/tex">a,b</script> 的叶子节点和 <script type="math/tex">T'</script> 的非 <script type="math/tex">ab</script> 的叶子节点是一样的，因此它们的权重也是一样的。<script type="math/tex">T</script> 中 <script type="math/tex">a,b</script> 的深度分别是 <script type="math/tex">d_{T'}(ab) + 1</script>，权重之和与 <script type="math/tex">T'</script> 中 <script type="math/tex">ab</script> 的权重是一样的，因此对于加权深度额外贡献了 <script type="math/tex">p_a + p_b</script>，因此
+<script type="math/tex; mode=display">L(T,\boldsymbol{p}) = L(T',\boldsymbol{p'}) + (p_a + p_b)</script>
+可以看出来，最后括号的项与树的深度无关。</p>
+<p>也就是说，最优的 <script type="math/tex">T'</script> 对应着最优的 <script type="math/tex">T</script>，次优的 <script type="math/tex">T'</script> 对应着次优的 <script type="math/tex">T</script>，最差的 <script type="math/tex">T'</script> 对应着最差的 <script type="math/tex">T</script>。如果我们最小化了 <script type="math/tex">L(T',\boldsymbol{p'})</script>，就最小化了 <script type="math/tex">L(T,\boldsymbol{p})</script>。根据归纳假设，<script type="math/tex">T'</script> 的字符数小于 <script type="math/tex">k</script>，因此 <script type="math/tex">T'</script> 是加权平均深度最小的二叉树，因此 <script type="math/tex">T</script> 也是加权平均深度最小的二叉树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
+<p>下面证明存在一个最优的树，其中 <script type="math/tex">a,b</script> 是兄弟节点。不适一般性，假定 <script type="math/tex">T</script> 是最优的树，树中的节点要么是叶子节点，要么是内部节点（有两个子节点）。假定 <script type="math/tex">x,y</script> 是最深的有公共父节点的两个叶子节点，分别是左右子树。交换 <script type="math/tex">a,x</script> 和 <script type="math/tex">b,y</script>，得到新的树 <script type="math/tex">T*</script>，<script type="math/tex">T*</script> 中 <script type="math/tex">a,b</script> 是兄弟节点。对于 <script type="math/tex">T</script> 和 <script type="math/tex">T*</script> 中的非 <script type="math/tex">a,b,x,y</script> 的叶子节点，它们的深度和权重都是一样的，那么
+<script type="math/tex; mode=display">\begin{aligned}
+L(T)-L(T*)&=(p_x-p_a)(d_T(x)-d_T(a))+(p_y-p_b)(d_T(y)-d_T(b))\\
+&\geq 0
+\end{aligned}</script>
+上式中括号中所有的项都是大于等于零的。因此 <script type="math/tex">L(T) \geq L(T*)</script>，也就是说 <script type="math/tex">T*</script> 的加权平均深度不大于 <script type="math/tex">T</script> 的加权平均深度，因此 <script type="math/tex">T*</script> 也是最优的树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
 
   
 
