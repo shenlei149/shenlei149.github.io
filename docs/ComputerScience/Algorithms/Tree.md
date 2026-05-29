@@ -46,3 +46,6 @@ struct TreeNode {
 普通的二叉搜索树在最坏情况下可能退化成一个链表，导致操作的时间复杂度变为 $O(n)$。为了避免这种情况，可以使用自平衡二叉搜索树（`self-balancing binary search tree`），比如 AVL 树、红黑树等，这些树通过旋转等操作来保持树的平衡，从而保证操作的时间复杂度始终为 $O(\log n)$。不过对于随机插入和随机删除的情况，普通的二叉搜索树平均情况下也能保持较好的性能，时间复杂度为 $O(\log n)$，不过常系数略大（$2\ln n\approx 1.39\log_2 n$）。
 
 参考实现 - https://github.com/shenlei149/algorithms-data-structures/blob/main/src/tree/BinarySearchTree.h
+
+## Huffman 树
+参考 [Huffman 编码](./DesignParadigm.md#huffman-编码) 的内容。
