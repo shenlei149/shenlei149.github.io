@@ -1329,6 +1329,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        拥抱变化的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拥抱变化的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        单一职责
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont-repeat-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Don't Repeat Yourself
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不要过早的关注点分离
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口分离
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面向可测试性的设计
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31292,6 +31364,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        拥抱变化的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拥抱变化的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        单一职责
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont-repeat-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Don't Repeat Yourself
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不要过早的关注点分离
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口分离
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面向可测试性的设计
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31407,7 +31551,232 @@
 <p>变化是软件的常态，是所有问题的根源。软件设计的目标就是为了更好地应对变化。</p>
 <p>大部分的开发者应该遇到过这样的情况：当需要修改一个很小的功能或者修复一个 bug 时，却需要修改很多文件，涉及整个系统的多个模块。这就是依赖（<code>dependency</code>）问题。不管项目大小，依赖都是最核心的问题。因此，软件设计是一门管理组件之间依赖关系的艺术，目的是最小化人为的、技术性的依赖，并引入必要的抽象与折中。软件设计，或者说软件工程（<code>engineering</code>），更像是一门艺术，或者说是一种工艺（<code>craft</code>），与科学相结合。有的时候，软件架构（<code>software architecture</code>）这个术语，有时表达的也是类似的意思，可以互换，它们的目的是相同的。也有的人将架构和设计区分开来，认为架构是更高层次的设计。</p>
 <p>我们可以将软件开发分成两个大层，第一层是设计层（<code>design level</code>），包含架构和设计，第二层是代码层（<code>code level</code>）。最底层是实现细节（<code>implementation details</code>），这一层有一些常见的实现模式（<code>implementation patterns</code>），比如 RAII、Pimpl、SFINAE（<code>Substitution Failure Is Not An Error</code>）等等，这些模式是 C++ 特有的，其他语言可能没有或者有不同的实现方式。再往上是软件设计，这一层包含一些设计模式（<code>design patterns</code>），比如装饰者、策略等等，这些就是语言无关的了。再往上是软件架构，如前所述，这里的共识不多，这里通常涉及关键决策。这一层包含一些架构模式（<code>architectural patterns</code>），比如微服务、客户端-服务器等。两者的共同点都是解决整体结构和相互依赖的问题。架构是更高层次的设计，解决的是模块、组件级别的，而设计则是更细粒度的，解决的是类、函数级别的。</p>
-<p>惯用法（<code>idiom</code>）的出现使得实现和设计两者的界限更加模糊一些。惯用法表示某种模式（<code>pattern</code>），在某种语言中被广泛使用，比如前面提到的 RAII 就是 C++ 中的一种惯用法，还有 copy-and-swap 也是 C++ 中的一种惯用法。大部分的 C++ 惯用法都是实现层次的，设计层次的惯用法相对较少一些，比如 NVI（<code>Non-Virtual Interface</code>）和 Pimpl 就是一种设计层次的惯用法，分别脱胎于设计模式中的模板方法（<code>Template Method</code>）和桥接模式（<code>Bridge Pattern</code>）。</p>
+<p>惯用法（<code>idiom</code>）的出现使得实现和设计两者的界限更加模糊一些。惯用法表示某种模式（<code>pattern</code>），在某种语言中被广泛使用，比如前面提到的 RAII 就是 C++ 中的一种惯用法，还有 copy-and-swap 也是 C++ 中的一种惯用法。大部分的 C++ 惯用法都是实现层次的，设计层次的惯用法相对较少一些，比如 NVI（<code>Non-Virtual Interface</code>）和 Pimpl 就是一种设计层次的惯用法，分别脱胎于设计模式中的模板方法（<code>Template Method</code>）和桥接模式（<code>Bridge Pattern</code>）。这里涉及到一个问题，就是掌握编程语言的细节和掌握软件设计的原则哪个更重要？答案是两者都重要。没有必要厚此薄彼。</p>
+<h2 id="_2">拥抱变化的设计</h2>
+<p>变化是问题的根源，因此分离关注点（<code>separation of concerns</code>）是应对变化的重要原则，核心思想就是对各个功能进行拆分、隔离或者抽取，将整个系统分解为更小的、命名清晰的、易于理解的小的单元，能够提升效率，更好的应对变化。</p>
+<p>如何衡量拆分的是否合理呢？内聚（<code>cohesion</code>）是一个衡量模块之间关系紧密程度的指标。一个高内聚的集合，各个语句、数据块之间联系紧密，被视为一个不可分割的整体。任何视图将它们拆分的做法，都会导致耦合程度的增加而降低了代码的可读性。</p>
+<h3 id="_3">单一职责</h3>
+<p>SOLID 原则是最基础的设计原则，分别是单一职责原则（<code>Single Responsibility Principle</code>, <code>SRP</code>）、开放封闭原则（<code>Open-Closed Principle</code>, <code>OCP</code>）、里氏替换原则（<code>Liskov Substitution Principle</code>, <code>LSP</code>）、接口隔离原则（<code>Interface Segregation Principle</code>, <code>ISP</code>）和依赖倒置原则（<code>Dependency Inversion Principle</code>, <code>DIP</code>）。这里先介绍 SRP，后续章节会介绍其他的设计原则。</p>
+<p>SRP 是说一个类应该只有一个职责（<code>responsibility</code>），或者说一个类应该只有一个引起它变化的原因。但是问题来了？什么是职责？什么是单一职责？有的时候，这个原则也被解释为只做一件事情，但是这个描述并没有提供更多的信息，描述依旧非常模糊。忽略名字，这个原则想描述的事情是将真正属于同类的东西聚集在一起，而将不属于同类的东西分离开来，如果有不同原因发生变化，那么应该将这些变化分类开。理想情况下，想要修改软件的某个方面，只需要修改一处即可。</p>
+<p>下面分析一个违反 SRP 的例子。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// #include &lt;some_json_library.h&gt; // Potential physical dependency</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Document</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Document</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ExportToJSON</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Serialize</span><span class="p">(</span><span class="n">ByteStream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">};</span>
+</span></code></pre></div>
+上面这个基类的定义看似很好，能够导出 JSON 这种通用的格式，能够序列化成二进制（<code>ByteStream</code>）这种更高效的格式，可能是 Word、PDF 等等。但是这个类引入了三类依赖。</p>
+<p>第一类是 <code>ExportToJSON</code> 方法引入了对 JSON 库的依赖，这个库可能是第三方的，也可能是我们自己写的。为了一致性，所有的子类不得不依赖同一个类库，因此这些子类并没有真正的独立，而是耦合到了一起。同时，由于依赖了 JSON 类库，不轻量级了，后续重用也是一个问题。<code>Serialize</code> 很可能会依赖于 <code>protobuf</code> 这种二进制序列化的类库，这个依赖于 JSON 类库正交，但是可能会引发连锁反应。</p>
+<p>第二类是 <code>ExportToJSON</code> 的参数很可能暴露了一些 JSON 类库的细节，导致一旦需要变更 JSON 类库，需要修改函数签名，那么所有的子类都需要修改，调用者也需要修改，这就是一个典型的依赖问题。</p>
+<p>第三个问题是由 <code>Serialize</code> 方法引入的，要序列化成什么格式呢？尝尝一个做法是给一个枚举类，比如
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">DocumentType</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">Word</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">PDF</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">};</span>
+</span></code></pre></div>
+如果这种低级别的文档表示形式被直接用在各个子类的实现内部，就会在不知不觉中，把不同种类的文档都强行耦合在了一起。新增一个类型，可能会影响到各个子类，这明显是一个设计缺陷。</p>
+<p>总结一下，以下原因都会导致这个类以及相关子类的修改：</p>
+<ul>
+<li>直接依赖的 JSON 类库变化了，那么需要修改 <code>ExportToJSON</code> 的实现细节。</li>
+<li>由于底层实现变了导致 <code>ExportToJSON</code> 的函数签名变了。</li>
+<li>由于直接依赖的 BaseStream 类库变化，导致 <code>Serialize</code> 的修改。</li>
+<li>由于底层实现细节变了而需要修改 <code>Serialize</code> 的函数。</li>
+<li>由于 <code>DocumentType</code> 枚举类的修改，导致所有 <code>Document</code> 类需要修改。</li>
+</ul>
+<p>如果大家都把所谓正交（独立）的功能都耦合到 <code>Document</code> 类，进一步推高了复杂度，那么修改就更困难了。并且一旦涉及到各个子类的修改，改动范围就会变大，带来维护风险。</p>
+<p>现在看一下使用这个 <code>Document</code> 类的情况。假定有一个 <code>User</code> 类要使用 <code>Document</code> 类，这个依赖是必然的，我们不必关心。但是 <code>Document</code> 对所选择的 JSON 和 <code>BaseStream</code> 类库的依赖导致 <code>User</code> 类也间接受到了影响，但是 <code>User</code> 不应该依赖 JSON 或者序列化这些事情。依赖关系如下：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>            User-------------
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>              |             |
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>              v             | transitive dependency
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>          Document          |
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>         /        \         |
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        v          v        v
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    JSON Library   BaseStream Library
+</span></code></pre></div></p>
+<p>SRP 的思想就是分离这些关注点，将不同理由的导致的变化的部分隔离到不同的变化点（<code>variation point</code>）。比如将 JSON 和序列化的功能抽取到不同的类中，这样就能够将这些变化点隔离开来，降低耦合，提高内聚。下面是一种可能的依赖关系。后续章节会介绍一些设计模式、如何实现这些分离的设计。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    JSON        User      Serialization
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    |    \        |        /      |
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    |     \       |       /       |
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    |      \      |      /        |
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    |       \     |     /         |
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    |        \    |    /          |
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    |         \   |   /           |
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    v          v  v  v            v
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>JSON Library   Document      BaseStream Library
+</span></code></pre></div></p>
+<h3 id="dont-repeat-yourself">Don't Repeat Yourself</h3>
+<p>我们先看下面一个例子，下面有一个 <code>Item</code> 类，<code>Price()</code> 函数能够返回这个 <code>Item</code> 的价格，形式是 <code>Money</code> 类的对象。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">//---- &lt;Item.h&gt; ----------------</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Money.h&gt;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">Item</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">{</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Item</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="nf">Price</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">};</span>
+</span></code></pre></div>
+假定我们有两个子类，分别是 <code>CppBook</code> 和 <code>ConferenceTicket</code>，它们都继承自 <code>Item</code> 类，并且都实现了 <code>Price()</code> 函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">//---- &lt;CppBook.h&gt; ----------------</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Item.h&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Money.h&gt;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">CppBook</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Item</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">{</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">CppBook</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">author</span><span class="p">,</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">price</span><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">title_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">title</span><span class="p">))</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">author_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">author</span><span class="p">))</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">priceWithTax_</span><span class="p">(</span><span class="n">price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.15</span><span class="p">)</span><span class="w"> </span><span class="c1">// 15% tax rate</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Title</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">title_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Author</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">author_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">    </span><span class="n">Money</span><span class="w"> </span><span class="n">Price</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">priceWithTax_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">title_</span><span class="p">;</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">author_</span><span class="p">;</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">    </span><span class="n">Money</span><span class="w"> </span><span class="n">priceWithTax_</span><span class="p">;</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="p">};</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="c1">//---- &lt;ConferenceTicket.h&gt; ----------------</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Item.h&gt;</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Money.h&gt;</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="k">class</span><span class="w"> </span><span class="nc">ConferenceTicket</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Item</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="p">{</span>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">ConferenceTicket</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">Money</span><span class="w"> </span><span class="n">price</span><span class="p">)</span>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">name_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">priceWithTax_</span><span class="p">(</span><span class="n">price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.15</span><span class="p">)</span><span class="w"> </span><span class="c1">// 15% tax rate</span>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Name</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a><span class="w">    </span><span class="n">Money</span><span class="w"> </span><span class="n">Price</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">priceWithTax_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>
+</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+</span><span id="__span-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a><span class="w">    </span><span class="n">Money</span><span class="w"> </span><span class="n">priceWithTax_</span><span class="p">;</span>
+</span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a><span class="p">};</span>
+</span></code></pre></div>
+上述设计看起来很好，分离了关注点，满足前面说的 SRP，但是它违反了 DRY（Don't Repeat Yourself）原则。<code>CppBook</code> 和 <code>ConferenceTicket</code> 类中都包含了计算价格的逻辑，如果税率发生了变化，那么我们就需要修改这两个类的代码，甚至更多的子类。</p>
+<p>SRP 告诉我们每个事物只能有一个职责（一个变化的理由），DRY 原则告诉我们每个职责也应该有且只有一份。这个原则建议就是不要在多处重复同样的信息，而是要通过合理的设计，确保只需要在一个地方做出修改就足够了。理想情况下，税率这个信息应该只在一处定义即可。通常情况下，DRY 原则和 SRP 是相辅相成的，SRP 能够帮助我们更好地实现 DRY 原则，反之亦然。不过在一些特殊的情况下，要想保证满足这两个原则需要一些额外的设计。后续章节会介绍一些设计模式，阐述如何实现以满足这些原则。</p>
+<h3 id="_4">不要过早的关注点分离</h3>
+<p>过早的关注点分离（<code>premature separation of concerns</code>）会导致过度设计（<code>over-engineering</code>），为了分离而分离会增加复杂性，引入不必要的胶水代码和间接层。</p>
+<p>我们的目标是可维护性，SOLID 原则是工具，工具是来帮助我们达到我们的目标的，而不是要达成 SOLID！SRP 和 DRY 是很好的工具但不是目的。</p>
+<p>如果知道哪里会变化，使用这些工具让未来的变化更容易，如果不知道，那就等到变化出现的时候再重构，让代码变得更好。</p>
+<h2 id="_5">接口分离</h2>
+<p>回到 <code>Document</code> 类的例子。假定用户写了一个函数来处理 <code>Document</code> 类的对象，将其导出为 JSON 格式。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ExportDocumentToJSON</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Document</span><span class="w"> </span><span class="o">&amp;</span><span class="n">doc</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">doc</span><span class="p">.</span><span class="n">ExportToJSON</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">);</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span>
+</span></code></pre></div>
+这个函数只需要 JSON 相关的功能，但是由于 <code>Document</code> 类的设计，这个函数不得不依赖了 <code>Document</code> 类的其他功能，比如序列化相关的功能。如果 <code>ByteStream</code> 类发生了变化，或者 <code>Serialize</code> 函数签名发生了变化，会影响到所有使用 <code>Document</code> 类的代码，包括这个 <code>ExportDocumentToJSON</code> 函数，需要重新编译、测试。如果 <code>Document</code> 类耦合了更多正交的功能，这个问题就会更严重了。</p>
+<p>这里违反了接口隔离原则（<code>Interface Segregation Principle</code>, <code>ISP</code>），这就是 SOLID 中的 I。ISP 是说一个类不应该依赖于它不使用的方法。ISP 的思想是通过分离接口来分离关注点。</p>
+<p>这个例子中，我们应该引入两个接口 <code>JSONExportable</code> 和 <code>Serializable</code>，<code>Document</code> 类分别实现这两个接口，这样就能够将这些功能分离开来。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">JSONExportable</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">JSONExportable</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ExportToJSON</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">};</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">Serializable</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">{</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Serializable</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Serialize</span><span class="p">(</span><span class="n">ByteStream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bs</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="p">};</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="k">class</span><span class="w"> </span><span class="nc">Document</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">JSONExportable</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Serializable</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="p">{</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="p">};</span>
+</span></code></pre></div>
+使用的地方仅仅需要依赖 <code>JSONExportable</code> 接口即可，即仅仅依赖它所需要的东西。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ExportDocumentToJSON</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">JSONExportable</span><span class="w"> </span><span class="o">&amp;</span><span class="n">exportable</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">exportable</span><span class="p">.</span><span class="n">ExportToJSON</span><span class="p">(</span><span class="cm">/* pass necessary arguments */</span><span class="p">);</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<p>有些人可能会质疑，这不就是 SRP 吗？社区在这一点上也达成了共识，认为 ISP 是 SRP 的一个特例，做到了 SRP 就做到了 ISP。但是这个原则还是非常有价值的，大家常常在后期维护的时候，有意无意的往一个接口里面塞彼此正交的功能，结果就是接口变得非常臃肿，使用方还是会依赖了它不需要的东西，同时接口一旦发布，后续的修改就会变得非常困难了。因此，在设计、重构的时候，ISP 是一个非常重要的原则，能够帮助我们设计出更好的接口。</p>
+<p>ISP 的理念还可以应用于模版参数的设计，比如 <code>std::copy</code> 这个函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">input_iterator</span><span class="w"> </span><span class="n">InputIt</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">output_iterator</span><span class="w"> </span><span class="n">OutputIt</span><span class="o">&gt;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">OutputIt</span><span class="w"> </span><span class="n">copy</span><span class="p">(</span><span class="n">InputIt</span><span class="w"> </span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">InputIt</span><span class="w"> </span><span class="n">last</span><span class="p">,</span><span class="w"> </span><span class="n">OutputIt</span><span class="w"> </span><span class="n">d_first</span><span class="p">);</span>
+</span></code></pre></div>
+这保证了约束的最小化，<code>std::input_iterator</code> 这个概念约束有只读、单向、单次遍历，<code>std::output_iterator</code> 这个概念约束有只写、单向、单次遍历。如果我们违反 ISP 的原则，使用一个更宽泛的概念，比如 <code>std::forward_iterator</code>，这个概念约束有可读可写、单向、可多次遍历，那么就会导致一些不必要的约束，导致有些场景无法使用这个 <code>copy</code> 函数了，比如无法将输入流（<code>input stream</code>）作为输入迭代器来使用，因为不支持写入操作和多次遍历。</p>
+<h2 id="_6">面向可测试性的设计</h2>
+<p>软件一直在变化，这个是本质的问题。在修改的时候，可能会有意无意的引入问题，如何防止这一点呢？测试！完整的测试会保护我们不受修改的影响。但是前提是我们写测试，如果我们不写测试，那么我们就无法保护自己了。因此，我们的设计应该是面向可测试性（<code>testability</code>）的设计，简单说能够容易的写测试。</p>
+<p>先来看看下面这个“矫揉造作”的例子。假定我们有一个 <code>Widget</code> 类，这个类有一个私有函数 <code>UpdateCollection()</code>，如何测试这个函数呢？换句话说，如果修改了这个函数，如何确保修改没有引入问题呢？
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">UpdateCollection</span><span class="p">(</span><span class="cm">/* some arguments needed to update the collection */</span><span class="p">);</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Blob</span><span class="o">&gt;</span><span class="w"> </span><span class="n">blobs_</span><span class="p">;</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="cm">/* Potentially other data members */</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="p">};</span>
+</span></code></pre></div>
+你可能会说，或许有 <code>AddBlob()</code> 这个 <code>public</code> 函数会调用 <code>UpdateCollection()</code>，我们可以通过测试 <code>AddBlob()</code> 来间接测试 <code>UpdateCollection()</code>，但是如果 <code>AddBlob()</code> 的实现发生了变化，不再调用 <code>UpdateCollection()</code> 了，那么我们就无法测试 <code>UpdateCollection()</code> 了。这其实是一种白盒测试（<code>white-box test</code>）的想法，需要了解被测试函数的实现细节。这里需要的是黑盒测试（<code>black-box test</code>），只需要测试预期行为。</p>
+<p>你可能会说，把这个函数修改成 <code>public</code> 的，技术上可行，但绝不是一个好主意。</p>
+<p>你可能会说，使用友元测试类（<code>friend test class</code>）的方式来测试这个函数，<code>Widget</code> 里面加上 <code>friend class WidgetTest;</code>，这个也是技术上可行的，但也不是一个好主意。这样，测试类就和被测试类耦合在了一起了，增加了被测试类对测试类的依赖。</p>
+<p>你可能会说，把这个函数修改成 <code>protected</code> 的，测试类继承 <code>Widget</code> 类。这绝对是滥用继承！</p>
+<p>这里的正确解法是将这个函数抽取为一个类外的函数，或者说一个独立的类的成员函数，这样就能够直接测试这个函数了，同时也不会引入不必要的依赖了。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">UpdateCollection</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Blob</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">blobs</span><span class="p">,</span><span class="w"> </span><span class="cm">/* some arguments needed to update the collection */</span><span class="p">);</span>
+</span></code></pre></div>
+或者
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">widgetDetails</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="p">{</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">BlobCollection</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">{</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">UpdateCollection</span><span class="p">(</span><span class="cm">/* some arguments needed to update the collection */</span><span class="p">);</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Blob</span><span class="o">&gt;</span><span class="w"> </span><span class="n">blobs_</span><span class="p">;</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="p">};</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="p">}</span><span class="w"> </span><span class="c1">// namespace widgetDetails</span>
+</span></code></pre></div>
+这样把放到一起的东西分离开是否违背了 SRP 呢？恰恰相反。<code>UpdateCollection()</code> 这个函数需要被测试，这就表明之前的设计不足够合理。我们有理由单独修改这个函数，那么说明 <code>Widget</code> 类有两个理由被修改，承担了一个以上的职责。换句话说，如果一个函数一定要被测试，那么它就应该是一个独立的单元，能够直接测试它。</p>
+<p>这样是不是违反了封装呢？不。相反，封装是分离关注点的理由。Scott Meyers 在《Effective C++》中提到过，更推荐非成员、非友元函数（<code>non-member, non-friend function</code>）而不是成员函数，从类中抽取函数反而是更好的封装。这是因为成员函数天生就能访问所有的数据成员，因此很容易就会访问到不相关的数据成员，导致耦合度增加。抽取的 <code>UpdateCollection()</code> 函数只能通过 <code>Widget</code> 类提供的接口来访问数据成员，结果是更好的访问控制，更好的内聚。</p>
+<p>通过上述的设计，我们做到了以下三点：（1）能够直接测试 <code>UpdateCollection()</code> 函数；（2）更好的封装；（3）独立的 <code>UpdateCollection()</code>，与 <code>Widget</code> 类解耦，甚至可以用于其他类。</p>
+<p>这里并不是鼓励把所有函数都设计成独立的函数甚至是单独抽取到一个类。我们要仔细的分析哪些明明需要测试但是被塞进了 <code>private</code> 里面的函数。如果这个函数是虚函数该怎么办呢？后续章节有分析。</p>
 
   
 
