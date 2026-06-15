@@ -1401,6 +1401,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面向扩展性的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="面向扩展性的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        开放封闭原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31436,6 +31464,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面向扩展性的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="面向扩展性的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        开放封闭原则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31550,8 +31606,18 @@
 <p>代码质量有很多评价指标，比如可读性、可测试性、可维护性、可扩展性、可重用性、可扩展性等等。对于一个项目来说，至关重要的是软件的整体结构（<code>structure</code>）。好的结构最终会影响到上述的各种质量指标。软件设计的目标就是为了构建一个好的结构，从而提高软件的质量。好的软件设计能够容忍某些糟糕的实现决定，反之则不行，差的软件设计不能靠堆砌新的语言特性来弥补。</p>
 <p>变化是软件的常态，是所有问题的根源。软件设计的目标就是为了更好地应对变化。</p>
 <p>大部分的开发者应该遇到过这样的情况：当需要修改一个很小的功能或者修复一个 bug 时，却需要修改很多文件，涉及整个系统的多个模块。这就是依赖（<code>dependency</code>）问题。不管项目大小，依赖都是最核心的问题。因此，软件设计是一门管理组件之间依赖关系的艺术，目的是最小化人为的、技术性的依赖，并引入必要的抽象与折中。软件设计，或者说软件工程（<code>engineering</code>），更像是一门艺术，或者说是一种工艺（<code>craft</code>），与科学相结合。有的时候，软件架构（<code>software architecture</code>）这个术语，有时表达的也是类似的意思，可以互换，它们的目的是相同的。也有的人将架构和设计区分开来，认为架构是更高层次的设计。</p>
+<blockquote>
+<p>Dependency is the key problem in software development at all scales.</p>
+<p>Kent Beck, Test-Driven Development: By Example (Addison-Wesley, 2002).</p>
+<p>The goal of software architecture is to minimize the human resources required to build and maintain the required system.</p>
+<p>Robert C. Martin, Clean Architecture (Addison-Wesley, 2017).</p>
+</blockquote>
 <p>我们可以将软件开发分成两个大层，第一层是设计层（<code>design level</code>），包含架构和设计，第二层是代码层（<code>code level</code>）。最底层是实现细节（<code>implementation details</code>），这一层有一些常见的实现模式（<code>implementation patterns</code>），比如 RAII、Pimpl、SFINAE（<code>Substitution Failure Is Not An Error</code>）等等，这些模式是 C++ 特有的，其他语言可能没有或者有不同的实现方式。再往上是软件设计，这一层包含一些设计模式（<code>design patterns</code>），比如装饰者、策略等等，这些就是语言无关的了。再往上是软件架构，如前所述，这里的共识不多，这里通常涉及关键决策。这一层包含一些架构模式（<code>architectural patterns</code>），比如微服务、客户端-服务器等。两者的共同点都是解决整体结构和相互依赖的问题。架构是更高层次的设计，解决的是模块、组件级别的，而设计则是更细粒度的，解决的是类、函数级别的。</p>
 <p>惯用法（<code>idiom</code>）的出现使得实现和设计两者的界限更加模糊一些。惯用法表示某种模式（<code>pattern</code>），在某种语言中被广泛使用，比如前面提到的 RAII 就是 C++ 中的一种惯用法，还有 copy-and-swap 也是 C++ 中的一种惯用法。大部分的 C++ 惯用法都是实现层次的，设计层次的惯用法相对较少一些，比如 NVI（<code>Non-Virtual Interface</code>）和 Pimpl 就是一种设计层次的惯用法，分别脱胎于设计模式中的模板方法（<code>Template Method</code>）和桥接模式（<code>Bridge Pattern</code>）。这里涉及到一个问题，就是掌握编程语言的细节和掌握软件设计的原则哪个更重要？答案是两者都重要。没有必要厚此薄彼。</p>
+<blockquote>
+<p>Design and programming are human activities; forget that and all is lost.</p>
+<p>Bjarne Stroustrup, The C++ Programming Language, 3rd Edition (Addison-Wesley, 2000).</p>
+</blockquote>
 <h2 id="_2">拥抱变化的设计</h2>
 <p>变化是问题的根源，因此分离关注点（<code>separation of concerns</code>）是应对变化的重要原则，核心思想就是对各个功能进行拆分、隔离或者抽取，将整个系统分解为更小的、命名清晰的、易于理解的小的单元，能够提升效率，更好的应对变化。</p>
 <p>如何衡量拆分的是否合理呢？内聚（<code>cohesion</code>）是一个衡量模块之间关系紧密程度的指标。一个高内聚的集合，各个语句、数据块之间联系紧密，被视为一个不可分割的整体。任何视图将它们拆分的做法，都会导致耦合程度的增加而降低了代码的可读性。</p>
@@ -31684,6 +31750,10 @@
 <h3 id="_4">不要过早的关注点分离</h3>
 <p>过早的关注点分离（<code>premature separation of concerns</code>）会导致过度设计（<code>over-engineering</code>），为了分离而分离会增加复杂性，引入不必要的胶水代码和间接层。</p>
 <p>我们的目标是可维护性，SOLID 原则是工具，工具是来帮助我们达到我们的目标的，而不是要达成 SOLID！SRP 和 DRY 是很好的工具但不是目的。</p>
+<blockquote>
+<p>Don’t try to achieve SOLID, use SOLID to achieve maintainability.</p>
+<p>Katerina Trajchevska, "Becoming a Better Developer by Using the SOLID Design Principles", Laracon EU, August 30–31, 2018.</p>
+</blockquote>
 <p>如果知道哪里会变化，使用这些工具让未来的变化更容易，如果不知道，那就等到变化出现的时候再重构，让代码变得更好。</p>
 <h2 id="_5">接口分离</h2>
 <p>回到 <code>Document</code> 类的例子。假定用户写了一个函数来处理 <code>Document</code> 类的对象，将其导出为 JSON 格式。
@@ -31776,7 +31846,57 @@
 这样把放到一起的东西分离开是否违背了 SRP 呢？恰恰相反。<code>UpdateCollection()</code> 这个函数需要被测试，这就表明之前的设计不足够合理。我们有理由单独修改这个函数，那么说明 <code>Widget</code> 类有两个理由被修改，承担了一个以上的职责。换句话说，如果一个函数一定要被测试，那么它就应该是一个独立的单元，能够直接测试它。</p>
 <p>这样是不是违反了封装呢？不。相反，封装是分离关注点的理由。Scott Meyers 在《Effective C++》中提到过，更推荐非成员、非友元函数（<code>non-member, non-friend function</code>）而不是成员函数，从类中抽取函数反而是更好的封装。这是因为成员函数天生就能访问所有的数据成员，因此很容易就会访问到不相关的数据成员，导致耦合度增加。抽取的 <code>UpdateCollection()</code> 函数只能通过 <code>Widget</code> 类提供的接口来访问数据成员，结果是更好的访问控制，更好的内聚。</p>
 <p>通过上述的设计，我们做到了以下三点：（1）能够直接测试 <code>UpdateCollection()</code> 函数；（2）更好的封装；（3）独立的 <code>UpdateCollection()</code>，与 <code>Widget</code> 类解耦，甚至可以用于其他类。</p>
-<p>这里并不是鼓励把所有函数都设计成独立的函数甚至是单独抽取到一个类。我们要仔细的分析哪些明明需要测试但是被塞进了 <code>private</code> 里面的函数。如果这个函数是虚函数该怎么办呢？后续章节有分析。</p>
+<p>这里并不是鼓励把所有函数都设计成独立的函数甚至是单独抽取到一个类。我们要仔细的分析哪些明明需要测试但是被塞进了 <code>private</code> 里面的函数。如果这个函数是虚函数该怎么办呢？后续章节会讨论这个问题。</p>
+<h2 id="_7">面向扩展性的设计</h2>
+<p>扩展性（<code>extensibility</code>）是软件设计的重要目标之一，驱使我们做出好的设计。除非软件已经到生命周期尽头了，否则就需要添加新的功能，扩展现有代码是基本操作。扩展性并不是天上掉馅饼，而是需要我们在软件设计的时候就考虑到这一点。</p>
+<h3 id="_8">开放封闭原则</h3>
+<p>回到之前 <code>Document</code> 类的例子，它有一个纯虚函数 <code>Serialize()</code>，假定有一个子类 <code>PDF</code> 继承了 <code>Document</code> 类，并且实现了 <code>Serialize()</code> 函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">PDF</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Document</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="p">{</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Serialize</span><span class="p">(</span><span class="n">ByteStream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bs</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">};</span>
+</span></code></pre></div>
+之前提到过，为了区别不同类型的文档，我们可能会引入类
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">DocumentType</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">{</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="n">Word</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">PDF</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">};</span>
+</span></code></pre></div>
+在序列化的时候，可能第一个字节就是这个 <code>DocumentType</code>，用来区分不同类型的文档。那么 <code>PDF</code> 类就会知道 <code>Word</code> 这个类的存在，这就导致了耦合。整个结构如下所示。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>                   Document
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>                      ^
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>                      |
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>                      |
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>         +------------+--------------+
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>         |            |              |
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>         |            |              |
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        PDF ----&gt; DocumentType &lt;-- Word
+</span></code></pre></div>
+如果我们想要添加一个子类，比如 <code>XML</code>，我们就需要修改 <code>DocumentType</code> 类。这至少会导致 <code>PDF</code> 和 <code>Word</code> 这两个类需要重新编译。更糟糕的是，这限制了其他人对代码进行扩展的能力，因为可能这是一个类库而很多人没有权限修改 <code>DocumentType</code> 类。从设计的角度来说，<code>PDF</code> 和 <code>Word</code> 这两个类本不应该知道新增的类 <code>XML</code> 的存在。</p>
+<p>上述的例子违反了开放封闭原则（<code>Open-Closed Principle</code>, <code>OCP</code>），这就是 SOLID 中的 O。OCP 是说软件实体（类、模块、函数等等）应该对扩展开放，对修改关闭。也就是说，理想状态下，我们应该能够通过添加新代码来扩展软件的功能，而无需修改现有的代码。</p>
+<p>幸运的是我们之前提到的分离关注点的方法就能解决这个问题。调整之后，只有序列化 <code>Serialization</code> 模块需要知道 <code>DocumentType</code> 的存在，不同的 <code>Document</code> 子类都不知道 <code>DocumentType</code>，进而彼此是解耦的。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>                        Document
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>                           ^
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>                           |
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>            +--------------+-------------+
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>            |                            |
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>            |                            |
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>           PDF                         Word
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>            ^                            ^
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>            |                            |
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>            +----------------------------+
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>            |                            |
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>            |                            |
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>           JSON                  Serialization(DocumentType)
+</span></code></pre></div>
+序列化模块知道 <code>DocumentType</code> 的存在并不违反 OCP，我们并不需要修改更高层次或者同级的其他模块。从功能设计的角度看，这个依赖是必须的，而序列化模块也必须适配每一个 <code>Document</code> 的子类，因此这个依赖是合理的。</p>
+<p>从分离关注点的角度说，真正的解决方案就是坚守 SRP，因此业内也有人认为也不应将 OCP 看作是独立的原则，它和 SRP 是一样的。大部分情况下，做到了分离关注点也就带来了扩展性。因此，将二者看作是紧密相关的甚至是融合在一起的原则也没有问题。</p>
+<p>不过单独讨论 OCP，给了我们从另一个视角来审视问题本身。当我们显式的考虑扩展性的时候，会影响我们应用 SRP 的方式。相比于 SRP，OCP 更注重于扩展性，影响在扩展性方面做出的决策。因此，它或许不是 SRP 的副产物，完全取决于我们看待事物的角度。</p>
 
   
 
