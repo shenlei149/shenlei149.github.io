@@ -7,9 +7,21 @@
 
 大部分的开发者应该遇到过这样的情况：当需要修改一个很小的功能或者修复一个 bug 时，却需要修改很多文件，涉及整个系统的多个模块。这就是依赖（`dependency`）问题。不管项目大小，依赖都是最核心的问题。因此，软件设计是一门管理组件之间依赖关系的艺术，目的是最小化人为的、技术性的依赖，并引入必要的抽象与折中。软件设计，或者说软件工程（`engineering`），更像是一门艺术，或者说是一种工艺（`craft`），与科学相结合。有的时候，软件架构（`software architecture`）这个术语，有时表达的也是类似的意思，可以互换，它们的目的是相同的。也有的人将架构和设计区分开来，认为架构是更高层次的设计。
 
+> Dependency is the key problem in software development at all scales.
+>
+> Kent Beck, Test-Driven Development: By Example (Addison-Wesley, 2002).
+
+> The goal of software architecture is to minimize the human resources required to build and maintain the required system.
+>
+> Robert C. Martin, Clean Architecture (Addison-Wesley, 2017).
+
 我们可以将软件开发分成两个大层，第一层是设计层（`design level`），包含架构和设计，第二层是代码层（`code level`）。最底层是实现细节（`implementation details`），这一层有一些常见的实现模式（`implementation patterns`），比如 RAII、Pimpl、SFINAE（`Substitution Failure Is Not An Error`）等等，这些模式是 C++ 特有的，其他语言可能没有或者有不同的实现方式。再往上是软件设计，这一层包含一些设计模式（`design patterns`），比如装饰者、策略等等，这些就是语言无关的了。再往上是软件架构，如前所述，这里的共识不多，这里通常涉及关键决策。这一层包含一些架构模式（`architectural patterns`），比如微服务、客户端-服务器等。两者的共同点都是解决整体结构和相互依赖的问题。架构是更高层次的设计，解决的是模块、组件级别的，而设计则是更细粒度的，解决的是类、函数级别的。
 
 惯用法（`idiom`）的出现使得实现和设计两者的界限更加模糊一些。惯用法表示某种模式（`pattern`），在某种语言中被广泛使用，比如前面提到的 RAII 就是 C++ 中的一种惯用法，还有 copy-and-swap 也是 C++ 中的一种惯用法。大部分的 C++ 惯用法都是实现层次的，设计层次的惯用法相对较少一些，比如 NVI（`Non-Virtual Interface`）和 Pimpl 就是一种设计层次的惯用法，分别脱胎于设计模式中的模板方法（`Template Method`）和桥接模式（`Bridge Pattern`）。这里涉及到一个问题，就是掌握编程语言的细节和掌握软件设计的原则哪个更重要？答案是两者都重要。没有必要厚此薄彼。
+
+> Design and programming are human activities; forget that and all is lost.
+>
+> Bjarne Stroustrup, The C++ Programming Language, 3rd Edition (Addison-Wesley, 2000).
 
 ## 拥抱变化的设计
 变化是问题的根源，因此分离关注点（`separation of concerns`）是应对变化的重要原则，核心思想就是对各个功能进行拆分、隔离或者抽取，将整个系统分解为更小的、命名清晰的、易于理解的小的单元，能够提升效率，更好的应对变化。
@@ -164,6 +176,10 @@ SRP 告诉我们每个事物只能有一个职责（一个变化的理由），D
 
 我们的目标是可维护性，SOLID 原则是工具，工具是来帮助我们达到我们的目标的，而不是要达成 SOLID！SRP 和 DRY 是很好的工具但不是目的。
 
+> Don’t try to achieve SOLID, use SOLID to achieve maintainability.
+>
+> Katerina Trajchevska, "Becoming a Better Developer by Using the SOLID Design Principles", Laracon EU, August 30–31, 2018.
+
 如果知道哪里会变化，使用这些工具让未来的变化更容易，如果不知道，那就等到变化出现的时候再重构，让代码变得更好。
 
 ## 接口分离
@@ -277,4 +293,64 @@ private:
 
 通过上述的设计，我们做到了以下三点：（1）能够直接测试 `UpdateCollection()` 函数；（2）更好的封装；（3）独立的 `UpdateCollection()`，与 `Widget` 类解耦，甚至可以用于其他类。
 
-这里并不是鼓励把所有函数都设计成独立的函数甚至是单独抽取到一个类。我们要仔细的分析哪些明明需要测试但是被塞进了 `private` 里面的函数。如果这个函数是虚函数该怎么办呢？后续章节有分析。
+这里并不是鼓励把所有函数都设计成独立的函数甚至是单独抽取到一个类。我们要仔细的分析哪些明明需要测试但是被塞进了 `private` 里面的函数。如果这个函数是虚函数该怎么办呢？后续章节会讨论这个问题。
+
+## 面向扩展性的设计
+扩展性（`extensibility`）是软件设计的重要目标之一，驱使我们做出好的设计。除非软件已经到生命周期尽头了，否则就需要添加新的功能，扩展现有代码是基本操作。扩展性并不是天上掉馅饼，而是需要我们在软件设计的时候就考虑到这一点。
+
+### 开放封闭原则
+回到之前 `Document` 类的例子，它有一个纯虚函数 `Serialize()`，假定有一个子类 `PDF` 继承了 `Document` 类，并且实现了 `Serialize()` 函数。
+```cpp
+class PDF : public Document
+{
+public:
+	// ...
+	void Serialize(ByteStream &bs, /*...*/) const override;
+	// ...
+};
+```
+之前提到过，为了区别不同类型的文档，我们可能会引入类
+```cpp
+enum class DocumentType
+{
+	Word,
+	PDF,
+	// ...
+};
+```
+在序列化的时候，可能第一个字节就是这个 `DocumentType`，用来区分不同类型的文档。那么 `PDF` 类就会知道 `Word` 这个类的存在，这就导致了耦合。整个结构如下所示。
+```
+                   Document
+                      ^
+                      |
+                      |
+         +------------+--------------+
+         |            |              |
+         |            |              |
+        PDF ----> DocumentType <-- Word
+```
+如果我们想要添加一个子类，比如 `XML`，我们就需要修改 `DocumentType` 类。这至少会导致 `PDF` 和 `Word` 这两个类需要重新编译。更糟糕的是，这限制了其他人对代码进行扩展的能力，因为可能这是一个类库而很多人没有权限修改 `DocumentType` 类。从设计的角度来说，`PDF` 和 `Word` 这两个类本不应该知道新增的类 `XML` 的存在。
+
+上述的例子违反了开放封闭原则（`Open-Closed Principle`, `OCP`），这就是 SOLID 中的 O。OCP 是说软件实体（类、模块、函数等等）应该对扩展开放，对修改关闭。也就是说，理想状态下，我们应该能够通过添加新代码来扩展软件的功能，而无需修改现有的代码。
+
+幸运的是我们之前提到的分离关注点的方法就能解决这个问题。调整之后，只有序列化 `Serialization` 模块需要知道 `DocumentType` 的存在，不同的 `Document` 子类都不知道 `DocumentType`，进而彼此是解耦的。
+```
+                        Document
+                           ^
+                           |
+            +--------------+-------------+
+            |                            |
+            |                            |
+           PDF                         Word
+            ^                            ^
+            |                            |
+            +----------------------------+
+            |                            |
+            |                            |
+           JSON                  Serialization(DocumentType)
+```
+序列化模块知道 `DocumentType` 的存在并不违反 OCP，我们并不需要修改更高层次或者同级的其他模块。从功能设计的角度看，这个依赖是必须的，而序列化模块也必须适配每一个 `Document` 的子类，因此这个依赖是合理的。
+
+从分离关注点的角度说，真正的解决方案就是坚守 SRP，因此业内也有人认为也不应将 OCP 看作是独立的原则，它和 SRP 是一样的。大部分情况下，做到了分离关注点也就带来了扩展性。因此，将二者看作是紧密相关的甚至是融合在一起的原则也没有问题。
+
+不过单独讨论 OCP，给了我们从另一个视角来审视问题本身。当我们显式的考虑扩展性的时候，会影响我们应用 SRP 的方式。相比于 SRP，OCP 更注重于扩展性，影响在扩展性方面做出的决策。因此，它或许不是 SRP 的副产物，完全取决于我们看待事物的角度。
