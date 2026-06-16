@@ -1,3 +1,4 @@
 nav:
     - Software Design and Engineering: README.md
     - Software Design Fundamentals: SoftwareDesignFundamentals.md
+    - Building Abstractions: BuildingAbstractions.md

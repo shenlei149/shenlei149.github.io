@@ -354,3 +354,57 @@ enum class DocumentType
 从分离关注点的角度说，真正的解决方案就是坚守 SRP，因此业内也有人认为也不应将 OCP 看作是独立的原则，它和 SRP 是一样的。大部分情况下，做到了分离关注点也就带来了扩展性。因此，将二者看作是紧密相关的甚至是融合在一起的原则也没有问题。
 
 不过单独讨论 OCP，给了我们从另一个视角来审视问题本身。当我们显式的考虑扩展性的时候，会影响我们应用 SRP 的方式。相比于 SRP，OCP 更注重于扩展性，影响在扩展性方面做出的决策。因此，它或许不是 SRP 的副产物，完全取决于我们看待事物的角度。
+
+### 编译期扩展性
+日常开发中，常常会使用 C++ 标准库，它的设计考虑了扩展性，因此我们可以容易的使用它来实现我们自己的功能。先看第一个例子 `std::swap`，它的实现如下所示。
+```cpp
+template<class T>
+void swap(T &a, T &b)
+{
+	T temp = std::move(a);
+	a = std::move(b);
+	b = std::move(temp);
+}
+```
+这个函数的实现非常简单，使用了 move 语义来避免不必要的复制操作。这个函数的设计考虑了扩展性，能够适用于任何类型 `T`。同时，如果自定义类型没有提供高效的移动操作，可以提供自己的 `swap` 函数，那么也能够正确的调用自定义的 `swap` 函数，而不是使用默认的实现。
+```cpp
+namespace custom
+{
+
+class CustomType
+{
+	/* Implementation that requires a special form of swap */
+};
+
+void swap(CustomType &a, CustomType &b) { /* Special implementation for swapping two instances of type 'CustomType' */ }
+
+} // namespace custom
+```
+使用的时候采用非限定调用（`unqualified call`）的方式，结合 ADL（`Argument-Dependent Lookup`），就能调用到合适的 `swap` 函数。
+```cpp
+using std::swap;
+
+swap(a, b); // Calls std::swap for built-in types, custom::swap for CustomType
+```
+下面是第二个例子。
+```cpp
+template<typename InputIt, typename T>
+constexpr InputIt find(InputIt first, InputIt last, const T &value);
+
+template<typename InputIt, typename UnaryPredicate>
+constexpr InputIt find_if(InputIt first, InputIt last, UnaryPredicate p);
+```
+`std::find` 和 `std::find_if` 通过模板参数支持任意类型的查找，`std::find_if` 还支持通过谓词（`predicate`）来定义查找条件，可以自定义比较对象的方式。
+
+最后一个定制方式是模板特化（`template specialization`），比如 `std::hash`。
+```cpp
+template<>
+struct std::hash<CustomType>
+{
+	std::size_t operator()(const CustomType &v) const noexcept { return /*...*/; }
+};
+```
+`std::hash` 的设计使得我们能够为自定义类型提供哈希函数的实现，完全不需要修改任何现有的代码。通过模板特化来定制我们的需求。
+
+### 避免过早进行扩展性设计
+扩展性很重要，但是这不意味着应该不加思考的在实现细节的各个地方都使用多态、模板来确保未来的扩展性。和不要过早的优化程序、过早关注分离点一样，我们也不应该过早的关注扩展性。如果还不知道哪些地方会如何演进，那么久等到需要扩展的时候再进行设计和实现就好，不要预判一个可能永远不会扩展的点。未来的需求会指导我们，给出未来演进的方向，此时再重构代码，使得手续更容易扩展。
