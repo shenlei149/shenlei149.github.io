@@ -1376,6 +1376,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基类与概念（concept）的异曲同工之妙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理解重载（overloading）的语义要求
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        抽象的所有权
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31356,6 +31389,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基类与概念（concept）的异曲同工之妙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理解重载（overloading）的语义要求
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        抽象的所有权
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31647,6 +31713,173 @@
 </span></code></pre></div></p>
 <p>介绍完 LSP 再回到之前的例子。<code>Rectangle</code> 有一个预期行为是可以单独设置宽和高，而 <code>Square</code> 违反了这个预期行为，它引入了更强的不变性约束条件——宽和高必须相等。因此 <code>Square</code> 类并不满足 <code>Rectangle</code> 类的预期行为，这里并不满足 <code>IS-A</code> 的关系，无法在需要 <code>Rectangle</code> 的地方使用 <code>Square</code>。正方形是一个长方形，数学上是 <code>IS-A</code> 的关系，但不是里氏替换中所说的 <code>IS-A</code> 关系。</p>
 <p>因此继承绝不是一个凭借直觉能使用的特性，需要深思熟虑才能驾驭。当使用继承的时候，要确保子类满足父类的预期行为，且子类符合用户的直观、自然的预期。</p>
+<p>有的人认为子类存在违背 LSP 的风险，基类无法起到抽象的作用，原因是调用方的稳定性最终依然要依赖于子类是否有错误行为。这是一种因噎废食的想法，有点本末倒置。基类绝对是一种抽象，调用方代码应该并且仅仅应该依赖于抽象的预期行为，违反了 LSP 本质上属于程序的 bug，需要修复而是不使用一些其他方法规避问题。比如下面的代码就是一个错误的示例，应该想办法重新设计抽象而不是在调用方使用 <code>dynamic_cast</code> 来规避问题。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">{};</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">{};</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">Special</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">{};</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1">// ... Potentially more derived classes</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="p">{</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Special</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">))</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">        </span><span class="c1">// ... do something &quot;special,&quot; knowing that &#39;Special&#39; behaves differently</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">    </span><span class="k">else</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<p>为了实现解耦，我们应该信任我们的抽象，如果我们没有能够完全被理解、有实质意义的抽象，很难写出可靠、稳定的代码。为了达成这个目的，坚持 LSP 是非常重要的。对于抽象的预期行为，必须清晰且没有二义性，代码自解释或者是有规范的文档。</p>
+<h2 id="concept">基类与概念（<code>concept</code>）的异曲同工之妙</h2>
+<p>这一小节的内容和 C++ 有点强绑定。</p>
+<p>LSP 不仅仅适用于运行期的多态和继承结构，也可以用于编译期的多态和模板。看下面两段代码。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">//==== Code Snippet 1 ====</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Document</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Document</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ExportToJSON</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Serialize</span><span class="p">(</span><span class="n">ByteStream</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">};</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="kt">void</span><span class="w"> </span><span class="nf">UseDocument</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Document</span><span class="w"> </span><span class="o">&amp;</span><span class="n">doc</span><span class="p">)</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="p">{</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">    </span><span class="n">doc</span><span class="p">.</span><span class="n">ExportToJSON</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">);</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">}</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="c1">//==== Code Snippet 2 ====</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="k">concept</span><span class="w"> </span><span class="nc">Document</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ByteStream</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">    </span><span class="n">t</span><span class="p">.</span><span class="n">ExportToJSON</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">);</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">    </span><span class="n">t</span><span class="p">.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">);</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="p">};</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="k">template</span><span class="o">&lt;</span><span class="n">Document</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="kt">void</span><span class="w"> </span><span class="n">UseDocument</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">doc</span><span class="p">)</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="p">{</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="w">    </span><span class="n">doc</span><span class="p">.</span><span class="n">ExportToJSON</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">);</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">    </span><span class="c1">// ...</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="p">}</span>
+</span></code></pre></div>
+第一个是运行时多态的实现，第二个是编译时多态的实现。实现方式不同，但是两者的语义是相同的。第一代码中，<code>UseDocument</code> 必须是 <code>Document</code> 的子类，满足基类 <code>Document</code> 抽象的预期行为；第二段代码中，<code>UseDocument</code> 必须满足 <code>Document</code> 这个概念的约束条件。两者都要求满足一定的预期行为，都体现了类似的语义。</p>
+<p>基类和概念都表示一组语法、语义上的需求，描述了预期的行为。因此概念可以被看作与基类是等价的。从这角度看，LSP 也适用于概念和模板代码。准确的说，概念并不能表达语义，这里表达的是预期的行为。我们再看一个例子。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">InputIt</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">OutputIt</span><span class="o">&gt;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">constexpr</span><span class="w"> </span><span class="n">OutputIt</span><span class="w"> </span><span class="n">copy</span><span class="p">(</span><span class="n">InputIt</span><span class="w"> </span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">InputIt</span><span class="w"> </span><span class="n">last</span><span class="p">,</span><span class="w"> </span><span class="n">OutputIt</span><span class="w"> </span><span class="n">d_first</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">first</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">last</span><span class="p">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="o">*</span><span class="n">d_first</span><span class="o">++</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">first</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">d_first</span><span class="p">;</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<code>copy</code> 函数的预期行为是将 <code>[first, last)</code> 的元素复制到以 <code>d_first</code> 开头的范围内。<code>InputIt</code> 表示输入迭代器，要求迭代器能够进行等值比较，支持前缀和后缀自增遍历，能够通过解引用访问元素。<code>OutputIt</code> 表示输出迭代器，也有自己的要求。这么都是预期行为的要求，满足这些要求的类型才能被用来实例化 <code>copy</code> 函数模板，否则会在运行时出错或者编译时出错（如果使用了概念约束），这就表示违反了 LSP。因此这里的 <code>InputIt</code> 和 <code>OutputIt</code> 表示了 LSP 的抽象。</p>
+<h2 id="overloading">理解重载（<code>overloading</code>）的语义要求</h2>
+<p>每一个抽象都表示一组需求、要求。函数的重载，特别是自由函数（<code>free function</code>）的重载，也能表示一个抽象的概念。基于给定的类型，编译器从一组函数名相同的函数中选择一个最合适的函数来调用。这些称为重载集（<code>overload set</code>）。这是一种灵活且强大的抽象机制。</p>
+<p>我们可以给任意类型，比如 <code>int</code>、<code>std::string</code>，或者是用户定义的类型，添加一个重载函数，这种方式是非入侵的。但是如果是成员函数，就必须修改类的定义，这种方式是入侵的，甚至做不到，比如对 <code>int</code> 类型添加成员函数，或者无法修改的第三方类库。自由函数践行了 OCP，单纯的新添代码实现扩展，完全不需要修改任何现有的代码。下面给出一个例子来阐述自由函数的好处。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Range</span><span class="o">&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">TraverseRange</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Range</span><span class="w"> </span><span class="o">&amp;</span><span class="n">range</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">pos</span><span class="p">)</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="c1">// ...</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="p">}</span>
+</span></code></pre></div>
+这个代码无法用于 C 风格的数组，因为 C 风格的数组没有成员函数 <code>begin</code> 和 <code>end</code>。这里不去讨论 C++ 中更推荐使用 <code>std::array</code> 或者 <code>std::vector</code> 来代替 C 风格的数组。如果使用自由函数 <code>std::begin</code> 和 <code>std::end</code>，就可以支持 C 风格的数组了。这也是 range-based <code>for</code> 的实现方式。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Range</span><span class="o">&gt;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">TraverseRange</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Range</span><span class="w"> </span><span class="o">&amp;</span><span class="n">range</span><span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">;</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">begin</span><span class="p">(</span><span class="n">range</span><span class="p">);</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">end</span><span class="p">(</span><span class="n">range</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">pos</span><span class="p">)</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="c1">// ...</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="p">}</span>
+</span></code></pre></div>
+STL 完美体现了各种设计原则，不同功能组件之间松耦合，分离关注点，尽可能的提供自由函数，最大化代码的复用。容器和算法被分为两个独立的组件，两者互不依赖，之间通过迭代器无缝连接。<code>std::string</code> 是后来添加的，可能有耦合、重复的地方。</p>
+<blockquote>
+<p>There was never any question that the [standard template] library represented a breakthrough in efficient and extensible design.</p>
+<p>Scott Meyers</p>
+</blockquote>
+<p>如果想要发挥上述的威力，需要遵循规则和约定，遵循 LSP。考虑下面这个例子，你实现了自定义的 <code>swap()</code>。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Widget</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="p">{</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">};</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="kt">void</span><span class="w"> </span><span class="nf">swap</span><span class="p">(</span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w1</span><span class="p">,</span><span class="w"> </span><span class="n">Widget</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w2</span><span class="p">)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">{</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">w1</span><span class="p">.</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">w2</span><span class="p">.</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="p">}</span>
+</span></code></pre></div>
+你的同事使用这些函数得到了一个诡异的结果。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w1</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">swap</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span><span class="w"> </span><span class="n">w2</span><span class="p">);</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1">// Widget w1 contains (2,11)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1">// Widget w2 contains (1,22)</span>
+</span></code></pre></div></p>
+<p>原因在于 <code>swap</code> 的实现并没有符合人们的预期，大家期望对象的所有状态都被交换了。如果你重载了某个函数，要忠实的履行其预期行为，满足用户的直觉预期。否则就会违反 LSP。</p>
+<p>你可能会保证遵守 LSP，但是在庞大的代码库中，各个角落都散落着重载，无法知晓它们的预期行为和隐藏的细节，因此即使自己很小心避开陷阱，但是最终做出来的可能仍旧不是“正确”的事情。系统赋予了开发者太大的能力和自由。</p>
+<p>事务有利就有弊。重载集的威力很大，但是潜在地很难使用对。如果大致等价，可以使用重载；严格来说，仅仅大致等价，再重载。如果重载的函数之间有细微的差别，或者是有一些隐藏的细节，那么就不要重载了，使用不同的函数名来表达不同的预期行为。<code>find</code> 函数是线性查找，不会预期传入的范围内元素是有序的。<code>begin()</code> <code>end()</code> 返回一对迭代器，没人有会认为它们应该启动或终止一个事情，后者应该交给 <code>start()</code> 和 <code>stop()</code>。</p>
+<p>如果是虚函数，这里的建议也是适用的。软件设计的目标是减少依赖关系，而虚函数往往又会带来一些耦合，如何将虚函数解救（<code>free</code>）出来，也是一个值得思考的问题。后续章节会讨论如何将虚函数以自由函数的形式分离出来。</p>
+<h2 id="_3">抽象的所有权</h2>
+<p>Robert Martin 说过最灵活的系统，源码依赖仅仅指向抽象而不是具体实现。这就是依赖倒置原则（<code>Dependency Inversion Principle</code>, <code>DIP</code>），SOLID 中的 D。这个建议针对的是管理依赖关系，你应该依赖抽象，而不是去以来具体的类型或者底层的实现细节。这个表述仅仅是广义上的抽象，不涉及继承或者接口等具体的抽象机制。</p>
+<p>假定有一个 ATM 的例子，因为和钱相关，因此需要引入事务，我们有一个抽象类 <code>Transaction</code>，它有一个纯虚函数 <code>Execute()</code>，三个子类分别是 <code>Deposit</code>、<code>Withdraw</code> 和 <code>Transfer</code>。这三个类需要的信息是通过 <code>UI</code> 类来获取的，<code>UI</code> 类有 <code>RequestDepositAmount()</code>、<code>RequestWithdrawAmount()</code> <code>RequestTransferAmount()</code> <code>InfomInsufficientFunds()</code> 等函数。这里事务的类和 <code>UI</code> 的类在架构层面是分开的。</p>
+<p>现在有了新的需求，需要给 VIP 客户提供 <code>SpeedTransfer</code> 的功能，或许 <code>UI</code> 类需要增加 <code>RequestSpeedTransferAmount()</code> <code>RequestVIPNumber()</code> 等函数。由于所有的事务类都依赖于 <code>UI</code> 类，因此 <code>UI</code> 类的修改会影响到所有的事务类。最好情况下这些事务类只需要重新编译和测试，最坏情况下可能需要重新部署。这是因为稳定的、高层次的事务依赖了不稳定的、底层的 <code>UI</code> 类，这个依赖需要翻转过来。</p>
+<p>我们引入三个抽象类 <code>DepositUI</code>、<code>WithdrawUI</code> 和 <code>TransferUI</code></p>
+<ul>
+<li><code>DepositUI</code> 包含 <code>RequestDepositAmount()</code> 函数</li>
+<li><code>WithdrawUI</code> 包含 <code>RequestWithdrawAmount()</code> <code>InformInsufficientFunds()</code> 函数</li>
+<li><code>TransferUI</code> 包含 <code>RequestTransferAmount()</code> <code>InformInsufficientFunds()</code> 函数</li>
+</ul>
+<p>三个事务类不再依赖具体的 <code>UI</code> 类，而是依赖于抽象的 <code>DepositUI</code>、<code>WithdrawUI</code> 和 <code>TransferUI</code>，这三个事务之间的间接依赖也被消除了。这样如果需要添加新的事务 <code>SpeedTransfer</code>，只需要添加一个新的抽象类 <code>SpeedTransferUI</code>，并且修改 <code>UI</code> 类来实现这个抽象类就好了，这不会影响到其他的事务类。</p>
+<p>这里遵循了 ISP，消除了不同事务之间的间接耦合，同时让应该在一起的函数分到了不同的接口，这就是 SRP。引入抽象使得事务类和 <code>UI</code> 类之间的依赖关系翻转了过来，这就是 DIP？至此我们还没有真正实现 DIP。但是这三个抽象类还是 <code>UI</code> 类在一起，和事务类在架构上是分开的，从架构上看，事务还是依赖 <code>UI</code> 模块，这仅仅是局部（<code>local</code>）依赖倒置。因此这里引出一个问题，引入的抽象类应该放在哪里？和事务放在一起！</p>
+<p>把抽象接口放到稳定的、高层次事务模块中，让它拥有这个抽象，才真正遵循了 DIP。这不仅仅是一个概念上的变换。在工程上，<code>UI</code> 类依赖的头文件要从 <code>UI</code> 模块移动到事务模块，重新组织包含关系。这里完全是所有权的转移，抽象接口的所有权转移到了事务模块中。现在事务模块依赖于抽象接口，而 <code>UI</code> 模块依赖于抽象接口的实现，这样就真正实现了 DIP。</p>
+<p>但是这里有这么一个问题，抽象接口的所有权转移到了事务模块中，和更类似的 <code>UI</code> 类分离了，这不违反 SRP 吗？这里真正应该在一起的事务类和它们所以来的 <code>UI</code> 抽象接口。</p>
+<p>这样，才真正实现了 DIP，接口抽象由高层掌握，拥有其所有权。这也符合 Robert Martin 的建议：</p>
+<blockquote>
+<ol>
+<li>High-level modules should not depend on low-level modules. Both should depend on abstractions.</li>
+<li>Abstractions should not depend on details. Details should depend on abstractions.</li>
+</ol>
+<p>Robert Martin</p>
+</blockquote>
+<p>再来看一个编辑器和插件的例子。<code>Editor</code> 类是一个高层次的模块，<code>Plugin</code> 类是一个低层次的模块。<code>Editor</code> 类依赖于 <code>Plugin</code> 类的抽象接口 <code>IPlugin</code>，而 <code>Plugin</code> 类依赖于 <code>IPlugin</code> 的实现。<code>IPlugin</code> 的所有权在 <code>Editor</code> 类。代码如下：
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">// Editor module</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1">// IPlugin.h</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">IPlugin</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">{};</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1">// Editor.h</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;IPlugin.h&quot;</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="k">class</span><span class="w"> </span><span class="nc">Editor</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="p">{};</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="c1">// thirdparty module</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="c1">// XXXPlugin.h</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;IPlugin.h&quot;</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="k">class</span><span class="w"> </span><span class="nc">XXXPlugin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">IPlugin</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="p">{};</span>
+</span></code></pre></div>
+这样核心的编辑器由某个团队开发，插件可以由其他团队甚至是社区开发。插件的开发者只需要依赖于 <code>IPlugin</code> 的抽象接口，而不需要依赖于 <code>Editor</code> 类的实现细节。这样就实现了模块之间的解耦，遵循了 DIP。</p>
 
   
 
