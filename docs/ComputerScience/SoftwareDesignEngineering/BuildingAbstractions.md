@@ -195,3 +195,197 @@ public:
 介绍完 LSP 再回到之前的例子。`Rectangle` 有一个预期行为是可以单独设置宽和高，而 `Square` 违反了这个预期行为，它引入了更强的不变性约束条件——宽和高必须相等。因此 `Square` 类并不满足 `Rectangle` 类的预期行为，这里并不满足 `IS-A` 的关系，无法在需要 `Rectangle` 的地方使用 `Square`。正方形是一个长方形，数学上是 `IS-A` 的关系，但不是里氏替换中所说的 `IS-A` 关系。
 
 因此继承绝不是一个凭借直觉能使用的特性，需要深思熟虑才能驾驭。当使用继承的时候，要确保子类满足父类的预期行为，且子类符合用户的直观、自然的预期。
+
+有的人认为子类存在违背 LSP 的风险，基类无法起到抽象的作用，原因是调用方的稳定性最终依然要依赖于子类是否有错误行为。这是一种因噎废食的想法，有点本末倒置。基类绝对是一种抽象，调用方代码应该并且仅仅应该依赖于抽象的预期行为，违反了 LSP 本质上属于程序的 bug，需要修复而是不使用一些其他方法规避问题。比如下面的代码就是一个错误的示例，应该想办法重新设计抽象而不是在调用方使用 `dynamic_cast` 来规避问题。
+```cpp
+class Base
+{};
+
+class Derived : public Base
+{};
+
+class Special : public Base
+{};
+
+// ... Potentially more derived classes
+void f(const Base &b)
+{
+	if (dynamic_cast<const Special *>(&b))
+	{
+		// ... do something "special," knowing that 'Special' behaves differently
+	}
+	else
+	{}
+}
+```
+
+为了实现解耦，我们应该信任我们的抽象，如果我们没有能够完全被理解、有实质意义的抽象，很难写出可靠、稳定的代码。为了达成这个目的，坚持 LSP 是非常重要的。对于抽象的预期行为，必须清晰且没有二义性，代码自解释或者是有规范的文档。
+
+## 基类与概念（`concept`）的异曲同工之妙
+这一小节的内容和 C++ 有点强绑定。
+
+LSP 不仅仅适用于运行期的多态和继承结构，也可以用于编译期的多态和模板。看下面两段代码。
+```cpp
+//==== Code Snippet 1 ====
+class Document
+{
+public:
+	// ...
+	virtual ~Document() = default;
+	virtual void ExportToJSON(/*...*/) const = 0;
+	virtual void Serialize(ByteStream &, /*...*/) const = 0;
+	// ...
+};
+
+void UseDocument(const Document &doc)
+{
+	// ...
+	doc.ExportToJSON(/*...*/);
+	// ...
+}
+
+//==== Code Snippet 2 ====
+template<typename T>
+concept Document = requires(T t, ByteStream b) {
+	t.ExportToJSON(/*...*/);
+	t.Serialize(b, /*...*/);
+};
+
+template<Document T>
+void UseDocument(const T &doc)
+{
+	// ...
+	doc.ExportToJSON(/*...*/);
+	// ...
+}
+```
+第一个是运行时多态的实现，第二个是编译时多态的实现。实现方式不同，但是两者的语义是相同的。第一代码中，`UseDocument` 必须是 `Document` 的子类，满足基类 `Document` 抽象的预期行为；第二段代码中，`UseDocument` 必须满足 `Document` 这个概念的约束条件。两者都要求满足一定的预期行为，都体现了类似的语义。
+
+基类和概念都表示一组语法、语义上的需求，描述了预期的行为。因此概念可以被看作与基类是等价的。从这角度看，LSP 也适用于概念和模板代码。准确的说，概念并不能表达语义，这里表达的是预期的行为。我们再看一个例子。
+```cpp
+template<typename InputIt, typename OutputIt>
+constexpr OutputIt copy(InputIt first, InputIt last, OutputIt d_first)
+{
+	while (first != last)
+	{
+		*d_first++ = *first++;
+	}
+	return d_first;
+}
+```
+`copy` 函数的预期行为是将 `[first, last)` 的元素复制到以 `d_first` 开头的范围内。`InputIt` 表示输入迭代器，要求迭代器能够进行等值比较，支持前缀和后缀自增遍历，能够通过解引用访问元素。`OutputIt` 表示输出迭代器，也有自己的要求。这么都是预期行为的要求，满足这些要求的类型才能被用来实例化 `copy` 函数模板，否则会在运行时出错或者编译时出错（如果使用了概念约束），这就表示违反了 LSP。因此这里的 `InputIt` 和 `OutputIt` 表示了 LSP 的抽象。
+
+## 理解重载（`overloading`）的语义要求
+每一个抽象都表示一组需求、要求。函数的重载，特别是自由函数（`free function`）的重载，也能表示一个抽象的概念。基于给定的类型，编译器从一组函数名相同的函数中选择一个最合适的函数来调用。这些称为重载集（`overload set`）。这是一种灵活且强大的抽象机制。
+
+我们可以给任意类型，比如 `int`、`std::string`，或者是用户定义的类型，添加一个重载函数，这种方式是非入侵的。但是如果是成员函数，就必须修改类的定义，这种方式是入侵的，甚至做不到，比如对 `int` 类型添加成员函数，或者无法修改的第三方类库。自由函数践行了 OCP，单纯的新添代码实现扩展，完全不需要修改任何现有的代码。下面给出一个例子来阐述自由函数的好处。
+```cpp
+template<typename Range>
+void TraverseRange(const Range &range)
+{
+	for (auto pos = range.begin(); pos != range.end(); ++pos)
+	{
+		// ...
+	}
+}
+```
+这个代码无法用于 C 风格的数组，因为 C 风格的数组没有成员函数 `begin` 和 `end`。这里不去讨论 C++ 中更推荐使用 `std::array` 或者 `std::vector` 来代替 C 风格的数组。如果使用自由函数 `std::begin` 和 `std::end`，就可以支持 C 风格的数组了。这也是 range-based `for` 的实现方式。
+```cpp
+template<typename Range>
+void TraverseRange(const Range &range)
+{
+	using std::begin;
+	using std::end;
+	for (auto pos = begin(range); pos != end(range); ++pos)
+	{
+		// ...
+	}
+}
+```
+STL 完美体现了各种设计原则，不同功能组件之间松耦合，分离关注点，尽可能的提供自由函数，最大化代码的复用。容器和算法被分为两个独立的组件，两者互不依赖，之间通过迭代器无缝连接。`std::string` 是后来添加的，可能有耦合、重复的地方。
+
+> There was never any question that the [standard template] library represented a breakthrough in efficient and extensible design.
+>
+> Scott Meyers
+
+如果想要发挥上述的威力，需要遵循规则和约定，遵循 LSP。考虑下面这个例子，你实现了自定义的 `swap()`。
+```cpp
+struct Widget
+{
+	int i;
+	int j;
+};
+
+void swap(Widget &w1, Widget &w2)
+{
+	using std::swap;
+	swap(w1.i, w2.i);
+}
+```
+你的同事使用这些函数得到了一个诡异的结果。
+```cpp
+Widget w1 { 1, 11 };
+Widget w2 { 2, 22 };
+
+swap(w1, w2);
+// Widget w1 contains (2,11)
+// Widget w2 contains (1,22)
+```
+
+原因在于 `swap` 的实现并没有符合人们的预期，大家期望对象的所有状态都被交换了。如果你重载了某个函数，要忠实的履行其预期行为，满足用户的直觉预期。否则就会违反 LSP。
+
+你可能会保证遵守 LSP，但是在庞大的代码库中，各个角落都散落着重载，无法知晓它们的预期行为和隐藏的细节，因此即使自己很小心避开陷阱，但是最终做出来的可能仍旧不是“正确”的事情。系统赋予了开发者太大的能力和自由。
+
+事务有利就有弊。重载集的威力很大，但是潜在地很难使用对。如果大致等价，可以使用重载；严格来说，仅仅大致等价，再重载。如果重载的函数之间有细微的差别，或者是有一些隐藏的细节，那么就不要重载了，使用不同的函数名来表达不同的预期行为。`find` 函数是线性查找，不会预期传入的范围内元素是有序的。`begin()` `end()` 返回一对迭代器，没人有会认为它们应该启动或终止一个事情，后者应该交给 `start()` 和 `stop()`。
+
+如果是虚函数，这里的建议也是适用的。软件设计的目标是减少依赖关系，而虚函数往往又会带来一些耦合，如何将虚函数解救（`free`）出来，也是一个值得思考的问题。后续章节会讨论如何将虚函数以自由函数的形式分离出来。
+
+## 抽象的所有权
+Robert Martin 说过最灵活的系统，源码依赖仅仅指向抽象而不是具体实现。这就是依赖倒置原则（`Dependency Inversion Principle`, `DIP`），SOLID 中的 D。这个建议针对的是管理依赖关系，你应该依赖抽象，而不是去以来具体的类型或者底层的实现细节。这个表述仅仅是广义上的抽象，不涉及继承或者接口等具体的抽象机制。
+
+假定有一个 ATM 的例子，因为和钱相关，因此需要引入事务，我们有一个抽象类 `Transaction`，它有一个纯虚函数 `Execute()`，三个子类分别是 `Deposit`、`Withdraw` 和 `Transfer`。这三个类需要的信息是通过 `UI` 类来获取的，`UI` 类有 `RequestDepositAmount()`、`RequestWithdrawAmount()` `RequestTransferAmount()` `InfomInsufficientFunds()` 等函数。这里事务的类和 `UI` 的类在架构层面是分开的。
+
+现在有了新的需求，需要给 VIP 客户提供 `SpeedTransfer` 的功能，或许 `UI` 类需要增加 `RequestSpeedTransferAmount()` `RequestVIPNumber()` 等函数。由于所有的事务类都依赖于 `UI` 类，因此 `UI` 类的修改会影响到所有的事务类。最好情况下这些事务类只需要重新编译和测试，最坏情况下可能需要重新部署。这是因为稳定的、高层次的事务依赖了不稳定的、底层的 `UI` 类，这个依赖需要翻转过来。
+
+我们引入三个抽象类 `DepositUI`、`WithdrawUI` 和 `TransferUI`
+
+- `DepositUI` 包含 `RequestDepositAmount()` 函数
+- `WithdrawUI` 包含 `RequestWithdrawAmount()` `InformInsufficientFunds()` 函数
+- `TransferUI` 包含 `RequestTransferAmount()` `InformInsufficientFunds()` 函数
+
+三个事务类不再依赖具体的 `UI` 类，而是依赖于抽象的 `DepositUI`、`WithdrawUI` 和 `TransferUI`，这三个事务之间的间接依赖也被消除了。这样如果需要添加新的事务 `SpeedTransfer`，只需要添加一个新的抽象类 `SpeedTransferUI`，并且修改 `UI` 类来实现这个抽象类就好了，这不会影响到其他的事务类。
+
+这里遵循了 ISP，消除了不同事务之间的间接耦合，同时让应该在一起的函数分到了不同的接口，这就是 SRP。引入抽象使得事务类和 `UI` 类之间的依赖关系翻转了过来，这就是 DIP？至此我们还没有真正实现 DIP。但是这三个抽象类还是 `UI` 类在一起，和事务类在架构上是分开的，从架构上看，事务还是依赖 `UI` 模块，这仅仅是局部（`local`）依赖倒置。因此这里引出一个问题，引入的抽象类应该放在哪里？和事务放在一起！
+
+把抽象接口放到稳定的、高层次事务模块中，让它拥有这个抽象，才真正遵循了 DIP。这不仅仅是一个概念上的变换。在工程上，`UI` 类依赖的头文件要从 `UI` 模块移动到事务模块，重新组织包含关系。这里完全是所有权的转移，抽象接口的所有权转移到了事务模块中。现在事务模块依赖于抽象接口，而 `UI` 模块依赖于抽象接口的实现，这样就真正实现了 DIP。
+
+但是这里有这么一个问题，抽象接口的所有权转移到了事务模块中，和更类似的 `UI` 类分离了，这不违反 SRP 吗？这里真正应该在一起的事务类和它们所以来的 `UI` 抽象接口。
+
+这样，才真正实现了 DIP，接口抽象由高层掌握，拥有其所有权。这也符合 Robert Martin 的建议：
+
+> 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
+> 2. Abstractions should not depend on details. Details should depend on abstractions.
+>
+> Robert Martin
+
+再来看一个编辑器和插件的例子。`Editor` 类是一个高层次的模块，`Plugin` 类是一个低层次的模块。`Editor` 类依赖于 `Plugin` 类的抽象接口 `IPlugin`，而 `Plugin` 类依赖于 `IPlugin` 的实现。`IPlugin` 的所有权在 `Editor` 类。代码如下：
+```cpp
+// Editor module
+// IPlugin.h
+class IPlugin
+{};
+
+// Editor.h
+#include "IPlugin.h"
+
+class Editor
+{};
+
+// thirdparty module
+// XXXPlugin.h
+#include "IPlugin.h"
+
+class XXXPlugin : public IPlugin
+{};
+```
+这样核心的编辑器由某个团队开发，插件可以由其他团队甚至是社区开发。插件的开发者只需要依赖于 `IPlugin` 的抽象接口，而不需要依赖于 `Editor` 类的实现细节。这样就实现了模块之间的解耦，遵循了 DIP。
