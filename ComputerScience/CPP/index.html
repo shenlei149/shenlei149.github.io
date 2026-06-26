@@ -85,6 +85,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1066,6 +1071,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -1133,6 +1142,62 @@
     
   
     Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SystemProgramming/Time-Dates-Locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time, Dates, Locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SystemProgramming/File-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
   
 
     
@@ -28512,6 +28577,8 @@
       
         
       
+        
+      
     
     
     
@@ -28598,6 +28665,34 @@
     
   
     938 Exhausting a Colour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ProjectEuler/901-950/961-Removing-Digits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    961 Removing Digits
   
 
     
@@ -31246,6 +31341,36 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准大纲
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -31353,7 +31478,421 @@
 
 
 
-<p>TODO</p>
+<h2 id="_1">目录</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cpp/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── README.md                     # 目录，C++ 体系总览
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│
+</span></code></pre></div>
+<h2 id="_2">准大纲</h2>
+<p>下面是 deepseek 帮忙生成的大纲，我可以参考这个目录结构来构建 C++ 知识体系。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cpp/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── _index.md                     # C++体系总览：学习路径、前置要求、经典书籍索引
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── 01-core/                      # 核心语言基础（11个文件）
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   ├── _index.md                 # 本部分概览：所有不涉及类与模板的基础语言构件
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   │
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── type-system.md            # 基础类型(int/double/char等)的字面量与表示范围、
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   │                             # 类型别名(using/typedef)、cv限定符(const/volatile)、
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   │                             # auto类型推导规则与陷阱(大括号初始化、auto&amp;、auto&amp;&amp;)、
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│   │                             # decltype推导规则与decltype(auto)
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│   │
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│   ├── expressions.md            # 表达式求值顺序与副作用(前置vs后置++的差异)、
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│   │                             # 算术/逻辑/位运算符的完整覆盖、条件运算符(?:)的
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│   │                             # 类型确定规则(两个分支的公共类型)、逗号运算符、
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│   │                             # 三路比较&lt;=&gt;(C++20)：强序/弱序/部分序的语义区别、
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│   │                             # 默认生成规则(成员逐一按声明顺序比较)、与==的交互、
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│   │                             # 自定义类型的&lt;=&gt;实现、运算符优先级与结合性速查
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│   │
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│   ├── control-flow.md           # if/switch/for/while基础控制流、范围for的底层原理
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>│   │                             # (begin/end非成员查找与ADL)、if constexpr(C++17)与
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│   │                             # 普通if的区别(编译期分支消除)、初始化语句(C++17/20)
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│   │
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│   ├── functions.md              # 函数声明与定义、参数传递方式(值/引用/指针)的选择原则、
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>│   │                             # 默认实参与重载的交互陷阱、inline的现代语义(
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>│   │                             # 链接而非优化提示)、函数指针与std::function的使用场景
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>│   │
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>│   ├── overload-resolution.md    # 重载决议完整流程：名字查找→ADL(实参依赖查找)→
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>│   │                             # 模板推导→可行函数集→最佳匹配(标准转换vs用户定义转换)、
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>│   │                             # 二义性与消歧(f(v) vs f({v}))、SFINAE在重载中的作用、
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>│   │                             # 已删除函数的重载参与(导致编译错误)
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>│   │
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>│   ├── lambdas.md                # Lambda语法演进(C++11/14/17/20)：捕获列表([=]/[&amp;]/[this]/
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>│   │                             # [*this](C++17)/显式捕获)、泛型lambda(auto参数C++14)、
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>│   │                             # 模板lambda(C++20)、初始化捕获([x = std::move(val)])、
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>│   │                             # 无状态lambda与函数指针的隐式转换
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>│   │
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>│   ├── structured-bindings.md    # 结构化绑定(C++17)：绑定到数组(按索引)、元组(按get&lt;&gt;)、
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>│   │                             # 结构体/类(按public成员)、值绑定vs引用绑定、
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>│   │                             # 与auto推导的交互、底层实现(编译器生成的匿名对象)
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>│   │
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>│   ├── constexpr.md              # constexpr变量(编译期常量)与函数(C++11→20进化)、
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>│   │                             # consteval立即函数(C++20)：必须产生编译期结果、
+</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>│   │                             # constinit(C++20)保证静态初始化、编译期new(C++20)、
+</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>│   │                             # 编译期vector/string使用限制(不可传递到运行时)
+</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>│   │
+</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>│   ├── preprocessor.md           # 宏定义与展开(#字符串化/##拼接)、条件编译(#if/#ifdef/
+</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>│   │                             # #elif/#else/#endif)、include guard与#pragma once、
+</span><span id="__span-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>│   │                             # __has_include(C++17)、预定义宏(__LINE__/__func__/
+</span><span id="__span-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>│   │                             # __DATE__/__cplusplus)、宏的常见陷阱(多次求值)
+</span><span id="__span-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>│   │
+</span><span id="__span-1-51"><a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>│   └── modules.md                # 模块(C++20)：import/export语法、模块分区(:part)、
+</span><span id="__span-1-52"><a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>│                                 # 全局模块片段(module;)、头文件单元(import &lt;...&gt;)、
+</span><span id="__span-1-53"><a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>│                                 # 编译速度优势实测、从#include到import的渐进迁移策略
+</span><span id="__span-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>│
+</span><span id="__span-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>├── 02-class/                     # 类设计与运行时多态（14个文件）
+</span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>│   ├── _index.md                 # 本部分概览：定义新类型的编译期机制与运行时行为
+</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>│   │
+</span><span id="__span-1-58"><a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>│   ├── class-fundamentals.md     # class vs struct的唯一区别(默认访问权限)、
+</span><span id="__span-1-59"><a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>│   │                             # 成员函数声明/定义、this指针、静态成员与常量成员、
+</span><span id="__span-1-60"><a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>│   │                             # 成员函数限定符(const/&amp;/&amp;&amp;/volatile重载)、
+</span><span id="__span-1-61"><a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>│   │                             # mutable与const成员函数
+</span><span id="__span-1-62"><a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a>│   │
+</span><span id="__span-1-63"><a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>│   ├── constructors-destructors.md # 默认/转换构造函数、委托构造(C++11)避免代码重复、
+</span><span id="__span-1-64"><a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>│   │                             # 继承构造(using Base::Base C++11)、
+</span><span id="__span-1-65"><a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a>│   │                             # 析构函数与析构顺序(基类→成员→自身)、
+</span><span id="__span-1-66"><a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a>│   │                             # 拷贝/移动构造的简要引入(详细讨论见03-resource)
+</span><span id="__span-1-67"><a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>│   │
+</span><span id="__span-1-68"><a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a>│   ├── member-layout.md          # 成员对齐(alignof/alignas)、填充字节(padding)与
+</span><span id="__span-1-69"><a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a>│   │                             # 内存浪费、位域声明与跨平台问题(符号位/字节序)、
+</span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a>│   │                             # 空基类优化(EBO)与no_unique_address(C++20)、
+</span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>│   │                             # POD/trivial/standard-layout类型特征与用途
+</span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a>│   │
+</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>│   ├── access-control.md         # public/protected/private的访问规则(作用于类而非对象)、
+</span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a>│   │                             # friend类/函数/成员函数、protected继承时的访问变化、
+</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>│   │                             # 友元的传递性与封装权衡
+</span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>│   │
+</span><span id="__span-1-77"><a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a>│   ├── conversions.md            # 隐式转换路径(转换构造函数/类型转换运算符)、
+</span><span id="__span-1-78"><a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a>│   │                             # explicit与explicit(bool)(C++20条件explicit)、
+</span><span id="__span-1-79"><a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a>│   │                             # 上下文转换到bool(if/while/!中的隐式bool)、
+</span><span id="__span-1-80"><a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a>│   │                             # 安全布尔惯用法(从operator bool到explicit operator bool)
+</span><span id="__span-1-81"><a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a>│   │
+</span><span id="__span-1-82"><a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a>│   ├── operator-overloading.md   # 可重载运算符一览(42个)、成员vs非成员的选择原则、
+</span><span id="__span-1-83"><a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a>│   │                             # 对称运算符(==/&lt;=&gt;/-/+)的最佳实践(非成员函数)、
+</span><span id="__span-1-84"><a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a>│   │                             # 不能重载的运算符(. / .* / :: / ?: / sizeof/typeid等)、
+</span><span id="__span-1-85"><a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a>│   │                             # operator new/delete重载与分配器接口
+</span><span id="__span-1-86"><a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a>│   │
+</span><span id="__span-1-87"><a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a>│   ├── inheritance.md            # public/protected/private继承的语义区别(is-a/has-a/
+</span><span id="__span-1-88"><a id="__codelineno-1-88" name="__codelineno-1-88" href="#__codelineno-1-88"></a>│   │                             # 实现继承)、名字隐藏(派生类名字遮蔽基类)、
+</span><span id="__span-1-89"><a id="__codelineno-1-89" name="__codelineno-1-89" href="#__codelineno-1-89"></a>│   │                             # using声明引入基类重载集、final类(C++11)阻止继承、
+</span><span id="__span-1-90"><a id="__codelineno-1-90" name="__codelineno-1-90" href="#__codelineno-1-90"></a>│   │                             # 继承与组合的选择原则(组合优先于继承)
+</span><span id="__span-1-91"><a id="__codelineno-1-91" name="__codelineno-1-91" href="#__codelineno-1-91"></a>│   │
+</span><span id="__span-1-92"><a id="__codelineno-1-92" name="__codelineno-1-92" href="#__codelineno-1-92"></a>│   ├── multiple-inheritance.md   # 多继承语法与构造顺序(基类声明顺序)、
+</span><span id="__span-1-93"><a id="__codelineno-1-93" name="__codelineno-1-93" href="#__codelineno-1-93"></a>│   │                             # 菱形继承问题(最派生类含多个基类子对象)、
+</span><span id="__span-1-94"><a id="__codelineno-1-94" name="__codelineno-1-94" href="#__codelineno-1-94"></a>│   │                             # 虚基类初始化规则(最派生类负责初始化虚基类)、
+</span><span id="__span-1-95"><a id="__codelineno-1-95" name="__codelineno-1-95" href="#__codelineno-1-95"></a>│   │                             # 虚基类vs非虚基类的内存布局差异(vbptr vs 直接嵌入)
+</span><span id="__span-1-96"><a id="__codelineno-1-96" name="__codelineno-1-96" href="#__codelineno-1-96"></a>│   │
+</span><span id="__span-1-97"><a id="__codelineno-1-97" name="__codelineno-1-97" href="#__codelineno-1-97"></a>│   ├── virtual-functions.md      # 虚函数声明与覆盖、vtable与vptr的典型实现(单继承模型)、
+</span><span id="__span-1-98"><a id="__codelineno-1-98" name="__codelineno-1-98" href="#__codelineno-1-98"></a>│   │                             # override保证覆盖意图、final阻止进一步覆盖、
+</span><span id="__span-1-99"><a id="__codelineno-1-99" name="__codelineno-1-99" href="#__codelineno-1-99"></a>│   │                             # 虚析构函数的重要性(delete基类指针时的UB)、
+</span><span id="__span-1-100"><a id="__codelineno-1-100" name="__codelineno-1-100" href="#__codelineno-1-100"></a>│   │                             # 虚函数的默认参数陷阱(静态绑定默认值)
+</span><span id="__span-1-101"><a id="__codelineno-1-101" name="__codelineno-1-101" href="#__codelineno-1-101"></a>│   │
+</span><span id="__span-1-102"><a id="__codelineno-1-102" name="__codelineno-1-102" href="#__codelineno-1-102"></a>│   ├── nvi-and-interfaces.md     # 纯虚函数(=0)与抽象类(不能实例化)、
+</span><span id="__span-1-103"><a id="__codelineno-1-103" name="__codelineno-1-103" href="#__codelineno-1-103"></a>│   │                             # 接口类的最佳实践(纯虚+虚析构+无数据成员)、
+</span><span id="__span-1-104"><a id="__codelineno-1-104" name="__codelineno-1-104" href="#__codelineno-1-104"></a>│   │                             # 非虚接口惯用法(NVI)：公开非虚函数调用私有虚函数、
+</span><span id="__span-1-105"><a id="__codelineno-1-105" name="__codelineno-1-105" href="#__codelineno-1-105"></a>│   │                             # NVI的ABI稳定性优势与前置/后置条件保证
+</span><span id="__span-1-106"><a id="__codelineno-1-106" name="__codelineno-1-106" href="#__codelineno-1-106"></a>│   │
+</span><span id="__span-1-107"><a id="__codelineno-1-107" name="__codelineno-1-107" href="#__codelineno-1-107"></a>│   ├── rtti.md                   # typeid运算符与type_info类(name()/hash_code())、
+</span><span id="__span-1-108"><a id="__codelineno-1-108" name="__codelineno-1-108" href="#__codelineno-1-108"></a>│   │                             # dynamic_cast工作原理(运行时遍历继承树)、
+</span><span id="__span-1-109"><a id="__codelineno-1-109" name="__codelineno-1-109" href="#__codelineno-1-109"></a>│   │                             # 向下转型的安全条件(必须有虚函数)、
+</span><span id="__span-1-110"><a id="__codelineno-1-110" name="__codelineno-1-110" href="#__codelineno-1-110"></a>│   │                             # RTTI的性能开销(字符串比较/vtable查找)与禁用场景(-fno-rtti)
+</span><span id="__span-1-111"><a id="__codelineno-1-111" name="__codelineno-1-111" href="#__codelineno-1-111"></a>│   │
+</span><span id="__span-1-112"><a id="__codelineno-1-112" name="__codelineno-1-112" href="#__codelineno-1-112"></a>│   ├── exceptions.md             # throw/try/catch语法、异常对象拷贝与切片(值捕获vs引用捕获)、
+</span><span id="__span-1-113"><a id="__codelineno-1-113" name="__codelineno-1-113" href="#__codelineno-1-113"></a>│   │                             # noexcept声明(C++11)与noexcept运算符(条件noexcept)、
+</span><span id="__span-1-114"><a id="__codelineno-1-114" name="__codelineno-1-114" href="#__codelineno-1-114"></a>│   │                             # 异常安全三个保证(基本/强/不抛)、栈展开(销毁局部对象)、
+</span><span id="__span-1-115"><a id="__codelineno-1-115" name="__codelineno-1-115" href="#__codelineno-1-115"></a>│   │                             # 异常中性(exception neutral)设计与构造函数中的异常
+</span><span id="__span-1-116"><a id="__codelineno-1-116" name="__codelineno-1-116" href="#__codelineno-1-116"></a>│   │
+</span><span id="__span-1-117"><a id="__codelineno-1-117" name="__codelineno-1-117" href="#__codelineno-1-117"></a>│   └── object-lifetime.md        # 自动/静态/动态/线程存储期、thread_local(C++11)、
+</span><span id="__span-1-118"><a id="__codelineno-1-118" name="__codelineno-1-118" href="#__codelineno-1-118"></a>│                                 # 程序启动时全局对象初始化顺序问题(SIOF)与constexpr规避、
+</span><span id="__span-1-119"><a id="__codelineno-1-119" name="__codelineno-1-119" href="#__codelineno-1-119"></a>│                                 # 生命周期中的vtable切换(基类构造时指向基类vtable)
+</span><span id="__span-1-120"><a id="__codelineno-1-120" name="__codelineno-1-120" href="#__codelineno-1-120"></a>│
+</span><span id="__span-1-121"><a id="__codelineno-1-121" name="__codelineno-1-121" href="#__codelineno-1-121"></a>├── 03-resource/                  # 值语义与资源管理（9个文件）
+</span><span id="__span-1-122"><a id="__codelineno-1-122" name="__codelineno-1-122" href="#__codelineno-1-122"></a>│   ├── _index.md                 # 本部分概览：C++最独特的语言哲学——值语义
+</span><span id="__span-1-123"><a id="__codelineno-1-123" name="__codelineno-1-123" href="#__codelineno-1-123"></a>│   │
+</span><span id="__span-1-124"><a id="__codelineno-1-124" name="__codelineno-1-124" href="#__codelineno-1-124"></a>│   ├── value-categories.md       # C++值类别体系全景：左值(lvalue)/纯右值(prvalue)/
+</span><span id="__span-1-125"><a id="__codelineno-1-125" name="__codelineno-1-125" href="#__codelineno-1-125"></a>│   │                             # 将亡值(xvalue)/泛左值(glvalue)/右值(rvalue)、
+</span><span id="__span-1-126"><a id="__codelineno-1-126" name="__codelineno-1-126" href="#__codelineno-1-126"></a>│   │                             # C++17简化模型：值与对象的明确区分、
+</span><span id="__span-1-127"><a id="__codelineno-1-127" name="__codelineno-1-127" href="#__codelineno-1-127"></a>│   │                             # decltype与值类别的对应规则((x) vs (expr))
+</span><span id="__span-1-128"><a id="__codelineno-1-128" name="__codelineno-1-128" href="#__codelineno-1-128"></a>│   │
+</span><span id="__span-1-129"><a id="__codelineno-1-129" name="__codelineno-1-129" href="#__codelineno-1-129"></a>│   ├── copy-control.md           # 拷贝构造/赋值、移动构造/赋值的完整语法、
+</span><span id="__span-1-130"><a id="__codelineno-1-130" name="__codelineno-1-130" href="#__codelineno-1-130"></a>│   │                             # 三/五/零法则(如果自定义其一，则需全部关注)、
+</span><span id="__span-1-131"><a id="__codelineno-1-131" name="__codelineno-1-131" href="#__codelineno-1-131"></a>│   │                             # =delete(禁止)与=default(恢复默认)、
+</span><span id="__span-1-132"><a id="__codelineno-1-132" name="__codelineno-1-132" href="#__codelineno-1-132"></a>│   │                             # 浅拷贝vs深拷贝(资源所有权)、
+</span><span id="__span-1-133"><a id="__codelineno-1-133" name="__codelineno-1-133" href="#__codelineno-1-133"></a>│   │                             # 编译器隐式生成规则表(何时自动生成何时抑制)
+</span><span id="__span-1-134"><a id="__codelineno-1-134" name="__codelineno-1-134" href="#__codelineno-1-134"></a>│   │
+</span><span id="__span-1-135"><a id="__codelineno-1-135" name="__codelineno-1-135" href="#__codelineno-1-135"></a>│   ├── move-semantics.md         # std::move的本质(static_cast到右值引用)、
+</span><span id="__span-1-136"><a id="__codelineno-1-136" name="__codelineno-1-136" href="#__codelineno-1-136"></a>│   │                             # 移动后对象的状态保证(有效但未指定，如nullptr)、
+</span><span id="__span-1-137"><a id="__codelineno-1-137" name="__codelineno-1-137" href="#__codelineno-1-137"></a>│   │                             # RVO/NRVO返回值优化(复制消除的编译器保证C++17)、
+</span><span id="__span-1-138"><a id="__codelineno-1-138" name="__codelineno-1-138" href="#__codelineno-1-138"></a>│   │                             # 隐式移动(C++20)：return局部变量时自动尝试移动
+</span><span id="__span-1-139"><a id="__codelineno-1-139" name="__codelineno-1-139" href="#__codelineno-1-139"></a>│   │
+</span><span id="__span-1-140"><a id="__codelineno-1-140" name="__codelineno-1-140" href="#__codelineno-1-140"></a>│   ├── forwarding-references.md  # 转发引用(万能引用T&amp;&amp;)的推导规则(右值遇T→T,遇T&amp;→T&amp;)、
+</span><span id="__span-1-141"><a id="__codelineno-1-141" name="__codelineno-1-141" href="#__codelineno-1-141"></a>│   │                             # 引用折叠规则(T&amp; &amp;→T&amp;, T&amp;&amp; &amp;→T&amp;, T&amp; &amp;&amp;→T&amp;, T&amp;&amp; &amp;&amp;→T&amp;&amp;)、
+</span><span id="__span-1-142"><a id="__codelineno-1-142" name="__codelineno-1-142" href="#__codelineno-1-142"></a>│   │                             # 转发引用的重载陷阱(与普通函数重载的交互)
+</span><span id="__span-1-143"><a id="__codelineno-1-143" name="__codelineno-1-143" href="#__codelineno-1-143"></a>│   │
+</span><span id="__span-1-144"><a id="__codelineno-1-144" name="__codelineno-1-144" href="#__codelineno-1-144"></a>│   ├── perfect-forwarding.md     # std::forward实现原理(条件转换右值)、
+</span><span id="__span-1-145"><a id="__codelineno-1-145" name="__codelineno-1-145" href="#__codelineno-1-145"></a>│   │                             # 完美转发工厂函数模式(make_shared/emplace_back)、
+</span><span id="__span-1-146"><a id="__codelineno-1-146" name="__codelineno-1-146" href="#__codelineno-1-146"></a>│   │                             # 参数包完美转发(Args&amp;&amp;... args)、
+</span><span id="__span-1-147"><a id="__codelineno-1-147" name="__codelineno-1-147" href="#__codelineno-1-147"></a>│   │                             # 常见失败场景(不能完美转发的表达式：0/NULL/位域)
+</span><span id="__span-1-148"><a id="__codelineno-1-148" name="__codelineno-1-148" href="#__codelineno-1-148"></a>│   │
+</span><span id="__span-1-149"><a id="__codelineno-1-149" name="__codelineno-1-149" href="#__codelineno-1-149"></a>│   ├── raii.md                   # 资源获取即初始化：构造获取、析构释放、
+</span><span id="__span-1-150"><a id="__codelineno-1-150" name="__codelineno-1-150" href="#__codelineno-1-150"></a>│   │                             # 标准库RAII示例(lock_guard/fstream)、
+</span><span id="__span-1-151"><a id="__codelineno-1-151" name="__codelineno-1-151" href="#__codelineno-1-151"></a>│   │                             # ScopeGuard惯用法(手动实现与std::experimental::scope_exit)、
+</span><span id="__span-1-152"><a id="__codelineno-1-152" name="__codelineno-1-152" href="#__codelineno-1-152"></a>│   │                             # RAII与异常安全的天然契合(栈展开自动调用析构)
+</span><span id="__span-1-153"><a id="__codelineno-1-153" name="__codelineno-1-153" href="#__codelineno-1-153"></a>│   │
+</span><span id="__span-1-154"><a id="__codelineno-1-154" name="__codelineno-1-154" href="#__codelineno-1-154"></a>│   ├── unique-ptr.md             # unique_ptr：独占所有权语义、删除器(函数指针vs无状态
+</span><span id="__span-1-155"><a id="__codelineno-1-155" name="__codelineno-1-155" href="#__codelineno-1-155"></a>│   │                             # 函数对象vs有状态函数对象)对大小的影响、make_unique(C++14)、
+</span><span id="__span-1-156"><a id="__codelineno-1-156" name="__codelineno-1-156" href="#__codelineno-1-156"></a>│   │                             # 数组特化unique_ptr&lt;T[]&gt;与shared_ptr&lt;T[]&gt;的区别、
+</span><span id="__span-1-157"><a id="__codelineno-1-157" name="__codelineno-1-157" href="#__codelineno-1-157"></a>│   │                             # 与raw指针的互操作(release/get/reset)、
+</span><span id="__span-1-158"><a id="__codelineno-1-158" name="__codelineno-1-158" href="#__codelineno-1-158"></a>│   │                             # 使用最佳实践(工厂函数/容器/PIMPL)
+</span><span id="__span-1-159"><a id="__codelineno-1-159" name="__codelineno-1-159" href="#__codelineno-1-159"></a>│   │
+</span><span id="__span-1-160"><a id="__codelineno-1-160" name="__codelineno-1-160" href="#__codelineno-1-160"></a>│   ├── shared-ptr.md             # shared_ptr：引用计数机制(控制块)、
+</span><span id="__span-1-161"><a id="__codelineno-1-161" name="__codelineno-1-161" href="#__codelineno-1-161"></a>│   │                             # make_shared的内存合并优势(一次分配对象+控制块)、
+</span><span id="__span-1-162"><a id="__codelineno-1-162" name="__codelineno-1-162" href="#__codelineno-1-162"></a>│   │                             # aliasing构造函数(共享所有权但指向不同对象)、
+</span><span id="__span-1-163"><a id="__codelineno-1-163" name="__codelineno-1-163" href="#__codelineno-1-163"></a>│   │                             # enable_shared_from_this的CRTP用法与陷阱、
+</span><span id="__span-1-164"><a id="__codelineno-1-164" name="__codelineno-1-164" href="#__codelineno-1-164"></a>│   │                             # 使用最佳实践(避免循环引用/线程安全)
+</span><span id="__span-1-165"><a id="__codelineno-1-165" name="__codelineno-1-165" href="#__codelineno-1-165"></a>│   │
+</span><span id="__span-1-166"><a id="__codelineno-1-166" name="__codelineno-1-166" href="#__codelineno-1-166"></a>│   └── weak-ptr.md               # weak_ptr：打破循环引用的唯一方式、lock()与expired()、
+</span><span id="__span-1-167"><a id="__codelineno-1-167" name="__codelineno-1-167" href="#__codelineno-1-167"></a>│                                 # 观察者模式(Observer)的现代实现、缓存模式的实现技巧、
+</span><span id="__span-1-168"><a id="__codelineno-1-168" name="__codelineno-1-168" href="#__codelineno-1-168"></a>│                                 # 使用最佳实践(检查lock()返回值/expired()的TOCTOU问题)
+</span><span id="__span-1-169"><a id="__codelineno-1-169" name="__codelineno-1-169" href="#__codelineno-1-169"></a>│
+</span><span id="__span-1-170"><a id="__codelineno-1-170" name="__codelineno-1-170" href="#__codelineno-1-170"></a>├── 04-template/                  # 模板与编译期编程（12个文件）
+</span><span id="__span-1-171"><a id="__codelineno-1-171" name="__codelineno-1-171" href="#__codelineno-1-171"></a>│   ├── _index.md                 # 本部分概览：参数化类型与编译期计算，分基础(前7)与进阶(后5)
+</span><span id="__span-1-172"><a id="__codelineno-1-172" name="__codelineno-1-172" href="#__codelineno-1-172"></a>│   │
+</span><span id="__span-1-173"><a id="__codelineno-1-173" name="__codelineno-1-173" href="#__codelineno-1-173"></a>│   ├── function-templates.md     # 函数模板定义与模板参数列表、模板参数推导规则、
+</span><span id="__span-1-174"><a id="__codelineno-1-174" name="__codelineno-1-174" href="#__codelineno-1-174"></a>│   │                             # auto推导(C++17简化函数模板)、模板参数vs函数参数、
+</span><span id="__span-1-175"><a id="__codelineno-1-175" name="__codelineno-1-175" href="#__codelineno-1-175"></a>│   │                             # 函数模板重载与偏序(partial ordering)规则
+</span><span id="__span-1-176"><a id="__codelineno-1-176" name="__codelineno-1-176" href="#__codelineno-1-176"></a>│   │
+</span><span id="__span-1-177"><a id="__codelineno-1-177" name="__codelineno-1-177" href="#__codelineno-1-177"></a>│   ├── class-templates.md        # 类模板定义与实例化(隐式/显式)、
+</span><span id="__span-1-178"><a id="__codelineno-1-178" name="__codelineno-1-178" href="#__codelineno-1-178"></a>│   │                             # 成员函数定义位置(类内inline vs类外模板声明)、
+</span><span id="__span-1-179"><a id="__codelineno-1-179" name="__codelineno-1-179" href="#__codelineno-1-179"></a>│   │                             # 成员模板与模板成员的区别、模板模板参数、
+</span><span id="__span-1-180"><a id="__codelineno-1-180" name="__codelineno-1-180" href="#__codelineno-1-180"></a>│   │                             # friend与模板的组合(友元注入)
+</span><span id="__span-1-181"><a id="__codelineno-1-181" name="__codelineno-1-181" href="#__codelineno-1-181"></a>│   │
+</span><span id="__span-1-182"><a id="__codelineno-1-182" name="__codelineno-1-182" href="#__codelineno-1-182"></a>│   ├── template-deduction.md     # 模板实参推导(ADT)的完整规则(非推导上下文)、
+</span><span id="__span-1-183"><a id="__codelineno-1-183" name="__codelineno-1-183" href="#__codelineno-1-183"></a>│   │                             # CTAD(C++17)：类模板实参推导(隐式推导指引)、
+</span><span id="__span-1-184"><a id="__codelineno-1-184" name="__codelineno-1-184" href="#__codelineno-1-184"></a>│   │                             # 用户定义推导指引(自定义构造函数到模板参数的映射)、
+</span><span id="__span-1-185"><a id="__codelineno-1-185" name="__codelineno-1-185" href="#__codelineno-1-185"></a>│   │                             # 聚合的CTAD(C++20)
+</span><span id="__span-1-186"><a id="__codelineno-1-186" name="__codelineno-1-186" href="#__codelineno-1-186"></a>│   │
+</span><span id="__span-1-187"><a id="__codelineno-1-187" name="__codelineno-1-187" href="#__codelineno-1-187"></a>│   ├── specialization.md         # 全特化语法(函数的全特化 vs 模板函数重载)、
+</span><span id="__span-1-188"><a id="__codelineno-1-188" name="__codelineno-1-188" href="#__codelineno-1-188"></a>│   │                             # 偏特化的匹配规则与偏序(partial ordering)、
+</span><span id="__span-1-189"><a id="__codelineno-1-189" name="__codelineno-1-189" href="#__codelineno-1-189"></a>│   │                             # 显式实例化(explicit instantiation)减少编译时间、
+</span><span id="__span-1-190"><a id="__codelineno-1-190" name="__codelineno-1-190" href="#__codelineno-1-190"></a>│   │                             # 隐式实例化点(POI)与ODR问题(跨翻译单元的一致实例化)
+</span><span id="__span-1-191"><a id="__codelineno-1-191" name="__codelineno-1-191" href="#__codelineno-1-191"></a>│   │
+</span><span id="__span-1-192"><a id="__codelineno-1-192" name="__codelineno-1-192" href="#__codelineno-1-192"></a>│   ├── variadic-templates.md     # 参数包声明(typename... Args/auto...)、
+</span><span id="__span-1-193"><a id="__codelineno-1-193" name="__codelineno-1-193" href="#__codelineno-1-193"></a>│   │                             # 包展开位置(表达式/类型/基类/初始化列表)、
+</span><span id="__span-1-194"><a id="__codelineno-1-194" name="__codelineno-1-194" href="#__codelineno-1-194"></a>│   │                             # sizeof...(Args)获取参数个数、
+</span><span id="__span-1-195"><a id="__codelineno-1-195" name="__codelineno-1-195" href="#__codelineno-1-195"></a>│   │                             # 递归解包(头元素+递归)vs折叠表达式(C++17一元/二元折叠)
+</span><span id="__span-1-196"><a id="__codelineno-1-196" name="__codelineno-1-196" href="#__codelineno-1-196"></a>│   │
+</span><span id="__span-1-197"><a id="__codelineno-1-197" name="__codelineno-1-197" href="#__codelineno-1-197"></a>│   ├── alias-and-variable-templates.md # 别名模板(using Alias = ...)作为类型元函数、
+</span><span id="__span-1-198"><a id="__codelineno-1-198" name="__codelineno-1-198" href="#__codelineno-1-198"></a>│   │                             # 变量模板(C++14)template&lt;T&gt; constexpr T value = ...、
+</span><span id="__span-1-199"><a id="__codelineno-1-199" name="__codelineno-1-199" href="#__codelineno-1-199"></a>│   │                             # 标准库_t(类型别名)/_v(变量模板)便捷接口、
+</span><span id="__span-1-200"><a id="__codelineno-1-200" name="__codelineno-1-200" href="#__codelineno-1-200"></a>│   │                             # 模板参数默认值
+</span><span id="__span-1-201"><a id="__codelineno-1-201" name="__codelineno-1-201" href="#__codelineno-1-201"></a>│   │
+</span><span id="__span-1-202"><a id="__codelineno-1-202" name="__codelineno-1-202" href="#__codelineno-1-202"></a>│   ├── sfinae.md                 # SFINAE规则详解：替换失败不是错误(仅直接上下文)、
+</span><span id="__span-1-203"><a id="__codelineno-1-203" name="__codelineno-1-203" href="#__codelineno-1-203"></a>│   │                             # std::enable_if的三种放置位置(返回值/模板参数/默认值)、
+</span><span id="__span-1-204"><a id="__codelineno-1-204" name="__codelineno-1-204" href="#__codelineno-1-204"></a>│   │                             # void_t检测惯用法与detection idiom(C++20前)、
+</span><span id="__span-1-205"><a id="__codelineno-1-205" name="__codelineno-1-205" href="#__codelineno-1-205"></a>│   │                             # if constexpr替代SFINAE的场景
+</span><span id="__span-1-206"><a id="__codelineno-1-206" name="__codelineno-1-206" href="#__codelineno-1-206"></a>│   │
+</span><span id="__span-1-207"><a id="__codelineno-1-207" name="__codelineno-1-207" href="#__codelineno-1-207"></a>│   ├── concepts.md               # Concepts(C++20)：concept定义语法(constexpr bool)、
+</span><span id="__span-1-208"><a id="__codelineno-1-208" name="__codelineno-1-208" href="#__codelineno-1-208"></a>│   │                             # requires表达式(简单/类型/复合/嵌套)、requires子句、
+</span><span id="__span-1-209"><a id="__codelineno-1-209" name="__codelineno-1-209" href="#__codelineno-1-209"></a>│   │                             # 标准库concept全览(iterator/range/invocable/regular等)、
+</span><span id="__span-1-210"><a id="__codelineno-1-210" name="__codelineno-1-210" href="#__codelineno-1-210"></a>│   │                             # concept vs SFINAE的对比(错误信息/重载选择)
+</span><span id="__span-1-211"><a id="__codelineno-1-211" name="__codelineno-1-211" href="#__codelineno-1-211"></a>│   │
+</span><span id="__span-1-212"><a id="__codelineno-1-212" name="__codelineno-1-212" href="#__codelineno-1-212"></a>│   ├── type-traits.md            # &lt;type_traits&gt;完整体系：类型查询(is_void/is_pointer/
+</span><span id="__span-1-213"><a id="__codelineno-1-213" name="__codelineno-1-213" href="#__codelineno-1-213"></a>│   │                             # is_base_of/is_same等)、类型变换(remove_const/
+</span><span id="__span-1-214"><a id="__codelineno-1-214" name="__codelineno-1-214" href="#__codelineno-1-214"></a>│   │                             # remove_reference/add_pointer/decay等)、
+</span><span id="__span-1-215"><a id="__codelineno-1-215" name="__codelineno-1-215" href="#__codelineno-1-215"></a>│   │                             # 属性查询(is_trivial/is_standard_layout/
+</span><span id="__span-1-216"><a id="__codelineno-1-216" name="__codelineno-1-216" href="#__codelineno-1-216"></a>│   │                             # is_trivially_copyable)、类型运算(conditional/
+</span><span id="__span-1-217"><a id="__codelineno-1-217" name="__codelineno-1-217" href="#__codelineno-1-217"></a>│   │                             # common_type/underlying_type)
+</span><span id="__span-1-218"><a id="__codelineno-1-218" name="__codelineno-1-218" href="#__codelineno-1-218"></a>│   │
+</span><span id="__span-1-219"><a id="__codelineno-1-219" name="__codelineno-1-219" href="#__codelineno-1-219"></a>│   ├── tmp-basics.md             # 编译期计算入门：递归模板终止条件(全特化)、
+</span><span id="__span-1-220"><a id="__codelineno-1-220" name="__codelineno-1-220" href="#__codelineno-1-220"></a>│   │                             # 整数常量与integral_constant(值→类型映射)、
+</span><span id="__span-1-221"><a id="__codelineno-1-221" name="__codelineno-1-221" href="#__codelineno-1-221"></a>│   │                             # 编译期选择conditional_t(类型)/conditional(值)、
+</span><span id="__span-1-222"><a id="__codelineno-1-222" name="__codelineno-1-222" href="#__codelineno-1-222"></a>│   │                             # 编译期循环(模板递归展开/折叠表达式)
+</span><span id="__span-1-223"><a id="__codelineno-1-223" name="__codelineno-1-223" href="#__codelineno-1-223"></a>│   │
+</span><span id="__span-1-224"><a id="__codelineno-1-224" name="__codelineno-1-224" href="#__codelineno-1-224"></a>│   └── tmp-advanced.md           # 进阶元编程：表达式模板(expression templates)
+</span><span id="__span-1-225"><a id="__codelineno-1-225" name="__codelineno-1-225" href="#__codelineno-1-225"></a>│                                 # 优化数值计算(Eigen库)、Policy-Based Design与Mixin、
+</span><span id="__span-1-226"><a id="__codelineno-1-226" name="__codelineno-1-226" href="#__codelineno-1-226"></a>│                                 # tag dispatch惯用法(iterator_category)、
+</span><span id="__span-1-227"><a id="__codelineno-1-227" name="__codelineno-1-227" href="#__codelineno-1-227"></a>│                                 # 元函数与高阶元函数、Typelist与相关算法(查找/排序/变换)
+</span><span id="__span-1-228"><a id="__codelineno-1-228" name="__codelineno-1-228" href="#__codelineno-1-228"></a>│
+</span><span id="__span-1-229"><a id="__codelineno-1-229" name="__codelineno-1-229" href="#__codelineno-1-229"></a>├── 05-containers-and-algorithms/ # 容器与算法（13个文件）
+</span><span id="__span-1-230"><a id="__codelineno-1-230" name="__codelineno-1-230" href="#__codelineno-1-230"></a>│   ├── _index.md                 # 本部分概览：标准库数据组织与操作的核心组件
+</span><span id="__span-1-231"><a id="__codelineno-1-231" name="__codelineno-1-231" href="#__codelineno-1-231"></a>│   │
+</span><span id="__span-1-232"><a id="__codelineno-1-232" name="__codelineno-1-232" href="#__codelineno-1-232"></a>│   ├── sequence-containers.md    # vector(动态数组、增长因子1.5→2、reserve避免重新分配)、
+</span><span id="__span-1-233"><a id="__codelineno-1-233" name="__codelineno-1-233" href="#__codelineno-1-233"></a>│   │                             # deque(双端队列、块状内存布局)、list(双向链表、splice
+</span><span id="__span-1-234"><a id="__codelineno-1-234" name="__codelineno-1-234" href="#__codelineno-1-234"></a>│   │                             # 移动节点O(1))、array(C++11编译期大小)、
+</span><span id="__span-1-235"><a id="__codelineno-1-235" name="__codelineno-1-235" href="#__codelineno-1-235"></a>│   │                             # forward_list(C++11单向链表)、容器选择决策树
+</span><span id="__span-1-236"><a id="__codelineno-1-236" name="__codelineno-1-236" href="#__codelineno-1-236"></a>│   │
+</span><span id="__span-1-237"><a id="__codelineno-1-237" name="__codelineno-1-237" href="#__codelineno-1-237"></a>│   ├── associative-containers.md # set/map(红黑树实现、节点稳定地址)、
+</span><span id="__span-1-238"><a id="__codelineno-1-238" name="__codelineno-1-238" href="#__codelineno-1-238"></a>│   │                             # multiset/multimap(允许重复键)、
+</span><span id="__span-1-239"><a id="__codelineno-1-239" name="__codelineno-1-239" href="#__codelineno-1-239"></a>│   │                             # 自定义比较器(透明比较C++14：is_transparent)、
+</span><span id="__span-1-240"><a id="__codelineno-1-240" name="__codelineno-1-240" href="#__codelineno-1-240"></a>│   │                             # lower_bound/upper_bound/equal_range、等价vs相等
+</span><span id="__span-1-241"><a id="__codelineno-1-241" name="__codelineno-1-241" href="#__codelineno-1-241"></a>│   │
+</span><span id="__span-1-242"><a id="__codelineno-1-242" name="__codelineno-1-242" href="#__codelineno-1-242"></a>│   ├── unordered-containers.md   # unordered_set/map(哈希表、分离链接法)、
+</span><span id="__span-1-243"><a id="__codelineno-1-243" name="__codelineno-1-243" href="#__codelineno-1-243"></a>│   │                             # 桶操作(rehash/reserve预分配桶)、负载因子(max_load_factor)
+</span><span id="__span-1-244"><a id="__codelineno-1-244" name="__codelineno-1-244" href="#__codelineno-1-244"></a>│   │                             # 与性能、自定义哈希函数(std::hash特化)、
+</span><span id="__span-1-245"><a id="__codelineno-1-245" name="__codelineno-1-245" href="#__codelineno-1-245"></a>│   │                             # 等价键(KeyEqual)、hash与equal的一致性要求
+</span><span id="__span-1-246"><a id="__codelineno-1-246" name="__codelineno-1-246" href="#__codelineno-1-246"></a>│   │
+</span><span id="__span-1-247"><a id="__codelineno-1-247" name="__codelineno-1-247" href="#__codelineno-1-247"></a>│   ├── container-adaptors.md     # stack(LIFO默认用deque)、queue(FIFO默认用deque)、
+</span><span id="__span-1-248"><a id="__codelineno-1-248" name="__codelineno-1-248" href="#__codelineno-1-248"></a>│   │                             # priority_queue(堆默认用vector)、底层容器要求、
+</span><span id="__span-1-249"><a id="__codelineno-1-249" name="__codelineno-1-249" href="#__codelineno-1-249"></a>│   │                             # flat_map/flat_set(C++23)的缓存友好优势与有序要求
+</span><span id="__span-1-250"><a id="__codelineno-1-250" name="__codelineno-1-250" href="#__codelineno-1-250"></a>│   │
+</span><span id="__span-1-251"><a id="__codelineno-1-251" name="__codelineno-1-251" href="#__codelineno-1-251"></a>│   ├── algorithms-overview.md    # 算法库总览：分类体系(非修改/修改/排序/数值/重排)、
+</span><span id="__span-1-252"><a id="__codelineno-1-252" name="__codelineno-1-252" href="#__codelineno-1-252"></a>│   │                             # 迭代器范畴与算法要求的映射、执行策略(C++17 seq/
+</span><span id="__span-1-253"><a id="__codelineno-1-253" name="__codelineno-1-253" href="#__codelineno-1-253"></a>│   │                             # par/par_unseq)、复杂度约定(O(n log n)等)
+</span><span id="__span-1-254"><a id="__codelineno-1-254" name="__codelineno-1-254" href="#__codelineno-1-254"></a>│   │
+</span><span id="__span-1-255"><a id="__codelineno-1-255" name="__codelineno-1-255" href="#__codelineno-1-255"></a>│   ├── sorting-algorithms.md     # sort(内省排序=快排+堆排+插入排序的混合)、
+</span><span id="__span-1-256"><a id="__codelineno-1-256" name="__codelineno-1-256" href="#__codelineno-1-256"></a>│   │                             # partial_sort(部分排序)、nth_element(第n个元素)、
+</span><span id="__span-1-257"><a id="__codelineno-1-257" name="__codelineno-1-257" href="#__codelineno-1-257"></a>│   │                             # stable_sort(归并排序保序)、is_sorted/sorted_until
+</span><span id="__span-1-258"><a id="__codelineno-1-258" name="__codelineno-1-258" href="#__codelineno-1-258"></a>│   │
+</span><span id="__span-1-259"><a id="__codelineno-1-259" name="__codelineno-1-259" href="#__codelineno-1-259"></a>│   ├── searching-algorithms.md   # binary_search(二分查找)、lower_bound/upper_bound/
+</span><span id="__span-1-260"><a id="__codelineno-1-260" name="__codelineno-1-260" href="#__codelineno-1-260"></a>│   │                             # equal_range(查找位置)、find/find_if/find_if_not、
+</span><span id="__span-1-261"><a id="__codelineno-1-261" name="__codelineno-1-261" href="#__codelineno-1-261"></a>│   │                             # search(Boyer-Moore算法)、mismatch
+</span><span id="__span-1-262"><a id="__codelineno-1-262" name="__codelineno-1-262" href="#__codelineno-1-262"></a>│   │
+</span><span id="__span-1-263"><a id="__codelineno-1-263" name="__codelineno-1-263" href="#__codelineno-1-263"></a>│   ├── numeric-algorithms.md     # iota(生成递增序列)/accumulate(累积)/inner_product、
+</span><span id="__span-1-264"><a id="__codelineno-1-264" name="__codelineno-1-264" href="#__codelineno-1-264"></a>│   │                             # reduce/transform_reduce(C++17并行友好)、
+</span><span id="__span-1-265"><a id="__codelineno-1-265" name="__codelineno-1-265" href="#__codelineno-1-265"></a>│   │                             # partial_sum(前缀和)、adjacent_difference(差分)、
+</span><span id="__span-1-266"><a id="__codelineno-1-266" name="__codelineno-1-266" href="#__codelineno-1-266"></a>│   │                             # gcd/lcm(C++17整数最大公约数/最小公倍数)
+</span><span id="__span-1-267"><a id="__codelineno-1-267" name="__codelineno-1-267" href="#__codelineno-1-267"></a>│   │
+</span><span id="__span-1-268"><a id="__codelineno-1-268" name="__codelineno-1-268" href="#__codelineno-1-268"></a>│   ├── mutating-algorithms.md    # copy/move/fill/generate、remove/unique与
+</span><span id="__span-1-269"><a id="__codelineno-1-269" name="__codelineno-1-269" href="#__codelineno-1-269"></a>│   │                             # erase-remove惯用法(remove不改变容器大小)、
+</span><span id="__span-1-270"><a id="__codelineno-1-270" name="__codelineno-1-270" href="#__codelineno-1-270"></a>│   │                             # rotate/shuffle/sample、partition/stable_partition
+</span><span id="__span-1-271"><a id="__codelineno-1-271" name="__codelineno-1-271" href="#__codelineno-1-271"></a>│   │
+</span><span id="__span-1-272"><a id="__codelineno-1-272" name="__codelineno-1-272" href="#__codelineno-1-272"></a>│   ├── heap-algorithms.md        # make_heap(建堆O(n))/push_heap(O(log n))/
+</span><span id="__span-1-273"><a id="__codelineno-1-273" name="__codelineno-1-273" href="#__codelineno-1-273"></a>│   │                             # pop_heap/sort_heap(堆排序)、
+</span><span id="__span-1-274"><a id="__codelineno-1-274" name="__codelineno-1-274" href="#__codelineno-1-274"></a>│   │                             # priority_queue的内部实现(make_heap+push_heap+pop_heap)、
+</span><span id="__span-1-275"><a id="__codelineno-1-275" name="__codelineno-1-275" href="#__codelineno-1-275"></a>│   │                             # 自定义比较器(max heap vs min heap)
+</span><span id="__span-1-276"><a id="__codelineno-1-276" name="__codelineno-1-276" href="#__codelineno-1-276"></a>│   │
+</span><span id="__span-1-277"><a id="__codelineno-1-277" name="__codelineno-1-277" href="#__codelineno-1-277"></a>│   ├── iterator-system.md        # 迭代器类别(输入/输出/正向/双向/随机访问/连续)、
+</span><span id="__span-1-278"><a id="__codelineno-1-278" name="__codelineno-1-278" href="#__codelineno-1-278"></a>│   │                             # iterator_traits(iterator_category/value_type/
+</span><span id="__span-1-279"><a id="__codelineno-1-279" name="__codelineno-1-279" href="#__codelineno-1-279"></a>│   │                             # difference_type)、迭代器适配器(back_inserter/
+</span><span id="__span-1-280"><a id="__codelineno-1-280" name="__codelineno-1-280" href="#__codelineno-1-280"></a>│   │                             # front_inserter/inserter/stream_iterator/reverse_iterator)
+</span><span id="__span-1-281"><a id="__codelineno-1-281" name="__codelineno-1-281" href="#__codelineno-1-281"></a>│   │
+</span><span id="__span-1-282"><a id="__codelineno-1-282" name="__codelineno-1-282" href="#__codelineno-1-282"></a>│   └── ranges.md                 # Ranges(C++20)：range概念(sized_range/borrowed_range/
+</span><span id="__span-1-283"><a id="__codelineno-1-283" name="__codelineno-1-283" href="#__codelineno-1-283"></a>│                                 # viewable_range)、view的惰性求值特性(不拥有数据)、
+</span><span id="__span-1-284"><a id="__codelineno-1-284" name="__codelineno-1-284" href="#__codelineno-1-284"></a>│                                 # 适配器(filter/transform/take/drop/join/split)、
+</span><span id="__span-1-285"><a id="__codelineno-1-285" name="__codelineno-1-285" href="#__codelineno-1-285"></a>│                                 # 管道操作符|、action(C++23)即时求值、自定义view
+</span><span id="__span-1-286"><a id="__codelineno-1-286" name="__codelineno-1-286" href="#__codelineno-1-286"></a>│
+</span><span id="__span-1-287"><a id="__codelineno-1-287" name="__codelineno-1-287" href="#__codelineno-1-287"></a>├── 06-standard-library-utilities/ # 标准库设施（14个文件）
+</span><span id="__span-1-288"><a id="__codelineno-1-288" name="__codelineno-1-288" href="#__codelineno-1-288"></a>│   ├── _index.md                 # 本部分概览：标准库的支撑性通用组件
+</span><span id="__span-1-289"><a id="__codelineno-1-289" name="__codelineno-1-289" href="#__codelineno-1-289"></a>│   │
+</span><span id="__span-1-290"><a id="__codelineno-1-290" name="__codelineno-1-290" href="#__codelineno-1-290"></a>│   ├── string.md                 # std::string内部实现(SSO机制：典型15/22字节阈值)、
+</span><span id="__span-1-291"><a id="__codelineno-1-291" name="__codelineno-1-291" href="#__codelineno-1-291"></a>│   │                             # 常用操作(查找find/rfind、替换replace、子串substr)、
+</span><span id="__span-1-292"><a id="__codelineno-1-292" name="__codelineno-1-292" href="#__codelineno-1-292"></a>│   │                             # 与C字符串互操作(c_str/data)、std::pmr::string(多态分配器)
+</span><span id="__span-1-293"><a id="__codelineno-1-293" name="__codelineno-1-293" href="#__codelineno-1-293"></a>│   │
+</span><span id="__span-1-294"><a id="__codelineno-1-294" name="__codelineno-1-294" href="#__codelineno-1-294"></a>│   ├── string-view.md            # std::string_view(C++17)：零拷贝视图(char*+长度)、
+</span><span id="__span-1-295"><a id="__codelineno-1-295" name="__codelineno-1-295" href="#__codelineno-1-295"></a>│   │                             # 作为函数参数的最佳实践(替代const string&amp;)、
+</span><span id="__span-1-296"><a id="__codelineno-1-296" name="__codelineno-1-296" href="#__codelineno-1-296"></a>│   │                             # dangling view陷阱(绑定到临时string)、substr的O(1)效率
+</span><span id="__span-1-297"><a id="__codelineno-1-297" name="__codelineno-1-297" href="#__codelineno-1-297"></a>│   │
+</span><span id="__span-1-298"><a id="__codelineno-1-298" name="__codelineno-1-298" href="#__codelineno-1-298"></a>│   ├── iostream.md               # 流I/O体系：iostream(控制台)/fstream(文件)/
+</span><span id="__span-1-299"><a id="__codelineno-1-299" name="__codelineno-1-299" href="#__codelineno-1-299"></a>│   │                             # sstream(字符串流)、格式化标志(flags/precision/width)、
+</span><span id="__span-1-300"><a id="__codelineno-1-300" name="__codelineno-1-300" href="#__codelineno-1-300"></a>│   │                             # 与printf的效率对比、同步关闭(sync_with_stdio)
+</span><span id="__span-1-301"><a id="__codelineno-1-301" name="__codelineno-1-301" href="#__codelineno-1-301"></a>│   │
+</span><span id="__span-1-302"><a id="__codelineno-1-302" name="__codelineno-1-302" href="#__codelineno-1-302"></a>│   ├── formatting.md             # std::format(C++20)：占位符语法{}、格式说明符(:&lt;宽度&gt;/
+</span><span id="__span-1-303"><a id="__codelineno-1-303" name="__codelineno-1-303" href="#__codelineno-1-303"></a>│   │                             # :&lt;精度&gt;/:&lt;填充&gt;)、自定义格式化器(std::formatter特化)、
+</span><span id="__span-1-304"><a id="__codelineno-1-304" name="__codelineno-1-304" href="#__codelineno-1-304"></a>│   │                             # std::print(C++23直接输出)、编译期格式字符串检查
+</span><span id="__span-1-305"><a id="__codelineno-1-305" name="__codelineno-1-305" href="#__codelineno-1-305"></a>│   │
+</span><span id="__span-1-306"><a id="__codelineno-1-306" name="__codelineno-1-306" href="#__codelineno-1-306"></a>│   ├── pair-and-tuple.md         # std::pair(二元组)、std::tuple(可变元组)、std::tie(解包)、
+</span><span id="__span-1-307"><a id="__codelineno-1-307" name="__codelineno-1-307" href="#__codelineno-1-307"></a>│   │                             # make_tuple、tuple_cat(拼接)、tuple_element/tuple_size、
+</span><span id="__span-1-308"><a id="__codelineno-1-308" name="__codelineno-1-308" href="#__codelineno-1-308"></a>│   │                             # 结构化绑定与tuple的紧密关系
+</span><span id="__span-1-309"><a id="__codelineno-1-309" name="__codelineno-1-309" href="#__codelineno-1-309"></a>│   │
+</span><span id="__span-1-310"><a id="__codelineno-1-310" name="__codelineno-1-310" href="#__codelineno-1-310"></a>│   ├── optional.md               # std::optional(C++17)：有值或空、value()(抛异常) vs
+</span><span id="__span-1-311"><a id="__codelineno-1-311" name="__codelineno-1-311" href="#__codelineno-1-311"></a>│   │                             # operator*(未定义行为) vs value_or()(默认值)、
+</span><span id="__span-1-312"><a id="__codelineno-1-312" name="__codelineno-1-312" href="#__codelineno-1-312"></a>│   │                             # and_then/or_else(C++23单子操作链式调用)、
+</span><span id="__span-1-313"><a id="__codelineno-1-313" name="__codelineno-1-313" href="#__codelineno-1-313"></a>│   │                             # std::optional&lt;std::reference_wrapper&lt;T&gt;&gt;包装引用
+</span><span id="__span-1-314"><a id="__codelineno-1-314" name="__codelineno-1-314" href="#__codelineno-1-314"></a>│   │
+</span><span id="__span-1-315"><a id="__codelineno-1-315" name="__codelineno-1-315" href="#__codelineno-1-315"></a>│   ├── variant.md                # std::variant(C++17)：类型安全的联合体(知道当前存储类型)、
+</span><span id="__span-1-316"><a id="__codelineno-1-316" name="__codelineno-1-316" href="#__codelineno-1-316"></a>│   │                             # std::visit与访问者模式(overloaded惯用法)、
+</span><span id="__span-1-317"><a id="__codelineno-1-317" name="__codelineno-1-317" href="#__codelineno-1-317"></a>│   │                             # std::get/std::get_if(按类型或索引)、
+</span><span id="__span-1-318"><a id="__codelineno-1-318" name="__codelineno-1-318" href="#__codelineno-1-318"></a>│   │                             # valueless_by_exception异常状态、递归variant的惯用实现
+</span><span id="__span-1-319"><a id="__codelineno-1-319" name="__codelineno-1-319" href="#__codelineno-1-319"></a>│   │
+</span><span id="__span-1-320"><a id="__codelineno-1-320" name="__codelineno-1-320" href="#__codelineno-1-320"></a>│   ├── any-and-expected.md       # std::any(C++17)：任意类型容器(SBO小对象优化)、any_cast、
+</span><span id="__span-1-321"><a id="__codelineno-1-321" name="__codelineno-1-321" href="#__codelineno-1-321"></a>│   │                             # std::expected(C++23)：成功值或错误值的类型安全返回、
+</span><span id="__span-1-322"><a id="__codelineno-1-322" name="__codelineno-1-322" href="#__codelineno-1-322"></a>│   │                             # and_then/or_else/transform单子操作
+</span><span id="__span-1-323"><a id="__codelineno-1-323" name="__codelineno-1-323" href="#__codelineno-1-323"></a>│   │
+</span><span id="__span-1-324"><a id="__codelineno-1-324" name="__codelineno-1-324" href="#__codelineno-1-324"></a>│   ├── regex.md                  # std::regex：正则表达式语法(ECMAScript默认/awk/grep/egrep)、
+</span><span id="__span-1-325"><a id="__codelineno-1-325" name="__codelineno-1-325" href="#__codelineno-1-325"></a>│   │                             # 匹配(match/search/replace)、regex_iterator(遍历匹配)、
+</span><span id="__span-1-326"><a id="__codelineno-1-326" name="__codelineno-1-326" href="#__codelineno-1-326"></a>│   │                             # 编译时性能优化、与string_view的交互
+</span><span id="__span-1-327"><a id="__codelineno-1-327" name="__codelineno-1-327" href="#__codelineno-1-327"></a>│   │
+</span><span id="__span-1-328"><a id="__codelineno-1-328" name="__codelineno-1-328" href="#__codelineno-1-328"></a>│   ├── random.md                 # &lt;random&gt;：随机数引擎(mt19937/linear_congruential)、
+</span><span id="__span-1-329"><a id="__codelineno-1-329" name="__codelineno-1-329" href="#__codelineno-1-329"></a>│   │                             # 分布(均匀/正态/伯努利/泊松)、std::random_device(真随机)、
+</span><span id="__span-1-330"><a id="__codelineno-1-330" name="__codelineno-1-330" href="#__codelineno-1-330"></a>│   │                             # seed管理(固定seed可复现)、避免rand()的原因(周期/分布/线程安全)
+</span><span id="__span-1-331"><a id="__codelineno-1-331" name="__codelineno-1-331" href="#__codelineno-1-331"></a>│   │
+</span><span id="__span-1-332"><a id="__codelineno-1-332" name="__codelineno-1-332" href="#__codelineno-1-332"></a>│   ├── chrono.md                 # std::chrono：duration时间段(算术与转换cast)、
+</span><span id="__span-1-333"><a id="__codelineno-1-333" name="__codelineno-1-333" href="#__codelineno-1-333"></a>│   │                             # time_point时间点(与duration的关系)、
+</span><span id="__span-1-334"><a id="__codelineno-1-334" name="__codelineno-1-334" href="#__codelineno-1-334"></a>│   │                             # clock类型(system_clock/steady_clock/high_resolution_clock)、
+</span><span id="__span-1-335"><a id="__codelineno-1-335" name="__codelineno-1-335" href="#__codelineno-1-335"></a>│   │                             # 字面量(h/min/s/ms/us/ns C++14)
+</span><span id="__span-1-336"><a id="__codelineno-1-336" name="__codelineno-1-336" href="#__codelineno-1-336"></a>│   │
+</span><span id="__span-1-337"><a id="__codelineno-1-337" name="__codelineno-1-337" href="#__codelineno-1-337"></a>│   ├── calendar-and-timezone.md  # 日历类型(C++20)：year/month/day/weekday/month_day等、
+</span><span id="__span-1-338"><a id="__codelineno-1-338" name="__codelineno-1-338" href="#__codelineno-1-338"></a>│   │                             # 日期算术(months/years +/-)、
+</span><span id="__span-1-339"><a id="__codelineno-1-339" name="__codelineno-1-339" href="#__codelineno-1-339"></a>│   │                             # 时区(time_zone/zoned_time)、格式化输出(%F/%T/%z)
+</span><span id="__span-1-340"><a id="__codelineno-1-340" name="__codelineno-1-340" href="#__codelineno-1-340"></a>│   │
+</span><span id="__span-1-341"><a id="__codelineno-1-341" name="__codelineno-1-341" href="#__codelineno-1-341"></a>│   ├── filesystem.md             # std::filesystem(C++17)：path类操作(拼接/=、分解/
+</span><span id="__span-1-342"><a id="__codelineno-1-342" name="__codelineno-1-342" href="#__codelineno-1-342"></a>│   │                             # filename/extension、规范化canonical)、
+</span><span id="__span-1-343"><a id="__codelineno-1-343" name="__codelineno-1-343" href="#__codelineno-1-343"></a>│   │                             # 文件状态查询(exists/is_directory/file_size/permissions)、
+</span><span id="__span-1-344"><a id="__codelineno-1-344" name="__codelineno-1-344" href="#__codelineno-1-344"></a>│   │                             # 目录遍历(recursive_directory_iterator)
+</span><span id="__span-1-345"><a id="__codelineno-1-345" name="__codelineno-1-345" href="#__codelineno-1-345"></a>│   │
+</span><span id="__span-1-346"><a id="__codelineno-1-346" name="__codelineno-1-346" href="#__codelineno-1-346"></a>│   └── utility-and-other.md      # 其他实用工具：std::move/std::forward(原理见03-resource，
+</span><span id="__span-1-347"><a id="__codelineno-1-347" name="__codelineno-1-347" href="#__codelineno-1-347"></a>│                                 # 此处总结使用场景)、std::swap与ADL、std::exchange、
+</span><span id="__span-1-348"><a id="__codelineno-1-348" name="__codelineno-1-348" href="#__codelineno-1-348"></a>│                                 # std::as_const、std::invoke(C++17)、
+</span><span id="__span-1-349"><a id="__codelineno-1-349" name="__codelineno-1-349" href="#__codelineno-1-349"></a>│                                 # std::reference_wrapper与std::ref/cref、
+</span><span id="__span-1-350"><a id="__codelineno-1-350" name="__codelineno-1-350" href="#__codelineno-1-350"></a>│                                 # std::to_underlying(C++23)
+</span><span id="__span-1-351"><a id="__codelineno-1-351" name="__codelineno-1-351" href="#__codelineno-1-351"></a>│
+</span><span id="__span-1-352"><a id="__codelineno-1-352" name="__codelineno-1-352" href="#__codelineno-1-352"></a>└── 07-concurrency/               # 并发与内存模型（12个文件）
+</span><span id="__span-1-353"><a id="__codelineno-1-353" name="__codelineno-1-353" href="#__codelineno-1-353"></a>    ├── _index.md                 # 本部分概览：多核时代的C++并发编程完整链路
+</span><span id="__span-1-354"><a id="__codelineno-1-354" name="__codelineno-1-354" href="#__codelineno-1-354"></a>    │
+</span><span id="__span-1-355"><a id="__codelineno-1-355" name="__codelineno-1-355" href="#__codelineno-1-355"></a>    ├── thread-management.md      # std::thread构造与生命周期、join(等待) vs detach(分离)、
+</span><span id="__span-1-356"><a id="__codelineno-1-356" name="__codelineno-1-356" href="#__codelineno-1-356"></a>    │                             # 线程标识(get_id)、std::jthread(C++20)自动join与
+</span><span id="__span-1-357"><a id="__codelineno-1-357" name="__codelineno-1-357" href="#__codelineno-1-357"></a>    │                             # stop_token协作式取消(request_stop/stop_requested)
+</span><span id="__span-1-358"><a id="__codelineno-1-358" name="__codelineno-1-358" href="#__codelineno-1-358"></a>    │
+</span><span id="__span-1-359"><a id="__codelineno-1-359" name="__codelineno-1-359" href="#__codelineno-1-359"></a>    ├── mutex-and-lock.md         # std::mutex/timed_mutex/recursive_mutex(递归锁)、
+</span><span id="__span-1-360"><a id="__codelineno-1-360" name="__codelineno-1-360" href="#__codelineno-1-360"></a>    │                             # lock_guard(简单RAII锁)/unique_lock(可延迟/转移所有权)/
+</span><span id="__span-1-361"><a id="__codelineno-1-361" name="__codelineno-1-361" href="#__codelineno-1-361"></a>    │                             # scoped_lock(C++17可变参数免死锁)、
+</span><span id="__span-1-362"><a id="__codelineno-1-362" name="__codelineno-1-362" href="#__codelineno-1-362"></a>    │                             # std::lock同时锁定多个互斥锁(死锁避免算法)
+</span><span id="__span-1-363"><a id="__codelineno-1-363" name="__codelineno-1-363" href="#__codelineno-1-363"></a>    │
+</span><span id="__span-1-364"><a id="__codelineno-1-364" name="__codelineno-1-364" href="#__codelineno-1-364"></a>    ├── shared-mutex.md           # std::shared_mutex(C++17)：读写锁、
+</span><span id="__span-1-365"><a id="__codelineno-1-365" name="__codelineno-1-365" href="#__codelineno-1-365"></a>    │                             # shared_lock(读锁 多个线程可同时持有)与
+</span><span id="__span-1-366"><a id="__codelineno-1-366" name="__codelineno-1-366" href="#__codelineno-1-366"></a>    │                             # unique_lock(写锁 独占)、读写锁的性能权衡(
+</span><span id="__span-1-367"><a id="__codelineno-1-367" name="__codelineno-1-367" href="#__codelineno-1-367"></a>    │                             # 读多写少才有优势，否则普通mutex更优)
+</span><span id="__span-1-368"><a id="__codelineno-1-368" name="__codelineno-1-368" href="#__codelineno-1-368"></a>    │
+</span><span id="__span-1-369"><a id="__codelineno-1-369" name="__codelineno-1-369" href="#__codelineno-1-369"></a>    ├── condition-variable.md     # std::condition_variable：wait(原子释放锁+等待)/notify_one
+</span><span id="__span-1-370"><a id="__codelineno-1-370" name="__codelineno-1-370" href="#__codelineno-1-370"></a>    │                             # /notify_all、虚假唤醒(spurious wakeup)的成因与处理(
+</span><span id="__span-1-371"><a id="__codelineno-1-371" name="__codelineno-1-371" href="#__codelineno-1-371"></a>    │                             # 必须用while而非if)、生产者-消费者模式的多种实现
+</span><span id="__span-1-372"><a id="__codelineno-1-372" name="__codelineno-1-372" href="#__codelineno-1-372"></a>    │
+</span><span id="__span-1-373"><a id="__codelineno-1-373" name="__codelineno-1-373" href="#__codelineno-1-373"></a>    ├── semaphore-and-barrier.md  # std::counting_semaphore(C++20)：计数信号量(max计数)、
+</span><span id="__span-1-374"><a id="__codelineno-1-374" name="__codelineno-1-374" href="#__codelineno-1-374"></a>    │                             # binary_semaphore(二元信号量)、std::latch(一次性倒计数
+</span><span id="__span-1-375"><a id="__codelineno-1-375" name="__codelineno-1-375" href="#__codelineno-1-375"></a>    │                             # 等待所有任务完成)、std::barrier(可重用同步点C++20)
+</span><span id="__span-1-376"><a id="__codelineno-1-376" name="__codelineno-1-376" href="#__codelineno-1-376"></a>    │
+</span><span id="__span-1-377"><a id="__codelineno-1-377" name="__codelineno-1-377" href="#__codelineno-1-377"></a>    ├── atomics.md                # std::atomic模板与特化(atomic_int/bool/pointer)、
+</span><span id="__span-1-378"><a id="__codelineno-1-378" name="__codelineno-1-378" href="#__codelineno-1-378"></a>    │                             # 原子操作(load/store/exchange/compare_exchange_strong/
+</span><span id="__span-1-379"><a id="__codelineno-1-379" name="__codelineno-1-379" href="#__codelineno-1-379"></a>    │                             # weak与CAS循环)、std::atomic_ref(C++20非原子对象包装)、
+</span><span id="__span-1-380"><a id="__codelineno-1-380" name="__codelineno-1-380" href="#__codelineno-1-380"></a>    │                             # is_lock_free与平台相关性
+</span><span id="__span-1-381"><a id="__codelineno-1-381" name="__codelineno-1-381" href="#__codelineno-1-381"></a>    │
+</span><span id="__span-1-382"><a id="__codelineno-1-382" name="__codelineno-1-382" href="#__codelineno-1-382"></a>    ├── memory-order.md           # memory_order六种枚举(relaxed/consume/acquire/release/
+</span><span id="__span-1-383"><a id="__codelineno-1-383" name="__codelineno-1-383" href="#__codelineno-1-383"></a>    │                             # acq_rel/seq_cst)、happens-before与synchronizes-with关系、
+</span><span id="__span-1-384"><a id="__codelineno-1-384" name="__codelineno-1-384" href="#__codelineno-1-384"></a>    │                             # release-acquire同步模式(生产者-消费者配对)、
+</span><span id="__span-1-385"><a id="__codelineno-1-385" name="__codelineno-1-385" href="#__codelineno-1-385"></a>    │                             # seq_cst的全局一致序(所有线程看到同一顺序)、
+</span><span id="__span-1-386"><a id="__codelineno-1-386" name="__codelineno-1-386" href="#__codelineno-1-386"></a>    │                             # relaxed的适用场景(简单计数器)与陷阱
+</span><span id="__span-1-387"><a id="__codelineno-1-387" name="__codelineno-1-387" href="#__codelineno-1-387"></a>    │
+</span><span id="__span-1-388"><a id="__codelineno-1-388" name="__codelineno-1-388" href="#__codelineno-1-388"></a>    ├── fences.md                 # std::atomic_thread_fence(内存栅栏)、
+</span><span id="__span-1-389"><a id="__codelineno-1-389" name="__codelineno-1-389" href="#__codelineno-1-389"></a>    │                             # acquire/release/seq_cst fence与原子操作的对比(
+</span><span id="__span-1-390"><a id="__codelineno-1-390" name="__codelineno-1-390" href="#__codelineno-1-390"></a>    │                             # fence作用于线程的所有后续/前序操作而非单个变量)、
+</span><span id="__span-1-391"><a id="__codelineno-1-391" name="__codelineno-1-391" href="#__codelineno-1-391"></a>    │                             # 典型使用场景(非原子对象的同步)
+</span><span id="__span-1-392"><a id="__codelineno-1-392" name="__codelineno-1-392" href="#__codelineno-1-392"></a>    │
+</span><span id="__span-1-393"><a id="__codelineno-1-393" name="__codelineno-1-393" href="#__codelineno-1-393"></a>    ├── lock-free-intro.md        # 无锁编程的意义(避免锁的开销：阻塞/优先级反转)与代价
+</span><span id="__span-1-394"><a id="__codelineno-1-394" name="__codelineno-1-394" href="#__codelineno-1-394"></a>    │                             # (复杂度+ABA问题+内存回收)、CAS循环(compare-and-swap loop)
+</span><span id="__span-1-395"><a id="__codelineno-1-395" name="__codelineno-1-395" href="#__codelineno-1-395"></a>    │                             # 的基本模式、ABA问题与解决方案(带标记的指针tagged pointer)、
+</span><span id="__span-1-396"><a id="__codelineno-1-396" name="__codelineno-1-396" href="#__codelineno-1-396"></a>    │                             # 内存回收(hazard pointer/epoch/RP技术简介)
+</span><span id="__span-1-397"><a id="__codelineno-1-397" name="__codelineno-1-397" href="#__codelineno-1-397"></a>    │
+</span><span id="__span-1-398"><a id="__codelineno-1-398" name="__codelineno-1-398" href="#__codelineno-1-398"></a>    ├── async-and-future.md       # std::async启动策略(launch::async强制新线程 vs
+</span><span id="__span-1-399"><a id="__codelineno-1-399" name="__codelineno-1-399" href="#__codelineno-1-399"></a>    │                             # launch::deferred延迟执行)、std::future与
+</span><span id="__span-1-400"><a id="__codelineno-1-400" name="__codelineno-1-400" href="#__codelineno-1-400"></a>    │                             # std::shared_future(多等待者)、std::promise(设置值)、
+</span><span id="__span-1-401"><a id="__codelineno-1-401" name="__codelineno-1-401" href="#__codelineno-1-401"></a>    │                             # std::packaged_task(包装可调用对象)
+</span><span id="__span-1-402"><a id="__codelineno-1-402" name="__codelineno-1-402" href="#__codelineno-1-402"></a>    │
+</span><span id="__span-1-403"><a id="__codelineno-1-403" name="__codelineno-1-403" href="#__codelineno-1-403"></a>    └── coroutine-basics.md       # 协程(C++20)：co_await(等待)/co_yield(产出)/
+</span><span id="__span-1-404"><a id="__codelineno-1-404" name="__codelineno-1-404" href="#__codelineno-1-404"></a>                                  # co_return(返回)、promise_type(协程控制块 自定义行为)、
+</span><span id="__span-1-405"><a id="__codelineno-1-405" name="__codelineno-1-405" href="#__codelineno-1-405"></a>                                  # awaiter(await_ready/await_suspend/await_resume)、
+</span><span id="__span-1-406"><a id="__codelineno-1-406" name="__codelineno-1-406" href="#__codelineno-1-406"></a>                                  # std::generator(C++23简化生成器)、
+</span><span id="__span-1-407"><a id="__codelineno-1-407" name="__codelineno-1-407" href="#__codelineno-1-407"></a>                                  # 异步协程与io_uring结合的前瞻(零系统调用异步I/O)
+</span></code></pre></div></p>
 
   
 
