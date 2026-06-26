@@ -1,4 +1,6 @@
 nav:
     - System Programming: README.md
     - Introduction: Introduction.md
+    - Time, Dates, Locales: Time-Dates-Locales.md
+    - File I/O: File-IO.md
     - Signal: Signal.md
