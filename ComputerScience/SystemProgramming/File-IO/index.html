@@ -1077,6 +1077,8 @@
       
         
       
+        
+      
     
     
     
@@ -1280,6 +1282,95 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#io_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本 I/O 接口
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本 I/O 接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        打开文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关闭文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        读文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        写文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制读写位置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制读写位置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件空洞
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1304,6 +1395,34 @@
     
   
     Signal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
   
 
     
@@ -31456,6 +31575,95 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#io_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本 I/O 接口
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本 I/O 接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        打开文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关闭文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        读文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        写文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制读写位置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制读写位置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文件空洞
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -31567,7 +31775,7 @@
 
 <p>数据从文件传输到内存空间称为文件输入（<code>file input</code>），反之从内存空间传输到文件称为文件输出（<code>file output</code>）。统称为文件 I/O（<code>file I/O</code>）。</p>
 <p>高级语言的类库往往提供了方便的接口操作文件 I/O，不过有的时候没有充分的控制力或者效率不够高，这时就需要使用系统调用来进行文件 I/O。</p>
-<p>从 Unix 诞生之初，就采用了一种通用的 I/O 模型，目的是消除不同设备以及不能访问方式的差异。也就是说，一个能够对磁盘文件进行读写的程序，同样可以对终端、网络接口或者外围设备等设备进行读写。从程序的视角看，访问这些设备并没有差别。因此我们说 Unix 提供了设备无关的 I/O。</p>
+<p>从 Unix 诞生之初，就采用了一种通用的 I/O 模型，目的是消除不同设备以及不能访问方式的差异。也就是说，一个能够对磁盘文件进行读写的程序，同样可以对终端、网络接口或者外围设备等设备进行读写。从程序的视角看，访问这些设备并没有差别。因此我们说 Unix 提供了设备无关的 I/O。举一个具体的例子，<code>/dev/tty</code> 是一个特殊的文件，它表示终端设备，假定有一个文件 <code>infile</code>，<code>cp infile /dev/tty</code> 命令会将 <code>infile</code> 的内容输出到终端上。</p>
 <h2 id="_1">文件权限</h2>
 <p>每一个进程都有一个文件创建掩码（<code>file creation mask</code>），也称为 <code>umask</code>，它决定了新创建的文件的默认权限。当进程创建一个文件时，该文会被赋予一组初始权限。创建文件的函数往往有一个模式（<code>mode</code>）参数，允许进程去设置这些初始权限。不过 <code>umask</code> 会对这些权限进行掩码操作，从而最终决定了新文件的权限——进程试图设置的权限减去被 <code>umask</code> 移除的权限。</p>
 <p><code>umask</code> 是一个反向掩码，比特 1 表示禁止（去掉相应的权限），比特 0 表示允许。掩码一共 9 比特，三个一组，分别表示用户（user）、组（group）和其他人（others）的读、写、执行权限。常见的 <code>umask</code> 值如下：
@@ -31603,7 +31811,212 @@
 <p>有三种打开文件的模式：只读（<code>read mode</code>）、只写（<code>write mode</code>）和读写（<code>read-write mode</code>），这些事是访问模式（<code>access mode</code>）。</p>
 <p>打开文件之后返回一个标识符，称为文件描述符（<code>file descriptor</code>），它是一个非负整数，是新创建的 <code>OFD</code> 的引用。多个进程可以打开同一个文件，每个进程都有自己的文件描述符。一个进程可以打开同一个文件多次，每次都会创建一个新的 <code>OFD</code>，每个 <code>OFD</code> 都有自己的文件偏移量、标志和模式，一个进程还可以有多个文件描述符指向同一个 <code>OFD</code>。Unix 会有锁机制确保只有一个进程打开。</p>
 <p>下图是内核的内存打开文件表（<code>in-memory open file table</code>）的示意图，这个表也被称为文件结构表（<code>file structure table</code>）。这个表的每一项有很多字段，其中一个是指向表示真实文件的 inode 的指针。进程 X 打开了两个文件，<code>OFD</code> 是 1 和 m 位置，同时复制了文件描述符，使得 2 和 n 指向同一个 <code>OFD</code>。<code>OFD</code> 3 和 m 指向同一个 inode 3，打开的是同一个文件。</p>
-<p>当不再使用一个文件时，进程可以执行 <code>close</code> 来关闭文件。关闭文件会释放文件描述符和 <code>OFD</code>，如果没有其他的文件描述符指向这个 <code>OFD</code>，那么内核会释放这个 <code>OFD</code>。</p>
+<p><img alt="" src="../Figures/OpenFileTable.png" /></p>
+<p>当不再使用一个文件时，进程可以执行 <code>close</code> 来关闭文件。关闭文件会释放文件描述符和 <code>OFD</code>，如果没有其他的文件描述符指向这个 <code>OFD</code>，那么内核会释放这个 <code>OFD</code>。<code>OFD</code> 内有一个字段是引用计数，用于追踪有多个描述符指向它。如果程序没有关闭一个正在写入的文件，可能会导致数据丢失。因为通常写文件不是直接落盘，而是先写入内核的缓冲区（<code>kernel buffer</code>），内核最终才会将其写入底层硬件。关闭描述符对于将这些缓冲区刷（<code>flush</code>）到设备是必要的，不过有时只调用 <code>close</code> 可能不够，因为 <code>close</code> 的职责是释放资源和递减引用计数，尝试刷盘，但是这个是异步的，并不会等待真的成功了。</p>
+<p>当进程创建的时候，会自动打开三个文件描述符，分别是标准输入（<code>stdin</code>）、标准输出（<code>stdout</code>）和标准错误（<code>stderr</code>），它们的文件描述符分别是 0、1 和 2，这些是定义在 <code>&lt;unistd.h&gt;</code> 头文件中的常量 <code>STDIN_FILENO</code>、<code>STDOUT_FILENO</code> 和 <code>STDERR_FILENO</code>。标准输入通常是键盘，标准输出和标准错误通常是终端屏幕。当进程终止的时候，这些文件描述符会被自动关闭。因此我们不需要显式地关闭它们。</p>
+<h2 id="io_1">基本 I/O 接口</h2>
+<h3 id="_2">打开文件</h3>
+<p>下面分析几组 I/O 接口。第一组用于打开文件。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/stat.h&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kt">int</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="kt">mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">);</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kt">int</span><span class="w"> </span><span class="nf">creat</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">);</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kt">int</span><span class="w"> </span><span class="nf">openat</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dirfd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="kt">int</span><span class="w"> </span><span class="nf">openat</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dirfd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="kt">mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">);</span>
+</span></code></pre></div>
+<code>creat()</code> 是 <code>open()</code> 的一个特例，<code>openat()</code> 是 <code>open()</code> 的扩展，因此下面分析 <code>open()</code> 的语义。</p>
+<p>第一个参数 <code>pathname</code> 是要打开的文件的路径名。第二个参数 <code>flags</code> 是一个或多个标志的按位或，指定了访问模式和其他选项，这些选项可以用 <code>|</code> 运算符组合起来。访问模式是必须的，其他选项是可选的。访问模式有三种：只读（<code>O_RDONLY</code>）、只写（<code>O_WRONLY</code>）和读写（<code>O_RDWR</code>）。如果调用成功，返回一个非负整数的文件描述符，如果失败，返回 -1，并设置 <code>errno</code> 来指示错误原因。比如下面打开一个文件（只读模式）：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">&quot;infile&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDONLY</span><span class="p">);</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="c1">// Handle error.</span>
+</span></code></pre></div>
+如果文件不存在会返回 -1 并且将 <code>errno</code> 设置为 <code>EACCESS</code>。</p>
+<p>下面打开一个文件（只写）：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">&quot;outfile&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">O_WRONLY</span><span class="p">);</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1">// Handle error.</span>
+</span></code></pre></div>
+这里引出了几个问题：如果文件不存在，是创建一个新文件还是报错？如果文件存在但是不为空，报错还是覆盖呢？如果存在、不为空且不报错，从头开始写还是从文件末尾追加呢？这些问题都可以通过 <code>flags</code> 参数来指定。这类标志分成两类：文件创建标志（<code>file creation flag</code>）和文件状态标志（<code>file status flag</code>）。这里先介绍下面三个：</p>
+<ul>
+<li><code>O_CREAT</code>：如果文件不存在，则创建它。</li>
+<li><code>O_EXCL</code>：如果文件存在，则报错，与 <code>O_CREAT</code> 一起使用。</li>
+<li><code>O_TRUNC</code>：如果文件存在且是一个普通文件，则将它截断为长度为 0。</li>
+</ul>
+<p>如果只写 <code>O_WRONLY</code> 或 <code>O_RDWR</code>，并且文件不存在，<code>open()</code> 会失败。<code>open(outfile, O_WRONLY | O_CREAT)</code> 会创建一个新文件，如果文件存在，会从头开始写，覆盖原来的内容，比如写了 <code>N</code> 个字节，那么文件的前 <code>N</code> 个字节会被覆盖，后面的内容保持不变。如果想要整个文件都被替换，额外或上 <code>O_TRUNC</code> 标志。<code>fd = open("outfile", O_WRONLY | O_CREAT | O_EXCL);</code> 的语义是如果文件不存在，则创建它，如果文件存在，则报错。除此之外，这些文件创建标志的组合对于只读、只写、读写而言是未定义的或者不是期望行为。比如 <code>fd = open(argv[1], O_RDWR | O_CREAT | O_TRUNC);</code> 的语义是如果文件不存在，则创建它，如果文件存在，则将它截断为长度为 0，但是这样就无法读到任何内容了，但是文件是以读写模式打开的。</p>
+<p>当 <code>O_CREAT</code> 被指定时，<code>open()</code> 的第三个参数 <code>mode</code> 就有意义了，它指定了新创建文件的权限。所有者是进程的有效用户 ID 而不是实际用户 ID。所有组是进程的有效组 ID 而不是实际组 ID，大部分时候这两者应该是一样的。</p>
+<p>如果没有传入 <code>mode</code> 参数，权限是未定义的，也不可预期，因此必须传入这个参数。进程会使用 <code>umask</code> 来修改这个权限。<code>mode</code> 参数是一个八进制数，表示文件的权限位。你可以直接传入八进制数，也可以通过使用以下宏来设置权限位。比如想设置权限 <code>rw-r--r--</code> 就可以使用 <code>S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH</code>，或者直接传入八进制数 <code>0644</code>。</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Numeric value</th>
+<th>Permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S_IRWXU</td>
+<td>00700</td>
+<td>User has read, write, and execute permission.</td>
+</tr>
+<tr>
+<td>S_IRUSR</td>
+<td>00400</td>
+<td>User has read permission.</td>
+</tr>
+<tr>
+<td>S_IWUSR</td>
+<td>00200</td>
+<td>User has write permission.</td>
+</tr>
+<tr>
+<td>S_IXUSR</td>
+<td>00100</td>
+<td>User has execute permission.</td>
+</tr>
+<tr>
+<td>S_IRWXG</td>
+<td>00070</td>
+<td>Group has read, write, and execute permission.</td>
+</tr>
+<tr>
+<td>S_IRGRP</td>
+<td>00040</td>
+<td>Group has read permission.</td>
+</tr>
+<tr>
+<td>S_IWGRP</td>
+<td>00020</td>
+<td>Group has write permission.</td>
+</tr>
+<tr>
+<td>S_IXGRP</td>
+<td>00010</td>
+<td>Group has execute permission.</td>
+</tr>
+<tr>
+<td>S_IRWXO</td>
+<td>00007</td>
+<td>Others have read, write, and execute permission.</td>
+</tr>
+<tr>
+<td>S_IROTH</td>
+<td>00004</td>
+<td>Others have read permission.</td>
+</tr>
+<tr>
+<td>S_IWOTH</td>
+<td>00002</td>
+<td>Others have write permission.</td>
+</tr>
+<tr>
+<td>S_IXOTH</td>
+<td>00001</td>
+<td>Others have execute permission.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">关闭文件</h3>
+<p><code>open()</code> 的对偶操作是 <code>close()</code>，它的原型如下：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kt">int</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">);</span>
+</span></code></pre></div>
+<code>close()</code> 的参数是一个文件描述符，关闭对应文件描述符。如果一个文件被打开了多次，那么每次都会有一个文件描述符，关闭其中一个文件描述符不会影响其他的文件描述符。</p>
+<p>如果 <code>close()</code> 成功，返回 0，如果失败，返回 -1，并设置 <code>errno</code> 来指示错误原因。<code>close()</code> 失败的原因有很多，比如是一个坏的文件描述符，此时 <code>errno</code> 会被设置为 <code>EBADF</code>；内核执行 <code>close()</code> 的时候被更高优的任务打断，此时 <code>errno</code> 会被设置为 <code>EINTR</code>；有的时候文件不是本地文件而是远程文件，此时 <code>close()</code> 可能会失败，<code>errno</code> 会被设置为 <code>EIO</code>；如果是写入操作，<code>close()</code> 需要完成写入操作，此时会出现写操作的错误，比如没有空间了 <code>errno</code> 会被设置为 <code>ENOSPC</code>，或者没有配额了 <code>errno</code> 会被设置为 <code>EDQUOT</code>。</p>
+<p>如果失败了，不应该再重试了。返回的错误码应当仅仅用于诊断和补救措施，最妥当的做法是尝试重新写入数据，或者写入新的文件中。在调用 <code>close()</code> 之前，应该调用 <code>fsync()</code> 将数据刷盘，此时报错就是写本身的错误，如果没有错误再调用 <code>close()</code>，如果此时有错，就是和 <code>close()</code> 本身相关的错误了。</p>
+<h3 id="_4">读文件</h3>
+<p>有很多函数能够读取数据，这里介绍最简单、最常用的函数 <code>read()</code>，它的原型如下：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nbytes</span><span class="p">);</span>
+</span></code></pre></div>
+函数有三个参数，第一个参数是文件描述符 <code>fd</code>，第二个参数是一个指针 <code>buf</code>，指向一个缓冲区，类型是 <code>void *</code>，这样任意类型的地址都可以传参，第三个参数是要读取的字节数 <code>nbytes</code>，类型是 <code>size_t</code>。返回类型是 <code>ssize_t</code>，它是一个有符号整数（<code>signed size_t</code>），用于表示读取的字节数，如果发生错误，返回 -1。</p>
+<p><code>read(3, buf, len)</code> 的执行过程大致是内核使用文件描述符 <code>3</code> 找到对应的 <code>OFD</code>，通过 <code>OFD</code> 找到对应的 inode，然后从 inode 中找到对应的文件。从 <code>OFD</code> 描述的文件偏移量开始读取 <code>len</code> 个字节的数据到缓冲区 <code>buf</code> 中，并且更新文件偏移量。下面的代码片段是一个循环读取文件的例子：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">len</span><span class="p">];</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">done</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="kt">ssize_t</span><span class="w"> </span><span class="n">nread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nread</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="c1">// handle error</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nread</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">        </span><span class="n">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">        </span><span class="c1">// buf[0...nread-1] contains the bytes just read</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="p">}</span>
+</span></code></pre></div>
+这是一个典型的读取文件的循环。当返回值是负数的时候，说明读取出有错误，这种情况需要处理错误。返回值是 0 的时候，说明已经没有数据需要读取了，循环结束。返回值是正数的时候，说明读取了 <code>nread</code> 个字节的数据，这些数据存储在缓冲区 <code>buf</code> 中。上面的例子中，不能保证每次都能读到 <code>len</code> 个字节的数据，可能读到的字节数小于 <code>len</code>，因此需要根据返回值来判断读取了多少字节的数据。</p>
+<p>文件偏移量会被 <code>read()</code> 更新，自动推进，因此在不停的调用 <code>read(fd, buf, len)</code> 的时候会读取紧接着上次读取的最后一个字节开始读取。最后能够完整的读取整个文件不会遗漏或重复。</p>
+<h3 id="_5">写文件</h3>
+<p>与读文件类似，这里只介绍最简单、最常用的 <code>write()</code> 函数，它的原型如下：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nbytes</span><span class="p">);</span>
+</span></code></pre></div>
+这个函数完全与 <code>read()</code> 对偶。从 <code>buf</code> 指向的缓冲区中写入 <code>nbytes</code> 个字节的数据到文件描述符 <code>fd</code> 对应的文件中，并且更新文件偏移量。返回值是写入的字节数，如果发生错误，返回 -1，<code>errno</code> 会被设置为错误码。<code>buf</code> 是 <code>const void *</code> 类型，可以传入任意类型的数据。写的位置取决于打开的方式，<code>O_WRONLY | O_CREAT | O_TRUNC</code> 会从头开始写。由于不断更新文件偏移量，连续调用 <code>write(fd, buf, len)</code> 会写入紧接着上次写入的最后一个字节开始写入，没有空洞（<code>holes</code>）。</p>
+<p>调用 <code>write()</code> 之后，要检查返回值。如果是 -1，说明写入数据出错了，要按需处理这个错误。即便没有返回 -1 但是真实写入的字节数可能比指定的少，这种情况称为部分写（<code>partial write</code>），可能是文件到了预先设置的最大长度、磁盘满了、用户的配额满了等，此时可以提示用户也可以继续写剩余的数据，然后根据进一步的信息做出相应的处理。</p>
+<h2 id="_6">控制读写位置</h2>
+<p>我们可以显式地移动文件的偏移量，这称为寻道（<code>seeking</code>）。内核提供了对应的函数 <code>lseek()</code>，用于修改当前文件偏移量的位置，原型如下：
+<div class="language-c highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kt">off_t</span><span class="w"> </span><span class="nf">lseek</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="kt">off_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">whence</span><span class="p">);</span>
+</span></code></pre></div>
+第一个参数是文件描述符 <code>fd</code>，第二个参数是距离 <code>whence</code> 的偏移量 <code>offset</code>，第三个参数 <code>whence</code> 指定了偏移量的起点。<code>whence</code> 可以是下面三个值之一：</p>
+<ul>
+<li><code>SEEK_SET</code>：文件开头。</li>
+<li><code>SEEK_CUR</code>：当前位置。</li>
+<li><code>SEEK_END</code>：文件末尾。</li>
+</ul>
+<p><code>offset</code> 可以是正数也可以是负数，表示向前或向后移动。</p>
+<p><code>lseek()</code> 的返回值是新的文件偏移量，如果出错，返回 -1，并设置 <code>errno</code> 来指示错误原因，比如最终的偏移量是负数，那么 <code>errno</code> 会被设置为 <code>EINVAL</code>。<code>lseek()</code> 可以用来获取当前的文件偏移量，只需要将 <code>offset</code> 设置为 0，<code>whence</code> 设置为 <code>SEEK_CUR</code>，即 <code>off_t current_pos = lseek(fd, 0, SEEK_CUR);</code>。<code>lseek()</code> 也可以用来获取文件的长度，只需要将 <code>offset</code> 设置为 0，<code>whence</code> 设置为 <code>SEEK_END</code>，即 <code>off_t size = lseek(fd, 0, SEEK_END);</code>。</p>
+<h3 id="_7">文件空洞</h3>
+<p>虽然我们不能把文件偏移量移动到文件开始之前的位置，但是可以移动到文件结束的后面。<code>whence</code> 设置为 <code>SEEK_END</code>，<code>offset</code> 设置为正数，就可以将文件偏移量移动到文件末尾之后的位置。此时如果写入数据，文件中间的空白部分不会被写入任何数据，这些空白部分称为文件空洞（<code>file hole</code>），这部分的内容是 0。使用 <code>read()</code> 读取文件空洞的内容，缓冲区的内容是 0。</p>
+<p>下面的程序会创建一个带有空洞的文件。
+<div class="language-c highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Usage: %s &lt;file-to-create&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">O_CREAT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_WRONLY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_TRUNC</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">);</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">BUFFER_SIZE</span><span class="p">];</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span><span class="n">strncpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0123456789&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">);</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">);</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="n">lseek</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="n">SEEK_CUR</span><span class="p">);</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">BUFFER_SIZE</span><span class="p">);</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="p">}</span>
+</span></code></pre></div>
+程序首先写入十个字节，<code>0123456789</code>，然后将文件偏移量移动到当前位置之后的 10000 个字节的位置，也就是一个 10000 个字节的空洞，然后再写入十个字节，<code>0123456789</code>。最终文件的长度是 10020 个字节。</p>
+<p>使用 <code>ls -l</code> 命令可以看到文件大小是 10020 个字节。
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ll<span class="w"> </span>file_with_hole<span class="w"> </span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>leshen<span class="w"> </span>leshen<span class="w"> </span><span class="m">10020</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:34<span class="w"> </span>file_with_hole
+</span></code></pre></div>
+使用 <code>ls</code> 的 <code>-s</code> 选项可以看到文件分配的块数，<code>--block-size=1</code> 是指定 <code>-s</code> 选项的单位是字节。
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ls<span class="w"> </span>-s<span class="w"> </span>--block-size<span class="o">=</span><span class="m">1</span><span class="w"> </span>file_with_hole
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="m">8192</span><span class="w"> </span>file_with_hole
+</span></code></pre></div>
+文件的大小是 10020 个字节，但是实际分配了 8192 个字节。磁盘上的块大小是 4KB，即 4096 字节，因此这个文件只占用了两个块的磁盘空间。使用 <code>du --block-size=1</code> 命令可以看到文件占用的磁盘空间是 8192 个字节。</p>
+<p>文件存储在磁盘上的时候，分配的块是固定大小的。当写入数据小于等于 4096 字节时，只需要分配一个块，没有写的部分是 0。当第二次写的时候，位置是 10010，超过了第一个块的范围，因此需要分配第二个块。文件中间的空洞部分没有分配磁盘空间。每个块起始地址必须是 4096 的整数倍，小于 10010 的最小满足条件的地址是 <script type="math/tex">\lfloor 10010 / 4096 \rfloor * 4096 = 8192</script>，因此第二个块的起始地址是 8192，结束地址是 12288。10010 减去 8192 等于 1818，因此第二个块的前 1818 个字节是 0，后面写入了十个字节的数据。假定中间 <code>lseek</code> 的距离不是 10000，而是更大的值，比如 1,000,000，那么空洞更大，但是文件实际也只需要两个块。</p>
+<p>使用 <code>od</code> 可以查看文件内容，<code>-a</code> 是以 ASCII 码显示而不是显示数字编码。
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>od<span class="w"> </span>-a<span class="w"> </span>file_with_hole<span class="w"> </span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="m">0000000</span><span class="w">   </span><span class="m">0</span><span class="w">   </span><span class="m">1</span><span class="w">   </span><span class="m">2</span><span class="w">   </span><span class="m">3</span><span class="w">   </span><span class="m">4</span><span class="w">   </span><span class="m">5</span><span class="w">   </span><span class="m">6</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">8</span><span class="w">   </span><span class="m">9</span><span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="m">0000020</span><span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>*
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="m">0023420</span><span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w"> </span>nul<span class="w">   </span><span class="m">0</span><span class="w">   </span><span class="m">1</span><span class="w">   </span><span class="m">2</span><span class="w">   </span><span class="m">3</span><span class="w">   </span><span class="m">4</span><span class="w">   </span><span class="m">5</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="m">0023440</span><span class="w">   </span><span class="m">6</span><span class="w">   </span><span class="m">7</span><span class="w">   </span><span class="m">8</span><span class="w">   </span><span class="m">9</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="m">0023444</span>
+</span></code></pre></div>
+<code>nul</code> 表示内容是 0，中间的 * 表示中间一块的内容都是重复的之前的一样。</p>
 
   
 

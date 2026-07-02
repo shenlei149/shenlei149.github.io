@@ -1248,6 +1248,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数的运算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="整数的运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无符号加法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1276,6 +1304,8 @@
       
         
           
+        
+      
         
       
         
@@ -1437,6 +1467,34 @@
     
   
     Signal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SystemProgramming/Performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
   
 
     
@@ -31722,6 +31780,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数的运算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="整数的运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无符号加法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -32328,6 +32414,25 @@ B2U_w([x_{w-1},x_{w-2},\cdots,x_0])\mod 2^k&=\sum_{i=0}^{w-1}x_i2^i\mod 2^k\\
 对左边的数应用 <script type="math/tex">U2T_k</script> 得到
 <script type="math/tex; mode=display">U2T_k(B2U_w([x_{w-1},x_{w-2},\cdots,x_0])\mod 2^k)=U2T_k(B2U_k([x_{k-1},x_{k-2},\cdots,x_0]))=B2T_k([x_{k-1},x_{k-2},\cdots,x_0])</script>
 因此有 <script type="math/tex">x'=B2T_k([x_{k-1},x_{k-2},\cdots,x_0])=U2T_k(x\mod 2^k)</script>。</p>
+<h2 id="_13">整数的运算</h2>
+<h3 id="_14">无符号加法</h3>
+<p>两个非负整数 <script type="math/tex">x,y</script>，范围是 <script type="math/tex">0\leq x,y<2^w</script>，和的范围值 <script type="math/tex">0\leq x+y\leq 2^{w+1}-2</script>，表示这个数需要 <script type="math/tex">w+1</script> 位。如果想要表示两个 <script type="math/tex">w+1</script> 位非负整数的和，那么需要 <script type="math/tex">w+2</script> 位。随着字长的增加，如果想要完美表示算术结果，就不能给字长设定边界。大部分的编程语言只支持固定大小的算数，因此加法和乘法和数学中对应的算术运算不一样。</p>
+<p>我们使用 <script type="math/tex">+_w^u</script> 表示 <script type="math/tex">w</script> 位无符号加法，结果仍旧保存在 <script type="math/tex">w</script> 位中，超出 <script type="math/tex">w</script> 位的部分会被丢弃，相当于加法的结果模了 <script type="math/tex">2^w</script>。比如 <script type="math/tex">w=4</script>，<script type="math/tex">x=9,y=12</script>，相加结果是 21，模 <script type="math/tex">2^4=16</script> 结果是 5。</p>
+<p>对于 <script type="math/tex">0\leq x,y<2^w</script>，有
+<script type="math/tex; mode=display">x+_w^uy=\begin{cases}
+x+y,&x+y<2^w\\
+x+y-2^w,&x+y\geq 2^w
+\end{cases}</script>
+对于无符号数来说，如果 <script type="math/tex">x+y<2^w</script>，<script type="math/tex">w+1</script> 位的结果是 0，截断之后不会影响数值。但是如果 <script type="math/tex">2^w\leq x+y<2^{w+1}</script>，<script type="math/tex">w+1</script> 位的结果是 1，截断之后相当于从和里面减去了 <script type="math/tex">2^w</script>，因此结果是 <script type="math/tex">x+y-2^w</script>。</p>
+<p>当结果无法存放在数据类型的字长限制之内时，就称算术运算发生了溢出（<code>overflow</code>）。C 语言中，溢出不是错误，不过有时我们可能需要检测出是否溢出。</p>
+<p>假定 <script type="math/tex">0\leq x,y\leq UMax_w</script>，<script type="math/tex">s=x+_w^uy</script>，<script type="math/tex">s</script> 溢出等价于 <script type="math/tex">s<x</script> 或者 <script type="math/tex">s<y</script>。因为如果 <script type="math/tex">x+y\geq x</script>，那么 <script type="math/tex">s</script> 没有溢出，有 <script type="math/tex">s\geq x</script>。反之，如果 <script type="math/tex">s</script> 溢出了，<script type="math/tex">s=x+y-2^w</script>，而 <script type="math/tex">y<2^w</script>，那么 <script type="math/tex">y-2^w<0</script>，因此 <script type="math/tex">s=x+(y-2^w)<x</script>。对于前面的例子，<script type="math/tex">9+_4^u12=5</script>，<script type="math/tex">5<9</script>，因此溢出。</p>
+<p>模加法构成了阿贝尔群（<code>Abelian group</code>），因此满足封闭性、交换律和结合律，有单位元 0，每一个元素都有一个逆元。对于 <script type="math/tex">x</script>，存在逆元 <script type="math/tex">-_w^ux</script>，有 <script type="math/tex">x+_w^u(-_w^ux)=0</script>。</p>
+<p>对于 <script type="math/tex">0\leq x\leq 2^w</script>，无符号 <script type="math/tex">-_w^ux</script> 的计算方式如下：
+<script type="math/tex; mode=display">-_w^ux=\begin{cases}
+0,&x=0\\
+2^w-x,&x>0
+\end{cases}</script>
+对于 0 而言，显然 <script type="math/tex">0+0=0</script>。对于 <script type="math/tex">x>0</script>，<script type="math/tex">2^w-x</script> 的范围是 <script type="math/tex">0<2^w-x<2^w</script>，因此 <script type="math/tex">-_w^ux</script> 是一个 <script type="math/tex">w</script> 位的无符号数。<script type="math/tex">(x+_w^u(2^w-x))\mod 2^w=(x+2^w-x)\mod 2^w=0</script>，因此 <script type="math/tex">-_w^ux</script> 是 <script type="math/tex">x</script> 的逆元。</p>
 
   
 
