@@ -4,3 +4,4 @@ nav:
     - Time, Dates, Locales: Time-Dates-Locales.md
     - File I/O: File-IO.md
     - Signal: Signal.md
+    - Performance: Performance.md
