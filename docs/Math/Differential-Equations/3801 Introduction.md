@@ -1,0 +1,1 @@
+In this session, we continue to develop the methods for sketching graphs of the solutions to DE systems which we carried out for linear systems in the session on Phase Portraits. The goal is to see how to get quick qualitative information about the graphs of the solutions, without having to actually calculate points on them.

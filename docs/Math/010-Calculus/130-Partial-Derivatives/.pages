@@ -1,0 +1,13 @@
+nav:
+    - 130 偏导数 Partial Derivatives: README.md
+    - 010 多元函数 Functions of Several Variables: 010-Functions-of-Several-Variables.md
+    - 020 更高维度的极限和连续性 Limits and Continuity in Higher Dimensions: 020-Limits-and-Continuity-in-Higher-Dimensions.md
+    - 030 偏微分 Partial Derivatives: 030-Partial-Derivatives.md
+    - 040 链式法则 The Chain Rule: 040-The-Chain-Rule.md
+    - 050 方向导数和梯度矢量 Directional Derivatives and Gradient Vectors: 050-Directional-Derivatives-and-Gradient-Vectors.md
+    - 060 切平面和微分 Tangent Planes and Differentials: 060-Tangent-Planes-and-Differentials.md
+    - 070 极值和鞍点 Extreme Values and Saddle Points: 070-Extreme-Values-and-Saddle-Points.md
+    - 080 拉格朗日乘子 Lagrange Multipliers : 080-Lagrange-Multipliers.md
+    - 090 二元函数的泰勒公式 Taylor's Formula for Two Variables: 090-Taylor-Formula-for-Two-Variables.md
+    - 100 带约束条件的偏微分 Partial Derivatives with Constrained Variables: 100-Partial-Derivatives-with-Constrained-Variables.md
+    - 110 习题 Exercises: 110-Exercises.md

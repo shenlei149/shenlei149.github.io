@@ -1,0 +1,11 @@
+nav:
+    - 020 一阶微分方程 First-Order Differential Equations: README.md
+    - 010 线性微分方程；积分因子法 Linear Differential Equations; Method of Integrating Factors: 010-Linear-Differential-Equations-Method-of-Integrating-Factors.md
+    - 020 可分离变量的微分方程 Separable Differential Equations: 020-Separable-Differential-Equations.md
+    - 030 使用微分方程建模 Modeling with First-Order Differential Equations: 030-Modeling-with-First-Order-Differential-Equations.md
+    - 040 线性和非线性微分方程的差异 Differences Between Linear and Nonlinear Differential Equations: 040-Differences-Between-Linear-and-Nonlinear-Differential-Equations.md
+    - 050 自治微分方程和种群动态 Autonomous Differential Equations and Population Dynamics: 050-Autonomous-Differential-Equations-and-Population-Dynamics.md
+    - 060 恰当微分方程和积分因子 Exact Differential Equations and Integrating Factors: 060-Exact-Differential-Equations-and-Integrating-Factors.md
+    - "070 数值近似: 欧拉法 Numerical Approximations: Euler's Method": 070-Numerical-Approximations-Euler-Method.md
+    - 080 存在性和唯一性定理 The Existence and UniquenessTheorem: 080-The-Existence-and-Uniqueness-Theorem.md
+    - 090 一阶差分方程 First-Order Difference Equations: 090-First-Order-Difference-Equations.md

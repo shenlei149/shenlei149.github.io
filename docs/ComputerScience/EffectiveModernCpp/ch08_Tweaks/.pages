@@ -1,0 +1,4 @@
+nav:
+    - 08 Tweaks: README.md
+    - 41 Consider pass by value for copyable parameters that are cheap to move and always copied: 41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md
+    - 42 Consider emplacement instead of insertion: 42_Consider_emplacement_instead_of_insertion.md

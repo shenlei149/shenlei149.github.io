@@ -1,0 +1,10 @@
+nav:
+    - 030 二阶微分方程 Second-Order Linear Differential Equations: README.md
+    - 010 常系数齐次微分方程 Homogeneous Differential Equations with Constant Coefficients: 010-Homogeneous-Differential-Equations-with-Constant-Coefficients.md
+    - 020 线性齐次方程的解；朗斯基 Solutions of Linear Homogeneous Equations; the Wronskian: 020-Solutions-of-Linear-Homogeneous-Equations-the-Wronskian.md
+    - 030 特征方程的复数根 Complex Roots of the Characteristic Equation: 030-Complex-Roots-of-the-Characteristic-Equation.md
+    - 040 重复根；降阶法 Repeated Roots; Reduction of Order: 040-Repeated-Roots-Reduction-of-Order.md
+    - 050 非齐次方程；待定系数法 Nonhomogeneous Equations; Method of Undetermined Coefficients: 050-Nonhomogeneous-Equations-Method-of-Undetermined-Coefficients.md
+    - 060 参数变分法 Variation of Parameters: 060-Variation-of-Parameters.md
+    - 070 机械振动和电振荡 Mechanical and Electrical Vibrations: 070-Mechanical-and-Electrical-Vibrations.md
+    - 080 受迫周期振动 Forced Periodic Vibrations: 080-Forced-Periodic-Vibrations.md

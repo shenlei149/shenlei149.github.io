@@ -1,0 +1,10 @@
+nav:
+    - 040 导数的应用 Applications of Derivatives: README.md
+    - 010 函数在闭区间上的极值 Extreme Values of Functions on Closed Intervals: 010-Extreme-Values-of-Functions-on-Closed-Intervals.md
+    - 020 中值定理 The Mean Value Theorem.md: 020-The-Mean-Value-Theorem.md
+    - 030 单调函数和一阶导测试 Monotonic Functions and the First Derivative Test: 030-Monotonic-Functions-and-the-First-Derivative-Test.md
+    - 040 凹凸性和曲线轮廓 Concavity and Curve Sketching: 040-Concavity-and-Curve-Sketching.md
+    - 050 不定式和洛必达法则 Indeterminate Forms and L'Hôpital's Rule: 050-Indeterminate-Forms-and-L-Hopital-Rule.md
+    - 060 应用优化 Applied Optimization: 060-Applied-Optimization.md
+    - 070 牛顿法 Newton's Method: 070-Newton-Method.md
+    - 080 反导数 Antiderivatives: 080-Antiderivatives.md

@@ -1,0 +1,4 @@
+nav:
+    - Papers: README.md
+    - Concise Hash Table: CHT.md
+    - Modern Column-Oriented Database Systems: columnstoresfntdbs.md
