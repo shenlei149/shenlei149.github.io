@@ -1,0 +1,10 @@
+nav:
+    - 140 多重积分 Multiple Integrals: README.md
+    - 010 矩阵上的二重积分 Double and Iterated Integrals over Rectangles: 010-Double-and-Iterated-Integrals-over-Rectangles.md
+    - 020 一般区域上的二重积分 Double Integrals over General Regions: 020-Double-Integrals-over-General-Regions.md
+    - 030 二重积分求面积 Area by Double Integration: 030-Area-by-Double-Integration.md
+    - 040 极坐标的二重积分 Double Integrals in Polar Form: 040-Double-Integrals-in-Polar-Form.md
+    - 050 直角坐标系的三重积分 Triple Integrals in Rectangular Coordinates: 050-Triple-Integrals-in-Rectangular-Coordinates.md
+    - 060 应用 Applications: 060-Applications.md
+    - 070 柱坐标和球坐标系下的三重积分 Triple Integrals in Cylindrical and Spherical Coordinates: 070-Triple-Integrals-in-Cylindrical-and-Spherical-Coordinates.md
+    - 080 多重积分的替换法 Substitutions in Multiple Integrals: 080-Substitutions-in-Multiple-Integrals.md

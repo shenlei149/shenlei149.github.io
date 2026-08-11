@@ -1,0 +1,17 @@
+.md-grid {
+  max-width: 68rem !important;
+}
+
+.md-typeset table:not([class]) {
+    font-size: inherit;
+}
+
+rt {
+  font-size: 0.85em;     /* 默认约 0.5em，放大到 0.85em 会非常清晰 */
+  font-weight: 500;      /* 稍微加粗一点点，增强清晰度 */
+  margin-bottom: 0.1em;  /* 稍微抬高一点，防止和下面的汉字贴太紧 */
+}
+
+ruby {
+  line-height: 2;
+}

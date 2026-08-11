@@ -1,0 +1,6 @@
+nav:
+    - 040 Higher-Order Linear Differential Equations 高阶线性微分方程 : README.md
+    - 010 $n$ 阶线性微分方程的一般性理论 General Theory of nth Order Linear Differential Equations: 010-General-Theory-of-nth-Order-Linear-Differential-Equations.md
+    - 020 常系数齐次微分方程 Homogeneous Differential Equations with Constant Coefficients: 020-Homogeneous-Differential-Equations-with-Constant-Coefficients.md
+    - 030 待定系数法 The Method of Undetermined Coefficients: 030-The-Method-of-Undetermined-Coefficients.md
+    - 040 参数变分法 The Method of Variation of Parameters: 040-The-Method-of-Variation-of-Parameters.md

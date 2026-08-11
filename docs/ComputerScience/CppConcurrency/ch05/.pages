@@ -1,0 +1,5 @@
+nav:
+    - The C++ memory model and operations on atomic types: README.md
+    - Memory model basics: 01-Memory-model-basics.md
+    - Atomic operations and types in C++: 02-Atomic-operations-and-types-in-C++.md
+    - Synchronizing operations and enforcing ordering: 03-Synchronizing-operations-and-enforcing-ordering.md

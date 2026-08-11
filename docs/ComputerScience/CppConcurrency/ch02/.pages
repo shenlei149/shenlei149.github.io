@@ -1,0 +1,7 @@
+nav:
+    - Managing threads: README.md
+    - Basic thread management: 01-Basic-thread-management.md
+    - Passing arguments to a thread function: 02-Passing-arguments-to-a-thread-function.md
+    - Transferring ownership of a thread: 03-Transferring-ownership-of-a-thread.md
+    - Choosing the number of threads at runtime: 04-Choosing-the-number-of-threads-at-runtime.md
+    - Identifying threads: 05-Identifying-threads.md

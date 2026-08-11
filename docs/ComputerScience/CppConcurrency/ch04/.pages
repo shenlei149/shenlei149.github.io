@@ -1,0 +1,6 @@
+nav:
+    - Synchronizing concurrent operations: README.md
+    - Waiting for an event or other condition: 01-Waiting-for-an-event-or-other-condition.md
+    - Waiting for one-off event with futures: 02-Waiting-for-one-off-events-with-futures.md
+    - Waiting with a time limit: 03-Waiting-with-a-time-limit.md
+    -  Using synchronization of operations to simplify code: 04-Using-synchronization-of-operations-to-simplify-code.md
