@@ -1,0 +1,12 @@
+{#-
+  This file was automatically generated - do not edit
+-#}
+{% include "partials/tags.html" %}
+{% include "partials/actions.html" %}
+{% if "\x3ch1" not in page.content %}
+  <h1>{{ page.title | d(config.site_name, true)}}</h1>
+{% endif %}
+{% include "partials/source-file.html" %}
+{{ page.content }}
+{% include "partials/feedback.html" %}
+{% include "partials/comments.html" %}

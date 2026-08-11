@@ -1,0 +1,8 @@
+nav:
+    - 07 The Concurrency API: README.md
+    - 35 Prefer task-based programming to thread-based: 35_Prefer_task_based_programming_to_thread_based.md
+    - 36 Specify std::launch::async if asynchronicity is essential: 36_Specify_std_launch_async_if_asynchronicity_is_essential.md
+    - 37 Make std::threads unjoinable on all paths: 37_Make_std_threads_unjoinable_on_all_paths.md
+    - 38 Be aware of varying thread handle destructor behavior: 38_Be_aware_of_varying_thread_handle_destructor_behavior.md
+    - 39 Consider void futures for one-shot event communication: 39_Consider_void_futures_for_one_shot_event_communication.md
+    - 40 Use std::atomic for concurrency, volatile for special memory: 40_Use_std_atomic_for_concurrency_volatile_for_special_memory.md

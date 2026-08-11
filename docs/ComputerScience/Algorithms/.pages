@@ -1,0 +1,14 @@
+nav:
+    - README.md
+    - 预备知识: Preliminaries.md
+    - 渐进符号: AsymptoticNotation.md
+    - 主方法: MasterMethod.md
+    - 基本数据结构: Basic.md
+    - 设计范式: DesignParadigm.md
+    - 排序: Sort.md
+    - 树: Tree.md
+    - 哈希: Hash.md
+    - 图: Graph.md
+    - 数值计算: Arithmetic.md
+    - 几何: Geometry.md
+    - 其他: Others.md

@@ -1,0 +1,129 @@
+## 理解设计模式的目的
+设计模式拥有便于交流的名称，承载特定意图，并通过引入抽象提供经反复验证的有效解决方案。
+
+一个设计模式需要一个名字是显然且必要的。设计模式的名字使得我们在交流中只需要很少的词就能传达很多信息。名字不仅仅描述了当下的问题是什么，它还描述了解决方案。当然，高效的交流的前提是我们对设计模式有相同的理解。这也是了解设计模式的重要原因。
+
+设计模式隐含着解决方案，并表达你的意图。但是值得注意的是，这个意图描述的是要解决的问题，而不是实现细节。也就是说，设计模式并不关心你如何实现，更不关心你使用什么编程语言。设计模式的名称只描述了如何管理依赖，以及系统如何演进。
+
+许多设计模式有相似的结构，但是它们的意图却是不同的，解决的是不同的问题。对于某个设计模式，有很多不同的实现。
+
+设计模式通过引入抽象来减少依赖,也就是说，其核心是管理软件实体之间的交互，并解耦软件的各个组件。以策略模式（`Strategy Pattern`）为例，引入抽象基类 `Strategy` 后，使用者 `Context` 与具体策略实现类 `ConcreteStrategyA`、`ConcreteStrategyB` 得以解耦。工厂方法（`Factory Method`）模式的意图是将代码与具体产品的创建逻辑解耦。引入的抽象是 `Creator` 和 `Product`，实现细节则由产品实现类 `ConcreteProduct` 和具体创建者 `ConcreteCreatorA` 承担。工厂方法的架构图如下所示。
+```
+        Product             Creator
+          ^             virtual factoryMethod()   product = factoryMethod()
+          |                     ^
+          |                     |
+          |                     |
+    ConcreteProduct  <--  ConcreteCreatorA
+                        virtual factoryMethod() { return new ConcreteProduct(); }
+```
+注意，设计模式引入抽象，并不一定非要通过基类和虚函数实现。利用模板甚至函数重载也能实现。设计模式绝不预设或限制实现方式。
+
+C++ 中的 `std::make_unique` 是一个反例。它是一个工厂函数（`factory function`），容易让人误以为它是工厂方法模式的实现。设计模式通过引入抽象来解耦，使我们可以自定义并推迟实现细节。工厂方法的本意是引入一个专门用于对象实例化过程的定制点，但是 `std::make_unique` 没有提供这样的定制点。当使用这个函数时，我们能够确切地知道返回对象的具体类型，以及对象会通过 `new` 构造。因此，它不能降低实体间的耦合程度，也就无法达到设计模式的目的。不过，`std::make_unique` 仍然是一种模式，只是实现模式而非设计模式。相比之下，工厂方法模式对创建什么以及如何创建提供了真正的抽象。得益于这一点，日后任意时刻编写新的工厂类时，完全无需侵入或修改既有代码。这种设计模式有助于解耦和扩展软件，而 `std::make_unique` 仅仅是一个简单的工厂函数，是一种实现模式。
+
+设计模式是经过岁月洗礼和实践检验的。GoF 并没有搜集所有可能的解决方案，只是收集了不同代码库中被反复使用的、经过验证的、可复用的解决方案。因此，一个解决方案多次证明自身的价值，才能被称为模式。软件设计（`Software Design`）特指管理依赖和解耦的艺术，设计模式（`Design Pattern`）是软件设计的工具，我们在使用这个术语时，也应该准确、慎重。
+
+## 认知误区
+第一个误区是，很多人认为设计模式是一个目标，是软件质量的保证。很多开发者喜欢设计模式，使用它们解决各种问题，而不管是否合理。这会增加代码的复杂度，降低可读性。设计模式是实现目标的手段，是解决方案的一部分，但绝不是目标。使用设计模式不应该制造复杂性，相反，它应该降低复杂性。代码应当变得更简洁、更易于理解、更易于维护。如果使用设计模式导致相反的结果，显然就不是正确的解决方案。
+
+要使用设计模式，但不要滥用。任何工具都是如此。一切都应该取决于你面临的具体问题。比如，问题是钉子时，应该使用锤子，但问题变成螺丝时，锤子就不再是合适的工具。为了恰当地使用设计模式，并明确何时该用、何时不该用，极其关键的一点是深入理解它们，理解其背后的设计意图和结构特征。
+
+第二个误区是，设计模式建立在某种特定的实现方式之上，或者是某种特定语言专属的惯用法。这种误区很容易理解，因为许多设计模式（特别是 GoF 设计模式）通常是在面向对象编程语言中实现的，并借助面向对象的代码示例进行讲解。但是，设计模式绝不等同于实现细节、任何特定语言的惯用法或特定 C++ 标准的特性。下面看一个例子，我们使用两种方式实现策略模式。
+
+假设我们想要绘制给定的形状，比如下面提供了 `draw()` 方法的 `Circle`。
+```cpp
+class Circle
+{
+public:
+	void draw(/*...*/) {}
+};
+```
+在不假思索的情况下，我们会直接使用图形库（比如 OpenGL、Vulkan 或其他类库）实现这个函数。但是，如果直接实现 `draw()`，就会引入与所选图形库之间的耦合。如果图形库发生变更，`Circle` 就会受到影响，需要重新编译、测试和部署，甚至还需要修改代码。如果想要切换成另一个图形库也绝非易事。这是因为直接在 `Circle` 中实现 `draw()` 方法违反了单一职责原则。这个类不再只会因与圆相关的内容而修改，也高度依赖于特定的设计决策。
+
+针对这个问题，将如何绘制圆的逻辑抽象出来，正是策略模式（`Strategy Pattern`）的意图。引入 `DrawStrategy` 抽象接口后，就能在无需修改既有代码的前提下实现全新的绘制行为，并从外部将其注入 `Circle`。针对不同的绘制行为，这种方法提供了更好的灵活性。它抽离了对具体图形库及其实现细节的依赖，从而使代码具有可变性与扩展性。比如，为了测试，可以编写 `MockDrawStrategy`，它不依赖任何图形库，只需记录调用即可进行验证。
+
+策略模式是 GoF 经典设计模式之一。正因如此，它通常被归为面向对象设计模式，但这并不意味着其实现必须依赖于基类。除了使用基类进行抽象外，依靠模板也可以达成同样的目的。
+```cpp
+template<typename DrawStrategy>
+class Circle
+{
+public:
+	void draw(/*...*/) {}
+};
+```
+此时，如何绘制圆的决策发生在编译期。相比基类这种运行时方案，每次 `DrawStrategy` 变更时都需要重新编译。
+
+本质上说两者都是策略模式的实现。它们都引入了抽象，解耦了 `Circle` 与具体绘制行为之间的依赖。无论是运行时还是编译期的实现方式，都能达到设计模式的目的。
+
+下面看一个标准库中 `std::accumulate()` 的例子。
+```cpp
+std::vector v { 1, 2, 3, 4, 5 };
+const auto sum = std::accumulate(v.begin(), v.end(), 0);
+```
+`std::accumulate()` 是一个算法，其意图是对一组元素进行累积操作，默认情况下是求和。我们可以提供第四个参数指定累积方式，比如使用 `<functional>` 中的 `std::multiplies`，就可以计算乘积。
+```cpp
+const auto sum = std::accumulate(v.begin(), v.end(), 0, std::plus<> {});
+const auto product = std::accumulate(v.begin(), v.end(), 1, std::multiplies<> {});
+```
+第四个参数本质上就是累积策略的具体实现。这样，`std::accumulate()` 不再依赖于单一、特定的实现，调用者可以针对特定目标进行定制。这恰恰契合了策略模式的设计意图。
+
+`std::accumulate()` 的例子说明，设计模式与实现方式无关，并不仅限于面向对象编程。许多设计模式的意图同样适用于函数式编程或泛型编程。设计模式也不仅限于运行时多态，前面介绍的静态多态同样能实现策略模式。
+
+## 无处不在
+我们首先看一下 `std::pmr`（`polymorphic memory resource`）的例子。
+```cpp
+#include <array>
+#include <cstddef>
+#include <cstdlib>
+#include <iostream>
+#include <memory_resource>
+#include <vector>
+
+int main()
+{
+	std::array<std::byte, 1000> raw; // not initialized
+	std::pmr::monotonic_buffer_resource buffer { raw.data(), raw.size(), std::pmr::null_memory_resource() };
+
+	std::pmr::vector<std::pmr::string> strings { &buffer };
+
+	strings.emplace_back("String longer than what SSO can handle");
+	strings.emplace_back("Another long string that goes beyond SSO");
+	strings.emplace_back("A third long string that cannot be handled by SSO");
+
+	return EXIT_SUCCESS;
+}
+```
+这个例子中使用 `std::pmr::monotonic_buffer_resource` 作为分配器，将所有分配重定向到一个预定义的字节缓冲区中，其构造参数为 `raw.data()` 和 `raw.size()`。如果缓冲区不足以满足分配请求，`std::pmr::monotonic_buffer_resource` 会将请求转发给 `std::pmr::null_memory_resource()`，后者会抛出异常。使用创建好的分配器初始化 `vector` 后，加入的字符串若长到无法依赖短字符串优化（`small string optimization`, `SSO`），便会通过 `std::pmr::monotonic_buffer_resource` 分配内存。
+
+这一段代码中使用了四种设计模式，分别是模板方法（`template method`）、装饰者模式（`decorator pattern`）、适配器模式（`adapter pattern`）和策略模式（`strategy pattern`）。此外，`std::pmr::null_memory_resource()` 还体现了单例模式，它返回唯一的分配器实例。
+
+下面是 `memory_resource` 的类定义
+```cpp
+namespace std::pmr
+{
+
+class memory_resource
+{
+public:
+	// ... a virtual destructor, some constructors and assignment operators
+	[[nodiscard]] void *allocate(size_t bytes, size_t alignment);
+	void deallocate(void *p, size_t bytes, size_t alignment);
+	bool is_equal(const memory_resource &other) const noexcept;
+
+private:
+	virtual void *do_allocate(size_t bytes, size_t alignment) = 0;
+	virtual void do_deallocate(void *p, size_t bytes, size_t alignment) = 0;
+	virtual bool do_is_equal(const memory_resource &other) const noexcept = 0;
+};
+
+} // namespace std::pmr
+```
+`allocate()` `deallocate()` `is_equal()` 是面向用户的接口，`do_allocate()` `do_deallocate()` `do_is_equal()` 是面向派生类的接口。这是非虚接口（`non-virtual interface`, `NVI`）惯用法，NVI 是模板方法的一种实现。
+
+第二种设计模式是装饰者模式，它可以帮助我们构建分配器的层级结构，并在一个分配器的基础上组合和扩展功能。将 `std::pmr::null_memory_resource()` 作为 `std::pmr::monotonic_buffer_resource` 的后备分配器传入，便形成了这样的组合。通过 `allocate()` 向 `monotonic_buffer_resource` 请求内存时，如果缓冲区不足以满足请求，就会将请求转发给后备的分配器，这里是 `std::pmr::null_memory_resource()`。通过这种方式，可以实现许多不同类型的分配器，并轻松将它们组装成一个包含不同分配策略层级的完整子系统。装饰者模式的强项就是组合并复用功能模块的能力。
+
+这里使用的 `std::pmr::vector` 和 `std::pmr::string` 分别是 `std::vector` 和 `std::string` 的别名，它们不再暴露分配器的模板参数，而是统一使用 `std::pmr::polymorphic_allocator` 作为分配器。适配器模式将两个不兼容的接口粘合起来，这里 `polymorphic_allocator` 充当桥梁，将 C++ 分配器所需的静态模板接口适配到 `std::pmr::memory_resource` 提供的动态分配器接口。
+
+最后一种模式是策略模式。`std::vector` `std::string` 等标准容器允许调用方从外部自定义内存分配行为。
+
+上面这个例子有力证明了设计模式的普遍性。几乎所有旨在抽象、解耦软件实体，并引入灵活性与扩展性的尝试，都是建立在某种设计模式之上的。

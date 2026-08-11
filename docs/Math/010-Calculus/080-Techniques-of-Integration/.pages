@@ -1,0 +1,11 @@
+nav:
+    - 080 积分技术 Techniques of Integration: README.md
+    - 010 应用基本的积分公式 Using Basic Integration Formulas: 010-Using-Basic-Integration-Formulas.md
+    - 020 分部积分法 Integration by Parts: 020-Integration-by-Parts.md
+    - 030 三角函数的积分 Trigonometric Integrals: 030-Trigonometric-Integrals.md
+    - 040 三角函数代换 Trigonometric Substitutions: 040-Trigonometric-Substitutions.md
+    - 050 部分分式法求有理函数积分 Integration of Rational Functions by Partial Fractions: 050-Integration-of-Rational-Functions-by-Partial-Fractions.md
+    - 060 积分表和计算机代数系统 Integral Tables and Computer Algebra Systems: 060-Integral-Tables-and-Computer-Algebra-Systems.md
+    - 070 数值积分法 Numerical Integration: 070-Numerical-Integration.md
+    - 080 广义积分 Improper Integrals: 080-Improper-Integrals.md
+    - 090 习题 Exercises: 090-Exercises.md

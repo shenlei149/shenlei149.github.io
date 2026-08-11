@@ -1,0 +1,6 @@
+nav:
+    - Software Design and Engineering: README.md
+    - Software Design Fundamentals: SoftwareDesignFundamentals.md
+    - Building Abstractions: BuildingAbstractions.md
+    - The Purpose of Software Design: PurposeOfSoftwareDesign.md
+    - The Visitor Design Pattern: VisitorDesignPattern.md

@@ -1,0 +1,13 @@
+nav:
+    - 090 无穷数列与级数 Infinite Sequences and Series: README.md
+    - 010 数列 Sequences: 010-Sequences.md
+    - 020 无穷级数 Infinite Series: 020-Infinite-Series.md
+    - 030 积分测试 The Integral Test: 030-The-Integral-Test.md
+    - 040 比较测试 Comparison Tests: 040-Comparison-Tests.md
+    - 050 绝对收敛；比值测试和根测试 Absolute Convergence; The Ratio and Root Tests: 050-Absolute-Convergence-The-Ratio-and-Root-Tests.md
+    - 060 交错级数和条件收敛 Alternating Series and Conditional Convergence: 060-Alternating-Series-and-Conditional-Convergence.md
+    - 070 幂级数 Power Series: 070-Power-Series.md
+    - 080 泰勒级数和麦克劳林级数 Taylor and Maclaurin Series: 080-Taylor-and-Maclaurin-Series.md
+    - 090 泰勒级数的收敛 Convergence of Taylor Series: 090-Convergence-of-Taylor-Series.md
+    - 010 泰勒级数的应用 Applications of Taylor Series: 100-Applications-of-Taylor-Series.md
+    - 110 附录 Appendix: 110-Appendix.md
