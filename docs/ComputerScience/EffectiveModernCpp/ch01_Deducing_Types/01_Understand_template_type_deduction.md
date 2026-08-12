@@ -16,7 +16,7 @@ f(expr);
 ## Case 1: ParamType is a Reference or Pointer, but not a Universal Reference
 类型推导规则是
 1. `expr` 是引用的话把引用修饰忽略
-2. 以 `ParamType` 为背景对 `expr` 进行模式匹配来确定 `T`
+2. 以 `ParamType` 为模式对 `expr` 进行匹配，以确定 `T`
 
 假定函数模板如下：
 ```cpp
@@ -109,7 +109,7 @@ void f(T param); // param is now passed by value
 ```
 `param` 按值传递，会拷贝一个新的对象，所以推导规则如下：
 1. `expr` 如果是引用类型，忽略引用
-2. 在 1 的基础上，如果有 `const` 修饰，忽略 `const`。如果是 `volatile`，也忽略。（`volatile` 不常见，参加 Item 40（TODO 贴链接））
+2. 在 1 的基础上，忽略顶层 `const` 和 `volatile` 修饰。（`volatile` 不常见，参见 [Item 40](../ch07_The_Concurrency_API/40_Use_std_atomic_for_concurrency_volatile_for_special_memory.md)）
 
 ```cpp
 int x = 27;        // as before
@@ -152,7 +152,7 @@ f(name);         // what types are deduced for T and param?
 void myFunc(int param[]);
 void myFunc(int *param); // same function as above
 ```
-这一点源自 C 语言，不过会让人以为两者是一样的。
+这一规则源自 C 语言，但容易让人误以为数组和指针是同一种类型。
 
 由于退化，所以类型推导结果为 `T` 的类型是 `const char *`。
 ```cpp
@@ -179,7 +179,7 @@ constexpr std::size_t arraySize(T (&)[N]) noexcept
 ```
 `constexpr` 使得可以编译器得到结果（参见 [Item 15](../ch03_Moving_to_Modern_C++/15_Use_constexpr_whenever_possible.md)）。`noexcept` 可以帮助编译器更好的优化（参见 [Item 14](../ch03_Moving_to_Modern_C++/14_Declare_functions_noexcept_if_they_wont_emit_exceptions.md)）。
 
-使用这个函数可以容易的创建处大小一样的数组。
+使用这个函数可以容易地创建出大小相同的数组。
 ```cpp
 int keyVals[] = {1, 3, 7, 9, 11, 22, 35}; // keyVals has 7 elements
 int mappedVals[arraySize(keyVals)];       // so does mappedVals
@@ -189,7 +189,7 @@ std::array<int, arraySize(keyVals)> mappedVals; // mappedVals' size is 7
 ```
 
 ## Function Arguments
-函数类型和数组类型类似，也会退化成指针，那么推导行为和上述描述的一致。
+函数类型和数组类型类似，在按值传递时也会退化成函数指针，因此推导行为与上述描述一致。
 ```cpp
 void someFunc(int, double); // someFunc is a function; type is void(int, double)
 
