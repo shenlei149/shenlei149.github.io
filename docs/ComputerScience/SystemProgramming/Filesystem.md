@@ -566,4 +566,138 @@ int main()
 
 挂载的优势是简化了用户对文件层级结构的理解和路径导航，但是也引入了一个问题：目录层级结构中可能会出现 inode 编号相同的文件，这是因为 inode 编号仅在单个文件系统内部是唯一的。实上，大部分 Unix 系统（包括 Linux）中，根目录的 inode 编号为 2；inode 编号 1 用于记录坏块，inode 编号 0 未使用。Unix 系统中可能有多个文件系统都挂载在根目录 `/` 下，因此可能会有多个 inode 编号为 2 的目录。由于挂载到目录层级结构中的文件系统可能具有相同的 inode 编号，因此唯一标识一个文件的方式是将 inode 编号与其所在文件系统的设备 ID 结合起来。`stat()` 返回的 `struct stat` 结构体中包含 `st_dev` 和 `st_ino` 字段，前者是文件所在的设备 ID，后者是文件的 inode 编号。通过这两个字段可以唯一标识一个文件。仅凭 inode 编号无法唯一确定一个文件，这也是内核不允许跨文件系统创建硬链接的原因。
 
-现在回到目录层级的处理。处理树形结构的最好方式就是使用递归。
+现在回到目录层级的处理。处理树形结构的最好方式就是使用递归。下面是一个递归函数的例子，它会遍历目录树并打印每个文件的路径。
+```c
+bool is_dir(const struct dirent *entry)
+{
+#ifdef _DIRENT_HAVE_D_TYPE
+	return entry->d_type == DT_DIR;
+#else
+	struct stat st;
+	stat(entry->d_name, &st);
+	return S_ISDIR(st.st_mode);
+#endif
+}
+
+int scan_dir(const char *dirname)
+{
+	struct dirent **namelist;
+	int n = scandir(dirname, &namelist, NULL, alphasort);
+	if (n < 0)
+	{
+		printf("scandir failed\n");
+		return -1;
+	}
+
+	char path[PATH_MAX];
+	for (int i = 0; i < n; i++)
+	{
+		if (strcmp(namelist[i]->d_name, ".") != 0 && strcmp(namelist[i]->d_name, "..") != 0)
+		{
+			printf("%s/%s\n", dirname, namelist[i]->d_name);
+			if (is_dir(namelist[i]))
+			{
+				snprintf(path, sizeof(path), "%s/%s", dirname, namelist[i]->d_name);
+				scan_dir(path);
+			}
+		}
+
+		free(namelist[i]);
+	}
+
+	free(namelist);
+	return 0;
+}
+```
+
+每次都手写递归或许有点麻烦，Linux 提供了一个函数 `nftw()`，它可以递归地遍历目录树。函数原型如下：
+```c
+#include <ftw.h>
+
+int nftw(const char *dirpath, int (*fn)(const char *fpath, const struct stat *sb,
+                                         int typeflag, struct FTW *ftwbuf),
+          int nopenfd, int flags);
+```
+第一个参数 `dirpath` 是要遍历的目录路径，函数 `nftw()` 会递归遍历以 `dirpath` 为根目录的目录层级结构。对于找到的每一个目录项，都会调用第二个参数 `fn` 指向的函数。默认情况下执行前序遍历（`pre-order traversal`），设置 `FTW_DEPTH` 标志后会执行后序遍历（`post-order traversal`）。调用 `fn` 时会传入以下参数：
+
+- `fpath`：该目录项的路径。如果 `dirpath` 是相对路径，那么 `fpath` 是相对于调用 `nftw()` 时进程当前工作目录的路径；如果 `dirpath` 是绝对路径，那么 `fpath` 也是绝对路径。
+- `sb`：指向 `struct stat` 的指针，包含该目录项的信息。这个结构体的数据就是调用了 `stat(fpath, sb)` 或 `lstat(fpath, sb)` 的结果。
+- `typeflag`：一个整数标志位，包含该目录项的更多信息。它的值是以下预定义常量之一：
+    - `FTW_F`：该目录项是一个普通文件。
+    - `FTW_D`：该目录项是一个目录。
+    - `FTW_DNR`：该目录项是一个无法读取的目录。此时，后续的子目录项不会再调用 `fn()`。
+    - `FTW_DP`：该目录项是一个目录，并且在调用 `fn()` 时已经遍历了该目录的所有子目录项。这个标志位仅在设置了 `FTW_DEPTH` 标志时才会出现。
+    - `FTW_NS`：对该目录项调用 `stat()` 失败，可能是因为当前进程对其父目录没有执行权限。此时，`sb` 指向的 `struct stat` 结构体的内容是未定义的。
+    - `FTW_SL`：该目录项是一个符号链接，并且在传给 `nftw()` 时设置了 `FTW_PHYS` 标志。
+    - `FTW_SLN`：该目录项是一个损坏或者悬空的符号链接，即未指向已存在的文件，并且在传给 `nftw()` 时没有设置 `FTW_PHYS` 标志。这种情况下 `struct stat` 的信息是关于链接本身的，而不是它所指向的文件。
+- `ftwbuf`：指向 `struct FTW` 的指针，这个结构体定义如下：
+```c
+struct FTW {
+    int base;   /* Offset of filename in pathname */
+    int level;  /* Depth of pathname */
+};
+```
+这个结构体包含了两个字段，`base` 是文件名在路径中的偏移量，比如 `fpath` 是 `/home/user/test`，当前正在处理 `test`，那么 `base` 的值就是 11，即 `strlen("/home/user/")`。`level` 是当前目录项在目录树中的深度，根目录的深度为 0，它的子目录的深度为 1，这个例子中 `level` 的值就是 2。
+
+`fn` 的参数列表有一个明显的缺点是没有预留参数让我们向其传递其他自定义数据。为了让该函数能够访问跨调用的自定义数据，不得不使用全局变量或者静态变量。
+
+`nftw()` 的第三个参数 `nopenfd` 是一个整数，表示在遍历目录树时最多可以同时打开的目录数。`nftw()` 访问一个目录时，会打开该目录并获取文件描述符，遍历完其所有子树后返回父目录时，会关闭该文件描述符。如果 `nopenfd` 的值小于目录树的深度，那么为了访问更深层的目录，`nftw()` 会关闭一些父目录的文件描述符，并在返回时重新打开它们。这会降低性能。如果将 `nopenfd` 设置得足够大，就可以避免这个问题，不过进程可以打开的文件描述符数量受内核限制。
+
+`nftw()` 的第四个参数是下面标志位的按位或的结果，用来控制其行为。
+
+- `FTW_CHDIR`：如果设置了该标志位，在处理每个目录中的文件时，会将当前工作目录改为该目录。
+- `FTW_DEPTH`：如果设置了该标志位，`nftw()` 会在处理目录自身之前先处理该目录中的所有目录项，也就是后序遍历；否则为前序遍历。
+- `FTW_MOUNT`：如果设置了该标志位，`nftw()` 只会遍历与 `dirpath` 在同一个文件系统中的目录项，不会跨越挂载点。
+- `FTW_PHYS`：如果设置了该标志位，`nftw()` 不会跟随符号链接，而是将符号链接本身作为目录项处理。如果没有设置，会跟随符号链接但是不会重复访问任何文件。
+- `FTW_ACTIONRETVAL`：如果设置了这个标志位，`fn()` 可以返回一个整数值来控制 `nftw()` 的行为。这是一个在 glibc 2.3.3 或更高版本中可用的特性，需要定义 `_GNU_SOURCE` 宏来暴露它。返回值可以是以下之一：
+    - `FTW_CONTINUE`：继续遍历目录树。
+    - `FTW_STOP`：停止遍历目录树。
+    - `FTW_SKIP_SUBTREE`：如果当前目录项是一个目录，跳过该目录的子树。
+    - `FTW_SKIP_SIBLINGS`：跳过当前目录项的兄弟节点。
+
+`nftw()` 除了会在遇到上述 `FTW_STOP` 时停止遍历（前提是设置了 `FTW_ACTIONRETVAL` 标志位），还会在遇到错误时停止遍历。`nftw()` 返回值为 0 表示成功，返回 -1 表示失败并设置 `errno`。如果没有设置 `FTW_ACTIONRETVAL` 标志位，`fn()` 返回非零值，`nftw()` 会停止遍历并返回该值。
+
+下面是一个调用示例：
+```c
+int display(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
+{
+	int width = ftwbuf->level * 4;
+	char indent[PATH_MAX];
+	memset(indent, ' ', width);
+	indent[width] = '\0';
+	const char *basename = fpath + ftwbuf->base;
+
+	printf("%s%s\n", indent, basename);
+
+	if (typeflag == FTW_DNR)
+	{
+		printf("%s[unreadable directory]\n", indent);
+	}
+	else if (typeflag == FTW_NS)
+	{
+		printf("%s[stat failed]\n", indent);
+	}
+	else if (typeflag == FTW_SLN)
+	{
+		printf("%s[symlink to non-existing file]\n", indent);
+	}
+	else if (typeflag == FTW_SL)
+	{
+		printf("%s[symlink]\n", indent);
+	}
+
+	return 0;
+}
+
+int main()
+{
+	int flags = FTW_DEPTH | FTW_MOUNT | FTW_PHYS;
+	if (nftw(".", display, 20, flags) == -1)
+	{
+		printf("nftw failed\n");
+		return 1;
+	}
+
+	return 0;
+}
+```
