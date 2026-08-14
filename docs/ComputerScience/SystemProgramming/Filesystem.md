@@ -701,3 +701,240 @@ int main()
 	return 0;
 }
 ```
+
+下面我们看一组函数 `fts`，它们源自 BSD 发行版，不属于 POSIX 标准函数。不过大多数 Linux 发行版都实现了这些函数。`fts` 函数的原型如下：
+```c
+FTS *fts_open(char * const *path_argv, int options, int (*compar)(const FTSENT **, const FTSENT **));
+FTSENT *fts_read(FTS *ftsp);
+FTSENT *fts_children(FTS *ftsp, int instr);
+int fts_set(FTS *ftsp, FTSENT *f, int instr);
+int fts_close(FTS *ftsp);
+```
+和 `opendir()` 创建一个目录流对象并返回指向它的指针一样，`fts_open()` 创建一个 FTS 结构体并返回指向它的指针。与 `nftw()` 不同的是，`fts` 函数可以显式指定处理目录项的顺序。同时，`fts` 为程序提供了数据钩子，无需再使用文件作用域变量或者静态变量来存储这些状态信息。我们先解释这些函数的参数和返回值，然后再给出一个使用示例。
+
+`fts_open()` 的第一个参数是字符串数组，表示要遍历的目录路径。第二个参数是整数，表示选项标志位。第三个参数是函数指针，指向比较函数，用于指定目录项的处理顺序。每次调用 `fts_read()` 都会返回一个目录项。树中的普通文件只会被访问一次，但是目录会被访问两次：分别在访问其子节点之前和之后。`fts_read()` 为访问到的每个目录项返回一个指向 `FTSENT` 结构体的指针，其中包含可以将这些结构体链接在一起的字段。`fts_children()` 返回一个指向 `FTSENT` 结构体的指针，该结构体是包含当前目录所有子节点的单链表的首节点。`fts_set()` 允许在 `fts_read()` 返回目录项后再次被处理。`fts_close()` 关闭 `fts` 对象并释放资源。
+
+下面是 `FTSENT` 结构体的定义：
+```c
+typedef struct _ftsent {
+    unsigned short  fts_info;   /* flags for FTSENT structure */
+    char           *fts_accpath;/* access path */
+    char           *fts_path;   /* root path */
+    short           fts_pathlen;/* strlen(fts_path) */
+    char           *fts_name;   /* file name */
+    short           fts_namelen;/* length of file name */
+    short           fts_level;  /* depth (-1 to N) */
+    int             fts_errno;  /* file errno */
+    long            fts_number; /* local numeric value */
+    void           *fts_pointer;/* local address value */
+    struct _ftsent *fts_parent; /* parent directory */
+    struct _ftsent *fts_link;   /* next file structure */
+    struct _ftsent *fts_cycle;  /* cycle structure */
+    struct stat    *fts_statp;  /* stat(2) information */
+} FTSENT;
+```
+字段很多，但是常用的有以下这些：
+
+- `fts_info`：标志位，指示该目录项的类型。
+    - `FTS_D`：正在以前序遍历访问的目录。
+    - `FTS_DC`：导致循环的目录。`fts_cycle` 字段指向导致循环的目录。
+    - `FTS_DEFAULT`：代表未能用其他 `fts_info` 值来描述的文件类型。
+    - `FTS_DNR`：无法读取的目录。这是一个错误返回，`fts_errno` 字段包含错误码。
+    - `FTS_DOT`：传递给 `fts_open()` 的未指定文件名的点文件，比如 `.` 或 `..`。
+    - `FTS_DP`：正在以后序遍历访问的目录。
+    - `FTS_ERR`：错误返回，`fts_errno` 字段包含错误码。
+    - `FTS_F`：普通文件。
+    - `FTS_NS`：无法获取文件状态信息，`fts_statp` 的内容未定义。`fts_errno` 字段包含错误码。
+    - `FTS_NSOK`：没有要求获取 `stat` 文件状态信息，因此 `fts_statp` 的内容未定义。
+    - `FTS_SL`：符号链接。
+    - `FTS_SLNONE`：符号链接，指向不存在的文件。`fts_statp` 指向的内容是该符号链接本身的状态信息。
+- `fts_accpath`：从当前目录访问该文件的路径。
+- `fts_path`：相对于遍历根节点的文件路径，这个路径包含传递给 `fts_open()` 的路径作为其前缀。
+- `fts_name`：文件名。
+- `fts_errno`：错误码，只有在 `fts_info` 为 `FTS_ERR` `FTS_DNR` `FTS_NS` 时才有意义，它的值是外部变量 `errno` 的值，其他情况下内容是未定义的。
+- `fts_number`：一个长整型数值，供程序使用。
+- `fts_pointer`：一个指针，供程序使用。
+- `fts_parent`：指向父目录的 `FTSENT` 结构体。对于初始的入口点，系统也初始化这个结构体，不过只有 `fts_level` `fts_number` `fts_pointer` 字段是有意义的，其他字段的内容是未定义的。
+- `fts_link`：从 `fts_children()` 函数返回时，这个字段指向下一个 `FTSENT` 结构体的指针，形成一个单链表。否则 `fts_link` 字段的内容是未定义的。
+- `fts_statp`：指向 `struct stat` 的指针，包含该目录项的状态信息。
+
+相比 `nftw()` 函数，`fts_info` 与回调函数 `fn` 中的参数 `typeflag` 的作用类似，都是用来指示目录项的类型。`fts_parent` 提供了访问父节点的方法。如果没有发生错误，`FTSENT` 结构体中的 `fts_statp` 字段指向的 `struct stat` 结构体包含了该目录项的状态信息。
+
+下面是使用这个函数的示例，按照字母序遍历目录树并打印每个文件的路径和文件大小。
+```c
+int namecmp(const FTSENT **a, const FTSENT **b) { return strcoll((*a)->fts_name, (*b)->fts_name); }
+
+int main()
+{
+	char *paths[] = { ".", NULL };
+	FTS *tree = fts_open(paths, FTS_PHYSICAL, namecmp);
+
+	if (tree == NULL)
+	{
+		printf("fts_open failed\n");
+		return EXIT_FAILURE;
+	}
+
+	FTSENT *node;
+	while ((node = fts_read(tree)) != NULL)
+	{
+		switch (node->fts_info)
+		{
+		case FTS_DNR:
+			printf("Cannot read directory: %s\n", node->fts_path);
+			break;
+		case FTS_ERR:
+			printf("Error reading file: %s\n", node->fts_path);
+			break;
+		case FTS_NS:
+			printf("Cannot stat file: %s\n", node->fts_path);
+			break;
+		case FTS_DP:
+			continue; // Skip directories after processing their contents
+		}
+
+		printf("%12ld\t%*s%s\n", node->fts_statp->st_size, node->fts_level * 4, "", node->fts_path);
+	}
+
+	fts_close(tree);
+
+	return 0;
+}
+```
+
+### 实现 `pwd`
+下面实现 `pwd` 的功能，解释之前说的如何向上遍历目录树。`pwd` 命令的功能是打印当前工作目录的绝对路径。我们可以通过 `getcwd()` 获取当前工作目录的绝对路径，但是这里我们尝试自己实现这个功能。
+
+我们只知道当前目录是 `.`，但是不知道当前目录的名字，如何获取这个信息呢？我们能够记录当前目录 `.` 和父目录 `..` 的 inode，然后获取父目录的所有子节点，找到 inode 相同的目录项，这个目录项的名字就是当前目录的名字。不过，这对于挂载了其他文件系统的目录来说行不通，因为 inode 号在不同的文件系统中可能相同。因此，上述判定还需要加上设备 ID。方便起见，我们使用下面的结构体：
+```c
+typedef struct device_inode_pair
+{
+	ino_t st_ino; /* inode number */
+	dev_t st_dev; /* device ID */
+} dev_ino;
+```
+
+接下来遇到的问题是如何将当前工作目录切换为父目录。有下面两个函数可用：
+```c
+#include <unistd.h>
+
+int chdir(const char *path);
+int fchdir(int fd);
+```
+两个函数分别根据路径名和文件描述符切换当前工作目录。这里使用 `chdir("..")` 切换到父目录。
+
+然后我们可以使用 `opendir()` 打开父目录，使用 `readdir()` 遍历父目录的所有子节点，找到 inode 和设备 ID 都与当前目录相同的目录项，这个目录项的名字就是当前目录的名字。我们也可以使用 `scandir()` 获取父目录的所有子节点，并传入一个过滤函数找出 inode 和设备 ID 都与当前目录相同的目录项。这里实现时使用前者。这里使用 `lstat()` 获取目录项的状态信息，因为跟随符号链接会导致程序出错。
+
+就这样慢慢向上回溯，直到回溯到根目录 `/`，问题来了，如何判断我们是否达到了根目录呢？第一种方法是在一开始就调用 `stat("/", &st)` 获取根目录的 inode 和设备 ID，然后在回溯过程中判断当前目录是否和根目录相同。第二种方法是判断当前目录和父目录是否相同，如果相同就说明已经到达了根目录。这里我们采用第一种方法。
+
+最后一个问题是如何构建路径名。我们自底向上遍历，因此需要从右往左拼接目录名字，无法简单地将新发现的目录名追加到路径名末尾。我们先构建一个 `PATH_MAX` 大小的缓冲区 `path`，在最后一个字符 `path[PATH_MAX - 1]` 中放置字符串结束符 `\0`。使用 `front` 表示已构建路径名最左侧的字符下标。初始时 `front = PATH_MAX - 1`，每次发现一个目录名 `dirname` 时，先将 `front` 往左移动 `strlen(dirname)` 个位置，再将 `dirname` 拷贝到从 `path[front]` 开始的位置。接着将 `front` 往左移动 1 个位置，并在 `path[front]` 放置路径分隔符 `/`。如果路径长度超过 `PATH_MAX`，就会发生缓冲区溢出。这里简单处理：检测到这种情况时直接报错，然后输出由省略号和部分路径组成的结果。
+
+下面的函数是在父目录中搜索当前目录名的函数。在调用这个函数之前，已经切换到父目录了。
+```c
+bool are_samefile(dev_ino a, dev_ino b) { return (a.st_ino == b.st_ino) && (a.st_dev == b.st_dev); }
+
+void get_dev_ino(const char *filename, dev_ino *result)
+{
+	struct stat st;
+	if (lstat(filename, &st) != 0)
+	{
+		printf("lstat failed: %s\n", filename);
+		exit(EXIT_FAILURE);
+	}
+
+	result->st_ino = st.st_ino;
+	result->st_dev = st.st_dev;
+}
+
+char *get_filename(dev_ino child)
+{
+	DIR *dir = opendir(".");
+	if (dir == NULL)
+	{
+		printf("opendir failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	struct dirent *direntp;
+	while ((direntp = readdir(dir)) != NULL)
+	{
+		dev_ino current;
+		get_dev_ino(direntp->d_name, &current);
+		if (are_samefile(current, child))
+		{
+			int len = strlen(direntp->d_name);
+			char *name = (char *)malloc(len + 1);
+			if (name == NULL)
+			{
+				printf("malloc failed\n");
+				exit(EXIT_FAILURE);
+			}
+
+			strncpy(name, direntp->d_name, len);
+			name[len] = '\0';
+			closedir(dir);
+			return name;
+		}
+	}
+
+	closedir(dir);
+	return NULL;
+}
+```
+
+下面是 `main()` 函数的实现，它会不断向上回溯，直到回溯到根目录 `/`。
+```c
+int main()
+{
+	dev_ino root;
+	get_dev_ino("/", &root);
+
+	dev_ino current;
+	get_dev_ino(".", &current);
+	if (are_samefile(root, current))
+	{
+		printf("/\n");
+		return 0;
+	}
+
+	char path[PATH_MAX];
+	path[PATH_MAX - 1] = '\0';
+	ssize_t front = PATH_MAX - 1;
+
+	while (!are_samefile(root, current))
+	{
+		// go up to parent directory
+		chdir("..");
+
+		char *dirname = get_filename(current);
+		if (dirname == NULL)
+		{
+			printf("get_filename failed\n");
+			exit(EXIT_FAILURE);
+		}
+
+		ssize_t namelength = strlen(dirname);
+		if (front - namelength - 1 < 0)
+		{
+			memset(&path[0], '.', front);
+			front = 0;
+			printf("path too long, truncating to: %s\n", &path[0]);
+			free(dirname);
+			return 0;
+		}
+
+		front -= namelength;
+		memcpy(&path[front], dirname, namelength);
+		front--;
+		path[front] = '/';
+		free(dirname);
+
+		// start next iteration with new current directory
+		get_dev_ino(".", &current);
+	}
+
+	printf("%s\n", &path[front]);
+
+	return 0;
+}
+```
