@@ -32286,7 +32286,7 @@
 
 
 <p>如果和编译时间打过交道，那么可能会熟悉 Pimpl（<code>pointer to implementation</code>）惯用法。原来就是用指向具体实现的指针取代数据字段，将这些字段放到实现类中，然后通过指针来放着这些字段。比如
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="c1">// in header &quot;widget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="c1">// in header "widget.h"</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">public</span><span class="o">:</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">Widget</span><span class="p">();</span>
@@ -32299,7 +32299,7 @@
 </span></code></pre></div>
 由于 <code>Widget</code> 的成员类型有 <code>std::string, std::vector, Gadget</code>，那么为了能够编译 <code>"widget.h"</code> 这个文件必须包含头文件 <code>&lt;string&gt;, &lt;vector&gt;, gadget.h</code>，这增加了编译使用 <code>Widget</code> 的客户端代码的时间。一旦头文件变化了，那么这些客户端代码也要重新编译。STL 不会经常修改，但是 <code>gadget.h</code> 可能会频繁修改。</p>
 <p>我们先使用 C++98 的方式实现 Pimpl。成员变量被替换成指向一个只声明但是没有定义的结构体的指针。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="c1">// still in header &quot;widget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="c1">// still in header "widget.h"</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">public</span><span class="o">:</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">Widget</span><span class="p">();</span>
@@ -32313,9 +32313,9 @@
 由于 <code>Widget</code> 不再依赖于 <code>std::string, std::vector, Gadget</code>，那么也不需要添加这些头文件。这会缩短时间，另外，如果涉及这些类型的头文件修改了，那么也不会影响使用 <code>Widget</code> 的客户端编译。</p>
 <p>只声明没定义的类型称为不完整类型（<code>incomplete type</code>）。<code>Widget::Impl</code> 就是这样的类型。对于不完整类型，有效的操作很少，不过定义一个指向它的指针是合法的。</p>
 <p>上述是 Pimpl 惯用法的第一部分。第二部分是动态的创建和析构一个对象，这个对象包含被替代的成员变量，这些代码都写在实现类中。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// file &quot;widget.cpp&quot;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;widget.h&quot;</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gadget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// file "widget.cpp"</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"widget.h"</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"gadget.h"</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Widget</span><span class="o">::</span><span class="n">Impl</span><span class="w"> </span><span class="c1">// definition of Widget::Impl</span>
@@ -32337,7 +32337,7 @@
 </span></code></pre></div>
 这个 <code>.cpp</code> 文件 <code>#include</code> 的头文件 <code>&lt;string&gt;, &lt;vector&gt;, gadget.h</code>，这些没有被包含在 <code>.h</code> 文件中，所以能够得到上述收益。</p>
 <p>正如前面的章节讨论的，C++11 中推荐使用智能指针代替裸指针，下面，使用 <code>std::unique_ptr</code> 替代裸指针。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// file &quot;widget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// file "widget.h"</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">{</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">public</span><span class="o">:</span>
@@ -32348,9 +32348,9 @@
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pImpl</span><span class="p">;</span><span class="w"> </span><span class="c1">// use smart pointer instead of raw pointer</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">};</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1">// file &quot;widget.cpp&quot;</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;widget.h&quot;</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gadget.h&quot;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1">// file "widget.cpp"</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"widget.h"</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"gadget.h"</span>
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
 </span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 </span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Widget</span><span class="o">::</span><span class="n">Impl</span>
@@ -32367,7 +32367,7 @@
 </span></code></pre></div>
 <code>Widget</code> 的析构函数不见了，因为当 <code>std::unique_ptr</code> 析构时，会自动析构指向的对象。这样就无需我们自己管理资源了。</p>
 <p>这些代码能够编译，但是客户端代码无法编译。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;widget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"widget.h"</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w"> </span><span class="c1">// error!</span>
 </span></code></pre></div>
 报错信息依赖于编译器，不过差不多就是说无法将 <code>sizeof</code> <code>delete</code> 作用于一个不完整类型。</p>
@@ -32375,7 +32375,7 @@
 <p>原因是当 <code>w</code> 离开其作用域时需要被销毁。但是我们没有写析构函数，那么编译器会自动生成一个。自动生成的析构函数会销毁字段 <code>pImpl</code>，其类型是 <code>std::unique_ptr&lt;Widget::Impl&gt;</code> 使用默认的删除器，使用 <code>delete</code> 析构 <code>std::unique_ptr</code> 指向的对象。C++11 的默认删除器的实现往往会使用 <code>static_assert</code> 确保裸指针指向的对象不是一个不完成类型的对象。同时，编译器生成的析构函数相当于实现在了头文件中，隐含着 <code>inline</code>。此时，类型确实是不完整的。报错信息往往出现在定义 <code>w</code> 的这一行，因为它的创建导致在析构的时候出现这一系列问题。</p>
 <p>为了修复这个问题，需要在销毁 <code>std::unique_ptr&lt;Widget::Impl&gt;</code> 时使得 <code>Widget::Impl</code> 是一个完整的类型，而 <code>Widget::Impl</code> 定义在 <code>widget.cpp</code>。那么需要在 <code>.cpp</code> 文件中定义析构函数，并在 <code>Widget::Impl</code> 之后。</p>
 <p>这样，我们需要在头文件声明析构函数。然后在 <code>.cpp</code> 中定义它且在 <code>Widget::Impl</code> 之后。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// file &quot;widget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// file "widget.h"</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">{</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">public</span><span class="o">:</span>
@@ -32387,9 +32387,9 @@
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pImpl</span><span class="p">;</span>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">};</span>
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1">// file &quot;widget.cpp&quot;</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;widget.h&quot;</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gadget.h&quot;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1">// file "widget.cpp"</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"widget.h"</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"gadget.h"</span>
 </span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
 </span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 </span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Widget</span><span class="o">::</span><span class="n">Impl</span>
@@ -32412,7 +32412,7 @@
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Widget</span><span class="o">::~</span><span class="n">Widget</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"> </span><span class="c1">// same effect as above</span>
 </span></code></pre></div></p>
 <p>使用 Pimpl 惯用法的类型自然支持移动操作，编译器自动生成的移动操作也能正常工作，移动 <code>std::unique_ptr</code> 对象。但是我们声明定义了析构函数，这组织了编译器自动生成移动操作。为了弥补这一点，我们可以手动添加上。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">// file &quot;widget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">// file "widget.h"</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">{</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">public</span><span class="o">:</span>
@@ -32430,7 +32430,7 @@
 这种方法遇到的问题和之前没有声明定义析构函数遇到的问题一样，原因也是一样的，不再赘述。解决方案也一样，分离声明和定义，且将定义放到 <code>Widget::Impl</code> 定义之后。</p>
 <p>使用 Pimlp 惯用法改造一个类，并不应该改变其行为。原始的 <code>Widget</code> 类包含 <code>std::string, std::vector, Gadget</code> 类型的成员变量，也假设 <code>Gadget</code> 和 <code>std::string, std::vector</code> 支持复制。我们不得不写拷贝相关操作的函数，因为 1）有了 <code>std::unique_ptr</code> 是一个仅能移动的对象，编译器不再帮我们生成拷贝操作了；2）默认生成的实现对 <code>std::unique_ptr</code> 进行浅拷贝，但是我们期望是深拷贝。</p>
 <p>声明和定义如下。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// file &quot;widget.h&quot;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// file "widget.h"</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">{</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">public</span><span class="o">:</span>
@@ -32444,8 +32444,8 @@
 </span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pImpl</span><span class="p">;</span>
 </span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="p">};</span>
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="c1">// file &quot;widget.cpp&quot;</span>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;widget.h&quot;</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="c1">// file "widget.cpp"</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"widget.h"</span>
 </span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Widget</span><span class="o">::</span><span class="n">Impl</span><span class="w"> </span><span class="c1">// as before</span>
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="p">{</span>

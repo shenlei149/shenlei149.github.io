@@ -825,6 +825,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态规划
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态规划">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最大权重独立集
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -32234,6 +32262,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动态规划
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态规划">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最大权重独立集
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -32364,9 +32420,9 @@
 <li><a href="../Graph/#最短路径dijkstra-算法">最短路径：Dijkstra 算法</a></li>
 </ul>
 <h3 id="_3">调度</h3>
-<p>假定有若干个任务（<code>job</code>），每个任务 <script type="math/tex">j</script> 的长度是 <script type="math/tex">l_j</script>，其权重是 <script type="math/tex">w_j</script>，我们希望找到一个调度方案，使得加权完成时间 <script type="math/tex">\sum w_j C_j(\sigma)</script> 最小，其中 <script type="math/tex">C_j(\sigma)</script> 是任务 <script type="math/tex">j</script> 在调度方案 <script type="math/tex">\sigma</script> 中的完成时间，其定义是等待时间加上自身的长度，即 <script type="math/tex">C_j(\sigma) = \sum_{i: \sigma(i) < \sigma(j)} l_i + l_j</script>。如果有 <script type="math/tex">n</script> 个任务，那么有 <script type="math/tex">n!</script> 种调度方案，暴力搜索的时间复杂度是 <script type="math/tex">O(n!)</script>，仅对小规模的数可行，因此需要一个更高效的算法。</p>
+<p>假定有若干个任务（<code>job</code>），每个任务 <script type="math/tex">j</script> 的长度是 <script type="math/tex">l_j</script>，其权重是 <script type="math/tex">w_j</script>，我们希望找到一个调度方案，使得加权完成时间 <script type="math/tex">\sum w_j C_j(\sigma)</script> 最小，其中 <script type="math/tex">C_j(\sigma)</script> 是任务 <script type="math/tex">j</script> 在调度方案 <script type="math/tex">\sigma</script> 中的完成时间，其定义是等待时间加上自身的长度，即 <script type="math/tex">C_j(\sigma) = \sum_{i: \sigma(i) < \sigma(j)} l_i + l_j</script>。如果有 <script type="math/tex">n</script> 个任务，那么有 <script type="math/tex">n!</script> 种调度方案，暴力搜索的时间复杂度是 <script type="math/tex">O(n!)</script>，仅对小规模的数据可行，因此需要一个更高效的算法。</p>
 <p>下面使用贪心算法来解决这个问题。整个分析的过程比算法本身更值得学习，因为这是一种通用的、使用贪心算法的模式。</p>
-<p>首先考虑两种极端情况。第一种是所有任务的长度都相同，假定长度是 1，那么它们的完成时间是 <script type="math/tex">\{1, 2, \ldots, n\}</script>，很明显，应优先处理权重大的任务，总时间更短。第二种是所有任务的权重都相同，第一个任务完成所需的时间会对所有任务的完成时间产生影响，因此应该先处理长度短的任务。由此可以得到一个启发：应该先处理权重大的任务，或者先处理长度短的任务。</p>
+<p>首先考虑两种极端情况。第一种是所有任务的长度都相同，假定长度是 1，那么它们的完成时间是 <script type="math/tex">\{1, 2, \ldots, n\}</script>，很明显，应优先处理权重大的任务，以使加权完成时间更小。第二种是所有任务的权重都相同，第一个任务完成所需的时间会对所有任务的完成时间产生影响，因此应该先处理长度短的任务。由此可以得到一个启发：应该先处理权重大的任务，或者先处理长度短的任务。</p>
 <p>下面讨论更一般的情况。任务有两个属性：长度和权重，我们可以将它们综合起来考虑，给出一个得分（<code>score</code>），例如 <script type="math/tex">w_j - l_j</script> 或 <script type="math/tex">w_j / l_j</script>，我们使用贪心策略，每次选择得分最高的任务，从而得到一个调度方案。我们期望这两个调度方案中有一个是最优的。我们称使用前者的调度方案为 <code>GreedyDiff</code>，使用后者的调度方案为 <code>GreedyRatio</code>。
 我们构建一个简单的例子，使得两个算法的得分顺序恰好相反。假定有两个任务，长度分别是 <script type="math/tex">l_1=5,l_2=2</script>，权重分别是 <script type="math/tex">w_1=3,w_2=1</script>。<code>GreedyDiff</code> 的得分分别是 <script type="math/tex">-2</script> 和 <script type="math/tex">-1</script>，因此它会先处理任务 2，完成时间分别是 <script type="math/tex">C_1=7,C_2=2</script>，加权完成时间是 <script type="math/tex">3 \cdot 7 + 1 \cdot 2 = 23</script>；<code>GreedyRatio</code> 的得分分别是 <script type="math/tex">0.6</script> 和 <script type="math/tex">0.5</script>，因此它会先处理任务 1，完成时间分别是 <script type="math/tex">C_1=5,C_2=7</script>，加权完成时间是 <script type="math/tex">3 \cdot 5 + 1 \cdot 7 = 22</script>。从这个例子可以得出 <code>GreedyDiff</code> 的调度方案不是最优的，不过不能说明 <code>GreedyRatio</code> 的调度方案是最优的。</p>
 <p>下面证明 <code>GreedyRatio</code> 的调度方案是最优的。分治法天然地带有递归的性质，可以使用归纳法来证明，而贪心算法没有这个性质。这里使用交换论证（<code>exchange argument</code>）来证明，这种方法的核心思想是任何可行解都可以通过一系列变换，变得更接近贪心算法给出的解，并且不会变差。</p>
@@ -32377,19 +32433,19 @@
 <p>现在把之前去掉的限制加回来，即允许 <script type="math/tex">\frac{w_i}{l_i} = \frac{w_{i+1}}{l_{i+1}}</script>，也就是说存在一些任务的权重与长度的比值相同。按照上面的过程，<script type="math/tex">\frac{w_i}{l_i}\leq\frac{w_j}{l_j}</script>，因此 <script type="math/tex">w_i l_j - w_j l_i \leq 0</script>，也就是说我们交换得到的调度方案 <script type="math/tex">\sigma'</script> 的加权完成时间可能会变小，也可能保持不变。每一次交换会使得逆序对的个数减少一个，因为除了 <script type="math/tex">i,j</script> 这个逆序对消除之外，其他元素的相对关系不变。从任意 <script type="math/tex">\sigma^*</script> 开始，经过有限次交换，直到消除所有的逆序对，得到 <code>GreedyRatio</code> 的调度方案 <script type="math/tex">\sigma</script>。</p>
 <p>这个算法的时间复杂度是 <script type="math/tex">O(n \log n)</script>，因为需要对 <script type="math/tex">n</script> 个任务的得分进行排序。</p>
 <h3 id="huffman">Huffman 编码</h3>
-<p>首先介绍前缀码（<code>prefix-free code</code>）：任意两个符号的编码都不互为前缀。定长编码，比如 ASCII 编码，通常是前缀码。再比如对于 <script type="math/tex">\Sigma=\{A, B, C, D\}</script>，如果我们使用定长编码，那么每个符号的编码长度都是 2，例如 <script type="math/tex">A=00, B=01, C=10, D=11</script>，这是前缀码。如果我们使用变长编码，例如 <script type="math/tex">A=0, B=10, C=110, D=111</script>，也是前缀码，任意两个编码都不互为前缀。前缀码的好处是编码没有歧义，解码简单明了。如果各个符号出现的频次不同，那么变长前缀码比固定长度编码更高效。</p>
-<p>编码只能是 0 或者 1，那么从左向右可以看作是一棵二叉树的路径，左子树对应 0，右子树对应 1，那么每个符号对应二叉树的一个节点，路径就是编码本身，编码长度就是路径长度（当前叶子的深度）。因此前缀码对应二叉树的叶子节点，编码长度就是叶子节点的深度，而非前缀码有的字符可能对应二叉树的内部节点，是其他子节点的前缀。</p>
-<p>这里我们要解决的问题是：给定一个元素个数 <script type="math/tex">n\geq 2</script> 的集合 <script type="math/tex">\Sigma</script>，每个字符 <script type="math/tex">a</script> 的频率是 <script type="math/tex">p_a</script>，找到一个前缀码编码方式使得平均编码长度
+<p>首先介绍前缀码（<code>prefix-free code</code>）：任意两个符号的编码都不互为前缀。定长编码，比如 ASCII 编码，通常是前缀码。再比如对于 <script type="math/tex">\Sigma=\{A, B, C, D\}</script>，如果我们使用定长编码，那么每个符号的编码长度都是 2，例如 <script type="math/tex">A=00, B=01, C=10, D=11</script>，这是前缀码。如果我们使用变长编码，例如 <script type="math/tex">A=0, B=10, C=110, D=111</script>，也是前缀码，任意两个编码都不互为前缀。前缀码的好处是编码没有歧义，解码简单明了。如果各个符号出现的频次不同，变长前缀码可以比固定长度编码更高效。</p>
+<p>编码只能是 0 或者 1，从左向右可以看作二叉树中的一条路径：左分支对应 0，右分支对应 1。每个符号对应二叉树的一个节点，路径就是编码本身，编码长度就是该叶子节点的深度。因此，前缀码对应二叉树的叶子节点；对于非前缀码，某些字符可能对应二叉树的内部节点，从而成为其他字符编码的前缀。</p>
+<p>这里我们要解决的问题是：给定一个元素个数 <script type="math/tex">n\geq 2</script> 的集合 <script type="math/tex">\Sigma</script>，每个字符 <script type="math/tex">a</script> 的出现概率是 <script type="math/tex">p_a</script>，找到一种前缀码，使得平均编码长度
 <script type="math/tex; mode=display">L = \sum_{a\in\Sigma} p_a l_a</script>
 最小，其中 <script type="math/tex">l_a</script> 是字符 <script type="math/tex">a</script> 的编码长度。</p>
 <p>
-<script type="math/tex">\Sigma</script> 的字符应用某种前缀码，那么就构成了一棵二叉树 <script type="math/tex">T</script>，平均编码长度就是二叉树的平均深度。我们希望找到一棵二叉树，使得平均深度最小。这里用 <script type="math/tex">L(T,p_a)</script> 表示带权重的平均深度。
+<script type="math/tex">\Sigma</script> 的字符使用某种前缀码时，会构成一棵二叉树 <script type="math/tex">T</script>，平均编码长度就是二叉树叶子节点深度的加权平均值。我们希望找到一棵二叉树，使该值最小。这里用 <script type="math/tex">L(T,p_a)</script> 表示加权平均深度。
 <script type="math/tex; mode=display">L(T,p_a) = \sum_{a \in \Sigma} p_a \cdot \text{depth}_T(a)</script>
 其中 <script type="math/tex">\text{depth}_T(a)</script> 是字符 <script type="math/tex">a</script> 在二叉树 <script type="math/tex">T</script> 中的深度。</p>
-<p>Huffman 编码就是利用贪心算法的思想，自底向上，通过连续合并节点来构造出一棵加权平均深度最小的二叉树来实现前缀码编码方式。初始时是 <script type="math/tex">n</script> 个节点，每个节点对应一个字符，权重是字符的频率。Huffman 编码维护一个森林，包含若干个树。每一次迭代，选择权重最小的两个树，将它们合并成一棵树，新的树的权重是两棵树权重之和。重复这个过程，直到森林中只剩下一棵树，这棵树就是我们要找的二叉树。</p>
-<p>下面看一个简单的例子，有 <code>A,B,C,D</code> 四个字符，出现的频率分别是 <script type="math/tex">0.60,0.25,0.10,0.05</script>。初始时有四棵树，权重分别是 <script type="math/tex">0.60,0.25,0.10,0.05</script>，选择权重最小的两个树，即 <code>C</code> 和 <code>D</code>，将它们合并成一棵树，新的树的权重是 <script type="math/tex">0.15</script>，森林中剩下三棵树，权重分别是 <script type="math/tex">0.60,0.25,0.15</script>，选择权重最小的两个树，即 <code>B</code> 和 <code>CD</code>，将它们合并成一棵树，新的树的权重是 <script type="math/tex">0.40</script>，森林中剩下两棵树，权重分别是 <script type="math/tex">0.60,0.40</script>，选择权重最小的两个树，即 <code>A</code> 和 <code>BCD</code>，将它们合并成一棵树，新的树的权重是 <script type="math/tex">1.00</script>，森林中剩下一棵树，这就是我们要找的二叉树。</p>
+<p>Huffman 编码利用贪心算法的思想，自底向上连续合并节点，构造一棵加权平均深度最小的二叉树，从而得到前缀码。初始时有 <script type="math/tex">n</script> 个节点，每个节点对应一个字符，权重为该字符的出现概率。Huffman 编码维护一个由若干棵树组成的森林。每次迭代选择权重最小的两棵树，将它们合并为一棵树，新树的权重为两棵树权重之和。重复这个过程，直到森林中只剩下一棵树。这棵树就是我们要找的二叉树。</p>
+<p>下面看一个简单的例子，有 <code>A,B,C,D</code> 四个字符，出现概率分别是 <script type="math/tex">0.60,0.25,0.10,0.05</script>。初始时有四棵树，权重分别是 <script type="math/tex">0.60,0.25,0.10,0.05</script>，选择权重最小的两棵树，即 <code>C</code> 和 <code>D</code>，将它们合并成一棵树，新树的权重是 <script type="math/tex">0.15</script>。森林中剩下三棵树，权重分别是 <script type="math/tex">0.60,0.25,0.15</script>，选择权重最小的两棵树，即 <code>B</code> 和 <code>CD</code>，将它们合并成一棵树，新树的权重是 <script type="math/tex">0.40</script>。森林中剩下两棵树，权重分别是 <script type="math/tex">0.60,0.40</script>，选择权重最小的两棵树，即 <code>A</code> 和 <code>BCD</code>，将它们合并成一棵树，新树的权重是 <script type="math/tex">1.00</script>。森林中剩下一棵树，这就是我们要找的二叉树。</p>
 <p><img alt="" src="../Figures/Huffman_1.png" /></p>
-<p>一个复杂的例子是有 <code>A,B,C,D,E,F</code> 六个字符，出现的次数分别是 <script type="math/tex">3,2,6,8,2,6</script>，使用次数计算权重即可。这里忽略过程，最后生成的二叉树如下所示。</p>
+<p>一个复杂的例子是有 <code>A,B,C,D,E,F</code> 六个字符，出现次数分别是 <script type="math/tex">3,2,6,8,2,6</script>。可直接使用出现次数作为权重；这与将其归一化为概率得到相同的 Huffman 树。这里忽略过程，最后生成的二叉树如下所示。</p>
 <p><img alt="" src="../Figures/Huffman_2.png" /></p>
 <p>算法的伪代码如下：
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>foreach a in Sigma:
@@ -32406,20 +32462,71 @@
 <p>如果按照上面的过程来实现，时间复杂度是 <script type="math/tex">O(n^2)</script>，因为每次迭代都需要扫描森林中的树来找到权重最小的两棵树。我们可以使用优先队列（<code>priority queue</code>）来优化这个过程，使得每次迭代找到权重最小的两棵树的时间复杂度是 <script type="math/tex">O(\log n)</script>，因此整个算法的时间复杂度是 <script type="math/tex">O(n \log n)</script>。</p>
 <p>一种更快的方式是先对权重排序，然后利用两个队列，使得除了排序之外的操作时间复杂度是 <script type="math/tex">O(n)</script>，因此整个算法的时间复杂度也是 <script type="math/tex">O(n \log n)</script>。如果权重可以用基数排序来排序，那么整个算法的时间复杂度可以降到 <script type="math/tex">O(n)</script>。具体的做法是将排序的结果放在一个队列中（比如说 <code>Q1</code>），另一个队列（比如说 <code>Q2</code>）用来存储合并后的树。每次迭代，比较两个队列头部的树的权重，选择权重较小的两棵树进行合并，然后将新的树放入 <code>Q2</code> 中。重复这个过程，直到两个队列中只剩下一棵树，这就是我们要找的二叉树。权重最小的两棵树可以来自同一个队列，由于合并后的节点权重是单调递增的，因此 <code>Q2</code> 也是有序的。</p>
 <p><a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/tree/Huffman.h">Huffman Tree</a> 代码使用最后一种方法实现。</p>
-<p>下面利用之前的想法——递归和交换参数——来证明 Huffman 树是加权平均深度最小的二叉树。假定 <script type="math/tex">a,b</script> 是权重最小的两个字符，根据 Huffman 编码的构造方法，<script type="math/tex">a,b</script> 是在同一层的叶子节点，下面首先要证明以 <script type="math/tex">a,b</script> 为兄弟节点的二叉树是加权平均深度最小的二叉树。但是这还不足够，万一所有的最优的树中 <script type="math/tex">a,b</script> 不是兄弟节点呢？因此还需要证明存在一个最优的树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
+<p>下面利用递归和交换论证来证明 Huffman 树是加权平均深度最小的二叉树。假定 <script type="math/tex">a,b</script> 是权重最小的两个字符。Huffman 编码会首先合并它们，因此构造出的树中 <script type="math/tex">a,b</script> 是兄弟叶子节点。下面首先证明：在 <script type="math/tex">a,b</script> 为兄弟节点的所有二叉树中，Huffman 树的加权平均深度最小。但这还不够，因为最优树未必包含这样的兄弟节点。因此还需要证明存在一棵最优树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
 <p>这里的基础情形是 <script type="math/tex">P(2)</script>，即只有两个字符的情况，使用 0 表示其中一个字符，使用 1 表示另一个字符，那么平均编码长度就是 <script type="math/tex">p_a + p_b</script>，这是最小的，因此 <script type="math/tex">P(2)</script> 成立。</p>
-<p>假定所有小于 <script type="math/tex">k</script> 的情况都成立。使用 <script type="math/tex">T_{ab}</script> 表示以 <script type="math/tex">a,b</script> 为兄弟节点的二叉树。假定 <script type="math/tex">T</script> 是包含 <script type="math/tex">T_{ab}</script> 的树，字符集是 <script type="math/tex">\Sigma</script>，<script type="math/tex">T'</script> 和 <script type="math/tex">T</script> 几乎一样，除了将 <script type="math/tex">T_{ab}</script> 替换成一个新的节点 <script type="math/tex">ab</script>，这个节点的权重是 <script type="math/tex">p_a + p_b</script>，字符集是 <script type="math/tex">\Sigma'</script>。很显然，<script type="math/tex">T,T'</script> 可以相互转换。对于输入 <script type="math/tex">\Sigma</script> 和相应的概率 <script type="math/tex">\boldsymbol{p}</script>，Huffman 编码的输出是 <script type="math/tex">T</script>，其中 <script type="math/tex">T</script> 可以从输入是 <script type="math/tex">\Sigma'</script> 和相应的概率 <script type="math/tex">\boldsymbol{p'}</script> 的 Huffman 编码的输出 <script type="math/tex">T'</script> 得到，即通过将 <script type="math/tex">ab</script> 替换成 <script type="math/tex">T_{ab}</script> 来得到 <script type="math/tex">T</script>。</p>
+<p>假定所有小于 <script type="math/tex">k</script> 的情况都成立。使用 <script type="math/tex">T_{ab}</script> 表示以 <script type="math/tex">a,b</script> 为兄弟叶子节点的子树。假定 <script type="math/tex">T</script> 是包含 <script type="math/tex">T_{ab}</script> 的树，其字符集为 <script type="math/tex">\Sigma</script>。<script type="math/tex">T'</script> 与 <script type="math/tex">T</script> 几乎相同，区别仅在于将 <script type="math/tex">T_{ab}</script> 替换为一个新叶子节点 <script type="math/tex">ab</script>；该节点的权重为 <script type="math/tex">p_a + p_b</script>，<script type="math/tex">T'</script> 的字符集为 <script type="math/tex">\Sigma'</script>。显然，<script type="math/tex">T</script> 与 <script type="math/tex">T'</script> 可以相互转换。对于输入 <script type="math/tex">\Sigma</script> 和相应概率 <script type="math/tex">\boldsymbol{p}</script>，Huffman 编码的输出 <script type="math/tex">T</script> 可由输入 <script type="math/tex">\Sigma'</script> 和相应概率 <script type="math/tex">\boldsymbol{p'}</script> 的 Huffman 编码输出 <script type="math/tex">T'</script> 得到：将叶子节点 <script type="math/tex">ab</script> 替换为 <script type="math/tex">T_{ab}</script> 即可。</p>
 <p>
 <script type="math/tex">T</script> 的非 <script type="math/tex">a,b</script> 的叶子节点和 <script type="math/tex">T'</script> 的非 <script type="math/tex">ab</script> 的叶子节点是一样的，因此它们的权重也是一样的。<script type="math/tex">T</script> 中 <script type="math/tex">a,b</script> 的深度分别是 <script type="math/tex">d_{T'}(ab) + 1</script>，权重之和与 <script type="math/tex">T'</script> 中 <script type="math/tex">ab</script> 的权重是一样的，因此对于加权深度额外贡献了 <script type="math/tex">p_a + p_b</script>，因此
 <script type="math/tex; mode=display">L(T,\boldsymbol{p}) = L(T',\boldsymbol{p'}) + (p_a + p_b)</script>
 可以看出来，最后括号的项与树的深度无关。</p>
-<p>也就是说，最优的 <script type="math/tex">T'</script> 对应着最优的 <script type="math/tex">T</script>，次优的 <script type="math/tex">T'</script> 对应着次优的 <script type="math/tex">T</script>，最差的 <script type="math/tex">T'</script> 对应着最差的 <script type="math/tex">T</script>。如果我们最小化了 <script type="math/tex">L(T',\boldsymbol{p'})</script>，就最小化了 <script type="math/tex">L(T,\boldsymbol{p})</script>。根据归纳假设，<script type="math/tex">T'</script> 的字符数小于 <script type="math/tex">k</script>，因此 <script type="math/tex">T'</script> 是加权平均深度最小的二叉树，因此 <script type="math/tex">T</script> 也是加权平均深度最小的二叉树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
-<p>下面证明存在一个最优的树，其中 <script type="math/tex">a, b</script> 是兄弟节点。不失一般性，假定 <script type="math/tex">T</script> 是最优的树，树中的节点要么是叶子节点，要么是内部节点（有两个子节点）。假定 <script type="math/tex">x,y</script> 是最深的、具有公共父节点的两个叶子节点，分别位于左右子树。交换 <script type="math/tex">a,x</script> 和 <script type="math/tex">b,y</script>，得到新的树 <script type="math/tex">T*</script>，<script type="math/tex">T*</script> 中 <script type="math/tex">a,b</script> 是兄弟节点。对于 <script type="math/tex">T</script> 和 <script type="math/tex">T*</script> 中除 <script type="math/tex">a,b,x,y</script> 外的叶子节点，它们的深度和权重都相同，那么
+<p>也就是说，在 <script type="math/tex">a,b</script> 为兄弟节点的树中，最小化 <script type="math/tex">L(T',\boldsymbol{p'})</script> 等价于最小化 <script type="math/tex">L(T,\boldsymbol{p})</script>。根据归纳假设，<script type="math/tex">T'</script> 的字符数小于 <script type="math/tex">k</script>，因此 <script type="math/tex">T'</script> 是加权平均深度最小的二叉树，进而 <script type="math/tex">T</script> 也是加权平均深度最小的二叉树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
+<p>下面证明存在一棵最优树，其中 <script type="math/tex">a, b</script> 是兄弟节点。不失一般性，假定 <script type="math/tex">T</script> 是一棵最优树，树中的节点要么是叶子节点，要么是内部节点（有两个子节点）。假定 <script type="math/tex">x,y</script> 是具有公共父节点的最深的两个叶子节点，分别位于左右子树。交换 <script type="math/tex">a,x</script> 和 <script type="math/tex">b,y</script>，得到新的树 <script type="math/tex">T^*</script>，其中 <script type="math/tex">a,b</script> 是兄弟节点。对于 <script type="math/tex">T</script> 和 <script type="math/tex">T^*</script> 中除 <script type="math/tex">a,b,x,y</script> 外的叶子节点，它们的深度和权重都相同，那么
 <script type="math/tex; mode=display">\begin{aligned}
-L(T)-L(T*)&=(p_x-p_a)(d_T(x)-d_T(a))+(p_y-p_b)(d_T(y)-d_T(b))\\
+L(T)-L(T^*)&=(p_x-p_a)(d_T(x)-d_T(a))+(p_y-p_b)(d_T(y)-d_T(b))\\
 &\geq 0
 \end{aligned}</script>
-上式中括号中所有的项都是大于等于零的。因此 <script type="math/tex">L(T) \geq L(T*)</script>，也就是说 <script type="math/tex">T*</script> 的加权平均深度不大于 <script type="math/tex">T</script> 的加权平均深度，因此 <script type="math/tex">T*</script> 也是最优的树，其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
+上式中每个括号内的项都大于等于零。因此 <script type="math/tex">L(T) \geq L(T^*)</script>，也就是说 <script type="math/tex">T^*</script> 的加权平均深度不大于 <script type="math/tex">T</script> 的加权平均深度。由于 <script type="math/tex">T</script> 是最优树，<script type="math/tex">T^*</script> 也是最优树，且其中 <script type="math/tex">a,b</script> 是兄弟节点。</p>
+<h2 id="_4">动态规划</h2>
+<p>动态规划（<code>dynamic programming</code>）的思想是：最优解可以通过更小规模的子问题的最优解，按照既定方式构造出来，进而将候选解的搜索范围收缩到可以处理的规模。简单地说，有以下三个步骤：</p>
+<ol>
+<li>将问题识别为一系列更小的子问题。</li>
+<li>给定更小的子问题的解，分析如何快速、正确的解决更大的问题。</li>
+<li>从所有子问题的解中构造出最终的解。</li>
+</ol>
+<p>动态规划的核心在于构建合适的子问题集合。假定每个子问题至少需要常量级别的计算量，那么子问题的数量就是算法运行时间的下界。因此我们期望子问题的数量应尽可能少。类似地，在已知更小的子问题的解的前提下，解决单个子问题的时间以及推导最终解所需的时间，都会计入算法的总运行时间。</p>
+<p>假定从小到大最多有 <script type="math/tex">f(n)</script> 个不同的子问题，每个子问题最多需要 <script type="math/tex">g(n)</script> 的时间来解决，构造最终的解需要 <script type="math/tex">h(n)</script> 的时间，那么动态规划算法的时间复杂度是 <script type="math/tex">O(f(n)g(n)+h(n))</script>。比如下面最大权重独立集问题中，<script type="math/tex">f(n)=O(n),g(n)=O(1),h(n)=O(1)</script>，因此时间复杂度是 <script type="math/tex">O(n)</script>。</p>
+<p>现在的问题是如何构思出这一组巧妙的子问题集合呢？一旦有了这组集合，其他问题就都迎刃而解了。构造合适的子问题集合需要练习、思考。下面几个使用动态规划的例子，会详细给出思考和构造子问题集合的过程。思维过程是共通的，构造过程是可复现的。整个过程的核心是剖析最优解的结构特征，厘清小规模子问题的最优解拼接出最终最优解的可能路径。这样的思想帮助我们定位子问题，还能帮助我们建立递归关系。在此基础之上，通过填表自底向上、由小及大地推进并求解问题。</p>
+<p>最后，简单介绍一下动态规划这个词的来历。动态规划（<code>dynamic programming</code>）这个词由 Richard Bellman 在 20 世纪 50 年代提出。当时他在兰德公司工作，受雇于美国空军；据他回忆，时任国防部长威尔逊讨厌“研究”（<code>research</code>）这个词，更不用说与数学（<code>mathematical</code>）相关的研究了。Bellman 需要一个名称来掩盖自己实际从事的数学研究。他当时在研究规划（<code>planning</code>）和决策问题，但觉得 <code>planning</code> 这个词不够好听，于是使用了 <code>programming</code>。<code>dynamic</code> 有一个有趣的特性：它无法在贬义语境中使用。Bellman 觉得 <code>dynamic programming</code> 是个好名字，于是乎这个名称沿用至今。</p>
+<h3 id="_5">最大权重独立集</h3>
+<p>首先，我们给出独立集的概念。给定一个无向图 <script type="math/tex">G=(V,E)</script>，若顶点子集 <script type="math/tex">S\subseteq V</script> 中任意两个顶点 <script type="math/tex">v,w</script> 都满足 <script type="math/tex">(v,w)\notin E</script>，则称 <script type="math/tex">S</script> 是 <script type="math/tex">G</script> 的一个独立集（<code>independent set</code>）。也就是说，独立集不包含 <script type="math/tex">G</script> 中任意一条边的两个端点。举两个例子说明独立集的概念。第一个图是有五个顶点的完全图，一共有 10 条边，任意两个顶点之间都有一条边，因此它的独立集只有单个顶点或空集，共有 6 个独立集。第二个图是有五个顶点的环图，空集和任意单个顶点都是独立集，任意两个不相邻的顶点可以组成一个两个顶点的独立集，因此共有 11 个独立集。</p>
+<p>如果无向图 <script type="math/tex">G=(V,E)</script> 的每个顶点 <script type="math/tex">v\in V</script> 都有一个非负权重 <script type="math/tex">w_v</script>，则最大权重独立集（<code>maximum weight independent set</code>）问题是寻找一个独立集 <script type="math/tex">S</script>，使得 <script type="math/tex">\sum_{v\in S} w_v</script> 最大。我们这里考虑最简单的图：路径图（<code>path graph</code>），它是一个顶点序列 <script type="math/tex">v_1, v_2, \ldots, v_n</script>，每个顶点 <script type="math/tex">v_i</script> 只与其前后相邻的顶点相连，即 <script type="math/tex">(v_i, v_{i+1})\in E</script>。路径图的最大权重独立集问题可以使用动态规划来解决。</p>
+<p>当顶点数 <script type="math/tex">n<2</script> 时，最大权重独立集问题很容易解决。假定 <script type="math/tex">n\geq 2</script> 时的最优解是 <script type="math/tex">S\subseteq V</script>，权重是 <script type="math/tex">W</script>。我们分下面两种情况讨论。第一种情况是 <script type="math/tex">v_n\in S</script>，那么 <script type="math/tex">v_{n-1}\notin S</script>。<script type="math/tex">S-\{v_n\}</script> 是 <script type="math/tex">G_{n-2}</script> 的一个独立集，权重是 <script type="math/tex">W-w_n</script>。这里 <script type="math/tex">G_i</script> 是由前 <script type="math/tex">i</script> 个顶点构成的图，有 <script type="math/tex">i-1</script> 条边。假定 <script type="math/tex">S^*</script> 是 <script type="math/tex">G_{n-2}</script> 的最大权重独立集，权重是 <script type="math/tex">W^*</script>，且 <script type="math/tex">W^*>W-w_n</script>，那么 <script type="math/tex">S^*\cup\{v_n\}</script> 是 <script type="math/tex">G_n</script> 的一个独立集，权重是 <script type="math/tex">W^*+w_n>W</script>，这与假定的最优解矛盾。因此 <script type="math/tex">S-\{v_n\}</script> 是 <script type="math/tex">G_{n-2}</script> 的最大权重独立集，权重是 <script type="math/tex">W-w_n</script>。第二种情况是 <script type="math/tex">v_n\notin S</script>，那么 <script type="math/tex">S</script> 是 <script type="math/tex">G_{n-1}</script> 的一个独立集，权重是 <script type="math/tex">W</script>。假定 <script type="math/tex">S^*</script> 是 <script type="math/tex">G_{n-1}</script> 的最大权重独立集，权重是 <script type="math/tex">W^*>W</script>，这与假定的最优解矛盾。因此 <script type="math/tex">S</script> 是 <script type="math/tex">G_{n-1}</script> 的最大权重独立集，权重是 <script type="math/tex">W</script>。</p>
+<p>结合上述两种情况，我们可以得到如下的递推关系：
+<script type="math/tex; mode=display">W_n = \max\{W_{n-1}, W_{n-2} + w_n\}</script>
+更一般的，对于 <script type="math/tex">i=2,3,\cdots,n</script>，有
+<script type="math/tex; mode=display">W_i = \max\{W_{i-1}, W_{i-2} + w_i\}</script>
+</p>
+<p>因此可以得到一种直观的、递归式的解法
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>if n == 0:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    return empty set
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>if n == 1:
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    return {v_1}
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>S_1 = MWIS(G_{n-1})
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>S_2 = MWIS(G_{n-2})
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>return the set with greater total weight between S_1 and S_2 + {v_n}
+</span></code></pre></div>
+这种方法的时间复杂度是指数级的，因为它会重复计算很多子问题，可以使用缓存（<code>memoization</code>）来优化。</p>
+<p>总共只有 <script type="math/tex">n+1</script> 个不同的子问题，因此可以使用自底向上的方法来解决。我们使用一个数组 <script type="math/tex">W</script> 来存储每个子问题的最优解，<script type="math/tex">W[i]</script> 表示 <script type="math/tex">G_i</script> 的最大权重独立集的权重。初始时，<script type="math/tex">W[0]=0</script>，<script type="math/tex">W[1]=w_1</script>。然后按照递推关系计算 <script type="math/tex">W[i]</script>，直到计算出 <script type="math/tex">W[n]</script>。这种方法的时间复杂度是 <script type="math/tex">O(n)</script>，空间复杂度也是 <script type="math/tex">O(n)</script>。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>W = W[0..n]
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>W[0] = 0
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>W[1] = w_1
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>for i = 2 to n:
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    W[i] = max(W[i-1], W[i-2] + w_i)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>return W[n]
+</span></code></pre></div></p>
+<p>上述代码只计算了权重，但是没有给出最大权重独立集的具体顶点集合。一个简单优雅的方式是通过权重数组 <script type="math/tex">W</script> 回溯，找到最大权重独立集的顶点集合。根据之前的推导逻辑，如果 <script type="math/tex">W[n] = W[n-1]</script>，那么顶点 <script type="math/tex">v_n</script> 不在最大权重独立集中；否则，顶点 <script type="math/tex">v_n</script> 在最大权重独立集中。因此从 <script type="math/tex">n</script> 开始向前回溯，直到找到所有在最大权重独立集中的顶点。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>S = empty set
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>i = n
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>while i &gt;= 1:
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    if W[i] == W[i-1]:
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        i = i - 1
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    else:
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        S = S union {v_i}
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        i = i - 2
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>return S
+</span></code></pre></div></p>
 
   
 

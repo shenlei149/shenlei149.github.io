@@ -32236,7 +32236,7 @@
 <p>结果也不能放到调用者的 <code>future</code> 对象中，因为一个 <code>std::future</code> 可以被用来创建一个 <code>std::shared_future</code>，原始的 <code>std::future</code> 对象销毁之后 <code>std::shared_future</code> 可能会被拷贝多次，还可以继续读结果。同时要考虑到并非所有的结果类型都支持拷贝，并且该结果的生命周期必须至少与指向它的最后一个 <code>future</code> 对象的生命周期一样长。在众多的 <code>future</code> 中，哪一个来存放结果呢？</p>
 <p>既然调用者和被调用者都不合适，那么结果就应该放在一个独立的对象中，这个对象称为共享状态（<code>shared state</code>）。共享状态是一个堆上的对象，标准并没有规定其类型、接口和实现，因此标准库作者可以自由发挥。</p>
 <p>被调用者、调用者和共享状态的关系如下。
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Caller &lt;-----------------Callee&#39;s Result &lt;----------------- Callee
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Caller &lt;-----------------Callee's Result &lt;----------------- Callee
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   future                   shared state                 std::promise
 </span></code></pre></div>
 共享状态的存在非常重要，因为 <code>future</code> 的析构行为由 <code>future</code> 关联的共享状态决定。</p>

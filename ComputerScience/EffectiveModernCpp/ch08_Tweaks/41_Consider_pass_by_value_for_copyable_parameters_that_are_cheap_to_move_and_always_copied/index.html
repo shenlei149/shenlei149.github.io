@@ -32335,10 +32335,10 @@
 <p>在 C++98，确实会有这个问题。不管调用者传入了什么，都会调用拷贝构造函数来创建参数 <code>newName</code>。不过到了 C++11，对于左值，拷贝构造了 <code>newName</code>。对于右值，其是被移动构造的。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">(</span><span class="s">&quot;Bart&quot;</span><span class="p">);</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">(</span><span class="s">"Bart"</span><span class="p">);</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">w</span><span class="p">.</span><span class="n">addName</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w"> </span><span class="c1">// call addName with lvalue</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">w</span><span class="p">.</span><span class="n">addName</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;Jenne&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// call addName with rvalue</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">w</span><span class="p">.</span><span class="n">addName</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"Jenne"</span><span class="p">);</span><span class="w"> </span><span class="c1">// call addName with rvalue</span>
 </span></code></pre></div>
 第一次调用 <code>addName</code>，参数 <code>newName</code> 由左值初始化，所以是拷贝构造。第二次调用 <code>newName</code> 是由 <code>std::string</code> 的 <code>operator+</code> 的结果来初始化，这个结果是右值，所以 <code>newName</code> 是移动构造的。</p>
 <p>左值拷贝右值引用，这正是我们所需要的。不过也有一些警示需要牢记。</p>
@@ -32368,7 +32368,7 @@
 可能的调用如下：
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">w</span><span class="p">.</span><span class="n">setPtr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Modern C++&quot;</span><span class="p">));</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">w</span><span class="p">.</span><span class="n">setPtr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"Modern C++"</span><span class="p">));</span>
 </span></code></pre></div>
 <code>std::make_unique</code> 返回的右值 <code>std::make_unique&lt;std::string&gt;</code> 通过右值引用传递给 <code>setPtr</code>，然后移动到 <code>p</code> 中。全程只有一次移动开销。</p>
 <p>如果使用按值传递，代码如下
@@ -32421,12 +32421,12 @@
 </span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="p">};</span>
 </span></code></pre></div>
 客户端代码如下
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">initPwd</span><span class="p">(</span><span class="s">&quot;Supercalifragilisticexpialidocious&quot;</span><span class="p">);</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">initPwd</span><span class="p">(</span><span class="s">"Supercalifragilisticexpialidocious"</span><span class="p">);</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">Password</span><span class="w"> </span><span class="nf">p</span><span class="p">(</span><span class="n">initPwd</span><span class="p">);</span>
 </span></code></pre></div>
 用给定的密码初始化 <code>p.text</code>，按值传递，在构造函数内部会多一次 <code>std::string</code> 移动开销，使用重载方式或者通用引用可以消除这个问题。</p>
 <p>现在用户需要更新密码。
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">newPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Beware the Jabberwock&quot;</span><span class="p">;</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">newPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Beware the Jabberwock"</span><span class="p">;</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">p</span><span class="p">.</span><span class="n">changeTo</span><span class="p">(</span><span class="n">newPassword</span><span class="p">);</span>
 </span></code></pre></div>
 现在 <code>changeTo</code> 使用赋值操作来拷贝参数 <code>newPwd</code>，会导致按值传递策略的代价提升相当大。</p>
@@ -32437,7 +32437,7 @@
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">public</span><span class="o">:</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">changeTo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">newPwd</span><span class="p">)</span><span class="w"> </span><span class="c1">// the overload for lvalues</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="c1">// can reuse text&#39;s memory if text.capacity() &gt;= newPwd.size()</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="c1">// can reuse text's memory if text.capacity() &gt;= newPwd.size()</span>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newPwd</span><span class="p">;</span>
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>

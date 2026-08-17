@@ -32339,7 +32339,7 @@
 </span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">auto</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getWidgetName</span><span class="p">();</span><span class="w"> </span><span class="c1">// n is local variable</span>
 </span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="n">w</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="w">             </span><span class="c1">// moves n into w!</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">                          </span><span class="c1">// n&#39;s value now unknown</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">                          </span><span class="c1">// n's value now unknown</span>
 </span></code></pre></div>
 临时变量 <code>n</code> 传入了 <code>w.setName</code>，调用者可能会认为这个函数是只读的。但是 <code>setName</code> 的内部使用 <code>std::move</code> 无条件的把引用参数转成了右值，<code>n</code> 的值被移动到了 <code>w.name</code>，在 <code>w.setName</code> 完成之后，<code>n</code> 的值不确定，这完全出乎调用者的意料。</p>
 <p>或许你会认为 <code>setName</code> 的参数不应该声明为通用引用。根据 <a href="../24_Distinguish_universal_references_from_rvalue_references/">Item 24</a>，通用引用不应该是 <code>const</code> 的。那么可能的方案是重载，一个是 <code>const</code> 左值，一个是右值。
@@ -32357,7 +32357,7 @@
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">};</span>
 </span></code></pre></div>
 这可以工作，但是有缺陷。首先，维护两份代码的成本比维护一个模板要高。第二，可能会有性能问题。比如如下使用 <code>setName</code>
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">w</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">&quot;Adela Novak&quot;</span><span class="p">);</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">w</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"Adela Novak"</span><span class="p">);</span>
 </span></code></pre></div>
 对于通用引用的版本而言，字面量 <code>"Adela Novak"</code> 可以传递给 <code>setName</code>，也可以传递给 <code>w</code> 内部的 <code>std::string</code> 的赋值运算符。<code>w</code> 的 <code>name</code> 字段直接通过字面量赋值，没有 <code>std::string</code> 的临时对象会被创建。但是对于后面重载版本，必须创建一个 <code>std::string</code> 临时对象，绑定到 <code>setName</code> 的参数上，这个临时对象被移动给 <code>w</code> 的字段。这就涉及 <code>std::string</code> 的构造、移动复制操作和析构。这比调用接受 <code>const char*</code> 参数类型的 <code>std::string</code> 赋值运算符耗时的多。事实就是，将通用引用参数的模板函数改成接受左值和右值引用的函数重载，某些情况下会有性能损失。如果 <code>Widget</code> 成员类型是任意类型，额外开销可能会更大，因为不是所有类型的移动操作都和 <code>std::string</code> 一样小。参考 <a href="../29_Assume_that_move_operations_are_not_present_not_cheap_and_not_used/">Item 29</a>。</p>
 <p>重载版本引入的最重要的问题是扩展性问题。现在 <code>Widget::setName</code> 只有一个参数，那么只需要两个重载版本，如果是 <script type="math/tex">n</script> 个参数呢？<script type="math/tex">2^n</script> 个重载函数，指数级爆炸，不现实。更甚，一些函数有不限个参数，每一个可能是左值也可能是右值。比如 <code>std::make_shared</code> 和 <code>std::make_unique</code>：
@@ -32372,7 +32372,7 @@
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// text is univ. reference</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">setSignText</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">text</span><span class="p">)</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">{</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">sign</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="n">text</span><span class="p">);</span><span class="w"> </span><span class="c1">// use text, but don&#39;t modify it</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">sign</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="n">text</span><span class="p">);</span><span class="w"> </span><span class="c1">// use text, but don't modify it</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="c1">// get current time</span>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">system_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
@@ -32414,13 +32414,13 @@
 </span></code></pre></div>
 如果忽略 <code>std::forward</code>，那么会无条件地拷贝返回值。</p>
 <p>注意，上述优化仅适用于返回参数是右值引用参数或者通用引用参数，不可以用于按值返回局部变量的情况。比如
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">Widget</span><span class="w"> </span><span class="nf">makeWidget</span><span class="p">()</span><span class="w"> </span><span class="c1">// &quot;Copying&quot; version of makeWidget</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">Widget</span><span class="w"> </span><span class="nf">makeWidget</span><span class="p">()</span><span class="w"> </span><span class="c1">// "Copying" version of makeWidget</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p">{</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w"> </span><span class="c1">// local variable</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="c1">// configure w</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w"> </span><span class="c1">// &quot;copy&quot; w into return value</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w"> </span><span class="c1">// "copy" w into return value</span>
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="p">}</span>
 </span></code></pre></div>
 不应该优化为
@@ -32428,7 +32428,7 @@
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="p">{</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">w</span><span class="p">);</span><span class="w"> </span><span class="c1">// move w into return value (don&#39;t do this!)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">w</span><span class="p">);</span><span class="w"> </span><span class="c1">// move w into return value (don't do this!)</span>
 </span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="p">}</span>
 </span></code></pre></div>
 标准委员会的人很早就意识到对于第一个版本的 <code>makeWidget</code>，可以避免拷贝局部变量 <code>w</code>，而直接在返回值的内存处构造这个对象。这就是 RVO（<code>return value optimization</code>）。</p>
@@ -32438,7 +32438,7 @@
 <p>RVO 仅仅是一个优化。万一编译器没有优化呢？那么就会拷贝吗？是不是此时就应该使用 <code>std::move</code> 呢？答案依旧是否定的。</p>
 <p>C++ 标准规定如果满足 RVO 条件时，没有进行 RVO 优化，那么就必须视返回值为右值。因此，要么实现了 RVO 优化，避免了拷贝，要么代码与显式地写了 <code>std::move</code> 一样。不管发生那种情况，结果要么比显式地写了 <code>std::move</code> 好，要么与显式地写了 <code>std::move</code> 一样。因此，不要画蛇添足。</p>
 <p>这种情况与按值传递参数的函数很像。不过这里无法对返回参数做拷贝消除的优化，但是如果返回的是按值传递的参数，编译器应该视为右值。因此，如下代码
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">// by-value parameter of same type as function&#39;s return</span>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">// by-value parameter of same type as function's return</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">Widget</span><span class="w"> </span><span class="nf">makeWidget</span><span class="p">(</span><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">)</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">{</span>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>

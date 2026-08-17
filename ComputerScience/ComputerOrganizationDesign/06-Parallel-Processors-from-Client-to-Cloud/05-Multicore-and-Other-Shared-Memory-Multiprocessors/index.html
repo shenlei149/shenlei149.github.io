@@ -32258,7 +32258,7 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cc -fopenmp foo.c
 </span></code></pre></div></p>
 <p>OpenMP 使用 <code>pragma</code> 扩展 C，<code>pragma</code> 是预处理指令。下面的例子表示想使用 64 个处理器
-<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#define P 64 </span><span class="cm">/* define a constant that we&#39;ll use a few times */</span>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#define P 64 </span><span class="cm">/* define a constant that we'll use a few times */</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">#pragma omp parallel num_threads(P)</span>
 </span></code></pre></div>
 这样，运行时库会使用 64 个并行线程。</p>

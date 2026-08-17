@@ -32435,7 +32435,7 @@
 <div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">String</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="n">uint_16</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="n">byte</span><span class="p">[</span><span class="n">size</span><span class="p">]</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="kt">byte</span><span class="p">[</span><span class="n">size</span><span class="p">]</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <p>另一种表示字符串的方式是使用 null 终止符，读到终止符表示字符串结束。使用 Pascal 形式的好处是常量时间就可以得到字符串长度，还可以通过切分 <code>byte[size]</code> 来构造新的字符串。</p>

@@ -32220,7 +32220,7 @@
 <p><code>GetTopLeft(int[,] soDoku)</code>函数相对也比较简单，拿到二维数组的左上角三个数字，拼成<code>string</code>然后转成<code>int</code>即可。或者是第一位乘以100加第二位乘以10加第三位。
 <div class="language-csharp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">GetTopLeft</span><span class="p">(</span><span class="kt">int</span><span class="p">[,]</span><span class="w"> </span><span class="n">soDoku</span><span class="p">)</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="s">$&quot;{soDoku[0, 0]}{soDoku[0, 1]}{soDoku[0, 2]}&quot;</span><span class="p">);</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="s">$"{soDoku[0, 0]}{soDoku[0, 1]}{soDoku[0, 2]}"</span><span class="p">);</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <p>整个题目的核心在于解数独。</p>
