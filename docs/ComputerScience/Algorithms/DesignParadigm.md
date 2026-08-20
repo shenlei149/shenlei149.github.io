@@ -212,3 +212,80 @@ return S
 ```
 
 参考实现 [0-1 Knapsack](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/dp/Knapsack.cc)。
+
+### 序列比对
+序列比对（`sequence alignment`）是生物信息学中一个重要的研究方向。输入是两个 $\{A,C,G,T\}$ 序列，长度可以不相同，例如 $AGGGCT,AGGCA$。我们希望找到一个对齐方案，使得两个序列尽可能相似。比如这个例子有一个对齐方案：
+```
+S_1: A G G G C T
+S_2: A G G - C A
+```
+`-` 表示空位，表示第二个序列少了一个 `G`。最后一个字符不匹配。
+
+一般说来，对齐（`alignment`）方案需要插入空位，使得两个序列长度一样。现在我们需要一个评价体系来衡量什么是尽可能相似。
+
+假定我们定义了空位罚分（`gap penalty`）和不匹配罚分（`mismatch penalty`），那么相似性就是罚分越小越好。正式描述是给定基于字符集 $\Sigma=\{A,C,G,T\}$ 的两个序列 $X,Y$，每对 $(x,y)\in\Sigma$ 的罚分是 $\alpha_{xy}$，空位罚分是非负数 $\alpha_{-}$，对齐方案的罚分是所有位置的罚分之和，我们的目的是最小化罚分。我们可以自然地假定 $\alpha_{xx}=0,\alpha_{xy}=\alpha_{yx}$。
+
+最小罚分比对（`minimum penalty alignment`）的一个解释是一条序列演化为另一条序列的可能路径。插入空位相当于发生了序列缺失，不匹配等价于一次基因突变。Needleman-Wunsch 算法（`Needleman-Wunsch algorithm`）可以计算序列比对的最小罚分，下文简称为 NW 罚分。NW 罚分较低通常意味着两个序列更相似。
+
+如果没有高效计算 NW 罚分的方法，这对于基因组专家而言毫无作用。随着两条字符串总长度的增加，可选对齐方案的数量呈指数级增长，因此除了毫无研究意义的小规模实验之外，穷举在我们有生之年都不可能运行完毕。动态规划提供了一个高效计算 NW 罚分的方法。Needleman 和 Wunsch 在 1970 年提出这一算法时，关键就在于它能够高效计算序列相似性的度量。
+
+分析最优解之前先看一个具体的例子。假定空位罚分是 1，不匹配罚分是 2，AGTACG 和 ACATAG 之间的最小罚分比对方案是：
+```
+- - A G T A C G
+A C A - T A - G
+```
+总罚分是 4。这只是其中一种罚分是 4 的对齐方案，但是不会更低了。
+
+下面分析最优解的结构特征。假定两个非空字符串 $X=x_1x_2\cdots x_m$ 和 $Y=y_1y_2\cdots y_n$，去掉最后一个字符，得到 $X'=x_1x_2\cdots x_{m-1}$ 和 $Y'=y_1y_2\cdots y_{n-1}$。假定最优方案的罚分是 $P$，下面分析最后一个字符的情况。第一种情况是 $x_m$ 和 $y_n$ 对齐，那么 $X',Y'$ 的最优解罚分是 $P-\alpha_{x_my_n}$。假定 $X',Y'$ 的最优解罚分是 $P^*<P-\alpha_{x_my_n}$，那么 $X,Y$ 的最优解罚分是 $P^*+\alpha_{x_my_n}<P$，这与假定的最优解矛盾。因此 $X',Y'$ 的最优解罚分是 $P-\alpha_{x_my_n}$。第二种情况是 $x_m$ 对齐空位，那么 $X',Y$ 的最优解罚分是 $P-\alpha_{-}$。第三种情况是 $y_n$ 对齐空位，那么 $X,Y'$ 的最优解罚分是 $P-\alpha_{-}$。令 $P_{i,j}$ 表示前缀 $x_1x_2\cdots x_i$ 和 $y_1y_2\cdots y_j$ 的最优解罚分，那么有如下递推关系：
+$$P_{i,j}=\min\{P_{i-1,j-1}+\alpha_{x_iy_j}, P_{i-1,j}+\alpha_{-}, P_{i,j-1}+\alpha_{-}\}$$
+其中 $i=1,2,\ldots,m,j=1,2,\ldots,n$。如果 $i=0$ 或 $j=0$，那么 $P_{i,j}$ 分别是 $j\alpha_{-}$ 或 $i\alpha_{-}$。
+
+因此子问题有两个维度需要考虑：前缀长度 $i$ 和 $j$。枚举两个维度的所有合法取值，即可确定子问题集合。假定两个序列的长度分别是 $m$ 和 $n$，子问题就是计算 $P_{i,j},i=0,1,2,\ldots,m,j=0,1,2,\ldots,n$，那么子问题集合的大小是 $O(mn)$。每个子问题的解可以通过更小规模的子问题的解快速得到，因此时间复杂度是 $O(mn)$，空间复杂度也是 $O(mn)$。
+
+分析完问题，下面是伪代码。
+```
+P = P[0..m, 0..n]
+for i = 0 to m:
+    P[i, 0] = i * alpha_gap
+for j = 0 to n:
+    P[0, j] = j * alpha_gap
+for i = 1 to m:
+    for j = 1 to n:
+        P[i, j] = min(P[i-1, j-1] + alpha[x_i, y_j], P[i-1, j] + alpha_gap, P[i, j-1] + alpha_gap)
+return P[m, n]
+```
+和其他动态规划算法类似，从 $P[m,n]$ 回溯可以得到最优解的对齐方案。回溯的时间复杂度是 $O(m+n)$。如果 $P[i,j] == P[i-1,j-1] + \alpha_{x_i y_j}$，那么 $x_i$ 和 $y_j$ 对齐；如果 $P[i,j] == P[i-1,j] + \alpha_{-}$，那么 $x_i$ 对齐空位；如果 $P[i,j] == P[i,j-1] + \alpha_{-}$，那么 $y_j$ 对齐空位。有的时候可能有多种对齐方案具有相同的最小罚分，这时可以随机选择其中一种方案。按照上述顺序回溯，优先选择两个字母对齐，然后再考虑空位对齐的情况。当回溯到基本情况，即 $i=0$ 或 $j=0$ 时，剩余的字母都对齐空位。
+
+参考实现 [Sequence Alignment](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/dp/SequenceAlignment.cc)。
+
+### 优化二叉搜索树
+为了最小化期望搜索时间，我们希望构造一棵平衡二叉搜索树。假定每个节点的搜索概率相同，那么平衡二叉搜索树就是最优解。假定每个节点的搜索概率不同，那么最优解可能就不是平衡二叉搜索树了，这个问题称为优化二叉搜索树（`optimal binary search tree`）问题。给定一系列排好序的键值 $k_1,k_2,\ldots,k_n$，每个键值 $k_i$ 的搜索概率是 $p_i$，这里并不假定概率之和是 1，也可以是权重。我们希望构造一棵二叉搜索树，使得期望搜索时间最小，也就是说我们要最小化
+$$\sum_{i=1}^n p_i \cdot \text{depth}(k_i)$$
+这里，我们没有考虑搜索失败的情况，也就是搜索一个不存在的键值。不过稍微扩展一下下面阐述的算法，很容易将这种情况包含在内。
+
+这个问题与之前分析的 [Huffman 编码](#huffman-编码)类似。输入都是一组键值和对应的权重，输出都是一棵二叉树，使得加权平均深度最小。不过二叉搜索树受到了额外的约束，但是前缀码无需关心左右子树的顺序。因此这个问题更有挑战性。我们可以使用动态规划来解决这个问题。
+
+和之前类似，我们分析最优解的结构特征。我们不知道哪一个键值应该当作根节点，因此可以尝试将每一个键值作为根节点。假定 $k_r$ 是根节点，那么左子树的键值是 $k_1,k_2,\ldots,k_{r-1}$，右子树的键值是 $k_{r+1},k_{r+2},\ldots,k_n$，那么左子树的最优解是 $T_L$，右子树的最优解是 $T_R$。可以用反证法证明 $T_L,T_R$ 必须是最优解。不妨假设 $T_L$ 不是最优解，那么存在另一棵左子树 $T_L^*$，使得加权搜索代价更小。将 $T_L^*$ $T_R$ 和根节点 $k_r$ 组合成一棵新的二叉搜索树 $T^*$，那么 $T^*$ 的加权搜索代价更小，这与假定的最优解矛盾。因此 $T_L$ 必须是最优解。同理，$T_R$ 也必须是最优解。
+
+我们用 $W_{i,j}$ 表示键值 $k_i,k_{i+1},\ldots,k_j$ 和对应的权重 $p_i,p_{i+1},\ldots,p_j$ 的最优加权搜索代价。如果 $i>j$，那么 $W_{i,j}=0$。对于 $i,j\in\{1,2,\ldots,n\},i\leq j$，当使用 $r$ 作为根节点时，总的加权搜索代价是
+$$\begin{aligned}
+\sum_{k=i}^jp_k\cdot \text{depth}(k)&=p_r+\sum_{k=i}^{r-1}p_k\cdot (\text{depth}(k)+1)+\sum_{k=r+1}^{j}p_k\cdot (\text{depth}(k)+1)\\
+&=\sum_{k=i}^{j}p_k+\sum_{k=i}^{r-1}p_k\cdot \text{depth}(k)+\sum_{k=r+1}^{j}p_k\cdot \text{depth}(k)\\
+&=\sum_{k=i}^{j}p_k+W_{i,r-1}+W_{r+1,j}
+\end{aligned}$$
+这里面取最小值得到
+$$W_{i,j}=\min_{r=i,\ldots,j}\left(\sum_{k=i}^{j}p_k+W_{i,r-1}+W_{r+1,j}\right)=\sum_{k=i}^{j}p_k+\min_{r=i,\ldots,j}\left(W_{i,r-1}+W_{r+1,j}\right)$$
+$i=1,j=n$ 时的解就是最终的最优解，是我们要求解的问题。每个子问题的解可以在线性时间内通过更小规模的子问题的解得到，因此时间复杂度是 $O(n^3)$，空间复杂度是 $O(n^2)$。下面给出伪代码：
+```
+W = W[1..n+1, 0..n]
+for i = 1 to n+1:
+    W[i, i-1] = 0
+for s = 0 to n-1:
+    for i = 1 to n-s:
+        j = i+s
+        W[i, j] = sum(p_k for k in [i..j]) + min(W[i, r-1] + W[r+1, j] for r in [i..j])
+return W[1, n]
+```
+上述算法比暴力搜索（指数级）更快，但是仍然是立方级别的时间复杂度。我们可以使用一些技巧将时间复杂度降低到平方级别。具体参考 Knuth 的论文 Optimum Binary Search Trees (1971) 或 The Art of Computer Programming, Volume 3: Sorting and Searching, 2nd (1998)。
+
+参考实现 [Optimal Binary Search Tree](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/tree/OptBST.cc)。
