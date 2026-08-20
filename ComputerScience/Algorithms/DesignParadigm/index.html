@@ -848,6 +848,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        背包问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列比对
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化二叉搜索树
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -32285,6 +32318,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        背包问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列比对
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化二叉搜索树
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -32527,6 +32593,97 @@ L(T)-L(T^*)&=(p_x-p_a)(d_T(x)-d_T(a))+(p_y-p_b)(d_T(y)-d_T(b))\\
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        i = i - 2
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>return S
 </span></code></pre></div></p>
+<p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/dp/MWIS.cc">Max Weight Independent Set</a>。</p>
+<h3 id="_6">背包问题</h3>
+<p>给定一组值 <script type="math/tex">v_1,v_2,\ldots,v_n</script> 和一组大小 <script type="math/tex">s_1,s_2,\ldots,s_n</script>，以及一个容量为 <script type="math/tex">C</script> 的背包，背包问题（<code>knapsack problem</code>）是寻找一个子集 <script type="math/tex">S\subseteq\{1,2,\ldots,n\}</script>，使得 <script type="math/tex">\sum_{i\in S}s_i\leq C</script>，并且使得 <script type="math/tex">\sum_{i\in S}v_i</script> 最大。背包问题有很多变种，这里介绍最基本的 0-1 背包问题（<code>0-1 knapsack problem</code>），即每个物品最多只能选择一次。</p>
+<p>背包问题是一类基础且通用的决策模型。凡是涉及如何在有限资源约束下实现效益最大化的场景，本质上都是背包问题。</p>
+<p>为了使用动态规划，我们需要找到子问题集合。我们现在推导最优解的结构特征，厘清由更小规模子问题的最优解拼接出最终最优解的可能路径，进而确定子问题集合。在这个过程中，还能够推导出相应的递推关系式，以便利用更小子问题的解快速得到当前子问题的解。</p>
+<p>假定我们已经有一个最优解 <script type="math/tex">S</script>，对应的总价值为 <script type="math/tex">V=\sum_{i\in S}v_i</script>。我们考虑物品 <script type="math/tex">n</script>，有两种情况。第一种情况是 <script type="math/tex">n\notin S</script>，那么 <script type="math/tex">S</script> 是前 <script type="math/tex">n-1</script> 个物品中容量为 <script type="math/tex">C</script> 的最优解，总价值为 <script type="math/tex">V</script>。如果前 <script type="math/tex">n-1</script> 个物品中容量为 <script type="math/tex">C</script> 的最优解是 <script type="math/tex">S^*</script>，总价值为 <script type="math/tex">V^*>V</script>，那么 <script type="math/tex">S^*</script> 是前 <script type="math/tex">n</script> 个物品中容量为 <script type="math/tex">C</script> 的更优解，总价值为 <script type="math/tex">V^*>V</script>，这与假定的最优解矛盾。因此 <script type="math/tex">S</script> 是前 <script type="math/tex">n-1</script> 个物品中容量为 <script type="math/tex">C</script> 的最优解，总价值为 <script type="math/tex">V</script>。第二种情况是 <script type="math/tex">n\in S</script>，那么 <script type="math/tex">S-\{n\}</script> 是前 <script type="math/tex">n-1</script> 个物品中容量为 <script type="math/tex">C-s_n</script> 的最优解，总价值为 <script type="math/tex">V-v_n</script>。如果前 <script type="math/tex">n-1</script> 个物品中容量为 <script type="math/tex">C-s_n</script> 的最优解是 <script type="math/tex">S^*</script>，总价值为 <script type="math/tex">V^*>V-v_n</script>，那么 <script type="math/tex">S^*\cup\{n\}</script> 是前 <script type="math/tex">n</script> 个物品中容量为 <script type="math/tex">C</script> 的更优解，总价值为 <script type="math/tex">V^*+v_n>V</script>，这与假定的最优解矛盾。因此 <script type="math/tex">S-\{n\}</script> 是前 <script type="math/tex">n-1</script> 个物品中容量为 <script type="math/tex">C-s_n</script> 的最优解，总价值为 <script type="math/tex">V-v_n</script>。</p>
+<p>令 <script type="math/tex">V_{i,c}</script> 表示前 <script type="math/tex">i</script> 个物品中容量为 <script type="math/tex">c</script> 时可取得的最大总价值。根据之前的分析，有如下递推关系：
+<script type="math/tex; mode=display">V_{i,c}=\begin{cases}V_{i-1,c}, & \text{如果 } s_i>c\\
+\max\{V_{i-1,c}, V_{i-1,c-s_i}+v_i\}, & \text{如果 } s_i\leq c\end{cases}</script>
+</p>
+<p>通过上面这个递推关系，子问题有两个变化的状态：候选物品前缀的长度 <script type="math/tex">i</script> 和当前背包容量 <script type="math/tex">c</script>。枚举两个状态的所有合法取值，即可确定子问题集合。假定有 <script type="math/tex">n</script> 个物品，背包容量为 <script type="math/tex">C</script>，子问题就是计算 <script type="math/tex">V_{i,c},i=0,1,2,\ldots,n, c=0,1,2,\ldots,C</script>，那么子问题集合的大小是 <script type="math/tex">O(nC)</script>。<script type="math/tex">i=n,c=C</script> 时的解就是最终的最优解，是我们要求解的问题。每个子问题的解可以通过更小规模的子问题的解快速得到，因此时间复杂度是 <script type="math/tex">O(nC)</script>，空间复杂度也是 <script type="math/tex">O(nC)</script>。下面给出伪代码：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>V = V[0..n, 0..C]
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>for c = 0 to C:
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    V[0, c] = 0
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>for i = 1 to n:
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    for c = 0 to C:
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        if s_i &gt; c:
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>            V[i, c] = V[i-1, c]
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        else:
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>            V[i, c] = max(V[i-1, c], V[i-1, c-s_i] + v_i)
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>return V[n, C]
+</span></code></pre></div>
+上述代码只能得到最大的总价值，但是没有给出具体的物品集合。一个简单优雅的方式是通过价值数组 <script type="math/tex">V</script> 回溯，找到最大价值对应的物品集合。根据之前的推导逻辑，如果 <script type="math/tex">V[i, c] = V[i-1, c]</script>，那么物品 <script type="math/tex">i</script> 不在最优解中；否则，物品 <script type="math/tex">i</script> 在最优解中。回溯的时间复杂度是 <script type="math/tex">O(n)</script>。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>S = empty set
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>c = C
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>for i = n down to 1:
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    if V[i, c] != V[i-1, c]:
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        S = S union {i}
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        c = c - s_i
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>return S
+</span></code></pre></div></p>
+<p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/dp/Knapsack.cc">0-1 Knapsack</a>。</p>
+<h3 id="_7">序列比对</h3>
+<p>序列比对（<code>sequence alignment</code>）是生物信息学中一个重要的研究方向。输入是两个 <script type="math/tex">\{A,C,G,T\}</script> 序列，长度可以不相同，例如 <script type="math/tex">AGGGCT,AGGCA</script>。我们希望找到一个对齐方案，使得两个序列尽可能相似。比如这个例子有一个对齐方案：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>S_1: A G G G C T
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>S_2: A G G - C A
+</span></code></pre></div>
+<code>-</code> 表示空位，表示第二个序列少了一个 <code>G</code>。最后一个字符不匹配。</p>
+<p>一般说来，对齐（<code>alignment</code>）方案需要插入空位，使得两个序列长度一样。现在我们需要一个评价体系来衡量什么是尽可能相似。</p>
+<p>假定我们定义了空位罚分（<code>gap penalty</code>）和不匹配罚分（<code>mismatch penalty</code>），那么相似性就是罚分越小越好。正式描述是给定基于字符集 <script type="math/tex">\Sigma=\{A,C,G,T\}</script> 的两个序列 <script type="math/tex">X,Y</script>，每对 <script type="math/tex">(x,y)\in\Sigma</script> 的罚分是 <script type="math/tex">\alpha_{xy}</script>，空位罚分是非负数 <script type="math/tex">\alpha_{-}</script>，对齐方案的罚分是所有位置的罚分之和，我们的目的是最小化罚分。我们可以自然地假定 <script type="math/tex">\alpha_{xx}=0,\alpha_{xy}=\alpha_{yx}</script>。</p>
+<p>最小罚分比对（<code>minimum penalty alignment</code>）的一个解释是一条序列演化为另一条序列的可能路径。插入空位相当于发生了序列缺失，不匹配等价于一次基因突变。Needleman-Wunsch 算法（<code>Needleman-Wunsch algorithm</code>）可以计算序列比对的最小罚分，下文简称为 NW 罚分。NW 罚分较低通常意味着两个序列更相似。</p>
+<p>如果没有高效计算 NW 罚分的方法，这对于基因组专家而言毫无作用。随着两条字符串总长度的增加，可选对齐方案的数量呈指数级增长，因此除了毫无研究意义的小规模实验之外，穷举在我们有生之年都不可能运行完毕。动态规划提供了一个高效计算 NW 罚分的方法。Needleman 和 Wunsch 在 1970 年提出这一算法时，关键就在于它能够高效计算序列相似性的度量。</p>
+<p>分析最优解之前先看一个具体的例子。假定空位罚分是 1，不匹配罚分是 2，AGTACG 和 ACATAG 之间的最小罚分比对方案是：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>- - A G T A C G
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>A C A - T A - G
+</span></code></pre></div>
+总罚分是 4。这只是其中一种罚分是 4 的对齐方案，但是不会更低了。</p>
+<p>下面分析最优解的结构特征。假定两个非空字符串 <script type="math/tex">X=x_1x_2\cdots x_m</script> 和 <script type="math/tex">Y=y_1y_2\cdots y_n</script>，去掉最后一个字符，得到 <script type="math/tex">X'=x_1x_2\cdots x_{m-1}</script> 和 <script type="math/tex">Y'=y_1y_2\cdots y_{n-1}</script>。假定最优方案的罚分是 <script type="math/tex">P</script>，下面分析最后一个字符的情况。第一种情况是 <script type="math/tex">x_m</script> 和 <script type="math/tex">y_n</script> 对齐，那么 <script type="math/tex">X',Y'</script> 的最优解罚分是 <script type="math/tex">P-\alpha_{x_my_n}</script>。假定 <script type="math/tex">X',Y'</script> 的最优解罚分是 <script type="math/tex">P^*<P-\alpha_{x_my_n}</script>，那么 <script type="math/tex">X,Y</script> 的最优解罚分是 <script type="math/tex">P^*+\alpha_{x_my_n}<P</script>，这与假定的最优解矛盾。因此 <script type="math/tex">X',Y'</script> 的最优解罚分是 <script type="math/tex">P-\alpha_{x_my_n}</script>。第二种情况是 <script type="math/tex">x_m</script> 对齐空位，那么 <script type="math/tex">X',Y</script> 的最优解罚分是 <script type="math/tex">P-\alpha_{-}</script>。第三种情况是 <script type="math/tex">y_n</script> 对齐空位，那么 <script type="math/tex">X,Y'</script> 的最优解罚分是 <script type="math/tex">P-\alpha_{-}</script>。令 <script type="math/tex">P_{i,j}</script> 表示前缀 <script type="math/tex">x_1x_2\cdots x_i</script> 和 <script type="math/tex">y_1y_2\cdots y_j</script> 的最优解罚分，那么有如下递推关系：
+<script type="math/tex; mode=display">P_{i,j}=\min\{P_{i-1,j-1}+\alpha_{x_iy_j}, P_{i-1,j}+\alpha_{-}, P_{i,j-1}+\alpha_{-}\}</script>
+其中 <script type="math/tex">i=1,2,\ldots,m,j=1,2,\ldots,n</script>。如果 <script type="math/tex">i=0</script> 或 <script type="math/tex">j=0</script>，那么 <script type="math/tex">P_{i,j}</script> 分别是 <script type="math/tex">j\alpha_{-}</script> 或 <script type="math/tex">i\alpha_{-}</script>。</p>
+<p>因此子问题有两个维度需要考虑：前缀长度 <script type="math/tex">i</script> 和 <script type="math/tex">j</script>。枚举两个维度的所有合法取值，即可确定子问题集合。假定两个序列的长度分别是 <script type="math/tex">m</script> 和 <script type="math/tex">n</script>，子问题就是计算 <script type="math/tex">P_{i,j},i=0,1,2,\ldots,m,j=0,1,2,\ldots,n</script>，那么子问题集合的大小是 <script type="math/tex">O(mn)</script>。每个子问题的解可以通过更小规模的子问题的解快速得到，因此时间复杂度是 <script type="math/tex">O(mn)</script>，空间复杂度也是 <script type="math/tex">O(mn)</script>。</p>
+<p>分析完问题，下面是伪代码。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>P = P[0..m, 0..n]
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>for i = 0 to m:
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    P[i, 0] = i * alpha_gap
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>for j = 0 to n:
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    P[0, j] = j * alpha_gap
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>for i = 1 to m:
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    for j = 1 to n:
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        P[i, j] = min(P[i-1, j-1] + alpha[x_i, y_j], P[i-1, j] + alpha_gap, P[i, j-1] + alpha_gap)
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>return P[m, n]
+</span></code></pre></div>
+和其他动态规划算法类似，从 <script type="math/tex">P[m,n]</script> 回溯可以得到最优解的对齐方案。回溯的时间复杂度是 <script type="math/tex">O(m+n)</script>。如果 <script type="math/tex">P[i,j] == P[i-1,j-1] + \alpha_{x_i y_j}</script>，那么 <script type="math/tex">x_i</script> 和 <script type="math/tex">y_j</script> 对齐；如果 <script type="math/tex">P[i,j] == P[i-1,j] + \alpha_{-}</script>，那么 <script type="math/tex">x_i</script> 对齐空位；如果 <script type="math/tex">P[i,j] == P[i,j-1] + \alpha_{-}</script>，那么 <script type="math/tex">y_j</script> 对齐空位。有的时候可能有多种对齐方案具有相同的最小罚分，这时可以随机选择其中一种方案。按照上述顺序回溯，优先选择两个字母对齐，然后再考虑空位对齐的情况。当回溯到基本情况，即 <script type="math/tex">i=0</script> 或 <script type="math/tex">j=0</script> 时，剩余的字母都对齐空位。</p>
+<p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/dp/SequenceAlignment.cc">Sequence Alignment</a>。</p>
+<h3 id="_8">优化二叉搜索树</h3>
+<p>为了最小化期望搜索时间，我们希望构造一棵平衡二叉搜索树。假定每个节点的搜索概率相同，那么平衡二叉搜索树就是最优解。假定每个节点的搜索概率不同，那么最优解可能就不是平衡二叉搜索树了，这个问题称为优化二叉搜索树（<code>optimal binary search tree</code>）问题。给定一系列排好序的键值 <script type="math/tex">k_1,k_2,\ldots,k_n</script>，每个键值 <script type="math/tex">k_i</script> 的搜索概率是 <script type="math/tex">p_i</script>，这里并不假定概率之和是 1，也可以是权重。我们希望构造一棵二叉搜索树，使得期望搜索时间最小，也就是说我们要最小化
+<script type="math/tex; mode=display">\sum_{i=1}^n p_i \cdot \text{depth}(k_i)</script>
+这里，我们没有考虑搜索失败的情况，也就是搜索一个不存在的键值。不过稍微扩展一下下面阐述的算法，很容易将这种情况包含在内。</p>
+<p>这个问题与之前分析的 <a href="#huffman-编码">Huffman 编码</a>类似。输入都是一组键值和对应的权重，输出都是一棵二叉树，使得加权平均深度最小。不过二叉搜索树受到了额外的约束，但是前缀码无需关心左右子树的顺序。因此这个问题更有挑战性。我们可以使用动态规划来解决这个问题。</p>
+<p>和之前类似，我们分析最优解的结构特征。我们不知道哪一个键值应该当作根节点，因此可以尝试将每一个键值作为根节点。假定 <script type="math/tex">k_r</script> 是根节点，那么左子树的键值是 <script type="math/tex">k_1,k_2,\ldots,k_{r-1}</script>，右子树的键值是 <script type="math/tex">k_{r+1},k_{r+2},\ldots,k_n</script>，那么左子树的最优解是 <script type="math/tex">T_L</script>，右子树的最优解是 <script type="math/tex">T_R</script>。可以用反证法证明 <script type="math/tex">T_L,T_R</script> 必须是最优解。不妨假设 <script type="math/tex">T_L</script> 不是最优解，那么存在另一棵左子树 <script type="math/tex">T_L^*</script>，使得加权搜索代价更小。将 <script type="math/tex">T_L^*</script>
+<script type="math/tex">T_R</script> 和根节点 <script type="math/tex">k_r</script> 组合成一棵新的二叉搜索树 <script type="math/tex">T^*</script>，那么 <script type="math/tex">T^*</script> 的加权搜索代价更小，这与假定的最优解矛盾。因此 <script type="math/tex">T_L</script> 必须是最优解。同理，<script type="math/tex">T_R</script> 也必须是最优解。</p>
+<p>我们用 <script type="math/tex">W_{i,j}</script> 表示键值 <script type="math/tex">k_i,k_{i+1},\ldots,k_j</script> 和对应的权重 <script type="math/tex">p_i,p_{i+1},\ldots,p_j</script> 的最优加权搜索代价。如果 <script type="math/tex">i>j</script>，那么 <script type="math/tex">W_{i,j}=0</script>。对于 <script type="math/tex">i,j\in\{1,2,\ldots,n\},i\leq j</script>，当使用 <script type="math/tex">r</script> 作为根节点时，总的加权搜索代价是
+<script type="math/tex; mode=display">\begin{aligned}
+\sum_{k=i}^jp_k\cdot \text{depth}(k)&=p_r+\sum_{k=i}^{r-1}p_k\cdot (\text{depth}(k)+1)+\sum_{k=r+1}^{j}p_k\cdot (\text{depth}(k)+1)\\
+&=\sum_{k=i}^{j}p_k+\sum_{k=i}^{r-1}p_k\cdot \text{depth}(k)+\sum_{k=r+1}^{j}p_k\cdot \text{depth}(k)\\
+&=\sum_{k=i}^{j}p_k+W_{i,r-1}+W_{r+1,j}
+\end{aligned}</script>
+这里面取最小值得到
+<script type="math/tex; mode=display">W_{i,j}=\min_{r=i,\ldots,j}\left(\sum_{k=i}^{j}p_k+W_{i,r-1}+W_{r+1,j}\right)=\sum_{k=i}^{j}p_k+\min_{r=i,\ldots,j}\left(W_{i,r-1}+W_{r+1,j}\right)</script>
+<script type="math/tex">i=1,j=n</script> 时的解就是最终的最优解，是我们要求解的问题。每个子问题的解可以在线性时间内通过更小规模的子问题的解得到，因此时间复杂度是 <script type="math/tex">O(n^3)</script>，空间复杂度是 <script type="math/tex">O(n^2)</script>。下面给出伪代码：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>W = W[1..n+1, 0..n]
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>for i = 1 to n+1:
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    W[i, i-1] = 0
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>for s = 0 to n-1:
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    for i = 1 to n-s:
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        j = i+s
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        W[i, j] = sum(p_k for k in [i..j]) + min(W[i, r-1] + W[r+1, j] for r in [i..j])
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>return W[1, n]
+</span></code></pre></div>
+上述算法比暴力搜索（指数级）更快，但是仍然是立方级别的时间复杂度。我们可以使用一些技巧将时间复杂度降低到平方级别。具体参考 Knuth 的论文 Optimum Binary Search Trees (1971) 或 The Art of Computer Programming, Volume 3: Sorting and Searching, 2nd (1998)。</p>
+<p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/tree/OptBST.cc">Optimal Binary Search Tree</a>。</p>
 
   
 
