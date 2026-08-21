@@ -32267,17 +32267,18 @@
 
 <h2 id="_1">堆</h2>
 <p>如果需要在动态变化的集合上取最大值或最小值，堆（<code>heap</code>）是非常合适的数据结构。</p>
-<p>堆从逻辑上看可以看作一个尽可能满的二叉树。尽可能满的意思是只有最后一层可以不满，同时节点从左到右排列。堆（最小堆）最重要的属性是任意一个节点的值都小于等于其子节点的值。对于同一个集合，可以用很多种方式构成堆，只要满足上述属性即可。</p>
-<p>当实现堆的时候，通常使用数组来存储数据。数组中第 1 个对象是树的第一层，第 2-3 个对象是第二层，第 4-7 个对象是第三层，等等。如果用 <script type="math/tex">1,2,\cdots,n</script> 来表示节点，那么对于第 <script type="math/tex">i</script> 个节点，<script type="math/tex">\lfloor i/2\rfloor,i\geq 2</script> 是其父节点，<script type="math/tex">2i,2i\leq n</script> 和 <script type="math/tex">2i+1,2i+1\leq n</script> 是其左右孩子节点。</p>
-<p>插入操作比较简单。第一步保持近似满二叉树的形式，直接将新的对象插入到数组尾部就可以达到这个目的。第二步，保持堆的属性。将新插入的对象与父节点比较，如果比父节点小，那么与父节点交换，然后递归这个过程。一般将这个过程称为 <code>Up</code> <code>BubbleUp</code> <code>HeapifyUp</code>。如果有 <script type="math/tex">n</script> 个对象，那么树的高度约为 <script type="math/tex">\log n</script>，那么新插入的时间复杂度是 <script type="math/tex">O(\log n)</script>。</p>
-<p>删除最小对象的过程类似。第一步将最后一个对象移动到第一个对象的位置上，即把最小值删除掉了。第二步保持堆的属性。从根节点开始，比较当前节点和两个子节点的大小，如果有更小的子节点，将当前节点与最小的子节点交换，然后递归这个过程。这个过程一般称为 <code>Down</code>、<code>BubbleDown</code> 或 <code>HeapifyDown</code>。和插入类似，树的高度约为 <script type="math/tex">\log n</script>，那么删除最小对象的时间复杂度是 <script type="math/tex">O(\log n)</script>。</p>
-<p>返回数组的第一个对象就能获取最大或最小对象，因此时间复杂度是 <script type="math/tex">O(1)</script>。</p>
-<p>从 <script type="math/tex">n</script> 个对象的数组开始直接建堆，除了挨个插入之外，还有一种更快捷的方式。从后往前，对前一半的对象调用 <code>HeapifyDown</code> 即可。时间复杂度是 <script type="math/tex">O(n)</script>。实现的时候外层循环是 <script type="math/tex">n/2</script> 个对象，每次 <code>HeapifyDown</code> 是 <script type="math/tex">O(\log n)</script>，直观感受复杂度是 <script type="math/tex">O(n\log n)</script>。不过深入分析可以看出，<script type="math/tex">n/4</script> 的对象最多下沉 1 层，<script type="math/tex">n/8</script> 的对象最多下沉 2 层，以此类推，根节点只有一个，最多下沉 <script type="math/tex">\log n</script> 层。从上往下看的话，第 <script type="math/tex">i</script> 层有 <script type="math/tex">2^{i}</script> 个节点，最多下降 <script type="math/tex">h-i</script> 层。因此
+<p>堆从逻辑上看是一棵完全二叉树，只有最后一层可以不满，且该层的节点从左到右依次排列。堆（以最小堆为例）最重要的属性是任意一个节点的值都小于等于其子节点的值。对于同一个集合，只要满足上述属性，就可以构造出多种不同的堆。</p>
+<p>实现堆时，通常使用数组存储数据。数组中第 1 个元素是树的第一层，第 2 至第 3 个元素是第二层，第 4 至第 7 个元素是第三层，依此类推。如果用 <script type="math/tex">1,2,\cdots,n</script> 表示节点的下标，那么对于第 <script type="math/tex">i</script> 个节点，当 <script type="math/tex">i\geq 2</script> 时，其父节点的下标为 <script type="math/tex">\lfloor i/2\rfloor</script>，当 <script type="math/tex">2i\leq n</script> 时，其左孩子节点的下标为 <script type="math/tex">2i</script>，当 <script type="math/tex">2i+1\leq n</script> 时，其右孩子节点的下标为 <script type="math/tex">2i+1</script>。</p>
+<p>插入操作比较简单。第一步是保持完全二叉树的形状，将新元素插入数组尾部即可。第二步是恢复堆的属性。将新插入的元素与父节点比较，如果它比父节点小，就与父节点交换，并重复这一过程。一般将这个过程称为 <code>Up</code> <code>BubbleUp</code> <code>HeapifyUp</code>。如果有 <script type="math/tex">n</script> 个元素，树的高度约为 <script type="math/tex">\log n</script>，因此插入操作的时间复杂度是 <script type="math/tex">O(\log n)</script>。</p>
+<p>删除最小元素的过程类似。先用最后一个元素替换根节点，并删除原来的最后一个元素，此时原根节点的最小值已被删除。接着恢复堆的属性，从根节点开始，比较当前节点与其存在的子节点，如果存在更小的子节点，就将当前节点与其中较小者交换，并重复这一过程。这个过程一般称为 <code>Down</code> <code>BubbleDown</code> <code>HeapifyDown</code>。和插入操作类似，树的高度约为 <script type="math/tex">\log n</script>，因此删除最小元素的时间复杂度是 <script type="math/tex">O(\log n)</script>。</p>
+<p>返回数组的第一个元素即可获取堆顶元素，最小堆的堆顶为最小元素，最大堆的堆顶为最大元素，时间复杂度为 <script type="math/tex">O(1)</script>。</p>
+<p>从含有 <script type="math/tex">n</script> 个元素的数组直接建堆，除了逐个插入外，还有一种更快的方法。从最后一个非叶节点开始，依次向前对每个非叶节点调用 <code>HeapifyDown</code>，其时间复杂度是 <script type="math/tex">O(n)</script>。实现时，外层循环约处理 <script type="math/tex">n/2</script> 个节点，每次 <code>HeapifyDown</code> 的最坏时间复杂度为 <script type="math/tex">O(\log n)</script>，因此直观上似乎是 <script type="math/tex">O(n\log n)</script>。但深入分析可以看出，约有 <script type="math/tex">n/4</script> 个节点最多下沉 1 层，约有 <script type="math/tex">n/8</script> 个节点最多下沉 2 层，以此类推，根节点只有一个，最多下沉 <script type="math/tex">\log n</script> 层。设树高为 <script type="math/tex">h</script>，从上往下第 <script type="math/tex">i</script> 层最多有 <script type="math/tex">2^i</script> 个节点，最多下沉 <script type="math/tex">h-i</script> 层。因此，总操作次数至多为
 <script type="math/tex; mode=display">S=1\cdot h+2\cdot (h-1)+\cdots+2^{h-1}\cdot 1</script>
 这是一个等比等差数列求和，两边同时乘以 2 之后错位相减，那么
 <script type="math/tex; mode=display">2S=2\cdot h+2^2\cdot (h-1)+\cdots+2^h\cdot 1</script>
+又因为完全二叉树满足 <script type="math/tex">2^h\leq n<2^{h+1}</script>，有
 <script type="math/tex; mode=display">S=-h+2+4+\cdots+2^h=2^{h+1}-h-1=O(n)</script>
-上式最后一步应用了 <script type="math/tex">n\approx 2^{h+1}</script>。</p>
+所以建堆的时间复杂度为 <script type="math/tex">O(n)</script>。</p>
 <p>实现参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/main/src/basic/Heap.h">Heap</a></p>
 
   

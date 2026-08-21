@@ -32455,7 +32455,7 @@
 
 <p>算法分析离不开渐进符号，它能帮助我们去除常量、低阶量对分析的影响，同时在大规模输入时帮助分析比较两种算法的优劣。</p>
 <p>这些记号并不是计算机科学家发明的，而是在二十世纪初用于数论领域。高德纳（<code>Donald E. Knuth</code>）提议将其用于算法分析。</p>
-<p>下面先分析最常见的符号是大 <script type="math/tex">O</script> 记号，然后介绍大 <script type="math/tex">\Omega</script>、大 <script type="math/tex">\Theta</script> 和小 <script type="math/tex">o</script> 记号。</p>
+<p>下面先介绍最常见的大 <script type="math/tex">O</script> 记号，然后介绍大 <script type="math/tex">\Omega</script>、大 <script type="math/tex">\Theta</script> 和小 <script type="math/tex">o</script> 记号。</p>
 <h2 id="o">大 <script type="math/tex">O</script> 记号</h2>
 <p><strong>大 <script type="math/tex">O</script> 记号（<code>Big-O Notation</code>）</strong></p>
 <blockquote>
@@ -32464,7 +32464,7 @@
 <script type="math/tex; mode=display">T(n)\leq cf(n)</script>
 </p>
 </blockquote>
-<p>注意，这里 <script type="math/tex">c,n_0</script> 是常量的意思是不依赖于 <script type="math/tex">n</script>。</p>
+<p>注意，这里的 <script type="math/tex">c,n_0</script> 是不依赖于 <script type="math/tex">n</script> 的常量。</p>
 <p>大 <script type="math/tex">O</script> 定义了上界，“小于等于”的语义。</p>
 <h2 id="omega">大 <script type="math/tex">\Omega</script> 记号</h2>
 <p><strong>大 <script type="math/tex">\Omega</script> 记号（<code>Big-Omega Notation</code>）</strong></p>
@@ -32479,7 +32479,7 @@
 <p><strong>大 <script type="math/tex">\Theta</script> 记号（<code>Big-Theta Notation</code>）</strong></p>
 <blockquote>
 <p>
-<script type="math/tex">T(n)=\Theta(f(n))</script> 等价于存在常量 <script type="math/tex">c1,c_2>0,n_0>0</script> 使得对所有 <script type="math/tex">n\geq n_0</script> 都有
+<script type="math/tex">T(n)=\Theta(f(n))</script> 等价于存在常量 <script type="math/tex">c_1,c_2>0,n_0>0</script> 使得对所有 <script type="math/tex">n\geq n_0</script> 都有
 <script type="math/tex; mode=display">c_1f(n)\leq T(n)\leq c_2f(n)</script>
 </p>
 </blockquote>
@@ -32496,28 +32496,28 @@
 <h2 id="_1">示例</h2>
 <h3 id="tn">多项式 <script type="math/tex">T(n)</script>
 </h3>
-<p>下面给出一个具体的例子，分析 <script type="math/tex">k</script> 次多项式 <script type="math/tex">T(n)</script> 是 <script type="math/tex">O(n^k)</script> 但是不是 <script type="math/tex">O(n^{k-1})</script>。前者也说明大 <script type="math/tex">O</script> 记号会忽略低阶项。</p>
+<p>下面给出一个具体的例子，说明次数至多为 <script type="math/tex">k</script> 的多项式 <script type="math/tex">T(n)</script> 是 <script type="math/tex">O(n^k)</script>，而 <script type="math/tex">n^k</script> 不是 <script type="math/tex">O(n^{k-1})</script>。前者也说明大 <script type="math/tex">O</script> 记号会忽略低阶项。</p>
 <p>令
-<script type="math/tex; mode=display">T(n)=a_nn^k+a_{k-1}n^{k-1}+\cdots+a_1n+a_0</script>
-其中 <script type="math/tex">k\geq 0</script> 是整数，<script type="math/tex">a_i,i\in\{0,1,2,\cdots,k\}</script> 是实数，那么
+<script type="math/tex; mode=display">T(n)=a_kn^k+a_{k-1}n^{k-1}+\cdots+a_1n+a_0</script>
+其中 <script type="math/tex">k\geq 0</script> 是整数，<script type="math/tex">a_i\ (i\in\{0,1,2,\cdots,k\})</script> 是实数，那么
 <script type="math/tex; mode=display">T(n)=O(n^k)</script>
-证明：利用之前的定义证明，关键点在于找到 <script type="math/tex">c,n_0</script> 使得 <script type="math/tex">T(n)\leq cf(n)</script>。这里我们选择
-<script type="math/tex; mode=display">n_0=1,c=|a_k|+|a_{k-1}|+\cdots+|a_1|+|a_0|</script>
-从 <script type="math/tex">T(n)</script> 定义开始，每一项系数 <script type="math/tex">a_i</script> 取绝对值，那么得到
+证明：根据定义，关键在于找到 <script type="math/tex">c,n_0</script> 使得 <script type="math/tex">T(n)\leq cn^k</script>。这里选择
+<script type="math/tex; mode=display">n_0=1,\quad c=|a_k|+|a_{k-1}|+\cdots+|a_1|+|a_0|</script>
+对 <script type="math/tex">T(n)</script> 的每一项取绝对值，得到
 <script type="math/tex; mode=display">T(n)\leq |a_k|n^k+|a_{k-1}|n^{k-1}+\cdots+|a_1|n+|a_0|</script>
-由于 <script type="math/tex">n\geq 1</script> 并且 <script type="math/tex">k\geq 0</script>，那么 <script type="math/tex">n^k\geq n^i,i\in\{0,1,2,\cdots,k\}</script>，因此
+由于 <script type="math/tex">n\geq 1</script> 且 <script type="math/tex">k\geq 0</script>，有 <script type="math/tex">n^k\geq n^i</script>，其中 <script type="math/tex">i\in\{0,1,2,\cdots,k\}</script>，因此
 <script type="math/tex; mode=display">\begin{aligned}
 T(n)&\leq |a_k|n^k+|a_{k-1}|n^k+\cdots+|a_1|n^k+|a_0|n^k\\
 &=n^k(|a_k|+|a_{k-1}|+\cdots+|a_1|+|a_0|)\\
-&=cn^k
+&\leq cn^k
 \end{aligned}</script>
 证毕。</p>
-<p>如果 <script type="math/tex">k\geq 1</script> 的整数，<script type="math/tex">T(n)=n^k</script>，那么 <script type="math/tex">T(n)</script> 不是 <script type="math/tex">O(n^{k-1})</script>。
-证明：这里使用反证法。假设 <script type="math/tex">T(n)=O(n^{k-1})</script>，那么存在 <script type="math/tex">n_0,c</script> 使得所有 <script type="math/tex">n\geq n_0</script> 都有
+<p>如果 <script type="math/tex">k\geq 1</script> 是整数，且 <script type="math/tex">T(n)=n^k</script>，那么 <script type="math/tex">T(n)</script> 不是 <script type="math/tex">O(n^{k-1})</script>。
+证明：使用反证法。假设 <script type="math/tex">T(n)=O(n^{k-1})</script>，那么存在 <script type="math/tex">n_0,c>0</script>，使得对所有 <script type="math/tex">n\geq n_0</script> 都有
 <script type="math/tex; mode=display">n^k\leq cn^{k-1}</script>
-那么
+两边同时除以 <script type="math/tex">n^{k-1}</script>，得到
 <script type="math/tex; mode=display">n\leq c</script>
-上式表明常数 <script type="math/tex">c</script> 大于任意大的整数，这明显是错误的。证毕。</p>
+这表明常数 <script type="math/tex">c</script> 大于等于任意大的整数，矛盾。证毕。</p>
 <h3 id="_2">指数上加一个常量</h3>
 <p>如果
 <script type="math/tex; mode=display">T(n)=2^{n+k}</script>
@@ -32525,28 +32525,28 @@ T(n)&\leq |a_k|n^k+|a_{k-1}|n^k+\cdots+|a_1|n^k+|a_0|n^k\\
 <script type="math/tex; mode=display">T(n)=O(2^n)</script>
 证明：
 <script type="math/tex; mode=display">2^{n+k}=2^k2^n</script>
-因此我们选 <script type="math/tex">n_0=1,c=2^k</script>，那么有 <script type="math/tex">T(n)\leq c2^n,n\geq n_0</script>。</p>
+因此，取 <script type="math/tex">n_0=1,c=2^k</script>，有 <script type="math/tex">T(n)\leq c2^n,n\geq n_0</script>。</p>
 <h3 id="_3">指数上乘一个常量</h3>
 <p>如果 <script type="math/tex">k>1</script>，且
 <script type="math/tex; mode=display">T(n)=2^{nk}</script>
 那么 <script type="math/tex">T(n)</script> 不是 <script type="math/tex">O(2^n)</script>。
-证明：这里仍旧使用反证法。假设 <script type="math/tex">T(n)=O(2^n)</script>，那么存在 <script type="math/tex">n_0,c</script> 使得
+证明：仍使用反证法。假设 <script type="math/tex">T(n)=O(2^n)</script>，那么存在 <script type="math/tex">n_0,c>0</script>，使得对所有 <script type="math/tex">n\geq n_0</script> 都有
 <script type="math/tex; mode=display">2^{nk}\leq c2^n</script>
 那么
 <script type="math/tex; mode=display">2^{n(k-1)}\leq c</script>
-<script type="math/tex">n</script> 无穷大，也就是说常量 <script type="math/tex">c</script> 能够大于无穷，矛盾。</p>
+当 <script type="math/tex">n</script> 趋于无穷大时，左侧趋于无穷大，不可能始终不大于常量 <script type="math/tex">c</script>，矛盾。</p>
 <h3 id="_4">最大值</h3>
-<p>令 <script type="math/tex">f,g</script> 是从正整数到非负实数的函数，且对 <script type="math/tex">n\geq 1</script>
+<p>令 <script type="math/tex">f,g</script> 是从正整数到非负实数的函数。对 <script type="math/tex">n\geq 1</script>，令
 <script type="math/tex; mode=display">T(n)=\max\{f(n),g(n)\}</script>
 那么
 <script type="math/tex; mode=display">T(n)=\Theta(f(n)+g(n))</script>
 证明：我们需要找到 <script type="math/tex">c_1,c_2,n_0</script> 使得
 <script type="math/tex; mode=display">c_1(f(n)+g(n))\leq T(n)\leq c_2(f(n)+g(n))</script>
-由于 <script type="math/tex">f(n),g(n)</script> 是非负函数，那么
+由于 <script type="math/tex">f(n)</script> 和 <script type="math/tex">g(n)</script> 非负，
 <script type="math/tex; mode=display">\max\{f(n),g(n)\}\leq f(n)+g(n)\leq 2\max\{f(n),g(n)\}</script>
 变换得到
 <script type="math/tex; mode=display">\frac{1}{2}(f(n)+g(n))\leq \max\{f(n),g(n)\}\leq f(n)+g(n)</script>
-根据定义，<script type="math/tex">c_1=\frac{1}{2},c_2=1,n_0=1</script>。</p>
+因此，根据定义可取 <script type="math/tex">c_1=\frac{1}{2},c_2=1,n_0=1</script>。</p>
 
   
 

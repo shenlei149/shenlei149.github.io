@@ -32298,16 +32298,16 @@ xy&=(10^{n/2}a+b)(10^{n/2}c+d)\\
 \end{aligned}</script>
 其中
 <script type="math/tex; mode=display">ad+bc=(a+b)(c+d)-ac-bd</script>
-那么可以再省去一次乘法。</p>
-<p>Karatsuba 就是根据上述的性质来实现乘法的。整个算法是递归的。</p>
+因此可以省去一次乘法。</p>
+<p>Karatsuba 乘法利用上述等式来减少乘法次数。整个算法采用递归实现。</p>
 <p>如果 <code>n == 1</code>，那么直接计算 <code>x * y</code> 并返回。</p>
-<p>否则，按照之前的描述分别拆成 <code>a</code>、<code>b</code> 和 <code>c</code>、<code>d</code> 两个部分。分别计算 <code>ac = a * c</code> 和 <code>bd = b * d</code>。为了方便描述中间部分，引入变量 <code>p = a + b</code> 和 <code>q = c + d</code>，那么 <code>adbc = p * q - ac - bd</code>。最终结果是 <code>pow(10, n) * ac + pow(10, n / 2) * adbc + bd</code>。</p>
+<p>否则，按照前面的描述，将 <code>x</code> 拆成 <code>a</code> <code>b</code> 两部分，将 <code>y</code> 拆成 <code>c</code> <code>d</code> 两部分。分别计算 <code>ac = a * c</code> 和 <code>bd = b * d</code>。为方便表示中间项，引入变量 <code>p = a + b</code> 和 <code>q = c + d</code>，则 <code>adbc = p * q - ac - bd</code>。最终结果为 <code>pow(10, n) * ac + pow(10, n / 2) * adbc + bd</code>。</p>
 <p>具体实现可以参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/1f66d6cc237214d89a025a5714497ee0370f630f/src/numeric/BigInteger.cc#L200">BigInteger.cc</a>。</p>
 <h2 id="strassen">Strassen 矩阵乘法</h2>
-<p>假定 <script type="math/tex">X,Y</script> 是两个 <script type="math/tex">n\times n</script> 的矩阵，乘积 <script type="math/tex">Z=XY</script>，第 <script type="math/tex">i</script> 行第 <script type="math/tex">j</script> 列的值是
+<p>假定 <script type="math/tex">X,Y</script> 是两个 <script type="math/tex">n\times n</script> 的矩阵，乘积为 <script type="math/tex">Z=XY</script>，其第 <script type="math/tex">i</script> 行第 <script type="math/tex">j</script> 列的元素为
 <script type="math/tex; mode=display">z_{ij}=\sum_{k=1}^n x_{ik}y_{kj}</script>
-最朴素的算法就是对 <script type="math/tex">i,j,k</script> 遍历，三层 <code>for</code> 循环，时间复杂度是 <script type="math/tex">O(n^3)</script>。</p>
-<p>下面考虑分治法，将 <script type="math/tex">X,Y</script> 拆成四个 <script type="math/tex">\frac{n}{2}\times\frac{n}{2}</script> 的小矩阵
+最朴素的算法是依次遍历 <script type="math/tex">i,j,k</script>，使用三层 <code>for</code> 循环，时间复杂度为 <script type="math/tex">O(n^3)</script>。</p>
+<p>下面考虑分治法。为便于划分，假定 <script type="math/tex">n</script> 为偶数；若不是，可以在矩阵周围补零。将 <script type="math/tex">X,Y</script> 分别拆成四个 <script type="math/tex">\frac{n}{2}\times\frac{n}{2}</script> 的子矩阵：
 <script type="math/tex; mode=display">X=\begin{pmatrix}
 A&B\\C&D
 \end{pmatrix},Y=\begin{pmatrix}
@@ -32318,8 +32318,8 @@ E&F\\G&H
 AE+BG&AF+BH\\
 CE+DG&CF+DH
 \end{pmatrix}</script>
-需要递归的调用八次矩阵乘法，算法的复杂度仍旧是 <script type="math/tex">O(n^3)</script>。</p>
-<p>如果我们能够省去一次递归调用，那么性能的提升不仅仅是 12.5%。这就是 Strassen 矩阵乘法的巧妙之处。首先执行七次递归调用
+需要递归调用八次矩阵乘法，算法的时间复杂度仍为 <script type="math/tex">O(n^3)</script>。</p>
+<p>如果能够将每层递归中的矩阵乘法次数从八次减少到七次，时间复杂度便可降至 <script type="math/tex">O(n^{\log_2 7})</script>。这就是 Strassen 矩阵乘法的巧妙之处。首先执行七次递归调用：
 <script type="math/tex; mode=display">\begin{aligned}
 P_1&=A(F-H)\\
 P_2&=(A+B)H\\
@@ -32340,7 +32340,7 @@ P_5+P_4-P_2+P_6&P_1+P_2\\
 P_3+P_4&P_1+P_5-P_3-P_7
 \end{pmatrix}
 \end{aligned}</script>
-下面验证各个递归调用
+下面验证各个分块的计算结果：
 <script type="math/tex; mode=display">\begin{aligned}
 P_5+P_4-P_2+P_6=&AE+AH+DE+DH\\
 &+DG-DE\\
