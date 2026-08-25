@@ -183,7 +183,8 @@ DFS(Graph, s)
 
 实现参考 [ConnectedComponent](https://github.com/shenlei149/algorithms-data-structures/blob/main/src/graph/ConnectedComponent.h)
 
-## 最短路径：Dijkstra 算法
+## 最短路径
+### Dijkstra 算法
 Dijkstra 算法主要用于解决最短路径问题（`shortest path problem`）。给定一个有向图 $G=(V,E)$，从一个顶点 $s\in V$ 开始，每条边 $e\in E$ 的长度是非负的，算法的输出是对任一点 $v\in V$ 的 $dist(s, v)$。如果两个点 $s,v$ 之间没有通路，那么 $dist(s, v)$ 是无穷大。
 
 这里有两个假设：图是有向图，且边的长度非负。
@@ -262,6 +263,50 @@ while !H.empty()
 也可以使用带有 Index 的堆来实现，这种数据结构一般称为 `IndexPriorityQueue`。对于普通堆的第一个问题，顶点的 `id` 就是天然的 `Index`，那么堆里面放最小距离即可。第二个问题就不存在了，因为其支持更新操作。
 
 代码示例中，选择了 `IndexPriorityQueue` 和动态添加待处理的点。参考 [Dijkstra](https://github.com/shenlei149/algorithms-data-structures/blob/6c7d25937f9df1a43e921da8a33834625f351d2f/src/graph/ShortestPath.h#L55)
+
+### Bellman-Ford 算法
+前面分析过，Dijkstra 算法不能处理负权边。现在来分析边的权重可能为负数的情况。当所有边的权重都为正数时，即使存在环，也可以自然处理。沿环回到起点时，距离只会变大，不会变小，因此不会影响最短路径的计算。负权边的情况则不同。如果存在负权环，沿环回到起点时距离会变小，不断绕行，距离会趋向负无穷大，因此最短路径没有定义。因此需要假设图中不存在负权环。
+
+Bellman-Ford 算法是[动态规划](./DesignParadigm.md#动态规划)算法，因此最关键的步骤是找到如何从子问题来构建最优解，即分析解的结构特征。
+
+Bellman-Ford 算法从输出的角度设计算法。直观地看，最短路径 $P$ 的一个前缀 $P'$ 是到另一个点的最短路径。如果这一点成立，那么 $P'$ 就是更小的问题。由于存在负权重的边，$P$ 的长度可能小于 $P'$ 的长度，所以两者的长度关系不确定。不过可以确定的是，$P'$ 的边数一定小于 $P$ 的边数。因此我们使用跳数 $i$ 来定义子问题。令 $L_i(s,v)$ 表示从 $s$ 到 $v$ 的最短路径，且该路径的边数不超过 $i$。路径上可以有环，如果多次使用同一条边，会增加跳数的计数。由于不存在负权环，这里的环只会增加距离。
+
+从顶点 $s$ 出发，最短路径的边数最多是 $|V|-1$，因此 $i$ 不会大于 $|V|$，那么子问题 $L_i(s,v)$ 有 $O(n^2)$ 个。假定某个最短路径有 $|V|$ 个边，那么有 $|V|+1$ 个顶点，那么某个 $w$ 必然会重复出现，形成一个环。由于不存在负权环，那么去掉这个环，得到的路径距离不会变大，因此可以得到一个边数更小权重不变或变小的路径。因此最短路径的边数不会超过 $|V|-1$。
+
+选取子问题之后，接下来分析如何从子问题构建最优解。假定 $P$ 是从 $s$ 到 $v$ 的最短路径，且该路径的边数不超过 $i$。如果 $P$ 的边数小于 $i$，那么 $L_i(s,v)=L_{i-1}(s,v)$。如果 $P$ 的边数等于 $i$，假定最后一条边是 $(w,v)$，那么前缀路径 $P'$ 是从 $s$ 到 $w$ 的最短路径，且其边数不超过 $i-1$，因此 $L_i(s,v)=L_{i-1}(s,w)+l_{wv}$。用反证法证明 $P'$ 是从 $s$ 到 $w$ 的最短路径。如果不是，那么存在一条更短的路径 $P^*$ 从 $s$ 到 $w$，即 $P^*<P'$，那么 $P^*+(w,v)$ 就是从 $s$ 到 $v$ 的更短路径，这与 $P$ 是最短路径矛盾。结合上述两种情况，我们可以得到
+$$L_i(s,v)=\min\left\{L_{i-1}(s,v),\min_{(w,v)\in E}\left(L_{i-1}(s,w)+l_{wv}\right)\right\}$$
+如果从 $s$ 到 $v$ 没有不超过 $i$ 条边的路径，那么 $L_i(s,v)=\infty$。
+
+从上式可以看出，$L_i(s,v)$ 只依赖于 $L_{i-1}(s,v)$ 和 $L_{i-1}(s,w)$。如果对所有的 $v\in V$ 均有 $L_{k+1}(s,v)=L_k(s,v)$，算法就可以终止。此时对于任意 $i\geq k$，都有 $L_i(s,v)=L_k(s,v)$，并且 $L_i(s,v)$ 是最短路径。用反证法证明。假定 $L_i(s,v)$ 不是最短路径，那么存在一条跳数 $i>k$ 的路径 $P$，其距离小于 $L_k(s,v)$，但这与前面的结论 $L_i(s,v)=L_k(s,v)$ 矛盾。
+
+一定会有这么一个 $k$ 吗？前面分析过，最短路径的边数不会超过 $|V|-1$，因此最坏情况就是 $L_n(s,v)=L_{n-1}(s,v)$，此时 $k=n-1$。
+
+算法的伪代码如下。
+```
+predecessor[0..n-1] = nullptr
+L[0..n,0..n-1]
+L[0][s] = 0, L[0][v] = MAX for v != s
+for i = 1 to n
+    stable = true
+    for v in V
+        w_min = min_{(w,v)\in E}(L[i-1][w]+l_{wv})
+        if w_min < L[i-1][v]
+            predecessor[v] = w
+            L[i][v] = w_min
+        else
+            L[i][v] = L[i-1][v]
+
+        if L[i][v] != L[i-1][v]
+            stable = false
+    if stable
+        return L[i-1][v] for all v in V
+
+return N/A // there is a negative weight cycle
+```
+内层 `for` 循环迭代 $|V|=n$ 次，里面要遍历与 $v$ 相邻的边，整体要遍历所有的边 $|E|=m$，因此内层循环的时间复杂度是 $O(m)$。外层 `for` 循环遍历 $|V|=n$ 次，因此总的时间复杂度是 $O(mn)$。这里记录了每次更新后点 $v$ 的前继节点，因此可以在算法结束后沿着前继节点回溯，得到从 $s$ 到 $v$ 的最短路径。数组 `predecessor` 的大小是 $O(n)$，因此回溯的时间复杂度是 $O(n)$。
+
+### Floyd-Warshall 算法
+上面的 Dijkstra 和 Bellman-Ford 算法都是从一个顶点出发，计算从该顶点到其他所有顶点的最短路径。如果需要计算所有顶点对之间的最短路径，那么需要对每一个顶点都运行一次 Dijkstra 或 Bellman-Ford 算法，时间复杂度是 $O(n(m+n)\log n)$ 或 $O(n^2m)$。这里介绍一个更高效的算法：Floyd-Warshall 算法。
 
 ## 最小生成树
 给定一个连通的无向图 $G=(V,E)$，每条边 $e\in E$ 都有一个权重 $w_e$，最小生成树（`Minimum Spanning Tree`, `MST`）问题是找到 $G$ 的一个生成树（`spanning tree`），使得该树的权重之和最小。生成树是一个子图，包含 $G$ 的所有顶点，并且是一棵树，若以 $T$ 表示其边集合，则 $T\subseteq E$。
