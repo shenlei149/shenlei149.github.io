@@ -32329,7 +32329,7 @@
 <p><img alt="" src="../0106.png" /></p>
 <p>很多商用应用中数据不是完全随机而是某种程度已经有序了，那么每个顺串可以包含更多的记录数（大于 <script type="math/tex">2P</script>）。外排的时间很大程度上取决于初始顺串的个数，替代选择能够产生更长的顺串，是非常可取的，由于内存限制，其他的内排算法将产生两倍甚至更多的顺串。</p>
 <p>下面将详细阐述使用替代选择建立初始顺串的过程。算法是 John R. Walters, James
-Painter, Martin Zalk 提出的。很精妙，试用简单一致的逻辑来建立选择树的初始状态、区分不同顺串的记录，以及清理最后一个顺串。基本思想是每个顺串标记成 <script type="math/tex">S</script>，然后把 <script type="math/tex">(S,K)</script> 作为 <code>key</code>，<script type="math/tex">K</script> 表示原来的 <code>key</code>。这样使用扩展的 `key`` 进行排序，输出序列。</p>
+Painter, Martin Zalk 提出的。很精妙，试用简单一致的逻辑来建立选择树的初始状态、区分不同顺串的记录，以及清理最后一个顺串。基本思想是每个顺串标记成 <script type="math/tex">S</script>，然后把 <script type="math/tex">(S,K)</script> 作为 <code>key</code>，<script type="math/tex">K</script> 表示原来的 <code>key</code>。这样使用扩展的 <code>ey</code> 进行排序，输出序列。</p>
 <p>算法使用了包含 <script type="math/tex">P</script> 个节点的数据结构来表示选择树，第 <script type="math/tex">j,0\leq j<P</script> 个节点 <script type="math/tex">X[j]</script> 包含从 <script type="math/tex">L_0</script> 开始第 <script type="math/tex">j</script> 个记录（长度是 <script type="math/tex">c</script>），即 <script type="math/tex">\text{LOC}(X[j])=L_0+cj</script>，它同时表示内部的第 <script type="math/tex">j</script> 个节点和外部第 <script type="math/tex">P+j</script> 个节点（见图 63）。每个节点有以下字段：</p>
 <p>KEY = 外部节点的 <code>key</code></p>
 <p>RECORD = 外部节点的记录（包含了 <code>key</code>）</p>
