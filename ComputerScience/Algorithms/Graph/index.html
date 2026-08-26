@@ -32818,52 +32818,93 @@
 </span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>return N/A // there is a negative weight cycle
 </span></code></pre></div>
 内层 <code>for</code> 循环迭代 <script type="math/tex">|V|=n</script> 次，里面要遍历与 <script type="math/tex">v</script> 相邻的边，整体要遍历所有的边 <script type="math/tex">|E|=m</script>，因此内层循环的时间复杂度是 <script type="math/tex">O(m)</script>。外层 <code>for</code> 循环遍历 <script type="math/tex">|V|=n</script> 次，因此总的时间复杂度是 <script type="math/tex">O(mn)</script>。这里记录了每次更新后点 <script type="math/tex">v</script> 的前继节点，因此可以在算法结束后沿着前继节点回溯，得到从 <script type="math/tex">s</script> 到 <script type="math/tex">v</script> 的最短路径。数组 <code>predecessor</code> 的大小是 <script type="math/tex">O(n)</script>，因此回溯的时间复杂度是 <script type="math/tex">O(n)</script>。</p>
+<p>实现参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/49cfefc693daf4ba2d1b02735a278193a51dbe98/src/graph/ShortestPath.h#L99">Bellman-Ford</a>。</p>
 <h3 id="floyd-warshall">Floyd-Warshall 算法</h3>
 <p>上面的 Dijkstra 和 Bellman-Ford 算法都是从一个顶点出发，计算从该顶点到其他所有顶点的最短路径。如果需要计算所有顶点对之间的最短路径，那么需要对每一个顶点都运行一次 Dijkstra 或 Bellman-Ford 算法，时间复杂度是 <script type="math/tex">O(n(m+n)\log n)</script> 或 <script type="math/tex">O(n^2m)</script>。这里介绍一个更高效的算法：Floyd-Warshall 算法。</p>
+<p>Floyd-Warshall 算法的子问题构造也相当精妙。给定一个起始点 <script type="math/tex">v</script> 和终点 <script type="math/tex">w</script>，以及一个整数 <script type="math/tex">k</script>，令 <script type="math/tex">L_k(v,w)</script> 表示从 <script type="math/tex">v</script> 到 <script type="math/tex">w</script> 的最短路径长度，且该路径上所有的中间顶点都在 <script type="math/tex">\{1,2,\cdots,k\}</script> 中，这里的中间顶点是指除了起始点和终点之外的顶点。同时，路径不包含有向环。<script type="math/tex">k</script> 的取值范围是 <script type="math/tex">0,1,\cdots,n</script>，因此子问题的个数是 <script type="math/tex">O(n^3)</script>。当 <script type="math/tex">k=0</script> 时，路径上没有中间顶点。若 <script type="math/tex">v=w</script>，则零长度路径的长度为 <script type="math/tex">0</script>；若 <script type="math/tex">(v,w)\in E</script>，则一条边构成的路径长度为 <script type="math/tex">l_{vw}</script>；否则路径长度为 <script type="math/tex">\infty</script>。</p>
+<p>假定 <script type="math/tex">P</script> 是从 <script type="math/tex">v</script> 到 <script type="math/tex">w</script> 的最短路径，没有环，且所有的内部点都在 <script type="math/tex">\{1,2,\cdots,k\}</script> 中。最短路径的构成分为两种情况。第一种情况是 <script type="math/tex">P</script> 的内部点不包含顶点 <script type="math/tex">k</script>，那么 <script type="math/tex">P</script> 的所有内部点都在 <script type="math/tex">\{1,2,\cdots,k-1\}</script> 中，<script type="math/tex">P</script> 必须也是这个子问题的最短路径，任何更优的解都是原始问题（<script type="math/tex">k</script>）的更优解，这与假设矛盾，因此 <script type="math/tex">L_k(v,w)=L_{k-1}(v,w)</script>。第二种情况是 <script type="math/tex">P</script> 的内部点包含顶点 <script type="math/tex">k</script>，那么 <script type="math/tex">P</script> 可以分成两段：<script type="math/tex">P_1</script> 是从 <script type="math/tex">v</script> 到 <script type="math/tex">k</script> 的最短路径，且所有的内部点都在 <script type="math/tex">\{1,2,\cdots,k-1\}</script> 中；<script type="math/tex">P_2</script> 是从 <script type="math/tex">k</script> 到 <script type="math/tex">w</script> 的最短路径，且所有的内部点都在 <script type="math/tex">\{1,2,\cdots,k-1\}</script> 中。由于 <script type="math/tex">P</script> 没有环，顶点 <script type="math/tex">k</script> 只会出现一次，因此可以做出这样的划分。反证法可以证明，如果 <script type="math/tex">P_1</script> 或 <script type="math/tex">P_2</script> 不是最短路径，那么就会存在更短的路径 <script type="math/tex">P_1^*</script> 或 <script type="math/tex">P_2^*</script>，使得 <script type="math/tex">P_1^*+P_2</script> 或 <script type="math/tex">P_1+P_2^*</script> 成为从 <script type="math/tex">v</script> 到 <script type="math/tex">w</script> 的更短路径，这与假设矛盾。因此 <script type="math/tex">L_k(v,w)=L_{k-1}(v,k)+L_{k-1}(k,w)</script>。</p>
+<p>上述第二种情况的讨论有一个瑕疵，<script type="math/tex">P_1^*</script> 或 <script type="math/tex">P_2^*</script> 与 <script type="math/tex">P_2</script> 或 <script type="math/tex">P_1</script> 组成的新路径可能包含环。可以剪掉其中的环，得到路径 <script type="math/tex">\hat{P}</script>。假定图不包含负权环，那么 <script type="math/tex">\hat{P}</script> 的长度不大于原路径的长度，从而仍然是更短的路径，这与假设 <script type="math/tex">P</script> 是最短路径矛盾。</p>
+<p>结合两种情况，我们可以得到
+<script type="math/tex; mode=display">L_k(v,w)=\min\{L_{k-1}(v,w),L_{k-1}(v,k)+L_{k-1}(k,w)\}</script>
+</p>
+<p>如果图有负权环，算法能够检测出来，这等价于对某个点 <script type="math/tex">v\in V</script>，有 <script type="math/tex">L_n(v,v)<0</script>。假定输入图中没有负权环，那么从 <script type="math/tex">v</script> 到 <script type="math/tex">v</script> 的最短路径是没有环的，因此 <script type="math/tex">L_n(v,v)=0</script>。假定图中有负权环，那么一定存在一个只有起始顶点重复的负权环。若有其他重复点，就可以在重复点处把这个负权环拆成多个环，其中至少有一个环是负权环，否则总权重不会是负数。设这个负权环经过的顶点 <script type="math/tex">v</script>，并令 <script type="math/tex">k</script> 为该环上顶点编号的最大值。该环从 <script type="math/tex">v</script> 出发，经过的中间顶点都在 <script type="math/tex">\{1,2,\cdots,k\}</script> 中，再回到 <script type="math/tex">v</script>，因此 <script type="math/tex">L_k(v,v)</script> 至多为该环的权重，是一个负数，故 <script type="math/tex">L_n(v,v)<0</script>。</p>
+<p>算法的伪代码如下。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>lastHop[0..n,0..n]
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>for v = 1 to n
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    for w = 1 to n
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        if (v,w) in E
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>            lastHop[v][w] = v
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        else
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>            lastHop[v][w] = MAX
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>L[0..n,0..n,0..n]
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>for v = 1 to n
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    for w = 1 to n
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        if (v,w) in E
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>            L[0][v][w] = l_{vw}
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        else if v == w
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>            L[0][v][w] = 0
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>        else
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>            L[0][v][w] = MAX
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>for k = 1 to n
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    for v = 1 to n
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        for w = 1 to n
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>            L[k][v][w] = min(L[k-1][v][w], L[k-1][v][k]+L[k-1][k][w])
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>            if L[k][v][w] &lt; L[k-1][v][w]
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>                lastHop[v][w] = lastHop[k][w]
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>for v = 1 to n
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>    if L[n][v][v] &lt; 0
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>        return N/A // there is a negative weight cycle
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>return L[n][v][w] for all v, w in V
+</span></code></pre></div>
+算法的时间复杂度是 <script type="math/tex">O(n^3)</script>，空间复杂度也是 <script type="math/tex">O(n^3)</script>。可以通过滚动数组将空间复杂度降至 <script type="math/tex">O(n^2)</script>，因为 <script type="math/tex">L_k(v,w)</script> 只依赖于 <script type="math/tex">L_{k-1}(v,w),L_{k-1}(v,k),L_{k-1}(k,w)</script>。</p>
+<p><code>lastHop</code> 数组记录了从 <script type="math/tex">v</script> 到 <script type="math/tex">w</script> 的最短路径的前继节点，因此可以在算法结束后沿着前继节点回溯，得到从 <script type="math/tex">v</script> 到 <script type="math/tex">w</script> 的最短路径。数组 <code>lastHop</code> 的大小是 <script type="math/tex">O(n^2)</script>，因此回溯的时间复杂度是 <script type="math/tex">O(n)</script>。</p>
+<p>实现参考 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/49cfefc693daf4ba2d1b02735a278193a51dbe98/src/graph/ShortestPath.h#L198">Floyd-Warshall</a>。</p>
 <h2 id="_10">最小生成树</h2>
 <p>给定一个连通的无向图 <script type="math/tex">G=(V,E)</script>，每条边 <script type="math/tex">e\in E</script> 都有一个权重 <script type="math/tex">w_e</script>，最小生成树（<code>Minimum Spanning Tree</code>, <code>MST</code>）问题是找到 <script type="math/tex">G</script> 的一个生成树（<code>spanning tree</code>），使得该树的权重之和最小。生成树是一个子图，包含 <script type="math/tex">G</script> 的所有顶点，并且是一棵树，若以 <script type="math/tex">T</script> 表示其边集合，则 <script type="math/tex">T\subseteq E</script>。</p>
 <h3 id="prim">Prim 算法</h3>
 <p>Prim 算法是 1957 年由 Prim 提出的，算法的核心思想和 Dijkstra 算法类似，因此两年后（1959 年） Dijkstra 也独立给出了这个算法。不过稍后人们才意识到 Jarník 早在 1930 年就已经给出了这个算法，因此有时候也称为 Jarník-Prim 算法。</p>
 <p>Prim 算法的核心思想对应的伪代码如下：
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>T = {}
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>X = {s} // s is an arbitrary vertex in V
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>while exists(v, w), v in X, w not in X
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    (v_min, w_min) = minimizing weight_{vw}
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    X.add(w_min)
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    T.add((v_min, w_min))
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>T = {}
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>X = {s} // s is an arbitrary vertex in V
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>while exists(v, w), v in X, w not in X
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    (v_min, w_min) = minimizing weight_{vw}
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    X.add(w_min)
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    T.add((v_min, w_min))
 </span></code></pre></div></p>
 <p>最直接的算法实现需要迭代 <script type="math/tex">|V|=n</script> 次，每次迭代需要遍历所有的边 <script type="math/tex">|E|=m</script>，因此时间复杂度是 <script type="math/tex">O(mn)</script>。下面分析如何通过堆来加速整个算法，时间复杂度会降至 <script type="math/tex">O((m+n)\log n)</script>。</p>
 <p>堆里面存放的是待处理的顶点 <script type="math/tex">w\in V-X</script>，以及从 <script type="math/tex">X</script> 到该点的最小边的权重，即
 <script type="math/tex; mode=display">key(w)=\min_{(v,w)\in E,v\in X}weight_{vw}</script>
 当将 <script type="math/tex">w^*</script> 从 <script type="math/tex">V-X</script> 移动到 <script type="math/tex">X</script> 的时候，需要更新与 <script type="math/tex">w^*</script> 邻接的点 <script type="math/tex">y</script> 对应的最小边权重。
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>X = {s}
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>T = {}
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>H = new Heap()
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>for v in V
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    if v != s
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        if (s, v) in E
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>            key[v] = weight_{sv}
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>            winner[v] = (s, v)
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        else
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>            key[v] = MAX
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>            winner[v] = nullptr
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        H.Push(v)
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>while !H.empty()
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    w_min = H.Top()
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    H.Pop()
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    X.add(w_min)
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    T.add(winner[w_min])
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>    // update key
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>    for Edge(w_min, v) in w_min.AdjacencyEdge()
-</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>        if v in X
-</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>            continue
-</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>        if weight_{w_minv} &lt; key[v]
-</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>            key[v] = weight_{w_minv}
-</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>            winner[v] = (w_min, v)
-</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>            Delete v from H
-</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>            H.Push(v)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>X = {s}
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>T = {}
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>H = new Heap()
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>for v in V
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    if v != s
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        if (s, v) in E
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            key[v] = weight_{sv}
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            winner[v] = (s, v)
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        else
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>            key[v] = MAX
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>            winner[v] = nullptr
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        H.Push(v)
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>while !H.empty()
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    w_min = H.Top()
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    H.Pop()
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    X.add(w_min)
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>    T.add(winner[w_min])
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>    // update key
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    for Edge(w_min, v) in w_min.AdjacencyEdge()
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>        if v in X
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>            continue
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>        if weight_{w_minv} &lt; key[v]
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>            key[v] = weight_{w_minv}
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>            winner[v] = (w_min, v)
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>            Delete v from H
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>            H.Push(v)
 </span></code></pre></div>
 先分析一下时间复杂度，外层循环迭代 <script type="math/tex">|V|=n</script> 次；由于内层循环需要对每条边处理一次，因此迭代 <script type="math/tex">|E|=m</script> 次，循环里面有堆的操作，时间复杂度是 <script type="math/tex">O(\log n)</script>，因此总的时间复杂度是 <script type="math/tex">O((m+n)\log n)</script>。</p>
 <p>和 Dijkstra 算法类似，堆中待处理数据的组织方式可以选择。一种常见方法是将除起点外的所有顶点都放入堆，起点不入堆，其余顶点的候选边权重初始化为最大值，即上面的伪代码阐述的方式。另一种方式是堆中只放已经发现但尚未处理的顶点，初始时只处理起点，再将其邻接点加入堆。</p>
@@ -32881,14 +32922,14 @@
 <p>有了上述铺垫，我们用反证法来证明：如果 <script type="math/tex">T</script> 是满足最小瓶颈性质的生成树，那么 <script type="math/tex">T</script> 就是最小生成树。假设 <script type="math/tex">T</script> 不是最小生成树，那么存在一个生成树 <script type="math/tex">T^*</script>，其权重小于 <script type="math/tex">T</script> 的权重。由于两棵树都是生成树，因此都有 <script type="math/tex">n-1</script> 条边，<script type="math/tex">T</script> 中至少有一条边 <script type="math/tex">e_1=(v,w)</script> 不属于 <script type="math/tex">T^*</script>。把这条边加到 <script type="math/tex">T^*</script> 中会形成一个环。根据最小瓶颈性质，边 <script type="math/tex">e_1</script> 的权重是连接 <script type="math/tex">v,w</script> 的路径的最小瓶颈，那么环中除 <script type="math/tex">e_1</script> 外的边的权重都不小于 <script type="math/tex">e_1</script> 的权重，因此在 <script type="math/tex">T^*</script> 中至少有一条边 <script type="math/tex">e_2</script> 的权重不小于 <script type="math/tex">e_1</script> 的权重。把 <script type="math/tex">e_2</script> 从 <script type="math/tex">T^*</script> 中去掉，得到的树 <script type="math/tex">T'=(T^*-\{e_2\})\cup \{e_1\}</script> 的权重不大于 <script type="math/tex">T^*</script> 的权重，因此也比 <script type="math/tex">T</script> 的权重更小。<script type="math/tex">T^*</script> 有 <script type="math/tex">n-1</script> 条边且是连通的，在连接 <script type="math/tex">v,w</script> 的路径上去掉 <script type="math/tex">e_2</script> 后，<script type="math/tex">T^*-\{e_2\}</script> 中的 <script type="math/tex">v,w</script> 不连通。那么 <script type="math/tex">T'=(T^*-\{e_2\})\cup \{e_1\}</script> 中的 <script type="math/tex">v,w</script> 连通，因此 <script type="math/tex">T'</script> 是连通的。一增一减后，<script type="math/tex">T'</script> 有 <script type="math/tex">n-1</script> 条边，因此 <script type="math/tex">T'</script> 是一个生成树。所以我们找到了权重更小的生成树 <script type="math/tex">T'</script>，与假设矛盾，因此 <script type="math/tex">T</script> 就是最小生成树。</p>
 <h3 id="kruskal">Kruskal 算法</h3>
 <p>Kruskal 的核心思想是每次选择权重最小的边，如果这条边连接了两个不同的连通分量，那么就把这条边加入到生成树中，否则的话就跳过这条边。算法的伪代码如下。
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>T={}
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sort(E)
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>for e in E
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    if T union e does not create a cycle
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        T.add(e)
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>return T
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>T={}
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sort(E)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>for e in E
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    if T union e does not create a cycle
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        T.add(e)
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>return T
 </span></code></pre></div>
 最朴素的实现复杂度是 <script type="math/tex">O(nm)</script>，其中 <script type="math/tex">n</script> 是点的个数，<script type="math/tex">m</script> 是边的个数。因为上面的循环需要 <script type="math/tex">m</script> 次，每次中需要使用 BFS 或 DFS 来判断 <script type="math/tex">(v,w)</script> 是否已经连通了。下面介绍使用并查集（<code>Union-Find</code>）来加速这个过程，时间复杂度可以降到 <script type="math/tex">O((m+n)\log n)</script>，这里也假设图是连通的，那么时间复杂度可以简化为 <script type="math/tex">O(m\log n)</script>。</p>
 <p>首先介绍并查集，它支持三种操作。</p>
@@ -32900,15 +32941,15 @@
 <p>使用父指针树（<code>parent tree</code>）来实现并查集，<code>parent[i]</code> 表示元素 <script type="math/tex">i</script> 的父节点，如果 <script type="math/tex">i</script> 是一个集合的根节点，那么 <code>parent[i]</code> 就是 <script type="math/tex">i</script> 本身。初始化时，每个元素都是一个单独的集合，因此 <code>parent[i]=i</code>。<code>find</code> 操作就是沿着 <code>parent</code> 数组向上查找，直到找到一个元素 <script type="math/tex">i</script> 满足 <code>parent[i]=i</code>，这个元素就是所在集合的标识符。这里可以使用隔代压缩技术，在查找时使当前路径上的节点深度减半；或者使用递归方式的完全压缩技术，在查找时将当前路径上的所有节点直接连接到根节点上，但当树很深时可能导致栈溢出。因此我的实现采用了前者。<code>union</code> 操作就是将两个元素所在集合的根节点连接起来，即将其中一个根节点的 <code>parent</code> 指向另一个根节点。为了让树的深度尽可能小，额外使用一个数字 <code>size[i]</code> 来记录以 <script type="math/tex">i</script> 为根节点的集合大小，在合并时将较小的集合连接到较大的集合上。这样整个树的深度就不会超过 <script type="math/tex">\log n</script>，因此 <code>find</code> 和 <code>union</code> 的时间复杂度都是 <script type="math/tex">O(\log n)</script>。</p>
 <p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/d584472ab26de7e28de04e2cb7f3a095e02ddceb/src/basic/UnionFind.cc">UnionFind</a></p>
 <p>有了并查集，我们可以高效地判断一条边的两个端点是否在同一个集合中，即是否已经连通，从而优化 Kruskal 算法。
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>T={}
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sort(E)
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>UF = new UnionFind(n)
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>for e in E
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    if UF.find(e.v) != UF.find(e.w)
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        T.add(e)
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        UF.union(e.v, e.w)
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>return T
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>T={}
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>sort(E)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>UF = new UnionFind(n)
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>for e in E
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    if UF.find(e.v) != UF.find(e.w)
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        T.add(e)
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        UF.union(e.v, e.w)
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>return T
 </span></code></pre></div>
 首先对边按照权重进行排序，时间复杂度是 <script type="math/tex">O(m\log m)</script>。对于简单图，<script type="math/tex">m</script> 最多是 <script type="math/tex">n^2</script>，因此排序的时间复杂度也可以简化为 <script type="math/tex">O(m\log n)</script>。然后循环迭代 <script type="math/tex">m</script> 次，每次迭代进行两次 <code>find</code>，时间复杂度是 <script type="math/tex">O(m\log n)</script>。进行 <script type="math/tex">n-1</script> 次 <code>union</code>，时间复杂度是 <script type="math/tex">O(n\log n)</script>，因此总的时间复杂度是 <script type="math/tex">O((m+n)\log n)</script>。</p>
 <p>参考实现 <a href="https://github.com/shenlei149/algorithms-data-structures/blob/d584472ab26de7e28de04e2cb7f3a095e02ddceb/src/graph/MinimumSpanningTree.h#L115">Kruskal</a></p>
