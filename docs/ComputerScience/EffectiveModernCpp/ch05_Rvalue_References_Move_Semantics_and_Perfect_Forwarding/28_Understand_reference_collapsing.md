@@ -3,17 +3,17 @@
 template <typename T>
 void func(T &&param);
 ```
-而言，不管 `param` 是左值还是右值，推导模板参数 `T` 都会编码（`encode`）。
+而言，不管 `param` 是左值还是右值，模板参数 `T` 的推导结果都取决于传入实参的值类别。
 
-编码的机制很简单。当左值被传入的时候，`T` 被推导为左值引用，当右值被传入的时候，`T` 推导为非引用。注意，这里并不是对称的。因此
+推导的机制很简单。当左值被传入的时候，`T` 被推导为左值引用；当右值被传入的时候，`T` 被推导为非引用。注意，这里并不是对称的。因此
 ```cpp
-Widget widgetFactory(); // function returning rvalue
+Widget widgetFactory(); // function returning by value
 Widget w;               // a variable (an lvalue)
 
 func(w);               // call func with lvalue; T deduced to be Widget&
 func(widgetFactory()); // call func with rvalue; T deduced to be Widget
 ```
-将 `Widget` 传入 `func`，依赖于其是左值还是右值，推导的类型不同。我们很快将看到，这决定了通用引用是左值引用还是右值引用，这也是 `std::forward` 正确工作的机制。
+将 `Widget` 对象传入 `func` 时，根据传入的是左值还是右值，推导出的类型不同。我们很快将看到，这决定了通用引用是左值引用还是右值引用，这也是 `std::forward` 正确工作的机制。
 
 在继续之前，我们首先要明确在 C++ 中引用的引用是不合法的。
 ```cpp
@@ -27,21 +27,21 @@ void func(T &&param); // as before
 
 func(w); // invoke func with lvalue; T deduced as Widget&
 ```
-当 `T` 被推导成引用 `Widget&`，那么函数参数看起来如下
+当 `T` 被推导成引用 `Widget&` 时，函数参数看起来如下
 ```cpp
 void func(Widget& &&param);
 ```
-引用的引用。编译器自己生成了引用的引用，但是没有报错。[Item 24](./24_Distinguish_universal_references_from_rvalue_references.md) 说过，当 `param` 用左值初始化，那么其类型是左值引用，编译器是如何使得最后的签名如下的呢？
+这是引用的引用。编译器自己生成了引用的引用，但是没有报错。[Item 24](./24_Distinguish_universal_references_from_rvalue_references.md) 说过，当 `param` 用左值初始化时，其类型是左值引用，编译器是如何使得最后的签名如下的呢？
 ```cpp
 void func(Widget &param);
 ```
-答案是引用折叠（`reference collapsing`）。当编译器遇到引用的引用时（比如这里的模板实例化），引用折叠指示下一步需要做什么。
+答案是引用折叠（`reference collapsing`）。当编译器遇到引用的引用时（比如这里的模板实例化），引用折叠规则会决定最终类型。
 
-有左值和右值两种引用，那么引用的引用有四种，左值的左值，左值的右值，右值的左值，右值的右值。如果出现了引用的引用，根据如下规则折叠成单一引用。
+有左值引用和右值引用两种引用，那么引用的引用就有四种：左值引用的左值引用、左值引用的右值引用、右值引用的左值引用、右值引用的右值引用。如果出现了引用的引用，根据如下规则折叠成单一引用。
 
-> 如果任意一层引用是左值引用，结果是左值引用；否则，即两层都是右值引用，结果是右值引用。
+> 如果任意一层引用是左值引用，结果就是左值引用；否则，也就是两层都是右值引用时，结果是右值引用。
 
-上面将 `Widget&` 替换 `func` 的例子中，产生了左值引用的右值引用，那么结果就是左值引用。
+上面将 `Widget&` 代入 `func` 的例子中，产生了左值引用和右值引用的组合，因此结果就是左值引用。
 
 引用折叠是 `std::forward` 能够工作的关键之一。`std::forward` 的一个常见场景是有通用引用的模板函数。
 ```cpp
@@ -53,7 +53,7 @@ void f(T &&fParam)
     someFunc(std::forward<T>(fParam)); // forward fParam to someFunc
 }
 ```
-`fParam` 是通用引用，那么不管传入 `f` 的是左值还是右值，`T` 都会编码。当 `T` 编码说传入 `f` 的是右值时，`std::forward` 的就是要将 `fParam` 这个左值转化成右值。
+`fParam` 是通用引用，因此不管传入 `f` 的是左值还是右值，`T` 都会被推导。当 `T` 表明传入 `f` 的参数是右值时，`std::forward` 的作用就是把 `fParam` 这个左值转化成右值。
 
 `std::forward` 实现如下
 ```cpp
@@ -103,9 +103,9 @@ Widget &&forward(Widget &param)
     return static_cast<Widget &&>(param);
 }
 ```
-这里没有引用的应用，也就没有引用折叠，即这就是 `std::forward` 的最终版本。
+这里没有引用的引用，也就没有引用折叠；这就是 `std::forward` 的最终版本。
 
-从函数返回的右值引用被定义为右值。`std::forward` 将传入 `f` 的 `fParam` 这个左值转换为了右值。从最终效果来看，传入 `f` 的右值被右值的形式转发给了 `someFunc`，这就是我们所期望的。
+函数返回的右值引用表达式会被视为右值。`std::forward` 将传入 `f` 的 `fParam` 这个左值转换为了右值。从最终效果来看，传入 `f` 的右值被以右值的形式转发给了 `someFunc`，这就是我们所期望的。
 
 C++14 中的 `std::remove_reference_t` 能够简化 `std::forward` 的实现。
 ```cpp
@@ -115,12 +115,12 @@ T &&forward(remove_reference_t<T> &param)
     return static_cast<T &&>(param);
 }
 ```
-引用折叠会出现在四个地方。第一处就是上面描述的模板实例化。第二处是使用 `auto` 声明变量。细节与模板基本一致，因为 [Item 2](../ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 告诉我们 `auto` 的类型推导与模板基本一致。考虑之前的例子
+引用折叠会出现在四个地方。第一处就是上面描述的模板实例化。第二处是使用 `auto` 声明变量。细节与模板基本一致，因为 [Item 2](../ch01_Deducing_Types/02_Understand_auto_type_deduction.md) 告诉我们 `auto` 的类型推导与模板的类型推导基本一致。考虑之前的例子
 ```cpp
 template <typename T>
 void func(T &&param);
 
-Widget widgetFactory(); // function returning rvalue
+Widget widgetFactory(); // function returning by value
 Widget w;               // a variable (an lvalue)
 
 func(w);               // call func with lvalue; T deduced to be Widget&
@@ -134,7 +134,7 @@ auto&& w1 = w;
 ```cpp
 Widget& && w1 = w;
 ```
-引用折叠
+引用折叠后
 ```cpp
 Widget& w1 = w;
 ```
@@ -150,14 +150,14 @@ Widget&& w2 = widgetFactory();
 ```
 这里没有引用的引用，就是最后结果了。因此 `w2` 是右值引用。
 
-至此，基本完全理解了通用引用。它不是一种新的引用类型，当下面两个条件满足的时候是右值引用。
+至此，基本上可以理解通用引用了。它不是一种新的引用类型；当下面两个条件满足时，它才表现为右值引用。
 
-* 类型推导区分左值和右值。`T` 类型是左值，那么推导成 `T&`，如果是右值，还是 `T` 本身。
+* 类型推导区分左值和右值。参数是左值时，`T` 会被推导成 `T&`；参数是右值时，`T` 仍然是 `T` 本身。
 * 发生引用折叠。
 
-通用引用的概念很有用。它使得我们可以不必知道引用折叠的存在，不必推导左值和右值不同的类型，然后再使用引用折叠的规则。
+通用引用的概念很有用。它使得我们不必知道引用折叠的存在，也不必先推导出左值和右值对应的不同类型，再应用引用折叠规则。
 
-第三个出现引用折叠的地方是使用 `typedef` 或声明别名，如果在这个过程出现了引用的引用，就会发生引用折叠。比如我们有 `Widget` 模板类，内部使用 `typedef` 定义一个右值引用类型。
+第三个出现引用折叠的地方是使用 `typedef` 或别名声明；如果在这个过程中出现了引用的引用，就会发生引用折叠。比如我们有 `Widget` 模板类，内部使用 `typedef` 定义一个右值引用类型。
 ```cpp
 template <typename T>
 class Widget
@@ -166,7 +166,7 @@ public:
     typedef T &&RvalueRefToT;
 };
 ```
-假定实例化 `Widget` 的是左值引用
+假定用左值引用实例化 `Widget<int&>`
 ```cpp
 Widget<int&> w;
 ```
@@ -174,13 +174,13 @@ Widget<int&> w;
 ```cpp
 typedef int& &&RvalueRefToT;
 ```
-引用折叠完结果是
+引用折叠后结果是
 ```cpp
 typedef int &RvalueRefToT;
 ```
-`typedef` 的名字可能并不能描述实际情况，当使用左值引用实例化 `Widget` 时，`RvalueRefToT` 是左值引用。
+`typedef` 的名字未必能准确描述实际情况；当使用左值引用实例化 `Widget<int&>` 时，`RvalueRefToT` 实际上是左值引用。
 
-最后一处是使用 `decltype` 声明类型时，如果出现了引用的引用，就会发生引用折叠。
+最后一处是使用 `decltype` 推导类型时，如果出现了引用的引用，就会发生引用折叠。
 
 ## Things to Remember
 * Reference collapsing occurs in four contexts: template instantiation, `auto` type generation, creation and use of `typedef` and alias declarations, and `decltype`.

@@ -1,4 +1,4 @@
-在数学领域中，使用一个类表示多项式是很直接、方便的事情。这个类中，可能有一个方法求根。这个方法不需要修改多项式，那么声明成 `const` 是很自然的事。
+在数学领域，使用一个类表示多项式既直接又方便。该类可能提供一个用于求根的方法。该方法不需要修改多项式，因此将其声明为 `const` 很自然。
 ```cpp
 class Polynomial
 {
@@ -9,7 +9,7 @@ public:
     RootsType roots() const;
 };
 ```
-计算根是耗时的事情，我们需要尽可能避免这个事情，那么最多只计算一次后续访问缓存就是一个很直观的方案。
+计算根很耗时，应尽可能避免重复计算。一个直观的方案是只计算一次，并将结果缓存起来供后续访问使用。
 ```cpp
 class Polynomial
 {
@@ -32,7 +32,7 @@ private:
     mutable RootsType rootVals{};
 };
 ```
-`roots` 函数不修改 `Polynomial` 对象，但是作为缓存的一部分，需要修改 `rootsAreValid, rootVals` 这两个变量。这是使用 `mutable` 的经典场景。
+`roots` 函数不会修改 `Polynomial` 对象的逻辑状态，但为了维护缓存，需要修改 `rootsAreValid` 和 `rootVals` 这两个变量。这是使用 `mutable` 的经典场景。
 
 现在假定有两个线程同时调用 `Polynomial` 对象的 `roots` 函数。
 ```cpp
@@ -44,11 +44,11 @@ auto rootsOfP = p.roots();
 /*------- Thread 2 ------- */
 auto valsGivingZero = p.roots();
 ```
-客户端这么写是非常合理的。`roots` 是 `const` 函数，意味着是只读操作，多个线程在不同步的情况下执行只读操作是安全的。至少应该做到这一点。但是 `roots` 并是不线程安全的，因为两个线程都可能修改成员变量 `rootsAreValid, rootVals`，这意味不同线程在不同步的情况下读写相同的内存，这就是数据竞争。行为是未定义的。
+客户端这样写非常合理。`roots` 是 `const` 函数，意味着它在逻辑上是只读操作；多个线程在没有同步的情况下执行只读操作应当是安全的。至少应做到这一点。然而，`roots` 并不是线程安全的，因为两个线程都可能修改成员变量 `rootsAreValid` 和 `rootVals`。这意味着不同线程会在没有同步的情况下读写相同的内存，从而导致数据竞争，行为未定义。
 
-问题在于 `roots` 是 `const` 函数但是不是线程安全的，因此需要使这个函数实现成线程安全的。
+问题在于，`roots` 虽然是 `const` 函数，却不是线程安全的，因此需要将其实现为线程安全的函数。
 
-常见的方案是使用 `mutex`
+常见的方案是使用 `mutex`：
 ```cpp
 class Polynomial
 {
@@ -74,11 +74,11 @@ private:
     mutable RootsType rootVals{};
 };
 ```
-由于加锁和解锁不是 `const` 成员函数，所以需要将 `std::mutex m` 是声明为 `mutabe`，否则，在 `const` 函数 `roots` 中会被视为 `const` 对象。
+由于加锁和解锁不是 `const` 成员函数，需要将 `std::mutex m` 声明为 `mutable`；否则，它在 `const` 函数 `roots` 中会被视为 `const` 对象。
 
-由于 `std::mutex` 只能移动不能拷贝，所以现在 `Polynomial` 也只能移动不能拷贝了。
+`std::mutex` 既不能拷贝也不能移动，因此包含它的 `Polynomial` 默认也不能拷贝或移动。
 
-在很多场景 `mutex` 过重了。比如需要统计一个函数被调用的次数，使用 `std::atomic` 作为计数器类型是开销更小的方法。下面展示了如何使用 `std::atomic` 变量统计次数。
+在许多场景中，`mutex` 的开销过大。例如，若只需统计函数的调用次数，使用 `std::atomic` 作为计数器类型的开销通常更小。下面展示了如何使用 `std::atomic` 变量统计调用次数。
 ```cpp
 class Point // 2D point
 {
@@ -95,9 +95,9 @@ private:
 };
 ```
 
-和 `std::mutex` 类似，`std::atomic` 也只能移动，所以 `Point` 对象也只能移动不能拷贝。
+和 `std::mutex` 类似，`std::atomic` 既不能拷贝也不能移动，因此 `Point` 默认也不能拷贝或移动。
 
-由于 `std::atomic` 变量的操作更轻，导致我们可能会过度依赖 `std::atomic`。下面的例子需要缓存一个计算耗时的 `int` 变量，这里使用一对 `std::atomic` 变量不是使用 `mutex`。
+`std::atomic` 变量的操作较轻量，因此可能会让人过度依赖它。下面的例子需要缓存一个计算耗时得到的 `int` 值，这里使用一对 `std::atomic` 变量，而不是 `mutex`。
 ```cpp
 class Widget
 {
@@ -121,11 +121,11 @@ private:
     mutable std::atomic<int> cachedValue;
 };
 ```
-这个代码可以正常工作，但是可能会出现比我们预期多的计算。
-1. 一个线程调用 `Widget::magicValue`，此时 `cacheValid` 是 `false`，开始调用两个耗时的计算过程，然后写入 `cachedValue`。
-2. 第二个线程也调用 `Widget::magicValue`，也发现 `cacheValid` 是 `false`，开始调用第一个线程已经做过的两个耗时的计算过程。这里第二个线程可以是多个。
+这段代码可以正常工作，但可能会执行超出预期次数的计算。
+1. 一个线程调用 `Widget::magicValue`；此时 `cacheValid` 为 `false`，该线程开始执行两个耗时的计算，然后写入 `cachedValue`。
+2. 第二个线程也调用 `Widget::magicValue`，同样发现 `cacheValid` 为 `false`，于是又执行一遍这两个耗时的计算。这样的第二个线程可能不止一个。
 
-为了解决这个问题，尝试通过交换给 `cachedValue, cacheValid` 赋值的顺序。但是会很快意识到 1）在 `cacheValid` 设置成 `true` 之前，还是可能会重复计算，这背离了修改的初衷；2）使得问题更严重。
+为了解决这个问题，可以尝试交换为 `cachedValue` 和 `cacheValid` 赋值的顺序。但很快会意识到：1）在 `cacheValid` 被设为 `true` 之前，仍可能发生重复计算，这违背了修改的初衷；2）这样会使问题更加严重。
 ```cpp
 class Widget
 {
@@ -148,11 +148,11 @@ private:
     mutable std::atomic<int> cachedValue;
 };
 ```
-考虑 `cacheValid` 是 `false` 的情况，
-1. 一个线程调用 `Widget::magicValue`，然后将 `cacheValid` 设置成 `true`。
-2. 第二个线程调用 `Widget::magicValue` 发现 `cacheValid` 是 `true`，返回 `cachedValue`，但此时第一个线程可能还没有设置这个值，那么返回的结果是错的。
+考虑 `cacheValid` 为 `false` 的情况：
+1. 一个线程调用 `Widget::magicValue`，然后将 `cacheValid` 设为 `true`。
+2. 第二个线程调用 `Widget::magicValue`，发现 `cacheValid` 为 `true` 后返回 `cachedValue`；但此时第一个线程可能尚未设置该值，因此返回的结果会是错误的。
 
-如果只有一个变量或内存地址需要同步，那么可以使用 `std::atomic`，否则还是需要使用 `metux`。上面的例子的正确实现方式如下。
+通常，若只需同步一个变量或内存位置，可以使用 `std::atomic`；否则，应考虑使用 `mutex`。上例的正确实现方式如下。
 ```cpp
 class Widget
 {
@@ -179,8 +179,8 @@ private:
 };
 ```
 
-这个条款的建议是基于多个线程是可以同时调用同一个对象的 `const` 成员函数这个假设。如果不是这种情况，可以确保永远不会有多线程调用同一个对象的 `const` 成员函数，那么这个函数是否线程安全就不重要了。这样可以避免引入 `metux` 或 `std::atomic` 带来的性能影响以及使得对象不能复制只能移动。线程无关的场景越来越少，未来会变得更少。`const` 成员函数应该支持并发，因此应该确保 `const` 成员函数是线程安全的。
+本条款的建议基于这样一个假设：多个线程可以同时调用同一对象的 `const` 成员函数。如果能够确保同一对象的 `const` 成员函数绝不会被多个线程同时调用，那么该函数是否线程安全就不重要了。这样可以避免引入 `mutex` 或 `std::atomic` 所带来的性能开销，以及由此导致对象默认不可复制和不可移动的问题。不涉及并发的场景越来越少，今后只会更少。`const` 成员函数应支持并发调用，因此应确保其线程安全。
 
 ## Things to Remember
-* Make `const` member functions thread safe unless you're *certain* they'll never be used in a concurrent context.
-* Use of `std::atomic` variables may offer better performance than a mutex, but they're suited for manipulation of only a single variable or memory location.
+* Make `const` member functions thread-safe unless you're *certain* they'll never be used in a concurrent context.
+* `std::atomic` variables may offer better performance than a mutex, but they are suitable only for manipulating a single variable or memory location.

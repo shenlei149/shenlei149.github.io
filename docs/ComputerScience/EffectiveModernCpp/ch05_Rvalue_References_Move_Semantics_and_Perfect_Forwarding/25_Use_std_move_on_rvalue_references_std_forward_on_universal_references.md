@@ -1,4 +1,4 @@
-右值引用只绑定可以移动的对象。如果参数是右值引用，那么绑定的对象可能会被移动。
+右值引用绑定到右值；这类对象通常可以被移动。如果参数是右值引用，那么绑定的对象可能会被移动。
 ```cpp
 class Widget
 {
@@ -6,7 +6,7 @@ class Widget
     Widget(Widget &&rhs);
 };
 ```
-会给这样的函数传递一个具有右值性被函数使用的对象。那么需要将绑定的对象转换成右值。[Item 23](./23_Understand_std_move_and_std_forward.md) 告诉我们，`std::move` 就是为了这个目的而设计的。
+向这样的函数传递右值时，需要将绑定的对象转换成右值。[Item 23](./23_Understand_std_move_and_std_forward.md) 告诉我们，`std::move` 就是为这个目的而设计的。
 ```cpp
 class Widget
 {
@@ -34,9 +34,9 @@ public:
     }
 };
 ```
-当把右值引用传递给其他函数的时候，因为右值引用总是绑定的右值，所以使用 `std::move` 无条件的将其转换为右值；当把通用引用传递给其他函数的时候，使用 `std::forward` 在其绑定了右值的时候转换成右值。
+当把右值引用传递给其他函数时，由于右值引用总是绑定到右值，所以应无条件地使用 `std::move` 将其转换为右值；当把通用引用传递给其他函数时，则应使用 `std::forward`，仅在其绑定到右值时才将其转换为右值。
 
-[Item 23](./23_Understand_std_move_and_std_forward.md) 解释了使用在右值引用上可以使用 `std::forward`，但是代码冗长，容易出错，所以应该避免在右值引用上使用 `std::forward`。不过在通用引用上使用 `std::move` 问题更大，可能会不经意的改变左值（比如局部变量）。
+[Item 23](./23_Understand_std_move_and_std_forward.md) 解释了在右值引用上也可以使用 `std::forward`，但是这样代码冗长且容易出错，所以应避免在右值引用上使用 `std::forward`。不过在通用引用上使用 `std::move` 的问题更大，因为它可能会不经意地改变左值（比如局部变量）。
 ```cpp
 class Widget
 {
@@ -59,9 +59,9 @@ auto n = getWidgetName(); // n is local variable
 w.setName(n);             // moves n into w!
                           // n's value now unknown
 ```
-临时变量 `n` 传入了 `w.setName`，调用者可能会认为这个函数是只读的。但是 `setName` 的内部使用 `std::move` 无条件的把引用参数转成了右值，`n` 的值被移动到了 `w.name`，在 `w.setName` 完成之后，`n` 的值不确定，这完全出乎调用者的意料。
+局部变量 `n` 传入了 `w.setName`，调用者可能会认为这个函数是只读的。但是 `setName` 的内部使用 `std::move` 无条件地把引用参数转成了右值，`n` 的值被移动到了 `w.name`，在 `w.setName` 调用结束后，`n` 的值不确定，这完全出乎调用者的意料。
 
-或许你会认为 `setName` 的参数不应该声明为通用引用。根据 [Item 24](./24_Distinguish_universal_references_from_rvalue_references.md)，通用引用不应该是 `const` 的。那么可能的方案是重载，一个是 `const` 左值，一个是右值。
+或许你会认为 `setName` 的参数不应该声明为通用引用。根据 [Item 24](./24_Distinguish_universal_references_from_rvalue_references.md)，通用引用不应该是 `const` 的。那么一种可行方案是重载：一个接受 `const` 左值引用，另一个接受右值引用。
 ```cpp
 class Widget
 {
@@ -80,19 +80,19 @@ public:
 ```cpp
 w.setName("Adela Novak");
 ```
-对于通用引用的版本而言，字面量 `"Adela Novak"` 可以传递给 `setName`，也可以传递给 `w` 内部的 `std::string` 的赋值运算符。`w` 的 `name` 字段直接通过字面量赋值，没有 `std::string` 的临时对象会被创建。但是对于后面重载版本，必须创建一个 `std::string` 临时对象，绑定到 `setName` 的参数上，这个临时对象被移动给 `w` 的字段。这就涉及 `std::string` 的构造、移动复制操作和析构。这比调用接受 `const char*` 参数类型的 `std::string` 赋值运算符耗时的多。事实就是，将通用引用参数的模板函数改成接受左值和右值引用的函数重载，某些情况下会有性能损失。如果 `Widget` 成员类型是任意类型，额外开销可能会更大，因为不是所有类型的移动操作都和 `std::string` 一样小。参考 [Item 29](./29_Assume_that_move_operations_are_not_present_not_cheap_and_not_used.md)。
+对于通用引用版本而言，字面量 `"Adela Novak"` 可以直接传递给 `setName`，也可以直接传递给 `std::string` 的赋值运算符，因此 `name` 可以直接通过字面量赋值，不会创建 `std::string` 临时对象。但是对于后面的重载版本，必须先创建一个 `std::string` 临时对象，绑定到 `setName` 的参数上，然后再把它移动给 `w` 的字段。这就涉及 `std::string` 的构造、移动赋值和析构，开销比调用接受 `const char*` 参数的 `std::string` 赋值运算符要大得多。事实就是，将通用引用参数的模板函数改成接受左值和右值引用的函数重载，某些情况下会有性能损失。如果 `Widget` 的成员类型是任意类型，额外开销可能会更大，因为不是所有类型的移动操作都像 `std::string` 一样轻量。参考 [Item 29](./29_Assume_that_move_operations_are_not_present_not_cheap_and_not_used.md)。
 
-重载版本引入的最重要的问题是扩展性问题。现在 `Widget::setName` 只有一个参数，那么只需要两个重载版本，如果是 $n$ 个参数呢？$2^n$ 个重载函数，指数级爆炸，不现实。更甚，一些函数有不限个参数，每一个可能是左值也可能是右值。比如 `std::make_shared` 和 `std::make_unique`：
+重载版本引入的最重要的问题是扩展性问题。现在 `Widget::setName` 只有一个参数，那么只需要两个重载版本；如果是 $n$ 个参数呢？就需要 $2^n$ 个重载函数，指数级爆炸，不现实。更糟的是，一些函数有不定个数的参数，每一个都可能是左值或右值。比如 `std::make_shared` 和 `std::make_unique`：
 ```cpp
 template <class T, class... Args>
-shared_ptr<T> make_shared(Args &&...args);
+std::shared_ptr<T> make_shared(Args &&...args);
 
 template <class T, class... Args>
-unique_ptr<T> make_unique(Args &&...args);
+std::unique_ptr<T> make_unique(Args &&...args);
 ```
 对于这种情况，通用引用是唯一的选择。这时，要使用 `std::forward` 传递通用引用参数给其他函数。
 
-某些情况下，可能一开始不是这样的，需要在一个函数内多次使用绑定到右值引用或通用引用的对象，那么需要确保在其他操作完成前，不会移动这个对象。因此，最后一次使用的时候，可以使用 `std::move` 或 `std::forward`。比如
+某些情况下，情况一开始并不是这样：需要在一个函数内多次使用绑定到右值引用或通用引用的对象。这时需要确保在其他操作完成前不要移动这个对象。因此，在最后一次使用时，可以使用 `std::move` 或 `std::forward`。比如
 ```cpp
 template <typename T> // text is univ. reference
 void setSignText(T &&text)
@@ -106,21 +106,21 @@ void setSignText(T &&text)
     signHistory.add(now, std::forward<T>(text));
 }
 ```
-我们想要确保 `text` 的内容不会被 `sign.setText` 修改，原因是这个值需要再 `signHistory.add` 中再次被使用。因此只能再最后使用 `std::forward`。
+我们想要确保 `text` 的内容不会被 `sign.setText` 修改，因为这个值还要在 `signHistory.add` 中再次使用。因此，只能在最后一次使用时调用 `std::forward`。
 
-对于 `std::move` 而言，规则是一样的。不过在一些情况下，需要使用 `std::move_if_noexcept`。
+对于 `std::move` 而言，规则也是一样的。不过在某些情况下，需要使用 `std::move_if_noexcept`。
 
-在一个按值返回的函数中，返回的是右值引用或者通用引用的对象，需要对返回的引用调用 `std::move` 或 `std::forward`。考虑如下两个矩阵相加的 `operator+` 操作，左边的矩阵是右值，用于保存结果。
+在按值返回的函数中，如果返回的是右值引用参数或通用引用参数，就需要对其调用 `std::move` 或 `std::forward`。考虑如下两个矩阵相加的 `operator+` 操作，左边的矩阵是右值，用于保存结果。
 ```cpp
 Matrix // by-value return
 operator+(Matrix && lhs, const Matrix & rhs)
 {
     lhs += rhs;
 
-    return std::move(lhs); // move lhs into  return value
+    return std::move(lhs); // move lhs into return value
 }
 ```
-`lhs` 转化成了右值，那么可以移动到返回值的内存中。如果不调用 `std::move`
+`lhs` 转换成了右值，因此可以移动到返回值的存储空间中。如果不调用 `std::move`
 ```cpp
 Matrix // as above
 operator+(Matrix && lhs, const Matrix & rhs)
@@ -134,7 +134,7 @@ operator+(Matrix && lhs, const Matrix & rhs)
 
 如果 `Matrix` 不支持移动，那么也不会更差，因为右值也能用于 `Matrix` 的拷贝构造函数（[Item 23](./23_Understand_std_move_and_std_forward.md)）。如果随后 `Matrix` 支持了移动操作，那么 `operator+` 就会受益。
 
-通用引用和 `std::forward` 也要类似使用。考虑函数模板 `reduceAndCopy` 接受一个未约化的对象 `Fraction`，约化，然后返回一个拷贝对象。如果原始对象是右值，那么可以移动到返回值中，避免拷贝，如果是左值，就不得不拷贝了。
+通用引用和 `std::forward` 也应类似使用。考虑函数模板 `reduceAndCopy`：它接受一个未约分的 `Fraction`，先将其约分，然后返回一个值。如果原始对象是右值，那么可以移动到返回值中，避免拷贝；如果是左值，就只能拷贝。
 ```cpp
 template <typename T>
 Fraction                // by-value return
@@ -146,7 +146,7 @@ reduceAndCopy(T &&frac) // universal reference param
 ```
 如果忽略 `std::forward`，那么会无条件地拷贝返回值。
 
-注意，上述优化仅适用于返回参数是右值引用参数或者通用引用参数，不可以用于按值返回局部变量的情况。比如
+注意，上述优化仅适用于返回右值引用参数或通用引用参数的情况，不适用于按值返回局部变量的情况。比如
 ```cpp
 Widget makeWidget() // "Copying" version of makeWidget
 {
@@ -166,19 +166,19 @@ Widget makeWidget() // Moving version of makeWidget
     return std::move(w); // move w into return value (don't do this!)
 }
 ```
-标准委员会的人很早就意识到对于第一个版本的 `makeWidget`，可以避免拷贝局部变量 `w`，而直接在返回值的内存处构造这个对象。这就是 RVO（`return value optimization`）。
+标准委员会很早就意识到，对于第一个版本的 `makeWidget`，可以避免拷贝局部变量 `w`，而直接在返回值的存储位置构造这个对象。这就是 NRVO（`named return value optimization`）。
 
-对于这种拷贝消除只在不影响软件行为的地方才可以实施。要满足两个条件：1）局部对象与函数返回值类型相同；2）局部对象就是要返回的东西。
+对于这种拷贝消除，只有在不影响程序行为的地方才可以实施。要满足两个条件：1）局部对象与函数返回值类型相同；2）局部对象本身就是要返回的对象。
 
-第一个版本的 `makeWidget` 满足这两个条件，所以编译器会进行 RVO 从而避免拷贝。
+第一个版本的 `makeWidget` 满足这两个条件，所以编译器可以进行 NRVO 从而避免拷贝。
 
-而第二个版本的 `makeWidget` 不满足第二个条件，返回的已经不是局部对象 `w` 了而是对 `w` 的引用（`std::move` 的返回结果）。开发者试图帮助编译器优化，反而限制了编译器的优化。
+而第二个版本的 `makeWidget` 不满足第二个条件：返回的已经不是局部对象 `w` 本身，而是 `std::move(w)` 这个表达式的结果。开发者试图帮助编译器优化，反而限制了编译器的优化。
 
-RVO 仅仅是一个优化。万一编译器没有优化呢？那么就会拷贝吗？是不是此时就应该使用 `std::move` 呢？答案依旧是否定的。
+NRVO 仅仅是一个优化。万一编译器没有优化呢？那么就会拷贝吗？是不是此时就应该使用 `std::move` 呢？答案仍然是否定的。
 
-C++ 标准规定如果满足 RVO 条件时，没有进行 RVO 优化，那么就必须视返回值为右值。因此，要么实现了 RVO 优化，避免了拷贝，要么代码与显式地写了 `std::move` 一样。不管发生那种情况，结果要么比显式地写了 `std::move` 好，要么与显式地写了 `std::move` 一样。因此，不要画蛇添足。
+C++ 标准规定，如果满足 NRVO 条件但编译器没有进行 NRVO 优化，那么就必须将返回值视为右值。因此，要么实现了 NRVO 优化，从而避免拷贝；要么行为与显式写出 `std::move` 一样。不管发生哪种情况，结果都不会比显式写出 `std::move` 更差。因此，不要画蛇添足。
 
-这种情况与按值传递参数的函数很像。不过这里无法对返回参数做拷贝消除的优化，但是如果返回的是按值传递的参数，编译器应该视为右值。因此，如下代码
+这种情况与按值传递参数的函数很像。不过这里无法对返回值做拷贝消除，但是如果返回的是按值传递的参数，编译器应将其视为右值。因此，如下代码
 ```cpp
 // by-value parameter of same type as function's return
 Widget makeWidget(Widget w)
@@ -186,7 +186,7 @@ Widget makeWidget(Widget w)
     return w;
 }
 ```
-在编译器看来与下面代码一样
+在编译器看来，它与下面代码一样
 ```cpp
 Widget makeWidget(Widget w)
 {

@@ -1,30 +1,30 @@
-本章会介绍三种方法获取类型推导的结果：编辑器、编译期和运行时。
+本章介绍三种查看类型推导结果的方法：编辑器、编译期和运行时。
 
 ## IDE Editors
-主要是编辑器有编译状态信息，这样的话鼠标放到变量上或者编辑器会直接显示推导结果。如果是简单类型，往往能处理很好；如果是复杂类型，可能会不太准或者无法推导。
+只要编辑器具备编译状态信息，就可以将鼠标悬停在变量上，或让编辑器直接显示推导结果。对于简单类型，编辑器通常处理得很好；对于复杂类型，结果可能不准确，甚至无法显示。
 ```cpp
 const int theAnswer = 42;
 auto x = theAnswer;
 auto y = &theAnswer;
 ```
-编辑器大概率会推导出结果：`x` 类型是 `int`，`y` 类型是 `const int*`。
+编辑器很可能会推导出：`x` 的类型是 `int`，`y` 的类型是 `const int*`。
 
 ## Compiler Diagnostics
-让编译器告诉我们关于类型推导的结果，方法是让代码编译出错，通过错误消息来显示类型。
+让编译器告知类型推导结果的一种方法是故意让代码编译失败，并通过错误消息显示类型。
 
-比如上面的例子，我们需要显式 `x, y` 的类型。我们声明一个没有定义过的类，比如
+例如，对于上面的例子，我们需要显示 `x` 和 `y` 的类型。可以声明一个只有声明、没有定义的类：
 ```cpp
 template<typename T>    // declaration only for TD;
 class TD;               // TD == "Type Displayer"
 ```
 
-由于模板类没有定义，实例化会出错。为了查看 `x, y` 的类型，我们以它们的类型来实例化 `TD` 类。
+由于该模板类没有定义，实例化它会出错。为了查看 `x` 和 `y` 的类型，可以分别以它们的类型实例化 `TD` 类。
 ```cpp
 TD<decltype(x)> xType;      // elicit errors containing
 TD<decltype(y)> yType;      // x's and y's types
 ```
 
-作者给出了两个编译器的出错信息。`TD` 模板类的具体类型就是推导结果。
+下面是两个编译器给出的错误信息。`TD` 模板类的具体实例化类型就是推导结果。
 ```cpp
 error: aggregate 'TD<int> xType' has incomplete type and cannot be defined
 error: aggregate 'TD<const int *> yType' has incomplete type and cannot be defined
@@ -34,15 +34,15 @@ error: 'yType' uses undefined class 'TD<const int *>'
 ```
 
 ## Runtime Output
-`printf` 打印大法往往简单高效。这里的一个挑战是输出合适的格式。我们先看下 `typeid` `std::type_info::name` 的效果。仍旧使用上面的例子。
+用 `printf` 输出通常简单高效，但难点在于选择合适的输出格式。先来看看 `typeid` 和 `std::type_info::name` 的效果，仍然使用上面的例子。
 ```cpp
 std::cout << typeid(x).name() << '\n';      // display types for
 std::cout << typeid(y).name() << '\n';      // x and 
 ```
 
-`std::type_info::name` 不保证返回的内容一定非常合理，但其实现会尽可能使其有效。GNU 和 Clang 返回结果有点像加密内容，`x` 对应类型是 `i`，`y` 对应类型是 `PKi`。`i` 表示 `int`，`PK` 表示 `pointer to const`。这两个编译器都支持 c++filt，以显式更友好的名字。MSVC 的输出是 `int` 和 `int const *`，友好很多。
+`std::type_info::name` 返回的字符串是实现定义的，因此不保证易读。GNU 和 Clang 的返回结果有点像加密文本：`x` 对应的类型是 `i`，`y` 对应的类型是 `PKi`。`i` 表示 `int`，`PK` 表示 `pointer to const`。这两个编译器都支持 `c++filt`，可将其显示为更友好的名称。MSVC 的输出是 `int` 和 `int const *`，友好得多。
 
-下面考虑一个更复杂的例子。
+下面考虑一个更复杂的示例。
 ```cpp
 template<typename T>                // template function to
 void f(const T& param);             // be called
@@ -54,9 +54,9 @@ if (!vw.empty()) {
 }
 ```
 
-这个例子涉及自定义类型 `Widget`，STL 容器 `std::vector` 和 `auto` 变量 `vw`。这更符合实际的场景。
+这个示例涉及自定义类型 `Widget`、STL 容器 `std::vector` 和 `auto` 变量 `vw`，更符合实际场景。
 
-使用 `typedid` 来显式类型推导结果。
+使用 `typeid` 显示类型推导结果。
 ```cpp
 template<typename T>
 void f(const T& param)
@@ -66,27 +66,27 @@ void f(const T& param)
     cout << "param = " << typeid(param).name() << '\n';     // show  param's type
 ```
 
-GNU 和 Clang 的输出如下
+GNU 和 Clang 的输出如下：
 ```
 T = PK6Widget
 param = PK6Widget
 ```
 
-PK 后面的数字 6 是类的长度。所以编译器认为 `T` 和 `param` 的类型都是 `const Widget*`。
+`PK` 后面的数字 `6` 是类名 `Widget` 的长度。因此，`typeid` 显示 `T` 和 `param` 的类型都是 `const Widget*`。
 
-MSVC 的输出是
+MSVC 的输出是：
 ```
 T = class Widget const *
 param = class Widget const *
 ```
 
-三个编译器给出了相同的结果，那么应该是准确的。但是仔细思考，`T` 和 `param` 的类型会一样吗？考察一个简单的例子，`T` 的类型是 `int`，那么 `param` 的类型是 `const int&`，两者不同。
+三个编译器给出了相同的结果，看起来似乎很准确。但仔细思考，`T` 和 `param` 的类型会相同吗？考虑一个简单的例子：若 `T` 的类型是 `int`，则 `param` 的类型是 `const int&`，两者并不相同。
 
-事实上，`std::type_info::name` 的结果并不可行，具体到这个例子，`param` 的类型是不对的。`std::type_info::name` 的规范要求它们将类型看做是按值传递的情况，所以不应该要求这些函数一定能返回正确结果。正如 [Item 1](./01_Understand_template_type_deduction.md) 中的解释，引用和 `const` 这两个属性会被忽略。这就是为什么 `param` 的真实类型是 `const Widget * const &`，但是输出是 `const Widget*`。首先引用被移除了，接着 `const` 也被移除了。
+事实上，`std::type_info::name` 的结果并不可靠；在这个示例中，它显示的 `param` 类型就是错误的。对表达式应用 `typeid` 时，所得的 `std::type_info` 不保留引用和顶层 `const` 属性，因此不能指望该函数始终显示完整的类型信息。正如 [Item 1](./01_Understand_template_type_deduction.md) 所解释的，引用和顶层 `const` 会被忽略。这就是为什么 `param` 的实际类型是 `const Widget * const &`，而输出却是 `const Widget*`：先忽略引用，再忽略顶层 `const`。
 
-这个例子告诉我们 `std::type_info::name` 不可靠。后续给出了两个例子，说明编辑器的结果也不完全可靠，实际使用 clangd 的经验也是如此，特别复杂的类型推导不太靠谱。
+这个示例说明 `std::type_info::name` 并不可靠。随后作者又给出了两个示例，说明编辑器的结果也未必可靠；实际使用 clangd 时，特别复杂的类型推导结果同样往往不可靠。
 
-Boost TypeIndex library 能够正确的做这个事情。继续之前的例子。
+Boost TypeIndex 库能够正确地完成这项工作。继续使用之前的示例：
 ```cpp
 #include <boost/type_index.hpp>
 template<typename T>
@@ -107,9 +107,9 @@ void f(const T& param)
 }
 ```
 
-模板函数 `boost::typeindex::type_id_with_cvr` 需要的模板类型就是想要查看信息的类型，后缀 `cvr` 的意思是 `const, volatile, reference`，也就是说不会移除这些信息。`pretty_name` 成员函数返回一个 `std::string`，包含人类友好的类型信息。
+模板函数 `boost::typeindex::type_id_with_cvr` 的模板实参就是要查看类型信息的类型。后缀 `cvr` 表示 `const`、`volatile` 和 `reference`，也就是说这些信息不会被移除。`pretty_name` 成员函数返回包含人类可读类型信息的 `std::string`。
 
-下面测试一下上面实现的函数 `f`。
+下面测试上述函数 `f`：
 ```cpp
 std::vector<Widget> createVec();    // factory function
 const auto vw = createVec();        // init vw w/factory return
@@ -118,21 +118,20 @@ if (!vw.empty()) {
 }
 ```
 
-GNU 和 Clang 编译程序，Boost 库输出如下：
+在 GNU 和 Clang 编译器上，Boost 库的输出如下：
 ```
 T = Widget const*
 param = Widget const* const&
 ```
 
-MSVC 编译程序，Boost 库输出如下：
+在 MSVC 编译器上，Boost 库的输出如下：
 ```
 T = class Widget const *
 param = class Widget const * const &
 ```
 
-编辑器、编译时报错或者诸如 Boost TypeIndex 这样的类库，都是查看信息的工具，能给我们一些帮助，但是替代不了本章前面三个 Item 所阐述的对类型推导的理解。
+编辑器、编译器错误信息以及 Boost TypeIndex 这样的类库都是查看类型信息的工具，能够提供帮助，但无法替代对本章前面三个 Item 所阐述的类型推导机制的理解。
 
 ## Things to Remember
 * Deduced types can often be seen using IDE editors, compiler error messages, and the Boost TypeIndex library.
 * The results of some tools may be neither helpful nor accurate, so an understanding of C++'s type deduction rules remains essential.
-
