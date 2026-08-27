@@ -960,6 +960,8 @@
       
         
       
+        
+      
     
     
     
@@ -1055,6 +1057,34 @@
     
   
     Representing and Manipulating Information
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Principles/Machine-Level-Representation-of-Programs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine-Level Representation of Programs
   
 
     
@@ -1348,6 +1378,8 @@
       
         
       
+        
+      
     
     
     
@@ -1527,7 +1559,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        接口分离
+        接口隔离
       
     </span>
   </a>
@@ -1619,6 +1651,34 @@
     
   
     Building Abstractions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PurposeOfSoftwareDesign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Purpose of Software Design
   
 
     
@@ -32332,7 +32392,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        接口分离
+        接口隔离
       
     </span>
   </a>
@@ -32520,8 +32580,8 @@
 <p>The goal of software architecture is to minimize the human resources required to build and maintain the required system.</p>
 <p>Robert C. Martin, Clean Architecture (Addison-Wesley, 2017).</p>
 </blockquote>
-<p>我们可以将软件开发分成两个大层，第一层是设计层（<code>design level</code>），包含架构和设计，第二层是代码层（<code>code level</code>）。最底层是实现细节（<code>implementation details</code>），这一层有一些常见的实现模式（<code>implementation patterns</code>），比如 RAII、Pimpl、SFINAE（<code>Substitution Failure Is Not An Error</code>）等等，这些模式是 C++ 特有的，其他语言可能没有或者有不同的实现方式。再往上是软件设计，这一层包含一些设计模式（<code>design patterns</code>），比如装饰者、策略等等，这些就是语言无关的了。再往上是软件架构，如前所述，这里的共识不多，这里通常涉及关键决策。这一层包含一些架构模式（<code>architectural patterns</code>），比如微服务、客户端-服务器等。两者的共同点都是解决整体结构和相互依赖的问题。架构是更高层次的设计，解决的是模块、组件级别的，而设计则是更细粒度的，解决的是类、函数级别的。</p>
-<p>惯用法（<code>idiom</code>）的出现使得实现和设计两者的界限更加模糊一些。惯用法表示某种模式（<code>pattern</code>），在某种语言中被广泛使用，比如前面提到的 RAII 就是 C++ 中的一种惯用法，还有 copy-and-swap 也是 C++ 中的一种惯用法。大部分的 C++ 惯用法都是实现层次的，设计层次的惯用法相对较少一些，比如 NVI（<code>Non-Virtual Interface</code>）和 Pimpl 就是一种设计层次的惯用法，分别脱胎于设计模式中的模板方法（<code>Template Method</code>）和桥接模式（<code>Bridge Pattern</code>）。这里涉及到一个问题，就是掌握编程语言的细节和掌握软件设计的原则哪个更重要？答案是两者都重要。没有必要厚此薄彼。</p>
+<p>我们可以将软件开发分成两个层次，设计层（<code>design level</code>）包含架构和设计，代码层（<code>code level</code>）包含实现细节（<code>implementation details</code>）。实现细节这一层有一些常见的实现模式（<code>implementation patterns</code>），比如 RAII、Pimpl、SFINAE（<code>Substitution Failure Is Not An Error</code>）等等，这些模式是 C++ 特有的，其他语言可能没有或者有不同的实现方式。再往上是软件设计，这一层包含一些设计模式（<code>design patterns</code>），比如装饰者、策略等等，这些就是语言无关的了。再往上是软件架构，如前所述，这里的共识不多，通常涉及关键决策。这一层包含一些架构模式（<code>architectural patterns</code>），比如微服务、客户端-服务器等。两者的共同点都是解决整体结构和相互依赖的问题。架构是更高层次的设计，解决的是模块、组件级别的，而设计则是更细粒度的，解决的是类、函数级别的。</p>
+<p>惯用法（<code>idiom</code>）的出现使得实现和设计两者的界限更加模糊一些。惯用法表示某种模式（<code>pattern</code>），在某种语言中被广泛使用，比如前面提到的 RAII 就是 C++ 中的一种惯用法，还有 copy-and-swap 也是 C++ 中的一种惯用法。大部分的 C++ 惯用法都是实现层次的，设计层次的惯用法相对较少一些，比如 NVI（<code>Non-Virtual Interface</code>）和 Pimpl 都是一种设计层次的惯用法，分别脱胎于设计模式中的模板方法（<code>Template Method</code>）和桥接模式（<code>Bridge Pattern</code>）。这里涉及到一个问题，就是掌握编程语言的细节和掌握软件设计的原则哪个更重要？答案是两者都重要。没有必要厚此薄彼。</p>
 <blockquote>
 <p>Design and programming are human activities; forget that and all is lost.</p>
 <p>Bjarne Stroustrup, The C++ Programming Language, 3rd Edition (Addison-Wesley, 2000).</p>
@@ -32546,8 +32606,8 @@
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="c1">// ...</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">};</span>
 </span></code></pre></div>
-上面这个基类的定义看似很好，能够导出 JSON 这种通用的格式，能够序列化成二进制（<code>ByteStream</code>）这种更高效的格式，可能是 Word、PDF 等等。但是这个类引入了三类依赖。</p>
-<p>第一类是 <code>ExportToJSON</code> 方法引入了对 JSON 库的依赖，这个库可能是第三方的，也可能是我们自己写的。为了一致性，所有的子类不得不依赖同一个类库，因此这些子类并没有真正的独立，而是耦合到了一起。同时，由于依赖了 JSON 类库，类本身变得不够轻量，后续重用也是一个问题。<code>Serialize</code> 很可能会依赖于 <code>protobuf</code> 这种二进制序列化的类库，这个依赖于 JSON 类库正交，但是可能会引发连锁反应。</p>
+上面这个基类的定义看似很好，能够导出 JSON 这种通用格式，也能将数据序列化为二进制并写入 <code>ByteStream</code>，可能用于 Word、PDF 等文档。但是这个类引入了三类依赖。</p>
+<p>第一类是 <code>ExportToJSON</code> 方法引入了对 JSON 库的依赖，这个库可能是第三方的，也可能是我们自己写的。为了一致性，所有的子类不得不依赖同一个类库，因此这些子类并没有真正独立，而是耦合到了一起。同时，由于依赖了 JSON 类库，类本身变得不够轻量，后续重用也是一个问题。<code>Serialize</code> 很可能会依赖于 <code>protobuf</code> 这种二进制序列化类库，这一依赖与 JSON 类库正交，但可能会引发连锁反应。</p>
 <p>第二类是 <code>ExportToJSON</code> 的参数很可能暴露了一些 JSON 类库的细节，导致一旦需要变更 JSON 类库，需要修改函数签名，那么所有的子类都需要修改，调用者也需要修改，这就是一个典型的依赖问题。</p>
 <p>第三个问题是由 <code>Serialize</code> 方法引入的，要序列化成什么格式呢？常见做法是给一个枚举类，比如
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">DocumentType</span>
@@ -32576,7 +32636,7 @@
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        v          v        v
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    JSON Library   ByteStream Library
 </span></code></pre></div></p>
-<p>SRP 的思想就是分离这些关注点，将不同理由的导致的变化的部分隔离到不同的变化点（<code>variation point</code>）。比如将 JSON 和序列化的功能抽取到不同的类中，这样就能够将这些变化点隔离开来，降低耦合，提高内聚。下面是一种可能的依赖关系。后续章节会介绍一些设计模式、如何实现这些分离的设计。
+<p>SRP 的思想就是分离这些关注点，将由不同理由导致变化的部分隔离到不同的变化点（<code>variation point</code>）。比如将 JSON 和序列化的功能抽取到不同的类中，这样就能够将这些变化点隔离开来，降低耦合，提高内聚。下面是一种可能的依赖关系。后续章节会介绍一些设计模式，以及如何实现这些分离的设计。
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    JSON        User      Serialization
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    |    \        |        /      |
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    |     \       |       /       |
@@ -32654,7 +32714,7 @@
 </span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a><span class="p">};</span>
 </span></code></pre></div>
 上述设计看起来很好，分离了关注点，满足前面说的 SRP，但是它违反了 DRY（Don't Repeat Yourself）原则。<code>CppBook</code> 和 <code>ConferenceTicket</code> 类中都包含了计算价格的逻辑，如果税率发生了变化，那么我们就需要修改这两个类的代码，甚至更多的子类。</p>
-<p>SRP 告诉我们每个事物只能有一个职责（一个变化的理由），DRY 原则告诉我们每个职责也应该有且只有一份。这个原则建议就是不要在多处重复同样的信息，而是要通过合理的设计，确保只需要在一个地方做出修改就足够了。理想情况下，税率这个信息应该只在一处定义即可。通常情况下，DRY 原则和 SRP 是相辅相成的，SRP 能够帮助我们更好地实现 DRY 原则，反之亦然。不过在一些特殊的情况下，要想保证满足这两个原则需要一些额外的设计。后续章节会介绍一些设计模式，阐述如何实现以满足这些原则。</p>
+<p>SRP 告诉我们每个事物只能有一个职责（一个变化的理由），DRY 原则告诉我们每个职责也应该有且只有一份实现。该原则建议不要在多处重复同样的信息，而是要通过合理的设计，确保只需要在一个地方做出修改就足够了。理想情况下，税率这个信息应该只在一处定义即可。通常情况下，DRY 原则和 SRP 是相辅相成的，SRP 能够帮助我们更好地实现 DRY 原则，反之亦然。不过在一些特殊的情况下，要想同时满足这两个原则需要一些额外的设计。后续章节会介绍一些设计模式，阐述如何实现这些原则。</p>
 <h3 id="_4">不要过早进行关注点分离</h3>
 <p>过早进行关注点分离（<code>premature separation of concerns</code>）会导致过度设计（<code>over-engineering</code>），为了分离而分离会增加复杂性，引入不必要的胶水代码和间接层。</p>
 <p>我们的目标是可维护性，SOLID 原则是工具，工具是来帮助我们达到我们的目标的，而不是要达成 SOLID！SRP 和 DRY 是很好的工具但不是目的。</p>
@@ -32663,7 +32723,7 @@
 <p>Katerina Trajchevska, "Becoming a Better Developer by Using the SOLID Design Principles", Laracon EU, August 30–31, 2018.</p>
 </blockquote>
 <p>如果知道哪里会变化，使用这些工具让未来的变化更容易，如果不知道，那就等到变化出现的时候再重构，让代码变得更好。</p>
-<h2 id="_5">接口分离</h2>
+<h2 id="_5">接口隔离</h2>
 <p>回到 <code>Document</code> 类的例子。假定用户写了一个函数来处理 <code>Document</code> 类的对象，将其导出为 JSON 格式。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ExportDocumentToJSON</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Document</span><span class="w"> </span><span class="o">&amp;</span><span class="n">doc</span><span class="p">)</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
@@ -32714,7 +32774,7 @@
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">input_iterator</span><span class="w"> </span><span class="n">InputIt</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">output_iterator</span><span class="w"> </span><span class="n">OutputIt</span><span class="o">&gt;</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">OutputIt</span><span class="w"> </span><span class="n">copy</span><span class="p">(</span><span class="n">InputIt</span><span class="w"> </span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">InputIt</span><span class="w"> </span><span class="n">last</span><span class="p">,</span><span class="w"> </span><span class="n">OutputIt</span><span class="w"> </span><span class="n">d_first</span><span class="p">);</span>
 </span></code></pre></div>
-这保证了约束的最小化，<code>std::input_iterator</code> 这个概念约束有只读、单向、单次遍历，<code>std::output_iterator</code> 这个概念约束有只写、单向、单次遍历。如果我们违反 ISP 的原则，使用一个更宽泛的概念，比如 <code>std::forward_iterator</code>，这个概念约束有可读可写、单向、可多次遍历，那么就会导致一些不必要的约束，导致有些场景无法使用这个 <code>copy</code> 函数了，比如无法将输入流（<code>input stream</code>）作为输入迭代器来使用，因为不支持写入操作和多次遍历。</p>
+这保证了约束的最小化：<code>std::input_iterator</code> 支持读取和单次遍历，输出迭代器只需支持写入和递增。若错误地用要求更强的 <code>std::forward_iterator</code> 约束输入迭代器，就会引入不必要的多次遍历要求，导致某些场景无法使用这个 <code>copy</code> 函数，例如输入流迭代器不满足多次遍历的要求。</p>
 <h2 id="_6">面向可测试性的设计</h2>
 <p>软件一直在变化，这是本质问题。在修改的时候，可能会有意无意地引入问题，如何防止这一点呢？测试！完整的测试会保护我们不受修改的影响。但是前提是我们写测试，如果我们不写测试，那么我们就无法保护自己了。因此，我们的设计应该是面向可测试性（<code>testability</code>）的设计，简单说就是要容易写测试。</p>
 <p>先来看看下面这个“矫揉造作”的例子。假定我们有一个 <code>Widget</code> 类，这个类有一个私有函数 <code>UpdateCollection()</code>，如何测试这个函数呢？换句话说，如果修改了这个函数，如何确保修改没有引入问题呢？
@@ -32729,11 +32789,11 @@
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="cm">/* Potentially other data members */</span>
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="p">};</span>
 </span></code></pre></div>
-你可能会说，或许有 <code>AddBlob()</code> 这个 <code>public</code> 函数会调用 <code>UpdateCollection()</code>，我们可以通过测试 <code>AddBlob()</code> 来间接测试 <code>UpdateCollection()</code>，但是如果 <code>AddBlob()</code> 的实现发生了变化，不再调用 <code>UpdateCollection()</code> 了，那么我们就无法测试 <code>UpdateCollection()</code> 了。这其实是一种白盒测试（<code>white-box test</code>）的想法，需要了解被测试函数的实现细节。这里需要的是黑盒测试（<code>black-box test</code>），只需要测试预期行为。</p>
+你可能会说，或许有 <code>AddBlob()</code> 这个 <code>public</code> 函数会调用 <code>UpdateCollection()</code>，我们可以通过测试 <code>AddBlob()</code> 来间接测试 <code>UpdateCollection()</code>。如果 <code>UpdateCollection()</code> 只是 <code>AddBlob()</code> 的实现细节，那么这正是合适的黑盒测试（<code>black-box test</code>），只测试对外可观察的预期行为，而不依赖其内部是否调用了某个特定函数。若实现不再调用 <code>UpdateCollection()</code>，相关测试也不应约束这一已经改变的实现细节。</p>
 <p>你可能会说，把这个函数修改成 <code>public</code> 的，技术上可行，但绝不是一个好主意。</p>
 <p>你可能会说，使用友元测试类（<code>friend test class</code>）的方式来测试这个函数，<code>Widget</code> 里面加上 <code>friend class WidgetTest;</code>，这个也是技术上可行的，但也不是一个好主意。这样，测试类就和被测试类耦合在了一起了，增加了被测试类对测试类的依赖。</p>
-<p>你可能会说，把这个函数修改成 <code>protected</code> 的，测试类继承 <code>Widget</code> 类。这绝对是滥用继承！</p>
-<p>这里的正确解法是将这个函数抽取为一个类外的函数，或者说一个独立的类的成员函数，这样就能够直接测试这个函数了，同时也不会引入不必要的依赖了。
+<p>你可能会说，把这个函数修改成 <code>protected</code>，让测试类继承 <code>Widget</code> 类。这通常会引入不必要的继承耦合，并不推荐。</p>
+<p>仅为测试私有函数而将其公开或抽取出来并不是正确的解法。只有当 <code>UpdateCollection()</code> 包含可独立描述、具有独立变化原因或可复用的行为时，才应将其抽取为类外函数，或者独立类的成员函数，此时可以直接测试其公开行为，也不会引入不必要的测试依赖。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">UpdateCollection</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Blob</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">blobs</span><span class="p">,</span><span class="w"> </span><span class="cm">/* some arguments needed to update the collection */</span><span class="p">);</span>
 </span></code></pre></div>
 或者
@@ -32751,10 +32811,10 @@
 </span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
 </span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="p">}</span><span class="w"> </span><span class="c1">// namespace widgetDetails</span>
 </span></code></pre></div>
-这样把放到一起的东西分离开是否违背了 SRP 呢？恰恰相反。<code>UpdateCollection()</code> 这个函数需要被测试，这就表明之前的设计不足够合理。我们有理由单独修改这个函数，那么说明 <code>Widget</code> 类有两个理由被修改，承担了一个以上的职责。换句话说，如果一个函数一定要被测试，那么它就应该是一个独立的单元，能够直接测试它。</p>
-<p>这样是不是违反了封装呢？不。相反，封装是分离关注点的理由。Scott Meyers 在《Effective C++》中提到过，更推荐非成员、非友元函数（<code>non-member, non-friend function</code>）而不是成员函数，从类中抽取函数反而是更好的封装。这是因为成员函数天生就能访问所有的数据成员，因此很容易就会访问到不相关的数据成员，导致耦合度增加。抽取的 <code>UpdateCollection()</code> 函数只能通过 <code>Widget</code> 类提供的接口来访问数据成员，结果是更好的访问控制，更好的内聚。</p>
-<p>通过上述的设计，我们做到了以下三点：（1）能够直接测试 <code>UpdateCollection()</code> 函数；（2）更好的封装；（3）独立的 <code>UpdateCollection()</code>，与 <code>Widget</code> 类解耦，甚至可以用于其他类。</p>
-<p>这里并不是鼓励把所有函数都设计成独立的函数甚至是单独抽取到一个类。我们要仔细的分析哪些明明需要测试但是被塞进了 <code>private</code> 里面的函数。如果这个函数是虚函数该怎么办呢？后续章节会讨论这个问题。</p>
+这样将原本放在一起的东西分离开，是否违背了 SRP 呢？不一定。仅仅因为一个函数需要测试，并不能说明它必须是独立单元，或说明原有类违反了 SRP。只有当它代表独立的概念、能够单独演进时，抽取才有助于让 <code>Widget</code> 聚焦自身职责，并使新单元的行为能够被直接测试。</p>
+<p>这样是否违反了封装呢？不一定。Scott Meyers 在《Effective C++》中提到过，在不需要访问私有成员时，应优先考虑非成员、非友元函数（<code>non-member, non-friend function</code>）。成员函数天生能访问所有数据成员，容易访问到不相关的数据成员，导致耦合度增加。抽取后的 <code>UpdateCollection()</code> 若只接收其真正需要的输入，便可缩小其可访问的状态范围，改善访问控制和内聚。</p>
+<p>在适合抽取的情况下，上述设计可带来以下好处：（1）能够直接测试 <code>UpdateCollection()</code> 的公开行为；（2）缩小可访问状态的范围；（3）使 <code>UpdateCollection()</code> 与 <code>Widget</code> 解耦，并可能复用于其他类。</p>
+<p>这里并不是鼓励把所有函数都设计成独立函数，甚至单独抽取到一个类。我们应仔细分析被放入 <code>private</code> 的函数是否确实具有独立职责和可独立验证的行为。如果这个函数是虚函数该怎么办呢？后续章节会讨论这个问题。</p>
 <h2 id="_7">面向扩展性的设计</h2>
 <p>扩展性（<code>extensibility</code>）是软件设计的重要目标之一，驱使我们做出好的设计。除非软件已经到生命周期尽头了，否则就需要添加新的功能，扩展现有代码是基本操作。扩展性并不是天上掉馅饼，而是需要我们在软件设计的时候就考虑到这一点。</p>
 <h3 id="_8">开放封闭原则</h3>
@@ -32775,7 +32835,7 @@
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="c1">// ...</span>
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">};</span>
 </span></code></pre></div>
-在序列化的时候，可能第一个字节就是这个 <code>DocumentType</code>，用来区分不同类型的文档。那么 <code>PDF</code> 类就会知道 <code>Word</code> 这个类的存在，这就导致了耦合。整个结构如下所示。
+在序列化的时候，可能第一个字节就是这个 <code>DocumentType</code>，用来区分不同类型的文档。这样 <code>PDF</code> 类会依赖包含 <code>Word</code> 枚举值的 <code>DocumentType</code>，从而产生不必要的耦合。整个结构如下所示。
 <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>                   Document
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>                      ^
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>                      |
@@ -32785,7 +32845,7 @@
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>         |            |              |
 </span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        PDF ----&gt; DocumentType &lt;-- Word
 </span></code></pre></div>
-如果我们想要添加一个子类，比如 <code>XML</code>，我们就需要修改 <code>DocumentType</code> 类。这至少会导致 <code>PDF</code> 和 <code>Word</code> 这两个类需要重新编译。更糟糕的是，这限制了其他人对代码进行扩展的能力，因为可能这是一个类库而很多人没有权限修改 <code>DocumentType</code> 类。从设计的角度来说，<code>PDF</code> 和 <code>Word</code> 这两个类本不应该知道新增的类 <code>XML</code> 的存在。</p>
+如果我们想要添加一个子类，比如 <code>XML</code>，我们就需要修改 <code>DocumentType</code> 枚举。这至少会导致依赖该枚举的 <code>PDF</code> 和 <code>Word</code> 重新编译。更糟糕的是，这限制了其他人对代码进行扩展的能力，因为这可能是一个类库，而很多人没有权限修改 <code>DocumentType</code> 枚举。从设计的角度来说，<code>PDF</code> 和 <code>Word</code> 这两个类本不应该知道新增文档类型 <code>XML</code> 的存在。</p>
 <p>上述的例子违反了开放封闭原则（<code>Open-Closed Principle</code>, <code>OCP</code>），这就是 SOLID 中的 O。OCP 是说软件实体（类、模块、函数等等）应该对扩展开放，对修改关闭。也就是说，理想状态下，我们应该能够通过添加新代码来扩展软件的功能，而无需修改现有的代码。</p>
 <p>幸运的是我们之前提到的分离关注点的方法就能解决这个问题。调整之后，只有序列化 <code>Serialization</code> 模块需要知道 <code>DocumentType</code> 的存在，不同的 <code>Document</code> 子类都不知道 <code>DocumentType</code>，进而彼此是解耦的。
 <div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>                        Document
@@ -32806,7 +32866,7 @@
 <p>从分离关注点的角度说，真正的解决方案就是坚守 SRP，因此业内也有人认为也不应将 OCP 看作是独立的原则，它和 SRP 是一样的。大部分情况下，做到了分离关注点也就带来了扩展性。因此，将二者看作是紧密相关的甚至是融合在一起的原则也没有问题。</p>
 <p>不过单独讨论 OCP，给了我们从另一个视角来审视问题本身。当我们显式的考虑扩展性的时候，会影响我们应用 SRP 的方式。相比于 SRP，OCP 更注重于扩展性，影响在扩展性方面做出的决策。因此，它或许不是 SRP 的副产物，完全取决于我们看待事物的角度。</p>
 <h3 id="_9">编译期扩展性</h3>
-<p>日常开发中，常常会使用 C++ 标准库，它的设计考虑了扩展性，因此我们可以容易的使用它来实现我们自己的功能。先看第一个例子 <code>std::swap</code>，它的实现如下所示。
+<p>日常开发中，常常会使用 C++ 标准库，它的设计考虑了扩展性，因此我们可以轻松地使用它来实现自己的功能。先看第一个例子 <code>std::swap</code>，它的实现如下所示。
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="p">{</span>
@@ -32850,7 +32910,7 @@
 </span></code></pre></div>
 <code>std::hash</code> 的设计使得我们能够为自定义类型提供哈希函数的实现，完全不需要修改任何现有的代码。通过模板特化来定制我们的需求。</p>
 <h3 id="_10">避免过早进行扩展性设计</h3>
-<p>扩展性很重要，但是这不意味着应该不加思考地在实现细节层面广泛使用多态、模板来确保未来的扩展性。和不要过早地优化程序、过早地关注分离点一样，我们也不应该过早地关注扩展性。如果还不知道哪些地方会如何演进，那么就等到需要扩展的时候再进行设计和实现就好，不要预判一个可能永远不会扩展的点。未来的需求会指导我们，给出未来演进的方向，此时再重构代码，使得后续更容易扩展。</p>
+<p>扩展性很重要，但是这不意味着应该不加思考地在实现细节层面广泛使用多态、模板来确保未来的扩展性。和不要过早地优化程序、过早地进行关注点分离一样，我们也不应该过早地关注扩展性。如果还不知道哪些地方会如何演进，那么就等到需要扩展的时候再进行设计和实现就好，不要预判一个可能永远不会扩展的点。未来的需求会指导我们，给出未来演进的方向，此时再重构代码，使得后续更容易扩展。</p>
 
   
 
