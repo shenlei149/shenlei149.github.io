@@ -1,8 +1,8 @@
 这一小节会讨论几种完美转发失败的情况。
 
-在开始之前，我们首先讨论下完美转发的含义。转发的意思是说将传入一个函数的参数传入——转发——给另一个函数，目的是第二个函数收到与第一个函数收到的对象相同。这不适用于按值传递，因为对象是拷贝进来的。我们希望转发到的函数基于原始传入的对象执行。这也不适用于指针类型，因为我们不想强迫调用者一定要传递指针。那么通常情况下转发指的是转发引用参数。
+在开始之前，我们首先讨论下完美转发的含义。转发的意思是将传入某个函数的参数再转发给另一个函数，目的是让第二个函数收到与第一个函数相同的对象。这不适用于按值传递，因为对象是拷贝进来的。我们希望转发到的函数基于原始传入的对象执行。转发也不应仅限于指针类型，因为我们不想强迫调用者一定要传递指针。因此，通常所说的转发指的是通过转发引用参数进行转发。
 
-完美转发意味着我们不仅转发对象，也转发它们的特征：它们的类型，是左值还是右值，是 `const` 或是 `volatile`。结合我们需要转发引用，那么需要使用通用引用，因为只有通用引用才能在传递参数时确定是左值还是右值。
+完美转发意味着我们不仅转发对象，也转发它们的特征：类型、是左值还是右值，以及是否为 `const` 或 `volatile`。而要实现这种转发，需要使用通用引用，因为只有通用引用才能保留实参是左值还是右值的属性。
 
 假定我们有一个函数 `f`，我们下面实现一个模板函数转发参数给它。
 ```cpp
@@ -12,7 +12,7 @@ void fwd(T &&param) // accept any argument
     f(std::forward<T>(param)); // forward it to f
 }
 ```
-就转发函数本质而言，它们是通用的。接受任意类型的参数，转发得到的参数。拓展这种想法，模板函数应该是可变参数模板，接受任意多的参数。那么这个函数的实现如下
+就转发函数本质而言，它们是通用的：接受任意类型的参数，并把这些参数转发出去。扩展这一想法，模板函数应该是可变参数模板，以接受任意多个参数。那么这个函数的实现如下：
 ```cpp
 template <typename... Ts>
 void fwd(Ts &&...params) // accept any arguments
@@ -20,7 +20,7 @@ void fwd(Ts &&...params) // accept any arguments
     f(std::forward<Ts>(params)...); // forward them to f
 }
 ```
-这种形式在标准库中很常见，比如 `emplace` 函数（见 [Item 42](../ch08_Tweaks/42_Consider_emplacement_instead_of_insertion.md)）和智能指针的 `std::make_shared` 和 `std::make_unique`。
+这种形式在标准库中很常见，比如 `emplace` 函数（见 [Item 42](../ch08_Tweaks/42_Consider_emplacement_instead_of_insertion.md)）以及 `std::make_shared` 和 `std::make_unique` 等。
 
 在给定 `f` 和转发函数 `fwd` 的前提下，完美转发失败指的是给定参数 `f` 所作的事情与 `fwd` 转发相同参数时做的事情不同。
 ```cpp
@@ -39,7 +39,7 @@ void f(const std::vector<int> &v);
 ```cpp
 f({1, 2, 3}); // fine, "{1, 2, 3}" implicitly converted to std::vector<int>
 ```
-但是传入 `fdw` 就无法编译。
+但是传入 `fwd` 就无法编译。
 ```cpp
 fwd({1, 2, 3}); // error! doesn't compile
 ```
@@ -47,14 +47,14 @@ fwd({1, 2, 3}); // error! doesn't compile
 
 所有这样的失败的原因都是一样的。当直接调用 `f` 的时候，比如 `f({1, 2, 3})`，编译器会查看函数声明的参数类型和传递的参数类型，判断是否匹配，必要时会进行隐式转换。`{1, 2, 3}` 生成了一个临时的 `std::vector<int>` 使得 `f` 的参数 `v` 能够绑定到 `std::vector<int>` 对象上。
 
-当通过 `fwd` 间接调用 `f` 的时候，编译器不再检查传递的参数与 `f` 声明类型的匹配度。而是推导传入 `fwd` 的参数类型，拿推导的参数类型与 `f` 声明的参数类型比较。当以下情况发生的时候，完美转发就会失败。
+当通过 `fwd` 间接调用 `f` 时，编译器必须先仅根据传给 `fwd` 的实参推导其参数类型，无法借助 `f` 的形参类型。随后，推导出的类型会参与对 `f` 的调用。当以下情况发生时，完美转发就会失败。
 
 * 编译器无法推导出 `fwd` 的一个或多个参数类型。这种情况下会编译失败。
 * 编译器推导错了 `fwd` 的一个或多个参数类型。错误意味着无法使用推导出来的类型编译 `fwd`，也可能意味着使用 `fwd` 的推导类型调用 `f`，会导致与直接使用相同参数调用 `f` 的行为不一致。这可能是由于 `f` 有多个重载，而推导类型调用的与直接调用的 `f` 函数不同。
 
-上面的例子中，错误的原因是将大括号初始化传递给了一个没有声明 `std::initializer_list` 为参数的模板函数。这是一个非推导上下文。也就是说，由于模板函数的参数不是 `std::initializer_list`，那么编译器被禁止从 `{1, 2, 3}` 推导类型。由于被阻止推导类型，那么编译器只能报错处理了。
+上面的例子中，错误的原因是将大括号初始化传递给了一个没有声明 `std::initializer_list` 为参数的模板函数。这是一个非推导上下文。也就是说，由于模板函数的参数不是 `std::initializer_list`，编译器被禁止从 `{1, 2, 3}` 推导类型，因此只能报错。
 
-[Item 2](../ch01_Deducing_Types/01_Understand_template_type_deduction.md) 告诉我们能够正确推导使用大括号初始化的 `auto` 变量。这个变量被视为 `std::initializer_list` 对象，而我们转发就是需要这么一个 `std::initializer_list` 类型。因此一个简单的变通方式就是先使用 `auto` 声明一个变量，然后调用 `fwd` 函数。
+[Item 2](../ch01_Deducing_Types/01_Understand_template_type_deduction.md) 告诉我们能够正确推导使用大括号初始化的 `auto` 变量。这个变量会被推导为 `std::initializer_list` 对象，而转发时正需要这样的 `std::initializer_list` 类型。因此，一个简单的变通方式就是先使用 `auto` 声明一个变量，然后调用 `fwd` 函数。
 ```cpp
 auto il = {1, 2, 3}; // il's type deduced to be std::initializer_list<int>
 fwd(il);             // fine, perfect-forwards il to f
@@ -64,7 +64,7 @@ fwd(il);             // fine, perfect-forwards il to f
 [Item 8](../ch03_Moving_to_Modern_C++/08_Prefer_nullptr_to_0_and_NULL.md) 告诉我们如果使用 0 或者 `NULL` 作为空指针传入模板函数，会导致推导出错误的类型，期望是指针类型，但是实际是整数类型。这种情况下，不能期待会完美转发一个空指针。解决方案也很简单，传入 `nullptr`。
 
 ## Declaration-only integral static const data members
-一般而言，没有必要定义 `static const` 的成员变量，因为编译器会进行常量传播（`const propagation`），消除了需要内存存放的需求。
+一般而言，没有必要定义 `static const` 的成员变量，因为编译器会进行常量传播（constant propagation），从而消除了需要内存存放的需求。
 ```cpp
 class Widget
 {
@@ -93,7 +93,7 @@ fwd(Widget::MinVals); // error! shouldn't link
 
 尽管这里并没有取 `MinVals` 的地址，但是 `fwd` 的参数是通用引用，而引用在编译器看来和指针一样。在某种程度上，引用就是自动解引用的指针。传递 `MinVals` 的引用与传递指针一样高效，但是也要求有某个内存地址，使得指针能够指向这个位置。通过引用传递 `static const` 的成员变量，一般也就要求其有定义，否则会导致完美转发失败。
 
-根据标准，传递 `static const` 整数的引用，要求有定义。但是并不是所有的实现都强制要求这一点。所以，具体问题可能依赖于编译器和链接器。你或许发现没有定义也能完美转发 `static const` 的整型成员变量，但是这并不是能这么做的理由，因为这涉及可移植性。为了提高可移植性，应该给 `static const` 变量一个定义。对于 `MinVals`，定义如下
+根据标准，传递 `static const` 整数的引用时要求有定义。但是并不是所有实现都强制要求这一点。所以，具体问题可能依赖于编译器和链接器。你或许会发现没有定义也能完美转发 `static const` 的整型成员变量，但这并不是这么做的理由，因为这涉及可移植性。为了提高可移植性，应该给 `static const` 变量一个定义。对于 `MinVals`，定义如下
 ```cpp
 const std::size_t Widget::MinVals; // in Widget's .cpp file
 ```
@@ -123,9 +123,9 @@ f(processVal); // fine
 ```cpp
 fwd(processVal); // error! which processVal?
 ```
-只有 `processVal` 是没有类型的，那么无法进行类型推导，完美转发失败。
+函数名 `processVal` 本身没有类型，因此无法进行类型推导，完美转发失败。
 
-如果我们使用模板函数而不是重载，也会有同样的问题。一个模板函数不是一个函数，而是需要函数
+如果我们使用模板函数而不是重载，也会有同样的问题。一个模板函数不是一个具体函数，而是需要实例化后才能使用。
 ```cpp
 template <typename T>
 T workOnVal(T param) // template for processing values
@@ -134,7 +134,7 @@ T workOnVal(T param) // template for processing values
 
 fwd(workOnVal); // error! which workOnVal instantiation?
 ```
-如果想要完美转发接受一个重载函数或者是模板函数，需要手动的指定是哪一个重载或者模板实例化的函数。比如，声明一个与 `f` 参数相同的函数指针类型，使用 `processVal` 或者 `workOnVal` 初始化，这就选择了合适的重载或模板实例，然后将指针传递给 `fwd`
+如果想要完美转发接受一个重载函数或者模板函数，需要手动指定具体的重载或者模板实例。比如，声明一个与 `f` 参数相同的函数指针类型，用 `processVal` 或 `workOnVal` 初始化，这就选择了合适的重载或模板实例，然后将指针传递给 `fwd`。
 ```cpp
 using ProcessFuncType = int (*)(int); // make typedef; see Item 9
 
@@ -144,7 +144,7 @@ ProcessFuncType processValPtr = processVal;
 fwd(processValPtr);                           // fine
 fwd(static_cast<ProcessFuncType>(workOnVal)); // also fine
 ```
-这就要求我们知道完美转发的函数指针的类型。但是没有理由一个完美转发的函数会有文档记录这些事情。毕竟，完美转发设计初衷是接受任意类型，所以如果没有文档记录这些的话，我们又怎么能知道具体类型呢？
+这就要求我们知道完美转发所需的函数指针类型。但是没有理由要求一个完美转发函数把这些细节文档化。毕竟，完美转发的设计初衷就是接受任意类型，所以如果没有文档记录这些细节，我们又怎么能知道具体类型呢？
 
 ## Bitfields
 最后一种无法完美转发的情况是使用了位域作为函数的参数。假定 IPv4 头的定义如下
@@ -169,9 +169,9 @@ f(h.totalLength); // fine
 ```cpp
 fwd(h.totalLength); // error!
 ```
-原因是 `fwd` 的参数是引用，而 `h.totalLength` 是非 `const` 位域。C++ 标准禁止这么做：非 `const` 引用不能绑定到位域。原因很简单，因为位域可以从任意比特开始，而指针或引用不能指向任意比特，C++ 寻址最小单元是 `char`，也就是一个字节而不是比特。
+原因是 `fwd` 的参数是引用，而 `h.totalLength` 是非 `const` 位域。C++ 标准禁止这么做：非 `const` 引用不能绑定到位域。原因很简单，因为位域可以从任意比特开始，而指针或引用不能指向任意比特。C++ 的最小可寻址单元是 `char` 类型对象，通常是一个字节，而不是比特。
 
-如果意识到接受位域作为参数的函数，函数收到的一定是拷贝的话，那么这么问题就很容易解决了。如前所述，没有指针或引用能够指向位域，那么函数不能是指针参数或者引用参数。所以结果只能是按值传递，或者是 `const` 引用。按值传递的话函数收到的是位域内容的拷贝，如果参数是 `const` 引用，标准是要求引用绑定到存放位域的的整数类型（比如 `int`）的拷贝对象上。因此，并不是绑定到位域而是包含位域的对象的拷贝。
+如果意识到接受位域作为参数的函数收到的一定是拷贝，那么这个问题就很容易解决了。如前所述，没有指针或引用能够指向位域，所以函数参数不能是指针或引用。结果只能是按值传递，或者是 `const` 引用。按值传递时，函数收到的是位域内容的拷贝；如果参数是 `const` 引用，标准要求引用绑定到保存位域值的整数类型（比如 `int`）的临时拷贝上。因此，绑定的并不是位域本身，而是它的拷贝。
 
 解决这个问题的关键就是函数接受的是拷贝。在完美转发之前，我们可以先行拷贝一遍。在当前 `IPv4Header` 例子中，代码如下
 ```cpp
@@ -182,7 +182,7 @@ fwd(length); // forward the copy
 ```
 
 ## Upshot
-大部分时候，完美转发都工作的很好，偶尔会出错。可能是编译错误，更严重的参数是能编译但是不能按照预期行为工作。知道完美转发不完美的情况是很重要的，还需要知道如何绕过这些问题。
+大部分时候，完美转发都工作得很好，偶尔会出错。可能是编译错误，更严重的是参数能编译但不能按预期行为工作。知道完美转发不完美的情况是很重要的，还需要知道如何绕过这些问题。
 
 ## Things to Remember
 * Perfect forwarding fails when template type deduction fails or when it deduces the wrong type.

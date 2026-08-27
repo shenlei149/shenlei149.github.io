@@ -1,4 +1,4 @@
-`std::make_shared` 是 C++11 标准引入的，不过 `std::make_unique` 是 C++14 标准引入的。实现一个不支持数组和自定义删除器的 `std::make_unique` 是很容的。
+`std::make_shared` 是 C++11 标准引入的，不过 `std::make_unique` 是 C++14 标准引入的。实现一个不支持数组和自定义删除器的 `std::make_unique` 是很容易的。
 ```cpp
 template <typename T, typename... Ts>
 std::unique_ptr<T> make_unique(Ts &&...params)
@@ -6,89 +6,89 @@ std::unique_ptr<T> make_unique(Ts &&...params)
     return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
 }
 ```
-`std::make_unique` `std::make_shared` 是三个 `make` 函数中的两个：接受任意参数，完美转发给构造函数动态的创建一个对象，然后返回指向这个对象的智能指针。和 `std::make_shared` 类似，`std::allocate_shared` 接受一个分配器。
+`std::make_unique` 和 `std::make_shared` 是三个 `make` 函数中的两个：它们接受任意参数，将其完美转发给构造函数，动态创建一个对象，然后返回指向这个对象的智能指针。和 `std::make_shared` 类似，`std::allocate_shared` 接受一个分配器。
 
-下面通过使用和不使用 `make` 给出了使用 `make` 函数的第一个原因。
+下面通过使用和不使用 `make` 的代码来说明使用 `make` 函数的第一个原因。
 ```cpp
 auto upw1(std::make_unique<Widget>());    // with make func
 std::unique_ptr<Widget> upw2(new Widget); // without make func
 auto spw1(std::make_shared<Widget>());    // with make func
 std::shared_ptr<Widget> spw2(new Widget); // without make func
 ```
-原书高亮了 `Widget`。不使用 `make`，`Widget` 重复了两次，使用 `make` 就避免了重复。好处有避免了代码冗余。代码冗余会使得编译时间更长，目标代码冗余，并且使代码库使用更加困难。通常会演进成不一致的代码，而不一致的代码往往会出现 bug。
+原书高亮了 `Widget`。不使用 `make` 时，`Widget` 重复了两次；使用 `make` 就避免了重复。好处之一是避免了代码冗余。代码冗余会使编译时间更长、生成的目标代码更大，并使代码库更难维护。通常还会演变成不一致的代码，而不一致的代码往往更容易出现 bug。
 
-第二个使用 `make` 的理由是异常安全。考虑有如下函数，根据优先级来处理 `Widget`
+第二个使用 `make` 的理由是异常安全。考虑如下函数，它根据优先级来处理 `Widget`：
 ```cpp
 void processWidget(std::shared_ptr<Widget> spw, int priority);
 ```
-按值传递 `std::shared_ptr` 看起来有点奇怪，不过 [Item 41](../ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md) 给出了合理的理由，如果 `processWidget` 总是复制 `std::shared_ptr`。
+按值传递 `std::shared_ptr` 看起来有点奇怪，不过 [Item 41](../ch08_Tweaks/41_Consider_pass_by_value_for_copyable_parameters_that_are_cheap_to_move_and_always_copied.md) 给出了合理的理由：如果 `processWidget` 总是复制这个 `std::shared_ptr`，那就没什么问题。
 
-假定我们有一个计算优先级的函数
+假定我们有一个计算优先级的函数：
 ```cpp
 int computePriority();
 ```
-下面使用 `new` 而不是 `make` 来使用这个函数。
+下面使用 `new` 而不是 `make` 来调用这个函数。
 ```cpp
 processWidget(std::shared_ptr<Widget>(new Widget), // potential resource leak!
               computePriority());
 ```
-注释中解释说，可能产生内存泄露，但是这又是如何发生的呢？
+注释中说明这里可能产生内存泄露，但这是如何发生的呢？
 
-在运行时，参数必须要在调用函数之前完成求值，所以在调用 `processWidget` 之前，一定要完成三件事：
-* `new Widget` 求值，在对上创建一个 `Widget` 对象
+在运行时，参数必须在调用函数之前完成求值，所以在调用 `processWidget` 之前，需要完成三件事：
+* 求值 `new Widget`，在堆上创建一个 `Widget` 对象
 * 构造 `std::shared_ptr<Widget>` 来管理 `new` 出来的对象
-* `computePriority` 必须被执行
+* 执行 `computePriority`
 
-编译器没有必要按照上述顺序进行操作。考虑下面一种情况：
+编译器没有必要按上述顺序执行这些步骤。考虑下面这种情况：
 1. 执行 `new Widget`
 2. 执行 `computePriority`
 3. 构造 `std::shared_ptr`
 
-如果运行时 `computePriority` 抛出一个异常，而第一步 `new` 出来的对象还没有被 `std::shared_ptr` 管理，那么就会泄露内存。
+如果 `computePriority` 抛出异常，而第一步 `new` 创建的对象还没有被 `std::shared_ptr` 管理，那么就会泄露内存。
 
 如果使用 `make` 就不会有这个问题。
 ```cpp
 processWidget(std::make_shared<Widget>(), // no potential resource leak
               computePriority());
 ```
-运行时 `std::make_shared` 和 `computePriority` 总有一个先执行。`std::make_shared` 先执行，那么裸指针安全的存储在 `std::shared_ptr` 中，如果 `computePriority` 抛出异常，`std::shared_ptr` 的析构函数释放 `Widget` 的内存资源。如果 `computePriority` 先执行且抛出异常，`std::make_shared` 还没有调用，也就不用担心动态创建 `Widget` 而导致的内存泄露问题。
+运行时，`std::make_shared` 和 `computePriority` 总有一个会先执行。若 `std::make_shared` 先执行，那么对象会被安全地存入 `std::shared_ptr`；如果 `computePriority` 抛出异常，`std::shared_ptr` 的析构函数会释放 `Widget` 占用的内存。若 `computePriority` 先执行且抛出异常，`std::make_shared` 还没调用，也就不用担心动态创建 `Widget` 导致的内存泄露问题。
 
-`std::shared_ptr` `std::make_shared` 替换成 `std::unique_ptr` `std::make_unique`，上述分析同样成立。
+将 `std::shared_ptr` 替换为 `std::make_shared`、将 `std::unique_ptr` 替换为 `std::make_unique`，上述分析同样成立。
 
-`std::make_shared` 的一个特性是相比原始的 `new` 效率提升。使用 `std::make_shared` 能够生成更小更快的代码，并使用更精简的数据结构。考虑如下直接使用 `new` 的代码
+`std::make_shared` 的一个优点是，相比直接使用 `new`，它能提升效率。使用 `std::make_shared` 能够生成更小、更快的代码，并使用更精简的数据结构。考虑如下直接使用 `new` 的代码：
 ```cpp
 std::shared_ptr<Widget> spw(new Widget);
 ```
-这段代码涉及一次内存分配，但是执行了两次。第一次分配是 `new` `Widget`，第二次是 `std::shared_ptr` 的构造函数中分配内存存放控制块。
+这段代码涉及两次内存分配。第一次发生在 `new Widget`，第二次发生在 `std::shared_ptr` 的构造函数中，用于分配控制块。
 
 如果使用 `make`
 ```cpp
 auto spw = std::make_shared<Widget>();
 ```
-那么只进行一次内存分配，存放 `Widget` 和控制块，程序执行的更快。另外，`std::make_shared` 可以消除额外分配控制块的记录信息，使得占用内存更小。
+那么只进行一次内存分配，同时存放 `Widget` 和控制块，程序执行得更快。另外，`std::make_shared` 还能省去控制块单独分配带来的额外开销，从而减少内存占用。
 
-针对 `std::make_shared` 的分析对 `std::allocate_shared` 也有效。
+针对 `std::make_shared` 的分析对 `std::allocate_shared` 也同样适用。
 
-对使用 `new` 还是 `make` 的争论一直都有。这里是更倾向于使用 `make`，对于一些场景，不得不使用 `new`。
+对使用 `new` 还是 `make` 的争论一直都有。这里更倾向于使用 `make`，但对于一些场景，不得不使用 `new`。
 
-比如，`make` 函数不支持自定义删除器，但 `std::unique_ptr` `std::shared_ptr` 的构造函数支持。假定有一个自定义的删除器
+比如，`make` 函数不支持自定义删除器，但 `std::unique_ptr` 和 `std::shared_ptr` 的构造函数支持。假定有一个自定义删除器：
 ```cpp
 auto widgetDeleter = [](Widget *pw) {};
 ```
-我们就不得不 `new` 对象然后构造智能指针。
+那么我们就不得不先 `new` 一个对象，然后再构造智能指针。
 ```cpp
 std::unique_ptr<Widget, decltype(widgetDeleter)>
     upw(new Widget, widgetDeleter);
 std::shared_ptr<Widget> spw(new Widget, widgetDeleter);
 ```
-第二个限制是由于语法限制导致的。之前分析过，如果构造函数有带 `std::initializer_list` 的，也有不带的，那么当使用大括号构造对象时，倾向于使用带 `std::initializer_list` 的构造函数，而使用小括号构造对象的时候，倾向于使用不带 `std::initializer_list` 的构造函数。`make` 函数完美转发参数给构造函数，但是不知道该使用哪一种括号构造对象。对于 `std::vector`，这个差异很大。
+第二个限制来自语法。之前分析过，如果一个构造函数既有接受 `std::initializer_list` 的版本，也有不接受的版本，那么使用大括号初始化时会优先选择前者，而使用小括号初始化时会选择后者。`make` 函数会将参数完美转发给构造函数，但它不知道该使用哪种括号形式来构造对象。对于 `std::vector`，这个差异很大。
 ```cpp
 auto upv = std::make_unique<std::vector<int>>(10, 20);
 auto spv = std::make_shared<std::vector<int>>(10, 20);
 ```
-是 10 个元素，每个都是 20？还是只有两个元素，分别是 10,20？
+是 10 个元素，每个都是 20？还是只有两个元素，分别是 10 和 20？
 
-结果是确定的。由于 `make` 实现使用小括号构造对象，所以是 10 个 20。如果想使用 `std::initializer_list` 构造两个元素的对象，那么不得不使用 `new`。`make` 函数需要有完美转发初始化列表的能力，但是正如 [Item 30](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/30_Familiarize_yourself_with_perfect_forwarding_failure_cases.md) 所说，初始化列表不能被完美转发。不过 Item 30 也给出了一个变通办法：使用 `auto` 类型推导构造一个 `std::initializer_list`，然后把这个对象传递给 `make`。
+结果是确定的。由于 `make` 的实现使用的是小括号形式，所以结果是 10 个元素、每个值为 20。如果想使用 `std::initializer_list` 构造两个元素的对象，那么只能使用 `new`。`make` 函数需要能够完美转发初始化列表，但正如 [Item 30](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/30_Familiarize_yourself_with_perfect_forwarding_failure_cases.md) 所说，初始化列表不能被完美转发。不过 Item 30 也给出了一个变通办法：先使用 `auto` 推导出一个 `std::initializer_list`，然后把这个对象传给 `make`。
 ```cpp
 // create std::initializer_list
 auto initList = {10, 20};
@@ -96,17 +96,17 @@ auto initList = {10, 20};
 // create std::vector using std::initializer_list ctor
 auto spv = std::make_shared<std::vector<int>>(initList);
 ```
-对于 `std::unique_ptr`，其 `make` 函数只有这两个问题。不过对于 `std::shared_ptr` 和它的 `make` 函数，还有两个问题。
+对于 `std::unique_ptr` 来说，`make` 函数只有这两个问题。不过对于 `std::shared_ptr` 及其 `make` 函数，还有另外两个问题。
 
-一些类自定义了 `operator new` 和 `operator delete`，那么全局性的分配和释放内存的机制对这些就不再有效了。通常，设计这些的目的是更精准的控制内存大小。比如 `Widget` 自定义了 `operator new` 和 `operator delete`，精确地分配和释放 `sizeof(Widget)` 大小的内存。此时，通过 `std::allocate_shared` 提供的 `std::shared_ptr` 对自定义分配器的支持就不能正常工作了，因为 `std::allocate_shared` 需要分配的大小比 `Widget` 的大小少大一些（控制块）。
+有些类自定义了 `operator new` 和 `operator delete`，这时全局的分配和释放机制就不再适用了。通常这样做是为了更精确地控制内存大小。比如，`Widget` 自定义了 `operator new` 和 `operator delete`，以精确分配和释放 `sizeof(Widget)` 大小的内存。此时，`std::make_shared` 或 `std::allocate_shared` 就无法使用 `Widget` 自定义的内存管理机制，因为它们分配的内存比 `Widget` 本身更大，还要包含控制块。
 
-`std::make_shared` 的速度优势在于只分配一次内存。当引用计数为零的时候，对象应该被销毁。但是直到控制块也不再需要的时候，才能释放整块内存。
+`std::make_shared` 的速度优势在于只分配一次内存。当引用计数变为零时，对象应该被销毁，但只有等控制块也不再需要时，才能释放整块内存。
 
-控制块还包括 `std::weak_ptr` 要用到的次级引用计数，表示有几个 `std::weak_ptr` 还在指向当前对象。`std::weak_ptr` 的 `expired()` 函数需要检查引用计数来确定是否还有 `std::shared_ptr` 指向当前对象。
+控制块还包括供 `std::weak_ptr` 使用的次级引用计数，表示有多少个 `std::weak_ptr` 正在指向当前对象。`std::weak_ptr` 的 `expired()` 函数会检查强引用计数，以确定是否还有 `std::shared_ptr` 指向当前对象。
 
-只要 `std::weak_ptr` 还存在，那么控制块就必须要存在，那么整块内存就不能被释放。因此，通过 `make` 分配的内存，需要在最后一个 `std::shared_ptr` 和最后一个 `std::weak_ptr` 都不再指向当前对象时才能被释放。
+只要 `std::weak_ptr` 还存在，控制块就必须保留，因此整块内存也不能释放。因此，通过 `make` 分配的内存，只有在最后一个 `std::shared_ptr` 和最后一个 `std::weak_ptr` 都不再指向当前对象时才能释放。
 
-如果对象很大，而且最后一个 `std::shared_ptr` 和最后一个 `std::weak_ptr` 被销毁之间的时间差很大，那么销毁对象和释放内存之间就会有延迟。
+如果对象很大，而且最后一个 `std::shared_ptr` 和最后一个 `std::weak_ptr` 被销毁之间的时间差很大，那么对象销毁和内存释放之间就会有延迟。
 ```cpp
 class ReallyBigType
 {
@@ -128,7 +128,7 @@ auto pBigObj =                         // create very large
 // memory for control block and object is released
 ```
 
-如果使用 `new` 构造对象，那么当最后一个 ` std::shared_ptr` 被析构的时候，对象会被析构，同时，内存也会被释放。
+如果使用 `new` 构造对象，那么当最后一个 `std::shared_ptr` 被析构时，对象会被销毁，同时内存也会被释放。
 ```cpp
 class ReallyBigType
 {
@@ -151,7 +151,7 @@ std::shared_ptr<ReallyBigType> pBigObj(new ReallyBigType);
 // memory for control block is released
 ```
 
-如果无法使用 `std::make_shared` 又想异常安全，最好的方式是在一个不做其他事情的语句中，使用 `new` 构造对象然后立即传递给智能指针的构造函数。这样编译器无法在 `new` 对象和构造智能指针之间插入可能抛出异常的语句。
+如果无法使用 `std::make_shared`，但又想保持异常安全，最好的方式是在一个不做其他事情的语句中，用 `new` 构造对象并立即将其传给智能指针构造函数。这样编译器就无法在 `new` 出来的对象和构造智能指针之间插入可能抛出异常的语句。
 ```cpp
 void processWidget(std::shared_ptr<Widget> spw, // as before
                    int priority);
@@ -164,9 +164,9 @@ processWidget(                                   // as before, potential
 std::shared_ptr<Widget> spw(new Widget, cusDel);
 processWidget(spw, computePriority()); // correct, but not optimal; see below
 ```
-`std::shared_ptr` 获取了传递给它的裸指针的所有权，即使其构造函数抛出异常（比如无法分配控制块的内存），还是可以保证在 `new Widget` 上调用 `cusDel` 释放内存。
+`std::shared_ptr` 会接管传给它的裸指针，即使其构造函数抛出异常（比如因为无法为控制块分配内存），也仍然可以保证对 `new Widget` 调用 `cusDel` 来释放内存。
 
-这里有一个很小的性能问题，在异常不安全的版本，我们传递了右值，但是在异常安全的版本中，我们传递了左值。
+这里还有一个很小的性能问题：在异常不安全的版本中，我们传递的是右值；而在异常安全的版本中，我们传递的是左值。
 ```cpp
 processWidget(
     std::shared_ptr<Widget>(new Widget, cusDel), // arg is rvalue
@@ -174,7 +174,7 @@ processWidget(
 
 processWidget(spw, computePriority()); // arg is lvalue
 ```
-`processWidget` 的 `std::shared_ptr` 参数是按值传递的。如果传递的是右值，涉及移动操作；如果传递左值，只能拷贝。对于 `std::shared_ptr` 而言，这两者是有差距的，拷贝需要原子操作来自增引用计数，而移动就不需要了。解决这个性能问题的方式是对 `spw` 使用 `std::move` 将其变成右值（参考 [Item 23](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/23_Understand_std_move_and_std_forward.md)）。
+`processWidget` 的 `std::shared_ptr` 参数是按值传递的。如果传入右值，就会发生移动；如果传入左值，就只能拷贝。对于 `std::shared_ptr` 来说，这两者有区别：拷贝需要原子操作来增加引用计数，而移动则不需要。解决这个性能问题的方法是对 `spw` 使用 `std::move`，将其转成右值（参考 [Item 23](../ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding/23_Understand_std_move_and_std_forward.md)）。
 ```cpp
 processWidget(std::move(spw),     // both efficient and
               computePriority()); // exception safe

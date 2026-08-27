@@ -1,4 +1,4 @@
-[Item 26](./26_Avoid_overloading_on_universal_references.md) 告诉我们重载通用引用的函数不是一个好主意。但是有些时候重载很有用。这一章阐述一些方法来解决这些问题。
+[Item 26](./26_Avoid_overloading_on_universal_references.md) 告诉我们重载通用引用的函数不是一个好主意。但是有些时候重载很有用。本节阐述一些解决这些问题的方法。
 
 ## Abandon overloading
 对于 [Item 26](./26_Avoid_overloading_on_universal_references.md) 的第一个例子 `logAndAdd`，我们可以避免重载。比如我们将两个函数分别取名为 `logAndAddName` 和 `logAndAddNameIdx`。但是这个方法对于第二个例子 `Person` 类的构造函数不适用，因为构造函数的名字是确定的。
@@ -27,10 +27,10 @@ private:
     std::string name;
 };
 ```
-由于 `std::string` 没有接受整型的构造函数，所以 `int` 和类似 `int` 的参数（比如 `std::size_t` `long` `short`）都会调用 `int` 重载的 `Person` 构造函数。类似的，`std::string` 及能够创建 `std::string` 的类型，比如 "Ruth" 字面量，都会调用 `std::string` 重载的 `Person` 构造构造函数。对传入了 0 或者 `NULL` 表示空指针但是又调用了 `int` 构造函数表示吃惊的话，参考 [Item 8](../ch03_Moving_to_Modern_C++/08_Prefer_nullptr_to_0_and_NULL.md)，不要这么用。
+由于 `std::string` 没有接受整型的构造函数，所以 `int` 和类似 `int` 的参数（比如 `std::size_t`、`long`、`short`）都会调用 `int` 重载的 `Person` 构造函数。类似地，`std::string` 以及能够创建 `std::string` 的类型，比如 `"Ruth"` 字面量，都会调用接受 `std::string` 的 `Person` 构造函数。如果对传入表示空指针的 `0` 或 `NULL` 却调用了 `int` 构造函数感到意外，请参考 [Item 8](../ch03_Moving_to_Modern_C++/08_Prefer_nullptr_to_0_and_NULL.md)：不要这么用。
 
 ## Use Tag dispatch
-如果我们的目的就是要使用完美转发，那么就不得不使用通用引用，没有别的选择。但是又不想放弃重载，改怎么做呢？
+如果我们的目的就是要使用完美转发，那么就不得不使用通用引用，没有别的选择。但是又不想放弃重载，该怎么做呢？
 
 方法也比较简单。通用引用函数的参数列表的一部分是非通用引用，这就能使得非精确匹配的重载函数能够被选中，进而不调用通用引用版本的重载。这就是 `tag dispatch` 的原理。下面使用这种方法来解决之前 `logAndAdd` 函数遇到的问题。先回忆一下之前的实现。
 ```cpp
@@ -50,6 +50,11 @@ void logAndAdd(T &&name) // name to data structure
 
 下面是接近正确的新的实现。
 ```cpp
+template <typename T>
+void logAndAddImpl(T &&name, std::false_type);
+
+void logAndAddImpl(int idx, std::true_type);
+
 template <typename T>
 void logAndAdd(T &&name)
 {
@@ -71,7 +76,18 @@ void logAndAdd(T &&name)
 ```
 接着，我们实现 `logAndAddImpl` 函数。第一个重载处理非整型类型，也就是 `std::is_integral<typename std::remove_reference<T>::type>()` 返回 `false` 的情况。
 
-一旦明白了 `std::false_type`，也就理解了整个函数。从概念上将，`logAndAdd` 给 `logAndAddImpl` 传入一个 `bool` 类型，表明参数是否是整型，但是 `true` he `false` 是运行时的值，我们这里需要编译期的值进行重载选择。也就是说，我们需要一个类型，对于 `true` 时与 `false` 时要所有区别。C++ 标准库提供了 `std::true_type` 和 `std::false_type`，能够满足需求。如果 `T` 是整型，那么 `logAndAdd` 传递给 `logAndAddImpl` 是继承自 `std::true_type` 的对象，否则是继承自 `std::false_type` 的对象。也就是说 `logAndAdd` 根据 `T` 类型来调用不同的 `logAndAddImpl` 重载。
+一旦明白了 `std::false_type`，也就理解了整个函数。从概念上讲，`logAndAdd` 给 `logAndAddImpl` 传入一个 `bool` 类型，表明参数是否是整型，但是 `true` 和 `false` 是运行时的值，我们这里需要编译期的值进行重载选择。也就是说，我们需要一种类型：对于 `true` 与 `false` 有所区别。C++ 标准库提供了 `std::true_type` 和 `std::false_type`，能够满足需求。如果 `T` 是整型，那么 `logAndAdd` 传递给 `logAndAddImpl` 的是继承自 `std::true_type` 的对象，否则是继承自 `std::false_type` 的对象。也就是说，`logAndAdd` 根据 `T` 的类型来调用不同的 `logAndAddImpl` 重载。
+
+处理非整型参数的重载如下：
+```cpp
+template <typename T>
+void logAndAddImpl(T &&name, std::false_type)
+{
+    auto now = std::chrono::system_clock::now();
+    log(now, "logAndAdd");
+    names.emplace(std::forward<T>(name));
+}
+```
 
 第二个重载处理整型的情况。`logAndAddImpl` 的实现很简单，根据 `idx` 查找对应的 `name`，然后再次调用 `logAndAdd` 即可，最后会调用到第一个重载。这样可以避免一些代码重复，保持简洁。
 ```cpp
@@ -109,14 +125,14 @@ public:
 ```
 对 `std::enable_if` 的讨论超出了本书的范围，这里我们精力集中在 `condition` 部分。
 
-这里的条件是 `T` 不是 `Person` 类型，那么可以写作 `!std::is_same<Person, T>::value`，但是正如 Item 28 TOOD link 解释的，如果用左值绑定到通用引用上，那么 `T` 是引用类型。而 `Person` 与 `Person&` 并不是一个类型，`std::is_same<Person, Person&>::value` 的结果是 `false` 也反映了这一点。
+这里的条件是 `T` 不是 `Person` 类型，那么可以写作 `!std::is_same<Person, T>::value`，但是正如 [Item 28](./28_Understand_reference_collapsing.md) 所解释的，如果用左值绑定到通用引用上，那么 `T` 是引用类型。而 `Person` 与 `Person&` 并不是同一类型，`std::is_same<Person, Person&>::value` 的结果是 `false` 也反映了这一点。
 
 进一步考虑这个问题，当我们说 `T` 不是 `Person` 类型的时候，我们需要忽略
 
-* 是否有引用。在这个场景下，`Person` `Person&` `Person&&` 与 `Person` 都一样的。
-* 是否是 `const` 或者 `volatile`。`const Person` `volatile Person` `const volatile Person` 也应该被视为 `Person`。
+* 是否有引用。在这个场景下，`Person`、`Person&`、`Person&&` 都应被视为同一类型。
+* 是否是 `const` 或者 `volatile`。`const Person`、`volatile Person`、`const volatile Person` 也应该被视为 `Person`。
 
-这里需要使用 `std::decay`。`std::decay<T>::type` 与 `T` 同类型，会移除引用，cv 修饰符（`const` `volatile` 修饰符）。另外，它会将数组和函数退化成指针，但是这里不需要这个功能。因此这里的条件应写作
+这里需要使用 `std::decay`。`std::decay<T>::type` 基于 `T` 生成一个类型：移除引用和 cv 修饰符（`const`、`volatile` 修饰符）。另外，它会将数组和函数退化成指针，但是这里不需要这个功能。因此这里的条件应写作
 ```cpp
 !std::is_same<Person, typename std::decay<T>::type>::value
 ```
@@ -133,7 +149,7 @@ public:
     explicit Person(T &&n);
 };
 ```
-最后才介绍这个方法。如果有其他的方法避免通用引用与重载出问题，应该用其他方法。有了上述实现之后，当使用 `Person` 初始化一个 `Person` 对象，不管是左值还是右值，不管有没有 `const` `volatile`，都不会调用到通用引用的构造函数了。
+最后才介绍这个方法。如果有其他方法可以避免通用引用与重载的问题，应该优先使用其他方法。有了上述实现之后，当使用 `Person` 初始化一个 `Person` 对象，不管是左值还是右值，不管有没有 `const`、`volatile`，都不会调用到通用引用的构造函数了。
 
 还没有完全结束，[Item 26](./26_Avoid_overloading_on_universal_references.md) 还有一个场景，就是继承类的情况。
 ```cpp
@@ -155,7 +171,7 @@ public:
 
 继承类使用最正规的方式调用基类的拷贝和移动构造函数，所以解决问题的方式还是要回到基类。`Person` 类的完美转发构造函数要在 `SpecialPerson` 类型的情况下也被禁用，或者说，类型是 `Person` 及其继承类都不行。
 
-标准库的 type trait 提供了一个有用的接口：`std::is_base_of`，判定一个类型是否继承自另一个对象。如果 `T2` 继承自 `T1`，那么 `std::is_base_of<T1, T2>::value` 的值是 `true`。一个类型也能被想做是继承自自身，所以 `std::is_base_of<T, T>::value` 的结果总是 `true`。这个性质非常有用。当前我们要做的判断是，一个类型，在移除引用、`const` `volatile` 修饰之后，既不能是 `Person` 类型，也不能是继承自 `Person` 的类型。这里只需要使用 `std::is_base_of` 替换 ` std::is_same` 即可。
+标准库的 type trait 提供了一个有用的接口：`std::is_base_of`，判定一个类型是否继承自另一个类型。如果 `T2` 继承自 `T1`，那么 `std::is_base_of<T1, T2>::value` 的值是 `true`。一个类型也能被视为继承自自身，所以 `std::is_base_of<T, T>::value` 的结果总是 `true`。这个性质非常有用。当前我们要做的判断是，一个类型在移除引用、`const`、`volatile` 修饰之后，既不能是 `Person` 类型，也不能是继承自 `Person` 的类型。这里只需要使用 `std::is_base_of` 替换 `std::is_same` 即可。
 ```cpp
 class Person
 {
@@ -230,7 +246,7 @@ Person p(u"Konrad Zuse");
 
 在这个例子中，我们只是用了一次完美转发。更复杂的系统中，参数会转发好几次之后才达到最后需要的地方，然后才能确定参数是否会被接受。转发层次越多，报错信息与实际的错误偏差就越大。很多程序员发现在性能关键点使用完美转发处会发生这种情况。
 
-在 `Person` 这个情况下，我们知道传入的参数类型应该能作为 `std::string` 的构造函数的参数，可以使用 `static_assert` 来实现这一点。type traits 中 `std::is_constructible` 可以在编译器的时候检查一个类型能够构造出另一个类型。因此这个断言如下：
+在 `Person` 这个情况下，我们知道传入的参数类型应该能作为 `std::string` 的构造函数的参数，可以使用 `static_assert` 来实现这一点。type traits 中的 `std::is_constructible` 可以在编译期检查一个类型能否构造出另一个类型。因此这个断言如下：
 ```cpp
 class Person
 {
@@ -254,7 +270,7 @@ public: // as before
     // remainder of Person class (as before)
 };
 ```
-这样，如果传入的参数不能构造一个 `std::string`，会给出更有用的信息。不过，这个语句实在构造函数内，而完美转发位于初始化列表，因此这个有用的信息会出现在上百行错误信息之后。
+这样，如果传入的参数不能构造一个 `std::string`，会给出更有用的信息。不过，这个语句实际在构造函数内，而完美转发位于初始化列表，因此这个有用的信息会出现在上百行错误信息之后。
 
 ## Things to Remember
 * Alternatives to the combination of universal references and overloading include the use of distinct function names, passing parameters by lvalue-reference-to-`const`, passing parameters by value, and using tag dispatch.
