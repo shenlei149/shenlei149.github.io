@@ -1,6 +1,6 @@
 `std::bind` 历史悠久，可能早期不是这个名字罢了。但是到了 C++11，大部分场景下，lambda 都是更好的选择。到了 C++14，更强大，完全应该使用 lambda 而不是 `std::bind`。
 
-`std::bind` 返回的函数对象称为绑定对象（`bind objects`）。
+`std::bind` 返回的函数对象称为绑定对象（`bind object`）。
 
 使用 lambda 而不是 `std::bind` 最重要的原因是更可读。假定我们有一个设置警报的函数：
 ```cpp
@@ -21,7 +21,7 @@ using Duration = std::chrono::steady_clock::duration;
 // at time t, make sound s for duration d
 void setAlarm(Time t, Sound s, Duration d);
 ```
-假定在程序运行到某个时刻，我们需要设置一个一小时之后持续 30s 的报警。但是报警的声音没有确定。可以先一个 lambda 表达式包裹一下 `setAlarm`，调用 lambda 只需要指定声音即可。
+假定在程序运行到某个时刻，我们需要设置一个一小时之后持续 30s 的报警。但是报警的声音没有确定。可以先用一个 lambda 表达式包裹一下 `setAlarm`，调用 lambda 只需要指定声音即可。
 ```cpp
 // setSoundL ("L" for "lambda") is a function object allowing a
 // sound to be specified for a 30-sec alarm to go off an hour
@@ -36,7 +36,7 @@ auto setSoundL =
              seconds(30));                   // 30 seconds
 };
 ```
-在 lambda 内部，就是一个正常的函数调用，即使不熟悉 lambda 表示式，也能看出来传递给 lambda 的 `s` 参数被传递给了 `setAlarm`。
+在 lambda 内部，就是一个正常的函数调用，即使不熟悉 lambda 表达式，也能看出来传递给 lambda 的 `s` 参数被传递给了 `setAlarm`。
 
 C++14 提供了字面量的标准后缀，秒 `s`，毫秒 `ms`，小时 `h` 等。这些后缀实现在 `std::literals` 命名空间，所以上面的代码可以改写为
 ```cpp
@@ -62,11 +62,11 @@ auto setSoundB = // "B" for "bind"
               _1,
               30s);
 ```
-调用 `setSoundB` 会使用 `std::bind` 中指定的时间和持续时间来调用 `setAlarm`。对于不熟悉的来说，`_1` 是黑魔法。对于熟悉的人而言，也需要有一个转化，这个是传递给 `setSoundB` 的第一个参数，作为 `setAlarm` 的第二个参数。`std::bind` 不会给出 `setSoundB` 的参数类型，所以调用的人不得不查看 `setAlarm` 的参数列表然后确定传递给 `setSoundB` 的参数类型。
+调用 `setSoundB` 会使用 `std::bind` 中指定的时间和持续时间来调用 `setAlarm`。对于不熟悉它的人来说，`_1` 是黑魔法。即使对于熟悉的人而言，也需要进行一次转换：它是传递给 `setSoundB` 的第一个参数，作为 `setAlarm` 的第二个参数。`std::bind` 不会给出 `setSoundB` 的参数类型，所以调用的人不得不查看 `setAlarm` 的参数列表然后确定传递给 `setSoundB` 的参数类型。
 
-不过上述代码有点 bug。在 lambda 表达式中，`steady_clock::now() + 1h` 是 `setAlarm` 的参数，在调用 `setAlarm` 的时候求值。但是后面的实现中，`steady_clock::now() + 1h` 是传递给 `std::bind` 的参数，而不是传递给 `setAlarm` 的参数。这意味着当调用 `std::bind` 的时候，`steady_clock::now() + 1h` 就求值完成了。结果就是警报会在调用 `std::bind` 一个小时之后响而不是在调用 `setAlarm` 一个小时之后。
+不过上述代码有一个 bug。在 lambda 表达式中，`steady_clock::now() + 1h` 是 `setAlarm` 的参数，在调用 `setAlarm` 的时候求值。但是后面的实现中，`steady_clock::now() + 1h` 是传递给 `std::bind` 的参数，而不是传递给 `setAlarm` 的参数。这意味着当调用 `std::bind` 的时候，`steady_clock::now() + 1h` 就求值完成了。结果就是警报会在调用 `std::bind` 一个小时之后响而不是在调用 `setAlarm` 一个小时之后。
 
-为了修复这个问题，必须告诉 `std::bind` 要延迟求值，直到 `setAlarm` 被调用的时候。结果就是必须嵌套一个的 `std::bind`。
+为了修复这个问题，必须告诉 `std::bind` 要延迟求值，直到 `setAlarm` 被调用的时候。结果就是必须嵌套一个 `std::bind`。
 ```cpp
 auto setSoundB =
     std::bind(setAlarm,
@@ -74,9 +74,9 @@ auto setSoundB =
                         std::bind(steady_clock::now),
                         1h),
               _1,
-              30s)
+              30s);
 ```
-C++14 中允许忽略模板参数，但是 C++11 中不行，那么在 C++11 中完成的代码是
+C++14 中允许忽略模板参数，但是 C++11 中不行，那么在 C++11 中相应的代码是
 ```cpp
 using namespace std::chrono; // as above
 using namespace std::placeholders;
@@ -89,7 +89,7 @@ auto setSoundB =
               _1,
               seconds(30));
 ```
-这明显要比 lambda 表达式要复杂，且可读性更差。
+这明显要比 lambda 表达式复杂，且可读性更差。
 
 当 `setAlarm` 有重载的时候，新的问题出现了。假定有一个重载版本，有四个参数，第四个参数可以指定音量。
 ```cpp
@@ -136,7 +136,7 @@ auto setSoundB =                                         // now
               _1,
               30s);
 ```
-lambda 和 `std::bind` 之前还有另外一个差异。`setSoundL` 内部调用 `setAlarm` 是正常的函数调用，编译器有可能可以做内联处理。
+lambda 和 `std::bind` 之间还有另外一个差异。`setSoundL` 内部调用 `setAlarm` 是正常的函数调用，编译器有可能可以做内联处理。
 ```cpp
 setSoundL(Sound::Siren); // body of setAlarm may well be inlined here
 ```
@@ -177,9 +177,9 @@ Widget w;
 using namespace std::placeholders;
 auto compressRateB = std::bind(compress, w, _1);
 ```
-当我们传入 `w` 进 `std::bind`，后续由 `compress` 调用。这个对象存储在 `compressRateB` 内部，但是它是如何存储的，按值还是按引用呢？这是有区别的。如果在调用 `std::bind` 和 `compressRateB` 之间修改了 `w`，按引用存储的 `w` 也会随之变化，但是按值传递就不会再有变化了。
+当我们传入 `w` 进 `std::bind`，后续由 `compress` 调用。这个对象存储在 `compressRateB` 内部，但是它是如何存储的，按值还是按引用呢？这是有区别的。如果在调用 `std::bind` 和 `compressRateB` 之间修改了 `w`，按引用存储的 `w` 也会随之变化，但是按值存储的 `w` 就不会再有变化了。
 
-答案是按值传递，我们只能记忆 `std::bind` 是如何工作的这件事本身。在调用 `std::bind` 的时候，没有任何记号能让人知道这一点。如果想按引用传递的话，需要在参数上加上 `std::ref`。而 lambda 表达式中，按值或按引用捕捉是显式的。
+答案是按值存储，我们只能记忆 `std::bind` 是如何工作的这件事本身。在调用 `std::bind` 的时候，没有任何记号能让人知道这一点。如果想按引用存储的话，需要在参数上加上 `std::ref`。而 lambda 表达式中，按值或按引用捕获是显式的。
 ```cpp
 auto compressRateL =          // w is captured by
     [w](CompLevel lev)        // value; lev is
@@ -193,7 +193,7 @@ compressRateL(CompLevel::High); // arg is passed by value
 ```cpp
 compressRateB(CompLevel::High); // how is arg passed?
 ```
-答案仍旧是只能记住 `std::bind` 是如何工作的：参数使用是引用传递，因为这些函数调用使用了完美转发。
+答案仍旧是只能记住 `std::bind` 是如何工作的：未绑定参数会被完美转发，因此保留传入实参的值类别。
 
 `std::bind` 可读性更差，表达力更低，或许更低效。C++14 以后再也没有理由使用 `std::bind` 了。
 
@@ -202,4 +202,3 @@ compressRateB(CompLevel::High); // how is arg passed?
 ## Things to Remember
 * Lambdas are more readable, more expressive, and may be more efficient than using `std::bind`.
 * In C++11 only, `std::bind` may be useful for implementing move capture or for binding objects with templatized function call operators.
-
