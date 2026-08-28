@@ -28,13 +28,13 @@ vs.push_back(std::string("xyzzy")); // create temp. std::string and pass it to p
 ```
 代码正常工作，但是性能并不是最佳的。
 
-为了在 `std::string` 中创建一个新的元素，必须调用 `std::string` 的构造函数。但是上述代码调用了两次，还调用了一次 `std::string` 的析构函数。下面是调用 `push_back` 运行时发生的事情。
+为了在 `std::vector` 中创建一个新的 `std::string` 元素，必须调用 `std::string` 的构造函数。但是上述代码调用了两次，还调用了一次 `std::string` 的析构函数。下面是调用 `push_back` 运行时发生的事情。
 
 1. 从字符串字面量 `"xyzzy"` 构造一个临时的 `std::string` 对象，该对象没有名字，这里称为 `temp` 好了。构造 `temp` 是第一次调用 `std::string` 的构造函数。因为这是一个临时对象，所以是右值。
-2. `temp` 传递给接受右值引用的 `push_back` 函数，绑定到右值引用参数 `x` 上。在 `std::vector` 内存中构造一个 `x` 的副本。第二次构造是创建一个位于 `std::vector` 内的对象。由于 `x` 是右值引用，所以调用的是移动构造函数。
+2. `temp` 传递给接受右值引用的 `push_back` 函数，绑定到右值引用参数 `x` 上。在 `std::vector` 内存中构造一个 `x` 的副本。第二次构造是创建一个位于 `std::vector` 内的对象。由于实现对 `x` 使用 `std::move`，所以调用的是移动构造函数。
 3. 当 `push_back` 返回，`temp` 被销毁，调用 `std::string` 的析构函数。
 
-如果能直接将字符串字面量传入 `push_back` 然后类似第二步这样在 `std::vector` 内构造一个 `std::string`，这样就可以避免构造和销毁 `temp` 对象。这样就能性能最大化了。
+如果能直接将字符串字面量传入 `push_back` 然后类似第二步这样在 `std::vector` 内构造一个 `std::string`，这样就可以避免构造和销毁 `temp` 对象。这样就能使性能最大化。
 
 这里需要调用 `emplace_back` 而不是 `push_back`。
 
@@ -47,7 +47,7 @@ vs.emplace_back("xyzzy"); // construct std::string inside vs directly from "xyzz
 vs.emplace_back(50, 'x'); // insert std::string consisting of 50 'x' characters
 ```
 
-支持 `push_back` 的容器都支持 `emplace_back`。类似的，有 `push_front` 的容易都支持 `emplace_front`，支持 `insert` 的容器也支持 `emplace`。关联容器提供 `emplace_hint` 作为接受 `hint` 迭代器的 `insert` 函数的补充。`std::forward_list` 有 `emplace_after`，对应于 `insert_after`。
+支持 `push_back` 的容器都支持 `emplace_back`。类似的，有 `push_front` 的容器都支持 `emplace_front`，支持 `insert` 的容器也支持 `emplace`。关联容器提供 `emplace_hint` 作为接受 `hint` 迭代器的 `insert` 函数的补充。`std::forward_list` 有 `emplace_after`，对应于 `insert_after`。
 
 `emplace` 接口比插入接口强的一点是更灵活。必须传入要插入的对象给插入函数，但是可以传入可以构造要插入对象的参数给 `emplace` 函数。这使得 `emplace` 可以避免构造和销毁临时对象，而插入函数无法避免这一点。
 
@@ -62,7 +62,7 @@ vs.emplace_back(queenOfDisco); // ditto
 ```
 `emplace` 能够完成所有插入函数能做的事情。有的时候 `emplace` 更高效，理论上至少不会更低效。为什么不总是使用它呢？
 
-因为理论上是这样的，但是实际上是有区别的。在当前标准库的实现下，是有些场景使用 `emplace` 更高效，不过也有一些场景插入函数速度更快。这些场景不容易描述，因为这取决于传递的参数类型，使用的容器类型，要插入或 `emplace` 元素的位置，元素构造的异常安全性，对不允许插入重复值的容器（`std::set` `std::mao` `std::unordered_set` `std::unordered_map`）值是否在容器中。一般建议是说通过基准测试来确定使用插入函数还是 `emplace`。
+因为理论上是这样的，但是实际上是有区别的。在当前标准库的实现下，是有些场景使用 `emplace` 更高效，不过也有一些场景插入函数速度更快。这些场景不容易描述，因为这取决于传递的参数类型，使用的容器类型，要插入或 `emplace` 元素的位置，元素构造的异常安全性，对不允许插入重复值的容器（`std::set` `std::map` `std::unordered_set` `std::unordered_map`）值是否在容器中。一般建议是说通过基准测试来确定使用插入函数还是 `emplace`。
 
 下面是一些启发式的方法来帮助确定如何选择。
 1. **新增的值是构造到容器，而不是赋值** 本节开头的例子满足这一点。值本身不存在，因此新值被构造到 `std::vector`。如果考虑新的 `std::string` 被插入的位置，事情会发生变化。比如
@@ -73,14 +73,14 @@ std::vector<std::string> vs; // as before
 
 vs.emplace(vs.begin(), "xyzzy"); // add "xyzzy" to beginning of vs
 ```
-对于这种情况，没有实现会在 `vs[0]` 的内存处构造被添加 `std::string`。通常会移动赋值把值放到对应位置。不过移动赋值需要一个被移动的对象，这意味需要创建一个临时对象。由于 `emplace` 主要优势就是没有临时对象的创建和销毁，因此当通过赋值来添加值的时候，`emplace` 就没有优势了。
+对于这种情况，没有实现会在 `vs[0]` 的内存处构造被添加的 `std::string`。通常会通过移动赋值把值放到对应位置。不过移动赋值需要一个被移动的对象，这意味着需要创建一个临时对象。由于 `emplace` 主要优势就是没有临时对象的创建和销毁，因此当通过赋值来添加值的时候，`emplace` 就没有优势了。
 
 通过构造还是赋值添加新的元素取决于实现，不过启发式的想法还是有帮助的。基于节点的容器通常使用构造的方式添加新的值，并且大部分容器都是基于节点的。只有 `std::vector` `std::deque` `std::string` 不是。`std::array` 也不是，但是不支持插入或 `emplace`，与这里讨论无关。对于不是基于节点的容器，使用 `emplace_back` 来使用构造而不是赋值向容器添加元素，对于 `std::deque`，使用 `emplace_front` 也是一样的。
 
 2. **传入的参数类型与容器持有的类型不同** 如果需要新添的对象类型是 `T`，容器是 `container<T>`，没有理由期望 `emplace` 比插入更快，因为使用插入接口也没有临时对象的创建。
-3. **容器大概率不需要拒绝插入重复值** 这意味容器要么允许重复值的插入，要么大部分值都是唯一的。为了检测值是否在容器内，`emplace` 实现往往是创建一个新的节点，然后与容器内已有的节点进行比较。如果不存在则添加新节点。否则，`emplace` 取消操作，销毁新节点，这意味创建和销毁新节点的开销都浪费了。相比插入函数而言，这类节点的创建更多是为了 `emplace`。
+3. **容器大概率不需要拒绝插入重复值** 这意味着容器要么允许重复值的插入，要么大部分值都是唯一的。为了检测值是否在容器内，`emplace` 实现往往是创建一个新的节点，然后与容器内已有的节点进行比较。如果不存在则添加新节点。否则，`emplace` 取消操作，销毁新节点，这意味创建和销毁新节点的开销都浪费了。相比插入函数而言，这类节点的创建更多是为了 `emplace`。
 
-之前的两个例子都满足上述条件，所以 `emplace_back` 都会运行的更快。
+之前的两个例子都满足上述条件，所以 `emplace_back` 都会运行得更快。
 ```cpp
 vs.emplace_back("xyzzy"); // construct new value at end of container; don't pass the type in
                           // container; don't use container rejecting duplicates
@@ -117,9 +117,9 @@ ptrs.emplace_back(new Widget, killWidget);
 1. `new Widget` 创建的指针被完美转发，然后创建一个 `list` 节点准备持有该裸指针，但此时 OOM 了。
 2. 异常从 `emplace_back` 中出来，那个在栈上的裸指针是唯一访问 `Widget` 对象的途径，此时消失了，那个 `Widget` 及其持有的资源泄露了。
 
-这种情况下，对象的生命周期处理问题，但是不是 `std::shared_ptr` 的错。有自定义删除器的 `std::unique_ptr` 也会有这个问题。类似 `std::shared_ptr` `std::unique_ptr` 资源管理的有效性的基础是自愿（比如 `new` 的裸指针）要立即传给资源管理对象。这也是 `std::make_shared` `std::make_unique` 这类函数自动做这些事情的原因。
+这种情况下，存在对象的生命周期管理问题，但这不是 `std::shared_ptr` 的错。有自定义删除器的 `std::unique_ptr` 也会有这个问题。类似 `std::shared_ptr`、`std::unique_ptr` 的资源管理对象能有效管理资源的前提是，资源（比如 `new` 的裸指针）要立即传给资源管理对象。这也是 `std::make_shared` `std::make_unique` 这类函数自动做这些事情的原因。
 
-利用资源管理对象的容器（比如 `std::list<std::shared_ptr<Widget>>)`）插入函数，函数的参数确保了在获取资源（比如 `new`）和构造管理资源的对象之间没有其他操作。在 `emplace` 中，完美转发延迟了资源管理对象的创建，即当容器中有内存的时候再构造，这就为发生异常导致内存泄露开了一个窗。所有的标准容器都会有这个问题。所有当使用资源管理对象的容器，选择 `emplace` 而不是插入函数，要确保不能为了性能而损失了异常安全。
+对于利用资源管理对象的容器（比如 `std::list<std::shared_ptr<Widget>>`），插入函数的参数确保了在获取资源（比如 `new`）和构造管理资源的对象之间没有其他操作。在 `emplace` 中，完美转发延迟了资源管理对象的创建，即当容器中有内存的时候再构造，这就为发生异常导致内存泄露开了一个窗。所有的标准容器都会有这个问题。所以当使用资源管理对象的容器时，选择 `emplace` 而不是插入函数，要确保不能为了性能而损失异常安全。
 
 直白地说，我们不应该传入诸如 `new Widget` 到 `emplace_back` 或 `push_back` 或其他函数，这可能会导致异常安全问题。解决方法是使用独立的语句将 `new Widget` 的指针放到资源管理对象中，然后传递右值到你想传入 `new Widget` 的函数。下面是 `push_back` 和 `emplace_back` 的例子。
 ```cpp
@@ -140,8 +140,8 @@ std::vector<std::regex> regexes;
 ```cpp
 regexes.emplace_back(nullptr); // add nullptr to container of regexes?
 ```
-编译器不会报错。不小心创建了一个 `nullptr` 指针表示的正在表达式，这是如何成功的呢？尝试写如下代码
-```ccp
+编译器不会报错。不小心创建了一个 `nullptr` 指针表示的正则表达式，这是如何成功的呢？尝试写如下代码
+```cpp
 std::regex r = nullptr; // error! won't compile
 ```
 如果使用 `push_back` 而不是 `emplace_back`，编译器也会报错。
@@ -157,9 +157,9 @@ std::regex upperCaseWord("[A-Z]+");
 std::regex r = nullptr;     // error! won't compile
 regexes.push_back(nullptr); // error! won't compile
 ```
-这两种情况都需要将指针转化为 `std::regex`，但是 `explicit` 使得这种隐式转化被禁止。
+这两种情况都需要将指针转化为 `std::regex`，但是 `explicit` 使得这种隐式转换被禁止。
 
-当调用 `emplace_back` 的时候，没有声明要传入 `std::regex` 对象，传入的参数是能够构造 `std::regex` 的参数。无需考虑隐式转化。下面的代码是合法的。
+当调用 `emplace_back` 的时候，没有声明要传入 `std::regex` 对象，传入的参数是能够构造 `std::regex` 的参数。无需考虑隐式转换。下面的代码是合法的。
 ```cpp
 std::regex r(nullptr); // compiles
 ```

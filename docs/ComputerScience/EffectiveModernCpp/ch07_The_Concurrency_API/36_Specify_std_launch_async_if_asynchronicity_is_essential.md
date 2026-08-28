@@ -16,7 +16,7 @@ auto fut = std::async(f); // run f using default launch policy
 
 默认启动策略的灵活性导致很难与 `thread_local` 变量交互。因为如果 `f` 读写了线程局部存储（`thread_local storage`, `TLS`），无法预测最终被访问的是哪一个线程的变量。
 
-这还会影响基于超时的 `wait()` 循环。对一个被推迟执行的任务调用 `wait_for()` 或 `wait_until()` 会返回 `std::future_status::deferred`，这意味着下面的循环看起来会终止，但是实际上可能陷入死循环。如果 `f` 运行在另一个线程上，比如启动策略是 `std::launch::async`，那么就没有问题，反之是 `f` 被推迟执行，那么循环就会永远阻塞。
+这还会影响基于超时的 `wait()` 循环。对一个被推迟执行的任务调用 `wait_for()` 或 `wait_until()` 会返回 `std::future_status::deferred`，这意味着下面的循环看起来会终止，但是实际上可能陷入死循环。如果 `f` 运行在另一个线程上，比如启动策略是 `std::launch::async`，那么就没有问题，反之是 `f` 被推迟执行，那么循环将永远不会结束（并会忙等）。
 ```cpp
 using namespace std::literals;
 
@@ -55,7 +55,7 @@ else
 }
 ```
 
-综上所述，只有在下面所有条件的都满足的情况下对任务使用默认策略才是安全可行的。
+综上所述，只有在下面所有条件都满足的情况下对任务使用默认策略才是安全可行的。
 
 - 任务不需要与调用 `get()` 或 `wait()` 的线程并发执行。
 - 任务具体读写哪一个线程的 `thread_local` 变量并不重要。
@@ -67,7 +67,7 @@ else
 auto fut = std::async(std::launch::async, f); // launch f asynchronously
 ```
 
-有一个工具行为和 `std::launch::async` 一样但是自动使用 `std::launch::async` 来确保任务异步执行会非常方便。
+有一个工具能自动使用 `std::launch::async` 来确保任务异步执行会非常方便。
 ```cpp
 template<typename F, typename... Ts>
 inline auto // std::future<typename std::result_of<F(Ts...)>::type>

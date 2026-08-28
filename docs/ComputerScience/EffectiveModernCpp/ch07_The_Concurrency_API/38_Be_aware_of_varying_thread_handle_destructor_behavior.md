@@ -18,7 +18,7 @@ Caller <-----------------Callee's Result <----------------- Callee
 共享状态的存在非常重要，因为 `future` 的析构行为由 `future` 关联的共享状态决定。
 
 - 对于指向通过 `std::async` 启动的非推迟任务共享状态的最后一个 `future`，它的析构函数会被阻塞，直到这个任务完成。也就是说 `future` 的析构函数对运行该异步任务的线程执行了一次隐式 `join()`。
-- 所有其他的 `future` 对象的析构函数销毁 `future` 对象本身。对于正在运行的异步任务而言，类似于对底层线程执行了 `detach()`。而与最后一个 `future` 的推迟任务而言，这意味这个延迟任务永远不会运行了。
+- 所有其他的 `future` 对象的析构函数销毁 `future` 对象本身。对于正在运行的异步任务而言，类似于对底层线程执行了 `detach()`。而对于最后一个 `future` 的推迟任务而言，这意味着该延迟任务永远不会运行。
 
 规则看起来复杂，其实只有两点，一种是简单的正常行为和一种例外。
 
@@ -53,8 +53,8 @@ private:
 不过如果知道 `future` 不满足触发特殊析构行为的条件，那么就可以确定它的析构函数不会阻塞。比如说是通过 `std::packaged_task` 创建的共享状态。一个 `std::packaged_task` 通过对一个函数（其他可以调用的对象）进行包装，使其执行结果放到一个共享状态中，从而为该函数异步执行做好了准备。随后，可以通过 `std::packaged_task` 的 `get_future()` 方法获取一个指向该共享状态的 `future` 对象。此时我们知道 `fut` 没有引用一个通过 `std::async` 创建的共享状态，因此它的析构函数不会阻塞。
 ```cpp
 int calcValue();						 // func to run
-std::packaged_task<int()> pt(calcValue); // wrap calcValue so it
-auto fut = pt.get_future();				 // can run asynchronously get future for pt
+std::packaged_task<int()> pt(calcValue); // wrap calcValue so it can run asynchronously
+auto fut = pt.get_future();				 // get future for pt
 ```
 一旦创建好了 `std::packaged_task` 对象，就可以在一个线程中执行它。也可以调用 `std::async` 来执行它，但是为什么不直接调用 `std::async` 来执行呢？因此下面我们传递给一个线程，由于 `std::packaged_task` 不能拷贝，所以要移动进去。
 ```cpp

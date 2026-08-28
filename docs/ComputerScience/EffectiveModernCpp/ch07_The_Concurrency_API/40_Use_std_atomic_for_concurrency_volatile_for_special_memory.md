@@ -11,7 +11,7 @@ std::cout << ai;		// atomically read ai's value
 
 `std::cout << ai;` 这个语句中只有读取 `ai` 的值是原子操作，不保证整个语句都是原子操作。在读取 `ai` 的值和写到标准输出 `operator<<` 之间，其他线程可能会修改 `ai` 的值，不过这不会影响 `std::cout` 的行为，因为 `operator<<` 使用的是按值传递的 `int` 值。
 
-第二个需要注意的点是 `ai` 的自增和自减，都是读-改-写（`read-modify-write`, ` RMW`）操作，不过都是原子的，这是 `std::atomic` 的一个重要特性。一旦一个 `std::atomic` 对象构造完成，所有成员和桉树，包含这些 `RMW` 操作，都能被其他线程视为原子的。
+第二个需要注意的点是 `ai` 的自增和自减，都是读-改-写（`read-modify-write`，`RMW`）操作，不过都是原子的，这是 `std::atomic` 的一个重要特性。一旦一个 `std::atomic` 对象构造完成，所有成员函数，包括这些 `RMW` 操作，都能被其他线程视为原子的。
 
 在多线程环境中，使用 `volatile` 的代码没有任何保证，这样代码会引发未定义的行为，同时读写没有互斥锁保护的内存，可能会导致数据竞争。
 ```cpp
@@ -61,14 +61,14 @@ valAvailable = true; // other threads might see this assignment before the one t
 auto y = x; // read x
 y = x;		// read x again
 ```
-编译器会优化生成的代码，删除第二个赋值语句。
+编译器会优化生成的代码，删除第一个赋值语句。
 
 行为寻常的内存还有一个特点是如果写一个值到某个内存，从来不读，再次写入一个值，那么第一次写会被消除，因为这个值没有被用到，因此对于如下代码
 ```cpp
 x = 10; // write x
 x = 20; // write x again
 ```
-编译器会消除第一个赋值。这意味下面的代码会被编译器简化
+编译器会消除第一个赋值。这意味着下面的代码会被编译器简化
 ```cpp
 auto y = x; // read x
 y = x;		// read x again
@@ -134,15 +134,15 @@ y.store(x.load());			  // read x again
 
 上述代码可以通过将 `x` 的值存储到寄存器中而不是读两次进行优化。
 ```cpp
-register = x.load();		  // read x into register
-std::atomic<int> y(register); // init y with register value
-y.store(register);			  // store register value into y
+int value = x.load();		  // read x into value
+std::atomic<int> y(value);    // init y with value
+y.store(value);               // store value into y
 ```
 这里优化对于行为特殊的内存而言是要避免的。
 
 使用两者的场景非常明确了：
 
-- `std::atomic` 用于并发编程，不能用于访问访问行为特殊的内存。
+- `std::atomic` 用于并发编程，不能用于访问行为特殊的内存。
 - `volatile` 用于访问行为特殊的内存，不能用于并发编程。
 
 由于二者用于不同的目的，因此可以结合使用
