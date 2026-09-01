@@ -1591,6 +1591,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用访问者模式扩展操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用访问者模式扩展操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        解决方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdvariant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用 std::variant 实现访问者模式
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -32246,6 +32296,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用访问者模式扩展操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用访问者模式扩展操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        解决方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdvariant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用 std::variant 实现访问者模式
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -32580,7 +32680,110 @@
 </span><span id="__span-4-73"><a id="__codelineno-4-73" name="__codelineno-4-73" href="#__codelineno-4-73"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-4-74"><a id="__codelineno-4-74" name="__codelineno-4-74" href="#__codelineno-4-74"></a><span class="p">}</span>
 </span></code></pre></div>
-这个方案看起来顺眼多了，不过它也有缺点。</p>
+这个方案看起来顺眼多了，不过它也有缺点。面向对象的方法使得我们能够轻松地添加新类型，但是如果我们想要添加新操作，比如 <code>Resize()</code> 或者 <code>Move()</code>，就需要修改 <code>Shape</code> 类并在所有派生类中实现这些新操作，这同样违反了开闭原则。</p>
+<p>总而言之，面向对象的解决方法在添加类型方面满足 OCP，但在添加操作方面不满足 OCP；过程式解决方法则相反。在过程式解决方法中，添加新操作很容易，新操作可以以自由函数或独立类的形式添加，完全没有必要修改 <code>Shape</code> 类或其派生类。因此，这种方式在添加操作方面满足 OCP，但在添加类型方面不满足 OCP。</p>
+<p>应根据对代码库演进方向的预判，选择合适的扩展方案。不要忽视方案的弱点，以免最终陷入维护地狱。</p>
+<h2 id="_2">使用访问者模式扩展操作</h2>
+<p>访问者（<code>visitor</code>）模式旨在支持操作扩展，解决上述问题。</p>
+<blockquote>
+<p>Intent: "Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates."</p>
+</blockquote>
+<h3 id="_3">解决方案</h3>
+<p>整个架构图如下所示，除了 <code>Shape</code> 类和它的派生类之外，我们还定义了 <code>ShapeVisitor</code> 基类，代表了对图形操作的抽象。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>        Client -------------------&gt; ObjectStructure
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>            |                               |
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>            |                               |
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>            v                               v
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        ShapeVisitor                      Shape
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>            ^                               ^
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>           / \                             / \
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>          /   \                           /   \
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>         /     \                         /     \
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        |       |                       |       |
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>     Rotate   Draw                    Circle   Square
+</span></code></pre></div>
+首先 <code>ShapeVisitor</code> 基类为 <code>Shape</code> 的每一个派生类定义了一个纯虚函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ShapeVisitor</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">ShapeVisitor</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">visit</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Circle</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">visit</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Square</span><span class="w"> </span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="c1">// Possibly more visit() functions, one for each concrete shape</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">};</span>
+</span></code></pre></div>
+有了 <code>ShapeVisitor</code> 基类之后，我们就可以轻松添加新操作，即添加一个新的派生类。比如，为了支持绘制图形，我们可以定义一个 <code>DrawVisitor</code> 类。也就是说，我们在添加操作这一维度满足了 OCP。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DrawVisitor</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ShapeVisitor</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">visit</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Circle</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">visit</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Square</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="c1">// Possibly more visit() functions, one for each concrete shape</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">};</span>
+</span></code></pre></div>
+最初的问题在于，每添加一个新操作，都需要修改基类 <code>Shape</code>，并在所有派生类中实现该操作。访问者模式将新增操作作为一个变动点。通过将这个变动点抽取到独立的类中，遵循单一职责原则（<code>single responsibility principle</code>），<code>Shape</code> 不再因新增操作而修改。这避免了对 <code>Shape</code> 继承体系的频繁变更，并使添加操作变得简单。</p>
+<p>为了让访问者模式工作，我们需要在 <code>Shape</code> 类中添加一个纯虚函数 <code>Accept()</code>，它接受 <code>ShapeVisitor</code> 的常量引用作为参数。然后在每个派生类中实现这个函数，调用访问者相应的 <code>visit()</code> 函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Shape</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Shape</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Accept</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ShapeVisitor</span><span class="w"> </span><span class="o">&amp;</span><span class="n">visitor</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">};</span>
+</span></code></pre></div>
+<code>Accept()</code> 的函数实现很简单，调用 <code>visit()</code> 函数。虽然实现看起来一样，但是 <code>this</code> 类型不同，会在传入的访问者中调用不同的 <code>visit()</code> 函数重载。因此，<code>Shape</code> 无法在基类提供默认实现。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Shape</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Circle</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">)</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">radius_</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Accept</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ShapeVisitor</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Radius</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">radius_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">radius_</span><span class="p">;</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="p">};</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="k">class</span><span class="w"> </span><span class="nc">Square</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Shape</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">{</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">side</span><span class="p">)</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">side_</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Accept</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ShapeVisitor</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Side</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">side_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">side_</span><span class="p">;</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="p">};</span>
+</span></code></pre></div>
+最后，在需要执行某种操作的地方使用 <code>Accept()</code> 函数。下面是 <code>DrawShapes()</code> 函数的实现。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">DrawShapes</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shapes</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">DrawVisitor</span><span class="w"> </span><span class="n">drawVisitor</span><span class="p">;</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shape</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">shapes</span><span class="p">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="n">shape</span><span class="o">-&gt;</span><span class="n">Accept</span><span class="p">(</span><span class="n">drawVisitor</span><span class="p">);</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
+</span></code></pre></div>
+但是软件工程没有银弹，访问者模式也有缺点。</p>
+<h3 id="_4">缺点</h3>
+<p>访问者模式是对 OOP 弱点的一种折中，因此存在许多固有问题。</p>
+<p>第一个缺点是实现灵活性较低。如果添加一个平移操作 <code>Translate()</code>，需要实现 <code>TranslateVisitor</code> 类，并在每个 <code>visit()</code> 函数中实现平移逻辑。可以想象，这些 <code>visit()</code> 函数的实现大同小异，甚至完全相同，但我们仍不得不编写所有的 <code>visit()</code> 函数。当然可以抽取相同的逻辑以符合 DRY 原则，但基类施加的严格要求使我们仍不得不编写一些样板代码。同时，局限性还体现在 <code>visit()</code> 函数的返回类型上，返回什么类型由基类 <code>ShapeVisitor</code> 决定。</p>
+<p>第二个缺点是添加新类型会变得非常困难。访问者模式要求一个封闭的类型集，并在此基础上提供开放的操作集。如果这个假设不成立，比如需要添加新的 <code>Shape</code> 派生类，那么整个 <code>ShapeVisitor</code> 继承体系都需要修改，基类要添加新的纯虚函数，所有派生类都要实现该函数。这就会带来我们之前讨论过的问题。导致这个问题的根本原因是 <code>ShapeVisitor</code> 基类依赖于具体图形类，因为它需要为每种图形提供一个 <code>visit()</code> 函数，具体图形类依赖于 <code>Shape</code> 基类，<code>Shape</code> 基类的 <code>Accept()</code> 函数又依赖于 <code>ShapeVisitor</code> 基类，从而形成循环依赖。添加类型需要修改这一依赖环，而添加操作与该依赖环无关。出于这个原因，经典的访问者模式也称为有环访问者（<code>cyclic visitor</code>）。</p>
+<p>第三个缺点是访问者的侵入性。访问者模式要求在 <code>Shape</code> 类中添加一个纯虚函数 <code>Accept()</code>，这就意味着我们必须修改 <code>Shape</code> 类的定义。如果 <code>Shape</code> 类是第三方库的一部分，我们就无法修改它，访问者模式也就行不通了。后面会介绍使用 <code>std::variant</code> 实现非侵入式的访问者模式。</p>
+<p>第四个缺点是，具体图形类的 <code>Accept()</code> 会被其派生类继承。如果有人（很可能就是未来的自己）在具体图形类下添加新的派生层次，却忘记重写（<code>override</code>）<code>Accept()</code> 函数，那么 <code>Accept()</code> 会以基类的静态类型调用 <code>visit()</code>，导致访问者模式失效，因为访问操作会被应用到错误的类型上。这也说明添加新类型较为困难，维护成本较高。</p>
+<p>第五个缺点是每个操作都需要调用两次虚函数。起初，我们既不知道操作的类型，也不知道图形的类型。第一次调用虚函数是 <code>Accept()</code>，此时能够解析出具体的图形类型。第二次调用虚函数是 <code>visit()</code>，它接收具体图形类型的参数，此时能够解析出具体的操作类型。这种双重虚函数调用的开销可能会影响性能。</p>
+<p>第六个缺点是，如果访问者和图形对象都动态分配，这些小的内存分配长远看来可能会导致内存碎片化。此外，这样的内存布局对缓存很不友好。通常会使用指针来操作动态分配的访问者和图形对象，因此指针间接寻址使编译器极难进行任何形式的优化。不过，这些问题不是访问者模式独有的，整个 OOP 都存在这两方面的问题。</p>
+<p>最后一个缺点是这个模式被证明难以完全理解和维护。这看起来是一个主观缺点，不过两个继承体系之间错综复杂的相互作用所带来的复杂度确实会成为一种负担。</p>
+<h2 id="stdvariant">使用 <code>std::variant</code> 实现访问者模式</h2>
 
   
 
