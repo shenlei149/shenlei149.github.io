@@ -14,7 +14,7 @@
         <link rel="prev" href="../BuildingAbstractions/">
       
       
-        <link rel="next" href="../../CPP/">
+        <link rel="next" href="../VisitorDesignPattern/">
       
       
         
@@ -1380,6 +1380,8 @@
       
         
       
+        
+      
     
     
     
@@ -1572,10 +1574,49 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无处不在
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VisitorDesignPattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Visitor Design Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -32238,6 +32279,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无处不在
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -32367,6 +32419,86 @@
 <h2 id="_2">认知误区</h2>
 <p>第一个误区是，很多人认为设计模式是一个目标，是软件质量的保证。很多开发者喜欢设计模式，使用它们解决各种问题，而不管是否合理。这会增加代码的复杂度，降低可读性。设计模式是实现目标的手段，是解决方案的一部分，但绝不是目标。使用设计模式不应该制造复杂性，相反，它应该降低复杂性。代码应当变得更简洁、更易于理解、更易于维护。如果使用设计模式导致相反的结果，显然就不是正确的解决方案。</p>
 <p>要使用设计模式，但不要滥用。任何工具都是如此。一切都应该取决于你面临的具体问题。比如，问题是钉子时，应该使用锤子，但问题变成螺丝时，锤子就不再是合适的工具。为了恰当地使用设计模式，并明确何时该用、何时不该用，极其关键的一点是深入理解它们，理解其背后的设计意图和结构特征。</p>
+<p>第二个误区是，设计模式建立在某种特定的实现方式之上，或者是某种特定语言专属的惯用法。这种误区很容易理解，因为许多设计模式（特别是 GoF 设计模式）通常是在面向对象编程语言中实现的，并借助面向对象的代码示例进行讲解。但是，设计模式绝不等同于实现细节、任何特定语言的惯用法或特定 C++ 标准的特性。下面看一个例子，我们使用两种方式实现策略模式。</p>
+<p>假设我们想要绘制给定的形状，比如下面提供了 <code>draw()</code> 方法的 <code>Circle</code>。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">draw</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">};</span>
+</span></code></pre></div>
+在不假思索的情况下，我们会直接使用图形库（比如 OpenGL、Vulkan 或其他类库）实现这个函数。但是，如果直接实现 <code>draw()</code>，就会引入与所选图形库之间的耦合。如果图形库发生变更，<code>Circle</code> 就会受到影响，需要重新编译、测试和部署，甚至还需要修改代码。如果想要切换成另一个图形库也绝非易事。这是因为直接在 <code>Circle</code> 中实现 <code>draw()</code> 方法违反了单一职责原则。这个类不再只会因与圆相关的内容而修改，也高度依赖于特定的设计决策。</p>
+<p>针对这个问题，将如何绘制圆的逻辑抽象出来，正是策略模式（<code>Strategy Pattern</code>）的意图。引入 <code>DrawStrategy</code> 抽象接口后，就能在无需修改既有代码的前提下实现全新的绘制行为，并从外部将其注入 <code>Circle</code>。针对不同的绘制行为，这种方法提供了更好的灵活性。它抽离了对具体图形库及其实现细节的依赖，从而使代码具有可变性与扩展性。比如，为了测试，可以编写 <code>MockDrawStrategy</code>，它不依赖任何图形库，只需记录调用即可进行验证。</p>
+<p>策略模式是 GoF 经典设计模式之一。正因如此，它通常被归为面向对象设计模式，但这并不意味着其实现必须依赖于基类。除了使用基类进行抽象外，依靠模板也可以达成同样的目的。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DrawStrategy</span><span class="o">&gt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">draw</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">};</span>
+</span></code></pre></div>
+此时，如何绘制圆的决策发生在编译期。相比基类这种运行时方案，每次 <code>DrawStrategy</code> 变更时都需要重新编译。</p>
+<p>本质上说两者都是策略模式的实现。它们都引入了抽象，解耦了 <code>Circle</code> 与具体绘制行为之间的依赖。无论是运行时还是编译期的实现方式，都能达到设计模式的目的。</p>
+<p>下面看一个标准库中 <code>std::accumulate()</code> 的例子。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span></code></pre></div>
+<code>std::accumulate()</code> 是一个算法，其意图是对一组元素进行累积操作，默认情况下是求和。我们可以提供第四个参数指定累积方式，比如使用 <code>&lt;functional&gt;</code> 中的 <code>std::multiplies</code>，就可以计算乘积。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">plus</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">{});</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">multiplies</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">{});</span>
+</span></code></pre></div>
+第四个参数本质上就是累积策略的具体实现。这样，<code>std::accumulate()</code> 不再依赖于单一、特定的实现，调用者可以针对特定目标进行定制。这恰恰契合了策略模式的设计意图。</p>
+<p><code>std::accumulate()</code> 的例子说明，设计模式与实现方式无关，并不仅限于面向对象编程。许多设计模式的意图同样适用于函数式编程或泛型编程。设计模式也不仅限于运行时多态，前面介绍的静态多态同样能实现策略模式。</p>
+<h2 id="_3">无处不在</h2>
+<p>我们首先看一下 <code>std::pmr</code>（<code>polymorphic memory resource</code>）的例子。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstddef&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory_resource&gt;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">{</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="o">&gt;</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w"> </span><span class="c1">// not initialized</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">pmr</span><span class="o">::</span><span class="n">monotonic_buffer_resource</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">raw</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">raw</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pmr</span><span class="o">::</span><span class="n">null_memory_resource</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">pmr</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pmr</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="n">strings</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">"String longer than what SSO can handle"</span><span class="p">);</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">strings</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">"Another long string that goes beyond SSO"</span><span class="p">);</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="n">strings</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">"A third long string that cannot be handled by SSO"</span><span class="p">);</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="p">}</span>
+</span></code></pre></div>
+这个例子中使用 <code>std::pmr::monotonic_buffer_resource</code> 作为分配器，将所有分配重定向到一个预定义的字节缓冲区中，其构造参数为 <code>raw.data()</code> 和 <code>raw.size()</code>。如果缓冲区不足以满足分配请求，<code>std::pmr::monotonic_buffer_resource</code> 会将请求转发给 <code>std::pmr::null_memory_resource()</code>，后者会抛出异常。使用创建好的分配器初始化 <code>vector</code> 后，加入的字符串若长到无法依赖短字符串优化（<code>small string optimization</code>, <code>SSO</code>），便会通过 <code>std::pmr::monotonic_buffer_resource</code> 分配内存。</p>
+<p>这一段代码中使用了四种设计模式，分别是模板方法（<code>template method</code>）、装饰者模式（<code>decorator pattern</code>）、适配器模式（<code>adapter pattern</code>）和策略模式（<code>strategy pattern</code>）。此外，<code>std::pmr::null_memory_resource()</code> 还体现了单例模式，它返回唯一的分配器实例。</p>
+<p>下面是 <code>memory_resource</code> 的类定义
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">pmr</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">memory_resource</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="c1">// ... a virtual destructor, some constructors and assignment operators</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="p">[[</span><span class="na">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">allocate</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">);</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">deallocate</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">);</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">is_equal</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">memory_resource</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">do_allocate</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">do_deallocate</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">do_is_equal</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">memory_resource</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">};</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="p">}</span><span class="w"> </span><span class="c1">// namespace std::pmr</span>
+</span></code></pre></div>
+<code>allocate()</code> <code>deallocate()</code> <code>is_equal()</code> 是面向用户的接口，<code>do_allocate()</code> <code>do_deallocate()</code> <code>do_is_equal()</code> 是面向派生类的接口。这是非虚接口（<code>non-virtual interface</code>, <code>NVI</code>）惯用法，NVI 是模板方法的一种实现。</p>
+<p>第二种设计模式是装饰者模式，它可以帮助我们构建分配器的层级结构，并在一个分配器的基础上组合和扩展功能。将 <code>std::pmr::null_memory_resource()</code> 作为 <code>std::pmr::monotonic_buffer_resource</code> 的后备分配器传入，便形成了这样的组合。通过 <code>allocate()</code> 向 <code>monotonic_buffer_resource</code> 请求内存时，如果缓冲区不足以满足请求，就会将请求转发给后备的分配器，这里是 <code>std::pmr::null_memory_resource()</code>。通过这种方式，可以实现许多不同类型的分配器，并轻松将它们组装成一个包含不同分配策略层级的完整子系统。装饰者模式的强项就是组合并复用功能模块的能力。</p>
+<p>这里使用的 <code>std::pmr::vector</code> 和 <code>std::pmr::string</code> 分别是 <code>std::vector</code> 和 <code>std::string</code> 的别名，它们不再暴露分配器的模板参数，而是统一使用 <code>std::pmr::polymorphic_allocator</code> 作为分配器。适配器模式将两个不兼容的接口粘合起来，这里 <code>polymorphic_allocator</code> 充当桥梁，将 C++ 分配器所需的静态模板接口适配到 <code>std::pmr::memory_resource</code> 提供的动态分配器接口。</p>
+<p>最后一种模式是策略模式。<code>std::vector</code> <code>std::string</code> 等标准容器允许调用方从外部自定义内存分配行为。</p>
+<p>上面这个例子有力证明了设计模式的普遍性。几乎所有旨在抽象、解耦软件实体，并引入灵活性与扩展性的尝试，都是建立在某种设计模式之上的。</p>
 
   
 
