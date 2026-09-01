@@ -70,3 +70,60 @@ const auto product = std::accumulate(v.begin(), v.end(), 1, std::multiplies<> {}
 `std::accumulate()` 的例子说明，设计模式与实现方式无关，并不仅限于面向对象编程。许多设计模式的意图同样适用于函数式编程或泛型编程。设计模式也不仅限于运行时多态，前面介绍的静态多态同样能实现策略模式。
 
 ## 无处不在
+我们首先看一下 `std::pmr`（`polymorphic memory resource`）的例子。
+```cpp
+#include <array>
+#include <cstddef>
+#include <cstdlib>
+#include <iostream>
+#include <memory_resource>
+#include <vector>
+
+int main()
+{
+	std::array<std::byte, 1000> raw; // not initialized
+	std::pmr::monotonic_buffer_resource buffer { raw.data(), raw.size(), std::pmr::null_memory_resource() };
+
+	std::pmr::vector<std::pmr::string> strings { &buffer };
+
+	strings.emplace_back("String longer than what SSO can handle");
+	strings.emplace_back("Another long string that goes beyond SSO");
+	strings.emplace_back("A third long string that cannot be handled by SSO");
+
+	return EXIT_SUCCESS;
+}
+```
+这个例子中使用 `std::pmr::monotonic_buffer_resource` 作为分配器，将所有分配重定向到一个预定义的字节缓冲区中，其构造参数为 `raw.data()` 和 `raw.size()`。如果缓冲区不足以满足分配请求，`std::pmr::monotonic_buffer_resource` 会将请求转发给 `std::pmr::null_memory_resource()`，后者会抛出异常。使用创建好的分配器初始化 `vector` 后，加入的字符串若长到无法依赖短字符串优化（`small string optimization`, `SSO`），便会通过 `std::pmr::monotonic_buffer_resource` 分配内存。
+
+这一段代码中使用了四种设计模式，分别是模板方法（`template method`）、装饰者模式（`decorator pattern`）、适配器模式（`adapter pattern`）和策略模式（`strategy pattern`）。此外，`std::pmr::null_memory_resource()` 还体现了单例模式，它返回唯一的分配器实例。
+
+下面是 `memory_resource` 的类定义
+```cpp
+namespace std::pmr
+{
+
+class memory_resource
+{
+public:
+	// ... a virtual destructor, some constructors and assignment operators
+	[[nodiscard]] void *allocate(size_t bytes, size_t alignment);
+	void deallocate(void *p, size_t bytes, size_t alignment);
+	bool is_equal(const memory_resource &other) const noexcept;
+
+private:
+	virtual void *do_allocate(size_t bytes, size_t alignment) = 0;
+	virtual void do_deallocate(void *p, size_t bytes, size_t alignment) = 0;
+	virtual bool do_is_equal(const memory_resource &other) const noexcept = 0;
+};
+
+} // namespace std::pmr
+```
+`allocate()` `deallocate()` `is_equal()` 是面向用户的接口，`do_allocate()` `do_deallocate()` `do_is_equal()` 是面向派生类的接口。这是非虚接口（`non-virtual interface`, `NVI`）惯用法，NVI 是模板方法的一种实现。
+
+第二种设计模式是装饰者模式，它可以帮助我们构建分配器的层级结构，并在一个分配器的基础上组合和扩展功能。将 `std::pmr::null_memory_resource()` 作为 `std::pmr::monotonic_buffer_resource` 的后备分配器传入，便形成了这样的组合。通过 `allocate()` 向 `monotonic_buffer_resource` 请求内存时，如果缓冲区不足以满足请求，就会将请求转发给后备的分配器，这里是 `std::pmr::null_memory_resource()`。通过这种方式，可以实现许多不同类型的分配器，并轻松将它们组装成一个包含不同分配策略层级的完整子系统。装饰者模式的强项就是组合并复用功能模块的能力。
+
+这里使用的 `std::pmr::vector` 和 `std::pmr::string` 分别是 `std::vector` 和 `std::string` 的别名，它们不再暴露分配器的模板参数，而是统一使用 `std::pmr::polymorphic_allocator` 作为分配器。适配器模式将两个不兼容的接口粘合起来，这里 `polymorphic_allocator` 充当桥梁，将 C++ 分配器所需的静态模板接口适配到 `std::pmr::memory_resource` 提供的动态分配器接口。
+
+最后一种模式是策略模式。`std::vector` `std::string` 等标准容器允许调用方从外部自定义内存分配行为。
+
+上面这个例子有力证明了设计模式的普遍性。几乎所有旨在抽象、解耦软件实体，并引入灵活性与扩展性的尝试，都是建立在某种设计模式之上的。
