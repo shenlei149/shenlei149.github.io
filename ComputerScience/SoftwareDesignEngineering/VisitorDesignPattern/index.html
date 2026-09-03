@@ -1639,6 +1639,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="使用 std::variant 实现访问者模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stdvariant_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        std::variant 的基本用法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdvariant_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用 std::variant 重构图形示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -32344,6 +32383,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="使用 std::variant 实现访问者模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stdvariant_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        std::variant 的基本用法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdvariant_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用 std::variant 重构图形示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -32784,6 +32862,188 @@
 <p>第六个缺点是，如果访问者和图形对象都动态分配，这些小的内存分配长远看来可能会导致内存碎片化。此外，这样的内存布局对缓存很不友好。通常会使用指针来操作动态分配的访问者和图形对象，因此指针间接寻址使编译器极难进行任何形式的优化。不过，这些问题不是访问者模式独有的，整个 OOP 都存在这两方面的问题。</p>
 <p>最后一个缺点是这个模式被证明难以完全理解和维护。这看起来是一个主观缺点，不过两个继承体系之间错综复杂的相互作用所带来的复杂度确实会成为一种负担。</p>
 <h2 id="stdvariant">使用 <code>std::variant</code> 实现访问者模式</h2>
+<p>OOP 的继承体系存在问题，我们应该回到过程式的解决方案吗？显然不是，毕竟这种方案的问题依然存在，并且还容易出错。下面介绍一种使用 <code>std::variant</code> 实现访问者模式的方式，它可以解决其中的一些问题。</p>
+<h3 id="stdvariant_1"><code>std::variant</code> 的基本用法</h3>
+<p><code>std::variant</code> 是 C++17 引入的一个类型安全的联合体（<code>type-safe union</code>），它可以存储多种类型中的一种。<code>std::variant</code> 代表了若干可能的备选类型中的某一种。下面的示例中，定义了一个 <code>std::variant</code>，它可以存储 <code>int</code>、<code>double</code> 或 <code>std::string</code> 类型的值，但是不会同时包含多种类型的值，正常情况下也不会不包含任何值。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Print</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">{</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"int: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"double: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"string: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="p">};</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="p">{</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span><span class="c1">// Creates a default variant that contains an 'int' initialized to 0</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">       </span><span class="c1">// Assigns the 'int' 42 to the variant</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span><span class="w">     </span><span class="c1">// Assigns the 'double' 3.14 to the variant</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.71F</span><span class="p">;</span><span class="w">    </span><span class="c1">// Assigns a 'float', which is promoted to 'double'</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Bjarne"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Assigns the string literal 'Bjarne' to the variant</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">43</span><span class="p">;</span><span class="w">       </span><span class="c1">// Assigns the 'int' 43 to the variant</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w">       </span><span class="c1">// Direct access to the value</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">get_if</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// Direct access to the value</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">Print</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// Applying the Print visitor</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="p">}</span>
+</span></code></pre></div>
+默认情况下，<code>std::variant</code> 会存储第一个类型的默认值，也就是 <code>int</code> 的 0。赋值非常简单，使用 <code>=</code> 运算符即可。如果尝试赋值一个不属于备选类型之一的值，则会按常规的类型转换规则进行转换。比如上面尝试赋值一个 <code>float</code>，它会被提升为 <code>double</code>。</p>
+<p>为了存储这些备选类型，<code>std::variant</code> 提供了刚好存储大小最大的备选类型的内部缓冲区。上面的例子中，最大的备选类型是 <code>std::string</code>，通常需要 32B（依赖于实现）。当赋值 <code>Bjarne</code> 时，清理前一个值（<code>double</code> 类型，没有什么事情需要做），然后在内部缓冲区中就地构造一个 <code>std::string</code> 对象。当又赋值成 <code>int</code> 时，<code>std::variant</code> 调用 <code>std::string</code> 的析构函数销毁对象，然后存储 <code>int</code> 值。<code>std::variant</code> 是类型安全的。</p>
+<p>除了写入，我们还需要能够读取。我们不能直接把一个 <code>std::variant</code> 赋值给其他类型的变量，例如 <code>int</code>。访问内部存储的值有三种方式。<code>std::get()</code> 直接访问存储的值，如果类型不匹配会抛出异常。<code>std::get_if()</code> 返回一个指针，如果类型不匹配则返回 <code>nullptr</code>。第三种方式就是使用 <code>std::visit()</code>，它允许我们对存储的值进行任意操作。这里我们传递的是 <code>Print</code> 访问者，它必须为每一个可能的备选类型提供一个函数调用，否则会编译报错。这里我们提供了三个 <code>operator()</code>，分别处理 <code>int</code>、<code>double</code> 和 <code>std::string</code>。<code>std::visit()</code> 会根据存储的值的类型调用相应的函数。值得注意的是，<code>Print</code> 无需继承任何基类，也没有任何虚函数。因此也不存在因特定要求而产生的强耦合。</p>
+<h3 id="stdvariant_2">使用 <code>std::variant</code> 重构图形示例</h3>
+<p>首先我们重构 <code>Circle</code> 和 <code>Square</code>，相当简单，不再有 <code>Shape</code> 基类，也不再有虚函数 <code>Accept()</code>。因此这种实现方式是非侵入式的，可以应用于现有类型，并且完全不需要为了未来的操作提前修改这些类。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">//---- &lt;Circle.h&gt; ----------------</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Circle</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">)</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">radius_</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Radius</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">radius_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">Center</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">center_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">radius_</span><span class="p">;</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">center_</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="p">};</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="c1">//---- &lt;Square.h&gt; ----------------</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="k">class</span><span class="w"> </span><span class="nc">Square</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="p">{</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">side</span><span class="p">)</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">side_</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Side</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">side_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">Center</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">center_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">side_</span><span class="p">;</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">center_</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="p">};</span>
+</span></code></pre></div>
+下面使用 <code>std::variant</code> 表示这个由 <code>Circle</code> 和 <code>Square</code> 组成的封闭类型集合。代表图形类型的这一集合抽象显而易见应该叫 <code>Shape</code>。也就是说，<code>std::variant</code> 取代了 <code>Shape</code> 基类的职责。至此，我们也不再需要智能指针了，因为之前使用智能指针是为了让同一个 <code>std::vector</code> 能够存储不同类型的图形对象。现在 <code>std::variant</code> 就可以做到这一点，因此直接将 <code>std::variant</code> 存储在 <code>std::vector</code> 中即可。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">//---- &lt;Shape.h&gt; ----------------</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Circle.h&gt;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Square.h&gt;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">using</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">Circle</span><span class="p">,</span><span class="w"> </span><span class="n">Square</span><span class="o">&gt;</span><span class="p">;</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1">//---- &lt;Shapes.h&gt; ----------------</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Shape.h&gt;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">using</span><span class="w"> </span><span class="n">Shapes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;</span><span class="p">;</span>
+</span></code></pre></div>
+下面实现操作 <code>Draw()</code>，它是一个访问者。遵循之前的规定，为每一个备选类型实现一个 <code>operator()</code>。和之前不同的是，这里没有基类，因而不需要重复地编写任何虚函数。也没有约束要求一定要实现成两个函数，我们也可以选择将两个 <code>operator()</code> 合并成一个函数。在返回值方面，我们也不受任何限制，可以返回任意类型的值，摆脱了基类的束缚。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">//---- &lt;Draw.h&gt; ----------------</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Circle.h&gt;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Square.h&gt;</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Draw</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">{</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">Circle</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... Implementing the logic for drawing a circle ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">Square</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... Implementing the logic for drawing a square ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="p">};</span>
+</span></code></pre></div>
+最后我们来实现 <code>DrawShapes()</code> 函数。它使用 <code>std::visit()</code> 来完成类型分发工作，它会访问存储在 <code>std::variant</code> 中的值，并调用访问者的相应函数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">//---- &lt;DrawShapes.h&gt; ----------------</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Shapes.h&gt;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">DrawShapes</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shapes</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shapes</span><span class="p">);</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1">//---- &lt;DrawShapes.cpp&gt; ----------------</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Draw.h&gt;</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;DrawShapes.h&gt;</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="kt">void</span><span class="w"> </span><span class="nf">DrawShapes</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shapes</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shapes</span><span class="p">)</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="p">{</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shape</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">shapes</span><span class="p">)</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">Draw</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="n">shape</span><span class="p">);</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="p">}</span>
+</span></code></pre></div>
+我们也可以选择手动实现相同的分发工作。这可能会回到之前枚举类型方案的维护问题上，不过这么做的理由可能是考虑了性能问题，稍后讨论这个问题。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">DrawShapes</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shapes</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shapes</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="p">{</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shape</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">shapes</span><span class="p">)</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Circle</span><span class="w"> </span><span class="o">*</span><span class="n">circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">get_if</span><span class="o">&lt;</span><span class="n">Circle</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shape</span><span class="p">))</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">            </span><span class="c1">//  ... Drawing a circle</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Square</span><span class="w"> </span><span class="o">*</span><span class="n">square</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">get_if</span><span class="o">&lt;</span><span class="n">Square</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shape</span><span class="p">))</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">            </span><span class="c1">// ... Drawing a square</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="p">}</span>
+</span></code></pre></div>
+有了上面的实现，我们就可以在 <code>main()</code> 函数中创建一个 <code>Shapes</code> 的集合，然后调用 <code>DrawShapes()</code> 来绘制所有的图形。我们无需再通过 <code>std::make_unique()</code> 创建对象，而是直接创建对象并添加到 <code>std::vector</code> 中即可。得益于 <code>std::variant</code> 的非 <code>explicit</code> 构造函数，可以将任何备选类型隐式转换为 <code>std::variant</code>。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="p">{</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="n">Shapes</span><span class="w"> </span><span class="n">shapes</span><span class="p">;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="n">shapes</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">Circle</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mf">2.3</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="n">shapes</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">Square</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mf">1.2</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="n">shapes</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">Circle</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mf">4.1</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">    </span><span class="n">DrawShapes</span><span class="p">(</span><span class="n">shapes</span><span class="p">);</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="p">}</span>
+</span></code></pre></div>
+新的基于 <code>std::variant</code> 的访问者模式实现方式效果相当好。没有任何地方使用基类，没有虚函数，没有指针，没有手动内存分配，一切都很直观，样板代码很少。这个方案看起来和之前的方案大相径庭，但是核心是一致的：任何人都能在不修改现有代码的情况下添加新的操作。我们在扩展操作的维度上满足了开闭原则。下面是新的架构图，<code>std::variant</code> 与备选类型之间不存在环形依赖。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>        Circle   Square
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>            ^       ^
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>             \     /
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>              \   /
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>               \ /
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>                v
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>           std::variant
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>                ^
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>                |
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>                v
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>               Draw
+</span></code></pre></div>
+除了上述优势，这个架构甚至还可以构建其他抽象，比如将所有的圆形或所有的多边形组织起来，创建一个抽象的图形集合。下面是使用 <code>std::variant</code> 实现这个抽象的例子，原本的 <code>Shape</code> 抽象也不受影响。这就是 <code>std::variant</code> 这种非侵入式方案的价值！
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">//---- &lt;Shape.h&gt; ----------------</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Circle.h&gt;</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Square.h&gt;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="k">using</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">Circle</span><span class="p">,</span><span class="w"> </span><span class="n">Square</span><span class="o">&gt;</span><span class="p">;</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="c1">//---- &lt;RoundShapes.h&gt; ----------------</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Circle.h&gt;</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="k">using</span><span class="w"> </span><span class="n">RoundShapes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">Circle</span><span class="o">&gt;</span><span class="p">;</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="c1">//---- &lt;AngularShapes.h&gt; ----------------</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Square.h&gt;</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;variant&gt;</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a><span class="k">using</span><span class="w"> </span><span class="n">AngularShapes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">Square</span><span class="o">&gt;</span><span class="p">;</span>
+</span></code></pre></div></p>
+<h3 id="_5">性能测试</h3>
 
   
 
