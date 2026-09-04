@@ -548,3 +548,125 @@ using AngularShapes = std::variant<Square>;
 ```
 
 ### 性能测试
+我没有做性能测试，以下引用《C++ Software Design》一书中提供的测试结果，供参考。
+
+| Visitor implementation            | GCC 11.1 | Clang 11.1 |
+| --------------------------------- | -------- | ---------- |
+| Classic Visitor design pattern    | 1.6161 s | 1.8015 s   |
+| Object-oriented solution          | 1.5205 s | 1.1480 s   |
+| Enum solution                     | 1.2179 s | 1.1200 s   |
+| std::variant (with std::visit())  | 1.1992 s | 1.2279 s   |
+| std::variant (with std::get_if()) | 1.0252 s | 0.6998 s   |
+
+传统的访问者模式在性能上并不占优势，甚至比面向对象的解决方案还要慢，这是因为访问者模式需要两次虚函数调用。`std::variant` 的性能表现更好。虽然表中显示手动展开 `std::get_if()` 的性能更好，但是我并不认为这个结论具有普遍性，因为此处的类型数量非常少。
+
+从性能和可维护性角度来看，`std::variant` 的访问者模式通常是更优的选择，并且直接使用 `std::visit()` 即可。如果你对性能有更高的要求，并且在当前场景中手动展开 `std::get_if()` 的性能恰好更好，也可以使用这种方式，但是这会增加维护成本。
+
+### 缺点
+首先，作为一种类似于访问者模式且基于过程式编程的解决方案，`std::variant` 同样专注于提供开放的操作集，代价是类型集必须封闭。添加新类型所引发的问题与之前基于枚举所遇到的问题类似。首先必须更新 `std::variant` 的定义，可能会导致所有使用 `std::variant` 类型的代码重新编译。此外还需要为新类型添加访问者函数。好消息是，如果没有合适的 `operator()`，编译器会报错；坏消息是，涉及模板编译时，报错信息非常晦涩难懂。总的来说，体验与基于枚举的方案类似，但是要稍好一点。
+
+其次，应该避免将尺寸差异悬殊的类型放到同一个 `std::variant` 中。如果一个备选类型比其他类型大很多，那么在存储小类型时会浪费很多内存，并可能带来负面影响。一种解决方案是不直接存储尺寸较大的备选类型，而是通过指针、代理对象或者桥接设计模式（`bridge design pattern`）存储它们，但是这会引入一层间接寻址，也可能影响性能。两者如何平衡，取决于具体的应用场景和基准测试结果。
+
+最后，`std::variant` 会暴露大量的类型细节。尽管它代表了一种运行时的抽象，但其中包含的类型信息是可见的。当修改某一个备选类型时，你可能需要重新编译依赖它的代码，也就是说存在物理上的编译依赖。解决方案仍然是存储指针或代理对象，以隐藏细节，不过正如前面所说，这可能会影响性能。因此，性能和封装性之间存在权衡。
+
+## 无环访问者
+本节开始的时候，我们提到面向过程和面向对象的解决方案在扩展操作和扩展类型方面各有优劣。这里介绍一种无环访问者（`acyclic visitor`）模式，它可以在这两个维度上扩展。
+
+访问者模式的核心在于高层设计存在一个环形依赖。`Visitor` 基类依赖于具体的图形类型（`Circle`、`Square` 等），具体的图形类型依赖 `Shape` 基类，`Shape` 基类又依赖 `Visitor` 基类。这导致添加新的类型异常困难。无环访问者模式的核心思想就是打破这种依赖。
+
+下面是类图。`Visitor` 基类被拆分为多个基类：一个 `AbstractVisitor` 基类和若干个针对具体类型的独立基类。所有访问者都必须继承自 `AbstractVisitor`，但可以自主决定继承哪些针对具体类型的基类。比如，某个操作想支持 `Circle`，就继承 `Visitor<Circle>`，并实现针对 `Circle` 的 `visit()` 函数。
+```
+        Client -------------------> ObjectStructure
+            |                               |
+            |                               |
+            v                               v
+      AbstractVisitor                     Shape
+            ^                               ^
+           /  \                            /  \
+          /     \                         /    \
+         /        \                      /      \
+        |           |                   |        |
+ Visitor<Circle>  Visitor<Square>     Circle   Square
+          ^               ^
+          |               |
+          v               v
+      Draw Visitor    Rotate Visitor
+```
+下面是代码实现。`AbstractVisitor` 基类为空，仅带有虚析构函数。它只充当标识访问者的标签，没有提供任何操作。`Visitor` 类模板以特定的图形类型作为模板参数，并提供一个纯虚函数 `visit()`，它接收该图形类型的常量引用作为参数。
+```cpp
+//---- <AbstractVisitor.h> ----------------
+class AbstractVisitor
+{
+public:
+	virtual ~AbstractVisitor() = default;
+};
+
+//---- <Visitor.h> ----------------
+template<typename T>
+class Visitor
+{
+protected:
+	~Visitor() = default;
+
+public:
+	virtual void visit(const T &) const = 0;
+};
+```
+下面是 `Draw` 的实现。我们打算支持 `Circle` 和 `Square`，因此它继承自 `Visitor<Circle>` 和 `Visitor<Square>`，当然也要继承 `AbstractVisitor`。
+```cpp
+class Draw
+	: public AbstractVisitor
+	, public Visitor<Circle>
+	, public Visitor<Square>
+{
+public:
+	void visit(const Circle &c) const override { /* ... Implementing the logic for drawing a circle ... */ }
+
+	void visit(const Square &s) const override { /* ... Implementing the logic for drawing a square ... */ }
+};
+```
+这种实现打破了环形依赖。架构的高层不再依赖具体的图形类型。图形（`Circle`、`Square` 等）和操作都位于架构的底层。因此我们既可以添加类型，也可以添加操作。
+```
+        Shape ----------> AbstractVisitor
+          ^                  ^
+         / \                 |    Visitor<T>
+        /   \                |       ^
+       /     \               |       |
+      /       \              |       |
+     /         \             |       |
+    |           |            |       |
+  Circle     Square         Draw Visitor
+```
+这种方式的优势非常明显，缺点也很明显。首先，我们看一下 `Circle` 的实现。注意 `Accept()` 函数的实现，它使用 `dynamic_cast` 将 `AbstractVisitor` 转换为 `Visitor<Circle>`，然后调用 `visit()` 函数。这是打破环形依赖的关键，但是使用 `dynamic_cast` 时应该保持警惕，因为如果使用不当，例如在高层代码中向架构底层执行类型转换，就会破坏系统结构。这里的使用没有破坏架构，因为转换发生在架构底层。但是这不是普通的向下转换（`downcast`），而是交叉转换（`cross-cast`），从继承体系的一支转向另一个分支。这种转换的开销相当大，加上随后的虚函数调用，性能可能会受到影响。
+```cpp
+//---- <Circle.h> ----------------
+class Circle : public Shape
+{
+public:
+	explicit Circle(double radius)
+		: radius_(radius)
+	{}
+
+	void Accept(const AbstractVisitor &v) override
+	{
+		if (const auto *cv = dynamic_cast<const Visitor<Circle> *>(&v))
+		{
+			cv->visit(*this);
+		}
+	}
+
+	double Radius() const { return radius_; }
+
+	Point Center() const { return center_; }
+
+private:
+	double radius_;
+	Point center_ {};
+};
+```
+下面是性能对比，仅供参考。
+
+| Visitor implementation | GCC 11.1  | Clang 11.1 |
+| ---------------------- | --------- | ---------- |
+| Acyclic Visitor        | 14.3423 s | 7.3445 s   |
+| Cyclic Visitor         | 1.6161 s  | 1.8015 s   |
