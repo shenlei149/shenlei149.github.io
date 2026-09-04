@@ -1675,8 +1675,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无环访问者
+      
+    </span>
+  </a>
   
 </li>
       
@@ -32419,8 +32441,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无环访问者
+      
+    </span>
+  </a>
   
 </li>
       
@@ -33044,6 +33088,159 @@
 </span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a><span class="k">using</span><span class="w"> </span><span class="n">AngularShapes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">Square</span><span class="o">&gt;</span><span class="p">;</span>
 </span></code></pre></div></p>
 <h3 id="_5">性能测试</h3>
+<p>我没有做性能测试，以下引用《C++ Software Design》一书中提供的测试结果，供参考。</p>
+<table>
+<thead>
+<tr>
+<th>Visitor implementation</th>
+<th>GCC 11.1</th>
+<th>Clang 11.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Classic Visitor design pattern</td>
+<td>1.6161 s</td>
+<td>1.8015 s</td>
+</tr>
+<tr>
+<td>Object-oriented solution</td>
+<td>1.5205 s</td>
+<td>1.1480 s</td>
+</tr>
+<tr>
+<td>Enum solution</td>
+<td>1.2179 s</td>
+<td>1.1200 s</td>
+</tr>
+<tr>
+<td>std::variant (with std::visit())</td>
+<td>1.1992 s</td>
+<td>1.2279 s</td>
+</tr>
+<tr>
+<td>std::variant (with std::get_if())</td>
+<td>1.0252 s</td>
+<td>0.6998 s</td>
+</tr>
+</tbody>
+</table>
+<p>传统的访问者模式在性能上并不占优势，甚至比面向对象的解决方案还要慢，这是因为访问者模式需要两次虚函数调用。<code>std::variant</code> 的性能表现更好。虽然表中显示手动展开 <code>std::get_if()</code> 的性能更好，但是我并不认为这个结论具有普遍性，因为此处的类型数量非常少。</p>
+<p>从性能和可维护性角度来看，<code>std::variant</code> 的访问者模式通常是更优的选择，并且直接使用 <code>std::visit()</code> 即可。如果你对性能有更高的要求，并且在当前场景中手动展开 <code>std::get_if()</code> 的性能恰好更好，也可以使用这种方式，但是这会增加维护成本。</p>
+<h3 id="_6">缺点</h3>
+<p>首先，作为一种类似于访问者模式且基于过程式编程的解决方案，<code>std::variant</code> 同样专注于提供开放的操作集，代价是类型集必须封闭。添加新类型所引发的问题与之前基于枚举所遇到的问题类似。首先必须更新 <code>std::variant</code> 的定义，可能会导致所有使用 <code>std::variant</code> 类型的代码重新编译。此外还需要为新类型添加访问者函数。好消息是，如果没有合适的 <code>operator()</code>，编译器会报错；坏消息是，涉及模板编译时，报错信息非常晦涩难懂。总的来说，体验与基于枚举的方案类似，但是要稍好一点。</p>
+<p>其次，应该避免将尺寸差异悬殊的类型放到同一个 <code>std::variant</code> 中。如果一个备选类型比其他类型大很多，那么在存储小类型时会浪费很多内存，并可能带来负面影响。一种解决方案是不直接存储尺寸较大的备选类型，而是通过指针、代理对象或者桥接设计模式（<code>bridge design pattern</code>）存储它们，但是这会引入一层间接寻址，也可能影响性能。两者如何平衡，取决于具体的应用场景和基准测试结果。</p>
+<p>最后，<code>std::variant</code> 会暴露大量的类型细节。尽管它代表了一种运行时的抽象，但其中包含的类型信息是可见的。当修改某一个备选类型时，你可能需要重新编译依赖它的代码，也就是说存在物理上的编译依赖。解决方案仍然是存储指针或代理对象，以隐藏细节，不过正如前面所说，这可能会影响性能。因此，性能和封装性之间存在权衡。</p>
+<h2 id="_7">无环访问者</h2>
+<p>本节开始的时候，我们提到面向过程和面向对象的解决方案在扩展操作和扩展类型方面各有优劣。这里介绍一种无环访问者（<code>acyclic visitor</code>）模式，它可以在这两个维度上扩展。</p>
+<p>访问者模式的核心在于高层设计存在一个环形依赖。<code>Visitor</code> 基类依赖于具体的图形类型（<code>Circle</code>、<code>Square</code> 等），具体的图形类型依赖 <code>Shape</code> 基类，<code>Shape</code> 基类又依赖 <code>Visitor</code> 基类。这导致添加新的类型异常困难。无环访问者模式的核心思想就是打破这种依赖。</p>
+<p>下面是类图。<code>Visitor</code> 基类被拆分为多个基类：一个 <code>AbstractVisitor</code> 基类和若干个针对具体类型的独立基类。所有访问者都必须继承自 <code>AbstractVisitor</code>，但可以自主决定继承哪些针对具体类型的基类。比如，某个操作想支持 <code>Circle</code>，就继承 <code>Visitor&lt;Circle&gt;</code>，并实现针对 <code>Circle</code> 的 <code>visit()</code> 函数。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>        Client -------------------&gt; ObjectStructure
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>            |                               |
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>            |                               |
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>            v                               v
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>      AbstractVisitor                     Shape
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>            ^                               ^
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>           /  \                            /  \
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>          /     \                         /    \
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>         /        \                      /      \
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>        |           |                   |        |
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a> Visitor&lt;Circle&gt;  Visitor&lt;Square&gt;     Circle   Square
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>          ^               ^
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>          |               |
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>          v               v
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>      Draw Visitor    Rotate Visitor
+</span></code></pre></div>
+下面是代码实现。<code>AbstractVisitor</code> 基类为空，仅带有虚析构函数。它只充当标识访问者的标签，没有提供任何操作。<code>Visitor</code> 类模板以特定的图形类型作为模板参数，并提供一个纯虚函数 <code>visit()</code>，它接收该图形类型的常量引用作为参数。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1">//---- &lt;AbstractVisitor.h&gt; ----------------</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">AbstractVisitor</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">{</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">AbstractVisitor</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="p">};</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="c1">//---- &lt;Visitor.h&gt; ----------------</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">Visitor</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="p">{</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="k">protected</span><span class="o">:</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="w">    </span><span class="o">~</span><span class="n">Visitor</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">visit</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="p">};</span>
+</span></code></pre></div>
+下面是 <code>Draw</code> 的实现。我们打算支持 <code>Circle</code> 和 <code>Square</code>，因此它继承自 <code>Visitor&lt;Circle&gt;</code> 和 <code>Visitor&lt;Square&gt;</code>，当然也要继承 <code>AbstractVisitor</code>。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Draw</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractVisitor</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Visitor</span><span class="o">&lt;</span><span class="n">Circle</span><span class="o">&gt;</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Visitor</span><span class="o">&lt;</span><span class="n">Square</span><span class="o">&gt;</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">{</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">visit</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Circle</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... Implementing the logic for drawing a circle ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">visit</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Square</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... Implementing the logic for drawing a square ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">};</span>
+</span></code></pre></div>
+这种实现打破了环形依赖。架构的高层不再依赖具体的图形类型。图形（<code>Circle</code>、<code>Square</code> 等）和操作都位于架构的底层。因此我们既可以添加类型，也可以添加操作。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>        Shape ----------&gt; AbstractVisitor
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>          ^                  ^
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>         / \                 |    Visitor&lt;T&gt;
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>        /   \                |       ^
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>       /     \               |       |
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>      /       \              |       |
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>     /         \             |       |
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>    |           |            |       |
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>  Circle     Square         Draw Visitor
+</span></code></pre></div>
+这种方式的优势非常明显，缺点也很明显。首先，我们看一下 <code>Circle</code> 的实现。注意 <code>Accept()</code> 函数的实现，它使用 <code>dynamic_cast</code> 将 <code>AbstractVisitor</code> 转换为 <code>Visitor&lt;Circle&gt;</code>，然后调用 <code>visit()</code> 函数。这是打破环形依赖的关键，但是使用 <code>dynamic_cast</code> 时应该保持警惕，因为如果使用不当，例如在高层代码中向架构底层执行类型转换，就会破坏系统结构。这里的使用没有破坏架构，因为转换发生在架构底层。但是这不是普通的向下转换（<code>downcast</code>），而是交叉转换（<code>cross-cast</code>），从继承体系的一支转向另一个分支。这种转换的开销相当大，加上随后的虚函数调用，性能可能会受到影响。
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1">//---- &lt;Circle.h&gt; ----------------</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Shape</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="p">{</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">Circle</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">)</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">radius_</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">    </span><span class="p">{}</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Accept</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">AbstractVisitor</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">override</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">*</span><span class="n">cv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Visitor</span><span class="o">&lt;</span><span class="n">Circle</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">))</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">            </span><span class="n">cv</span><span class="o">-&gt;</span><span class="n">visit</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Radius</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">radius_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">Center</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">center_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a>
+</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="k">private</span><span class="o">:</span>
+</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">radius_</span><span class="p">;</span>
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a><span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">center_</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a><span class="p">};</span>
+</span></code></pre></div>
+下面是性能对比，仅供参考。</p>
+<table>
+<thead>
+<tr>
+<th>Visitor implementation</th>
+<th>GCC 11.1</th>
+<th>Clang 11.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acyclic Visitor</td>
+<td>14.3423 s</td>
+<td>7.3445 s</td>
+</tr>
+<tr>
+<td>Cyclic Visitor</td>
+<td>1.6161 s</td>
+<td>1.8015 s</td>
+</tr>
+</tbody>
+</table>
 
   
 
