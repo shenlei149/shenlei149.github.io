@@ -1,34 +1,70 @@
 name: ci
+
 on:
   push:
     branches:
       - master
       - main
+
+# Grant permissions required for GitHub Pages deployment and OIDC token generation
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent concurrent deployments to avoid race conditions
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  # Build job: Compiles the MkDocs site and uploads the output as a build artifact
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Configure Git Credentials
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+
       - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+
       - uses: actions/cache@v4
         with:
           key: mkdocs-material-${{ env.cache_id }}
           path: .cache
           restore-keys: |
             mkdocs-material-
+
       - run: pip install mkdocs-material
       - run: pip install mkdocs-awesome-pages-plugin
       - run: pip install mkdocs-callouts
       - run: pip install python-markdown-math
-      - run: mkdocs gh-deploy --force
+
+      # Build static HTML site files into the ./site directory
+      - run: mkdocs build
+
+      # Configure GitHub Pages parameters
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # Upload the compiled site directory as a GitHub Pages artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  # Deploy job: Takes the uploaded artifact and publishes it to GitHub Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
