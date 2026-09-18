@@ -314,7 +314,6 @@ addq $8, %rsp
 | SAR k,D | D <- D>>A k | Arithmetic right shift |
 | SHR k,D | D <- D>>L k | Logical right shift |
 
-### 加载有效地址
 加载有效地址指令 `leaq` 实际上是 `movq` 指令的一种变体。它的形式看起来像是一条从内存读取数据到寄存器的指令，但它完全没有引用内存。它的第一个操作数形式上是一个内存引用，但是该指令并没有从指定的内存位置读取数据，而是直接将计算出来的有效地址复制到目的位置。该指令可用于生成指针，供后续的内存引用使用。此外，它还可以用来描述常见的算术运算，比如寄存器 `%rdx` 中的值是 $x$，那么指令 `leaq 7(%rdx, %rdx, 4), %rax` 将寄存器 `%rax` 的值设置为 $7 + x + 4x = 7 + 5x$。编译器经常会为 `leaq` 找到一些与有效地址计算完全无关的巧妙用法。该指令的目的操作数必须是一个寄存器。
 
 下面是使用 `leaq` 指令进行算术运算的示例。下面是 C 程序。
@@ -336,10 +335,296 @@ scale:
 ```
 在编译类似于本例这样的简单算术表达式时，`leaq` 指令对于执行加法和有限形式的乘法非常有用。
 
-### 一元和二元操作
 第二组是一元操作（`unary operation`），只有一个操作数，既是源操作数也是目的操作数。该操作数可以是寄存器，也可以是内存位置。比如指令 `incq (%rsp)` 会将栈顶的值加 1。这种语法让人联想到 C 语言中的自增（`++`）和自减（`--`）操作。
 
 第三组是二元操作（`binary operation`），第一个操作数是源操作数，第二个操作数既是源操作数又是目的操作数。这种语法类似于 C 语言中的复合赋值运算符，比如 `+=`、`-=` 等。对于不可交换的操作来说，这种写法看起来有点奇怪。比如 `subq %rax, %rdx` 会将寄存器 `%rdx` 的值减去寄存器 `%rax` 的值。第一个操作数可以是立即数、寄存器或者内存位置，而第二个操作数是寄存器或内存位置。与 `MOV` 指令类一样，两个操作数不能同时是内存位置。注意，当第二个操作数是内存位置时，处理器必须先从内存中读取该值，执行操作，然后再将结果写回内存。
 
-### 移位操作
 最后一组是移位操作（`shift operation`），第一个操作数是移位的位数，第二个操作数是要进行移位的值。不同的移位指令可以将移位位数指定为立即数，或者指定为 1 字节寄存器 `%cl` 中的值。这些指令的特殊之处就是只允许使用这一特定的寄存器作为移位位数的来源。原则上，1 字节移位量寄存器 `%cl` 可表示从 0 到 $2^8 - 1 = 255$ 的移位位数，但是在 x86-64 实现中，对 $w$ 位的数值执行移位操作时，移位的位数由寄存器的低 $m$ 位决定，其中 $2^m=w$，高位的比特会被忽略。因此，当寄存器 `%cl` 的值是 `0xFF` 时，指令 `salb` 移动 7 位，`salw` 移动 15 位，`sall` 移动 31 位，`salq` 移动 63 位。左移指令有两种，`sal` 和 `shl`，效果相同，都是从右侧补零。右移指令则不同，`sar` 是算术右移，左侧填充符号位，`shr` 是逻辑右移，左侧填充零。移位操作的目的操作数可以是寄存器，也可以是内存位置。
+
+上表中的大部分指令既可以用于无符号算术，也可用于补码算术。只有右移操作需要区分有符号与无符号数据。这也是补码算术成为实现有符号算术的首选方式的特性之一。
+
+下面的代码是一段 C 函数，进行了一些算术和逻辑操作。
+```c
+long arith(long x, long y, long z)
+{
+	long t1 = x ^ y;
+	long t2 = z * 48;
+	long t3 = t1 & 0x0F0F0F0F;
+	long t4 = t2 - t3;
+	return t4;
+}
+```
+下面是对应的汇编代码。注释中写明了与 C 代码的关系。这个例子说明，通常情况下编译器生成的代码会使用单个寄存器来存放多个程序变量的值，并在各个寄存器之间转移这些值。
+```asm
+# x in %rdi, y in %rsi, z in %rdx
+arith:
+	xorq	%rsi, %rdi					# t1 = x ^ y
+	leaq	(%rdx,%rdx,2), %rax			# t2 = 3 * z
+	salq	$4, %rax					# t2 = 3 * z * 16 = 48 * z
+	andl	$252645135, %edi			# t3 = t1 & 0x0F0F0F0F
+	subq	%rdi, %rax					# t4 = t2 - t3
+	ret
+```
+
+两个 64 位有符号整数或无符号整数相乘，可能会产生一个需要 128 位才能完整表示的结果。x86-64 架构对 128 位数字提供了有限的支持。延续之前的命名习惯，Intel 将 16 字节称为八字（`oct word`）。之前提到的指令 `imulq` 是一个接受两个操作数的指令，从两个 64 位操作数计算得到一个 64 位的结果。它实现的是低 64 位的乘法。`imulq` 还有一个单操作数版本，用于补码乘法，`mulq` 则用于无符号乘法。这两条指令的一个参数必须放在寄存器 `%rax` 中，另一个作为指令的源操作数给出。乘积随后会存放在 `%rax` 和 `%rdx` 中，低 64 位在 `%rax`，高 64 位在 `%rdx`。
+
+下面是一段 C 代码，演示了如何计算两个 64 位整数的乘积并存储到 128 位变量中。
+```c
+#include <inttypes.h>
+
+typedef unsigned __int128 uint128_t;
+
+void store_uprod(uint128_t *dest, uint64_t x, uint64_t y) {
+    *dest = x * (uint128_t)y;
+}
+```
+下面是汇编代码。注意，存储乘积使用了两条 `movq` 的指令，分别传送高 8 字节和低 8 字节。由于是小端机器，因此高位存储在内存的高地址，低位存储在内存的低地址。
+```asm
+# x in %rsi, y in %rdx, dest in %rdi
+store_uprod:
+	movq	%rsi, %rax		# move x to %rax for multiplication
+	mulq	%rdx
+	movq	%rax, (%rdi)	# store low 64 bits of the product
+	movq	%rdx, 8(%rdi)	# store high 64 bits of the product
+	ret
+```
+
+最后我们讨论一下除法和取模。这些操作类似于单操作数乘法指令，也是由单操作数除法指令实现的。x86-64 架构提供了 `idivq` 指令用于有符号除法，`divq` 指令用于无符号除法。与乘法类似，这些指令也会使用寄存器 `%rax` 和 `%rdx` 来存放结果，商存放在 `%rax`，余数存放在 `%rdx`。被除数的高 64 位必须放在 `%rdx`，低 64 位放在 `%rax`。对于大部分 64 位运算而言，被除数以 64 位值给出，放在寄存器 `%rax` 中，此时，需要将其扩展为 128 位。对于有符号除法，通过 `cqto` 指令将 `%rax` 中的符号位扩展到 `%rdx`，对于无符号除法，则将 `%rdx` 清零。
+
+下面是 C 代码，计算两个 64 位有符号数的商和余数。
+```c
+void remdiv(long x, long y, long *div, long *rem)
+{
+	*div = x / y;
+	*rem = x % y;
+}
+```
+下面是对应的汇编代码。
+```asm
+# x in %rdi, y in %rsi, div in %rdx, rem in %rcx
+remdiv:
+	movq	%rdi, %rax		# move x to %rax for division, lower 8 bytes of the dividend
+	movq	%rdx, %r8		# save div pointer in %r8
+	cqto
+	idivq	%rsi
+	movq	%rax, (%r8)		# store quotient in div
+	movq	%rdx, (%rcx)	# store remainder in rem
+	ret
+```
+
+## 控制流
+目前为止，我们只考虑了直线代码（`straight-line code`），即指令按照顺序一条接一条地执行。C 语言中有一些结构，比如条件语句、循环、`switch` 语句等，需要条件执行（`conditional execution`），执行的操作顺序取决于对数据施加的测试结果。机器代码提供了两种基本的机制来实现条件控制流：测试数据的值，根据测试结果改变控制流（`control flow`）或数据流（`data flow`）。
+
+基于数据的控制流是实现条件执行的更通用、更常见的方法，因此我们将首先对其进行讨论。通常情况下，C 语言中的语句和机器代码中的指令都是按照它们在程序中出现的顺序执行的。通过跳转（`jump`）指令可以改变一组机器指令的执行顺序，并根据某些测试结果将控制权转移到程序的其他部分。编译器必须能够基于这些基本机制的指令来实现 C 语言中的控制结构。
+
+除了通用整数寄存器以外，CPU 还维护着一组单比特的条件码（`condition code`），它描述了最近一次算术或逻辑操作的属性。随后可以对这些条件码进行测试，以执行条件跳转。以下是一组常用的条件码。
+
+- CF：进位标志（`carry flag`），最近的操作最高位产生了进位。用于检测无符号操作的溢出。
+- ZF：零标志（`zero flag`），最近的操作结果为零。
+- SF：符号标志（`sign flag`），最近的操作得到了负数。
+- OF：溢出标志（`overflow flag`），最近的操作导致有符号溢出，可以是正溢出也可以是负溢出。
+
+假定使用某种 `add` 指令执行 C 语言赋值语句 `t = a + b`，其中 `a` `b` `t` 是整数，那么条件码将根据下面等价的 C 表达式进行设置。
+```c
+int t = a + b;
+// CF = (unsigned int)t < (unsigned int)a;							Unsigned overflow
+// ZF = t == 0;														Zero
+// SF = t < 0;														Negative
+// OF = ((a < 0) == (b < 0)) && ((t < 0) != (a < 0));				Signed overflow
+```
+之前讨论的算术和逻辑指令（`leaq` 除外）都会设置条件码。对于逻辑操作，比如 `xor`，进位标志（CF）和溢出标志（OF）会被设置为 0。对于移位操作，当移位量非零时，进位标志会被设置为移出的最后一位，溢出标志（OF）被设置为 0。`inc` `dec` 指令会设置溢出标志（OF）和零标志（ZF），但是会保持进位标志（CF）不变。
+
+下面两组指令只会设置条件码，而不修改其他寄存器。`cmp` 指令根据两个操作数的差值设置条件码，行为与 `sub` 相同，区别在于不更新目标寄存器。如果两个操作数相等，零标志（ZF）将被设置为 1，其他标志可以确定两个数之间的大小关系。`test` 指令与 `and` 指令的行为相同，只是不修改目标寄存器。通常情况下，同一个操作数会被重复使用，比如 `testq %rax, %rax` 用于检查寄存器 `%rax` 的值是零、正数还是负数，或者其中一个操作数是一个掩码，用于表示应该测试哪些比特位。
+
+| Instruction | Based on | Description |
+|-------------|----------|-------------|
+| CMP S1, S2 | S2 - S1 | Compare |
+| `cmpb` | | Compare byte |
+| `cmpw` | | Compare word |
+| `cmpl` | | Compare double word |
+| `cmpq` | | Compare quad word |
+| TEST S1, S2 | S1 & S2 | Test |
+| `testb` | | Test byte |
+| `testw` | | Test word |
+| `testl` | | Test double word |
+| `testq` | | Test quad word |
+
+我们不是直接读取条件码，而是通过三种常见的方式来使用它们：根据条件码组合将一个字节设置为 0 或 1；条件跳转；条件传送数据。
+
+对于第一种情况，下面是指令列表，会根据条件码的组合将单个字节设置为 0 或 1。我们将这一类指令称为 `SET` 指令，后缀表示使用的条件码不同，而不是不同的操作数大小。比如，指令 `setl` `setb` 的含义如表所示，但不分别表示设置双字或单字节。
+
+| Instruction | Synonym | Effect | Set condition |
+|-------------|---------|--------|---------------|
+| `sete D` | `setz` | D <- ZF | Equal/zero |
+| `setne D` | `setnz` | D <- ~ZF | Not equal/not zero |
+| `sets D` | | D <- SF | Negative |
+| `setns D` | | D <- ~SF | Not negative |
+| `setg D` | `setnle` | D <- ~(SF ^ OF) & ~ZF | Greater (signed >) |
+| `setge D` | `setnl` | D <- ~(SF ^ OF) | Greater or equal (signed >=) |
+| `setl D` | `setnge` | D <- SF ^ OF | Less (signed <) |
+| `setle D` | `setng` | D <- (SF ^ OF) \| ZF | Less or equal (signed <=) |
+| `seta D` | `setnbe` | D <- ~CF & ~ZF | Above (unsigned >) |
+| `setae D` | `setnb` | D <- ~CF | Above or equal (unsigned >=) |
+| `setb D` | `setnae` | D <- CF | Below (unsigned <) |
+| `setbe D` | `setna` | D <- CF \| ZF | Below or equal (unsigned <=) |
+
+一个 `SET` 指令的目的操作数可以是单字节寄存器或者内存位置。为了生成 32 位或 64 位的结果，还需要清空高位比特。下面是 C 语言代码和汇编代码示例，注意这里 `cmpq` 两个操作数的顺序。
+```c
+bool comp(long x, long y) { return x < y; }
+```
+
+```asm
+# x in %rdi, y in %rsi
+comp:
+	cmpq	%rsi, %rdi
+	setl	%al
+	ret
+```
+对于某些底层指令，存在多种可能的名称，上面的表格中同义词（`Synonym`）这一列给出了它们的替代指令。比如 `setg` `setnle` 是同一条指令。编译器和反汇编器可以随意选择使用哪个名称。
+
+尽管所有的算术和逻辑操作都会设置条件码，不过不同的 `SET` 指令的描述适用于刚执行完比较指令的情况，即根据 $t=a-b$ 的结果设置条件码。
+
+我们先讨论最简单的 `sete` 指令。当 $a=b$ 时，$t=0$，因此零标志（ZF）将被设置为 1。再讨论稍微复杂的 `setl`。当没有溢出发生时，溢出标志（OF）设置为 0：如果 $a -_w^t b < 0$，符号标志（SF）将被设置为 1，则 $a<b$，如果 $a -_w^t b \ge 0$，符号标志（SF）将被设置为 0，则 $a\ge b$。另一方面，当发生溢出时，如果 $a -_w^t b > 0$，则发生负溢出，此时 $a<b$，反之，如果 $a -_w^t b < 0$，则发生正溢出，此时 $a>b$。当 $a=b$ 时不会溢出。当溢出标志（OF）被设置为 1 时，当且仅当符号标志（SF）被设置为 0，才有 $a<b$。综合两种情况，溢出标志与符号标志的异或 `SF ^ OF` 可以判定 $a<b$。其他有符号的比较测试基于 `SF ^ OF` 和 ZF 的组合。
+
+对于无符号比较的测试，执行 $t=a-b$。当 $a-b<0$ 时，`cmp` 会将进位标志（CF）设置为 1，因此无符号比较使用的是进位标志（CF）和零标志（ZF）的组合。
+
+正常执行时，指令会按照顺序依次执行。跳转（`jump`）能够使程序的执行切换到一个新位置。在汇编代码中，这些跳转目标通常由标签（`label`）标识。比如下面这段汇编示例，`jmp .L1` 会使程序跳过 `movq` 指令，而从 `popq` 指令处继续执行。在生成目标代码文件时，汇编器会确定所有带有标签的指令的地址，并将跳转目标（`jump target`）编码为跳转指令的一部分。
+```asm
+	movq $0, %rax		# set %rax to 0
+	jmp .L1				# goto .L1
+	movq (%rax),%rdx	# null pointer dereference (skipped)
+.L1:
+	popq %rdx			# jump target
+```
+
+下表展示了不同的跳转指令。`jmp` 是无条件跳转，它可以是直接（`direct`）跳转，跳转目标编码为指令的一部分，也可以是间接（`indirect`）跳转，跳转目标从寄存器或者内存中读取。在汇编代码中，直接跳转时将标签作为目标，比如前面示例中的标签 `.L1`，间接跳转则使用 `*` 后接操作数指定符来编写：`jmp *%rax` 会从寄存器 `%rax` 中读取跳转目标，`jmp *(%rax)` 会从内存地址 `%rax` 中读取跳转目标。其余指令都是条件跳转，它们根据条件码的某种组合，要么发生跳转，要么继续执行代码序列中的下一条指令。这些指令的名称以及发生跳转的条件，和 `SET` 指令类似。与 `SET` 指令类似，某些底层指令也有多种可能的名称。条件跳转只能是直接跳转。
+
+| Instruction | Synonym | Jump condition | Description |
+|-------------|---------|----------------|-------------|
+| `jmp Label` | | 1 | Direct jump |
+| `jmp *Operand` | | 1 | Indirect jump |
+| `je Label` | `jz` | ZF | Equal/zero |
+| `jne Label` | `jnz` | ~ZF | Not equal/not zero |
+| `js Label` | | SF | Negative |
+| `jns Label` | | ~SF | Not negative |
+| `jg Label` | `jnle` | ~(SF ^ OF) & ~ZF | Greater (signed >) |
+| `jge Label` | `jnl` | ~(SF ^ OF) | Greater or equal (signed >=) |
+| `jl Label` | `jnge` | SF ^ OF | Less (signed <) |
+| `jle Label` | `jng` | (SF ^ OF) \| ZF | Less or equal (signed <=) |
+| `ja Label` | `jnbe` | ~CF & ~ZF | Above (unsigned >) |
+| `jae Label` | `jnb` | ~CF | Above or equal (unsigned >=) |
+| `jb Label` | `jnae` | CF | Below (unsigned <) |
+| `jbe Label` | `jna` | CF \| ZF | Below or equal (unsigned <=) |
+
+某种程度上我们无需关注机器代码的详细格式。不过，在学习链接时，理解跳转指令的目标是如何编码的将变得很重要。此外，这也有助于理解反汇编器的输出。跳转指令有几种不同的编码方式，其中最常用的是 PC 相对寻址（`PC relative`），也就是说编码的是目标指令与紧跟在跳转指令之后的指令地址之间的差值。这些偏移量可以使用 1、2、4 字节编码。第二种编码方式是使用绝对地址，使用 4 个字节指定目标。汇编器和链接器会选择跳转目标的适当编码。
+
+下面是一段汇编代码，第二行 `jmp` 指令跳向更高的地址，第七行的 `jg` 指令跳转到之前的代码，地址更低。
+```asm
+1 	movq %rdi,%rax
+2 	jmp .L2
+3 .L3:
+4 	sarq %rax
+5 .L2:
+6 	testq %rax,%rax
+7 	jg .L3
+8 	rep;ret
+```
+汇编器生成的 `.o` 格式目标文件的反汇编版本如下。第二行跳转目标是 `0x8`，不过编码是 `0x3`，下一行要执行的指令地址是 `0x5`，加上偏移量 `0x3` 就得到了跳转目标 `0x8`。第五行跳转目标是 `0x5`，编码是 `0xf8`，下一行要执行的指令地址是 `0xd`，加上偏移量 `0xf8` 就得到了跳转目标 `0x5`。注意，这里 `0xf8` 是十进制的 -8。从这个例子可以看出，执行 PC 相对寻址时，程序计数器（`PC`）的值是紧跟在跳转指令之后的指令地址，这是因为从很早期开始，处理器执行指令的第一步就是更新 PC。
+```asm
+1 0: 48 89 f8		# mov		%rdi,%rax
+2 3: eb 03			# jmp		8 <loop+0x8>
+3 5: 48 d1 f8		# sar		%rax
+4 8: 48 85 c0		# test	%rax,%rax
+5 b: 7f f8			# jg		5 <loop+0x5>
+6 d: f3 c3			# repz retq
+```
+下面是链接之后的反汇编版本。指令已经被重定向到了不同的地址，不过第二行和第五行中跳转目标的编码保持不变。
+```asm
+1 4004d0: 48 89 f8		# mov		%rdi,%rax
+2 4004d3: eb 03			# jmp		4004d8 <loop+0x8>
+3 4004d5: 48 d1 f8		# sar		%rax
+4 4004d8: 48 85 c0		# test		%rax,%rax
+5 4004db: 7f f8			# jg		4004d5 <loop+0x5>
+6 4004dd: f3 c3			# repz retq
+```
+
+通过对跳转目标使用 PC 相对寻址，在使用 1 字节位移时，跳转指令可以被紧凑地编码为两个字节，并且，目标代码可以在无需修改的情况下直接移动到内存的不同位置。
+
+将条件表达式和条件语句从 C 语言翻译成机器代码最通用的方法就是组合使用条件和无条件跳转指令。比如下面是计算两个数之间的差的绝对值的 C 函数，函数还包含一个副作用，就是递增两个全局变量 `lt_cnt` 和 `ge_cnt`。
+```c
+long lt_cnt = 0;
+long ge_cnt = 0;
+
+long abs_diff_se(long x, long y)
+{
+	long result;
+	if (x < y)
+	{
+		lt_cnt++;
+		result = y - x;
+	}
+	else
+	{
+		ge_cnt++;
+		result = x - y;
+	}
+
+	return result;
+}
+```
+下面是汇编代码。首先比较两个操作数，并设置了条件码。如果比较结果是 `x >= y`，随后跳转到 `.L2` 标签，对 `ge_cnt` 进行自增，计算 `x - y`，否则就顺序接着执行后面的指令，对 `lt_cnt` 进行自增，计算 `y - x`。
+```asm
+abs_diff_se:
+	cmpq	%rsi, %rdi
+	jge	.L2
+	addq	$1, lt_cnt(%rip)
+	movq	%rsi, %rax
+	subq	%rdi, %rax
+	ret
+.L2:
+	addq	$1, ge_cnt(%rip)
+	movq	%rdi, %rax
+	subq	%rsi, %rax
+	ret
+```
+我们可以使用 `goto` 将汇编翻译回 C 语言的条件语句形式，也就是用 C 语言重写之前的代码，但是风格更接近实际的汇编代码。
+```c
+long goto_abs_diff_se(long x, long y)
+{
+	long result;
+	if (x >= y)
+	{
+		goto x_ge_y;
+	}
+
+	lt_cnt++;
+	result = y - x;
+	return result;
+
+x_ge_y:
+	ge_cnt++;
+	result = x - y;
+	return result;
+}
+```
+C 语言中 `if-else` 语句通常有如下形式，其中 `test-expr` 是一个整数表达式，其求值结果要么为零（假）要么为非零（真）。两个分支语句只能有一个会被执行。
+```c
+if (test-expr)
+	then-statement;
+else
+	else-statement;
+```
+对于上述的形式，汇编语言通常遵循以下形式展开，这里使用带有 `goto` 的 C 语言来描述汇编的逻辑。编译器首先为 `then-statement` 和 `else-statement` 生成代码，然后插入条件分支和无条件分支，以确保执行正确。
+```c
+	t = test-expr;
+	if (!t)
+		goto else_label;
+
+	then-statement;
+	goto end_if;
+
+else_label:
+	else-statement;
+
+end_if:
+```
