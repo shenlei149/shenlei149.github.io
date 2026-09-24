@@ -1,3 +1,5 @@
 nav:
     - Templates: README.md
+    - Class Templates: ClassTemplates.md
+    - Alias and Variable Templates: AliasVariableTemplates.md
     - Concepts: Concepts.md

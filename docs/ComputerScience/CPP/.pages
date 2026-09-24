@@ -1,3 +1,4 @@
 nav:
     - C++: README.md
     - Templates: Templates
+    - Containers and Algorithms: ContainersAndAlgorithms
