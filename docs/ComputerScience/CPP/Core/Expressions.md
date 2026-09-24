@@ -1,4 +1,20 @@
 
+## 表达式求值顺序
+C++17 收紧了不少表达式的求值顺序，使其中一些顺序成为确定的，从而减少未定义行为。下面几种情况都是先求值 `a`，再求值 `b`。
+
+- `a.b`
+- `a->b`
+- `a->*b`
+- `a(b1, b2, b3)` // b1, b2, b3 are indeterminately sequenced
+- `b @= a` // @ means any operator like +, -, *, /, etc.
+- `a[b]`
+- `a << b`
+- `a >> b`
+
+比如 `GetP()[GetI()]`，这里 `GetP()` 会先被求值，然后 `GetI()` 会被求值，最后再进行下标操作。
+
+严格的求值顺序也避免了一些原先由未指定求值顺序引起的问题。例如在调用 `foo(unique_ptr<T>(new T), otherFunction())` 时，函数名 `foo` 先于各个实参求值，自 C++17 起，每个实参都会完整求值后，才开始求值另一个实参，二者不会交错。因此不会出现先执行 `new T`、`unique_ptr` 尚未接管所有权，接着 `otherFunction()` 抛出异常而导致泄漏的情况。两个实参谁先谁后仍然不确定，但不会出现上述泄漏问题。
+
 ## 聚合初始化
 聚合体（`aggregate`）是一个数组或一个类（`class`、`struct` 或 `union`）。如果一个类满足如下属性，则支持聚合初始化（`aggregate initialization`）：
 

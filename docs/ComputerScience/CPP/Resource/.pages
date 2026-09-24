@@ -1,0 +1,4 @@
+nav:
+    - Resource: README.md
+    - Value Categories: Value-Categories.md
+    - Move Semantics: Move-Semantics.md
