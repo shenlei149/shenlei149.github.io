@@ -628,3 +628,480 @@ else_label:
 
 end_if:
 ```
+上述逻辑通过控制转移（`control`）实现 C 语言中的 `if-else` 语句。另一种方法是使用数据的条件传送（`conditional move`）实现。这种方法会计算操作的两种可能结果，然后根据条件是否成立来选择其中之一。这种策略只在受限情况下才有意义，但在这种情况下，一条条件传送指令即可完成操作，因而能更好地适配现代处理器的性能特性。
+
+下面是之前的 `abs_diff` 函数的相似实现，去掉了对全局变量的更新操作。
+```c
+long abs_diff(long x, long y)
+{
+	long result;
+	if (x < y)
+	{
+		result = y - x;
+	}
+	else
+	{
+		result = x - y;
+	}
+
+	return result;
+}
+```
+下面是对应的汇编代码。这里使用 `-O3` 参数才得到了如下的优化结果。如果使用 `-Og`，汇编实现仍会使用条件跳转。
+```asm
+# x in %rdi, y in %rsi
+abs_diff:
+	movq	%rsi, %rdx		# copy y to %rdx
+	movq	%rdi, %rax		# copy x to %rax
+	subq	%rdi, %rdx		# compute y - x and store in %rdx
+	subq	%rsi, %rax		# compute x - y and store in %rax
+	cmpq	%rsi, %rdi		# compare x and y
+	cmovl	%rdx, %rax		# if x < y, move y - x from %rdx to %rax
+	ret
+```
+后续我们会分析现代处理器如何通过流水线（`pipeline`）提高性能。在流水线中，一条指令的处理会经过一系列阶段，每个阶段完成所需操作的一小部分，例如从内存中取指令、确定指令类型、从内存中读取数据、执行算术操作、写入内存、更新程序计数器等。为此，需要提前很长时间确定待执行的指令序列，以便让流水线装满待执行的指令。当机器遇到条件分支时，在评估完条件之前，它无法确定会走哪条路径。处理器采用复杂的分支预测逻辑，试图预测每个跳转指令是否会被触发。只有可靠的预测才能保证流水线高效运行，现代处理器的预测成功率通常在 90% 以上。另一方面，如果发生误判，处理器就必须丢弃已为后续指令完成的工作，然后从正确的位置重新填充流水线。分支预测失败会带来严重的惩罚，例如浪费 15 到 30 个时钟周期，从而导致程序性能下降。
+
+对于条件跳转，如果分支非常容易预测，预测几乎总能命中，大约需要 8 个时钟周期；如果分支是随机的，则需要 17.5 个时钟周期。假定 $T_{OK}$ 是预测命中所需的时间，$T_{MP}$ 是预测失败带来的额外惩罚，$p$ 是预测失败的概率，那么平均时间可以表示为：
+$$T_{avg}=(1-p)T_{OK}+p(T_{OK}+T_{MP})=T_{OK}+pT_{MP}$$
+因此可以计算得到失败的惩罚大约是 19 个时钟周期。函数所需的时间在 8 到 27 个时钟周期之间浮动，这依赖于分支预测的准确性。另一方面，无论测试数据如何变化，使用条件传送都需要大约 8 个时钟周期。控制流不取决于数据，这使得处理器更容易保持流水线满载。
+
+下表列出了 x86-64 中可用的一些条件传送指令。每条指令有两个操作数：一个源寄存器或内存位置 $S$，以及一个目标寄存器 $R$。与不同的 `SET` 和 `jump` 指令一样，这些指令的结果取决于条件码的值。源值从内存或寄存器中读取，但只有指定条件成立时，它才会复制到目标寄存器。
+
+| Instruction | Synonym | Move condition | Description |
+|--|--|--|--|
+| `cmove` | `cmovz` | ZF | Equal/Zero |
+| `cmovne` | `cmovnz` | ~ZF | Not equal/Not zero |
+| `cmovs` | | SF | Negative |
+| `cmovns` | | ~SF | Not negative |
+| `cmovg` | `cmovnle` | ~ZF & ~(SF ^ OF) | Greater (signed >) |
+| `cmovge` | `cmovnl` | ~(SF ^ OF) | Greater or equal (signed >=) |
+| `cmovl` | `cmovnge` | SF ^ OF | Less (signed <) |
+| `cmovle` | `cmovng` | ZF \| (SF ^ OF) | Less or equal (signed <=) |
+| `cmova` | `cmovnbe` | ~CF & ~ZF | Above (unsigned >) |
+| `cmovae` | `cmovnb` | ~CF | Above or equal (unsigned >=) |
+| `cmovb` | `cmovc` | CF | Below (unsigned <) |
+| `cmovbe` | `cmovna` | CF \| ZF | Below or equal (unsigned <=) |
+
+对于 C 语言中使用条件表达式的赋值语句，例如：
+```c
+v = test-expr ? then-expr : else-expr;
+```
+使用条件跳转实现的话，会生成类似于 `if-else` 的控制流。
+```c
+if (!test-expr)
+	goto else_label;
+v = then-expr;
+goto end_if;
+else_label:
+	v = else-expr;
+end_if:
+```
+基于条件传送指令，`then-expr` 和 `else-expr` 都会被计算，然后根据条件将结果传送到目标变量 `v`。下面的条件语句可使用条件传送指令实现。
+```c
+v = then-expr;
+ve = else-expr;
+if (!test-expr)
+	v = ve;
+```
+
+正是由于无论测试结果如何，都会对 `then-expr` 和 `else-expr` 进行计算，因此很多时候无法使用条件传送指令。在更早的示例 `abs_diff_se` 函数中，每个分支都有副作用，因而只能使用条件跳转。下面是另一种情况：
+```c
+long cread(long *xp) { return (xp ? *xp : 0); }
+```
+这段代码乍一看可以使用条件传送指令，例如下面这段假想的汇编代码：
+```asm
+# xp in %rdi
+cread:
+	movq	(%rdi), %rax	# v = *xp
+	testq	%rdi, %rdi		# Test xp
+	movl	$0, %edx		# prepare 0 in %edx for conditional move
+	cmov	%rdx, %rax		# if xp is NULL, move 0 from %rdx to %rax
+	ret
+```
+但是这种做法是非法的，因为 `movq (%rdi), %rax` 会在 `xp` 为 `NULL` 时尝试解引用空指针，从而导致错误。因此这段代码必须使用条件跳转来实现。
+
+条件传送也并不总能提高代码效率。比如，如果 `then-expr` 和 `else-expr` 的计算开销很大，那么未被选中的表达式的计算就会被浪费。编译器必须权衡冗余计算带来的性能损失与分支预测失败带来的性能惩罚。事实上，编译器没有足够的信息可靠地做出这个决定，例如，它无法预知分支在多大程度上会遵循可预测的模式。经验表明，只有当两个表达式都非常轻量时，例如这里的加法操作，GCC 才会使用条件传送。
+
+分析完跳转后，现在来分析循环。第一个要分析的循环形式是 `do-while` 循环，其中 `body-statement` 至少会执行一次。
+```c
+do {
+	body-statement;
+} while (test-expr);
+```
+使用条件跳转加 `goto` 实现 `do-while` 循环的控制流如下。
+```c
+loop:
+	body-statement;
+	if (test-expr)
+		goto loop;
+```
+下面看一个真实的例子，使用 `do-while` 循环计算 $n!$，要求输入的 $n>0$。
+```c
+long fact_do(long n)
+{
+	long result = 1;
+	do
+	{
+		result *= n;
+		n--;
+	} while (n > 1);
+	return result;
+}
+```
+下面是对应的汇编代码，最核心的部分是 `jg` 这个跳转，它决定了是继续迭代还是退出循环。
+```asm
+# n in %rdi
+fact_do:
+	movl	$1, %eax		# result = 1
+.L2:
+	imulq	%rdi, %rax		# result *= n
+	subq	$1, %rdi		# n--
+	cmpq	$1, %rdi		# compare n with 1
+	jg	.L2					# if n > 1, continue loop
+	ret
+```
+等价的 `goto` 版本如下。
+```c
+long fact_do_goto(long n)
+{
+	long result = 1;
+loop:
+	result *= n;
+	n--;
+	if (n > 1)
+		goto loop;
+	return result;
+}
+```
+接下来是 `while` 循环的分析。和 `do-while` 循环不同，`while` 循环在进入循环体之前会先判断条件表达式，如果条件不成立，循环体可能一次都不执行。其基本形式如下。
+```c
+while (test-expr)
+{
+	body-statement;
+}
+```
+有多种形式可将 `while` 循环翻译成机器码，GCC 一般会使用其中两种。第一种称为跳到中间（`jump to middle`），先执行一个无条件跳转来判断循环条件，然后根据条件决定是否进入循环体。使用 `goto` 表示如下：
+```c
+	goto test;
+loop:
+	body-statement;
+test:
+	if (test-expr)
+		goto loop;
+```
+下面看一个具体的例子。C 语言实现如下：
+```c
+long fact_while(long n)
+{
+	long result = 1;
+	while (n > 1)
+	{
+		result *= n;
+		n--;
+	}
+	return result;
+}
+```
+对应的汇编代码如下。
+```asm
+# n in %rdi
+fact_while:
+	movl	$1, %eax		# result = 1
+	jmp	.L2
+.L3:
+	imulq	%rdi, %rax		# result *= n
+	subq	$1, %rdi		# n--
+.L2:
+	cmpq	$1, %rdi		# compare n with 1
+	jg	.L3					# if n > 1, continue loop
+	ret
+```
+使用 `goto` 写法如下，和之前的 `do-while` 循环类似，只是一开始多了一个无条件跳转的 `goto`。
+```c
+long fact_while_jm_goto(long n)
+{
+	long result = 1;
+	goto test;
+loop:
+	result *= n;
+	n--;
+test:
+	if (n > 1)
+		goto loop;
+	return result;
+}
+```
+第二种形式称为被保护的 `do` 形式（`guarded-do`），首先使用一个条件分支，在初始测试失败时跳过整个循环，从而将代码转换为 `do-while` 循环。GCC 一般会在使用更高优化级别时采用这种策略。下面是将 `while` 循环转换为被保护的 `do` 循环的示意。
+```c
+if (!test-expr)
+	goto end;
+do {
+	body-statement;
+} while (test-expr);
+end:;
+```
+翻译成 `goto` 写法如下。
+```c
+if (!test-expr)
+	goto end;
+loop:
+	body-statement;
+	if (test-expr)
+		goto loop;
+end:;
+```
+使用这种策略的好处是编译器可以对初始化测试进行优化，比如确定测试条件是否始终为真。
+
+使用 `-O1` 选项编译时得到如下汇编。注意，这里判断条件和原始 C 代码不同，编译器将 `while (n > 1)` 转换为了 `if (n <= 1) goto end;` 的形式。
+```asm
+fact_while:
+	cmpq	$1, %rdi
+	jle	.L4
+	movl	$1, %eax
+.L3:
+	imulq	%rdi, %rax
+	subq	$1, %rdi
+	cmpq	$1, %rdi
+	jne	.L3
+	ret
+.L4:
+	movl	$1, %eax
+	ret
+```
+使用 `goto` 的写法如下：
+```c
+long fact_while_gd_goto(long n)
+{
+	long result = 1;
+	if (n <= 1)
+		goto end;
+loop:
+	result *= n;
+	n--;
+	if (n != 1)
+		goto loop;
+end:
+	return result;
+}
+```
+接下来我们讨论一下 `for` 循环，其一般形式如下。
+```c
+for (init-expr; test-expr; update-expr)
+{
+	body-statement;
+}
+```
+它等价于下面的 `while` 循环形式。
+```c
+init-expr;
+while (test-expr)
+{
+	body-statement;
+	update-expr;
+}
+```
+因此，GCC 可以使用前面提到的两种翻译方法。第一种是跳到中间（`jump to middle`）的方法，使用 `goto` 形式表示如下。
+```c
+	init-expr;
+	goto test;
+loop:
+	body-statement;
+	update-expr;
+test:
+	if (test-expr)
+		goto loop;
+```
+第二种是被保护的 `do` 形式（`guarded-do`），使用 `goto` 形式表示如下。
+```c
+	init-expr;
+if (!test-expr)
+	goto end;
+loop:
+	body-statement;
+	update-expr;
+	if (test-expr)
+		goto loop;
+end:;
+```
+之前计算阶乘的例子使用 `for` 循环的写法如下：
+```c
+long fact_for(long n)
+{
+	long i;
+	long result = 1;
+	for (i = 2; i <= n; i++)
+	{
+		result *= i;
+	}
+
+	return result;
+}
+```
+等价的 `while` 形式是
+```c
+long fact_for_while(long n)
+{
+	long i = 2;
+	long result = 1;
+	while (i <= n)
+	{
+		result *= i;
+		i++;
+	}
+
+	return result;
+}
+```
+使用跳到中间方法的 `goto` 写法如下。
+```c
+long fact_for_jm_goto(long n)
+{
+	long i = 2;
+	long result = 1;
+	goto test;
+loop:
+	result *= i;
+	i++;
+test:
+	if (i <= n)
+		goto loop;
+	return result;
+}
+```
+`fact_for` 汇编代码如下，和上面的 `goto` 写法类似。
+```asm
+# n in %rdi
+fact_for:
+	movl	$1, %edx		# result = 1
+	movl	$2, %eax		# i = 2
+	jmp	.L2
+.L3:
+	imulq	%rax, %rdx		# result *= i
+	addq	$1, %rax		# i++
+.L2:
+	cmpq	%rdi, %rax		# compare i and n
+	jle	.L3
+	movq	%rdx, %rax		# move result to return register
+	ret
+```
+
+`switch` 语句提供了根据整数索引值进行多路分支的能力。在处理有很多可能结果的测试时，`switch` 特别有用。它不仅提高了 C 代码的可读性，而且可以使用跳表（`jump table`）来提高执行效率。跳表是一个数组，其中第 $i$ 项是一个代码段的地址，当 `switch` 的索引等于 $i$ 时，程序会执行该代码段。代码使用 `switch` 的索引访问跳表，以确定跳转指令的目标。相比于长链条的 `if-else` 语句，跳表的优势在于执行 `switch` 跳转所需的时间与 `case` 的数量无关。GCC 根据 `case` 的数量以及 `case` 值的稀疏程度选择翻译 `switch` 的方法。当 `case` 数量较多（大于 4 个）且 `case` 值覆盖的范围较小时，就会使用跳表。
+
+下面是一个使用 `switch` 语句的例子。这个例子具有以下特性：
+
+- 覆盖的值范围不连续，缺少 `case 101` 和 `case 105`
+- 多个标签共享一段代码：`case 104` 和 `case 106`
+- `case 102` 分支没有 `break`，会直接贯穿（fall through）到下一个分支
+
+```c
+void switch_eg(long x, long n, long *dest)
+{
+	long val = x;
+	switch (n)
+	{
+	case 100:
+		val *= 13;
+		break;
+	case 102:
+		val += 10;
+		/* Fall through */
+
+	case 103:
+		val += 11;
+		break;
+
+	case 104:
+	case 106:
+		val *= val;
+		break;
+
+	default:
+		val = 0;
+	}
+	*dest = val;
+}
+```
+下面是汇编代码。
+```asm
+switch_eg:
+	subq	$100, %rsi
+	cmpq	$6, %rsi
+	ja	.L8
+	leaq	.L4(%rip), %rcx
+	movslq	(%rcx,%rsi,4), %rax
+	addq	%rcx, %rax
+	jmp	*%rax
+.L4:
+	.long	.L7-.L4
+	.long	.L8-.L4
+	.long	.L6-.L4
+	.long	.L5-.L4
+	.long	.L3-.L4
+	.long	.L8-.L4
+	.long	.L3-.L4
+.L7:
+	leaq	(%rdi,%rdi,2), %rax
+	leaq	(%rdi,%rax,4), %rdi
+	jmp	.L2
+.L6:
+	addq	$10, %rdi
+.L5:
+	addq	$11, %rdi
+.L2:
+	movq	%rdi, (%rdx)
+	ret
+.L3:
+	imulq	%rdi, %rdi
+	jmp	.L2
+.L8:
+	movl	$0, %edi
+	jmp	.L2
+```
+下面是使用 `goto` 表达汇编意图的 C 代码。这里使用了 GCC 为跳表提供的扩展特性。数组 `jt` 包含 7 项，每项都是一个代码块的地址。这些位置由代码中的标签定义，并在 `jt` 中通过标签地址运算符（`&&`）表示。编译器首先将 `n` 减去 `100`，把范围平移到 0 到 6 之间。这里使用无符号数表示，如果减法结果超出范围，就会得到一个大于 6 的很大数，并直接跳转到默认分支。然后，程序根据平移后的索引从跳表中取出目标地址，并跳转到相应的代码块。代码中的 `goto *` 和汇编中的 `jmp *` 都是间接跳转（`indirect jump`）。
+
+```c
+void switch_eg_jm_goto(long x, long n, long *dest)
+{
+	long val = x;
+	static void *jt[7] = {&&L7, &&L8, &&L6, &&L5, &&L3, &&L8, &&L3};
+	unsigned long index = n - 100;
+	if (index > 6)
+		goto L8;
+	goto *jt[index];
+
+L7:
+	val *= 13;
+	goto L2;
+L6:
+	val += 10;
+L5:
+	val += 11;
+L2:
+	*dest = val;
+	return;
+L3:
+	val *= val;
+	goto L2;
+L8:
+	val = 0;
+	goto L2;
+}
+```
+`switch` 跳转的核心在于下面这段汇编。跳表定义在目标文件中名为 `.rodata` 的只读数据段内，标签 `.L4` 是跳表的起始地址。
+```asm
+	.section	.rodata
+	.align 4
+	.align 4
+	leaq	.L4(%rip), %rcx			# add absolute address of jump table .L4 to %rcx
+	movslq	(%rcx,%rsi,4), %rax		# sign-extend the 32-bit offset from the jump table into 64-bit %rax
+	addq	%rcx, %rax				# add the base address of the jump table to the offset to get the absolute address
+	jmp	*%rax						# jump to the target address
+.L4:
+	.long	.L7-.L4					# 4-byte relative offset to L7
+	.long	.L8-.L4
+	.long	.L6-.L4
+	.long	.L5-.L4
+	.long	.L3-.L4
+	.long	.L8-.L4
+	.long	.L3-.L4
+```
