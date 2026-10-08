@@ -6,5 +6,5 @@ nav:
     - 04 Smart Pointers: ch04_Smart_Pointers
     - 05 Rvalue References, Move Semantics, and Perfect Forwarding: ch05_Rvalue_References_Move_Semantics_and_Perfect_Forwarding
     - 06 Lambda Expressions: ch06_Lambda_Expressions
-    - 07 The Concurrency API: ch_07_The_Concurrency_API
+    - 07 The Concurrency API: ch07_The_Concurrency_API
     - 08 Tweaks: ch08_Tweaks
