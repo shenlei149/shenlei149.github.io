@@ -80,3 +80,14 @@ int main()
 	return 0;
 }
 ```
+
+## `noexcept`
+`noexcept` 是 C++11 引入的关键字，用于规定函数不得抛出异常。若这样的函数抛出了异常，程序会调用 `std::terminate`。它也可以帮助编译器优化。
+
+自 C++17 起，异常说明是函数类型的一部分。只是异常说明不同的两个函数仍然不能构成重载，但指向它们的函数指针类型不同。因此下面的代码无法编译：
+```cpp
+void (*p)() = nullptr;
+
+// a value of type "void (**)()" cannot be used to initialize an entity of type "void (**)() noexcept"
+void (**pp)() noexcept = &p;
+```

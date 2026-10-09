@@ -16,7 +16,7 @@ nav:
     - 两个字符串是否由同样的字符组成: Two-String-Permutation.md
     - 一个字符串是否能旋转得到另一个字符串: Rotation-String.md
     - 字符串压缩: Compress-String.md
-    - 将空格替换成 %20: Replace-Space-by-%2520.md
+    - 将空格替换成 %20: Replace-Space-by-%20.md
     - 不使用额外的数据结构对栈元素进行排序: Sort-Stack.md
     - 常数时间返回最小值的栈: Min-Stack.md
     - 使用两个栈实现队列: Two-Stack-to-Queue.md

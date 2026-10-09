@@ -51,3 +51,49 @@ for (Factory factory = CreateFactory(); auto &&item : factory.GetItems())
 	// loop body
 }
 ```
+
+对于 range-based `for` 循环，`begin` 和 `end` 可以是不同类型。编译器展开后的代码大致如下。
+```cpp
+{
+	auto &&__range = for_range_initializer;
+	auto __begin = begin_expr;
+	auto __end = end_expr;
+	for (; __begin != __end; ++__begin)
+	{
+		for_range_declaration = *__begin;
+		statement;
+	}
+}
+```
+假定我们定义一个遍历 C 风格字符串的范围类型：`begin()` 返回指针，`end()` 返回哨兵。
+```cpp
+#include <iostream>
+
+struct NullSentinel
+{};
+
+// overload the != operator for the iterator and sentinel comparison
+inline bool operator!=(const char *ptr, NullSentinel) { return *ptr != '\0'; }
+
+struct CStringRange
+{
+	const char *str;
+
+	// begin() returns char*
+	const char *begin() const { return str; }
+
+	// end() returns a completely different type, NullSentinel!
+	NullSentinel end() const { return NullSentinel {}; }
+};
+
+int main()
+{
+	CStringRange str { "Hello C++!" };
+
+	// for loop using the custom range and sentinel
+	for (char c : str)
+	{
+		std::cout << c << ' ';
+	}
+}
+```

@@ -1,4 +1,7 @@
 nav:
     - C++: README.md
+    - Core: Core
+    - Class: Class
+    - Resource: Resource
     - Templates: Templates
     - Containers and Algorithms: ContainersAndAlgorithms

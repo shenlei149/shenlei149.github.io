@@ -1,9 +1,10 @@
 nav:
     - Core: README.md
-    - Type System: TypeSystem.md
+    - Type System: Type-System.md
     - Expressions: Expressions.md
-    - Control Flow: ControlFlow.md
+    - Control Flow: Control-Flow.md
     - Lambda: Lambda.md
-    - constexpr: Constexpr.md
+    - Structured Bindings: Structured-Bindings.md
+    - Constexpr: Constexpr.md
     - Modules: Modules.md
     - Attributes: Attributes.md
