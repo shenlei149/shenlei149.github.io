@@ -1,4 +1,85 @@
 
+## `if` 语句
+C++17 中可以在 `if` 语句中引入初始化语句，从而在条件判断之前初始化变量。语法如下：
+```cpp
+if (init-statement; condition)
+{
+	// if body
+}
+```
+这样做的好处是可以将变量的作用域限制在 `if` 语句内部，避免污染外部作用域，同时也使代码更加简洁和易读。
+
+### `if constexpr`
+C++17 引入了 `if constexpr`，允许在编译期根据条件选择性地编译代码。语法如下：
+```cpp
+if constexpr (condition)
+{
+	// Discarded if condition is false
+}
+else
+{
+	// Discarded if condition is true
+}
+```
+在 C++17 之前，如果某个算法存在针对不同类型要求的多个版本，需要借助 SFINAE 或标签分发（`tag dispatching`）技术来写一组函数。
+```cpp
+// SFINAE
+template<typename T>
+std::enable_if_t<std::is_integral_v<T>, T> SimpleTypeInfo(T t)
+{
+	std::cout << "foo<integral T> " << t << '\n';
+	return t;
+}
+
+template<typename T>
+std::enable_if_t<!std::is_integral_v<T>, T> SimpleTypeInfo(T t)
+{
+	std::cout << "not integral \n";
+	return t;
+}
+
+// Tag dispatching
+template<typename T>
+T SimpleTypeInfoTagImpl(T t, std::true_type)
+{
+	std::cout << "foo<integral T> " << t << '\n';
+	return t;
+}
+
+template<typename T>
+T SimpleTypeInfoTagImpl(T t, std::false_type)
+{
+	std::cout << "not integral \n";
+	return t;
+}
+
+template<typename T>
+T SimpleTypeInfoTag(T t)
+{
+	return SimpleTypeInfoTagImpl(t, std::is_integral<T> {});
+}
+```
+使用 `if constexpr` 的写法如下，更自然，无需任何技巧。
+```cpp
+template<typename T>
+auto SimpleTypeInfoIfConstexpr(T t)
+{
+	if constexpr (std::is_integral_v<T>)
+	{
+		std::cout << "foo<integral T> " << t << '\n';
+		return t;
+	}
+	else
+	{
+		std::cout << "not integral \n";
+		return t;
+	}
+}
+```
+
+## `switch` 语句
+C++17 中可以在 `switch` 语句中引入初始化语句，效果和语法与 `if` 语句类似。
+
 ## `for` 循环
 传统 `for` 循环的语法如下：
 ```cpp

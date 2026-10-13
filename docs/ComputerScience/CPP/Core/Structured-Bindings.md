@@ -58,3 +58,80 @@ for (auto &[city, population] : mapCityPopulation)
 	std::cout << city << ": " << population << '\n';
 }
 ```
+
+如果想要让自定义类型支持结构化绑定，需要增加一组 API 来告诉编译器如何访问对象的各个成员。这组 API 包括：
+
+- std::tuple_size<T> 返回类型 `T` 的元素个数。
+- std::tuple_element<I, T> 返回类型 `T` 的第 `I` 个元素的类型。
+- get<I>(t) 返回类型 `T` 的第 `I` 个元素的值或引用，`t` 是类型为 `T` 的对象。
+
+下面是一个完整的示例。
+```cpp
+class User
+{
+public:
+	User(const std::string &name, int32_t age)
+		: name(name)
+		, age(age)
+	{}
+
+	std::string GetName() const { return name; }
+
+	int32_t GetAge() const { return age; }
+
+private:
+	std::string name;
+	int32_t age;
+};
+
+namespace std
+{
+template<>
+struct tuple_size<User> : std::integral_constant<std::size_t, 2>
+{};
+
+// template<std::size_t I>
+// struct tuple_element<I, User>;
+
+template<>
+struct tuple_element<0, User>
+{
+	using type = std::string;
+};
+
+template<>
+struct tuple_element<1, User>
+{
+	using type = int32_t;
+};
+
+} // namespace std
+
+template<std::size_t I>
+decltype(auto) get(const User &user);
+
+template<>
+decltype(auto) get<0>(const User &user)
+{
+	return user.GetName();
+}
+
+template<>
+decltype(auto) get<1>(const User &user)
+{
+	return user.GetAge();
+}
+
+int main()
+{
+	User user { "Alice", 30 };
+	auto [name, age] = user;
+	std::cout << "Name: " << name << ", Age: " << age << '\n';
+}
+```
+
+上面的例子是只读的结构化绑定。如果想通过结构化绑定修改成员变量，需要类先具备返回引用的能力（例如增加如下接口），并在 `get<I>` 中提供非常量引用的重载版本 `User &user`。在上一版本的只读实现中，返回类型虽然写的是 `decltype(auto)`，其实写 `auto` 也可以，但对于返回引用的版本必须使用 `decltype(auto)`（或显式写为引用类型），因为 `auto` 会忽略引用，而 `decltype(auto)` 会保留引用。
+```cpp
+std::string &GetName() { return name; }
+int32_t &GetAge() { return age; }
+```

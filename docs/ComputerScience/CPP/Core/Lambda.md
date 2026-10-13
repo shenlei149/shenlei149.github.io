@@ -1,4 +1,21 @@
 
+如果一个 lambda 表达式满足 `constexpr` 的要求，那么它隐式地是一个 `constexpr` lambda，也就是说它可以用于编译期求值。
+
+工程上如果你希望一个 lambda 表达式用于编译期求值，那么显式地将其声明为 `constexpr` 比较合适，如果使用了不符合 `constexpr` 要求的写法，编译器会报错。比如
+```cpp
+auto FaultyLeakyLambda = [](int n) constexpr
+{
+	int *p = new int(10);
+	return n + (*p);
+};
+
+// error: ‘FaultyLeakyLambda.<lambda(int)>(5)’ is not a constant expression because allocated storage has not been deallocated
+constexpr auto result = FaultyLeakyLambda(5);
+
+// ok: can be evaluated at runtime
+auto result = FaultyLeakyLambda(5);
+```
+
 ## C++20 Lambda 新特性
 ### Lambda 模板参数
 在 C++20 之前，如果要用 lambda 表达式表示泛型，就不得不使用 `auto`，但这存在弊端，比如下面的例子中，使用 `auto` 会允许两个参数类型不同，但在某些场景下（从语义上讲）我们希望约束它们必须是同类型的。C++20 的 lambda 引入了模板参数，就能很好地解决这个问题。
