@@ -402,19 +402,13 @@ if (sigismember(&current_mask, SIGINT))
 	// SIGINT is currently blocked
 }
 ```
-下面将上述内容放在一起，写一个小程序。这个程序将临时阻塞 `SIGINT` 信号，小憩一会，这里使用 `usleep()`，粒度更细，单位是微秒。然后解除阻塞，恢复原来的信号掩码。
+下面将上述内容放在一起，写一个小程序。这个程序将临时阻塞 `SIGINT` 信号，小憩一会，这里使用 `usleep()`，粒度更细，单位是微秒。然后解除阻塞，恢复原来的信号掩码。注意，后续示例删除了 `fatal_error()` 的实现。
 ```c
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-void fatal_error(int errnum, const char *msg)
-{
-	fprintf(stderr, "%s: %d\n", msg, errnum);
-	exit(EXIT_FAILURE);
-}
 
 /* Signal handler for SIGINT */
 void catch_sigint(int signum) { printf(" Caught SIGINT\n"); }
@@ -489,12 +483,6 @@ SIGINT is no longer blocked. Enter a few CTRL-Cs.
 #include <unistd.h>
 
 static volatile sig_atomic_t sig_received = 0;
-
-void fatal_error(int errnum, const char *msg)
-{
-	fprintf(stderr, "%s: %d\n", msg, errnum);
-	exit(EXIT_FAILURE);
-}
 
 void catch_sigint(int signum) { sig_received = 1; }
 
@@ -678,12 +666,6 @@ siginfo_t
 #include <stdlib.h>
 #include <unistd.h>
 
-void fatal_error(int errnum, const char *msg)
-{
-	fprintf(stderr, "%s: %d\n", msg, errnum);
-	exit(EXIT_FAILURE);
-}
-
 void sig_handler(int signo, siginfo_t *info, void *context)
 {
 	printf("Signal number: %d\n", info->si_signo);
@@ -755,12 +737,6 @@ void fpe_handler(int signo, siginfo_t *info, void *context)
 		break;
 	}
 	raise(SIGTERM);
-}
-
-void fatal_error(int errnum, const char *msg)
-{
-	fprintf(stderr, "%s: %d\n", msg, errnum);
-	exit(EXIT_FAILURE);
 }
 
 int main(int argc, char *argv[])
@@ -901,12 +877,6 @@ Type at most 128 characters, then <ENTER>(or 'quit' to quit):^C
 ```
 最后给出 `main()` 函数的实现，以便完整展示信号处理的行为。`tcflush` 用于清空终端的输入缓冲区，确保每次读取都是最新的用户输入。
 ```c
-void fatal_error(int errnum, const char *msg)
-{
-	fprintf(stderr, "%s: %d\n", msg, errnum);
-	exit(EXIT_FAILURE);
-}
-
 int main(int argc, char *argv[])
 {
 	const int maxsize = 128; /* Maximum input size */
