@@ -9,6 +9,7 @@ nav:
     - 树: Tree.md
     - 哈希: Hash.md
     - 图: Graph.md
+    - NP-hard 问题: NP-Hard.md
     - 数值计算: Arithmetic.md
     - 几何: Geometry.md
     - 其他: Others.md
