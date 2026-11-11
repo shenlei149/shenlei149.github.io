@@ -45,7 +45,7 @@ P_3&=(C+D)E\\
 P_4&=D(G-E)\\
 P_5&=(A+D)(E+H)\\
 P_6&=(B-D)(G+H)\\
-P_7&=(A-C)(E+D)
+P_7&=(A-C)(E+F)
 \end{aligned}$$
 那么
 $$\begin{aligned}
