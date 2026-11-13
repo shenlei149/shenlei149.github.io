@@ -184,3 +184,76 @@ LPT 算法的性能比普通贪心算法更好，Graham 证明了它的近似比
 $$M^*\geq 2\ell_j$$
 代入之前的公式可以得到
 $$M\leq\left(1-\frac{1}{m}\right)\ell_j + \frac{1}{m}\sum_{h=1}^n \ell_h \leq \left(1-\frac{1}{m}\right)\frac{M^*}{2} + M^* = \left(\frac{3}{2}-\frac{1}{2m}\right)M^*$$
+
+### 最大覆盖
+最大覆盖（`maximum coverage`）问题是一个 NP-hard 问题，输入由基集（`ground set`） $U$ 的 $m$ 个子集 $A_1,A_2,\dots,A_m$ 以及一个预算 $k$ 组成。目标是选择 $k$ 个子集，使它们的覆盖最大，即它们并集包含的不同基集元素的个数最多。
+
+例如一个团队招聘，候选人有各种技能，每个候选人掌握的技能可以看作一个子集。我们希望在有限的招聘名额下，选择一组候选人，使团队掌握的技能尽可能多。
+
+再比如下面的例子，基集有 16 个元素，从六个子集中选择四个，选择 $A_2,A_4,A_5,A_6$ 可以覆盖最多的元素，共计 15 个。
+
+![](./Figures/MaxCoverage.png)
+
+我们仍旧可以使用贪心算法来求解最大覆盖问题。当 $k=1$ 时，问题很容易，选择最大的集合即可。当 $k=2$ 时，如果我们已经选定了最大的子集 $A$，第二个子集需要选择能够覆盖最多新元素的子集，而新元素就是 $A$ 没有覆盖的元素。把这个想法推广到任意 $k$，就得到最大覆盖问题的贪心算法：每次选择能够覆盖最多新元素的子集，直到选满 $k$ 个子集。
+
+```text
+K = {}      // selected set indices
+for j = 1 to k
+    i* = argmax_{i=1}^m [f_cov(K + {i}) - f_cov(K)]   // find the set that covers the most new elements
+    K = K + {i*}                                       // add it to the selected sets
+
+return K
+```
+
+这个贪心算法足够好吗？下面证明它至少能够达到最优解的 $1-\left(1-\frac{1}{k}\right)^k$ 倍。
+
+首先给出一个引理：令 $C_j$ 为算法选择前 $j$ 个子集后覆盖的元素数（$j\in\{1,2,\dots,k\}$），$C^*$ 是最大覆盖，即最优解对应的覆盖元素数。对于每一个 $j$，第 $j$ 个被选择的子集能够覆盖的新增元素数至少为 $\frac{C^* - C_{j-1}}{k}$，即
+$$C_j-C_{j-1}\geq\frac{1}{k}\left(C^* - C_{j-1}\right)$$
+
+令 $K_{j-1}$ 表示算法选择前 $j-1$ 个子集的索引，那么 $C_{j-1}=f_{\mathrm{cov}}(K_{j-1})$。对于任意一个包含 $k$ 个索引的集合 $\hat{K}$，记其覆盖为 $\hat{C}=f_{\mathrm{cov}}(\hat{K})$。
+
+令 $W$ 表示被 $\hat{K}$ 覆盖但未被 $K_{j-1}$ 覆盖的元素集合。这里用 $\hat{S}$ 和 $S_{j-1}$ 分别表示 $\hat{K}$ 和 $K_{j-1}$ 覆盖的元素集合，那么 $|\hat{S}|=\hat{C}, |S_{j-1}|=C_{j-1}$。因此
+$$W =\hat{S}\setminus S_{j-1}$$
+那么
+$$
+|W|=|\hat S|-|\hat S\cap S_{j-1}|=\hat C-|\hat S\cap S_{j-1}|.
+$$
+又因为 $\hat S\cap S_{j-1}\subseteq S_{j-1}$，所以
+$$|\hat S\cap S_{j-1}|\le |S_{j-1}|=C_{j-1}$$
+因此
+$$|W|\ge \hat C - C_{j-1}$$
+
+求和 $\sum_{i\in\hat K}\left[f_{\mathrm{cov}}(K_{j-1} + \{i\}) - f_{\mathrm{cov}}(K_{j-1})\right]$ 表示对 $\hat K$ 中的每一个索引 $i$，计算把子集 $A_i$ 加入当前选择的 $K_{j-1}$ 后新增覆盖的元素数。由于这些子集覆盖了 $W$ 中的所有元素一次或多次，因此
+$$\sum_{i\in\hat K}\left[f_{\mathrm{cov}}(K_{j-1} + \{i\}) - f_{\mathrm{cov}}(K_{j-1})\right] \ge |W|$$
+即
+$$\sum_{i\in\hat K}\left[f_{\mathrm{cov}}(K_{j-1} + \{i\}) - C_{j-1}\right] \ge |W|$$
+结合之前的不等式 $|W|\ge \hat C - C_{j-1}$，得到
+$$\sum_{i\in\hat K}\left[f_{\mathrm{cov}}(K_{j-1} + \{i\}) - C_{j-1}\right] \ge \hat C - C_{j-1}$$
+上式左端共有 $k$ 项，它们的和大于等于右端，因此最大的一项不小于它们的平均值，即
+$$\max_{i\in\hat K}\left[f_{\mathrm{cov}}(K_{j-1} + \{i\}) - C_{j-1}\right] \ge \frac{1}{k}\left(\hat C - C_{j-1}\right)$$
+由于 $\hat{K}$ 可以是任意一个包含 $k$ 个索引的集合，把它换成最优解 $K^*$，对应的覆盖为 $C^*$，得到
+$$\max_{i\in K^*}\left[f_{\mathrm{cov}}(K_{j-1} + \{i\}) - C_{j-1}\right] \ge \frac{1}{k}\left(C^* - C_{j-1}\right)$$
+由于贪心算法选择的第 $j$ 个子集正是使得 $f_{\mathrm{cov}}(K_{j-1} + \{i\}) - C_{j-1}$ 最大的子集，因此覆盖至少可以增加 $\frac{1}{k}\left(C^* - C_{j-1}\right)$。
+
+有了这个引理，我们倒着推导，先令 $j=k$ 得到
+$$C_k\ge C_{k-1} + \frac{1}{k}\left(C^* - C_{k-1}\right)=\frac{C^*}{k} + \left(1-\frac{1}{k}\right)C_{k-1}$$
+同理，令 $j=k-1$，得到
+$$C_{k-1}\ge C_{k-2} + \frac{1}{k}\left(C^* - C_{k-2}\right)=\frac{C^*}{k} + \left(1-\frac{1}{k}\right)C_{k-2}$$
+
+将其代入 $C_k$ 的不等式，得到
+$$C_k\ge \frac{C^*}{k} + \left(1-\frac{1}{k}\right)\left[\frac{C^*}{k} + \left(1-\frac{1}{k}\right)C_{k-2}\right] = \frac{C^*}{k} + \frac{C^*}{k}\left(1-\frac{1}{k}\right) + \left(1-\frac{1}{k}\right)^2 C_{k-2}$$
+
+继续递推，结合 $C_0=0$，最终得到
+$$C_k\ge \frac{C^*}{k}\sum_{i=0}^{k-1}\left(1-\frac{1}{k}\right)^i = C^*\left[1-\left(1-\frac{1}{k}\right)^k\right]$$
+
+当 $k$ 较小时，贪心算法的近似比更高，例如：
+- $k=1$ 时，$1-(1-1)^1 = 1$，算法直接选出最大的子集，就是最优解；
+- $k=2$ 时，$1-(1-1/2)^2 = 75\%$，算法至少能达到最优解的 75%。
+
+自然常数 $e$ 的极限公式是
+$$e=\lim_{k\to\infty}\left(1+\frac{1}{k}\right)^k$$
+因此
+$$\lim_{k\to\infty}\left(1-\frac{1}{k}\right)^k = \frac{1}{e}$$
+随着 $k$ 的增大，该下界单调递减并趋于极限：
+$$C_k \ge C^*\left(1-\frac{1}{e}\right)$$
+也就是说，即使在 $k$ 很大的最坏情况下，贪心算法覆盖的元素数也能达到最优解的 $1-\frac{1}{e}\approx 63.2\%$ 左右。
