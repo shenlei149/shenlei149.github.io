@@ -2,3 +2,4 @@ nav:
     - NP-hard 问题: README.md
     - 什么是 NP-hard 问题: WhatIsNP-Hard.md
     - 高效但非精确的算法: InexactAlgorithms.md
+    - 精确但低效的算法: ExactAlgorithms.md
